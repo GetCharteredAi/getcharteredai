@@ -1,0 +1,11 @@
+{
+  "name": "getcharteredai-platform",
+  "version": "1.0.0",
+  "description": "Get Chartered AI — APC Learning Platform",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^17.4.2",
+    "jsonwebtoken": "^9.0.2",
+    "stripe": "^14.0.0"
+  }
+}

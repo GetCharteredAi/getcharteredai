@@ -2,29 +2,37 @@
 // Called by success page with Stripe session_id
 // Verifies payment is real, returns signed JWT granting access
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const jwt = require('jsonwebtoken');
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const jwt = require("jsonwebtoken");
 
 exports.handler = async (event) => {
   const headers = {
-    'Access-Control-Allow-Origin': 'https://getcharteredai.netlify.app',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Content-Type': 'application/json'
+    "Access-Control-Allow-Origin": "https://getcharteredai.netlify.app",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Content-Type": "application/json",
   };
 
-  if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 200, headers, body: "" };
   }
 
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ error: "Method not allowed" }),
+    };
   }
 
   let body;
   try {
     body = JSON.parse(event.body);
   } catch {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request body' }) };
+    return {
+      statusCode: 400,
+      headers,
+      body: JSON.stringify({ error: "Invalid request body" }),
+    };
   }
 
   const { session_id, email, password } = body;
@@ -33,7 +41,7 @@ exports.handler = async (event) => {
     return {
       statusCode: 400,
       headers,
-      body: JSON.stringify({ error: 'Missing session_id, email or password' })
+      body: JSON.stringify({ error: "Missing session_id, email or password" }),
     };
   }
 
@@ -42,24 +50,28 @@ exports.handler = async (event) => {
   try {
     session = await stripe.checkout.sessions.retrieve(session_id);
   } catch (err) {
-    console.error('Failed to retrieve Stripe session:', err);
+    console.error("Failed to retrieve Stripe session:", err);
     return {
       statusCode: 400,
       headers,
-      body: JSON.stringify({ error: 'Could not verify payment. Please contact support.' })
+      body: JSON.stringify({
+        error: "Could not verify payment. Please contact support.",
+      }),
     };
   }
 
-  if (session.payment_status !== 'paid' && session.status !== 'complete') {
+  if (session.payment_status !== "paid" && session.status !== "complete") {
     return {
       statusCode: 402,
       headers,
-      body: JSON.stringify({ error: 'Payment not confirmed. Please complete payment first.' })
+      body: JSON.stringify({
+        error: "Payment not confirmed. Please complete payment first.",
+      }),
     };
   }
 
   const stripeEmail = session.customer_details?.email || session.customer_email;
-  const plan = session.mode === 'subscription' ? 'monthly' : 'annual';
+  const plan = session.mode === "subscription" ? "monthly" : "annual";
 
   // Issue a signed JWT — this is the member's access token
   // Stored in localStorage, verified on each page load
@@ -69,10 +81,10 @@ exports.handler = async (event) => {
       stripeEmail: stripeEmail,
       plan: plan,
       sessionId: session_id,
-      activatedAt: Date.now()
+      activatedAt: Date.now(),
     },
     process.env.JWT_SECRET,
-    { expiresIn: plan === 'annual' ? '366d' : '35d' }
+    { expiresIn: plan === "annual" ? "366d" : "35d" },
   );
 
   console.log(`Account activated: ${email} — ${plan}`);
@@ -84,7 +96,7 @@ exports.handler = async (event) => {
       success: true,
       token,
       email: email.toLowerCase().trim(),
-      plan
-    })
+      plan,
+    }),
   };
 };

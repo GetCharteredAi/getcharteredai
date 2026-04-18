@@ -1873,7 +1873,7 @@
             <div class="pcard">
               <div class="pcard-top">
                 <span class="ptype">Flexible</span>
-                <p class="pname">Monthly Access</p>
+                <p class="pname">Monthly Access — 1 module/month</p>
               </div>
               <div class="pcard-price">
                 <span class="psym">£</span><span class="pnum">39</span>
@@ -1883,12 +1883,12 @@
               </div>
               <p class="pnote">Billed monthly · Cancel anytime</p>
               <ul class="pfeats">
-                <li>All 12 course modules</li>
-                <li>All 10 mandatory competencies</li>
-                <li>Quiz per module with answers</li>
-                <li>APC mock interview materials</li>
+                <li>1 new module unlocked each month</li>
+                <li>All 10 mandatory competencies covered</li>
+                <li>Quiz per module with answers revealed</li>
                 <li>Progress tracking</li>
-                <li>Level 1, 2 &amp; 3 throughout</li>
+                <li>Cancel anytime</li>
+                <li>Upgrade to annual at any time</li>
               </ul>
               <div class="pcard-foot">
                 <button class="pbtn pbtn-outline" onclick="checkout('monthly')">
@@ -1900,7 +1900,7 @@
               <div class="pcard-top">
                 <div class="pbadge">Best Value</div>
                 <span class="ptype">Complete Access</span>
-                <p class="pname">All 12 Modules — Full Year</p>
+                <p class="pname">All 12 Modules — Instant Access</p>
               </div>
               <div class="pcard-price">
                 <span class="psym">£</span><span class="pnum">383</span>
@@ -1910,9 +1910,9 @@
               </div>
               <p class="pnote">12 months access · Need more time? Just ask</p>
               <ul class="pfeats">
-                <li>Everything in monthly</li>
+                <li>All 12 modules unlocked immediately</li>
                 <li>12 months full access</li>
-                <li>All future module updates</li>
+                <li>All future module updates included</li>
                 <li>Full 60-min APC mock interview</li>
                 <li>Assessor-style final assignment</li>
                 <li>Priority email support</li>
@@ -3637,11 +3637,14 @@
       function clearToken() {
         localStorage.removeItem("gca_token");
         localStorage.removeItem("gca_user");
+        localStorage.removeItem("gca_plan");
+        localStorage.removeItem("gca_activated");
       }
 
-      async function hasAccess() {
+      // Returns { valid, email, plan, activatedAt } or { valid: false }
+      async function getSession() {
         const token = getToken();
-        if (!token) return false;
+        if (!token) return { valid: false };
         try {
           const r = await fetch("/.netlify/functions/login", {
             method: "POST",
@@ -3651,13 +3654,38 @@
           const d = await r.json();
           if (d.valid) {
             currentUser = d.email;
-            return true;
+            localStorage.setItem("gca_plan", d.plan);
+            localStorage.setItem("gca_activated", d.activatedAt);
+            return d;
           }
           clearToken();
-          return false;
+          return { valid: false };
         } catch {
-          return false;
+          return { valid: false };
         }
+      }
+
+      async function hasAccess() {
+        const s = await getSession();
+        return s.valid;
+      }
+
+      // Calculate how many modules a monthly subscriber can access
+      // Month 1 = Module 1, Month 2 = Modules 1-2, etc.
+      function getUnlockedCount(plan, activatedAt) {
+        if (plan === "annual") return 12; // all modules
+        if (!activatedAt) return 1;
+        const now = Date.now();
+        const msPerMonth = 30 * 24 * 60 * 60 * 1000;
+        const monthsElapsed = Math.floor((now - activatedAt) / msPerMonth);
+        const unlocked = Math.min(monthsElapsed + 1, 12); // at least 1, max 12
+        return unlocked;
+      }
+
+      // Check if a specific module is unlocked for this user
+      function isModuleUnlocked(modId, plan, activatedAt) {
+        const unlocked = getUnlockedCount(plan, activatedAt);
+        return modId <= unlocked;
       }
 
       // ── VIEWS ─────────────────────────────────────────────────────────────────────
@@ -3789,67 +3817,134 @@
       }
 
       async function requireAccess(modId) {
-        const access = await hasAccess();
-        if (access) {
-          openModule(modId);
+        const session = await getSession();
+        if (!session.valid) {
+          openLogin();
+          return;
+        }
+        const plan =
+          session.plan || localStorage.getItem("gca_plan") || "monthly";
+        const activatedAt =
+          session.activatedAt ||
+          parseInt(localStorage.getItem("gca_activated")) ||
+          Date.now();
+        if (isModuleUnlocked(modId, plan, activatedAt)) {
+          openModule(modId, plan, activatedAt);
           showView("module");
         } else {
-          openLogin();
+          const unlocked = getUnlockedCount(plan, activatedAt);
+          const nextUnlock = new Date(
+            activatedAt + unlocked * 30 * 24 * 60 * 60 * 1000,
+          );
+          const month = nextUnlock.toLocaleDateString("en-GB", {
+            month: "long",
+            year: "numeric",
+          });
+          alert(
+            "Module " +
+              modId +
+              " unlocks on " +
+              month +
+              ".\n\nYou currently have access to Modules 1–" +
+              unlocked +
+              ".\n\nUpgrade to annual access to unlock all 12 modules immediately.",
+          );
         }
       }
 
       // ── DASHBOARD ─────────────────────────────────────────────────────────────────
       async function renderDashboard() {
-        const access = await hasAccess();
-        if (!access) {
+        const session = await getSession();
+        if (!session.valid) {
           showView("landing");
           openLogin();
           return;
         }
+        const plan =
+          session.plan || localStorage.getItem("gca_plan") || "monthly";
+        const activatedAt =
+          session.activatedAt ||
+          parseInt(localStorage.getItem("gca_activated")) ||
+          Date.now();
+        const unlockedCount = getUnlockedCount(plan, activatedAt);
         const done = completedCount();
-        const pct = Math.round((done / 12) * 100);
+        const pct = Math.round((done / unlockedCount) * 100);
+
         document.getElementById("dashWelcome").textContent =
           `Welcome back, ${currentUser.split("@")[0]}!`;
+        const planLabel =
+          plan === "annual" ? "Full Year Access" : "Monthly Access";
         document.getElementById("dashSub").textContent =
-          done === 0
-            ? "Start with Module 01 — your APC journey begins now."
-            : `You've completed ${done} of 12 modules. Keep going!`;
+          plan === "annual"
+            ? done === 0
+              ? "All 12 modules are ready. Start with Module 01."
+              : `${done} of 12 modules complete. Keep going!`
+            : `${unlockedCount} of 12 modules unlocked. ${done} completed. New module unlocks each month.`;
         document.getElementById("dashProgressBar").style.width = pct + "%";
         document.getElementById("dashProgressLabel").textContent =
-          `${done} of 12 modules complete (${pct}%)`;
+          plan === "annual"
+            ? `${done} of 12 modules complete (${pct}%)`
+            : `${unlockedCount} modules unlocked · ${done} completed`;
         document.getElementById("dashCompletedCount").textContent =
-          `${done} completed`;
+          plan === "annual"
+            ? `${done} of 12 completed`
+            : `${unlockedCount} unlocked · ${done} done`;
 
         // Sidebar
         const sb = document.getElementById("sidebarModules");
-        sb.innerHTML = MODULES.map(
-          (m) => `
-    <div class="sidebar-item ${isComplete(m.id) ? "done" : ""}" onclick="openModule(${m.id});showView('module')">
-      <div class="tick-dot"></div>
+        sb.innerHTML = MODULES.map((m) => {
+          const unlocked = isModuleUnlocked(m.id, plan, activatedAt);
+          return `<div class="sidebar-item ${isComplete(m.id) ? "done" : ""} ${!unlocked ? "locked" : ""}"
+      onclick="requireAccess(${m.id})"
+      style="${!unlocked ? "opacity:0.4;cursor:not-allowed" : ""}">
+      <div class="tick-dot" style="${!unlocked ? "background:#ef4444" : ""}"></div>
       <span class="sidebar-mod-num">${m.num}</span>
-      <span>${m.title}</span>
-    </div>
-  `,
-        ).join("");
+      <span>${m.title} ${!unlocked ? "🔒" : ""}</span>
+    </div>`;
+        }).join("");
 
         // Main grid
         const grid = document.getElementById("dashModGrid");
-        grid.innerHTML = MODULES.map(
-          (m) => `
-    <div class="dash-mod-card ${isComplete(m.id) ? "done" : ""}" onclick="openModule(${m.id});showView('module')">
-      <div class="dmcard-top">
-        <span class="dmcard-num">MODULE ${m.num}</span>
-        <span class="dmcard-tick">✅</span>
+        grid.innerHTML = MODULES.map((m) => {
+          const unlocked = isModuleUnlocked(m.id, plan, activatedAt);
+          return `<div class="dash-mod-card ${isComplete(m.id) ? "done" : ""} ${!unlocked ? "locked" : ""}"
+      onclick="requireAccess(${m.id})"
+      style="${!unlocked ? "opacity:0.5;cursor:not-allowed;border-color:#fecaca" : ""}">
+      <div class="dmcard-top" style="${!unlocked ? "background:#fee2e2" : ""}">
+        <span class="dmcard-num" style="${!unlocked ? "color:#ef4444" : ""}">MODULE ${m.num}</span>
+        <span class="dmcard-tick">${isComplete(m.id) ? "✅" : !unlocked ? "🔒" : ""}</span>
       </div>
       <div class="dmcard-title">${m.title}</div>
-      <div class="dmcard-level">${m.level}</div>
-    </div>
-  `,
-        ).join("");
+      <div class="dmcard-level">${!unlocked ? "Unlocks month " + m.id : m.level}</div>
+    </div>`;
+        }).join("");
+
+        // Show upgrade banner for monthly subscribers
+        const existing = document.getElementById("upgradeBanner");
+        if (existing) existing.remove();
+        if (plan === "monthly" && unlockedCount < 12) {
+          const banner = document.createElement("div");
+          banner.id = "upgradeBanner";
+          banner.style.cssText =
+            "background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px";
+          banner.innerHTML = `
+      <div>
+        <p style="font-size:13px;font-weight:700;color:#1d4ed8;margin-bottom:2px">📚 ${12 - unlockedCount} modules still locked</p>
+        <p style="font-size:12px;color:#64748b">Upgrade to annual access — unlock all 12 modules right now for £383.04</p>
+      </div>
+      <button onclick="checkout('annual')" style="background:#2563EB;color:#fff;border:none;padding:9px 18px;border-radius:7px;font-family:var(--f);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Upgrade to Full Access</button>
+    `;
+          document.getElementById("dashModGrid").before(banner);
+        }
       }
 
       // ── MODULE PAGE ───────────────────────────────────────────────────────────────
-      function openModule(id) {
+      function openModule(id, plan, activatedAt) {
+        plan = plan || localStorage.getItem("gca_plan") || "annual";
+        activatedAt =
+          activatedAt ||
+          parseInt(localStorage.getItem("gca_activated")) ||
+          Date.now();
         currentModuleId = id;
         quizAnswers = {};
         quizSubmitted = false;

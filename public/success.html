@@ -1,319 +1,145 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Payment Successful — Get Chartered AI</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        font-family: "Inter", sans-serif;
-        background: #1d4ed8;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 24px;
-      }
-      .card {
-        background: #fff;
-        border-radius: 20px;
-        padding: 48px 40px;
-        max-width: 480px;
-        width: 100%;
-        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
-        text-align: center;
-      }
-      .icon {
-        font-size: 52px;
-        margin-bottom: 20px;
-      }
-      h1 {
-        font-size: 26px;
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        color: #0f172a;
-        margin-bottom: 8px;
-      }
-      .sub {
-        font-size: 15px;
-        color: #64748b;
-        line-height: 1.6;
-        margin-bottom: 32px;
-      }
-      .step {
-        background: #eff6ff;
-        border-radius: 10px;
-        padding: 18px 20px;
-        margin-bottom: 12px;
-        text-align: left;
-        border: 1px solid #dbeafe;
-      }
-      .step-num {
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: #2563eb;
-        margin-bottom: 4px;
-      }
-      .step-text {
-        font-size: 14px;
-        color: #1e3a5f;
-        font-weight: 500;
-      }
-      .form-group {
-        margin-bottom: 14px;
-        text-align: left;
-      }
-      .form-group label {
-        display: block;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: #0f172a;
-        margin-bottom: 6px;
-      }
-      .form-group input {
-        width: 100%;
-        padding: 11px 14px;
-        border: 1.5px solid #e2e8f0;
-        border-radius: 8px;
-        font-family: "Inter", sans-serif;
-        font-size: 14px;
-        color: #0f172a;
-        background: #f8fafc;
-        outline: none;
-        transition: 0.18s;
-      }
-      .form-group input:focus {
-        border-color: #2563eb;
-        background: #fff;
-      }
-      .hint {
-        font-size: 12px;
-        color: #94a3b8;
-        margin-top: 4px;
-      }
-      button {
-        width: 100%;
-        padding: 14px;
-        background: #2563eb;
-        color: #fff;
-        font-family: "Inter", sans-serif;
-        font-size: 14px;
-        font-weight: 700;
-        border: none;
-        border-radius: 9px;
-        cursor: pointer;
-        transition: 0.18s;
-        margin-top: 4px;
-      }
-      button:hover {
-        background: #1d4ed8;
-      }
-      button:disabled {
-        background: #94a3b8;
-        cursor: not-allowed;
-      }
-      .alert {
-        padding: 12px 16px;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 500;
-        margin-bottom: 16px;
-        display: none;
-        text-align: left;
-      }
-      .alert-red {
-        background: #fee2e2;
-        color: #dc2626;
-        border: 1px solid #fca5a5;
-      }
-      .alert-green {
-        background: #dcfce7;
-        color: #16a34a;
-        border: 1px solid #86efac;
-      }
-      .loading {
-        display: none;
-        color: #64748b;
-        font-size: 14px;
-        margin-top: 16px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="card" id="mainCard">
-      <div class="icon">🎉</div>
-      <h1>Payment Confirmed!</h1>
-      <p class="sub">
-        Your payment was successful. Set up your account below to access all 12
-        modules immediately.
-      </p>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Successful — Get Chartered AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#1d4ed8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{background:#fff;border-radius:20px;padding:48px 40px;max-width:480px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,.25);text-align:center}
+.icon{font-size:52px;margin-bottom:20px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.02em;color:#0f172a;margin-bottom:8px}
+.sub{font-size:15px;color:#64748b;line-height:1.6;margin-bottom:32px}
+.step{background:#eff6ff;border-radius:10px;padding:18px 20px;margin-bottom:12px;text-align:left;border:1px solid #dbeafe}
+.step-num{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563EB;margin-bottom:4px}
+.step-text{font-size:14px;color:#1e3a5f;font-weight:500}
+.form-group{margin-bottom:14px;text-align:left}
+.form-group label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0f172a;margin-bottom:6px}
+.form-group input{width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:#0f172a;background:#f8fafc;outline:none;transition:.18s}
+.form-group input:focus{border-color:#2563EB;background:#fff}
+.hint{font-size:12px;color:#94a3b8;margin-top:4px}
+button{width:100%;padding:14px;background:#2563EB;color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:9px;cursor:pointer;transition:.18s;margin-top:4px}
+button:hover{background:#1d4ed8}
+button:disabled{background:#94a3b8;cursor:not-allowed}
+.alert{padding:12px 16px;border-radius:8px;font-size:13px;font-weight:500;margin-bottom:16px;display:none;text-align:left}
+.alert-red{background:#fee2e2;color:#dc2626;border:1px solid #fca5a5}
+.alert-green{background:#dcfce7;color:#16a34a;border:1px solid #86efac}
+.loading{display:none;color:#64748b;font-size:14px;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="card" id="mainCard">
+  <div class="icon">🎉</div>
+  <h1>Payment Confirmed!</h1>
+  <p class="sub">Your payment was successful. Set up your account below to access all 12 modules immediately.</p>
 
-      <div id="alertBox" class="alert"></div>
+  <div id="alertBox" class="alert"></div>
 
-      <div class="form-group">
-        <label>Your Email Address</label>
-        <input type="email" id="email" placeholder="you@email.com" />
-        <p class="hint">Use the email you paid with for fastest verification</p>
-      </div>
-      <div class="form-group">
-        <label>Choose a Password</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Minimum 8 characters"
-        />
-      </div>
-      <div class="form-group">
-        <label>Confirm Password</label>
-        <input
-          type="password"
-          id="password2"
-          placeholder="Repeat your password"
-        />
-      </div>
-      <button id="activateBtn" onclick="activate()">Activate My Account</button>
-      <p class="loading" id="loadingMsg">
-        ⏳ Verifying your payment with Stripe...
-      </p>
-    </div>
+  <div class="form-group">
+    <label>Your Email Address</label>
+    <input type="email" id="email" placeholder="you@email.com">
+    <p class="hint">Use the email you paid with for fastest verification</p>
+  </div>
+  <div class="form-group">
+    <label>Choose a Password</label>
+    <input type="password" id="password" placeholder="Minimum 8 characters">
+  </div>
+  <div class="form-group">
+    <label>Confirm Password</label>
+    <input type="password" id="password2" placeholder="Repeat your password">
+  </div>
+  <button id="activateBtn" onclick="activate()">Activate My Account</button>
+  <p class="loading" id="loadingMsg">⏳ Verifying your payment with Stripe...</p>
+</div>
 
-    <script>
-      function getSessionId() {
-        return new URLSearchParams(window.location.search).get("session_id");
-      }
+<script>
+function getSessionId() {
+  return new URLSearchParams(window.location.search).get('session_id');
+}
 
-      function showAlert(msg, type) {
-        const el = document.getElementById("alertBox");
-        el.textContent = msg;
-        el.className = "alert alert-" + type;
-        el.style.display = "block";
-      }
+function showAlert(msg, type) {
+  const el = document.getElementById('alertBox');
+  el.textContent = msg;
+  el.className = 'alert alert-' + type;
+  el.style.display = 'block';
+}
 
-      async function activate() {
-        const email = document
-          .getElementById("email")
-          .value.trim()
-          .toLowerCase();
-        const pass = document.getElementById("password").value;
-        const pass2 = document.getElementById("password2").value;
-        const btn = document.getElementById("activateBtn");
-        const loading = document.getElementById("loadingMsg");
-        const sessionId = getSessionId();
+async function activate() {
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const pass = document.getElementById('password').value;
+  const pass2 = document.getElementById('password2').value;
+  const btn = document.getElementById('activateBtn');
+  const loading = document.getElementById('loadingMsg');
+  const sessionId = getSessionId();
 
-        // Validation
-        if (!email) {
-          showAlert("Please enter your email address.", "red");
-          return;
-        }
-        if (!email.includes("@")) {
-          showAlert("Please enter a valid email address.", "red");
-          return;
-        }
-        if (pass.length < 8) {
-          showAlert("Password must be at least 8 characters.", "red");
-          return;
-        }
-        if (pass !== pass2) {
-          showAlert("Passwords do not match.", "red");
-          return;
-        }
-        if (!sessionId) {
-          showAlert(
-            "Payment session not found. Please contact support@getcharteredai.com",
-            "red",
-          );
-          return;
-        }
+  // Validation
+  if (!email) { showAlert('Please enter your email address.', 'red'); return; }
+  if (!email.includes('@')) { showAlert('Please enter a valid email address.', 'red'); return; }
+  if (pass.length < 8) { showAlert('Password must be at least 8 characters.', 'red'); return; }
+  if (pass !== pass2) { showAlert('Passwords do not match.', 'red'); return; }
+  if (!sessionId) { showAlert('Payment session not found. Please contact support@getcharteredai.com', 'red'); return; }
 
-        btn.disabled = true;
-        btn.textContent = "Activating...";
-        loading.style.display = "block";
+  btn.disabled = true;
+  btn.textContent = 'Activating...';
+  loading.style.display = 'block';
 
-        try {
-          const response = await fetch("/.netlify/functions/verify-session", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              session_id: sessionId,
-              email,
-              password: pass,
-            }),
-          });
+  try {
+    const response = await fetch('/.netlify/functions/verify-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: sessionId, email, password: pass })
+    });
 
-          const data = await response.json();
+    const data = await response.json();
 
-          if (response.ok && data.success) {
-            // Store JWT token and user info
-            localStorage.setItem("gca_token", data.token);
-            localStorage.setItem("gca_user", data.email);
-            localStorage.setItem("gca_plan", data.plan);
-            localStorage.setItem("gca_activated", Date.now().toString());
+    if (response.ok && data.success) {
+      // Store JWT token and user info
+      localStorage.setItem('gca_token', data.token);
+      localStorage.setItem('gca_user', data.email);
+      localStorage.setItem('gca_plan', data.plan);
+      localStorage.setItem('gca_activated', Date.now().toString());
 
-            showAlert(
-              "✓ Account activated! Sending your welcome email and redirecting...",
-              "green",
-            );
-            loading.style.display = "none";
+      showAlert('✓ Account activated! Sending your welcome email and redirecting...', 'green');
+      loading.style.display = 'none';
 
-            // Send welcome email (fire and forget — don't block redirect)
-            fetch("/.netlify/functions/send-welcome", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ email: data.email, plan: data.plan }),
-            }).catch(() => {}); // silently ignore if email fails
+      // Send welcome email (fire and forget — don't block redirect)
+      fetch('/.netlify/functions/send-welcome', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: data.email, plan: data.plan })
+      }).catch(() => {}); // silently ignore if email fails
 
-            setTimeout(() => {
-              window.location.href = "/index.html?view=dashboard";
-            }, 2000);
-          } else {
-            showAlert(
-              data.error ||
-                "Activation failed. Please contact support@getcharteredai.com",
-              "red",
-            );
-            btn.disabled = false;
-            btn.textContent = "Activate My Account";
-            loading.style.display = "none";
-          }
-        } catch (err) {
-          showAlert(
-            "Connection error. Please check your internet and try again.",
-            "red",
-          );
-          btn.disabled = false;
-          btn.textContent = "Activate My Account";
-          loading.style.display = "none";
-        }
-      }
+      setTimeout(() => {
+        window.location.href = '/index.html?view=dashboard';
+      }, 2000);
 
-      // Allow enter key to submit
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") activate();
-      });
+    } else {
+      showAlert(data.error || 'Activation failed. Please contact support@getcharteredai.com', 'red');
+      btn.disabled = false;
+      btn.textContent = 'Activate My Account';
+      loading.style.display = 'none';
+    }
 
-      // Check we have a session ID
-      window.addEventListener("DOMContentLoaded", () => {
-        if (!getSessionId()) {
-          showAlert(
-            "No payment session found. If you have paid, please contact support@getcharteredai.com with your payment confirmation.",
-            "red",
-          );
-        }
-      });
-    </script>
-  </body>
+  } catch (err) {
+    showAlert('Connection error. Please check your internet and try again.', 'red');
+    btn.disabled = false;
+    btn.textContent = 'Activate My Account';
+    loading.style.display = 'none';
+  }
+}
+
+// Allow enter key to submit
+document.addEventListener('keydown', e => { if (e.key === 'Enter') activate(); });
+
+// Check we have a session ID
+window.addEventListener('DOMContentLoaded', () => {
+  if (!getSessionId()) {
+    showAlert('No payment session found. If you have paid, please contact support@getcharteredai.com with your payment confirmation.', 'red');
+  }
+});
+</script>
+</body>
 </html>

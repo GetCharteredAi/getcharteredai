@@ -1,8 +1,8 @@
 // netlify/functions/create-checkout.js
-// Creates a Stripe Checkout Session server-side — avoids client-side 400 errors
+// Creates a Stripe Checkout Session server-side and returns the URL
+// This is more reliable than client-side redirectToCheckout
 
-// Load .env for local development
-try { require('dotenv').config(); } catch(e) {}
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
   const headers = {
@@ -19,54 +19,39 @@ exports.handler = async (event) => {
     return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
 
-  // Initialize stripe INSIDE handler so env var is loaded
-  const stripeKey = process.env.STRIPE_SECRET_KEY;
-  if (!stripeKey) {
-    console.error('STRIPE_SECRET_KEY is not set');
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: 'Server configuration error: missing Stripe key' })
-    };
-  }
-
-  const stripe = require('stripe')(stripeKey);
-
   let body;
   try {
     body = JSON.parse(event.body);
   } catch {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request body' }) };
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) };
   }
 
   const { priceId, mode } = body;
 
   if (!priceId || !mode) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Missing priceId or mode' })
-    };
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing priceId or mode' }) };
   }
 
   try {
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [{ price: priceId, quantity: 1 }],
       mode: mode,
-      success_url: `${process.env.URL || 'https://getcharteredai.netlify.app'}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.URL || 'https://getcharteredai.netlify.app'}/cancel.html`,
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: 'https://getcharteredai.com/success.html?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: 'https://getcharteredai.com/cancel.html',
+      billing_address_collection: 'auto',
+      customer_email: undefined, // let Stripe collect email
     });
 
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ id: session.id })
+      body: JSON.stringify({ url: session.url })
     };
+
   } catch (err) {
-    console.error('Stripe session creation failed:', err.message);
+    console.error('Stripe session creation failed:', err);
     return {
-      statusCode: 400,
+      statusCode: 500,
       headers,
       body: JSON.stringify({ error: err.message })
     };

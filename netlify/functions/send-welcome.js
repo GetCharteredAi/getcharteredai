@@ -4,52 +4,36 @@
 
 exports.handler = async (event) => {
   const headers = {
-    "Access-Control-Allow-Origin": "https://getcharteredai.netlify.app",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Content-Type": "application/json",
+    'Access-Control-Allow-Origin': 'https://getcharteredai.netlify.app',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json'
   };
 
-  if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 200, headers, body: "" };
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 200, headers, body: '' };
   }
 
-  if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: "Method not allowed" }),
-    };
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
 
   let body;
   try {
     body = JSON.parse(event.body);
   } catch {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: "Invalid request" }),
-    };
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) };
   }
 
   const { email, plan } = body;
 
   if (!email) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: "Email required" }),
-    };
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Email required' }) };
   }
 
-  const planText =
-    plan === "monthly"
-      ? "Monthly Subscription (£39.90/month)"
-      : "Full Year Access — All 12 Modules (£383.04)";
-  const planNote =
-    plan === "monthly"
-      ? "Your subscription renews automatically each month. You can cancel at any time by emailing us."
-      : "You have 12 months full access from today. If you need more time at the end of your year, just get in touch and we will sort it.";
+  const planText = plan === 'monthly' ? 'Monthly Subscription (£39.90/month)' : 'Full Year Access — All 12 Modules (£383.04)';
+  const planNote = plan === 'monthly'
+    ? 'Your subscription renews automatically each month. You can cancel at any time by emailing us.'
+    : 'You have 12 months full access from today. If you need more time at the end of your year, just get in touch and we will sort it.';
 
   // Email HTML content
   const emailHtml = `
@@ -96,37 +80,19 @@ exports.handler = async (event) => {
               <p style="font-size:14px;font-weight:700;color:#0f172a;margin:0 0 14px">What's waiting for you:</p>
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px">
                 ${[
-                  ["01", "Preparing for RICS APC Exams", "Foundation"],
-                  [
-                    "02",
-                    "Ethics, Conduct & Professionalism",
-                    "Level 3 — Mandatory",
-                  ],
-                  ["03", "Client Care", "Level 2 — Mandatory"],
-                  ["04", "Communication & Negotiation", "Level 2 — Mandatory"],
-                  ["05", "Health & Safety in Surveying", "Level 2 — Mandatory"],
-                  [
-                    "06",
-                    "Accounting Principles & Procedures",
-                    "Level 1 — Mandatory",
-                  ],
-                  ["07", "Business Planning", "Level 1 — Mandatory"],
-                  [
-                    "08",
-                    "Conflict Avoidance & Dispute Resolution",
-                    "Level 2 — Mandatory",
-                  ],
-                  ["09", "Data Management", "Level 1 — Mandatory"],
-                  ["10", "Sustainability", "Level 1 — Mandatory"],
-                  [
-                    "11",
-                    "Team-Working, Diversity & Inclusion",
-                    "Level 2 — Mandatory",
-                  ],
-                  ["12", "Revision, Mock Tests & APC Simulation", "Capstone"],
-                ]
-                  .map(
-                    ([num, title, level]) => `
+                  ['01', 'Preparing for RICS APC Exams', 'Foundation'],
+                  ['02', 'Ethics, Conduct & Professionalism', 'Level 3 — Mandatory'],
+                  ['03', 'Client Care', 'Level 2 — Mandatory'],
+                  ['04', 'Communication & Negotiation', 'Level 2 — Mandatory'],
+                  ['05', 'Health & Safety in Surveying', 'Level 2 — Mandatory'],
+                  ['06', 'Accounting Principles & Procedures', 'Level 1 — Mandatory'],
+                  ['07', 'Business Planning', 'Level 1 — Mandatory'],
+                  ['08', 'Conflict Avoidance & Dispute Resolution', 'Level 2 — Mandatory'],
+                  ['09', 'Data Management', 'Level 1 — Mandatory'],
+                  ['10', 'Sustainability', 'Level 1 — Mandatory'],
+                  ['11', 'Team-Working, Diversity & Inclusion', 'Level 2 — Mandatory'],
+                  ['12', 'Revision, Mock Tests & APC Simulation', 'Capstone'],
+                ].map(([num, title, level]) => `
                 <tr>
                   <td style="padding:7px 0;border-bottom:1px solid #f1f5f9">
                     <table width="100%" cellpadding="0" cellspacing="0">
@@ -141,9 +107,7 @@ exports.handler = async (event) => {
                       </tr>
                     </table>
                   </td>
-                </tr>`,
-                  )
-                  .join("")}
+                </tr>`).join('')}
               </table>
 
               <!-- CTA BUTTON -->
@@ -218,59 +182,39 @@ Good luck — The Get Chartered AI Team
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
   if (!RESEND_API_KEY) {
-    console.log(
-      "RESEND_API_KEY not set — email not sent but activation succeeded",
-    );
+    console.log('RESEND_API_KEY not set — email not sent but activation succeeded');
     console.log(`Would have sent welcome email to: ${email}`);
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        sent: false,
-        reason: "No email API key configured",
-      }),
-    };
+    return { statusCode: 200, headers, body: JSON.stringify({ sent: false, reason: 'No email API key configured' }) };
   }
 
   try {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
       headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-        "Content-Type": "application/json",
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: "Get Chartered AI <welcome@getcharteredai.com>",
+        from: 'Get Chartered AI <welcome@getcharteredai.com>',
         to: [email],
-        subject: "Welcome to Get Chartered AI — Your account is ready 🎉",
+        subject: 'Welcome to Get Chartered AI — Your account is ready 🎉',
         html: emailHtml,
-        text: emailText,
-      }),
+        text: emailText
+      })
     });
 
     const result = await response.json();
 
     if (response.ok) {
       console.log(`Welcome email sent to ${email}`);
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({ sent: true, id: result.id }),
-      };
+      return { statusCode: 200, headers, body: JSON.stringify({ sent: true, id: result.id }) };
     } else {
-      console.error("Email send failed:", result);
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({ sent: false, error: result.message }),
-      };
+      console.error('Email send failed:', result);
+      return { statusCode: 200, headers, body: JSON.stringify({ sent: false, error: result.message }) };
     }
+
   } catch (err) {
-    console.error("Email error:", err);
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({ sent: false, error: err.message }),
-    };
+    console.error('Email error:', err);
+    return { statusCode: 200, headers, body: JSON.stringify({ sent: false, error: err.message }) };
   }
 };

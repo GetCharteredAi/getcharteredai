@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free APC Guides — Get Chartered AI</title>
+<meta name="description" content="12 free guides and tools built by Chartered Surveyors for every stage of your surveying career.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0D0F1C;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8}
+body{font-family:'DM Sans',sans-serif;background:#DBEAFE;color:#1a1a2e;min-height:100vh}
+nav{padding:18px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06);background:#0D0F1C}
+.nav-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#f8fafc;text-decoration:none}.nav-logo span{color:var(--gold)}
+.nav-back{font-size:13px;color:#94a3b8;text-decoration:none;transition:.18s}.nav-back:hover{color:#f8fafc}
+.wrap{max-width:1120px;margin:0 auto;padding:56px 24px 80px}
+.eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1d4ed8;margin-bottom:14px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(30px,5vw,48px);font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:14px;color:#0D0F1C}
+h1 em{font-style:italic;color:var(--gold)}
+.lead{font-size:16px;color:#3b5280;line-height:1.7;margin-bottom:36px;max-width:560px;font-weight:300}
+.guides-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px}
+@media(max-width:900px){.guides-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.guides-grid{grid-template-columns:1fr}}
+.guide-card{background:#ffffff;border:1px solid #BFDBFE;border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:12px;transition:.2s;text-decoration:none;color:#1a1a2e;box-shadow:0 2px 8px rgba(37,99,235,.07);cursor:pointer}
+.guide-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(37,99,235,.13);border-color:#93C5FD}
+.guide-icon{font-size:28px;line-height:1}
+.guide-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:4px}
+.tag-apc{background:rgba(37,99,235,.1);color:#1d4ed8;border:1px solid rgba(37,99,235,.2)}
+.tag-grad{background:rgba(16,185,129,.1);color:#065f46;border:1px solid rgba(16,185,129,.25)}
+.tag-tool{background:rgba(245,158,11,.1);color:#92400e;border:1px solid rgba(245,158,11,.2)}
+.tag-hot{background:rgba(239,68,68,.1);color:#991b1b;border:1px solid rgba(239,68,68,.2)}
+.tag-assoc{background:rgba(16,185,129,.1);color:#065f46;border:1px solid rgba(16,185,129,.2)}
+.tag-referred{background:rgba(239,68,68,.1);color:#991b1b;border:1px solid rgba(239,68,68,.2)}
+.tag-counsellor{background:rgba(124,58,237,.1);color:#6d28d9;border:1px solid rgba(124,58,237,.2)}
+.guide-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:800;line-height:1.2;color:#0D0F1C}
+.guide-desc{font-size:13px;color:#4a5568;line-height:1.65}
+.guide-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#d97706;margin-top:auto}
+.guide-cta.unlocked{color:#059669}
+.guide-cta.unlocked::before{content:"✓ ";font-size:11px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(13,15,28,.6);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:.2s}
+.modal-overlay.active{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:20px;padding:36px;max-width:520px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,.2);transform:translateY(8px);transition:.2s;position:relative}
+.modal-overlay.active .modal{transform:translateY(0)}
+.modal-badge{display:inline-block;background:rgba(37,99,235,.1);color:#1d4ed8;border:1px solid rgba(37,99,235,.2);border-radius:100px;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+.modal-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#0D0F1C;margin-bottom:6px;line-height:1.2}
+.modal-sub{font-size:13px;color:#64748b;margin-bottom:22px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-group{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.form-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b}
+.form-input{padding:10px 14px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1a2e;outline:none;transition:.18s;width:100%;appearance:none}
+.form-input:focus{border-color:#2563EB;background:#fff}
+.modal-btn{width:100%;padding:13px;background:#2563EB;color:#fff;border:none;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:.18s;margin-top:6px}
+.modal-btn:hover:not(:disabled){background:#1d4ed8;transform:translateY(-1px)}
+.modal-btn:disabled{background:#94a3b8;cursor:not-allowed;transform:none}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;color:#94a3b8;cursor:pointer;padding:4px;line-height:1}
+.modal-note{font-size:11px;color:#94a3b8;text-align:center;margin-top:10px}
+.alert-box{padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none}
+.alert-err{background:#fee2e2;color:#dc2626;border:1px solid #fca5a5}
+.alert-ok{background:#dcfce7;color:#16a34a;border:1px solid #86efac}
+.unlocked-banner{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 20px;margin-bottom:32px;display:none;align-items:center;gap:12px}
+.unlocked-banner.show{display:flex}
+.unlocked-banner p{font-size:14px;color:#166534;line-height:1.5}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}.modal{padding:24px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">Get Chartered <span>AI</span></a>
+  <a href="/" class="nav-back">← Back to platform</a>
+</nav>
+
+<div class="wrap">
+  <span class="eyebrow">12 Free Resources</span>
+  <h1>Guides for every stage<br>of your <em>surveying journey</em></h1>
+  <p class="lead">12 free guides and tools built by Chartered Surveyors. Simply enter your details once to unlock instant access to every resource.</p>
+
+  <div class="unlocked-banner" id="unlockedBanner">
+    <span style="font-size:20px">✓</span>
+    <p><strong>All guides unlocked.</strong> Click any guide to open it directly — no further registration needed.</p>
+  </div>
+
+  <div class="guides-grid">
+
+    <a class="guide-card" onclick="handleGuideClick(event,'/apc-guide')">
+      <div class="guide-icon">📋</div>
+      <span class="guide-tag tag-apc">APC Preparation</span>
+      <div class="guide-title">What Assessors Are Actually Looking For</div>
+      <p class="guide-desc">A breakdown of all 11 mandatory competencies — what assessors test at each level, the most common referral reasons and what separates a pass from a referral.</p>
+      <span class="guide-cta" id="cta-1">Get free guide →</span>
+    </a>
+
+    <a class="guide-card" href="/hot-topics">
+      <div class="guide-icon">🔥</div>
+      <span class="guide-tag tag-hot">Autumn 2026</span>
+      <div class="guide-title">APC Assessors' Briefing — Updated Autumn 2026</div>
+      <p class="guide-desc">The 9 topics most likely to come up in your autumn 2026 assessment — with plain-English explanations and what assessors are specifically listening for.</p>
+      <span class="guide-cta unlocked">Read now — free →</span>
+    </a>
+
+        <a class="guide-card" onclick="handleGuideClick(event,'/confidence-checklist')">
+      <div class="guide-icon">✅</div>
+      <span class="guide-tag tag-tool">APC Tool</span>
+      <div class="guide-title">APC Readiness Benchmark</div>
+      <p class="guide-desc">15 questions across 5 preparation areas to benchmark your APC readiness. Identify where you are strong and where gaps exist before the pressure of final year.</p>
+      <span class="guide-cta" id="cta-7">Get free guide →</span>
+    </a>
+
+    <a class="guide-card" href="/why-candidates-are-referred" style="border-top:3px solid #ef4444">
+      <div class="guide-icon">🔍</div>
+      <span class="guide-tag tag-referred">Free — No Registration</span>
+      <div class="guide-title">Why APC Candidates Are Referred</div>
+      <p class="guide-desc">The six most common referral reasons, what the feedback letter does not tell you, and how candidates who pass their resit approach it differently. Fully open — no registration required.</p>
+      <span class="guide-cta unlocked">Read now →</span>
+    </a>
+
+    <a class="guide-card" onclick="handleGuideClick(event,'/referred-guide')">
+      <div class="guide-icon">📖</div>
+      <span class="guide-tag tag-referred">Referred Candidates</span>
+      <div class="guide-title">You Were Referred — What Now?</div>
+      <p class="guide-desc">A straight-talking guide for referred APC candidates — what the referral actually means, the most common reasons it happens and how candidates who pass their resit approach it differently.</p>
+      <span class="guide-cta" id="cta-11">Get free guide →</span>
+    </a>
+
+    <a class="guide-card" href="/competency-checker">
+      <div class="guide-icon">✓</div>
+      <span class="guide-tag tag-tool">Free Tool</span>
+      <div class="guide-title">APC Competency Choice Checker</div>
+      <p class="guide-desc">Check your proposed competency choices against the December 2025 RICS rules. Instant results — RICS can reject a submission for invalid choices.</p>
+      <span class="guide-cta unlocked">Check my choices →</span>
+    </a>
+
+    <a class="guide-card" onclick="handleGuideClick(event,'/assocrics-guide')">
+      <div class="guide-icon">🎓</div>
+      <span class="guide-tag tag-assoc">AssocRICS</span>
+      <div class="guide-title">What is AssocRICS? Free Guide</div>
+      <p class="guide-desc">What AssocRICS is, who it is for, how the written assessment works and what preparation looks like — plus a free Level 2 competency statement example.</p>
+      <span class="guide-cta" id="cta-9">Get free guide →</span>
+    </a>
+
+    <a class="guide-card" onclick="handleGuideClick(event,'/counsellor-guide')">
+      <div class="guide-icon">👔</div>
+      <span class="guide-tag tag-counsellor">Counsellors</span>
+      <div class="guide-title">APC Counsellor &amp; Supervisor Guide 2026</div>
+      <p class="guide-desc">Your formal RICS obligations as a counsellor or supervisor — meeting requirements, how to review a candidate's SoE and how to support them through the December 2025 rule changes.</p>
+      <span class="guide-cta" id="cta-12">Get free guide →</span>
+    </a>
+
+    <!-- PATHWAY INTERVIEW NOTE -->
+    <div style="grid-column:1 / span 3;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:16px 20px;margin-bottom:4px">
+      <p style="font-size:13px;color:#1e40af;line-height:1.65;margin:0"><strong style="color:#1d4ed8">Building Surveying and Quantity Surveying graduates face pathway-specific technical questions from their very first interview.</strong> These guides cover what the general graduate guide does not — defects knowledge and inspection methodology for BS, and commercial awareness and cost management thinking for QS. Pathway-specific guides for Commercial Real Estate, Project Management and Valuation are in development.</p>
+    </div>
+
+    <a class="guide-card" onclick="handleGuideClick(event,'/grad-bs-guide')">
+      <div class="guide-icon">🏛️</div>
+      <span class="guide-tag tag-grad">Building Surveying</span>
+      <div class="guide-title">Building Surveying — First Interview Prep</div>
+      <p class="guide-desc">A specialist guide for Building Surveying graduate roles — pathway-specific questions, technical knowledge expectations and how to discuss your interest in the built environment.</p>
+      <span class="guide-cta" id="cta-5">Get free guide →</span>
+    </a>
+
+    <a class="guide-card" onclick="handleGuideClick(event,'/grad-qs-guide')">
+      <div class="guide-icon">📐</div>
+      <span class="guide-tag tag-grad">Quantity Surveying</span>
+      <div class="guide-title">Quantity Surveying — First Interview Prep</div>
+      <p class="guide-desc">A specialist guide for Quantity Surveying graduate roles — what firms look for, how to talk about cost management and the questions most QS candidates get wrong.</p>
+      <span class="guide-cta" id="cta-6">Get free guide →</span>
+    </a>
+
+    <a class="guide-card" onclick="handleGuideClick(event,'/grad-interview-guide')">
+      <div class="guide-icon">🎓</div>
+      <span class="guide-tag tag-grad">Graduate</span>
+      <div class="guide-title">Graduate Surveying — First Interview Prep</div>
+      <p class="guide-desc">How to prepare for a graduate surveying interview — what firms look for, common questions and how to present your motivation for chartership confidently.</p>
+      <span class="guide-cta" id="cta-2">Get free guide →</span>
+    </a>
+
+    <a class="guide-card" onclick="handleGuideClick(event,'/grad-assessment-guide')">
+      <div class="guide-icon">📝</div>
+      <span class="guide-tag tag-grad">Graduate</span>
+      <div class="guide-title">Graduate Surveying — Assessment Day Prep</div>
+      <p class="guide-desc">Everything you need to know before an assessment centre — the formats firms use, group exercise techniques and how to stand out on the day.</p>
+      <span class="guide-cta" id="cta-3">Get free guide →</span>
+    </a>
+
+    <a class="guide-card" onclick="handleGuideClick(event,'/apprentice-guide-info')">
+      <div class="guide-icon">🏗️</div>
+      <span class="guide-tag tag-grad">Apprenticeship</span>
+      <div class="guide-title">The Chartered Surveyor Apprenticeship Route</div>
+      <p class="guide-desc">A complete guide to the degree apprenticeship route into surveying — how it works, who it suits and how it compares to the traditional university route.</p>
+      <span class="guide-cta" id="cta-4">Get free guide →</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- REGISTRATION MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <div class="modal-badge">Unlock all free guides</div>
+    <div class="modal-title">One registration.<br>All guides open instantly.</div>
+    <p class="modal-sub">Enter your details once and every guide unlocks immediately — no repeat forms, no friction.</p>
+    <div id="modalAlert" class="alert-box"></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" id="modalName" class="form-input" placeholder="First name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" id="modalEmail" class="form-input" placeholder="you@email.com">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Your RICS Pathway</label>
+        <select id="modalPathway" class="form-input">
+          <option value="">Select pathway</option>
+          <option>Building Surveying</option>
+          <option>Building Control</option>
+          <option>Commercial Real Estate</option>
+          <option>Corporate Real Estate</option>
+          <option>Environmental Surveying</option>
+          <option>Facility Management</option>
+          <option>Geomatics</option>
+          <option>Infrastructure</option>
+          <option>Land and Resources</option>
+          <option>Management Consultancy</option>
+          <option>Mineral and Waste Management</option>
+          <option>Planning and Development</option>
+          <option>Project Management</option>
+          <option>Property Finance and Investment</option>
+          <option>Quantity Surveying and Construction</option>
+          <option>Research</option>
+          <option>Residential</option>
+          <option>Rural</option>
+          <option>Taxation Allowances</option>
+          <option>Valuation</option>
+          <option>Arts and Antiques</option>
+          <option>Valuation of Business and Intangible Assets</option>
+          <option>AssocRICS</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">APC Assessment Stage</label>
+        <select id="modalExam" class="form-input">
+          <option value="">Select stage</option>
+          <option>Spring 2026 — sitting soon</option>
+          <option>Autumn 2026</option>
+          <option>Spring 2027</option>
+          <option>Autumn 2027 or later</option>
+          <option>Just starting out</option>
+          <option>Not on APC yet</option>
+        </select>
+      </div>
+    </div>
+    <button class="modal-btn" id="modalBtn" onclick="submitModal()">Unlock All Guides →</button>
+    <p class="modal-note">No spam. No payment. Unsubscribe any time.</p>
+  </div>
+</div>
+
+<script>
+let pendingHref = null;
+
+(function() {
+  const d = localStorage.getItem('gca_guides_unlocked');
+  if (d) setUnlocked();
+  if (window.location.search.includes('unlock=1')) openModal();
+})();
+
+function handleGuideClick(e, href) {
+  e.preventDefault();
+  if (localStorage.getItem('gca_guides_unlocked')) {
+    window.location.href = href;
+  } else {
+    pendingHref = href;
+    openModal();
+  }
+}
+
+function openModal() {
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('modalName').focus(), 200);
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalBtn();
+}
+
+function closeModalBtn() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+  pendingHref = null;
+}
+
+async function submitModal() {
+  const name = document.getElementById('modalName').value.trim();
+  const email = document.getElementById('modalEmail').value.trim().toLowerCase();
+  const pathway = document.getElementById('modalPathway').value;
+  const examDate = document.getElementById('modalExam').value;
+  const btn = document.getElementById('modalBtn');
+  document.getElementById('modalAlert').style.display = 'none';
+
+  if (!name) { showAlert('Please enter your name.', 'err'); return; }
+  if (!email || !email.includes('@')) { showAlert('Please enter a valid email.', 'err'); return; }
+  if (!pathway) { showAlert('Please select your pathway.', 'err'); return; }
+  if (!examDate) { showAlert('Please select your assessment stage.', 'err'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Unlocking...';
+
+  localStorage.setItem('gca_guides_unlocked', JSON.stringify({ name, email, pathway, examDate, ts: Date.now() }));
+
+  try {
+    await fetch('/.netlify/functions/capture-lead', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ name, email, pathway, examDate, guideType: 'guides-unlock' })
+    });
+  } catch(e) {}
+
+  setUnlocked();
+  closeModalBtn();
+  if (pendingHref) window.location.href = pendingHref;
+}
+
+function setUnlocked() {
+  document.getElementById('unlockedBanner').classList.add('show');
+  document.querySelectorAll('.guide-cta:not(.unlocked)').forEach(el => {
+    el.classList.add('unlocked');
+    el.textContent = 'Open guide ✓';
+  });
+}
+
+function showAlert(msg, type) {
+  const el = document.getElementById('modalAlert');
+  el.textContent = msg;
+  el.className = 'alert-box alert-' + type;
+  el.style.display = 'block';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModalBtn();
+  if (e.key === 'Enter' && document.getElementById('modalOverlay').classList.contains('active')) submitModal();
+});
+</script>
+</body>
+</html>

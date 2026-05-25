@@ -1,85 +1,179 @@
 # Get Chartered AI — Deployment Guide
-# =====================================
-# Complete setup from zero to live in under 30 minutes
 
-## WHAT YOU HAVE
-- public/index.html         — Full platform (landing + member area)
-- public/success.html       — Post-payment account activation
-- public/cancel.html        — Payment cancelled page
-- netlify/functions/stripe-webhook.js  — Receives Stripe payment events
-- netlify/functions/verify-session.js  — Verifies payment & issues access token
-- netlify/functions/login.js           — Validates member login tokens
-- netlify.toml              — Netlify configuration
-- package.json              — Dependencies
+Complete setup from zero to live. Deploy from GitHub only — no local build step.
+
+## Repository layout
+
+```
+getcharteredai/
+├── netlify.toml
+├── package.json          # jsonwebtoken only (legacy login support)
+├── package-lock.json
+├── SETUP.md
+├── netlify/functions/    # 14 serverless handlers
+└── public/               # 33 HTML pages + 7 PDFs
+```
+
+**Runtime:** Node 20 on Netlify (`NODE_VERSION` in `netlify.toml`). Not Bun or Deno.
+
+**Build:** Leave build command empty. Publish directory: `public`. Functions: `netlify/functions`.
+
+---
+
+## Public pages (`public/`)
+
+| Page | Purpose |
+|------|---------|
+| `index.html` | Landing + member dashboard (12 modules, AI tutor) |
+| `success.html` | Post-payment activation |
+| `cancel.html` | Payment cancelled |
+| `sprint.html` / `sprint-success.html` | APC Sprint checkout flow |
+| `admin-sprint.html` | Sprint admin token generator |
+| `referred-programme.html` | APC Confidence Reset |
+| `guides.html` | Free guides hub |
+| `free-guide.html`, `apc-guide.html`, `hot-topics.html` | Lead magnets |
+| `competency-checker.html` | Competency tool + AI |
+| `employer.html`, `employer-guide.html` | Employer flows |
+| `assocrics-guide.html`, `confidence-checklist.html`, `counsellor-guide.html` | Guides |
+| `referred-guide.html`, `why-candidates-are-referred.html`, `which-programme.html` | Referred programme |
+| `grad-guide*.html`, `grad-bs-guide.html`, `grad-qs-guide.html`, `grad-interview-guide.html`, `grad-assessment-guide.html` | Graduate guides |
+| `apprentice-guide.html`, `apprentice-guide-info.html` | Apprentice guides |
+| `privacy.html`, `terms.html` | Legal |
+
+**PDFs:** `apc-guide.pdf`, `assessors-briefing.pdf`, `confidence-checklist.pdf`, `counsellor-guide.pdf`, `employer-guide.pdf`, `referred-guide.pdf`
+
+Extensionless URLs (e.g. `/guides`, `/sprint`) work via `pretty_urls = true` in `netlify.toml`. `/dashboard` redirects to `/?view=dashboard`.
+
+---
+
+## Netlify functions (`netlify/functions/`)
+
+| Function | Purpose | Env vars |
+|----------|---------|----------|
+| `create-checkout.js` | Stripe Checkout session | `STRIPE_SECRET_KEY` |
+| `verify-session.js` | Verify payment, issue access token | `STRIPE_SECRET_KEY`, `JWT_SECRET` |
+| `verify-sprint-session.js` | Sprint payment verify | `STRIPE_SECRET_KEY`, `JWT_SECRET` |
+| `login.js` | Validate tokens (NEW + legacy JWT) | `JWT_SECRET` |
+| `stripe-webhook.js` | Subscription lifecycle emails | `STRIPE_WEBHOOK_SECRET`, `STRIPE_SECRET_KEY`, `RESEND_API_KEY` |
+| `send-welcome.js` | Welcome email | `RESEND_API_KEY` |
+| `send-reset.js` | Password reset magic link | `STRIPE_SECRET_KEY`, `RESEND_API_KEY`, `JWT_SECRET` |
+| `ai-tutor.js` | Anthropic API proxy | `ANTHROPIC_API_KEY` |
+| `capture-lead.js` | APC guide leads | `RESEND_API_KEY` |
+| `capture-grad-lead.js` | Graduate/apprentice leads | `RESEND_API_KEY` |
+| `employer-followup.js` | Employer enquiry emails | `RESEND_API_KEY` |
+| `generate-sprint-token.js` | Admin sprint access tokens | `SPRINT_ADMIN_KEY`, `JWT_SECRET`, `RESEND_API_KEY` |
+| `get-plan.js` | Plan lookup by session ID | `STRIPE_SECRET_KEY` |
+| `nurture-sequence.js` | Nurture emails (optional scheduled) | `RESEND_API_KEY` |
+
+---
+
+## Member tokens (dual format)
+
+- **New activations** use a 2-part custom token (base64 payload + signature), stored in `localStorage` as `gca_token`.
+- **Legacy members** may still have a standard 3-part JWT from an earlier deploy. `login.js` accepts both until legacy tokens expire.
+- Use the same `JWT_SECRET` across deploys so tokens remain valid.
+
+---
 
 ## STEP 1 — Push to GitHub
-1. Create a new GitHub repository (e.g. getcharteredai-platform)
-2. Upload all these files keeping the folder structure exactly as-is
-3. Make sure netlify/functions/ and public/ folders are at the root
+
+1. Push the repo with `public/` and `netlify/functions/` at the repository root.
+2. Do not commit `.env`, `node_modules/`, or `.netlify/`.
+
+---
 
 ## STEP 2 — Connect to Netlify
-1. Go to app.netlify.com
-2. Click "Add new site" → "Import an existing project"
-3. Connect your GitHub repo
-4. Build settings will auto-detect from netlify.toml
-5. Click Deploy
 
-## STEP 3 — Set Environment Variables
-In Netlify: Site Settings → Environment Variables → Add variable
+1. Go to [app.netlify.com](https://app.netlify.com)
+2. Add new site → Import from GitHub
+3. Build settings auto-detect from `netlify.toml`
+4. Deploy
 
-Add these FOUR variables:
+---
 
-  STRIPE_SECRET_KEY     = sk_test_YOUR_SECRET_KEY_HERE
-  STRIPE_WEBHOOK_SECRET = whsec_YOUR_WEBHOOK_SECRET_HERE  (get this in Step 4)
-  JWT_SECRET            = gca-secure-platform-2025-apc
-  RESEND_API_KEY        = re_YOUR_RESEND_KEY_HERE  (get this in Step 4b below)
+## STEP 3 — Environment variables
 
-## STEP 4 — Set Up Stripe Webhook
-1. Go to dashboard.stripe.com → Developers → Webhooks
-2. Click "Add endpoint"
-3. Endpoint URL: https://getcharteredai.netlify.app/.netlify/functions/stripe-webhook
-4. Select event: checkout.session.completed
-5. Click Add endpoint
-6. Copy the "Signing secret" (starts with whsec_)
-7. Paste it as STRIPE_WEBHOOK_SECRET in Netlify (Step 3)
+In Netlify: **Site settings → Environment variables**
 
-## STEP 4b — Set Up Welcome Emails (free)
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `STRIPE_SECRET_KEY` | Yes | Stripe API |
+| `STRIPE_WEBHOOK_SECRET` | Yes | Webhook HMAC verification |
+| `JWT_SECRET` | Yes | Member & sprint tokens |
+| `RESEND_API_KEY` | Yes* | Transactional email |
+| `ANTHROPIC_API_KEY` | Yes* | AI tutor & mock simulator |
+| `SPRINT_ADMIN_KEY` | Yes (admin tool) | Required for `/admin-sprint`; must match password entered at gate |
 
-Welcome emails are sent via Resend — free for up to 3,000 emails/month.
+\*Platform runs without `RESEND_API_KEY` / `ANTHROPIC_API_KEY`, but email/AI features will not work.
 
-1. Go to resend.com and create a free account
-2. Click API Keys → Create API Key
-3. Copy the key (starts with re_...)
-4. Add it to Netlify as RESEND_API_KEY
-5. In Resend, go to Domains → Add Domain → add getcharteredai.com
-6. Follow their DNS instructions (5 minutes, just adding records in your domain settings)
+Use strong random values for `JWT_SECRET` and `SPRINT_ADMIN_KEY` (see `.env.example`). No defaults in server code.
 
-Without this step the platform still works — emails just won't send until it's configured.
+**Lead nurture:** Day 3/10 follow-ups are manual — see [OPERATIONS.md](OPERATIONS.md).
+
+---
+
+## STEP 4 — Stripe webhook
+
+1. [dashboard.stripe.com](https://dashboard.stripe.com) → Developers → Webhooks → Add endpoint
+2. URL: `https://YOUR-SITE.netlify.app/.netlify/functions/stripe-webhook` (or custom domain)
+3. Subscribe to these events (required by `stripe-webhook.js`):
+   - `invoice.paid`
+   - `invoice.payment_failed`
+   - `customer.subscription.deleted`
+4. Copy the signing secret (`whsec_...`) → `STRIPE_WEBHOOK_SECRET` in Netlify
+5. Repeat for **live mode** when going to production
+
+---
+
+## STEP 4b — Resend (email)
+
+1. [resend.com](https://resend.com) → API key → `RESEND_API_KEY`
+2. Add and verify domain `getcharteredai.com`
+
+---
+
+## STEP 4c — Anthropic (AI)
+
+1. [console.anthropic.com](https://console.anthropic.com) → API key → `ANTHROPIC_API_KEY`
+
+---
 
 ## STEP 5 — Redeploy
-After adding all environment variables:
-Netlify → Deploys → Trigger deploy → Deploy site
 
-## STEP 6 — Test the Full Flow
-Use Stripe test card: 4242 4242 4242 4242 | Any future date | Any CVC
+After env vars: **Deploys → Trigger deploy → Deploy site**
 
-1. Go to https://getcharteredai.netlify.app
-2. Click "Enrol Now" → choose a plan
-3. Complete payment with test card
-4. You'll land on /success.html
-5. Enter your email and set a password
-6. You'll be redirected to the dashboard
-7. All 12 modules will be accessible
-8. Progress saves automatically
+---
 
-## STEP 7 — Go Live
-When ready to take real payments:
-1. In Netlify env vars, change STRIPE_SECRET_KEY to your sk_live_... key
-2. In index.html, change the STRIPE_KEY variable to your pk_live_... key
-3. Add a new Stripe webhook for live mode pointing to the same URL
-4. Update STRIPE_WEBHOOK_SECRET with the live webhook secret
+## STEP 6 — Test
 
-## SUPPORT
-Email: contact@gcaitutor.com
-Stripe dashboard: dashboard.stripe.com
-Netlify dashboard: app.netlify.com
+Full checklist: [SMOKE_TEST.md](SMOKE_TEST.md)
+
+```bash
+npm run validate
+```
+
+Stripe test card: `4242 4242 4242 4242` | any future expiry | any CVC
+
+For preview/testing, set `STRIPE_KEY` in `public/index.html` to `pk_test_...` to match `sk_test_...` in Netlify.
+
+1. Homepage → Enrol → pay
+2. `/success` → email + password → dashboard
+3. `/guides`, `/sprint`, `/competency-checker`
+4. `/admin-sprint` (password = `SPRINT_ADMIN_KEY` from Netlify)
+
+---
+
+## STEP 7 — Go live
+
+1. Set live `STRIPE_SECRET_KEY` and live webhook secret in Netlify
+2. Set `STRIPE_KEY` in `public/index.html` to your live publishable key (`pk_live_...`) — must pair with `sk_live_...`
+3. Webhook URL: `https://getcharteredai.com/.netlify/functions/stripe-webhook` (or your custom domain)
+4. Run [SMOKE_TEST.md](SMOKE_TEST.md) production section; optional small real charge to confirm webhook
+
+---
+
+## Support
+
+- Email: info@getcharteredai.com
+- Stripe: [dashboard.stripe.com](https://dashboard.stripe.com)
+- Netlify: [app.netlify.com](https://app.netlify.com)

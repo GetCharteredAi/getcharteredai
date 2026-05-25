@@ -11,9 +11,7 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:bcryptjs@^2.4.3",
-        "npm:jsonwebtoken@^9.0.2",
-        "npm:stripe@14"
+        "npm:jsonwebtoken@^9.0.2"
       ]
     }
   }

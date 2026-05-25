@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APC Support for Firms — Get Chartered AI | Employer Programme</title>
+<meta name="description" content="Structured APC preparation for your graduate cohort. Identify struggling candidates early, reduce referral rates and support counsellors with the tools they need. Get Chartered AI for firms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0D0F1C;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:#1a1a2e;min-height:100vh;scroll-behavior:smooth}
+nav{padding:18px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.08);background:#fff;position:sticky;top:0;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);text-decoration:none}.nav-logo span{color:var(--gold)}
+.nav-link{font-size:13px;color:var(--muted);text-decoration:none;margin-right:16px}.nav-link:hover{color:var(--navy)}
+.nav-cta{font-size:13px;background:var(--navy);color:#fff;padding:8px 18px;border-radius:8px;text-decoration:none;font-weight:600}
+.hero{background:var(--navy);padding:80px 24px 72px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(37,99,235,.12) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{display:inline-block;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:100px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.1;letter-spacing:-.03em;color:#fff;max-width:800px;margin:0 auto 18px}
+h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.65);line-height:1.7;max-width:600px;margin:0 auto 36px;font-weight:300}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.btn-gold{background:var(--gold);color:var(--navy);padding:14px 28px;border-radius:9px;font-size:15px;font-weight:700;text-decoration:none;transition:.18s}
+.btn-gold:hover{background:#d97706}
+.btn-outline{background:transparent;border:1.5px solid rgba(255,255,255,.3);color:#fff;padding:14px 28px;border-radius:9px;font-size:15px;font-weight:600;text-decoration:none}
+
+/* STATS */
+.stats{display:flex;justify-content:center;gap:0;background:#fff;border-bottom:1px solid #e2e8f0}
+.stat{text-align:center;padding:28px 44px;border-right:1px solid #e2e8f0;flex:1;max-width:280px}
+.stat:last-child{border-right:none}
+.stat-n{font-size:36px;font-weight:800;color:var(--blue);display:block;line-height:1}
+.stat-l{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-top:6px}
+
+/* CONTENT */
+.section{padding:72px 24px}
+.sec-inner{max-width:1060px;margin:0 auto}
+.sec-white{background:#fff}
+.sec-light{background:#f8fafc}
+.sec-navy{background:var(--navy);color:#fff}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:14px}
+.eyebrow-gold{color:var(--gold)}
+h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,40px);font-weight:800;line-height:1.15;margin-bottom:16px;color:var(--navy)}
+.sec-navy h2{color:#fff}
+.sec-lead{font-size:16px;color:#64748b;line-height:1.75;margin-bottom:40px;max-width:640px}
+.sec-navy .sec-lead{color:rgba(255,255,255,.65)}
+
+/* PROBLEM CARDS */
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:0}
+.problem-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;border-top:3px solid var(--blue)}
+.problem-icon{font-size:24px;margin-bottom:12px}
+.problem-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.problem-body{font-size:13px;color:#64748b;line-height:1.65}
+
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.how-steps{display:flex;flex-direction:column;gap:24px}
+.how-step{display:flex;gap:16px;align-items:flex-start}
+.how-num{width:36px;height:36px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;margin-top:2px}
+.how-content h3{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.how-content p{font-size:14px;color:#64748b;line-height:1.65;margin:0}
+.how-img{background:var(--navy);border-radius:16px;padding:36px;text-align:center}
+.how-img-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:20px}
+.how-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.how-stat{background:rgba(255,255,255,.06);border-radius:10px;padding:16px;text-align:center}
+.how-stat-n{font-size:28px;font-weight:800;color:var(--gold);display:block;line-height:1}
+.how-stat-l{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase;display:block;margin-top:4px}
+
+/* WHAT INCLUDED */
+.included-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.inc-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px 24px;display:flex;gap:14px;align-items:flex-start}
+.inc-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.inc-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.inc-body{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin:0}
+
+/* CONTACT FORM */
+.contact-card{background:#fff;border-radius:20px;padding:48px;max-width:640px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b}
+.form-input{padding:11px 14px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--navy);outline:none;transition:.18s;width:100%;appearance:none}
+.form-input:focus{border-color:var(--blue);background:#fff}
+textarea.form-input{resize:vertical;min-height:100px}
+.form-btn{width:100%;padding:14px;background:var(--navy);color:#fff;border:none;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:.18s;margin-top:6px}
+.form-btn:hover:not(:disabled){background:#1d4ed8;transform:translateY(-1px)}
+.form-btn:disabled{background:#94a3b8;cursor:not-allowed;transform:none}
+.alert{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:14px;display:none}
+.alert-err{background:#fee2e2;color:#dc2626;border:1px solid #fca5a5}
+.alert-ok{background:#dcfce7;color:#16a34a;border:1px solid #86efac}
+.form-note{font-size:12px;color:#94a3b8;text-align:center;margin-top:10px}
+
+/* EMPLOYER GUIDE */
+.guide-banner{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:48px}
+.guide-banner p{font-size:14px;color:#1d4ed8;line-height:1.6;margin:0}
+.guide-banner a{background:var(--navy);color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap}
+
+@media(max-width:800px){.problem-grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr}.stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid #e2e8f0;min-width:150px}.included-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.hero-btns{flex-direction:column;align-items:center}nav{padding:16px 20px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Get Chartered <span>AI</span></a>
+  <a href="/employer-guide" class="nav-link">Platform Overview</a> <a href="#contact" class="nav-cta">Talk to us →</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">For Firms & Employers</div>
+  <h1>Your graduates are preparing for the APC.<br><em>Are you confident they are on track?</em></h1>
+  <p class="hero-sub">Get Chartered AI gives your APC candidates structured, 24-hour preparation support — and gives your training managers earlier visibility of who needs more help before final year pressure begins.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-gold">Talk to us about your cohort →</a>
+    <a href="/employer-guide.pdf" class="btn-outline" target="_blank">Download Employer Guide</a>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><span class="stat-n">~33%</span><span class="stat-l">Referred each window</span></div>
+  <div class="stat"><span class="stat-n">12</span><span class="stat-l">Structured modules</span></div>
+  <div class="stat"><span class="stat-n">22</span><span class="stat-l">RICS pathways covered</span></div>
+  <div class="stat"><span class="stat-n">24/7</span><span class="stat-l">AI Tutor availability</span></div>
+</div>
+
+<!-- THE PROBLEM -->
+<div class="section sec-light">
+  <div class="sec-inner">
+    <span class="eyebrow">The challenge firms face</span>
+    <h2>Most APC support gaps<br>are invisible until it is too late</h2>
+    <p class="sec-lead">Firms invest in counsellors, internal training days and assessment preparation — and still see candidates referred. The problem is not effort. It is visibility and structure.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">👤</div>
+        <div class="problem-title">Counsellors are busy professionals</div>
+        <p class="problem-body">Senior surveyors with their own workloads. They mean well but rarely have time to review submissions in depth or give specific, evidencing-level feedback. Candidates get light-touch review when they need structural coaching.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📋</div>
+        <div class="problem-title">No early warning system</div>
+        <p class="problem-body">The APC has no mid-point check. There is no mechanism that identifies a candidate who is 14 months in with thin diary entries and weak competency understanding — until they submit and are referred.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">💰</div>
+        <div class="problem-title">Referrals are expensive</div>
+        <p class="problem-body">A referred candidate costs the firm in additional counsellor time, delayed promotion, morale impact and the risk of losing a good professional who decides chartership is not worth the additional stress of a resit.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section sec-white">
+  <div class="sec-inner">
+    <div class="how-grid">
+      <div>
+        <span class="eyebrow">How Get Chartered AI supports your cohort</span>
+        <h2>Structured preparation.<br>Available every day.</h2>
+        <p class="sec-lead">Get Chartered AI gives your candidates a structured, always-available preparation programme that supplements your internal support rather than replacing it.</p>
+        <div class="how-steps">
+          <div class="how-step">
+            <div class="how-num">1</div>
+            <div class="how-content">
+              <h3>Candidates access 12 structured modules</h3>
+              <p>All 11 mandatory competencies covered across 22 pathways. Updated for 2026 legislation. One new module unlocks each month — paced to the training timeline.</p>
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-num">2</div>
+            <div class="how-content">
+              <h3>Michael coaches them between counsellor sessions</h3>
+              <p>The AI Tutor is available any time — answering questions, improving draft answers and challenging candidates with assessor-style follow-up questioning on every module they unlock.</p>
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-num">3</div>
+            <div class="how-content">
+              <h3>Candidates practise the mock interview as many times as they need</h3>
+              <p>A 60-minute AI-scored mock interview available across all 22 RICS pathways. Candidates can repeat it without cost. Better prepared candidates go into your internal mock with more confidence and less wasted counsellor time.</p>
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-num">4</div>
+            <div class="how-content">
+              <h3>The APC Sprint supports candidates in their final weeks</h3>
+              <p>For candidates approaching assessment, the Sprint gives targeted revision, competency briefings and final mock practice. Available as an add-on or as a standalone cohort purchase.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="how-img">
+        <div class="how-img-title">What your candidates get</div>
+        <div class="how-stat-row">
+          <div class="how-stat"><span class="how-stat-n">12</span><span class="how-stat-l">Modules</span></div>
+          <div class="how-stat"><span class="how-stat-n">156</span><span class="how-stat-l">Sections</span></div>
+          <div class="how-stat"><span class="how-stat-n">861+</span><span class="how-stat-l">Practice questions</span></div>
+          <div class="how-stat"><span class="how-stat-n">22</span><span class="how-stat-l">Pathways</span></div>
+          <div class="how-stat"><span class="how-stat-n">24/7</span><span class="how-stat-l">AI Tutor</span></div>
+          <div class="how-stat"><span class="how-stat-n">2026</span><span class="how-stat-l">Legislation current</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IS INCLUDED -->
+<div class="section sec-navy">
+  <div class="sec-inner">
+    <span class="eyebrow eyebrow-gold">What a cohort arrangement includes</span>
+    <h2>Everything your candidates need.<br>None of the overhead.</h2>
+    <p class="sec-lead">A cohort arrangement gives every candidate in your firm access to the full Get Chartered AI platform — with pricing structured around your cohort size and a direct line to us for any queries.</p>
+    <div class="included-grid">
+      <div class="inc-card">
+        <div class="inc-icon">📚</div>
+        <div>
+          <div class="inc-title">Full platform access for every candidate</div>
+          <p class="inc-body">12 modules, 861+ pathway questions, AI Tutor and 60-minute mock interview. All 22 RICS pathways. Updated for 2026.</p>
+        </div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">🎓</div>
+        <div>
+          <div class="inc-title">Counsellor resources and guidance</div>
+          <p class="inc-body">Access to the APC Counsellor & Supervisor Guide, updated for December 2025 rule changes. Supports counsellors in giving better structured feedback.</p>
+        </div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">📊</div>
+        <div>
+          <div class="inc-title">Priority support for your cohort</div>
+          <p class="inc-body">Direct email line for training managers. Any platform or content queries answered directly.</p>
+        </div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">🔄</div>
+        <div>
+          <div class="inc-title">Updated content every assessment window</div>
+          <p class="inc-body">Every module updated for new legislation and RICS guidance. Your candidates always have current content without you having to manage it.</p>
+        </div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">📋</div>
+        <div>
+          <div class="inc-title">APC Sprint access for final-year candidates</div>
+          <p class="inc-body">Sprint access can be added for candidates approaching their assessment window — targeted revision and mock interview practice in the final weeks.</p>
+        </div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">💬</div>
+        <div>
+          <div class="inc-title">Referred Candidate Programme for resit support</div>
+          <p class="inc-body">If a candidate is referred, the Referred Candidate Programme gives them structured resit support at a preferential cohort rate.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="section sec-white" id="contact">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:40px">
+      <span class="eyebrow" style="display:block;text-align:center">Get in touch</span>
+      <h2 style="max-width:560px;margin:0 auto 12px">Tell us about your cohort.<br>We will come back to you directly.</h2>
+      <p style="font-size:15px;color:#64748b;max-width:480px;margin:0 auto">No commitment, no sales pressure. We want to understand your situation before suggesting anything.</p>
+    </div>
+    <div class="contact-card">
+      <div id="contactAlert" class="alert"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" id="empName" class="form-input" placeholder="First and last name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Firm Name</label>
+          <input type="text" id="empFirm" class="form-input" placeholder="Your firm or organisation">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="empEmail" class="form-input" placeholder="you@firm.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Approximate Cohort Size</label>
+          <select id="empCohort" class="form-input">
+            <option value="">Select size</option>
+            <option>1–5 candidates</option>
+            <option>6–15 candidates</option>
+            <option>16–30 candidates</option>
+            <option>30+ candidates</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label class="form-label">What would be most useful to discuss?</label>
+        <textarea id="empMessage" class="form-input" placeholder="e.g. full cohort access, Sprint for final-year candidates, referred candidate support, counsellor guidance..."></textarea>
+      </div>
+      <button class="form-btn" id="empBtn" onclick="submitEmployer()">Send enquiry →</button>
+      <p class="form-note">We will respond directly. No obligation.</p>
+    </div>
+
+    <div class="guide-banner">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>
+          <p style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f59e0b;margin-bottom:6px">Free Resources</p>
+          <p><strong style="font-size:16px;color:#0D0F1C">Platform Overview &amp; Employer Guide</strong></p>
+          <p style="font-size:14px;color:#374151;margin-top:6px;line-height:1.65;max-width:480px">A full overview of what Get Chartered AI offers your graduate cohort, how cohort access is structured, and the December 2025 rule changes your counsellors need to know before the autumn 2026 window.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0;margin-top:4px">
+          <a href="/employer-guide" style="display:inline-block;background:#f59e0b;color:#0D0F1C;padding:12px 22px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap">View Platform Overview →</a>
+          <a href="/counsellor-guide.pdf" target="_blank" style="display:inline-block;background:transparent;border:1.5px solid #bfdbfe;color:#1d4ed8;padding:11px 22px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap;text-align:center">Counsellor Guide PDF →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+async function submitEmployer() {
+  const name = document.getElementById('empName').value.trim();
+  const firm = document.getElementById('empFirm').value.trim();
+  const email = document.getElementById('empEmail').value.trim().toLowerCase();
+  const cohort = document.getElementById('empCohort').value;
+  const message = document.getElementById('empMessage').value.trim();
+  const btn = document.getElementById('empBtn');
+  const alertEl = document.getElementById('contactAlert');
+  alertEl.style.display = 'none';
+
+  if (!name) { showAlert('Please enter your name.', 'err'); return; }
+  if (!firm) { showAlert('Please enter your firm name.', 'err'); return; }
+  if (!email || !email.includes('@')) { showAlert('Please enter a valid email.', 'err'); return; }
+  if (!cohort) { showAlert('Please select your approximate cohort size.', 'err'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  try {
+    await fetch('/.netlify/functions/employer-followup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, firm, cohortSize: cohort, message })
+    });
+    showAlert('✓ Enquiry received. We will be in touch directly.', 'ok');
+    btn.textContent = '✓ Enquiry sent';
+  } catch(e) {
+    showAlert('Something went wrong. Please email info@getcharteredai.com directly.', 'err');
+    btn.disabled = false;
+    btn.textContent = 'Send enquiry →';
+  }
+}
+function showAlert(msg, type) {
+  const el = document.getElementById('contactAlert');
+  el.textContent = msg;
+  el.className = 'alert alert-' + type;
+  el.style.display = 'block';
+}
+</script>
+</body>
+</html>

@@ -2,12 +2,37 @@
   publish = "public"
   functions = "netlify/functions"
 
+[build.environment]
+  NODE_VERSION = "20"
+
 [functions]
   node_bundler = "esbuild"
 
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = false
+  minify = false
+
+[build.processing.js]
+  bundle = false
+  minify = false
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = false
+
+[[redirects]]
+  from = "/employer-guide"
+  to = "/employer-guide.html"
+  status = 200
+
 [[redirects]]
   from = "/dashboard"
-  to = "/dashboard.html"
+  to = "/?view=dashboard"
   status = 200
 
 [[redirects]]
@@ -19,6 +44,18 @@
   from = "/cancel"
   to = "/cancel.html"
   status = 200
+
+[[redirects]]
+  from = "/sprint-success"
+  to = "/sprint-success.html"
+  status = 200
+
+[[headers]]
+  for = "/*.pdf"
+  [headers.values]
+    Content-Type = "application/pdf"
+    Content-Disposition = "inline"
+    Cache-Control = "public, max-age=86400"
 
 [[headers]]
   for = "/*"

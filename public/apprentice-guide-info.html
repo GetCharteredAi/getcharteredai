@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chartered Surveyor Apprenticeship Route — Free Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0a0f1e;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--purple:#8b5cf6;--white:#f8fafc;--muted:#94a3b8;--border:rgba(255,255,255,.1)}
+@media print{
+  body{background:#fff;color:#0a0f1e}
+  .no-print{display:none!important}
+  .page{padding:16px}
+  .what-card,.stage-card,.pathway-card,.reality-item{background:#f8fafc!important;border-color:#e2e8f0!important}
+  .employer-box{background:#f0fdf4!important;border-color:#bbf7d0!important}
+  .salary-box{background:#eff6ff!important;border-color:#bfdbfe!important}
+}
+body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:100vh}
+.page{max-width:960px;margin:0 auto;padding:32px 24px}
+/* HEADER */
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.logo{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:700}
+.logo span{color:var(--gold)}
+.header-right{text-align:right}
+.header-right h1{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(17px,3vw,26px);font-weight:900;line-height:1.15;letter-spacing:-.02em;margin-bottom:5px}
+.header-right h1 em{font-style:italic;color:var(--gold)}
+.header-right p{font-size:12px;color:var(--muted);max-width:360px;line-height:1.5;text-align:right}
+.sec-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sec-title::after{content:'';flex:1;height:1px;background:rgba(245,158,11,.2)}
+/* WHAT IS IT */
+.what-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.what-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;border-top:3px solid var(--purple)}
+.what-icon{font-size:24px;margin-bottom:8px}
+.what-title{font-size:13px;font-weight:700;color:var(--white);margin-bottom:6px}
+.what-desc{font-size:11px;color:var(--muted);line-height:1.55}
+/* STAGES */
+.stages-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}
+.stage-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px;position:relative}
+.stage-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:10px 10px 0 0}
+.s1::before{background:var(--purple)}
+.s2::before{background:var(--blue)}
+.s3::before{background:var(--gold)}
+.s4::before{background:var(--green)}
+.stage-num{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:22px;font-weight:900;color:rgba(255,255,255,.15);line-height:1;margin-bottom:6px}
+.stage-name{font-size:12px;font-weight:700;color:var(--white);margin-bottom:5px}
+.stage-desc{font-size:11px;color:var(--muted);line-height:1.5}
+/* PATHWAYS */
+.pathways-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}
+.pathway-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px}
+.pw-name{font-size:12px;font-weight:700;color:var(--white);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.pw-task{font-size:11px;color:rgba(248,250,252,.65);line-height:1.5;margin-bottom:4px;display:flex;gap:5px}
+.pw-task::before{content:'—';color:rgba(255,255,255,.2);flex-shrink:0}
+/* EMPLOYER + SALARY */
+.mid-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.employer-box{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:16px}
+.employer-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6ee7b7;margin-bottom:12px}
+.employer-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:12px;line-height:1.5;color:rgba(248,250,252,.8)}
+.employer-item:last-child{margin-bottom:0}
+.e-tick{color:#6ee7b7;flex-shrink:0;font-weight:700}
+.salary-box{background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);border-radius:12px;padding:16px}
+.salary-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#93c5fd;margin-bottom:12px}
+.salary-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px}
+.salary-row:last-child{border-bottom:none;padding-bottom:0}
+.salary-region{color:rgba(248,250,252,.7)}
+.salary-range{color:#93c5fd;font-weight:600}
+/* REALITY */
+.reality-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.reality-good{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:16px}
+.reality-hard{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);border-radius:12px;padding:16px}
+.reality-title-g{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6ee7b7;margin-bottom:10px}
+.reality-title-h{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fcd34d;margin-bottom:10px}
+.reality-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px;font-size:12px;line-height:1.5;color:rgba(248,250,252,.8)}
+.reality-item:last-child{margin-bottom:0}
+/* FOOTER */
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border)}
+.footer-left{font-size:11px;color:var(--muted);line-height:1.6}
+.footer-cta{display:inline-block;background:var(--gold);color:var(--navy);padding:7px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;margin-bottom:5px}
+.print-bar{position:fixed;bottom:24px;right:24px;z-index:100}
+.print-btn{background:var(--gold);color:var(--navy);padding:11px 20px;border-radius:8px;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(245,158,11,.4)}
+@media(max-width:700px){
+  .what-grid,.stages-row,.pathways-grid{grid-template-columns:1fr 1fr}
+  .mid-row,.reality-row{grid-template-columns:1fr}
+  .header{flex-direction:column;gap:10px}
+  .header-right{text-align:left}
+  .header-right p{text-align:left}
+}
+</style>
+</head>
+<body>
+<script>
+(function() {
+  const d = localStorage.getItem('gca_guides_unlocked');
+  if (!d) {
+    window.location.href = '/guides?unlock=1';
+  }
+})();
+</script>
+
+<div class="no-print print-bar">
+  <button class="print-btn" onclick="window.print()">⬇ Save as PDF</button>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">Get Chartered <span>AI</span></div>
+    <div class="header-right">
+      <h1>The Chartered Surveyor<br><em>Apprenticeship Route</em></h1>
+      <p>Earn a salary, gain real experience and work toward MRICS — all at the same time. Everything you need to know before you apply.</p>
+    </div>
+  </div>
+
+  <!-- WHAT IS IT -->
+  <div class="sec-title">What the apprenticeship route actually is</div>
+  <div class="what-grid">
+    <div class="what-card">
+      <div class="what-icon">💷</div>
+      <div class="what-title">Earn from day one</div>
+      <div class="what-desc">You are employed from the start. Paid a salary throughout. No waiting until graduation to begin your career.</div>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">🎓</div>
+      <div class="what-title">RICS-accredited degree</div>
+      <div class="what-desc">You study part-time — typically one day a week or block release — for a RICS-accredited degree alongside your job.</div>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">🏆</div>
+      <div class="what-title">Leads toward MRICS</div>
+      <div class="what-desc">The route is structured toward Chartered Surveyor status. Strong apprentices can reach MRICS in around five years with no tuition debt.</div>
+    </div>
+  </div>
+
+  <!-- THE FOUR STAGES -->
+  <div class="sec-title">The four stages of the journey</div>
+  <div class="stages-row">
+    <div class="stage-card s1">
+      <div class="stage-num">01</div>
+      <div class="stage-name">Secure your apprenticeship</div>
+      <div class="stage-desc">Apply to firms from September to March for the following summer or autumn start. Most require 3 A-levels and GCSE Maths and English as a minimum. Some firms accept career changers with relevant work experience.</div>
+    </div>
+    <div class="stage-card s2">
+      <div class="stage-num">02</div>
+      <div class="stage-name">Degree + workplace experience</div>
+      <div class="stage-desc">Five years for most routes. You work Monday to Thursday, study on Friday or in blocks. Structured competency development throughout — this is where you build your APC evidence as you go.</div>
+    </div>
+    <div class="stage-card s3">
+      <div class="stage-num">03</div>
+      <div class="stage-name">End-point assessment</div>
+      <div class="stage-desc">Near the end of the programme you complete a professional assessment. This typically involves a case study, portfolio of competency evidence, professional discussion and demonstration of ethical standards.</div>
+    </div>
+    <div class="stage-card s4">
+      <div class="stage-num">04</div>
+      <div class="stage-name">Chartered status — MRICS</div>
+      <div class="stage-desc">Once all requirements are successfully met you can become a Chartered Surveyor. This is not automatic — it requires the right experience, evidence and readiness at the required standard.</div>
+    </div>
+  </div>
+
+  <!-- PATHWAYS DAY TO DAY -->
+  <div class="sec-title">Day-to-day across four common pathways</div>
+  <div class="pathways-grid">
+    <div class="pathway-card">
+      <div class="pw-name">Building Surveying</div>
+      <div class="pw-task">Inspecting buildings and reporting on condition</div>
+      <div class="pw-task">Identifying defects and dilapidations</div>
+      <div class="pw-task">Advising on refurbishment and repair</div>
+      <div class="pw-task">Writing technical reports for clients</div>
+      <div class="pw-task">Site visits across residential and commercial</div>
+    </div>
+    <div class="pathway-card">
+      <div class="pw-name">Quantity Surveying</div>
+      <div class="pw-task">Preparing cost plans and estimates</div>
+      <div class="pw-task">Tendering and procurement</div>
+      <div class="pw-task">Contract administration</div>
+      <div class="pw-task">Monitoring budgets on live projects</div>
+      <div class="pw-task">Valuations of completed works</div>
+    </div>
+    <div class="pathway-card">
+      <div class="pw-name">Commercial Real Estate</div>
+      <div class="pw-task">Viewings and market appraisals</div>
+      <div class="pw-task">Investment and yield analysis</div>
+      <div class="pw-task">Lease negotiations and renewals</div>
+      <div class="pw-task">Client reporting and advice</div>
+      <div class="pw-task">Agency, management or investment work</div>
+    </div>
+    <div class="pathway-card">
+      <div class="pw-name">Project Management</div>
+      <div class="pw-task">Programme and cost monitoring</div>
+      <div class="pw-task">Coordinating design teams</div>
+      <div class="pw-task">Risk registers and reporting</div>
+      <div class="pw-task">Client liaison throughout delivery</div>
+      <div class="pw-task">Site-based and office-based work</div>
+    </div>
+  </div>
+
+  <!-- EMPLOYERS + SALARY -->
+  <div class="mid-row">
+    <div class="employer-box">
+      <div class="employer-title">What employers are actually looking for</div>
+      <div class="employer-item"><div class="e-tick">✓</div><div>Genuine interest in property, construction or land — not just "a good career"</div></div>
+      <div class="employer-item"><div class="e-tick">✓</div><div>Commercial awareness — basic understanding of how property and business interact</div></div>
+      <div class="employer-item"><div class="e-tick">✓</div><div>Confidence communicating with people — clients, colleagues and contractors</div></div>
+      <div class="employer-item"><div class="e-tick">✓</div><div>Problem-solving mindset — can you think through a challenge methodically?</div></div>
+      <div class="employer-item"><div class="e-tick">✓</div><div>Professional attitude — punctual, reliable, willing to learn from senior colleagues</div></div>
+      <div class="employer-item"><div class="e-tick" style="color:#fcd34d">→</div><div style="color:#fcd34d">Do not only target CBRE and JLL. Regional firms, councils and housing associations often have fewer applicants and excellent training.</div></div>
+    </div>
+    <div class="salary-box">
+      <div class="salary-title">Typical starting salary by region</div>
+      <div class="salary-row"><span class="salary-region">London</span><span class="salary-range">£24,000 — £32,000</span></div>
+      <div class="salary-row"><span class="salary-region">Regional cities</span><span class="salary-range">£20,000 — £28,000</span></div>
+      <div class="salary-row"><span class="salary-region">Smaller towns</span><span class="salary-range">£18,000 — £24,000</span></div>
+      <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.05)">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Salary usually rises each year as you progress through the programme. By the time you reach chartered status, salaries of £35,000–£55,000+ are typical depending on pathway and location.</div>
+        <div style="font-size:11px;color:#93c5fd">No tuition fees means take-home pay is significantly better than a full-time student's position.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REALITY CHECK -->
+  <div class="sec-title">The honest reality check</div>
+  <div class="reality-row">
+    <div class="reality-good">
+      <div class="reality-title-g">Why strong apprentices often outperform graduates</div>
+      <div class="reality-item"><span class="e-tick">✓</span><div>Five years of live professional experience by the time they reach chartered status</div></div>
+      <div class="reality-item"><span class="e-tick">✓</span><div>No student debt — financial position significantly stronger from the start</div></div>
+      <div class="reality-item"><span class="e-tick">✓</span><div>Employer network and professional relationships built over five years — not starting from scratch</div></div>
+      <div class="reality-item"><span class="e-tick">✓</span><div>Competency evidence built continuously — not assembled in the final months</div></div>
+      <div class="reality-item"><span class="e-tick">✓</span><div>Commercial awareness developed in practice — not just studied in a classroom</div></div>
+    </div>
+    <div class="reality-hard">
+      <div class="reality-title-h">What to think carefully about before applying</div>
+      <div class="reality-item"><span style="color:#fcd34d;flex-shrink:0">→</span><div>Balancing full-time work, university deadlines and professional diary records simultaneously is demanding</div></div>
+      <div class="reality-item"><span style="color:#fcd34d;flex-shrink:0">→</span><div>Chartered status is not automatic at year five — you need the right experience, evidence and readiness</div></div>
+      <div class="reality-item"><span style="color:#fcd34d;flex-shrink:0">→</span><div>If you dislike deadlines, juggling priorities or regular client-facing work — think carefully</div></div>
+      <div class="reality-item"><span style="color:#fcd34d;flex-shrink:0">→</span><div>The profession is broader than most people realise — surveyors work in sustainability, data, AI property roles, rural estates, stadiums and infrastructure, not just offices</div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="text-align:center;flex-shrink:0">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=64x64&data=https://getcharteredai.com/guides&bgcolor=0a0f1e&color=f8fafc&margin=2" width="64" height="64" alt="QR" style="border-radius:6px;display:block">
+        <div style="font-size:9px;color:var(--muted);margin-top:3px">All free guides</div>
+      </div>
+      <div class="footer-left">
+        © 2025 Get Chartered AI · getcharteredai.com · info@getcharteredai.com<br>
+        <span style="font-size:10px;color:#475569">When your APC preparation begins, Get Chartered AI is built for this journey.</span><br>
+        <span style="font-size:10px;color:#475569">Follow <a href="https://www.linkedin.com/company/getcharteredai" style="color:#60a5fa" target="_blank">LinkedIn</a> &amp; <a href="https://www.instagram.com/getcharteredai" style="color:#f59e0b" target="_blank">Instagram</a> @getcharteredai for regular updates</span>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <a href="https://getcharteredai.com" class="footer-cta no-print">Prepare for Your APC →</a><br>
+      <span style="font-size:11px;color:var(--muted)">12 modules · Michael · Mock interview<br>Built for the journey to MRICS</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graduate Surveying — First Interview Prep Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0a0f1e;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8;--border:rgba(255,255,255,.08)}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh}
+@media print{
+  body{background:#fff;color:#0a0f1e}
+  .no-print{display:none!important}
+  .g-card{background:#f8fafc!important;border-color:#e2e8f0!important}
+  .g-card::before{background:var(--blue)!important}
+  .g-il{color:#d97706!important}
+  .g-insight{color:#1e293b!important}
+  .g-rl{color:#dc2626!important}
+  .g-referral{color:#475569!important}
+  .g-num{color:rgba(37,99,235,.3)!important}
+  .g-name{color:#0f172a!important}
+  .page{padding:20px}
+  .star-box{background:#f0fdf4!important;border-color:#86efac!important}
+  .star-box h3{color:#065f46!important}
+  .star-item strong{color:#065f46!important}
+  .star-item p{color:#374151!important}
+  .hook-bar{background:#eff6ff!important;border-color:#bfdbfe!important}
+  .hook-text{color:#1e40af!important}
+}
+.page{max-width:920px;margin:0 auto;padding:36px 28px}
+.header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:1px solid var(--border);margin-bottom:20px}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white)}
+.logo span{color:var(--gold)}
+.header-right{text-align:right}
+.header-title{font-family:'Playfair Display',serif;font-size:clamp(18px,3vw,28px);font-weight:900;line-height:1.15;letter-spacing:-.02em;color:var(--white);margin-bottom:6px}
+.header-title em{font-style:italic;color:var(--gold)}
+.header-sub{font-size:12px;color:var(--muted);max-width:340px;line-height:1.5;text-align:right}
+.congrats-bar{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(37,99,235,.12));border:1px solid rgba(16,185,129,.3);border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:flex-start;gap:14px}
+.congrats-icon{font-size:28px;flex-shrink:0;margin-top:2px}
+.congrats-text h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:800;color:#6ee7b7;margin-bottom:4px}
+.congrats-text p{font-size:13px;color:rgba(248,250,252,.7);line-height:1.6}
+.main-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.g-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:11px;padding:15px 17px;border-left:3px solid var(--blue)}
+.g-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px}
+.g-card-left{display:flex;align-items:center;gap:8px}
+.g-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:rgba(37,99,235,.35);line-height:1;flex-shrink:0}
+.g-name{font-size:13px;font-weight:700;color:var(--white);line-height:1.3}
+.g-tag{font-size:10px;padding:2px 8px;border-radius:100px;background:rgba(37,99,235,.15);color:#93c5fd;white-space:nowrap;font-weight:500}
+.g-div{height:0.5px;background:var(--border);margin-bottom:8px}
+.g-il{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.g-insight{font-size:12px;color:rgba(248,250,252,.85);line-height:1.55;margin-bottom:8px}
+.g-rl{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f87171;margin-bottom:3px}
+.g-referral{font-size:11px;color:rgba(248,250,252,.5);line-height:1.5}
+.star-box{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:11px;padding:16px 20px;margin-bottom:16px}
+.star-box h3{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6ee7b7;margin-bottom:12px}
+.star-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.star-item strong{display:block;font-size:16px;font-weight:900;font-family:'Playfair Display',serif;color:#6ee7b7;margin-bottom:3px}
+.star-item span{display:block;font-size:11px;font-weight:700;color:var(--white);margin-bottom:4px}
+.star-item p{font-size:11px;color:var(--muted);line-height:1.5}
+.hook-bar{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:10px;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.hook-text{font-size:13px;color:rgba(248,250,252,.75)}
+.hook-text strong{color:var(--white)}
+.hook-link{background:var(--blue);color:#fff;padding:8px 18px;border-radius:7px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap}
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border);margin-top:14px}
+.footer-text{font-size:11px;color:var(--muted)}
+.print-bar{position:fixed;bottom:20px;right:20px;display:flex;gap:8px;z-index:100}
+.btn-print{background:var(--gold);color:var(--navy);padding:11px 20px;border-radius:7px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(245,158,11,.3)}
+.btn-next{background:var(--blue);color:#fff;padding:11px 20px;border-radius:7px;font-size:13px;font-weight:700;text-decoration:none;display:inline-block}
+@media(max-width:680px){.main-grid{grid-template-columns:1fr}.header{flex-direction:column;gap:12px}.header-right{text-align:left}.header-sub{text-align:left}.star-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="no-print print-bar">
+  <button class="btn-print" onclick="window.print()">⬇ Save as PDF</button>
+  <a href="/grad-guide-2.html" class="btn-next">Assessment Day Guide →</a>
+</div>
+<div class="page">
+
+  <div class="header">
+    <div class="logo">Get Chartered <span>AI</span></div>
+    <div class="header-right">
+      <div class="header-title">Graduate Surveying —<br><em>First Interview Prep</em></div>
+      <p class="header-sub">What surveying firms are actually looking for. Built by Chartered Surveyors.</p>
+    </div>
+  </div>
+
+  <div class="congrats-bar">
+    <div class="congrats-icon">🎯</div>
+    <div class="congrats-text">
+      <h2>You have a first interview. Here is how to make it count.</h2>
+      <p>First interviews in surveying are less about technical knowledge and more about who you are, why you want this career and whether you have done your homework. The firms that attract the best graduates ask the same core questions every time. This guide covers all of them.</p>
+    </div>
+  </div>
+
+  <div class="main-grid">
+
+    <div class="g-card">
+      <div class="g-card-top">
+        <div class="g-card-left"><div class="g-num">01</div><div class="g-name">Why surveying?</div></div>
+        <div class="g-tag">Motivation</div>
+      </div>
+      <div class="g-div"></div>
+      <div class="g-il">What they want to hear</div>
+      <div class="g-insight">A genuine, specific answer — not "I like buildings." Connect it to something real: a placement, a project, a person whose career path inspired you, or a specific area of property that genuinely interests you. Have two reasons, not one.</div>
+      <div class="g-rl">Common mistake</div>
+      <div class="g-referral">Vague answers: "I always liked buildings." No specificity, no conviction. Interviewers hear this dozens of times a day.</div>
+    </div>
+
+    <div class="g-card">
+      <div class="g-card-top">
+        <div class="g-card-left"><div class="g-num">02</div><div class="g-name">Why this firm?</div></div>
+        <div class="g-tag">Research</div>
+      </div>
+      <div class="g-div"></div>
+      <div class="g-il">What they want to hear</div>
+      <div class="g-insight">Something specific about the firm that you cannot say about every firm. Their market focus, a recent project or deal they were involved in, their APC support structure, their culture or values. Show you have spent time on their website and read their recent news.</div>
+      <div class="g-rl">Common mistake</div>
+      <div class="g-referral">"You are one of the largest firms in the UK." Every candidate says this. It tells them nothing about why you chose them specifically.</div>
+    </div>
+
+    <div class="g-card">
+      <div class="g-card-top">
+        <div class="g-card-left"><div class="g-num">03</div><div class="g-name">Tell me about yourself</div></div>
+        <div class="g-tag">Opening</div>
+      </div>
+      <div class="g-div"></div>
+      <div class="g-il">What they want to hear</div>
+      <div class="g-insight">Two minutes maximum. Present → Past → Future. Start with who you are and what you have studied. Mention one or two relevant experiences. End with where you want to go and why this role is the next step. Practise it until it sounds natural, not rehearsed.</div>
+      <div class="g-rl">Common mistake</div>
+      <div class="g-referral">Reciting your CV chronologically. They have already read it. Give them context and direction — not a list of dates.</div>
+    </div>
+
+    <div class="g-card">
+      <div class="g-card-top">
+        <div class="g-card-left"><div class="g-num">04</div><div class="g-name">Commercial awareness</div></div>
+        <div class="g-tag">Knowledge</div>
+      </div>
+      <div class="g-div"></div>
+      <div class="g-il">What they want to hear</div>
+      <div class="g-insight">Your view on something happening in the property market right now — interest rates, planning reform, sustainability requirements, rental market changes. You do not need all the answers. You need to show you are curious, informed and thinking about the industry you are joining.</div>
+      <div class="g-rl">Common mistake</div>
+      <div class="g-referral">Saying nothing. "I don't really follow the market yet" is the answer that ends interviews early.</div>
+    </div>
+
+    <div class="g-card">
+      <div class="g-card-top">
+        <div class="g-card-left"><div class="g-num">05</div><div class="g-name">Strengths and weaknesses</div></div>
+        <div class="g-tag">Self-awareness</div>
+      </div>
+      <div class="g-div"></div>
+      <div class="g-il">What they want to hear</div>
+      <div class="g-insight">Real answers — not "I work too hard." For strengths, give one with evidence. For weaknesses, give one that is genuine, explain what you have done about it and show progress. Self-awareness is a professional skill. Show you have it.</div>
+      <div class="g-rl">Common mistake</div>
+      <div class="g-referral">Disguised strengths as weaknesses: "I am a perfectionist." Interviewers find this patronising. It shows a lack of self-awareness — the opposite of what they are testing for.</div>
+    </div>
+
+    <div class="g-card">
+      <div class="g-card-top">
+        <div class="g-card-left"><div class="g-num">06</div><div class="g-name">Competency questions</div></div>
+        <div class="g-tag">STAR method</div>
+      </div>
+      <div class="g-div"></div>
+      <div class="g-il">What they want to hear</div>
+      <div class="g-insight">Specific examples structured with STAR — see below. Teamwork, problem-solving, communication and handling pressure are the four most common themes. Prepare one strong example for each. University projects, placements, part-time work and sport all count.</div>
+      <div class="g-rl">Common mistake</div>
+      <div class="g-referral">Answering in theory: "I would do X." They want to hear what you actually did. If you cannot give a real example, the answer does not register.</div>
+    </div>
+
+    <div class="g-card">
+      <div class="g-card-top">
+        <div class="g-card-left"><div class="g-num">07</div><div class="g-name">Three things to research</div></div>
+        <div class="g-tag">Preparation</div>
+      </div>
+      <div class="g-div"></div>
+      <div class="g-il">Do this before every interview</div>
+      <div class="g-insight"><strong>1.</strong> The firm — their website, recent news, key clients and markets.<br><strong>2.</strong> The role — what the graduate programme involves, which pathways they support, how they structure APC supervision.<br><strong>3.</strong> The market — one or two current issues in property relevant to the firm's specialism.</div>
+      <div class="g-rl">Common mistake</div>
+      <div class="g-referral">Researching only the firm's homepage. Read their latest press releases, LinkedIn posts and any published deals or projects from the past six months.</div>
+    </div>
+
+    <div class="g-card">
+      <div class="g-card-top">
+        <div class="g-card-left"><div class="g-num">08</div><div class="g-name">Questions to ask them</div></div>
+        <div class="g-tag">Close strong</div>
+      </div>
+      <div class="g-div"></div>
+      <div class="g-il">What they want to hear</div>
+      <div class="g-insight">Always ask something. Good questions: "How do you support graduates through the APC process?" "What does the first six months look like in this role?" "What do your most successful graduates have in common?" These show curiosity, professionalism and forward thinking.</div>
+      <div class="g-rl">Common mistake</div>
+      <div class="g-referral">"No, I think you have covered everything." This is the weakest possible close. It signals low engagement. Always have two questions ready.</div>
+    </div>
+
+  </div>
+
+  <!-- STAR METHOD -->
+  <div class="star-box">
+    <h3>The STAR Method — Use This for Every Competency Question</h3>
+    <div class="star-grid">
+      <div class="star-item"><strong>S</strong><span>Situation</span><p>Set the scene briefly. Where were you, what was the context?</p></div>
+      <div class="star-item"><strong>T</strong><span>Task</span><p>What was your specific responsibility or challenge?</p></div>
+      <div class="star-item"><strong>A</strong><span>Action</span><p>What did you personally do? Be specific — use "I" not "we".</p></div>
+      <div class="star-item"><strong>R</strong><span>Result</span><p>What was the outcome? Quantify it if you can.</p></div>
+    </div>
+  </div>
+
+  <!-- HOOK -->
+  <div class="hook-bar">
+    <div class="hook-text"><strong>Once you land the role, your APC journey begins.</strong> Get Chartered AI helps you prepare for every stage — all 11 mandatory competencies, AI-scored mock interviews and tailored pathway revision.</div>
+    <a href="https://getcharteredai.com" class="hook-link">getcharteredai.com →</a>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">© 2025 Get Chartered AI · getcharteredai.com · info@getcharteredai.com</div>
+    <div class="footer-text">Guide 1 of 2 · <a href="/grad-guide-2.html" style="color:#60a5fa;text-decoration:none">Assessment Day Guide →</a></div>
+  </div>
+
+</div>
+</body>
+</html>

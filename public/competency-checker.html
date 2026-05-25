@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APC Competency Choice Checker — Free | Get Chartered AI</title>
+<meta name="description" content="Check your APC competency choices are valid under the December 2025 RICS rules. Free, instant, no documents required.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0a0f1e;--navy2:#0d1528;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8;--border:rgba(255,255,255,.1);--red:#ef4444}
+body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:100vh}
+nav{background:#0D0F1C;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none}.nav-logo span{color:var(--gold)}
+.nav-back{font-size:13px;color:var(--muted);text-decoration:none}.nav-back:hover{color:var(--white)}
+
+/* HERO */
+.hero{max-width:760px;margin:0 auto;padding:56px 24px 32px;text-align:center}
+.eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.hero h1{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(28px,5vw,48px);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:16px;color:rgba(248,250,252,.65);line-height:1.7;max-width:580px;margin:0 auto 32px;font-weight:300}
+.warning-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:14px 18px;margin-bottom:32px;font-size:13px;color:rgba(248,250,252,.7);line-height:1.6;text-align:left;max-width:580px;margin-left:auto;margin-right:auto}
+.warning-box strong{color:#fca5a5}
+
+/* FORM */
+.checker-wrap{max-width:760px;margin:0 auto;padding:0 24px 60px}
+.step{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin-bottom:16px}
+.step-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.step-title{font-size:17px;font-weight:600;color:var(--white);margin-bottom:16px;line-height:1.4}
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;letter-spacing:.04em}
+.form-input,.form-select{width:100%;padding:11px 14px;background:#0f172a;border:1.5px solid rgba(255,255,255,.1);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--white);outline:none;transition:.18s;appearance:none}
+.form-input:focus,.form-select:focus{border-color:var(--gold)}
+.form-select option{background:#0f172a}
+.form-textarea{width:100%;padding:12px 14px;background:#0f172a;border:1.5px solid rgba(255,255,255,.1);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--white);outline:none;transition:.18s;resize:vertical;min-height:120px;line-height:1.6}
+.form-textarea:focus{border-color:var(--gold)}
+.form-hint{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5}
+
+/* CAPTURE */
+.capture-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submit-btn{width:100%;padding:15px;background:var(--gold);color:var(--navy);border:none;border-radius:9px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:.18s;margin-top:8px}
+.submit-btn:hover:not(:disabled){background:#d97706;transform:translateY(-1px)}
+.submit-btn:disabled{background:#334155;color:#64748b;cursor:not-allowed;transform:none}
+.privacy-note{font-size:11px;color:#475569;margin-top:10px;text-align:center;line-height:1.5}
+
+/* RESULTS */
+.results{display:none;background:#111827;border:1px solid var(--border);border-radius:14px;padding:32px;margin-bottom:24px}
+.results-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.results-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.results-icon.pass{background:rgba(16,185,129,.15)}
+.results-icon.fail{background:rgba(239,68,68,.15)}
+.results-icon.warn{background:rgba(245,158,11,.15)}
+.results-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:22px;font-weight:800;line-height:1.2}
+.results-sub{font-size:13px;color:var(--muted);margin-top:4px}
+.result-section{margin-bottom:20px}
+.result-section-title{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.result-item{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:8px;margin-bottom:8px;font-size:14px;line-height:1.6}
+.result-item:last-child{margin-bottom:0}
+.result-item.ok{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:rgba(248,250,252,.85)}
+.result-item.issue{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:rgba(248,250,252,.85)}
+.result-item.note{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.15);color:rgba(248,250,252,.75)}
+.result-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.ok .result-dot{background:var(--green)}
+.issue .result-dot{background:var(--red)}
+.note .result-dot{background:var(--gold)}
+.cta-box{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:20px 24px;margin-top:24px;text-align:center}
+.cta-box p{font-size:14px;color:rgba(248,250,252,.8);margin-bottom:12px;line-height:1.6}
+.cta-btn{display:inline-block;background:var(--gold);color:var(--navy);padding:11px 28px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:.18s}
+.cta-btn:hover{background:#d97706}
+
+/* LOADING */
+.loading{display:none;text-align:center;padding:40px}
+.loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading p{font-size:14px;color:var(--muted)}
+
+.alert{padding:12px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;display:none}
+.alert-red{background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);color:#fca5a5}
+.alert-green{background:rgba(22,163,74,.15);border:1px solid rgba(22,163,74,.3);color:#86efac}
+
+/* EXAMPLES */
+.examples{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px 20px;margin-top:10px}
+.examples-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.example-item{font-size:12px;color:rgba(248,250,252,.55);line-height:1.6;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.example-item:last-child{border-bottom:none}
+
+@media(max-width:600px){.capture-row{grid-template-columns:1fr}.hero{padding:40px 20px 24px}.step{padding:20px 18px}}
+</style>
+</head>
+<body>
+<script>
+(function() {
+  const d = localStorage.getItem('gca_guides_unlocked');
+  if (!d) {
+    window.location.href = '/guides?unlock=1';
+  }
+})();
+</script>
+<nav>
+  <a href="/" class="nav-logo">Get Chartered <span>AI</span></a>
+  <a href="/" class="nav-back">← Back to platform</a>
+</nav>
+
+<div class="hero">
+  <span class="eyebrow">Free Tool — December 2025 RICS Rules</span>
+  <h1>APC Competency<br><em>Choice Checker.</em></h1>
+  <p class="hero-sub">RICS can reject your submission for invalid competency choices — adding up to six months to your APC journey. Describe your pathway and proposed choices and we will check them against the December 2025 rules. Free. Instant. No documents required.</p>
+  <div class="warning-box">
+    <strong>Important:</strong> This checker applies the four December 2025 RICS competency choice rules. It does not replace your counsellor's review or specialist APC advice — always confirm your final choices with your counsellor before submitting.
+  </div>
+</div>
+
+<div class="checker-wrap">
+
+  <div id="formSection" style="scroll-margin-top:80px">
+
+    <!-- STEP 1: Lead capture -->
+    <div class="step">
+      <div class="step-label">Your details</div>
+      <div class="step-title">Where should we send your results?</div>
+      <div id="alertBox" class="alert"></div>
+      <div class="capture-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" id="name" class="form-input" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="email" class="form-input" placeholder="you@email.com">
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Pathway -->
+    <div class="step">
+      <div class="step-label">Step 1 of 2</div>
+      <div class="step-title">Which RICS pathway are you on?</div>
+      <div class="form-group">
+        <select id="pathway" class="form-select">
+          <option value="">Select your pathway</option>
+          <option>Building Surveying</option>
+          <option>Building Control</option>
+          <option>Commercial Real Estate</option>
+          <option>Corporate Real Estate</option>
+          <option>Environmental Surveying</option>
+          <option>Facility Management</option>
+          <option>Geomatics</option>
+          <option>Infrastructure</option>
+          <option>Land and Resources</option>
+          <option>Management Consultancy</option>
+          <option>Mineral and Waste Management</option>
+          <option>Planning and Development</option>
+          <option>Project Management</option>
+          <option>Property Finance and Investment</option>
+          <option>Quantity Surveying and Construction</option>
+          <option>Research</option>
+          <option>Residential</option>
+          <option>Rural</option>
+          <option>Taxation Allowances</option>
+          <option>Valuation</option>
+          <option>Arts and Antiques</option>
+          <option>Valuation of Business and Intangible Assets</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- STEP 3: Competency choices -->
+    <div class="step">
+      <div class="step-label">Step 2 of 2</div>
+      <div class="step-title">List your proposed competency choices</div>
+      <div class="form-group">
+        <label class="form-label">Your mandatory competencies (all 11 are required — list any you are taking to a higher level as a technical competency)</label>
+        <textarea id="mandatory" class="form-textarea" placeholder="e.g. Ethics and Professionalism (Level 3 — mandatory), Client Care (Level 3 — also selecting as optional technical), Health & Safety (Level 2 — mandatory only)..."></textarea>
+        <div class="form-hint">List the competency and the level you are taking it to. Note if you are also selecting it as a core or optional technical competency.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your core technical competencies (required for your pathway)</label>
+        <textarea id="core_technical" class="form-textarea" placeholder="e.g. Building Pathology (Level 3), Contract Administration (Level 2), Inspection (Level 3), Design and Specification (Level 2)..." style="min-height:90px"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your optional technical competencies</label>
+        <textarea id="optional_technical" class="form-textarea" placeholder="e.g. Fire Safety (Level 2), Dilapidations (Level 3), Party Walls (Level 2)..." style="min-height:90px"></textarea>
+        <div class="form-hint">These are the competencies you have chosen in addition to the core requirements. List the competency name and level.</div>
+      </div>
+      <div class="examples">
+        <div class="examples-title">Not sure how to list them?</div>
+        <div class="example-item">Building Surveying candidate: "Core technical: Building Pathology L3, Construction Technology L2, Contract Administration L2, Design & Specification L2, Inspection L3, Legal/Regulatory Compliance L2, Project Finance L1. Optional: Fire Safety L2, Dilapidations L3, Client Care L3 (also mandatory)"</div>
+        <div class="example-item">Commercial Real Estate candidate: "Core technical: Inspection L3, Measurement L2, Valuation L2. Optional: Accounting Principles L2 (mandatory at L1, selecting as optional at L2)"</div>
+      </div>
+      <button class="submit-btn" id="submitBtn" onclick="runCheck()">Check My Competency Choices →</button>
+      <p class="privacy-note">Your details are used to send you the results and occasional APC preparation tips. No spam. Unsubscribe any time.</p>
+    </div>
+
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading" id="loadingSection">
+    <div class="loading-spinner"></div>
+    <p>Checking your competency choices against the December 2025 RICS rules...</p>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results" id="resultsSection">
+    <div class="results-header">
+      <div class="results-icon" id="resultsIcon">✓</div>
+      <div>
+        <div class="results-title" id="resultsTitle">Checking your choices...</div>
+        <div class="results-sub" id="resultsSub"></div>
+      </div>
+    </div>
+    <div id="resultsBody"></div>
+    <div class="cta-box" id="resultsCTA" style="display:none">
+      <p id="ctaText"></p>
+      <a href="/" class="cta-btn" id="ctaBtn">View Get Chartered AI →</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+async function runCheck() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const pathway = document.getElementById('pathway').value;
+  const mandatory = document.getElementById('mandatory').value.trim();
+  const core_technical = document.getElementById('core_technical').value.trim();
+  const optional_technical = document.getElementById('optional_technical').value.trim();
+  const btn = document.getElementById('submitBtn');
+  const alertEl = document.getElementById('alertBox');
+  alertEl.style.display = 'none';
+
+  if (!name) { showAlert('Please enter your name.', 'red'); return; }
+  if (!email || !email.includes('@')) { showAlert('Please enter a valid email address.', 'red'); return; }
+  if (!pathway) { showAlert('Please select your RICS pathway.', 'red'); return; }
+  if (!mandatory) { showAlert('Please list your mandatory competencies.', 'red'); return; }
+  if (!core_technical) { showAlert('Please list your core technical competencies.', 'red'); return; }
+
+  btn.disabled = true;
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('loadingSection').style.display = 'block';
+
+  // Capture lead
+  try {
+    await fetch('/.netlify/functions/capture-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name, email,
+        pathway,
+        examDate: 'Not yet scheduled',
+        guideType: 'competency-checker'
+      })
+    });
+  } catch(e) { console.log('Lead capture error:', e); }
+
+  // Call AI for competency check
+  try {
+    const systemPrompt = `You are an expert RICS APC adviser. You must check a candidate's competency selection against the four December 2025 RICS rules and return a structured JSON response.
+
+THE FOUR DECEMBER 2025 RICS RULES:
+Rule 1: If a pathway includes a core technical competency required to Level 1, the candidate CAN select it as an optional technical competency at Level 2 or 3, if the pathway guide permits.
+Rule 2: If a pathway includes a core technical competency required to Level 2, the candidate CANNOT select it as an optional technical competency at Level 3.
+Rule 3: Some pathways group certain mandatory competencies together in an OR list. The candidate can only select ONE of these to a higher level as a core or optional technical competency. They cannot select all of them.
+Rule 4: Some pathways allow selection from the full technical competency list. In this case, a candidate can only select a mandatory competency if it is listed as core or optional technical, and if it is in an OR group, no other mandatory in that OR group has already been selected.
+
+GENERAL PRINCIPLE: Competency choices must reflect the candidate's day-to-day work. Choices should not be aspirational or based on degree subject.
+
+You must return ONLY valid JSON in this exact format:
+{
+  "verdict": "valid" | "issues_found" | "needs_review",
+  "summary": "One sentence summary of the overall result",
+  "checks": [
+    {
+      "status": "ok" | "issue" | "note",
+      "competency": "competency name",
+      "finding": "what you found — specific, factual, actionable"
+    }
+  ],
+  "recommendation": "What the candidate should do next — practical and specific",
+  "cta": "sprint" | "full_programme" | "counsellor"
+}
+
+Be specific about which rule applies when flagging an issue. If you cannot determine validity because pathway-specific guide details are not available, mark as needs_review with a clear explanation.`;
+
+    const userMsg = `Pathway: ${pathway}
+
+Mandatory competencies: ${mandatory}
+
+Core technical competencies: ${core_technical}
+
+Optional technical competencies: ${optional_technical || 'None listed'}
+
+Please check these choices against the December 2025 RICS rules and return your assessment in the required JSON format.`;
+
+    const response = await fetch('/.netlify/functions/ai-tutor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userMsg }],
+        max_tokens: 1000
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content?.map(i => i.text || '').join('') || '';
+
+    // Parse JSON from response
+    let result;
+    try {
+      const clean = text.replace(/```json|```/g, '').trim();
+      result = JSON.parse(clean);
+    } catch(e) {
+      // Fallback if JSON parse fails
+      result = {
+        verdict: 'needs_review',
+        summary: 'We could not fully parse your competency choices automatically.',
+        checks: [{ status: 'note', competency: 'All choices', finding: text.substring(0, 400) }],
+        recommendation: 'Please review your choices with your counsellor and refer to the December 2025 RICS pathway guide.',
+        cta: 'counsellor'
+      };
+    }
+
+    showResults(result, name);
+
+  } catch(err) {
+    document.getElementById('loadingSection').style.display = 'none';
+    document.getElementById('formSection').style.display = 'block';
+    btn.disabled = false;
+    showAlert('Something went wrong. Please try again.', 'red');
+  }
+}
+
+function showResults(result, name) {
+  document.getElementById('loadingSection').style.display = 'none';
+  const section = document.getElementById('resultsSection');
+  section.style.display = 'block';
+
+  // Icon and title
+  const iconEl = document.getElementById('resultsIcon');
+  const titleEl = document.getElementById('resultsTitle');
+  const subEl = document.getElementById('resultsSub');
+
+  if (result.verdict === 'valid') {
+    iconEl.textContent = '✓';
+    iconEl.className = 'results-icon pass';
+    titleEl.textContent = 'Your choices look valid';
+    titleEl.style.color = '#6ee7b7';
+  } else if (result.verdict === 'issues_found') {
+    iconEl.textContent = '⚠';
+    iconEl.className = 'results-icon fail';
+    titleEl.textContent = 'Issues found — review before submitting';
+    titleEl.style.color = '#fca5a5';
+  } else {
+    iconEl.textContent = '?';
+    iconEl.className = 'results-icon warn';
+    titleEl.textContent = 'Some choices need further review';
+    titleEl.style.color = '#fcd34d';
+  }
+  subEl.textContent = result.summary || '';
+
+  // Checks
+  const bodyEl = document.getElementById('resultsBody');
+  let html = '<div class="result-section"><div class="result-section-title">Competency by competency review</div>';
+  (result.checks || []).forEach(check => {
+    html += `<div class="result-item ${check.status}">
+      <div class="result-dot"></div>
+      <div><strong>${check.competency}</strong><br>${check.finding}</div>
+    </div>`;
+  });
+  html += '</div>';
+
+  if (result.recommendation) {
+    html += `<div class="result-section">
+      <div class="result-section-title">What to do next</div>
+      <div class="result-item note"><div class="result-dot"></div><div>${result.recommendation}</div></div>
+    </div>`;
+  }
+  bodyEl.innerHTML = html;
+
+  // CTA
+  const ctaBox = document.getElementById('resultsCTA');
+  const ctaText = document.getElementById('ctaText');
+  const ctaBtn = document.getElementById('ctaBtn');
+  ctaBox.style.display = 'block';
+
+  if (result.cta === 'sprint') {
+    ctaText.textContent = `Your assessment is approaching, ${name}. The APC Sprint gives you revision, Michael and a full 60-minute mock interview — instant access.`;
+    ctaBtn.textContent = 'View the APC Sprint →';
+    ctaBtn.href = '/sprint';
+  } else if (result.cta === 'full_programme') {
+    ctaText.textContent = `Get Chartered AI covers all 11 mandatory competencies across 12 structured modules — with the Michael available to help sense-check your preparation throughout.`;
+    ctaBtn.textContent = 'View Full Programme →';
+    ctaBtn.href = '/#pricing-sec';
+  } else {
+    ctaText.textContent = `The Michael in Module 12 can help you work through any competency questions — and our full programme covers all 11 mandatory competencies in depth.`;
+    ctaBtn.textContent = 'Explore Get Chartered AI →';
+    ctaBtn.href = '/';
+  }
+}
+
+function showAlert(msg, type) {
+  const el = document.getElementById('alertBox');
+  el.textContent = msg; el.className = 'alert alert-' + type; el.style.display = 'block';
+}
+</script>
+</body>
+</html>

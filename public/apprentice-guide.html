@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chartered Surveyor Apprenticeship — Free Guide</title>
+<meta name="description" content="Free guide to the Chartered Surveyor apprenticeship route. Earn, study and qualify simultaneously. Everything school leavers and career changers need to know.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0a0f1e;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--purple:#8b5cf6;--white:#f8fafc;--muted:#94a3b8;--border:rgba(255,255,255,.08)}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh}
+nav{padding:18px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none}
+.nav-logo span{color:var(--gold)}
+.nav-back{font-size:13px;color:var(--muted);text-decoration:none}
+.nav-back:hover{color:var(--white)}
+.wrap{max-width:1000px;margin:0 auto;padding:60px 24px;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:start}
+.eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:16px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(30px,5vw,50px);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:20px}
+h1 em{font-style:italic;color:var(--gold)}
+.lead{font-size:17px;color:rgba(248,250,252,.7);line-height:1.7;margin-bottom:32px;font-weight:300}
+.preview{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px}
+.preview-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.preview-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.preview-item:last-child{margin-bottom:0}
+.preview-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);flex-shrink:0;margin-top:6px}
+.preview-text{font-size:14px;color:rgba(248,250,252,.75);line-height:1.5}
+.preview-text strong{color:var(--white);font-weight:600}
+.other-guides{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;padding:16px 20px}
+.other-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.other-links{display:flex;flex-direction:column;gap:6px}
+.other-link{font-size:13px;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:6px}
+.other-link:hover{color:#fcd34d}
+.form-card{background:#111827;border:1px solid rgba(139,92,246,.25);border-radius:16px;padding:36px;position:sticky;top:24px}
+.form-badge{display:inline-block;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c4b5fd;margin-bottom:20px}
+.form-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;margin-bottom:6px}
+.form-sub{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.5}
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.form-input{width:100%;padding:11px 14px;background:#0f172a;border:1.5px solid rgba(255,255,255,.1);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--white);outline:none;transition:.18s;appearance:none}
+.form-input:focus{border-color:#8b5cf6}
+.form-input option{background:#0f172a}
+.form-btn{width:100%;padding:14px;background:#8b5cf6;color:#fff;border:none;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:.18s;margin-top:4px}
+.form-btn:hover{background:#7c3aed;transform:translateY(-1px)}
+.form-btn:disabled{background:#334155;color:#64748b;cursor:not-allowed;transform:none}
+.form-note{font-size:11px;color:#475569;margin-top:12px;text-align:center;line-height:1.5}
+.alert{padding:12px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;display:none}
+.alert-red{background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);color:#fca5a5}
+.alert-green{background:rgba(22,163,74,.15);border:1px solid rgba(22,163,74,.3);color:#86efac}
+.social-follow{display:none;margin-top:18px;padding:16px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:10px;text-align:center}
+.social-follow p{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c4b5fd;margin-bottom:10px}
+.social-btns{display:flex;gap:10px;justify-content:center}
+.social-btn-li{display:inline-flex;align-items:center;gap:6px;background:#0a66c2;color:#fff;padding:8px 16px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none}
+.social-btn-ig{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;padding:8px 16px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none}
+@media(max-width:768px){.wrap{grid-template-columns:1fr;gap:40px;padding:40px 20px}.form-card{position:static}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">Get Chartered <span>AI</span></a>
+  <a href="/guides" class="nav-back">← All free guides</a>
+</nav>
+
+<div class="wrap">
+  <div>
+    <span class="eyebrow">Free Guide — School Leavers &amp; Career Changers</span>
+    <h1>The Chartered Surveyor<br><em>Apprenticeship Route.</em></h1>
+    <p class="lead">Earn a salary, gain real experience and work toward becoming a Chartered Surveyor — all at the same time. No tuition debt. No full-time university. This guide explains exactly how it works, what employers are looking for and what the journey to MRICS actually involves.</p>
+
+    <div class="preview">
+      <div class="preview-title">What is inside</div>
+      <div class="preview-item"><div class="preview-dot"></div><div class="preview-text"><strong>What the apprenticeship route actually is</strong> — earn, study and qualify simultaneously explained clearly</div></div>
+      <div class="preview-item"><div class="preview-dot"></div><div class="preview-text"><strong>The honest timeline</strong> — what each of the five years typically involves and what the end assessment looks like</div></div>
+      <div class="preview-item"><div class="preview-dot"></div><div class="preview-text"><strong>What employers are looking for</strong> — it is not just grades, and the regional employer opportunity most candidates miss</div></div>
+      <div class="preview-item"><div class="preview-dot"></div><div class="preview-text"><strong>Day-to-day across four pathways</strong> — Building Surveying, Quantity Surveying, Commercial Real Estate and Residential</div></div>
+      <div class="preview-item"><div class="preview-dot"></div><div class="preview-text"><strong>Salary expectations</strong> — London and regional figures, and how pay typically progresses</div></div>
+      <div class="preview-item"><div class="preview-dot"></div><div class="preview-text"><strong>The honest reality check</strong> — what makes apprentices succeed and what to think carefully about before applying</div></div>
+    </div>
+
+    <div class="other-guides">
+      <div class="other-title">Other free guides from Get Chartered AI</div>
+      <div class="other-links">
+        <a href="/grad-guide" class="other-link">→ Graduate first interview prep</a>
+        <a href="/grad-guide-2" class="other-link">→ Graduate assessment day prep</a>
+        <a href="/free-guide" class="other-link">→ APC — what assessors are looking for</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <div class="form-badge">Free Download</div>
+    <div class="form-title">Get Your Free Guide</div>
+    <div class="form-sub">Straight to your inbox. Takes 30 seconds.</div>
+    <div id="alertBox" class="alert"></div>
+    <div class="form-group">
+      <label class="form-label">Your Name</label>
+      <input type="text" id="name" class="form-input" placeholder="First name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" id="email" class="form-input" placeholder="you@email.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Current Stage</label>
+      <select id="stage" class="form-input">
+        <option value="">Select your stage</option>
+        <option>Still at school / sixth form</option>
+        <option>Completing A-levels this year</option>
+        <option>Recently left school</option>
+        <option>Career changer — considering surveying</option>
+        <option>Already applied for apprenticeships</option>
+        <option>Parent researching for child</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Pathway Interest</label>
+      <select id="pathway" class="form-input">
+        <option value="">Select pathway</option>
+        <option>Building Surveying</option>
+        <option>Quantity Surveying and Construction</option>
+        <option>Commercial Real Estate</option>
+        <option>Project Management</option>
+        <option>Residential</option>
+        <option>Valuation</option>
+        <option>Infrastructure</option>
+        <option>Not sure yet</option>
+      </select>
+    </div>
+    <button class="form-btn" id="submitBtn" onclick="submitForm()">Send Me the Free Guide →</button>
+    <p class="form-note">No spam. Just the guide and occasional career tips for those entering the surveying profession.</p>
+    <div class="social-follow" id="socialFollow">
+      <p>Follow us for regular updates</p>
+      <div class="social-btns">
+        <a href="https://www.linkedin.com/company/getcharteredai" target="_blank" class="social-btn-li">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://www.instagram.com/getcharteredai" target="_blank" class="social-btn-ig">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+async function submitForm() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const stage = document.getElementById('stage').value;
+  const pathway = document.getElementById('pathway').value;
+  const btn = document.getElementById('submitBtn');
+  document.getElementById('alertBox').style.display = 'none';
+  if (!name) { showAlert('Please enter your name.', 'red'); return; }
+  if (!email || !email.includes('@')) { showAlert('Please enter a valid email.', 'red'); return; }
+  if (!stage) { showAlert('Please select your current stage.', 'red'); return; }
+  if (!pathway) { showAlert('Please select a pathway interest.', 'red'); return; }
+  btn.disabled = true; btn.textContent = 'Sending...';
+  try {
+    const resp = await fetch('/.netlify/functions/capture-grad-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, org: stage, gradYear: stage, pathway, guideType: 'apprenticeship' })
+    });
+    const data = await resp.json();
+    if (data.success) {
+      showAlert('✓ On its way! Check your inbox — your guide is heading to you now.', 'green');
+      btn.textContent = '✓ Guide Sent';
+      document.getElementById('socialFollow').style.display = 'block';
+      setTimeout(() => { window.location.href = '/apprentice-guide-info.html'; }, 3000);
+    } else {
+      showAlert('Something went wrong. Please try again.', 'red');
+      btn.disabled = false; btn.textContent = 'Send Me the Free Guide →';
+    }
+  } catch(e) {
+    showAlert('Connection error. Please try again.', 'red');
+    btn.disabled = false; btn.textContent = 'Send Me the Free Guide →';
+  }
+}
+function showAlert(msg, type) {
+  const el = document.getElementById('alertBox');
+  el.textContent = msg; el.className = 'alert alert-' + type; el.style.display = 'block';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Enter') submitForm(); });
+</script>
+</body>
+</html>

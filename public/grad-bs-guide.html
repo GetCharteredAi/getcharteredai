@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building Surveying Graduate — First Interview Prep Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0a0f1e;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8;--border:rgba(255,255,255,.1)}
+@media print{body{background:#fff;color:#0a0f1e}.no-print{display:none!important}.page{padding:16px}.q-card,.tech-card,.star-box,.research-box,.watching-box,.commercial-box{background:#f8fafc!important;border-color:#e2e8f0!important}}
+body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:100vh}
+.page{max-width:960px;margin:0 auto;padding:36px 28px}
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.logo{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:700}.logo span{color:var(--gold)}
+.header-right{text-align:right}
+.header-right h1{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(18px,3vw,28px);font-weight:900;line-height:1.15;letter-spacing:-.02em;margin-bottom:6px}
+.header-right h1 em{font-style:italic;color:var(--gold)}
+.header-right p{font-size:12px;color:var(--muted);max-width:360px;line-height:1.5;text-align:right}
+.pathway-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:100px;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.sec-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sec-title::after{content:'';flex:1;height:1px;background:rgba(245,158,11,.2)}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.q-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:16px 18px;border-left:3px solid var(--blue)}
+.q-num{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(37,99,235,.7);margin-bottom:6px}
+.q-question{font-size:13px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.35}
+.q-al{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.q-answer{font-size:12px;color:rgba(248,250,252,.8);line-height:1.6;font-style:italic;margin-bottom:8px}
+.q-avl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f87171;margin-bottom:3px}
+.q-avoid{font-size:11px;color:rgba(248,250,252,.5);line-height:1.5}
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.tech-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:16px 18px;border-left:3px solid var(--gold)}
+.tech-q{font-size:13px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.35}
+.tech-al{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.tech-approach{font-size:12px;color:rgba(248,250,252,.75);line-height:1.6;font-style:italic}
+.mid-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.star-box{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:18px}
+.star-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6ee7b7;margin-bottom:12px}
+.star-row{display:grid;grid-template-columns:40px 1fr;gap:8px;align-items:start;margin-bottom:8px}
+.star-letter{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:28px;font-weight:900;color:rgba(16,185,129,.4);line-height:1}
+.star-text{font-size:12px;color:rgba(248,250,252,.8);line-height:1.5;padding-top:4px}
+.star-text strong{color:#6ee7b7}
+.legislation-box{background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);border-radius:12px;padding:18px}
+.leg-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#93c5fd;margin-bottom:12px}
+.leg-item{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px;color:rgba(248,250,252,.75);line-height:1.5}
+.leg-item:last-child{border-bottom:none;padding-bottom:0}
+.leg-item strong{color:#93c5fd}
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.watching-box{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:18px}
+.watching-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6ee7b7;margin-bottom:12px}
+.w-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:9px;font-size:12px;line-height:1.55}
+.w-item:last-child{margin-bottom:0}
+.w-eye{color:#6ee7b7;flex-shrink:0}
+.w-text{color:rgba(248,250,252,.8)}
+.w-text strong{color:var(--white)}
+.commercial-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:18px}
+.commercial-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.c-item{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px;color:rgba(248,250,252,.75);line-height:1.5}
+.c-item:last-child{border-bottom:none;padding-bottom:0}
+.c-item strong{color:var(--white)}
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border)}
+.footer-left{font-size:11px;color:var(--muted);line-height:1.6}
+.footer-cta{display:inline-block;background:var(--gold);color:var(--navy);padding:7px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;margin-bottom:6px}
+.print-bar{position:fixed;bottom:24px;right:24px;z-index:100}
+.print-btn{background:var(--gold);color:var(--navy);padding:11px 20px;border-radius:8px;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(245,158,11,.4)}
+@media(max-width:700px){.q-grid,.tech-grid,.mid-row,.bottom-row{grid-template-columns:1fr}.header{flex-direction:column;gap:12px}.header-right{text-align:left}.header-right p{text-align:left}}
+</style>
+</head>
+<body>
+<script>
+(function() {
+  const d = localStorage.getItem('gca_guides_unlocked');
+  if (!d) {
+    window.location.href = '/guides?unlock=1';
+  }
+})();
+</script>
+<div class="no-print print-bar"><button class="print-btn" onclick="window.print()">⬇ Save as PDF</button></div>
+<div class="page">
+
+  <div class="header">
+    <div class="logo">Get Chartered <span>AI</span></div>
+    <div class="header-right">
+      <div class="pathway-badge">🏗 Building Surveying</div>
+      <h1>Graduate First Interview —<br><em>Building Surveying</em></h1>
+      <p>What BS firms are actually looking for, the technical questions you will face, and the 2026 legislation every candidate must know.</p>
+    </div>
+  </div>
+
+  <!-- THE 5 QUESTIONS -->
+  <div class="sec-title">The five questions every Building Surveying first interview asks</div>
+  <div class="q-grid">
+    <div class="q-card">
+      <div class="q-num">Question 01</div>
+      <div class="q-question">Why Building Surveying — not commercial agency or project management?</div>
+      <div class="q-al">What they want to hear</div>
+      <div class="q-answer">"A genuine answer about the built environment, defects and buildings themselves. Show you understand that BS is diagnostic and technical — you investigate, assess and advise on buildings. If you have visited a building for any reason and found it interesting, use that."</div>
+      <div class="q-avl">Avoid</div>
+      <div class="q-avoid">Generic answers. "I like buildings" without any specific knowledge of what building surveyors actually do.</div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Question 02</div>
+      <div class="q-question">What does a Building Surveyor actually do day to day?</div>
+      <div class="q-al">What they want to hear</div>
+      <div class="q-answer">"Site inspections, defect diagnosis, schedules of condition, dilapidations, refurbishment and alteration work, party wall matters, building pathology, contract administration. Show you have researched the firm's specific BS work — residential, commercial, heritage or infrastructure."</div>
+      <div class="q-avl">Avoid</div>
+      <div class="q-avoid">Vague answers about surveying generally. Confusing building surveying with quantity surveying.</div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Question 03</div>
+      <div class="q-question">Tell me about a time you identified a problem and found a solution.</div>
+      <div class="q-al">What they want to hear</div>
+      <div class="q-answer">"A specific example using STAR — your role, what you found, what you did personally, the outcome. Ideally something that shows an analytical or investigative mindset — identifying a root cause, not just a symptom."</div>
+      <div class="q-avl">Avoid</div>
+      <div class="q-avoid">Starting with "we". Describing a team outcome without identifying your personal contribution.</div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Question 04</div>
+      <div class="q-question">What do you know about building safety and recent legislation changes?</div>
+      <div class="q-al">What they want to hear</div>
+      <div class="q-answer">"Building Safety Regulator now fully independent from January 2026. New Building Safety Levy on residential development from October 2026. Two staircase rule for buildings over 18 metres from September 2026. Show you are engaged with your profession before you have even started."</div>
+      <div class="q-avl">Avoid</div>
+      <div class="q-avoid">Not knowing the Building Safety Act 2022 exists. Vague references to "new regulations" without specifics.</div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Question 05</div>
+      <div class="q-question">Where do you see yourself in five years?</div>
+      <div class="q-al">What they want to hear</div>
+      <div class="q-answer">"MRICS — Chartered Building Surveyor. Mention the APC, that you understand the pathway requires structured competency development and that this firm's training programme is part of why you are applying."</div>
+      <div class="q-avl">Avoid</div>
+      <div class="q-avoid">Anything that sounds like this role is temporary or that you have not thought about the APC journey ahead.</div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Questions to ask them</div>
+      <div class="q-question">Close well — these impress in a BS interview</div>
+      <div class="q-al">Ask these</div>
+      <div class="q-answer">"What does the graduate training rotation look like? Do graduates get to attend site inspections from day one? How is APC preparation structured and who is my counsellor likely to be?"</div>
+      <div class="q-avl">Never ask</div>
+      <div class="q-avoid">Salary at first interview. What the firm does — you should already know this.</div>
+    </div>
+  </div>
+
+  <!-- TECHNICAL QUESTIONS -->
+  <div class="sec-title">Five Building Surveying technical questions — what firms actually ask</div>
+  <div class="tech-grid">
+    <div class="tech-card">
+      <div class="tech-q">What are the main causes of dampness in buildings and how do you diagnose them?</div>
+      <div class="tech-al">How to approach it</div>
+      <div class="tech-approach">Name the three types: rising damp, penetrating damp and condensation. Describe briefly how each presents and how you would distinguish between them on inspection. Firms do not expect deep technical knowledge at graduate level — they want to see you can think diagnostically.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-q">What is CDM and what obligations does it place on surveyors?</div>
+      <div class="tech-al">How to approach it</div>
+      <div class="tech-approach">CDM 2015 — Construction Design and Management Regulations. Principal Designer, Principal Contractor, Client duties. Building surveyors often act as Principal Designer on refurbishment projects — this makes CDM directly relevant to your day-to-day work. Know the key dutyholder roles.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-q">What is a schedule of condition and when would you use one?</div>
+      <div class="tech-al">How to approach it</div>
+      <div class="tech-approach">A factual record of a property's condition at a specific point in time — typically prepared at the start of a lease to limit a tenant's dilapidations liability. Firms love this question because it tests whether you understand the commercial context of a basic BS document.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-q">What is the Building Safety Regulator and why was it created?</div>
+      <div class="tech-al">How to approach it</div>
+      <div class="tech-approach">Established following the Grenfell Tower tragedy and the Hackitt Review. Became fully independent in January 2026. Oversees higher-risk buildings (broadly 11m+ or 5 storeys+), manages the Gateway process for new buildings and has enforcement powers over non-compliant dutyholders.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-q">What is RICS and how does the APC work for a Building Surveyor?</div>
+      <div class="tech-al">How to approach it</div>
+      <div class="tech-approach">Royal Institution of Chartered Surveyors — the professional body. APC is the Assessment of Professional Competence — typically 24 months of structured training covering mandatory and technical competencies, ending in a final assessment panel. You select Building Surveying as your pathway. Show you understand this is a professional journey not just a job.</div>
+    </div>
+  </div>
+
+  <!-- STAR + LEGISLATION -->
+  <div class="mid-row">
+    <div class="star-box">
+      <div class="star-title">STAR method — answer every competency question this way</div>
+      <div class="star-row"><div class="star-letter">S</div><div class="star-text"><strong>Situation</strong> — set the scene briefly. One or two sentences.</div></div>
+      <div class="star-row"><div class="star-letter">T</div><div class="star-text"><strong>Task</strong> — what was your specific responsibility or challenge?</div></div>
+      <div class="star-row"><div class="star-letter">A</div><div class="star-text"><strong>Action</strong> — what did you personally do? This is the most important part.</div></div>
+      <div class="star-row"><div class="star-letter">R</div><div class="star-text"><strong>Result</strong> — what was the outcome? Quantify where possible.</div></div>
+    </div>
+    <div class="legislation-box">
+      <div class="leg-title">2026 legislation every BS candidate must know</div>
+      <div class="leg-item"><strong>BSR Independence (Jan 2026)</strong> — Building Safety Regulator fully independent, overseeing higher-risk buildings 11m+</div>
+      <div class="leg-item"><strong>Building Safety Levy (Oct 2026)</strong> — new levy on most new residential development in England, paid before completion</div>
+      <div class="leg-item"><strong>Two Staircase Rule (Sep 2026)</strong> — mandatory two staircases in new residential buildings over 18 metres</div>
+      <div class="leg-item"><strong>Remediation Bill (2026)</strong> — expected to set hard deadlines for outstanding safety works on higher-risk buildings</div>
+      <div class="leg-item"><strong>Home Survey Standard 2nd Ed (Apr 2026)</strong> — updated RICS standard for home surveys — clearer mandatory vs recommended distinction</div>
+    </div>
+  </div>
+
+  <!-- WHAT THEY WATCH FOR + WHAT BS LOOKS LIKE -->
+  <div class="bottom-row">
+    <div class="watching-box">
+      <div class="watching-title">What strong BS candidates do that others do not</div>
+      <div class="w-item"><div class="w-eye">✓</div><div class="w-text"><strong>Show genuine curiosity about buildings.</strong> Talk about a building you have noticed, found interesting or walked past and looked at differently after studying.</div></div>
+      <div class="w-item"><div class="w-eye">✓</div><div class="w-text"><strong>Know the firm's BS specialisms.</strong> Heritage, commercial, residential, infrastructure — identify what this firm focuses on and reference it.</div></div>
+      <div class="w-item"><div class="w-eye">✓</div><div class="w-text"><strong>Reference CDM and building safety</strong> naturally in your answers — it signals professional awareness before you have started.</div></div>
+      <div class="w-item"><div class="w-eye">✓</div><div class="w-text"><strong>Ask about site exposure from day one.</strong> BS is a site-based discipline — asking about early site access shows you understand the role.</div></div>
+      <div class="w-item"><div class="w-eye">✓</div><div class="w-text"><strong>Mention the APC.</strong> Name your pathway. Show you understand the journey to MRICS begins from day one.</div></div>
+    </div>
+    <div class="commercial-box">
+      <div class="commercial-title">A typical week for a graduate Building Surveyor</div>
+      <div class="c-item"><strong>Monday</strong> — office: reviewing inspection reports, drafting schedules of condition</div>
+      <div class="c-item"><strong>Tuesday</strong> — site inspection of a commercial property, identifying defects and documenting findings</div>
+      <div class="c-item"><strong>Wednesday</strong> — university study day (or block release) — degree alongside work</div>
+      <div class="c-item"><strong>Thursday</strong> — assisting on a party wall matter, reviewing drawings for a refurbishment project</div>
+      <div class="c-item"><strong>Friday</strong> — client meeting preparation, updating APC diary, reviewing CDM documentation</div>
+      <div class="c-item" style="color:#6ee7b7;font-weight:500;margin-top:4px">APC preparation begins from week one — diary entries, competency evidence, counsellor reviews</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      © 2025 Get Chartered AI · getcharteredai.com · info@getcharteredai.com<br>
+      <span style="font-size:10px;color:#475569">Follow <a href="https://www.linkedin.com/company/getcharteredai" style="color:#60a5fa" target="_blank">LinkedIn</a> &amp; <a href="https://www.instagram.com/getcharteredai" style="color:#f59e0b" target="_blank">Instagram</a> @getcharteredai for regular updates</span>
+    </div>
+    <div style="text-align:right">
+      <a href="https://getcharteredai.com" class="footer-cta no-print">Start Your APC Journey →</a><br>
+      <span style="font-size:11px;color:var(--muted)">Also: <a href="/grad-guide-qs" style="color:#60a5fa;font-size:11px">QS First Interview Guide →</a></span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

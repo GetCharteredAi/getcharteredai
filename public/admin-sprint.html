@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint Admin — Get Chartered AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0f172a;color:#f1f5f9;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{background:#1e293b;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:40px;width:100%;max-width:480px}
+.logo{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#64748b;margin-bottom:28px}
+h1{font-size:22px;font-weight:700;margin-bottom:6px}
+.sub{font-size:14px;color:#64748b;margin-bottom:32px}
+.gate{margin-bottom:28px}
+.label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;display:block;margin-bottom:6px}
+input{width:100%;padding:11px 14px;background:#0f172a;border:1.5px solid rgba(255,255,255,.1);border-radius:8px;color:#f1f5f9;font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:.18s}
+input:focus{border-color:#2563EB}
+.form-group{margin-bottom:16px}
+.btn{width:100%;padding:13px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:.18s;margin-top:4px}
+.btn:hover{background:#1d4ed8}
+.btn:disabled{background:#334155;cursor:not-allowed}
+.alert{padding:12px 14px;border-radius:8px;font-size:13px;margin-bottom:16px;display:none}
+.alert-red{background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);color:#fca5a5}
+.alert-green{background:rgba(22,163,74,.15);border:1px solid rgba(22,163,74,.3);color:#86efac}
+.result{background:#0f172a;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:16px;margin-top:20px;display:none}
+.result-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b;margin-bottom:8px}
+.result-link{font-size:12px;color:#60a5fa;word-break:break-all;line-height:1.5}
+.copy-btn{margin-top:10px;padding:8px 16px;background:rgba(37,99,235,.2);border:1px solid rgba(37,99,235,.4);border-radius:6px;color:#93c5fd;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.18s}
+.copy-btn:hover{background:rgba(37,99,235,.35)}
+.divider{border:none;border-top:1px solid rgba(255,255,255,.06);margin:24px 0}
+.note{font-size:12px;color:#475569;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">Get Chartered AI · Admin</div>
+
+  <div id="gateView">
+    <h1>Sprint Activation</h1>
+    <p class="sub">Enter admin password to continue.</p>
+    <div id="gateAlert" class="alert alert-red"></div>
+    <div class="gate">
+      <label class="label">Admin Password</label>
+      <input type="password" id="gatePass" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkGate()">
+    </div>
+    <button class="btn" onclick="checkGate()">Continue</button>
+  </div>
+
+  <div id="mainView" style="display:none">
+    <h1>Activate Sprint Member</h1>
+    <p class="sub">Enter member email to generate a 49-day sprint access link and send it directly to them.</p>
+
+    <div id="mainAlert" class="alert"></div>
+
+    <div class="form-group">
+      <label class="label">Member Email Address</label>
+      <input type="email" id="memberEmail" placeholder="member@email.com">
+    </div>
+
+    <button class="btn" id="activateBtn" onclick="activateSprint()">Generate &amp; Send Access Link</button>
+
+    <div class="result" id="resultBox">
+      <div class="result-label">Magic Login Link Generated</div>
+      <div class="result-link" id="resultLink"></div>
+      <button class="copy-btn" onclick="copyLink()">Copy Link</button>
+      <div style="margin-top:10px;font-size:12px;color:#64748b">Link also sent to member email. Valid for 49 days.</div>
+    </div>
+
+    <hr class="divider">
+    <div class="note">
+      This tool generates a 49-day sprint JWT token and sends the member a magic login link via email.
+      Use after confirming Stripe payment. Each generation creates a fresh token tied to that email address.
+    </div>
+  </div>
+</div>
+
+<script>
+let adminKey = '';
+
+function checkGate() {
+  const pass = document.getElementById('gatePass').value.trim();
+  if (!pass) {
+    const alert = document.getElementById('gateAlert');
+    alert.textContent = 'Enter your admin password.';
+    alert.style.display = 'block';
+    return;
+  }
+  adminKey = pass;
+  document.getElementById('gateView').style.display = 'none';
+  document.getElementById('mainView').style.display = 'block';
+}
+
+async function activateSprint() {
+  if (!adminKey) {
+    document.getElementById('gateView').style.display = 'block';
+    document.getElementById('mainView').style.display = 'none';
+    return;
+  }
+  const email = document.getElementById('memberEmail').value.trim().toLowerCase();
+  const btn = document.getElementById('activateBtn');
+  const alertEl = document.getElementById('mainAlert');
+  const resultBox = document.getElementById('resultBox');
+
+  alertEl.style.display = 'none';
+  resultBox.style.display = 'none';
+
+  if (!email || !email.includes('@')) {
+    alertEl.textContent = 'Please enter a valid email address.';
+    alertEl.className = 'alert alert-red';
+    alertEl.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Generating...';
+
+  try {
+    const resp = await fetch('/.netlify/functions/generate-sprint-token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, adminKey })
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      alertEl.textContent = `✓ Access link generated and sent to ${email}`;
+      alertEl.className = 'alert alert-green';
+      alertEl.style.display = 'block';
+      document.getElementById('resultLink').textContent = data.link;
+      resultBox.style.display = 'block';
+      document.getElementById('memberEmail').value = '';
+    } else {
+      alertEl.textContent = data.error || 'Something went wrong. Please try again.';
+      alertEl.className = 'alert alert-red';
+      alertEl.style.display = 'block';
+    }
+  } catch(err) {
+    alertEl.textContent = 'Connection error. Please check your internet and try again.';
+    alertEl.className = 'alert alert-red';
+    alertEl.style.display = 'block';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Generate & Send Access Link';
+}
+
+function copyLink() {
+  const link = document.getElementById('resultLink').textContent;
+  navigator.clipboard.writeText(link).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy Link', 2000);
+  });
+}
+</script>
+</body>
+</html>

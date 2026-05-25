@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graduate Surveying — First Interview Prep Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0a0f1e;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8;--border:rgba(255,255,255,.1)}
+@media print{
+  body{background:#fff;color:#0a0f1e}
+  .no-print{display:none!important}
+  .page{padding:16px}
+  .q-card{background:#f8fafc!important;border-color:#e2e8f0!important}
+  .q-answer{color:#1e40af!important}
+  .q-avoid{color:#dc2626!important}
+  .star-box{background:#f0fdf4!important;border-color:#bbf7d0!important}
+}
+body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:100vh}
+.page{max-width:960px;margin:0 auto;padding:36px 28px}
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.logo{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:700;color:var(--white)}
+.logo span{color:var(--gold)}
+.header-right{text-align:right}
+.header-right h1{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(18px,3vw,28px);font-weight:900;line-height:1.15;letter-spacing:-.02em;margin-bottom:6px}
+.header-right h1 em{font-style:italic;color:var(--gold)}
+.header-right p{font-size:12px;color:var(--muted);max-width:340px;line-height:1.5;text-align:right}
+.section-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:rgba(245,158,11,.2)}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.q-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:16px 18px;border-left:3px solid var(--blue)}
+.q-num{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(37,99,235,.7);margin-bottom:6px}
+.q-question{font-size:13px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.35}
+.q-answer-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.q-answer{font-size:12px;color:rgba(248,250,252,.8);line-height:1.6;font-style:italic;margin-bottom:8px}
+.q-avoid-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f87171;margin-bottom:3px}
+.q-avoid{font-size:11px;color:rgba(248,250,252,.5);line-height:1.5}
+.mid-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.star-box{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:18px}
+.star-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6ee7b7;margin-bottom:12px}
+.star-row{display:grid;grid-template-columns:40px 1fr;gap:8px;align-items:start;margin-bottom:8px}
+.star-letter{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:28px;font-weight:900;color:rgba(16,185,129,.4);line-height:1}
+.star-text{font-size:12px;color:rgba(248,250,252,.8);line-height:1.5;padding-top:4px}
+.star-text strong{color:#6ee7b7}
+.research-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:18px}
+.research-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.research-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.research-item:last-child{margin-bottom:0}
+.r-num{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:900;color:rgba(37,99,235,.35);line-height:1;flex-shrink:0}
+.r-text{font-size:12px;color:rgba(248,250,252,.75);line-height:1.55}
+.r-text strong{color:var(--white)}
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.questions-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:18px}
+.questions-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.q-item{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px;color:rgba(248,250,252,.75);line-height:1.5;display:flex;gap:8px}
+.q-item:last-child{border-bottom:none;padding-bottom:0}
+.q-tick{color:var(--gold);flex-shrink:0}
+.commercial-box{background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);border-radius:12px;padding:18px}
+.commercial-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#93c5fd;margin-bottom:12px}
+.c-item{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px;color:rgba(248,250,252,.75);line-height:1.5}
+.c-item:last-child{border-bottom:none;padding-bottom:0}
+.c-item strong{color:#93c5fd}
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border)}
+.footer-left{font-size:11px;color:var(--muted);line-height:1.6}
+.footer-right{text-align:right;font-size:11px;color:var(--muted)}
+.footer-cta{display:inline-block;background:var(--gold);color:var(--navy);padding:7px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;margin-bottom:6px}
+.print-bar{position:fixed;bottom:24px;right:24px;z-index:100}
+.print-btn{background:var(--gold);color:var(--navy);padding:11px 20px;border-radius:8px;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(245,158,11,.4)}
+@media(max-width:700px){.q-grid,.mid-row,.bottom-row{grid-template-columns:1fr}.header{flex-direction:column;gap:12px}.header-right{text-align:left}.header-right p{text-align:left}}
+</style>
+</head>
+<body>
+<script>
+(function() {
+  const d = localStorage.getItem('gca_guides_unlocked');
+  if (!d) {
+    window.location.href = '/guides?unlock=1';
+  }
+})();
+</script>
+
+<div class="no-print print-bar">
+  <button class="print-btn" onclick="window.print()">⬇ Save as PDF</button>
+</div>
+
+<div class="page">
+
+  <div class="header">
+    <div class="logo">Get Chartered <span>AI</span></div>
+    <div class="header-right">
+      <h1>Graduate Surveying —<br><em>First Interview Prep</em></h1>
+      <p>What firms are actually looking for, how to answer the questions that matter, and how to get to assessment day.</p>
+    </div>
+  </div>
+
+  <!-- THE 5 QUESTIONS -->
+  <div class="section-title">The five questions every first interview asks</div>
+  <div class="q-grid">
+
+    <div class="q-card">
+      <div class="q-num">Question 01</div>
+      <div class="q-question">Tell me about yourself and why you chose surveying.</div>
+      <div class="q-answer-label">What they want to hear</div>
+      <div class="q-answer">"A concise career narrative: degree, what drew you to property, one relevant experience, and where you want to be. 60–90 seconds. Confident and specific."</div>
+      <div class="q-avoid-label">Avoid</div>
+      <div class="q-avoid">Reading out your CV. Vague answers like "I've always been interested in property."</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Question 02</div>
+      <div class="q-question">Why surveying — and why this firm specifically?</div>
+      <div class="q-answer-label">What they want to hear</div>
+      <div class="q-answer">"Genuine motivation for the profession plus specific knowledge of the firm — their sectors, clients, culture, recent projects or news. Show you have done your research."</div>
+      <div class="q-avoid-label">Avoid</div>
+      <div class="q-avoid">"It seemed like a good career." Generic answers that could apply to any firm.</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Question 03</div>
+      <div class="q-question">Tell me about a time you worked in a team or solved a problem.</div>
+      <div class="q-answer-label">What they want to hear</div>
+      <div class="q-answer">"A specific situation — your role, what you did personally, and the outcome. Use STAR. Interviewers want evidence of your contribution, not the team's."</div>
+      <div class="q-avoid-label">Avoid</div>
+      <div class="q-avoid">Starting with "We…" — they want to know what you did. No outcome described.</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Question 04</div>
+      <div class="q-question">What do you know about the current property market?</div>
+      <div class="q-answer-label">What they want to hear</div>
+      <div class="q-answer">"A brief, confident overview of current conditions — interest rates, activity levels, a relevant sector trend. Reference something current. Show you read the news."</div>
+      <div class="q-avoid-label">Avoid</div>
+      <div class="q-avoid">Vague generalisations. "The market is quite tough at the moment" with nothing to back it up.</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Question 05</div>
+      <div class="q-question">Where do you see yourself in five years?</div>
+      <div class="q-answer-label">What they want to hear</div>
+      <div class="q-answer">"Chartered Surveyor — MRICS — with growing responsibility in your chosen pathway. Mention the APC. Show you understand the journey and are committed to it."</div>
+      <div class="q-avoid-label">Avoid</div>
+      <div class="q-avoid">"I'd like to be in management." Anything that suggests you see this role as temporary.</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Closing</div>
+      <div class="q-question">Do you have any questions for us?</div>
+      <div class="q-answer-label">Ask these</div>
+      <div class="q-answer">"How is graduate training structured here? What does the APC support look like? What does a typical first year involve for a graduate surveyor?"</div>
+      <div class="q-avoid-label">Never ask</div>
+      <div class="q-avoid">Salary at first interview. Anything answered on the firm's website. "No, I think you've covered everything."</div>
+    </div>
+
+  </div>
+
+  <!-- STAR + RESEARCH -->
+  <div class="mid-row">
+    <div class="star-box">
+      <div class="star-title">The STAR method — answer every competency question this way</div>
+      <div class="star-row">
+        <div class="star-letter">S</div>
+        <div class="star-text"><strong>Situation</strong> — set the scene briefly. One or two sentences.</div>
+      </div>
+      <div class="star-row">
+        <div class="star-letter">T</div>
+        <div class="star-text"><strong>Task</strong> — what was your responsibility or challenge?</div>
+      </div>
+      <div class="star-row">
+        <div class="star-letter">A</div>
+        <div class="star-text"><strong>Action</strong> — what did you personally do? This is the most important part.</div>
+      </div>
+      <div class="star-row">
+        <div class="star-letter">R</div>
+        <div class="star-text"><strong>Result</strong> — what was the outcome? Quantify it if you can.</div>
+      </div>
+    </div>
+
+    <div class="research-box">
+      <div class="research-title">Three things to research before any first interview</div>
+      <div class="research-item">
+        <div class="r-num">1</div>
+        <div class="r-text"><strong>The firm.</strong> What sectors do they work in? Who are their major clients? Any recent news, hires or project wins? Know two or three specific things.</div>
+      </div>
+      <div class="research-item">
+        <div class="r-num">2</div>
+        <div class="r-text"><strong>The market.</strong> Current interest rate environment, transaction levels in your target sector, one relevant trend. Read Estates Gazette or Property Week the week before.</div>
+      </div>
+      <div class="research-item">
+        <div class="r-num">3</div>
+        <div class="r-text"><strong>The APC.</strong> Know what it is, how long it takes, and that this firm will support you through it. Mentioning it shows long-term commitment — most candidates do not.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS TO ASK + COMMERCIAL AWARENESS -->
+  <div class="bottom-row">
+    <div class="questions-box">
+      <div class="questions-title">What strong candidates do that others do not</div>
+      <div class="q-item"><span class="q-tick">✓</span>Name a specific deal, project or news story involving the firm</div>
+      <div class="q-item"><span class="q-tick">✓</span>Reference the RICS APC and show they understand the pathway ahead</div>
+      <div class="q-item"><span class="q-tick">✓</span>Ask about graduate training structure — shows long-term thinking</div>
+      <div class="q-item"><span class="q-tick">✓</span>Use the STAR method without being prompted</div>
+      <div class="q-item"><span class="q-tick">✓</span>Have a clear answer to "why this firm" that is specific and researched</div>
+      <div class="q-item"><span class="q-tick">✓</span>Say "I" not "we" — interviewers want your contribution, not the group's</div>
+    </div>
+
+    <div class="commercial-box">
+      <div class="commercial-title">2026 commercial awareness — know these</div>
+      <div class="c-item"><strong>Interest rates</strong> — Bank of England base rate direction and its effect on property values and transaction volumes</div>
+      <div class="c-item"><strong>MEES and sustainability</strong> — EPC compliance obligations for commercial landlords from 2026</div>
+      <div class="c-item"><strong>Building safety</strong> — Building Safety Regulator now fully independent, new levy on residential development</div>
+      <div class="c-item"><strong>Renters' Rights Act</strong> — abolition of Section 21, implications for residential investment</div>
+      <div class="c-item"><strong>AI in surveying</strong> — RICS mandatory AI standard from March 2026. Firms are adapting.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      © 2025 Get Chartered AI · getcharteredai.com · info@getcharteredai.com<br>
+      <span style="font-size:10px;color:#475569">Follow <a href="https://www.linkedin.com/company/getcharteredai" target="_blank" style="color:#60a5fa">LinkedIn</a> &amp; <a href="https://www.instagram.com/getcharteredai" target="_blank" style="color:#f59e0b">Instagram</a> @getcharteredai for regular updates</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="text-align:center">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=64x64&data=https://getcharteredai.com/guides&bgcolor=0a0f1e&color=f8fafc&margin=2" width="64" height="64" alt="QR code" style="border-radius:6px">
+        <div style="font-size:9px;color:var(--muted);margin-top:3px">All free guides</div>
+      </div>
+      <div class="footer-right">
+        <a href="https://getcharteredai.com/grad-guide-2" class="footer-cta no-print">Assessment Day Guide →</a><br>
+        <span>Once you land the role, your APC begins.<br>Get Chartered AI helps you prepare.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

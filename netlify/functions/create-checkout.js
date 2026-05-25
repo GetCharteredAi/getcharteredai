@@ -1,8 +1,5 @@
 // netlify/functions/create-checkout.js
-// Creates a Stripe Checkout Session server-side and returns the URL
-// This is more reliable than client-side redirectToCheckout
-
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+// Creates Stripe Checkout Session using fetch (no npm packages needed)
 
 exports.handler = async (event) => {
   const headers = {
@@ -14,46 +11,53 @@ exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers, body: '' };
   }
-
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
 
   let body;
-  try {
-    body = JSON.parse(event.body);
-  } catch {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) };
-  }
+  try { body = JSON.parse(event.body); }
+  catch { return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
   const { priceId, mode } = body;
+  const secretKey = process.env.STRIPE_SECRET_KEY;
 
-  if (!priceId || !mode) {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing priceId or mode' }) };
+  if (!secretKey) {
+    console.error('STRIPE_SECRET_KEY not set');
+    return { statusCode: 500, headers, body: JSON.stringify({ error: 'Payment system not configured' }) };
   }
 
   try {
-    const session = await stripe.checkout.sessions.create({
-      mode: mode,
-      line_items: [{ price: priceId, quantity: 1 }],
-      success_url: 'https://getcharteredai.com/success.html?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'https://getcharteredai.com/cancel.html',
-      billing_address_collection: 'auto',
-      customer_email: undefined, // let Stripe collect email
+    // Build form-encoded body for Stripe API
+    const params = new URLSearchParams();
+    params.append('mode', mode);
+    params.append('line_items[0][price]', priceId);
+    params.append('line_items[0][quantity]', '1');
+    params.append('success_url', 'https://getcharteredai.com/success.html?session_id={CHECKOUT_SESSION_ID}');
+    params.append('cancel_url', 'https://getcharteredai.com/cancel.html');
+    params.append('billing_address_collection', 'auto');
+
+    const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${secretKey}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: params.toString()
     });
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({ url: session.url })
-    };
+    const session = await response.json();
+
+    if (!response.ok) {
+      console.error('Stripe error:', session.error);
+      return { statusCode: 400, headers, body: JSON.stringify({ error: session.error?.message || 'Stripe error' }) };
+    }
+
+    console.log(`Checkout session created: ${session.id}`);
+    return { statusCode: 200, headers, body: JSON.stringify({ url: session.url }) };
 
   } catch (err) {
-    console.error('Stripe session creation failed:', err);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: err.message })
-    };
+    console.error('Checkout error:', err);
+    return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
   }
 };

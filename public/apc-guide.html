@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 11 Mandatory Competencies — What Assessors Are Actually Looking For</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0a0f1e;
+  --navy2:#0d1528;
+  --blue:#2563EB;
+  --gold:#f59e0b;
+  --white:#f8fafc;
+  --muted:#94a3b8;
+  --border:rgba(255,255,255,.08);
+}
+body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:100vh}
+
+/* ── PRINT ── */
+@media print{
+  body{background:#fff;color:#0a0f1e}
+  .no-print{display:none!important}
+  .page{box-shadow:none;max-width:100%;padding:20px}
+  .comp-card{break-inside:avoid;background:#f8fafc!important;border-color:#e2e8f0!important}
+  .comp-insight{color:#1e40af!important}
+  .comp-referral{color:#dc2626!important}
+  .header-title{color:#0a0f1e!important}
+  .header-sub{color:#475569!important}
+  .logo-text{color:#0a0f1e!important}
+  .logo-text span{color:#2563EB!important}
+  .footer-text{color:#475569!important}
+  .comp-num{color:#2563EB!important}
+  .comp-name{color:#0f172a!important}
+  .comp-level{background:#eff6ff!important;color:#1d4ed8!important;border-color:#bfdbfe!important}
+}
+
+/* ── LAYOUT ── */
+.page{max-width:960px;margin:0 auto;padding:40px 32px}
+
+/* ── HEADER ── */
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.logo-text{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:700;color:var(--white)}
+.logo-text span{color:var(--gold)}
+.header-right{text-align:right}
+.header-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:900;line-height:1.1;letter-spacing:-.02em;color:#0D0F1C;margin-bottom:8px}
+.header-title em{font-style:italic;color:var(--gold)}
+.header-sub{font-size:13px;color:var(--muted);max-width:420px;line-height:1.5;text-align:right}
+
+/* ── INTRO ROW ── */
+.intro-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px}
+.intro-stat{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:14px 18px;text-align:center}
+.intro-stat-n{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:28px;font-weight:900;color:var(--gold);line-height:1}
+.intro-stat-l{font-size:11px;color:var(--muted);margin-top:3px;font-weight:500;letter-spacing:.04em}
+
+/* ── GRID ── */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+
+/* ── CARD ── */
+.comp-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:18px 20px;position:relative;overflow:hidden}
+.comp-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--blue)}
+.comp-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px}
+.comp-left{display:flex;align-items:center;gap:10px}
+.comp-num{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:900;color:rgba(37,99,235,.4);line-height:1;flex-shrink:0}
+.comp-name{font-size:14px;font-weight:700;color:#0D0F1C;line-height:1.3}
+.comp-level{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:100px;background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);color:#93c5fd;white-space:nowrap;flex-shrink:0}
+.comp-divider{height:1px;background:var(--border);margin-bottom:10px}
+.comp-insight-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.comp-insight{font-size:12px;color:rgba(248,250,252,.8);line-height:1.55;font-style:italic;margin-bottom:10px}
+.comp-referral-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f87171;margin-bottom:3px}
+.comp-referral{font-size:11px;color:rgba(248,250,252,.55);line-height:1.5}
+
+/* ── FOOTER ── */
+.guide-footer{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--border)}
+.footer-text{font-size:11px;color:var(--muted)}
+.footer-cta{background:var(--gold);color:var(--navy);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:.02em}
+
+/* ── PRINT BTN ── */
+.print-bar{position:fixed;bottom:24px;right:24px;z-index:100;display:flex;gap:10px}
+.print-btn{background:var(--gold);color:var(--navy);padding:12px 22px;border-radius:8px;border:none;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(245,158,11,.4);transition:.18s}
+.print-btn:hover{background:#d97706}
+.save-btn{background:rgba(37,99,235,.2);border:1px solid rgba(37,99,235,.4);color:#93c5fd;padding:12px 22px;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:.18s;text-decoration:none;display:inline-flex;align-items:center}
+.save-btn:hover{background:rgba(37,99,235,.35)}
+
+@media(max-width:700px){
+  .comp-grid{grid-template-columns:1fr}
+  .header{flex-direction:column;gap:16px}
+  .header-sub{text-align:left}
+  .intro-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<script>
+(function() {
+  const d = localStorage.getItem('gca_guides_unlocked');
+  if (!d) {
+    window.location.href = '/guides?unlock=1';
+  }
+})();
+</script>
+
+<div class="no-print print-bar">
+  <button class="print-btn" onclick="window.print()">⬇ Save as PDF</button>
+  <a href="/free-guide" class="save-btn">← Back</a>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-text">Get Chartered <span>AI</span></div>
+    <div class="header-right">
+      <div class="header-title">The 11 Mandatory Competencies<br><em>What Assessors Are Actually Looking For</em></div>
+      <p class="header-sub">Built by Chartered Surveyors. Every insight drawn from how panels actually assess — not from the RICS website.</p>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="intro-row">
+    <div class="intro-stat">
+      <div class="intro-stat-n">11</div>
+      <div class="intro-stat-l">Mandatory Competencies</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-n">3</div>
+      <div class="intro-stat-l">Competency Levels</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-n">1</div>
+      <div class="intro-stat-l">Assessment. Make it count.</div>
+    </div>
+  </div>
+
+  <!-- COMPETENCY GRID -->
+  <div class="comp-grid">
+
+    <div class="comp-card">
+      <div class="comp-card-top">
+        <div class="comp-left">
+          <div class="comp-num">01</div>
+          <div class="comp-name">Ethics, Conduct &amp; Professionalism</div>
+        </div>
+        <div class="comp-level">Level 3</div>
+      </div>
+      <div class="comp-divider"></div>
+      <div class="comp-insight-label">Assessors want to hear</div>
+      <div class="comp-insight">"How you handled pressure to act against your professional obligations — not a recitation of the five Ethical Standards."</div>
+      <div class="comp-referral-label">Most common referral reason</div>
+      <div class="comp-referral">No real examples given. Choosing commercial interest over public interest.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-card-top">
+        <div class="comp-left">
+          <div class="comp-num">02</div>
+          <div class="comp-name">Client Care</div>
+        </div>
+        <div class="comp-level">Level 2</div>
+      </div>
+      <div class="comp-divider"></div>
+      <div class="comp-insight-label">Assessors want to hear</div>
+      <div class="comp-insight">"How you managed a difficult instruction — setting scope, handling a variation, keeping a client informed when things changed."</div>
+      <div class="comp-referral-label">Most common referral reason</div>
+      <div class="comp-referral">No mention of written scope. Unable to explain the two-stage complaints procedure.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-card-top">
+        <div class="comp-left">
+          <div class="comp-num">03</div>
+          <div class="comp-name">Communication &amp; Negotiation</div>
+        </div>
+        <div class="comp-level">Level 2</div>
+      </div>
+      <div class="comp-divider"></div>
+      <div class="comp-insight-label">Assessors want to hear</div>
+      <div class="comp-insight">"A real negotiation — your preparation, your approach and the outcome. PREP answers throughout your interview."</div>
+      <div class="comp-referral-label">Most common referral reason</div>
+      <div class="comp-referral">Rambling answers without structure. No evidence of following up verbal agreements in writing.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-card-top">
+        <div class="comp-left">
+          <div class="comp-num">04</div>
+          <div class="comp-name">Health &amp; Safety</div>
+        </div>
+        <div class="comp-level">Level 2</div>
+      </div>
+      <div class="comp-divider"></div>
+      <div class="comp-insight-label">Assessors want to hear</div>
+      <div class="comp-insight">"A specific site visit described from an H&amp;S perspective — your pre-visit preparation, how you read and applied RAMS, what you did when hazards were present."</div>
+      <div class="comp-referral-label">Most common referral reason</div>
+      <div class="comp-referral">Unable to explain RAMS. Citing 24 hours instead of 7 consecutive days for RIDDOR.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-card-top">
+        <div class="comp-left">
+          <div class="comp-num">05</div>
+          <div class="comp-name">Accounting Principles &amp; Procedures</div>
+        </div>
+        <div class="comp-level">Level 1</div>
+      </div>
+      <div class="comp-divider"></div>
+      <div class="comp-insight-label">Assessors want to hear</div>
+      <div class="comp-insight">"The difference between cash and profit — explained in the context of why a profitable business can still fail. Commercial awareness, not accounting theory."</div>
+      <div class="comp-referral-label">Most common referral reason</div>
+      <div class="comp-referral">Confusing profit and cash. Unable to explain financial statements without jargon.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-card-top">
+        <div class="comp-left">
+          <div class="comp-num">06</div>
+          <div class="comp-name">Business Planning</div>
+        </div>
+        <div class="comp-level">Level 1</div>
+      </div>
+      <div class="comp-divider"></div>
+      <div class="comp-insight-label">Assessors want to hear</div>
+      <div class="comp-insight">"Three commercial risks facing a surveying firm — named, explained and linked to how a firm responds. PESTLE applied to a real business context."</div>
+      <div class="comp-referral-label">Most common referral reason</div>
+      <div class="comp-referral">Generic answers with no surveying context. Unable to name three specific commercial risks.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-card-top">
+        <div class="comp-left">
+          <div class="comp-num">07</div>
+          <div class="comp-name">Conflict Avoidance &amp; Dispute Resolution</div>
+        </div>
+        <div class="comp-level">Level 2</div>
+      </div>
+      <div class="comp-divider"></div>
+      <div class="comp-insight-label">Assessors want to hear</div>
+      <div class="comp-insight">"How you identified conflict early and what you did before it escalated. The five resolution routes named in the correct order. The RICS Conflict Avoidance Pledge by name."</div>
+      <div class="comp-referral-label">Most common referral reason</div>
+      <div class="comp-referral">Wrong order of dispute resolution routes. Conflict Avoidance Pledge not mentioned.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-card-top">
+        <div class="comp-left">
+          <div class="comp-num">08</div>
+          <div class="comp-name">Data Management</div>
+        </div>
+        <div class="comp-level">Level 1</div>
+      </div>
+      <div class="comp-divider"></div>
+      <div class="comp-insight-label">Assessors want to hear</div>
+      <div class="comp-insight">"All six GDPR principles named — including storage limitation, which most candidates forget. The 72-hour ICO notification rule. What you actually do when a breach occurs."</div>
+      <div class="comp-referral-label">Most common referral reason</div>
+      <div class="comp-referral">Unable to name all six principles. Unaware of the 72-hour ICO notification requirement.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-card-top">
+        <div class="comp-left">
+          <div class="comp-num">09</div>
+          <div class="comp-name">Sustainability</div>
+        </div>
+        <div class="comp-level">Level 1</div>
+      </div>
+      <div class="comp-divider"></div>
+      <div class="comp-insight-label">Assessors want to hear</div>
+      <div class="comp-insight">"MEES non-compliance explained commercially — not just legally. What a stranded asset is. BREEAM ratings named correctly. The EPC methodology shift from 2026."</div>
+      <div class="comp-referral-label">Most common referral reason</div>
+      <div class="comp-referral">Unable to explain the commercial consequence of a poor EPC rating. Confusing EPC with actual energy consumption.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-card-top">
+        <div class="comp-left">
+          <div class="comp-num">10</div>
+          <div class="comp-name">Teamworking, Diversity &amp; Inclusion</div>
+        </div>
+        <div class="comp-level">Level 2</div>
+      </div>
+      <div class="comp-divider"></div>
+      <div class="comp-insight-label">Assessors want to hear</div>
+      <div class="comp-insight">"I — not we. Your specific personal contribution to a team outcome, ideally across disciplines. What you did, why it mattered, what you would do differently."</div>
+      <div class="comp-referral-label">Most common referral reason</div>
+      <div class="comp-referral">Describing team activity without any personal contribution. No multi-disciplinary examples.</div>
+    </div>
+
+  </div>
+
+  <!-- PRE-INTERVIEW CHECKLIST -->
+  <div style="margin-bottom:20px">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px">The week before your assessment — five actions that make a difference<span style="flex:1;height:1px;background:rgba(245,158,11,.2);display:block"></span></div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+      <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center">
+        <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:26px;font-weight:900;color:rgba(37,99,235,.35);line-height:1;margin-bottom:8px">1</div>
+        <div style="font-size:12px;font-weight:600;color:#0D0F1C;margin-bottom:4px">Practise out loud</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5">Answer each competency verbally. Reading is not the same as performing under pressure.</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center">
+        <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:26px;font-weight:900;color:rgba(37,99,235,.35);line-height:1;margin-bottom:8px">2</div>
+        <div style="font-size:12px;font-weight:600;color:#0D0F1C;margin-bottom:4px">Know your case study cold</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5">Read it repeatedly until you can explain every decision and why. Panels probe hard here.</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center">
+        <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:26px;font-weight:900;color:rgba(37,99,235,.35);line-height:1;margin-bottom:8px">3</div>
+        <div style="font-size:12px;font-weight:600;color:#0D0F1C;margin-bottom:4px">Build your example bank</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5">Write down real examples from your own practice for each competency. The more specific the better.</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center">
+        <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:26px;font-weight:900;color:rgba(37,99,235,.35);line-height:1;margin-bottom:8px">4</div>
+        <div style="font-size:12px;font-weight:600;color:#0D0F1C;margin-bottom:4px">Run a mock interview</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5">Ask a colleague or mentor to ask you questions. Timed. Out loud. Under pressure. Do it twice.</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center">
+        <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:26px;font-weight:900;color:rgba(37,99,235,.35);line-height:1;margin-bottom:8px">5</div>
+        <div style="font-size:12px;font-weight:600;color:#0D0F1C;margin-bottom:4px">Check 2026 legislation</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5">BSR, Renters Rights Act, RICS AI Standard, EPC changes. Know the ones relevant to your pathway.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="guide-footer">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="text-align:center;flex-shrink:0">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=64x64&data=https://getcharteredai.com/guides&bgcolor=0a0f1e&color=f8fafc&margin=2" width="64" height="64" alt="QR code" style="border-radius:6px;display:block">
+        <div style="font-size:9px;color:var(--muted);margin-top:3px">All free guides</div>
+      </div>
+      <div class="footer-text">
+        © 2025 Get Chartered AI · getcharteredai.com · info@getcharteredai.com<br>
+        <span style="font-size:10px;color:#475569">Built by Chartered Surveyors. Updated for 2026 RICS standards.</span><br>
+        <span style="font-size:10px;color:#475569">Follow <a href="https://www.linkedin.com/company/getcharteredai" style="color:#60a5fa" target="_blank">LinkedIn</a> &amp; <a href="https://www.instagram.com/getcharteredai" style="color:#f59e0b" target="_blank">Instagram</a> @getcharteredai for regular APC updates</span>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <a href="https://getcharteredai.com" class="footer-cta no-print" style="display:block;margin-bottom:8px">Start Preparing →</a>
+      <div style="font-size:11px;color:var(--muted)">Follow LinkedIn &amp; Instagram <strong style="color:rgba(255,255,255,.7)">@getcharteredai</strong> for regular APC updates</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

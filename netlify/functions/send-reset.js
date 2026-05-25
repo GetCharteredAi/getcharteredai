@@ -1,0 +1,147 @@
+// netlify/functions/send-reset.js
+// Password reset via magic link — looks up Stripe subscription by email
+// then re-issues a JWT token and emails a one-click login link
+
+exports.handler = async (event) => {
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json'
+  };
+
+  if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers, body: '' };
+  if (event.httpMethod !== 'POST') return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
+
+  let body;
+  try { body = JSON.parse(event.body); }
+  catch { return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) }; }
+
+  const { email } = body;
+  if (!email) return { statusCode: 400, headers, body: JSON.stringify({ error: 'Email required' }) };
+
+  const cleanEmail = email.toLowerCase().trim();
+
+  // Always return success to avoid email enumeration
+  // Only proceed if we have the required keys
+  const stripeKey = process.env.STRIPE_SECRET_KEY;
+  const resendKey = process.env.RESEND_API_KEY;
+  const jwtSecret = process.env.JWT_SECRET;
+
+  if (!stripeKey || !resendKey || !jwtSecret) {
+    console.log(`Reset requested for ${cleanEmail} — missing keys`);
+    return { statusCode: 200, headers, body: JSON.stringify({ sent: true }) };
+  }
+
+  try {
+    // Look up customer in Stripe by email
+    const custResp = await fetch(`https://api.stripe.com/v1/customers?email=${encodeURIComponent(cleanEmail)}&limit=5`, {
+      headers: { 'Authorization': `Bearer ${stripeKey}` }
+    });
+    const custData = await custResp.json();
+
+    let plan = null;
+    let activatedAt = null;
+    let expires = null;
+
+    if (custData.data && custData.data.length > 0) {
+      // Found customer — check for active subscription (monthly) or payment (annual)
+      for (const customer of custData.data) {
+        // Check subscriptions
+        const subResp = await fetch(`https://api.stripe.com/v1/subscriptions?customer=${customer.id}&status=active&limit=1`, {
+          headers: { 'Authorization': `Bearer ${stripeKey}` }
+        });
+        const subData = await subResp.json();
+
+        if (subData.data && subData.data.length > 0) {
+          plan = 'monthly';
+          activatedAt = subData.data[0].start_date * 1000;
+          expires = Date.now() + (60 * 24 * 60 * 60 * 1000);
+          break;
+        }
+
+        // Check one-time payments (annual)
+        const payResp = await fetch(`https://api.stripe.com/v1/payment_intents?customer=${customer.id}&limit=5`, {
+          headers: { 'Authorization': `Bearer ${stripeKey}` }
+        });
+        const payData = await payResp.json();
+
+        if (payData.data && payData.data.length > 0) {
+          const paid = payData.data.find(p => p.status === 'succeeded');
+          if (paid) {
+            plan = 'annual';
+            activatedAt = paid.created * 1000;
+            expires = activatedAt + (548 * 24 * 60 * 60 * 1000);
+            break;
+          }
+        }
+      }
+    }
+
+    if (!plan) {
+      // No active account found — still return success but don't send
+      console.log(`Reset requested for ${cleanEmail} — no active account found`);
+      return { statusCode: 200, headers, body: JSON.stringify({ sent: true }) };
+    }
+
+    // Re-issue JWT token
+    const payload = {
+      email: cleanEmail,
+      plan,
+      activatedAt,
+      expires,
+      resetIssued: Date.now()
+    };
+
+    const tokenData = Buffer.from(JSON.stringify(payload)).toString('base64');
+    const signature = Buffer.from(`${tokenData}.${jwtSecret}`).toString('base64').slice(0, 32);
+    const token = `${tokenData}.${signature}`;
+
+    // Build magic link
+    const magicLink = `https://getcharteredai.com?token=${encodeURIComponent(token)}`;
+
+    // Send email via Resend
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${resendKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: 'Get Chartered AI <info@getcharteredai.com>',
+        to: [cleanEmail],
+        subject: 'Get Chartered AI — Your login link',
+        html: `
+          <div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:0 auto;padding:40px 20px">
+            <div style="background:#1d4ed8;border-radius:12px 12px 0 0;padding:28px;text-align:center">
+              <h1 style="color:#fff;font-size:20px;margin:0">Get Chartered AI</h1>
+            </div>
+            <div style="background:#fff;padding:32px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 12px 12px">
+              <h2 style="font-size:18px;color:#0f172a;margin-bottom:8px">Your login link</h2>
+              <p style="color:#64748b;font-size:14px;line-height:1.7;margin-bottom:20px">
+                Click the button below to log straight back into your Get Chartered AI dashboard. No password needed — this link logs you in directly.
+              </p>
+              <p style="color:#64748b;font-size:14px;margin-bottom:20px">
+                <strong>Plan:</strong> ${plan === 'monthly' ? 'Monthly Subscription' : 'Full Year Access'}
+              </p>
+              <a href="${magicLink}" style="display:inline-block;background:#2563EB;color:#fff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px">
+                Log In to My Dashboard →
+              </a>
+              <p style="color:#94a3b8;font-size:12px;margin-top:24px">
+                This link is valid for 35 days. If you did not request this, you can safely ignore this email.<br><br>
+                Questions? <a href="mailto:info@getcharteredai.com" style="color:#2563EB">info@getcharteredai.com</a>
+              </p>
+            </div>
+          </div>
+        `,
+        text: `Your Get Chartered AI login link\n\nClick here to log in: ${magicLink}\n\nThis link is valid for 35 days.\n\nQuestions? info@getcharteredai.com`
+      })
+    });
+
+    console.log(`Reset magic link sent to ${cleanEmail}`);
+    return { statusCode: 200, headers, body: JSON.stringify({ sent: true }) };
+
+  } catch (err) {
+    console.error('Reset error:', err.message);
+    return { statusCode: 200, headers, body: JSON.stringify({ sent: true }) };
+  }
+};

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which Programme Is Right for You? | Get Chartered AI</title>
+<meta name="description" content="Answer two or three quick questions and we will point you to the right Get Chartered AI programme for your APC preparation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0D0F1C;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8;--border:#e2e8f0}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:#1a1a2e;min-height:100vh}
+nav{padding:18px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:#fff;position:sticky;top:0;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);text-decoration:none}.nav-logo span{color:var(--gold)}
+.nav-back{font-size:13px;color:var(--muted);text-decoration:none}.nav-back:hover{color:var(--navy)}
+.hero{background:var(--navy);padding:60px 24px 52px;text-align:center}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,42px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.03em}
+h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.6);line-height:1.7;max-width:520px;margin:0 auto}
+.wrap{max-width:680px;margin:0 auto;padding:48px 24px 80px}
+/* FINDER STYLES */
+.q-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.q-text{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:20px;line-height:1.3;font-family:'Playfair Display',serif}
+.progress{display:flex;gap:6px;margin-bottom:24px}
+.prog-dot{height:4px;flex:1;border-radius:2px;background:var(--border)}
+.prog-dot.done{background:var(--blue)}
+.options{display:flex;flex-direction:column;gap:10px;margin-bottom:0}
+.opt{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:16px 18px;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;font-size:15px;color:#374151;transition:.18s;line-height:1.55;width:100%;display:flex;align-items:flex-start;gap:12px}
+.opt:hover{border-color:var(--blue);background:#eff6ff;color:var(--navy)}
+.opt.selected{border-color:var(--blue);background:#eff6ff;color:var(--navy)}
+.opt-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.back-btn{font-size:13px;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0;margin-bottom:20px;display:flex;align-items:center;gap:4px}
+.back-btn:hover{color:var(--navy)}
+.hidden{display:none}
+/* RESULT STYLES */
+.result-eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.result-recommended{font-size:13px;color:var(--muted);margin-bottom:6px}
+.result-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:28px;margin-bottom:16px}
+.result-card.featured{border:2px solid var(--blue);background:#f8fbff}
+.result-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:6px;background:#eff6ff;color:#1d4ed8;margin-bottom:12px}
+.result-badge.free{background:#f0fdf4;color:#166534}
+.result-badge.referred{background:#fff7ed;color:#92400e}
+.result-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.2}
+.result-reason{font-size:14px;color:#4b5563;line-height:1.7;margin-bottom:16px;padding:14px 16px;background:#f8fafc;border-radius:8px;border-left:3px solid var(--blue)}
+.result-features{list-style:none;margin-bottom:16px}
+.result-features li{font-size:14px;color:#374151;padding:6px 0;display:flex;align-items:flex-start;gap:10px;line-height:1.5;border-bottom:1px solid #f1f5f9}
+.result-features li:last-child{border-bottom:none}
+.result-features li::before{content:"✓";color:var(--green);flex-shrink:0;font-weight:700;margin-top:1px}
+.result-price{font-size:24px;font-weight:700;color:var(--navy);margin-bottom:16px}
+.result-price span{font-size:14px;color:var(--muted);font-weight:400}
+.btn-enrol{display:inline-block;background:var(--navy);color:#fff;padding:13px 26px;border-radius:9px;font-size:15px;font-weight:700;text-decoration:none;transition:.18s;margin-right:8px;margin-bottom:8px}
+.btn-enrol:hover{background:#1d4ed8;transform:translateY(-1px)}
+.restart-btn{font-size:13px;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0;margin-top:12px;display:block;text-decoration:underline;text-underline-offset:2px}
+.restart-btn:hover{color:var(--navy)}
+.also-wrap{margin-top:8px;padding-top:20px;border-top:1px solid var(--border)}
+.also-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.also-card{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.also-info h3{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:2px}
+.also-info p{font-size:13px;color:var(--muted)}
+.btn-also{background:#fff;border:1.5px solid var(--border);color:var(--navy);padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:.18s}
+.btn-also:hover{border-color:var(--navy)}
+@media(max-width:560px){nav{padding:16px 20px}.hero{padding:44px 20px 40px}.wrap{padding:32px 20px 60px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">Get Chartered <span>AI</span></a>
+  <a href="/" class="nav-back">← Back to platform</a>
+</nav>
+
+<div class="hero">
+  <span class="eyebrow">Programme Finder</span>
+  <h1>Which programme is<br><em>right for you?</em></h1>
+  <p class="hero-sub">Answer two or three quick questions and we will point you to the right programme — with the specific reason why.</p>
+</div>
+
+<div class="wrap">
+
+  <div id="step1">
+    <div class="progress"><div class="prog-dot done"></div><div class="prog-dot"></div><div class="prog-dot"></div></div>
+    <div class="q-label">Question 1 of 3</div>
+    <div class="q-text">Where are you in your APC journey?</div>
+    <div class="options">
+      <button class="opt" onclick="pick(1,'starting')"><span class="opt-icon">🌱</span><span>Just starting out — I am in my first year or haven't begun yet</span></button>
+      <button class="opt" onclick="pick(1,'mid')"><span class="opt-icon">📚</span><span>Mid-preparation — I have started but my assessment is more than 6 months away</span></button>
+      <button class="opt" onclick="pick(1,'soon')"><span class="opt-icon">📅</span><span>Sitting soon — my assessment is in the next 6 months</span></button>
+      <button class="opt" onclick="pick(1,'referred')"><span class="opt-icon">🔁</span><span>I was referred at my last assessment and I am preparing for a resit</span></button>
+    </div>
+  </div>
+
+  <div id="step2" class="hidden">
+    <div class="progress"><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot"></div></div>
+    <button class="back-btn" onclick="goBack(2)">← Back</button>
+    <div class="q-label">Question 2 of 3</div>
+    <div class="q-text" id="q2text"></div>
+    <div class="options" id="q2opts"></div>
+  </div>
+
+  <div id="step3" class="hidden">
+    <div class="progress"><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div></div>
+    <button class="back-btn" onclick="goBack(3)">← Back</button>
+    <div class="q-label">Final question</div>
+    <div class="q-text" id="q3text"></div>
+    <div class="options" id="q3opts"></div>
+  </div>
+
+  <div id="result" class="hidden">
+    <div id="result-content"></div>
+  </div>
+
+</div>
+
+<script>
+var answers = {};
+
+var products = {
+  sprint:{badge:'APC Sprint',badgeClass:'',title:'APC Sprint Programme',price:'£197',priceNote:'one-off · 42 days access',url:'/sprint',cta:'View the APC Sprint',
+    features:['All 11 mandatory competency revision sheets','861+ pathway-specific mock interview questions across all 22 RICS pathways','60-minute AI-scored mock interview','Michael — AI Tutor in full scope, available 24/7','Updated for 2026 legislation']},
+  annual:{badge:'Best value',badgeClass:'',title:'Full Programme — Annual Access',price:'£383',priceNote:'one-off · 18 months access',url:'/#pricing-sec',cta:'View full programme',
+    features:['All 12 modules unlocked immediately','156 sections across all 11 mandatory competencies','861+ pathway-specific mock interview questions','60-minute AI-scored mock interview','Michael — AI Tutor available 24/7','Updated for 2026 legislation']},
+  monthly:{badge:'Start here',badgeClass:'',title:'Monthly Access',price:'£39.90',priceNote:'per month · cancel any time',url:'/#pricing-sec',cta:'Start with monthly access',
+    features:['One new module unlocked each month','All 11 mandatory competencies progressively','Michael — AI Tutor, scope expands as you unlock modules','60-minute AI-scored mock interview','Updated for 2026 legislation']},
+  reset:{badge:'Referred candidates',badgeClass:'referred',title:'APC Confidence Reset',price:'£297',priceNote:'one-off · 90 days access',url:'/referred-programme',cta:'View the APC Confidence Reset',
+    features:['6 modules of performance reconstruction after referral','Evidence, structure and common referral pattern analysis','All 11 mandatory competencies rebuilt with 2026 legislation','Michael — AI Tutor in Assessor Mode, available 24/7','60-minute AI-scored mock interview across all 22 pathways','30-day structured resit countdown']},
+  free:{badge:'Start free',badgeClass:'free',title:'Free Guides and Tools',price:'Free',priceNote:'no payment required',url:'/guides',cta:'Browse free guides',
+    features:['What Assessors Are Actually Looking For','APC Readiness Benchmark','APC Competency Choice Checker',"APC Assessors' Briefing — Updated Autumn 2026",'Graduate interview prep guides','Why APC Candidates Are Referred — open access']}
+};
+
+var q2config = {
+  starting:{text:'How soon are you likely to sit your APC assessment?',opts:[
+    {label:'More than 18 months away — I have plenty of time',val:'far'},
+    {label:'Around 12–18 months away',val:'medium'},
+    {label:'Less than 12 months away',val:'closer'}]},
+  mid:{text:'How structured is your current preparation?',opts:[
+    {label:'I am studying independently — no structured programme',val:'unstructured'},
+    {label:'I have some counsellor support but nothing systematic',val:'light'},
+    {label:'I am already using a structured resource and want to supplement it',val:'structured'}]},
+  soon:{text:'What is your biggest concern right now?',opts:[
+    {label:'Sharpening my competency answers and performing under assessor questioning',val:'performance'},
+    {label:'Gaps in specific mandatory competencies or 2026 legislation',val:'gaps'},
+    {label:'I need a full structured revision plan with mock interview practice',val:'full'}]},
+  referred:{text:'What does your referral feedback suggest?',opts:[
+    {label:'My answers were descriptive rather than evidential — I struggled to demonstrate application',val:'evidencing'},
+    {label:'I performed well in writing but struggled under assessor questioning',val:'verbal'},
+    {label:'I had gaps in mandatory competencies or legislation knowledge',val:'content'},
+    {label:'I am not entirely sure — the feedback was not very specific',val:'unsure'}]}
+};
+
+var results = {
+  starting_far:{primary:'free',secondary:'monthly',reason:'With more than 18 months until your assessment, the most useful thing right now is building your understanding of what the APC actually requires. Start with the free guides — particularly the APC Readiness Benchmark and What Assessors Are Actually Looking For. When you are 12 months out, the monthly programme is the right structured next step.'},
+  starting_medium:{primary:'monthly',secondary:null,reason:'With 12–18 months to go, this is the right time to start structured preparation. The monthly programme unlocks one module per month — paced to your training timeline — and gives you Michael, your AI Tutor, from day one.'},
+  starting_closer:{primary:'annual',secondary:null,reason:'With less than 12 months until your assessment, the annual programme gives you all 12 modules immediately so you can set your own pace rather than waiting for monthly unlocks. Better value and more flexibility.'},
+  mid_unstructured:{primary:'monthly',secondary:'annual',reason:'If you are studying independently without a structured programme, monthly or annual access gives you the framework your preparation is currently missing — mandatory competency content, AI Tutor coaching and mock interview practice in one place.'},
+  mid_light:{primary:'monthly',secondary:null,reason:'The monthly programme works well alongside counsellor support. It provides structured content and AI coaching that fills the gap between counsellor sessions — so when you do meet, you arrive prepared rather than covering basics.'},
+  mid_structured:{primary:'sprint',secondary:null,reason:'If you are already working through a structured resource, the Sprint gives you the specific tools you may be missing — AI Tutor in full scope, pathway-specific mock interview practice and mandatory competency revision sheets. A focused add-on.'},
+  soon_performance:{primary:'sprint',secondary:null,reason:'The Sprint is built for exactly this. All 11 mandatory competency revision sheets, Michael in full Assessor Mode available 24 hours a day, and a 60-minute AI-scored mock interview across your specific pathway.'},
+  soon_gaps:{primary:'sprint',secondary:null,reason:'The Sprint covers all 11 mandatory competencies with revision sheets updated for 2026 legislation, and Michael is available 24 hours a day to work through any specific gaps with you.'},
+  soon_full:{primary:'sprint',secondary:null,reason:'The Sprint gives you the full structured package for the final preparation phase — mandatory competency revision, pathway-specific mock interview practice and AI Tutor coaching. Built for candidates in your position.'},
+  referred_evidencing:{primary:'reset',secondary:null,reason:'The APC Confidence Reset is built for this specific pattern. Module 3 — Evidence, Structure and Common Referral Patterns — addresses the description vs evidence distinction directly, with a rewriting framework and annotated examples. This is the most common referral cause and the most fixable with structured guidance.'},
+  referred_verbal:{primary:'reset',secondary:null,reason:'Module 5 of the APC Confidence Reset — Performing Under Pressure — addresses verbal performance directly, with Michael in Assessor Mode available 24 hours a day for repeated mock questioning on the competencies where you were referred.'},
+  referred_content:{primary:'reset',secondary:null,reason:'Module 4 of the APC Confidence Reset rebuilds all 11 mandatory competencies with 2026 legislation — specifically addressing the competencies most commonly flagged in referral letters.'},
+  referred_unsure:{primary:'reset',secondary:null,reason:'Module 1 of the APC Confidence Reset teaches you how to read the referral report properly, identify the pattern in the feedback and separate technical gaps from performance gaps. Start there and the rest of the programme builds from what you find.'}
+};
+
+function pick(step,val){
+  answers['q'+step]=val;
+  if(step===1){hide('step1');show('step2');setupQ2(val);}
+  else if(step===2){hide('step2');showResult(answers.q1+'_'+val);}
+}
+
+function setupQ2(q1){
+  var cfg=q2config[q1];
+  document.getElementById('q2text').textContent=cfg.text;
+  var html='';
+  cfg.opts.forEach(function(o){html+='<button class="opt" onclick="pick(2,''+o.val+'')"><span>'+o.label+'</span></button>';});
+  document.getElementById('q2opts').innerHTML=html;
+}
+
+function showResult(key){
+  var r=results[key]||{primary:'monthly',secondary:null,reason:'Based on your answers, the monthly programme is a solid starting point.'};
+  var p=products[r.primary];
+  var html='<div class="result-eyebrow">Our recommendation</div>';
+  html+='<div class="result-card featured">';
+  html+='<div class="result-badge '+p.badgeClass+'">'+p.badge+'</div>';
+  html+='<div class="result-title">'+p.title+'</div>';
+  html+='<div class="result-reason">'+r.reason+'</div>';
+  html+='<ul class="result-features">';
+  p.features.forEach(function(f){html+='<li>'+f+'</li>';});
+  html+='</ul>';
+  html+='<div class="result-price">'+p.price+' <span>— '+p.priceNote+'</span></div>';
+  html+='<a href="'+p.url+'" class="btn-enrol">'+p.cta+' →</a>';
+  html+='</div>';
+  if(r.secondary){
+    var s=products[r.secondary];
+    html+='<div class="also-wrap"><div class="also-label">Also worth considering</div>';
+    html+='<div class="also-card"><div class="also-info"><h3>'+s.title+'</h3><p>'+s.price+' — '+s.priceNote+'</p></div>';
+    html+='<a href="'+s.url+'" class="btn-also">'+s.cta+' →</a></div></div>';
+  }
+  html+='<button class="restart-btn" onclick="restart()">← Start again</button>';
+  document.getElementById('result-content').innerHTML=html;
+  hide('step1');hide('step2');hide('step3');show('result');
+}
+
+function goBack(from){
+  if(from===2){hide('step2');show('step1');}
+  else if(from===3){hide('step3');show('step2');}
+}
+
+function restart(){
+  answers={};
+  hide('result');hide('step2');hide('step3');
+  document.getElementById('result-content').innerHTML='';
+  show('step1');
+}
+
+function show(id){document.getElementById(id).classList.remove('hidden');}
+function hide(id){document.getElementById(id).classList.add('hidden');}
+</script>
+</body>
+</html>

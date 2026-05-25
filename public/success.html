@@ -33,8 +33,8 @@ button:disabled{background:#94a3b8;cursor:not-allowed}
 <body>
 <div class="card" id="mainCard">
   <div class="icon">🎉</div>
-  <h1>Payment Confirmed!</h1>
-  <p class="sub">Your payment was successful. Set up your account below to access all 12 modules immediately.</p>
+  <h1 id="successTitle">Payment Confirmed!</h1>
+  <p class="sub" id="successSub">Your payment was successful. Set up your account below to get started.</p>
 
   <div id="alertBox" class="alert"></div>
 
@@ -80,7 +80,10 @@ async function activate() {
   if (!email.includes('@')) { showAlert('Please enter a valid email address.', 'red'); return; }
   if (pass.length < 8) { showAlert('Password must be at least 8 characters.', 'red'); return; }
   if (pass !== pass2) { showAlert('Passwords do not match.', 'red'); return; }
-  if (!sessionId) { showAlert('Payment session not found. Please contact support@getcharteredai.com', 'red'); return; }
+  if (!sessionId) { 
+    showAlert('We could not find your payment session. This usually means you navigated to this page directly rather than through the payment process. Please complete payment first, or contact info@getcharteredai.com if you have already paid.', 'red'); 
+    return; 
+  }
 
   btn.disabled = true;
   btn.textContent = 'Activating...';
@@ -102,6 +105,16 @@ async function activate() {
       localStorage.setItem('gca_plan', data.plan);
       localStorage.setItem('gca_activated', Date.now().toString());
 
+      // Update success message based on plan
+      const subEl = document.getElementById('successSub');
+      if (subEl) {
+        if (data.plan === 'annual') {
+          subEl.textContent = 'Your payment was successful. All 12 modules are now unlocked and ready for you.';
+        } else {
+          subEl.textContent = 'Your monthly subscription is confirmed. Module 1 is unlocked today. A new module unlocks each month.';
+        }
+      }
+
       showAlert('✓ Account activated! Sending your welcome email and redirecting...', 'green');
       loading.style.display = 'none';
 
@@ -117,7 +130,7 @@ async function activate() {
       }, 2000);
 
     } else {
-      showAlert(data.error || 'Activation failed. Please contact support@getcharteredai.com', 'red');
+      showAlert(data.error || 'Activation failed. Please contact info@getcharteredai.com', 'red');
       btn.disabled = false;
       btn.textContent = 'Activate My Account';
       loading.style.display = 'none';
@@ -137,7 +150,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Enter') activate(); }
 // Check we have a session ID
 window.addEventListener('DOMContentLoaded', () => {
   if (!getSessionId()) {
-    showAlert('No payment session found. If you have paid, please contact support@getcharteredai.com with your payment confirmation.', 'red');
+    showAlert('No payment session found. If you have paid, please contact info@getcharteredai.com with your payment confirmation.', 'red');
   }
 });
 </script>

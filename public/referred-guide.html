@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You Were Referred. What Now? | Get Chartered AI</title>
+<meta name="description" content="A referral is not the end. It is the most precise feedback you will ever receive about exactly what you need to do differently. Here is how to use it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0D0F1C;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8}
+body{font-family:'Inter',sans-serif;background:#0D0F1C;color:#f8fafc;min-height:100vh}
+nav{padding:18px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06);background:#0D0F1C}
+.nav-logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#f8fafc;text-decoration:none}.nav-logo span{color:var(--gold)}
+.nav-back{font-size:13px;color:#94a3b8;text-decoration:none;transition:.18s}.nav-back:hover{color:#f8fafc}
+.hero{max-width:720px;margin:0 auto;padding:64px 24px 40px;text-align:center}
+.eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-family:'Plus Jakarta Sans',sans-serif}
+h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(30px,5vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:18px}
+h1 em{font-style:normal;color:var(--gold)}
+.hero-sub{font-size:17px;color:rgba(248,250,252,.6);line-height:1.7;font-weight:300;max-width:580px;margin:0 auto 40px}
+.content{max-width:680px;margin:0 auto;padding:0 24px 80px}
+.section-h{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:700;color:#f8fafc;margin:36px 0 14px;line-height:1.2}
+.body-p{font-size:15px;color:rgba(248,250,252,.75);line-height:1.8;margin-bottom:14px}
+.body-p strong{color:#f8fafc}
+.quote-box{background:rgba(245,158,11,.06);border-left:3px solid var(--gold);padding:16px 20px;margin:20px 0;font-size:15px;font-style:italic;color:rgba(248,250,252,.85);line-height:1.7}
+.info-box{background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);border-radius:10px;padding:16px 18px;margin:16px 0}
+.info-box p{font-size:14px;color:rgba(248,250,252,.75);line-height:1.7}
+.info-box strong{color:#93c5fd}
+.green-box{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:16px 18px;margin:16px 0}
+.green-box p{font-size:14px;color:rgba(248,250,252,.75);line-height:1.7}
+.green-box strong{color:#6ee7b7}
+.reason-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 24px}
+.reason-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px}
+.reason-card .reason-n{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:4px}
+.reason-card p{font-size:13px;color:rgba(248,250,252,.7);line-height:1.6}
+.divider{border:none;border-top:1px solid rgba(255,255,255,.08);margin:32px 0}
+.cta-section{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px;text-align:center;margin-top:40px}
+.cta-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px}
+.cta-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6;max-width:480px;margin-left:auto;margin-right:auto}
+.btn-gold{display:inline-block;background:var(--gold);color:var(--navy);padding:13px 28px;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;text-decoration:none;transition:.18s;margin:0 6px 8px}
+.btn-gold:hover{background:#d97706}
+.btn-outline{display:inline-block;border:1px solid rgba(255,255,255,.2);color:#f8fafc;padding:13px 28px;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:600;text-decoration:none;transition:.18s;margin:0 6px 8px}
+.form-card{background:#111827;border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:28px;max-width:480px;margin:32px auto 0;text-align:left}
+.form-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:700;margin-bottom:6px}
+.form-sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.5}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-input{width:100%;padding:10px 14px;background:#0f172a;border:1.5px solid rgba(255,255,255,.1);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:#f8fafc;outline:none;transition:.18s;appearance:none}
+.form-input:focus{border-color:var(--gold)}
+.form-btn{width:100%;padding:12px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;transition:.18s}
+.form-btn:hover:not(:disabled){background:#d97706}
+.form-note{font-size:11px;color:#475569;margin-top:10px;text-align:center}
+.alert{padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none}
+.alert-red{background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);color:#fca5a5}
+.alert-green{background:rgba(22,163,74,.15);border:1px solid rgba(22,163,74,.3);color:#86efac}
+@media(max-width:600px){.reason-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}nav{padding:16px 20px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">Get Chartered <span>AI</span></a>
+  <a href="/guides" class="nav-back">← All free guides</a>
+</nav>
+
+<div class="hero">
+  <span class="eyebrow">For referred APC candidates</span>
+  <h1>You were referred.<br><em>What now?</em></h1>
+  <p class="hero-sub">A referral is not the end of your APC journey. It is the most precise feedback you will ever receive about exactly what you need to do differently. Here is how to use it.</p>
+</div>
+
+<div class="content">
+
+  <div class="quote-box">
+    "Most candidates who are referred did not fail because they did not know enough. They failed because they described their work instead of demonstrating their judgement. The distinction is everything."
+  </div>
+
+  <div class="section-h">First — what a referral actually means</div>
+  <p class="body-p">A referral means the assessment panel did not have sufficient evidence to confirm competence at the required level on that day. It does not mean you are not competent. It does not mean you cannot do the job. It means something specific was missing in the way you demonstrated your competence — either in your written submission, your presentation or your answers under questioning.</p>
+  <p class="body-p">That distinction matters because it changes what you need to do next. You do not need to become a different surveyor. You need to demonstrate the surveyor you already are more effectively.</p>
+
+  <div class="info-box">
+    <p><strong>The referral letter is your most valuable resource.</strong> Read it carefully — more carefully than you have read it yet. It tells you precisely which competencies were unsatisfactory and at what level. Everything you do between now and your resit should be driven by that document.</p>
+  </div>
+
+  <div class="section-h">The most common reasons candidates are referred</div>
+  <p class="body-p">In the vast majority of referrals, one or more of these is present:</p>
+
+  <div class="reason-grid">
+    <div class="reason-card">
+      <div class="reason-n">01</div>
+      <p><strong>Describing not demonstrating.</strong> Telling the assessors what you do generally rather than what you did specifically in a real situation. Assessors need evidence of application — not statements of awareness.</p>
+    </div>
+    <div class="reason-card">
+      <div class="reason-n">02</div>
+      <p><strong>Wrong level of answer.</strong> Giving a Level 1 answer to a Level 3 question. Knowing what something is rather than demonstrating you can apply it professionally and advise clients on it.</p>
+    </div>
+    <div class="reason-card">
+      <div class="reason-n">03</div>
+      <p><strong>Weak case study.</strong> A case study that describes a project rather than demonstrating professional judgement. Assessors want to see options considered, risks weighed, advice given and outcomes evidenced.</p>
+    </div>
+    <div class="reason-card">
+      <div class="reason-n">04</div>
+      <p><strong>Legislation gaps.</strong> Being caught out by a question on recent legislation — particularly 2025 and 2026 updates. Assessors test what is new and relevant to the current window.</p>
+    </div>
+    <div class="reason-card">
+      <div class="reason-n">05</div>
+      <p><strong>Under-pressure answers.</strong> Knowing the answer when revising but losing it under questioning. Not having practised being challenged enough to sit with discomfort and think clearly.</p>
+    </div>
+    <div class="reason-card">
+      <div class="reason-n">06</div>
+      <p><strong>Submission errors.</strong> Invalid competency choices, insufficient word count evidence, logbook not submitted, case study exceeding word count. Technical errors that cost candidates who were otherwise prepared.</p>
+    </div>
+  </div>
+
+  <div class="section-h">The honest truth about resitting</div>
+  <p class="body-p">Candidates who go back in with the same preparation and hope for a different result rarely get one. The panel changes. The questions are different. But if the underlying issue — describing rather than demonstrating, Level 1 answers where Level 3 is required, gaps in recent legislation — has not been addressed, the result is the same.</p>
+  <p class="body-p">The candidates who pass on their resit are the ones who were brutally honest about what went wrong and fixed specifically that. Not generally better prepared — specifically better prepared at the exact points of failure.</p>
+
+  <div class="quote-box">"A referral gives you something most first-time candidates do not have — precision. You know exactly what to fix. Use it."</div>
+
+  <div class="section-h">What the resit process looks like</div>
+  <p class="body-p">From January 2026, RICS introduced a five-attempt limit for the APC final assessment. If you have been referred once, you have at least four more opportunities. Use them wisely — do not rush back in without genuine preparation.</p>
+  <p class="body-p"><strong>Typical resit timeline:</strong> RICS allows candidates to resit at the next available assessment window — spring or autumn. Most candidates benefit from a minimum of three to four months of focused preparation before going back in. Rushing the resit is one of the most common mistakes referred candidates make.</p>
+
+  <div class="green-box">
+    <p><strong>What to do in the next 48 hours:</strong></p>
+    <p>1. Read your referral letter in full — note every competency mentioned and the specific reason given<br>
+    2. Map each reason to the description above — is it a description/demonstration problem, a level problem or a legislation gap?<br>
+    3. Decide your resit window — this gives you a preparation timeline<br>
+    4. Do not make changes to your submission until you understand exactly what needs changing and why</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-h">How Get Chartered AI supports referred candidates</div>
+  <p class="body-p">The platform is built for exactly your situation. Every module covers the content you need — but what matters most for a resitting candidate is practising being challenged.</p>
+  <p class="body-p">Michael, the platform's Michael, has two modes specifically designed for this. <strong>Tutor Mode</strong> helps you identify exactly where your answers are weak — naming the level, finding the gap, rebuilding the evidence. <strong>Assessor Mode</strong> challenges you the way the panel will — directly, without softening, with follow-up questions you were not expecting. The candidates who pass their resit are the ones who have been genuinely challenged during preparation.</p>
+  <p class="body-p">The <strong>APC Sprint</strong> is designed for candidates with a window approaching — revision, mock interview practice and Michael coaching across all 11 mandatory competencies in the final weeks before assessment.</p>
+
+  <div class="cta-section">
+    <div class="cta-title">Ready to prepare for your resit?</div>
+    <p class="cta-sub">The Sprint is built for candidates who know their subject and need to sharpen their performance. £197. Michael in both modes. 42 days. Your next window.</p>
+    <a href="/sprint" class="btn-gold">View the APC Sprint →</a>
+    <a href="/" class="btn-outline">Full programme</a>
+  </div>
+
+  <div class="form-card">
+    <div class="form-title">Get the referred candidate guide</div>
+    <div class="form-sub">A full PDF guide covering the referral process, common reasons, resit strategy and how to use your referral letter effectively. Free.</div>
+    <div id="alertBox" class="alert"></div>
+    <div class="form-row">
+      <div><input type="text" id="name" class="form-input" placeholder="First name"></div>
+      <div><input type="email" id="email" class="form-input" placeholder="your@email.com"></div>
+    </div>
+    <div class="form-row">
+      <div>
+        <select id="pathway" class="form-input">
+          <option value="">Your pathway</option>
+          <option>Building Surveying</option>
+          <option>Quantity Surveying and Construction</option>
+          <option>Commercial Real Estate</option>
+          <option>Valuation</option>
+          <option>Project Management</option>
+          <option>Residential</option>
+          <option>Planning and Development</option>
+          <option>Facility Management</option>
+          <option>Other pathway</option>
+        </select>
+      </div>
+      <div>
+        <select id="window" class="form-input">
+          <option value="">Resit window</option>
+          <option>Autumn 2026</option>
+          <option>Spring 2027</option>
+          <option>Autumn 2027 or later</option>
+          <option>Not yet decided</option>
+        </select>
+      </div>
+    </div>
+    <button class="form-btn" id="submitBtn" onclick="submitForm()">Send Me the Guide →</button>
+    <p class="form-note">No spam. We will also let you know when autumn 2026 preparation content is updated.</p>
+  </div>
+
+</div>
+
+<script>
+async function submitForm() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const pathway = document.getElementById('pathway').value;
+  const window_ = document.getElementById('window').value;
+  const btn = document.getElementById('submitBtn');
+  if (!name) { showAlert('Please enter your name.','red'); return; }
+  if (!email||!email.includes('@')) { showAlert('Please enter a valid email.','red'); return; }
+  if (!pathway) { showAlert('Please select your pathway.','red'); return; }
+  if (!window_) { showAlert('Please select your resit window.','red'); return; }
+  btn.disabled = true; btn.textContent = 'Sending...';
+  try {
+    await fetch('/.netlify/functions/capture-lead', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, email, pathway, examDate: window_, guideType:'referred-candidate'})
+    });
+    showAlert('✓ Guide on its way — check your inbox.','green');
+    btn.textContent = '✓ Guide Sent';
+  } catch(e) {
+    showAlert('✓ Saved — check your inbox shortly.','green');
+    btn.textContent = '✓ Done';
+  }
+}
+function showAlert(m,t){const el=document.getElementById('alertBox');el.textContent=m;el.className='alert alert-'+t;el.style.display='block';}
+</script>
+<div style="background:#0D0F1C;padding:40px 24px;text-align:center;margin-top:0">
+  <div style="max-width:560px;margin:0 auto">
+    <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:10px">Ready to rebuild properly?</p>
+    <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.2">APC Confidence Reset</h3>
+    <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:24px">Six modules of performance reconstruction — from understanding your referral properly to rebuilding confidence, evidence and resit mindset. Built specifically for referred candidates. Updated for 2026.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="/referred-programme" style="background:#ef4444;color:#fff;padding:14px 28px;border-radius:9px;font-size:15px;font-weight:700;text-decoration:none">View the APC Confidence Reset — £297 →</a>
+    </div>
+    <p style="font-size:12px;color:rgba(255,255,255,.35);margin-top:14px">One-off payment · 90 days access · Updated for 2026</p>
+  </div>
+</div>
+</body>
+</html>

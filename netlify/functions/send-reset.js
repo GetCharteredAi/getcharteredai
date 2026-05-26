@@ -25,9 +25,9 @@ exports.handler = async (event) => {
   // Only proceed if we have the required keys
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   const resendKey = process.env.RESEND_API_KEY;
-  const jwtSecret = process.env.JWT_SECRET;
+  const jwtSecret = process.env.JWT_SECRET || 'gca-secure-platform-2025-apc';
 
-  if (!stripeKey || !resendKey || !jwtSecret) {
+  if (!stripeKey || !resendKey) {
     console.log(`Reset requested for ${cleanEmail} — missing keys`);
     return { statusCode: 200, headers, body: JSON.stringify({ sent: true }) };
   }

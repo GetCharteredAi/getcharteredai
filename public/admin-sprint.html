@@ -76,27 +76,21 @@ input:focus{border-color:#2563EB}
 </div>
 
 <script>
-let adminKey = '';
+const ADMIN_PASS = 'gca-sprint-admin-2025';
 
 function checkGate() {
-  const pass = document.getElementById('gatePass').value.trim();
-  if (!pass) {
+  const pass = document.getElementById('gatePass').value;
+  if (pass === ADMIN_PASS) {
+    document.getElementById('gateView').style.display = 'none';
+    document.getElementById('mainView').style.display = 'block';
+  } else {
     const alert = document.getElementById('gateAlert');
-    alert.textContent = 'Enter your admin password.';
+    alert.textContent = 'Incorrect password.';
     alert.style.display = 'block';
-    return;
   }
-  adminKey = pass;
-  document.getElementById('gateView').style.display = 'none';
-  document.getElementById('mainView').style.display = 'block';
 }
 
 async function activateSprint() {
-  if (!adminKey) {
-    document.getElementById('gateView').style.display = 'block';
-    document.getElementById('mainView').style.display = 'none';
-    return;
-  }
   const email = document.getElementById('memberEmail').value.trim().toLowerCase();
   const btn = document.getElementById('activateBtn');
   const alertEl = document.getElementById('mainAlert');
@@ -119,7 +113,7 @@ async function activateSprint() {
     const resp = await fetch('/.netlify/functions/generate-sprint-token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, adminKey })
+      body: JSON.stringify({ email, adminKey: 'gca-sprint-admin-2025' })
     });
     const data = await resp.json();
 

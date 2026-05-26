@@ -108,8 +108,15 @@ async function activate() {
       localStorage.setItem('gca_plan', 'sprint');
       localStorage.setItem('gca_activated', Date.now().toString());
 
-      showAlert('✓ Sprint activated! Check your email for your login link. Redirecting to your dashboard...', 'green');
+      showAlert('✓ Sprint activated! Sending your welcome email and redirecting to your dashboard...', 'green');
       loading.style.display = 'none';
+
+      // Send sprint welcome email
+      fetch('/.netlify/functions/generate-sprint-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: data.email, adminKey: 'gca-sprint-admin-2025' })
+      }).catch(() => {});
 
       setTimeout(() => {
         window.location.href = '/index.html?view=dashboard';

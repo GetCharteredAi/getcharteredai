@@ -30,6 +30,6 @@ logs/
 *.sln
 *.sw?
 
-# Lock files (optional, but keep package-lock.json)
-# bun.lock
-# deno.lock
+# Alternate runtimes (not used — Node 18 on Netlify only)
+bun.lock
+deno.lock

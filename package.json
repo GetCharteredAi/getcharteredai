@@ -5,8 +5,5 @@
   "scripts": {
     "validate": "node scripts/validate-links.mjs",
     "smoke": "node scripts/validate-links.mjs"
-  },
-  "dependencies": {
-    "jsonwebtoken": "^9.0.2"
   }
 }

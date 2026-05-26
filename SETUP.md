@@ -7,14 +7,14 @@ Complete setup from zero to live. Deploy from GitHub only — no local build ste
 ```
 getcharteredai/
 ├── netlify.toml
-├── package.json          # jsonwebtoken only (legacy login support)
+├── package.json          # validate/smoke scripts only (functions use native fetch)
 ├── package-lock.json
 ├── SETUP.md
 ├── netlify/functions/    # 14 serverless handlers
 └── public/               # 33 HTML pages + 7 PDFs
 ```
 
-**Runtime:** Node 20 on Netlify (`NODE_VERSION` in `netlify.toml`). Not Bun or Deno.
+**Runtime:** Node 18 on Netlify (`NODE_VERSION` in `netlify.toml`). Not Bun or Deno.
 
 **Build:** Leave build command empty. Publish directory: `public`. Functions: `netlify/functions`.
 
@@ -42,7 +42,7 @@ getcharteredai/
 
 **PDFs:** `apc-guide.pdf`, `assessors-briefing.pdf`, `confidence-checklist.pdf`, `counsellor-guide.pdf`, `employer-guide.pdf`, `referred-guide.pdf`
 
-Extensionless URLs (e.g. `/guides`, `/sprint`) work via `pretty_urls = true` in `netlify.toml`. `/dashboard` redirects to `/?view=dashboard`.
+HTML pages use `.html` paths in production (`pretty_urls = false` in `netlify.toml`). `/dashboard` redirects to `/index.html?view=dashboard` (member dashboard is embedded in `index.html`).
 
 ---
 
@@ -53,7 +53,7 @@ Extensionless URLs (e.g. `/guides`, `/sprint`) work via `pretty_urls = true` in 
 | `create-checkout.js` | Stripe Checkout session | `STRIPE_SECRET_KEY` |
 | `verify-session.js` | Verify payment, issue access token | `STRIPE_SECRET_KEY`, `JWT_SECRET` |
 | `verify-sprint-session.js` | Sprint payment verify | `STRIPE_SECRET_KEY`, `JWT_SECRET` |
-| `login.js` | Validate tokens (NEW + legacy JWT) | `JWT_SECRET` |
+| `login.js` | Validate 2-part member tokens | `JWT_SECRET` |
 | `stripe-webhook.js` | Subscription lifecycle emails | `STRIPE_WEBHOOK_SECRET`, `STRIPE_SECRET_KEY`, `RESEND_API_KEY` |
 | `send-welcome.js` | Welcome email | `RESEND_API_KEY` |
 | `send-reset.js` | Password reset magic link | `STRIPE_SECRET_KEY`, `RESEND_API_KEY`, `JWT_SECRET` |
@@ -67,11 +67,11 @@ Extensionless URLs (e.g. `/guides`, `/sprint`) work via `pretty_urls = true` in 
 
 ---
 
-## Member tokens (dual format)
+## Member tokens
 
-- **New activations** use a 2-part custom token (base64 payload + signature), stored in `localStorage` as `gca_token`.
-- **Legacy members** may still have a standard 3-part JWT from an earlier deploy. `login.js` accepts both until legacy tokens expire.
+- Activations use a 2-part custom token (base64 payload + signature), stored in `localStorage` as `gca_token`.
 - Use the same `JWT_SECRET` across deploys so tokens remain valid.
+- Live functions include fallbacks for `JWT_SECRET` / `SPRINT_ADMIN_KEY` when env vars are unset — set explicit values in Netlify for production (see `.env.example`).
 
 ---
 

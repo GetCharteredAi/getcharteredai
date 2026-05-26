@@ -589,15 +589,7 @@ input.err{border-color:var(--red)}
 .alert-green{background:var(--green-bg);color:var(--green);border:1px solid #86efac}
 .alert-red{background:var(--red-bg);color:var(--red);border:1px solid #fca5a5}
 
-@media(max-width:960px){
-  nav{padding:0 16px}
-  .nav-right{display:none}
-  .sec{padding:60px 16px}
-  .about-grid,.pricing-grid{grid-template-columns:1fr}
-  .mod-grid,.why-grid,.dash-modules-grid{grid-template-columns:1fr 1fr}
-  .footer-top{grid-template-columns:1fr 1fr}
-  .stats-bar .stat-item{border-right:none;padding:20px 24px}
-  /* ── DASHBOARD SUMMARY PANEL ──────────────────────────────────────────────── */
+/* ── DASHBOARD SUMMARY PANEL ──────────────────────────────────────────────── */
 .dash-summary{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px}
 .ds-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px;flex-wrap:wrap}
 .ds-plan-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:rgba(37,99,235,.12);color:#93c5fd;border:1px solid rgba(37,99,235,.3);margin-bottom:8px}
@@ -620,7 +612,25 @@ input.err{border-color:var(--red)}
 .ds-btn-primary .ds-btn-label{color:#93c5fd}
 .ds-btn-primary .ds-btn-val{color:#fff}
 
-.dash-layout{grid-template-columns:1fr}
+/* ── MOBILE HAMBURGER ─────────────────────────────────────────────────────── */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;margin-left:auto}
+.nav-hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,0.8);border-radius:2px;transition:all 0.25s}
+.nav-drawer{display:none;position:fixed;top:64px;left:0;right:0;background:#0b0c1c;z-index:999;padding:16px 20px 24px;flex-direction:column;gap:2px;border-top:1px solid rgba(255,255,255,.08);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.nav-drawer.open{display:flex}
+.nav-drawer a,.nav-drawer button{color:rgba(255,255,255,.75);text-decoration:none;font-size:15px;font-weight:500;padding:11px 4px;border-bottom:1px solid rgba(255,255,255,.06);background:none;border-left:none;border-right:none;border-top:none;cursor:pointer;text-align:left;font-family:var(--f);width:100%}
+.nav-drawer a:last-child,.nav-drawer button:last-child{border-bottom:none}
+.nav-drawer .drawer-enrol{background:var(--blue);color:#fff;border-radius:8px;padding:12px 16px;margin-top:8px;text-align:center;border:none;font-weight:700}
+
+@media(max-width:960px){
+  nav{padding:0 16px}
+  .nav-right{display:none}
+  .nav-hamburger{display:flex}
+  .sec{padding:60px 16px}
+  .about-grid,.pricing-grid{grid-template-columns:1fr}
+  .mod-grid,.why-grid,.dash-modules-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .stats-bar .stat-item{border-right:none;padding:20px 24px}
+  .dash-layout{grid-template-columns:1fr}
   .sidebar{display:none}
   .module-layout{grid-template-columns:1fr}
   .mod-sidebar,.mod-progress{display:none}
@@ -713,7 +723,22 @@ input.err{border-color:var(--red)}
     <button class="nav-link nav-ghost" onclick="openLogin()" id="navLoginBtn">Member Login</button>
     <button class="nav-btn" onclick="goToSection('pricing-sec')" id="navEnrolBtn">Enrol Now</button>
   </div>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="nav-drawer" id="navDrawer">
+  <a href="/sprint">🚀 Sprint</a>
+  <a href="/hot-topics" style="color:#ef4444;font-weight:600">🔥 APC Assessors' Briefing</a>
+  <a href="/guides" style="color:#86efac;font-weight:600">Free Guides</a>
+  <button onclick="closeMobileNav();goToSection('modules-sec')">Modules</button>
+  <button onclick="closeMobileNav();goToSection('pricing-sec')">Pricing</button>
+  <button onclick="closeMobileNav();goToSection('contact-sec')">Contact</button>
+  <button onclick="closeMobileNav();openLogin()" id="drawerLoginBtn">Member Login</button>
+  <button class="drawer-enrol" onclick="closeMobileNav();goToSection('pricing-sec')" id="drawerEnrolBtn">Enrol Now</button>
+</div>
 
 <!-- LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal">
@@ -2833,6 +2858,29 @@ function resetSimulator() {
     }
   }
 }
+
+// ── MOBILE NAV ────────────────────────────────────────────────────────────────
+function toggleMobileNav() {
+  const drawer = document.getElementById('navDrawer');
+  const btn = document.getElementById('navHamburger');
+  if (!drawer) return;
+  const open = drawer.classList.toggle('open');
+  if (btn) btn.setAttribute('aria-expanded', open);
+}
+function closeMobileNav() {
+  const drawer = document.getElementById('navDrawer');
+  if (drawer) drawer.classList.remove('open');
+}
+// Close drawer on outside click
+document.addEventListener('click', function(e) {
+  const drawer = document.getElementById('navDrawer');
+  const btn = document.getElementById('navHamburger');
+  if (drawer && drawer.classList.contains('open')) {
+    if (!drawer.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+      drawer.classList.remove('open');
+    }
+  }
+});
 
 // ── COOKIE BANNER ─────────────────────────────────────────────────────────────
 function acceptCookies() {

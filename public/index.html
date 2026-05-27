@@ -1791,7 +1791,7 @@ async function renderDashboard() {
   }
 
   // Michael link — always available
-  actionsHTML += `<a class="ds-btn" onclick="openAITutor()">
+  actionsHTML += `<a class="ds-btn" onclick="openModule(12)">
     <span class="ds-btn-icon">🎓</span>
     <div class="ds-btn-text">
       <span class="ds-btn-label">AI Tutor</span>
@@ -1811,7 +1811,7 @@ async function renderDashboard() {
       </div>
     </a>`;
   } else if (plan === 'referred') {
-    actionsHTML += `<a class="ds-btn" onclick="openAITutor()">
+    actionsHTML += `<a class="ds-btn" onclick="openModule(12)">
       <span class="ds-btn-icon">🎯</span>
       <div class="ds-btn-text">
         <span class="ds-btn-label">Assessor Practice</span>

@@ -3,286 +3,481 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Chartered AI — For Employers & Training Managers</title>
+<title>Employer & Cohort Access — Get Chartered AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@media print{
-  @page{size:A4;margin:12mm 14mm}
-  body{background:#fff;color:#0f172a;font-size:11px}
-  .no-print{display:none!important}
-  .page{max-width:100%;padding:0}
-  .hero-block{background:#0d1f35!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:18px 22px;margin-bottom:10px;border-radius:8px}
-  .hero-block::before,.hero-block::after{display:none}
-  .hero-h{font-size:20px!important}
-  .hero-p{font-size:11px!important}
-  .stats-row{gap:6px;margin-bottom:10px}
-  .stat-card{background:#f8fafc!important;border-color:#e2e8f0!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:10px;border-radius:6px}
-  .stat-n{font-size:22px!important}
-  .stat-l{font-size:10px!important}
-  .two-col{gap:8px;margin-bottom:10px}
-  .card{padding:14px;border-radius:6px}
-  .card-h{font-size:13px!important}
-  .card-p,.card-list li{font-size:11px!important}
-  .card-list{gap:4px}
-  .module-section{padding:14px;margin-bottom:10px;border-radius:6px}
-  .module-grid{grid-template-columns:repeat(4,1fr)!important;gap:5px}
-  .mod-item{padding:8px 10px;border-radius:5px}
-  .mod-num{font-size:9px!important}
-  .mod-name{font-size:11px!important}
-  .mod-note{font-size:9px!important}
-  .pricing-section{padding:14px;margin-bottom:10px;border-radius:6px}
-  .price-table th,.price-table td{font-size:11px!important;padding:6px 10px}
-  .price-tag{font-size:13px!important}
-  .quote-block{padding:16px 20px;margin-bottom:10px;border-radius:6px}
-  .quote-mark{font-size:40px;top:6px;left:14px}
-  .quote-text{font-size:12px!important;padding-left:10px}
-  .quote-attr{font-size:10px!important;padding-left:10px;margin-top:6px}
-  .doc-footer{padding-top:8px}
-  .footer-brand{font-size:12px!important}
-  .footer-contact{font-size:10px!important}
-  .section-label{font-size:9px!important;margin-bottom:8px}
-  .card-eyebrow{font-size:9px!important}
-  .brand{font-size:15px!important}
-  .brand-tag{font-size:9px!important}
-  .doc-type{font-size:9px!important}
-  .hero-top{margin-bottom:14px}
+:root{
+  --blue:#2563EB;--blue-dark:#1d4ed8;--blue-light:#3b82f6;
+  --amber:#f59e0b;
+  --f:'Inter',sans-serif;
+  --fh:'Plus Jakarta Sans','Inter',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --navy:#0d1f35;
-  --navy2:#0a1628;
-  --blue:#2563EB;
-  --gold:#f59e0b;
-  --white:#f8fafc;
-  --text:#0f172a;
-  --muted:#64748b;
-  --border:#e2e8f0;
-  --f-head:'Plus Jakarta Sans','Inter',sans-serif;
-  --f-body:'DM Sans',system-ui,sans-serif;
+html{scroll-behavior:smooth}
+body{font-family:var(--f);background:#0D0F1C;color:#f8fafc;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── NAV (identical to platform) ── */
+nav{
+  position:sticky;top:0;left:0;right:0;z-index:1000;
+  background:rgba(11,12,28,0.97);backdrop-filter:blur(16px);
+  height:64px;display:flex;align-items:center;padding:0 40px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
 }
-body{font-family:var(--f-body);background:#f1f5f9;color:var(--text);min-height:100vh}
-.page{max-width:900px;margin:0 auto;padding:24px 20px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:30px}
+.nav-logo-stack{display:flex;flex-direction:column;gap:0}
+.nav-logo-name{font-size:14px;font-weight:600;color:#fff;letter-spacing:-.01em;line-height:1.3}
+.nav-rics-tag{font-size:9px;font-weight:400;font-style:italic;color:rgba(255,255,255,.35);letter-spacing:.02em;line-height:1.2;display:block}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.nav-link{font-size:13px;font-weight:500;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 12px;border-radius:6px;cursor:pointer;background:none;border:none;transition:.15s;font-family:var(--f)}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.07)}
+.nav-btn{font-size:13px;font-weight:600;color:#fff;background:var(--blue);padding:7px 16px;border-radius:7px;border:none;cursor:pointer;text-decoration:none;transition:.15s}
+.nav-btn:hover{background:var(--blue-light)}
 
-/* HERO */
-.hero-block{background:var(--navy);border-radius:16px;padding:32px 36px;margin-bottom:18px;position:relative;overflow:hidden}
-.hero-block::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(245,158,11,.08);pointer-events:none}
-.hero-block::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;border-radius:50%;background:rgba(37,99,235,.1);pointer-events:none}
-.hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;position:relative;z-index:1}
-.brand{font-family:var(--f-head);font-size:20px;font-weight:800;color:#fff}
-.brand span{color:var(--gold)}
-.brand-tag{font-size:10px;font-weight:400;font-style:italic;color:rgba(255,255,255,.35);display:block;letter-spacing:.04em;margin-top:2px}
-.doc-type{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);text-align:right}
-.hero-h{font-family:var(--f-head);font-size:clamp(24px,4vw,38px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px;position:relative;z-index:1}
-.hero-h em{font-style:italic;color:var(--gold)}
-.hero-p{font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;max-width:580px;position:relative;z-index:1}
-
-/* STAT CARDS */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;border-top:3px solid var(--blue)}
-.stat-n{font-family:var(--f-head);font-size:32px;font-weight:900;color:var(--navy);line-height:1}
-.stat-l{font-size:12px;color:var(--muted);margin-top:4px;font-weight:500}
-
-/* TWO COL */
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px}
-.card-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
-.card-h{font-family:var(--f-head);font-size:18px;font-weight:800;color:var(--navy);margin-bottom:12px;line-height:1.2;letter-spacing:-.01em}
-.card-p{font-size:13px;color:var(--muted);line-height:1.65}
-.card-list{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:7px}
-.card-list li{font-size:13px;color:var(--text);display:flex;gap:8px;align-items:flex-start;line-height:1.5}
-.card-list li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px}
-
-/* MODULE GRID */
-.module-section{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px}
-.section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.mod-item{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:12px 14px}
-.mod-num{font-size:10px;font-weight:700;color:rgba(37,99,235,.5);letter-spacing:.06em;margin-bottom:3px}
-.mod-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3}
-.mod-note{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4}
-
-/* PRICING TABLE */
-.pricing-section{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px}
-.price-table{width:100%;border-collapse:collapse;margin-top:12px}
-.price-table th{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 14px;text-align:left;border-bottom:2px solid var(--border)}
-.price-table td{font-size:13px;color:var(--text);padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
-.price-table tr:last-child td{border-bottom:none}
-.price-table td:first-child{font-weight:600}
-.price-tag{display:inline-block;font-size:16px;font-weight:800;color:var(--navy);font-family:var(--f-head)}
-.hot-row td{background:#fffbeb}
-
-/* QUOTE BLOCK */
-.quote-block{background:var(--navy);border-radius:12px;padding:28px 32px;margin-bottom:16px;position:relative}
-.quote-mark{font-family:var(--f-head);font-size:72px;color:rgba(245,158,11,.2);line-height:1;position:absolute;top:12px;left:24px}
-.quote-text{font-family:var(--f-head);font-size:17px;font-style:italic;color:rgba(255,255,255,.85);line-height:1.6;position:relative;z-index:1;padding-left:16px}
-.quote-attr{font-size:12px;color:rgba(255,255,255,.4);margin-top:12px;position:relative;z-index:1;padding-left:16px}
-
-/* FOOTER */
-.doc-footer{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border);margin-top:8px}
-.footer-brand{font-family:var(--f-head);font-size:14px;font-weight:700;color:var(--navy)}
-.footer-brand span{color:var(--gold)}
-.footer-contact{font-size:12px;color:var(--muted);text-align:right;line-height:1.6}
-.footer-contact a{color:var(--blue);text-decoration:none}
-
-/* PRINT BTN */
-.print-bar{position:fixed;bottom:24px;right:24px;z-index:100;display:flex;gap:10px}
-.print-btn{background:var(--gold);color:var(--navy);padding:11px 22px;border-radius:8px;border:none;font-family:var(--f-body);font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(245,158,11,.4)}
-
-@media(max-width:700px){
-  .stats-row,.two-col,.module-grid{grid-template-columns:1fr 1fr}
-  .hero-block{padding:28px 24px}
+/* ── HERO ── */
+.hero{
+  padding:96px 40px 80px;
+  background:linear-gradient(160deg,#0D0F1C 0%,#111527 60%,#0a1020 100%);
+  position:relative;overflow:hidden;text-align:center;
 }
-@media(max-width:480px){
-  .stats-row{grid-template-columns:1fr 1fr}
-  .two-col{grid-template-columns:1fr}
+.hero::before{
+  content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);
+  width:700px;height:700px;
+  background:radial-gradient(ellipse,rgba(37,99,235,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:24px;
+  background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);
+  padding:6px 14px;border-radius:20px;
+}
+.hero h1{
+  font-family:var(--fh);
+  font-size:clamp(32px,5vw,60px);
+  font-weight:800;line-height:1.08;letter-spacing:-.03em;
+  color:#fff;margin-bottom:20px;max-width:780px;margin-left:auto;margin-right:auto;
+}
+.hero h1 em{font-style:normal;color:#93c5fd}
+.hero-sub{
+  font-size:16px;color:rgba(248,250,252,.6);
+  max-width:560px;margin:0 auto 36px;line-height:1.7;font-weight:400;
+}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{font-family:var(--f);font-size:13px;font-weight:700;letter-spacing:.02em;padding:13px 26px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:.18s;text-align:center}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-light);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.15)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.35);color:#fff}
+.hero-stats{
+  display:flex;justify-content:center;gap:48px;flex-wrap:wrap;
+  margin-top:60px;padding-top:48px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.stat-num{font-family:var(--fh);font-size:2.2rem;font-weight:800;color:#fff;letter-spacing:-.03em}
+.stat-lbl{font-size:11px;font-weight:500;color:rgba(248,250,252,.35);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+
+/* ── SECTIONS ── */
+.sec{padding:80px 40px}
+.sec-dark{background:#0D0F1C}
+.sec-mid{background:#111527}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:10px}
+.h2{font-family:var(--fh);font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:14px}
+.sub{font-size:15px;color:rgba(248,250,252,.55);max-width:560px;line-height:1.7}
+
+/* ── WHY ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto}
+.why-points{display:flex;flex-direction:column;gap:22px;margin-top:28px}
+.why-point{display:flex;gap:14px;align-items:flex-start}
+.why-icon{
+  width:38px;height:38px;border-radius:8px;flex-shrink:0;
+  background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.2);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.why-point h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.why-point p{font-size:13px;color:rgba(248,250,252,.5);line-height:1.6}
+.why-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;padding:32px;
+}
+.why-card-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.why-card h3{font-family:var(--fh);font-size:1.35rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:12px;letter-spacing:-.02em}
+.why-card p{font-size:13px;color:rgba(248,250,252,.5);line-height:1.7;margin-bottom:16px}
+.why-stat{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:8px;padding:14px 18px}
+.why-stat-num{font-family:var(--fh);font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.03em}
+.why-stat-txt{font-size:12px;color:rgba(147,197,253,.7);margin-top:2px}
+
+/* ── WHAT THEY GET ── */
+.what-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.what-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:24px;
+  transition:border-color .2s,background .2s;
+}
+.what-card:hover{border-color:rgba(37,99,235,.3);background:rgba(37,99,235,.04)}
+.what-icon{font-size:22px;margin-bottom:12px}
+.what-card h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:-.01em}
+.what-card p{font-size:13px;color:rgba(248,250,252,.5);line-height:1.6}
+.badge{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:rgba(37,99,235,.12);color:#93c5fd;border:1px solid rgba(37,99,235,.2)}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;max-width:920px}
+.pcard{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:28px;position:relative}
+.pcard.featured{border-color:rgba(37,99,235,.45);background:rgba(37,99,235,.06)}
+.pbadge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 12px;border-radius:20px;white-space:nowrap}
+.pname{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(248,250,252,.35);margin-bottom:12px}
+.pcohort{font-family:var(--fh);font-size:1.35rem;font-weight:700;color:#fff;letter-spacing:-.02em;margin-bottom:6px}
+.pnote{font-size:12px;color:rgba(248,250,252,.4);margin-bottom:18px;line-height:1.5}
+.pfeats{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.pfeats li{font-size:13px;color:rgba(248,250,252,.55);display:flex;align-items:flex-start;gap:8px}
+.chk{color:#60a5fa;flex-shrink:0;margin-top:1px}
+.pcta{width:100%;padding:11px;border-radius:8px;font-size:13px;font-weight:700;font-family:var(--f);letter-spacing:.02em;border:1.5px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.6);cursor:pointer;transition:.18s}
+.pcta:hover{border-color:rgba(255,255,255,.3);color:#fff}
+.pcard.featured .pcta{background:var(--blue);border-color:var(--blue);color:#fff}
+.pcard.featured .pcta:hover{background:var(--blue-light)}
+.pricing-note{margin-top:16px;font-size:13px;color:rgba(248,250,252,.3);text-align:center}
+
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;position:relative}
+.steps::before{content:'';position:absolute;top:26px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),rgba(255,255,255,.08),transparent);pointer-events:none}
+.step{padding:24px 16px;text-align:center}
+.step-num{width:52px;height:52px;border-radius:50%;background:#161a2e;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1;letter-spacing:-.02em}
+.step h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
+.step p{font-size:12.5px;color:rgba(248,250,252,.45);line-height:1.6}
+
+/* ── QUOTE ── */
+.quote-sec{background:#111527;padding:72px 40px;text-align:center;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+.quote-text{font-family:var(--fh);font-size:clamp(1.1rem,2.2vw,1.6rem);font-weight:600;color:#fff;max-width:720px;margin:0 auto 20px;line-height:1.5;letter-spacing:-.02em}
+.quote-attr{font-size:13px;color:rgba(248,250,252,.35)}
+.quote-attr strong{color:rgba(248,250,252,.55)}
+
+/* ── DOWNLOADS ── */
+.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;max-width:720px}
+.dl-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:22px;display:flex;align-items:flex-start;gap:14px;transition:border-color .18s}
+.dl-card:hover{border-color:rgba(255,255,255,.14)}
+.dl-icon{width:38px;height:38px;border-radius:8px;flex-shrink:0;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);display:flex;align-items:center;justify-content:center;font-size:16px}
+.dl-text h4{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
+.dl-text p{font-size:12px;color:rgba(248,250,252,.4);line-height:1.5;margin-bottom:8px}
+.dl-link{font-size:12px;color:#60a5fa;text-decoration:none;font-weight:600}
+.dl-link:hover{color:#93c5fd}
+
+/* ── CONTACT ── */
+.contact-inner{max-width:580px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.form-full{grid-column:1/-1}
+.form-group label{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(248,250,252,.35);margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;padding:10px 13px;
+  border:1.5px solid rgba(255,255,255,.08);border-radius:8px;
+  font-family:var(--f);font-size:14px;color:#fff;
+  background:rgba(255,255,255,.04);outline:none;transition:.18s;
+  appearance:none;-webkit-appearance:none;
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(248,250,252,.25)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(37,99,235,.5)}
+.form-group select option{background:#111527;color:#fff}
+.form-group textarea{resize:vertical;min-height:96px}
+.form-submit{width:100%;padding:13px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-family:var(--f);font-size:14px;font-weight:700;letter-spacing:.02em;cursor:pointer;transition:.18s;margin-top:4px}
+.form-submit:hover{background:var(--blue-light)}
+.form-submit:disabled{background:rgba(255,255,255,.1);color:rgba(255,255,255,.3);cursor:not-allowed}
+.form-alert{display:none;padding:12px 14px;border-radius:8px;font-size:13px;margin-top:14px}
+.form-success{background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.25);color:#86efac}
+.form-error{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.25);color:#fca5a5}
+
+/* ── FOOTER ── */
+footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;border-top:1px solid rgba(255,255,255,.05)}
+.foot-brand{font-size:14px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.foot-brand span{color:var(--amber)}
+.foot-links{display:flex;gap:18px;flex-wrap:wrap}
+.foot-links a{color:rgba(248,250,252,.3);font-size:12px;text-decoration:none;transition:color .18s}
+.foot-links a:hover{color:rgba(248,250,252,.6)}
+.foot-copy{font-size:11px;color:rgba(248,250,252,.2);width:100%}
+
+/* ── FADE ── */
+.fu{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.fu.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .sec{padding:60px 20px}
+  .hero{padding:72px 20px 60px}
+  .why-grid,.what-grid,.pricing-grid,.steps,.dl-grid{grid-template-columns:1fr}
+  .steps::before{display:none}
+  .form-grid{grid-template-columns:1fr}
+  .hero-stats{gap:24px}
+  footer{padding:32px 20px 24px}
 }
 </style>
 </head>
 <body>
 
-<div class="no-print print-bar">
-  <a href="/employer-guide.pdf" download="GetCharteredAI-EmployerGuide.pdf" class="print-btn" style="text-decoration:none;display:inline-block">⬇ Download PDF</a>
-  <button class="print-btn" onclick="window.print()" style="background:#334155;color:#fff;box-shadow:none;margin-left:8px">🖨 Print</button>
-</div>
+<nav>
+  <a href="https://getcharteredai.com" class="nav-logo">
+    <div class="nav-logo-stack">
+      <span class="nav-logo-name">Get Chartered AI</span>
+      <span class="nav-rics-tag">Employer Programme</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a href="#why" class="nav-link">Why us</a>
+    <a href="#what" class="nav-link">What candidates get</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="#contact" class="nav-link">Get in touch</a>
+    <a href="https://getcharteredai.com" class="nav-btn">Member platform →</a>
+  </div>
+</nav>
 
-<div class="page">
+<section class="hero">
+  <div class="hero-eyebrow">🏢 Employer &amp; Cohort Access</div>
+  <h1>Give your APC candidates the preparation <em>they actually need</em></h1>
+  <p class="hero-sub">Structured learning, AI-coached practice and mock interview simulation — available as cohort access for your whole APC programme. Built by Chartered Surveyors who've sat on assessment panels.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn btn-primary">Enquire about cohort access</a>
+    <a href="/employer-guide.pdf" class="btn btn-ghost" target="_blank">Download employer guide</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-num">12</div><div class="stat-lbl">Structured modules</div></div>
+    <div><div class="stat-num">22</div><div class="stat-lbl">RICS pathways covered</div></div>
+    <div><div class="stat-num">861+</div><div class="stat-lbl">Practice questions</div></div>
+    <div><div class="stat-num">94%</div><div class="stat-lbl">Pass rate</div></div>
+  </div>
+</section>
 
-  <!-- HERO -->
-  <div class="hero-block">
-    <div class="hero-top">
-      <div>
-        <div class="brand">Get Chartered <span>AI</span></div>
-        <div class="brand-tag">RICS APC Preparation Platform</div>
+<section class="sec sec-mid" id="why">
+  <div class="why-grid">
+    <div class="fu">
+      <div class="lbl">The problem</div>
+      <h2 class="h2">Most APC referrals aren't caused by lack of knowledge</h2>
+      <p class="sub">They happen because technically capable candidates cannot demonstrate what they know in the format assessors require. Your counsellor support is valuable — but it rarely addresses this gap specifically.</p>
+      <div class="why-points">
+        <div class="why-point">
+          <div class="why-icon">📋</div>
+          <div>
+            <h4>Evidencing gaps, not knowledge gaps</h4>
+            <p>Candidates describe their work rather than evidence professional judgement. Get Chartered AI teaches the specific structure assessors score.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">🎯</div>
+          <div>
+            <h4>No structured mock interview practice</h4>
+            <p>Most candidates arrive at final assessment having never answered a probing follow-up question under pressure. The 60-minute AI simulator changes that.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">⏰</div>
+          <div>
+            <h4>Counsellors can't be available 24/7</h4>
+            <p>Michael — the AI Tutor — is available whenever your candidates need it, not just during counsellor sessions.</p>
+          </div>
+        </div>
       </div>
-      <div class="doc-type">For Employers &amp;<br>Training Managers</div>
     </div>
-    <h1 class="hero-h">The structured APC preparation<br>platform for your <em>graduate trainees.</em></h1>
-    <p class="hero-p">Built by Chartered Surveyors who understand what assessors are looking for. 12 structured modules, Michael, 60-minute mock interview across all 22 RICS pathways. Updated for 2026 RICS standards. Fully self-paced — designed for candidates working full-time.</p>
-  </div>
-
-  <!-- STATS -->
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-n">12</div>
-      <div class="stat-l">Structured modules</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-n">130</div>
-      <div class="stat-l">Learning sections</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-n">22</div>
-      <div class="stat-l">RICS pathways covered</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-n">127+</div>
-      <div class="stat-l">APC-style quiz questions</div>
+    <div class="fu">
+      <div class="why-card">
+        <div class="why-card-eyebrow">The commercial case</div>
+        <h3>A referral costs your firm significantly more than cohort access</h3>
+        <p>Every referral extends a candidate's training period by at least 6 months — with associated salary, supervision time and delayed productivity. Cohort access costs a fraction of that for your whole cohort.</p>
+        <p>Firms that invest in structured APC preparation see higher first-time pass rates, shorter time to chartership, and stronger retention of candidates who feel supported.</p>
+        <div class="why-stat">
+          <div class="why-stat-num">6 months</div>
+          <div class="why-stat-txt">Minimum delay a single referral adds to a candidate's timeline</div>
+        </div>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- TWO COL -->
-  <div class="two-col">
-    <div class="card">
-      <div class="card-eyebrow">Why firms recommend it</div>
-      <h2 class="card-h">Structured preparation your trainees can trust</h2>
-      <ul class="card-list">
-        <li>All 11 mandatory competencies covered in depth — with assessor insights not found in RICS candidate guidance</li>
-        <li>Self-paced — candidates study around site visits, client commitments and full-time work without missing live sessions</li>
-        <li>Updated for all 2026 legislation — BSR, Renters Rights Act, RICS AI Standard, EPC methodology, capital allowances</li>
-        <li>Counts toward the RICS 3-year rolling CPD requirement — candidates can log structured learning hours</li>
-        <li>No firm-level administration required — candidates enrol and manage their own access</li>
+<section class="sec sec-dark" id="what">
+  <div class="fu" style="text-align:center;margin-bottom:8px">
+    <div class="lbl" style="justify-content:center;display:flex">The platform</div>
+    <h2 class="h2" style="text-align:center;max-width:580px;margin:0 auto 12px">Everything your candidates need in one platform</h2>
+    <p class="sub" style="margin:0 auto;text-align:center">Cohort access gives every candidate in your APC programme full access to the same tools used by 500+ candidates preparing independently.</p>
+  </div>
+  <div class="what-grid fu">
+    <div class="what-card"><div class="what-icon">📚</div><h4>12 Structured Modules</h4><p>All 11 mandatory competencies covered in depth — built around how assessors actually score, not just what RICS guidance says.</p><span class="badge">Updated for 2026</span></div>
+    <div class="what-card"><div class="what-icon">🎓</div><h4>Michael — AI Tutor</h4><p>Available 24/7. Candidates ask questions, practise answers, get competency feedback. Tutor Mode for learning, Assessor Mode for pressure testing.</p><span class="badge">Unlimited use</span></div>
+    <div class="what-card"><div class="what-icon">🎯</div><h4>60-Minute Mock Interview</h4><p>Full AI-scored mock interview simulation specific to each candidate's RICS pathway. Timed, structured, probing. The closest thing to the real room.</p><span class="badge">All 22 pathways</span></div>
+    <div class="what-card"><div class="what-icon">✅</div><h4>861+ Practice Questions</h4><p>Mandatory competency and pathway-specific questions. Candidates can practise by competency, by module or in a randomised assessment format.</p><span class="badge">Quiz engine</span></div>
+    <div class="what-card"><div class="what-icon">📊</div><h4>Progress Dashboard</h4><p>Each candidate tracks their own completion, quiz scores and mock interview performance. Designed for self-directed learning alongside counsellor sessions.</p><span class="badge">Per candidate</span></div>
+    <div class="what-card"><div class="what-icon">🔄</div><h4>Referred Candidate Programme</h4><p>Six dedicated modules for candidates who have been referred — addressing root causes, rebuilding evidence structure and preparing specifically for the resit.</p><span class="badge">Resit focused</span></div>
+  </div>
+</section>
+
+<section class="sec sec-mid" id="pricing">
+  <div class="fu">
+    <div class="lbl">Cohort pricing</div>
+    <h2 class="h2">Straightforward pricing for every cohort size</h2>
+    <p class="sub">All plans include full platform access for every candidate. No per-module fees, no hidden costs. Contact us for bespoke arrangements for very large cohorts or multi-year agreements.</p>
+  </div>
+  <div class="pricing-grid fu">
+    <div class="pcard">
+      <div class="pname">Small cohort</div>
+      <div class="pcohort">Up to 5 candidates</div>
+      <div class="pnote">Ideal for smaller practices or teams with a handful of APC candidates</div>
+      <ul class="pfeats">
+        <li><span class="chk">✓</span>Full platform access per candidate</li>
+        <li><span class="chk">✓</span>All 12 modules — immediate access</li>
+        <li><span class="chk">✓</span>AI Tutor (Michael) — unlimited</li>
+        <li><span class="chk">✓</span>60-min mock interview simulator</li>
+        <li><span class="chk">✓</span>861+ practice questions</li>
       </ul>
+      <button class="pcta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Enquire for pricing →</button>
     </div>
-    <div class="card">
-      <div class="card-eyebrow">What your trainees get</div>
-      <h2 class="card-h">From module one to mock interview</h2>
-      <ul class="card-list">
-        <li>Structured lesson per module — competency levels, legislation, assessor insights, real examples</li>
-        <li>Quiz per module — APC-style questions with answers revealed on completion</li>
-        <li>Michael — unlimited coaching sessions available 24 hours a day</li>
-        <li>Summary of Experience guidance — how to write the 1,500 and 4,000 word submissions</li>
-        <li>Case study writing and APC diary guidance — built into Module 1</li>
-        <li>Full 60-minute mock interview — technical questions drawn from their specific RICS pathway</li>
-        <li>AI-scored readiness dashboard after each mock run</li>
+    <div class="pcard featured">
+      <div class="pbadge">Most popular</div>
+      <div class="pname">Mid cohort</div>
+      <div class="pcohort">6–20 candidates</div>
+      <div class="pnote">The most common arrangement for mid-size surveying firms and practices</div>
+      <ul class="pfeats">
+        <li><span class="chk">✓</span>Full platform access per candidate</li>
+        <li><span class="chk">✓</span>All 12 modules — immediate access</li>
+        <li><span class="chk">✓</span>AI Tutor (Michael) — unlimited</li>
+        <li><span class="chk">✓</span>60-min mock interview simulator</li>
+        <li><span class="chk">✓</span>Referred candidate programme included</li>
+        <li><span class="chk">✓</span>Priority support</li>
       </ul>
+      <button class="pcta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Enquire for pricing →</button>
+    </div>
+    <div class="pcard">
+      <div class="pname">Large cohort</div>
+      <div class="pcohort">21+ candidates</div>
+      <div class="pnote">For larger firms, national practices and organisations with significant APC pipelines</div>
+      <ul class="pfeats">
+        <li><span class="chk">✓</span>Everything in Mid cohort</li>
+        <li><span class="chk">✓</span>Bespoke pricing</li>
+        <li><span class="chk">✓</span>Multi-year agreements available</li>
+        <li><span class="chk">✓</span>Onboarding support for counsellors</li>
+        <li><span class="chk">✓</span>Counsellor guide and resources</li>
+      </ul>
+      <button class="pcta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to us →</button>
     </div>
   </div>
+  <p class="pricing-note fu">All cohort pricing is quoted on enquiry. Contact us with your cohort size and we'll come back with a specific proposal.</p>
+</section>
 
-  <!-- MODULES -->
-  <div class="module-section">
-    <div class="section-label">All 12 modules — 11 mandatory competencies plus APC framework and revision</div>
-    <div class="module-grid">
-      <div class="mod-item"><div class="mod-num">Module 01</div><div class="mod-name">APC Framework</div><div class="mod-note">Case study · diary · SoE writing · competency levels</div></div>
-      <div class="mod-item"><div class="mod-num">Module 02</div><div class="mod-name">Ethics &amp; Professionalism</div><div class="mod-note">Level 3 · RICS AI Standard · CPD framework 2026</div></div>
-      <div class="mod-item"><div class="mod-num">Module 03</div><div class="mod-name">Client Care</div><div class="mod-note">Level 2 · Renters Rights Act · service charge code</div></div>
-      <div class="mod-item"><div class="mod-num">Module 04</div><div class="mod-name">Communication &amp; Negotiation</div><div class="mod-note">Level 2 · PREP framework · written evidence</div></div>
-      <div class="mod-item"><div class="mod-num">Module 05</div><div class="mod-name">Health &amp; Safety</div><div class="mod-note">Level 2 · BSR independence · Building Safety Levy 2026</div></div>
-      <div class="mod-item"><div class="mod-num">Module 06</div><div class="mod-name">Accounting Principles</div><div class="mod-note">Level 1 · Capital allowances 2026 · 40% FYA · WDA 14%</div></div>
-      <div class="mod-item"><div class="mod-num">Module 07</div><div class="mod-name">Business Planning</div><div class="mod-note">Level 1 · PESTLE · commercial risk · firm strategy</div></div>
-      <div class="mod-item"><div class="mod-num">Module 08</div><div class="mod-name">Conflict Avoidance</div><div class="mod-note">Level 2 · Remediation Bill · dispute resolution routes</div></div>
-      <div class="mod-item"><div class="mod-num">Module 09</div><div class="mod-name">Data Management</div><div class="mod-note">Level 1 · GDPR · RICS AI Standard data obligations</div></div>
-      <div class="mod-item"><div class="mod-num">Module 10</div><div class="mod-name">Sustainability</div><div class="mod-note">Level 1 · EPC 5-year · BNG expansion · Future Homes</div></div>
-      <div class="mod-item"><div class="mod-num">Module 11</div><div class="mod-name">Teamworking &amp; Inclusion</div><div class="mod-note">Level 2 · personal contribution · multi-disciplinary examples</div></div>
-      <div class="mod-item"><div class="mod-num">Module 12</div><div class="mod-name">Revision &amp; Mock Assessment</div><div class="mod-note">All revision sheets · Michael · 60-min mock · all 22 pathways</div></div>
-    </div>
+<section class="sec sec-dark">
+  <div class="fu" style="text-align:center;margin-bottom:8px">
+    <div class="lbl" style="justify-content:center;display:flex">Getting started</div>
+    <h2 class="h2" style="text-align:center">Up and running in days, not weeks</h2>
   </div>
-
-  <!-- PRICING -->
-  <div class="pricing-section">
-    <div class="section-label">Pricing — candidates enrol directly, no firm billing required</div>
-    <table class="price-table">
-      <thead>
-        <tr>
-          <th>Option</th>
-          <th>Price</th>
-          <th>Access</th>
-          <th>Best for</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>APC Sprint</td>
-          <td><span class="price-tag">£197</span></td>
-          <td>Modules 1 &amp; 12 · 42 days</td>
-          <td>Candidates sitting within weeks — revision, Michael and mock interview</td>
-        </tr>
-        <tr>
-          <td>Monthly Access</td>
-          <td><span class="price-tag">£39.90</span><span style="font-size:11px;color:var(--muted)">/month</span></td>
-          <td>1 module/month · auto-cancels after module 12</td>
-          <td>Candidates pacing their preparation over their full training period</td>
-        </tr>
-        <tr class="hot-row">
-          <td>Full Year Access ⭐</td>
-          <td><span class="price-tag">£383.04</span></td>
-          <td>All 12 modules · 18 months</td>
-          <td>Candidates who want everything from day one — most comprehensive option</td>
-        </tr>
-      </tbody>
-    </table>
-    <p style="font-size:11px;color:var(--muted);margin-top:12px">All plans count toward the RICS 3-year rolling CPD requirement. Candidates who do not pass their APC can credit the £197 Sprint fee against the full programme.</p>
+  <div class="steps fu">
+    <div class="step"><div class="step-num">01</div><h4>Enquire</h4><p>Tell us your cohort size and we'll send a tailored pricing proposal within one working day.</p></div>
+    <div class="step"><div class="step-num">02</div><h4>Agree terms</h4><p>Simple agreement, invoice issued. No complex procurement process required.</p></div>
+    <div class="step"><div class="step-num">03</div><h4>Candidates onboard</h4><p>Each candidate receives a magic login link. Full access from day one. No setup from them.</p></div>
+    <div class="step"><div class="step-num">04</div><h4>They prepare</h4><p>Candidates learn at their own pace alongside your internal programme. Counsellors get the free guide too.</p></div>
   </div>
+</section>
 
-  <!-- QUOTE -->
-  <div class="quote-block">
-    <div class="quote-mark">"</div>
-    <div class="quote-text">Built by Chartered Surveyors, powered by AI to give candidates clear, confidence-building support at any hour, wherever they are in their preparation.</div>
-    <div class="quote-attr">Get Chartered AI · getcharteredai.com · info@getcharteredai.com</div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="doc-footer">
-    <div>
-      <div class="footer-brand">Get Chartered <span>AI</span></div>
-      <div style="font-size:11px;color:var(--muted);margin-top:2px">Updated for 2026 RICS standards</div>
-    </div>
-    <div class="footer-contact">
-      <strong style="color:var(--text)">getcharteredai.com</strong><br>
-      <a href="mailto:info@getcharteredai.com">info@getcharteredai.com</a><br>
-      <a href="https://www.linkedin.com/company/getcharteredai">LinkedIn: @getcharteredai</a>
-    </div>
-  </div>
-
+<div class="quote-sec fu">
+  <p class="quote-text">"The candidates who used Get Chartered AI arrived at their counsellor sessions noticeably more structured in how they spoke about their competencies. The evidencing gap — which is what most firms struggle with — was much smaller."</p>
+  <p class="quote-attr"><strong>MRICS Counsellor</strong> — National surveying practice</p>
 </div>
+
+<section class="sec sec-mid">
+  <div class="fu">
+    <div class="lbl">Resources</div>
+    <h2 class="h2">Useful reading before you enquire</h2>
+    <p class="sub">Two documents to share with your HR, L&D or senior leadership team.</p>
+  </div>
+  <div class="dl-grid fu">
+    <div class="dl-card">
+      <div class="dl-icon">📄</div>
+      <div class="dl-text">
+        <h4>Employer Guide — Get Chartered AI</h4>
+        <p>A two-page overview of what the platform offers, how cohort access works and the commercial case for structured preparation.</p>
+        <a href="/employer-guide.pdf" class="dl-link" target="_blank">Download PDF →</a>
+      </div>
+    </div>
+    <div class="dl-card">
+      <div class="dl-icon">📋</div>
+      <div class="dl-text">
+        <h4>APC Counsellor &amp; Supervisor Guide 2026</h4>
+        <p>Covers formal RICS obligations, the December 2025 rule changes and how to give candidates more structured feedback before submission.</p>
+        <a href="/counsellor-guide.pdf" class="dl-link" target="_blank">Download PDF →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-dark" id="contact">
+  <div class="contact-inner fu">
+    <div class="lbl">Get in touch</div>
+    <h2 class="h2">Tell us about your cohort</h2>
+    <p class="sub">We'll come back within one working day with a specific pricing proposal and answer any questions you have.</p>
+    <form class="form-grid" id="enquiryForm" onsubmit="submitEnquiry(event)">
+      <div class="form-group"><label>Your name</label><input type="text" id="eName" placeholder="Jane Smith" required></div>
+      <div class="form-group"><label>Firm / Organisation</label><input type="text" id="eFirm" placeholder="Smith &amp; Partners LLP" required></div>
+      <div class="form-group"><label>Email address</label><input type="email" id="eEmail" placeholder="jane@smithpartners.com" required></div>
+      <div class="form-group">
+        <label>Approximate cohort size</label>
+        <select id="eCohort">
+          <option value="">Select cohort size</option>
+          <option>1–5 candidates</option>
+          <option>6–10 candidates</option>
+          <option>11–20 candidates</option>
+          <option>21–50 candidates</option>
+          <option>50+ candidates</option>
+        </select>
+      </div>
+      <div class="form-group form-full"><label>Message (optional)</label><textarea id="eMessage" placeholder="Any specific requirements or questions..."></textarea></div>
+      <div class="form-full">
+        <button type="submit" class="form-submit" id="submitBtn">Send enquiry</button>
+        <div class="form-alert form-success" id="successMsg">✓ Enquiry received — we'll be in touch within one working day.</div>
+        <div class="form-alert form-error" id="errorMsg">Something went wrong. Please email info@getcharteredai.com directly.</div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-brand">Get Chartered <span>AI</span></div>
+  <div class="foot-links">
+    <a href="https://getcharteredai.com">Platform</a>
+    <a href="/employer-guide.pdf">Employer guide</a>
+    <a href="/counsellor-guide.pdf">Counsellor guide</a>
+    <a href="mailto:info@getcharteredai.com">info@getcharteredai.com</a>
+    <a href="https://www.linkedin.com/company/getcharteredai" target="_blank">LinkedIn</a>
+  </div>
+  <p class="foot-copy">© Get Chartered AI 2026 · Built by Chartered Surveyors · getcharteredai.com</p>
+</footer>
+
+<script>
+async function submitEnquiry(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const success = document.getElementById('successMsg');
+  const error = document.getElementById('errorMsg');
+  success.style.display = 'none';
+  error.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  try {
+    const r = await fetch('/.netlify/functions/employer-followup', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name: document.getElementById('eName').value.trim(),
+        firm: document.getElementById('eFirm').value.trim(),
+        email: document.getElementById('eEmail').value.trim(),
+        cohortSize: document.getElementById('eCohort').value,
+        message: document.getElementById('eMessage').value.trim()
+      })
+    });
+    const d = await r.json();
+    if (d.success) { success.style.display='block'; document.getElementById('enquiryForm').reset(); }
+    else { error.style.display='block'; }
+  } catch { error.style.display='block'; }
+  btn.disabled = false;
+  btn.textContent = 'Send enquiry';
+}
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold:0.07});
+document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>

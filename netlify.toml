@@ -1,6 +1,4 @@
 [build]
-  # Repo root (overrides Netlify UI "Base directory: public", which would deploy public/public)
-  base = "."
   publish = "public"
   functions = "netlify/functions"
 

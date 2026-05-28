@@ -16,9 +16,7 @@ getcharteredai/
 
 **Runtime:** Node 18 on Netlify (`NODE_VERSION` in `netlify.toml`). Not Bun or Deno.
 
-**Build:** Leave build command empty. Base directory: repo root (empty in UI, or `base = "."` in `netlify.toml`). Publish directory: `public`. Functions: `netlify/functions`.
-
-**Do not** set Netlify UI **Base directory** to `public` while `publish` is also `public` — that resolves to `public/public` and the deploy fails.
+**Build:** Leave build command empty. Publish directory: `public`. Functions: `netlify/functions`.
 
 ---
 
@@ -88,9 +86,8 @@ HTML pages use `.html` paths in production (`pretty_urls = false` in `netlify.to
 
 1. Go to [app.netlify.com](https://app.netlify.com)
 2. Add new site → Import from GitHub
-3. Build settings auto-detect from `netlify.toml` (`base = "."`, `publish = "public"`)
-4. In **Site configuration → Build & deploy → Build settings**, leave **Base directory** empty (repo root). If it was set to `public`, clear it — `netlify.toml` overrides it, but an empty UI value avoids confusion.
-5. Deploy
+3. Build settings auto-detect from `netlify.toml`
+4. Deploy
 
 ---
 

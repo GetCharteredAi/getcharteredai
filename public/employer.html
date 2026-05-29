@@ -95,7 +95,34 @@ textarea.form-input{resize:vertical;min-height:100px}
 .guide-banner p{font-size:14px;color:#1d4ed8;line-height:1.6;margin:0}
 .guide-banner a{background:var(--navy);color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap}
 
-@media(max-width:800px){.problem-grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr}.stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid #e2e8f0;min-width:150px}.included-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.hero-btns{flex-direction:column;align-items:center}nav{padding:16px 20px}}
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}
+.price-card{background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:30px;display:flex;flex-direction:column;position:relative}
+.price-card.featured{border-color:var(--blue);box-shadow:0 8px 32px rgba(37,99,235,.12)}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap}
+.price-tier{font-size:13px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.price-amount{font-size:36px;font-weight:800;color:var(--navy);line-height:1;margin-bottom:4px}
+.price-amount span{font-size:16px;font-weight:500;color:#64748b}
+.price-per{font-size:12px;color:#94a3b8;margin-bottom:20px}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px;flex:1}
+.price-features li{font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.price-features li::before{content:"✓";color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
+.price-cta{display:block;text-align:center;padding:11px;background:var(--navy);color:#fff;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:.18s}
+.price-cta:hover{opacity:.88}
+.price-card.featured .price-cta{background:var(--blue)}
+.referred-banner{background:#fffbeb;border:1.5px solid #fcd34d;border-radius:16px;padding:28px 32px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.referred-tag{display:inline-block;background:#fef3c7;border:1px solid #fcd34d;color:#92400e;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 12px;border-radius:4px;margin-bottom:10px}
+.referred-title{font-size:20px;font-weight:800;color:#92400e;margin-bottom:6px}
+.referred-body{font-size:13px;color:#78350f;line-height:1.65;max-width:480px}
+.referred-price{text-align:center;flex-shrink:0}
+.referred-amount{font-size:32px;font-weight:800;color:#d97706;line-height:1}
+.referred-duration{font-size:12px;color:#92400e;margin-bottom:12px}
+/* TESTIMONIAL */
+.testimonial-section{background:var(--navy);padding:64px 24px;text-align:center}
+.testimonial-quote{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(18px,2.8vw,26px);font-weight:700;color:#fff;line-height:1.5;max-width:800px;margin:0 auto 28px}
+.testimonial-attr strong{color:rgba(255,255,255,.9);display:block;font-size:14px;margin-bottom:3px}
+.testimonial-attr span{font-size:13px;color:rgba(255,255,255,.45);letter-spacing:.02em}
+@media(max-width:800px){.problem-grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr}.stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid #e2e8f0;min-width:150px}.included-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.hero-btns{flex-direction:column;align-items:center}nav{padding:16px 20px}.pricing-grid{grid-template-columns:1fr}.referred-banner{grid-template-columns:1fr}.referred-price{text-align:left}}
 </style>
 </head>
 <body>
@@ -251,6 +278,86 @@ textarea.form-input{resize:vertical;min-height:100px}
           <p class="inc-body">If a candidate is referred, the Referred Candidate Programme gives them structured resit support at a preferential cohort rate.</p>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="section sec-light" id="pricing">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:40px">
+      <span class="eyebrow" style="display:block;text-align:center">Cohort Pricing</span>
+      <h2 style="max-width:560px;margin:0 auto 12px">Transparent pricing<br>for every cohort size.</h2>
+      <p style="font-size:15px;color:#64748b;max-width:520px;margin:0 auto">All tiers include full platform access — 12 modules, AI Tutor, 861+ practice questions and mock interview simulator across all 22 RICS pathways.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Up to 5 candidates</div>
+        <div class="price-amount">£249<span>/yr</span></div>
+        <div class="price-per">per candidate &middot; annual access</div>
+        <ul class="price-features">
+          <li>12 structured APC modules</li>
+          <li>AI Tutor — unlimited sessions</li>
+          <li>861+ pathway practice questions</li>
+          <li>Mock interview simulator — all 22 pathways</li>
+          <li>Counsellor &amp; Supervisor Guide</li>
+          <li>Priority email support</li>
+        </ul>
+        <a href="#contact" class="price-cta">Enquire →</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">Most popular</div>
+        <div class="price-tier">6–20 candidates</div>
+        <div class="price-amount">£199<span>/yr</span></div>
+        <div class="price-per">per candidate &middot; annual access</div>
+        <ul class="price-features">
+          <li>Everything in the small cohort tier</li>
+          <li>Dedicated onboarding for your cohort</li>
+          <li>Direct training manager contact line</li>
+          <li>Referred Candidate Programme at cohort rate</li>
+          <li>APC Sprint add-on available</li>
+          <li>Content updated every assessment window</li>
+        </ul>
+        <a href="#contact" class="price-cta">Enquire →</a>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">21+ candidates</div>
+        <div class="price-amount" style="font-size:28px;padding-top:6px">Custom</div>
+        <div class="price-per">tailored to your firm</div>
+        <ul class="price-features">
+          <li>Everything in the mid-size tier</li>
+          <li>Volume pricing structured to your cohort</li>
+          <li>Multi-office or department arrangements</li>
+          <li>Referred Candidate Programme included</li>
+          <li>APC Sprint for all final-year candidates</li>
+          <li>Named account contact</li>
+        </ul>
+        <a href="#contact" class="price-cta">Talk to us →</a>
+      </div>
+    </div>
+    <div class="referred-banner">
+      <div>
+        <span class="referred-tag">Referred Candidate Programme</span>
+        <div class="referred-title">90-day resit support for referred candidates</div>
+        <p class="referred-body">When a candidate is referred, the Referred Candidate Programme gives them a structured 90-day resit pathway — 6 specialist modules, AI Tutor coaching and mock interview access rebuilt around the referral feedback. Available at a preferential rate for cohort firms.</p>
+      </div>
+      <div class="referred-price">
+        <div class="referred-amount">£149</div>
+        <div class="referred-duration">per candidate &middot; 90-day access</div>
+        <a href="#contact" class="price-cta" style="background:#d97706">Enquire →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial-section">
+  <div style="max-width:1060px;margin:0 auto">
+    <div style="font-size:64px;color:rgba(37,99,235,.25);line-height:1;margin-bottom:12px">&ldquo;</div>
+    <p class="testimonial-quote">We had two candidates referred in the same window. Both had good counsellors and attended our internal mock. The problem was not effort — it was the gaps they did not know they had. Get Chartered AI identifies those gaps before they become referrals.</p>
+    <div class="testimonial-attr">
+      <strong>MRICS Counsellor</strong>
+      <span>National surveying practice, United Kingdom</span>
     </div>
   </div>
 </div>

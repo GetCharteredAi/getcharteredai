@@ -1665,12 +1665,18 @@ async function checkout(plan) {
 
 
 // ── LANDING MODULE GRID ────────────────────────────────────────────────────────
-const MODULE_PREVIEWS = {"1": {"desc": "Competency levels 1\u20133 explained, what assessors evaluate, what the case study is and what it is not. Your launchpad for everything that follows.", "tags": ["Levels 1\u20133", "Orientation"]}, "2": {"desc": "Apply ethics and Rules of Conduct to real surveying situations. Conflicts of interest, confidentiality, duty of care and Level 3 reasoned advice.", "tags": ["Level 1", "Level 2", "Level 3"]}, "3": {"desc": "What client care means in professional surveying. RICS expectations, managing client expectations, handling complaints and difficult conversations.", "tags": ["Level 1", "Level 2"]}, "4": {"desc": "Structured techniques including PREP. Negotiation types, principles and strategies. Adapting communication style to different audiences.", "tags": ["Level 1", "Level 2"]}, "5": {"desc": "Key legislation, hazard identification, CDM roles and responsibilities, RAMS and safe working behaviours on-site and in-office.", "tags": ["Level 1", "Level 2"]}, "6": {"desc": "Core accounting terms, VAT, P&L, balance sheets, cash flow and budget control. Commercial awareness explained for surveyors.", "tags": ["Level 1"]}, "7": {"desc": "Business plan elements, KPIs, market evaluation, strategic versus operational planning and how surveying firms plan resources.", "tags": ["Level 1"]}, "8": {"desc": "Mediation, adjudication, arbitration and litigation explained. The RICS Conflict Avoidance Pledge and maintaining impartiality under pressure.", "tags": ["Level 1", "Level 2"]}, "9": {"desc": "GDPR for surveyors, data lifecycle, audit trails, cyber risks and secure document management.", "tags": ["Level 1"]}, "10": {"desc": "ESG framework, key legislation including EPCs, MEES and Climate Change Act, BREEAM, and sustainability risks and opportunities for clients.", "tags": ["Level 1"]}, "11": {"desc": "Effective team roles, communication behaviours, multi-disciplinary coordination and barriers to performance.", "tags": ["Level 2"]}, "12": {"desc": "Full course revision across all 11 competencies, 861+ APC practice &amp; pathway questions, Michael coaching and a timed 60-minute AI-scored mock interview across all 22 RICS pathways.", "tags": ["Full Revision", "Mock Interview", "Michael"]}};
+const MODULE_PREVIEWS = {"1": {"desc": "Competency levels 1\u20133 explained, what assessors evaluate, what the case study is and what it is not. Your launchpad for everything that follows.", "tags": ["Levels 1\u20133", "Orientation"]}, "2": {"desc": "Apply ethics and Rules of Conduct to real surveying situations. Conflicts of interest, confidentiality, duty of care and Level 3 reasoned advice.", "tags": ["Level 1", "Level 2", "Level 3"]}, "3": {"desc": "What client care means in professional surveying. RICS expectations, managing client expectations, handling complaints and difficult conversations.", "tags": ["Level 1", "Level 2"]}, "4": {"desc": "Structured techniques including PREP. Negotiation types, principles and strategies. Adapting communication style to different audiences.", "tags": ["Level 1", "Level 2"]}, "5": {"desc": "Key legislation, hazard identification, CDM roles and responsibilities, RAMS and safe working behaviours on-site and in-office.", "tags": ["Level 1", "Level 2"]}, "6": {"desc": "Core accounting terms, VAT, P&L, balance sheets, cash flow and budget control. Commercial awareness explained for surveyors.", "tags": ["Level 1"]}, "7": {"desc": "Business plan elements, KPIs, market evaluation, strategic versus operational planning and how surveying firms plan resources.", "tags": ["Level 1"]}, "8": {"desc": "Mediation, adjudication, arbitration and litigation explained. The RICS Conflict Avoidance Pledge and maintaining impartiality under pressure.", "tags": ["Level 1", "Level 2"]}, "9": {"desc": "GDPR for surveyors, data lifecycle, audit trails, cyber risks and secure document management.", "tags": ["Level 1"]}, "10": {"desc": "ESG framework, key legislation including EPCs, MEES and Climate Change Act, BREEAM, and sustainability risks and opportunities for clients.", "tags": ["Level 1"]}, "11": {"desc": "Effective team roles, communication behaviours, multi-disciplinary coordination and barriers to performance.", "tags": ["Level 2"]}, "12": {"desc": "Full course revision across all 11 competencies, 861+ APC practice &amp; pathway questions, Michael coaching and a timed 60-minute AI-scored mock interview across all 22 RICS pathways.", "tags": ["Full Revision", "Mock Interview", "Michael"]},
+"13": {"desc": "Read the referral report calmly and accurately — and understand what it is really telling you.", "tags": ["CR01", "Referred Candidates"]},
+"14": {"desc": "Reset your understanding of what assessors are looking for — and what the 'safe pair of hands' standard really means.", "tags": ["CR02", "Referred Candidates"]},
+"15": {"desc": "Move from describing activity to demonstrating competence — and recognise the patterns that cause most referrals.", "tags": ["CR03", "Referred Candidates"]},
+"16": {"desc": "Rebuild all 11 mandatory competencies with proper Level 2 evidencing — updated for 2026 legislation.", "tags": ["CR04", "Referred Candidates"]},
+"17": {"desc": "Build confidence under assessor questioning and create a structured resit practice routine.", "tags": ["CR05", "Referred Candidates"]},
+"18": {"desc": "Rebuild your internal review process and enter the resit with clarity, ownership and professional confidence.", "tags": ["CR06", "Referred Candidates"]}};
 
 function renderLandingModGrid() {
   const el = document.getElementById('landingModGrid');
   if (!el) return;
-  el.innerHTML = MODULES.map(m => {
+  const renderCard = m => {
     const prev = MODULE_PREVIEWS[m.id] || {};
     const tags = (prev.tags || []).map(t => `<span class="mod-preview-tag">${t}</span>`).join('');
     return `
@@ -1678,13 +1684,17 @@ function renderLandingModGrid() {
       <div class="mod-tick">✓</div>
       <span class="mod-num">Module ${m.num}</span>
       <div class="mod-title-t">${m.title}</div>
-      <span class="mod-lvl">${m.level}</span>
+      <span class="mod-lvl">${m.level || ''}</span>
       <div class="mod-card-preview">
         <p class="mod-preview-desc">${prev.desc || ''}</p>
         <div class="mod-preview-tags">${tags}</div>
       </div>
     </div>`;
-  }).join('');
+  };
+  const stdMods = MODULES.filter(m => m.id <= 12);
+  const crMods = MODULES.filter(m => m.id >= 13);
+  const separator = `<div style="grid-column:1/-1;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:16px 20px;margin:8px 0 4px"><p style="font-size:13px;color:#991b1b;line-height:1.65;margin:0"><strong style="color:#dc2626">&#9888;&#65039; APC Confidence Reset — Referred Candidates Only.</strong> The six modules below are part of the Referred Candidate Programme (£297 &middot; 90 days). They are only accessible with a Confidence Reset subscription and are not included in standard Annual or Monthly access.</p></div>`;
+  el.innerHTML = stdMods.map(renderCard).join('') + separator + crMods.map(renderCard).join('');
 }
 
 // Landing page module card click
@@ -2141,12 +2151,12 @@ async function callModuleTutor(modId, msg, isSystem) {
     const candidateName = sess.name || sess.firstName || '';
     const modTitles = {1:'Preparing for RICS APC Exams',2:'Ethics Conduct and Professionalism',3:'Client Care',4:'Communication and Negotiation',5:'Health and Safety',6:'Accounting Principles and Procedures',7:'Business Planning',8:'Conflict Avoidance and Dispute Resolution',9:'Data Management',10:'Sustainability',11:'Inclusive Professional Practice'};
     const modTitle = modTitles[modId] || 'this module';
-    const systemPrompt = `You are Michael — the Michael for Get Chartered AI. You are operating in GEAR 1 TUTOR MODE for Module \${modId} — \${modTitle}.
+    const systemPrompt = `You are Michael — the Michael for Get Chartered AI. You are operating in GEAR 1 TUTOR MODE for Module ${modId} — ${modTitle}.
 
 CHARACTER: You are warm, direct and compassionate. You are on the candidate's side. You lead with curiosity and narrative — you put candidates in a situation before you deliver theory. You acknowledge the person before you address the professional.
 
 APPROACH FOR THIS MODULE:
-- Open with a narrative moment relevant to \${modTitle} — put the candidate in a real professional situation
+- Open with a narrative moment relevant to ${modTitle} — put the candidate in a real professional situation
 - Ask them to share a relevant experience from their own work
 - Help them shape that experience into competency evidence
 - Name the level of anything they share: "That is Level 1 — here is what would make it Level 2"
@@ -2154,8 +2164,8 @@ APPROACH FOR THIS MODULE:
 - Never say "great answer" without explaining exactly what made it strong
 - Connect theory to their actual professional life — always
 
-Candidate pathway: \${pathway}
-Module focus: \${modTitle}
+Candidate pathway: ${pathway}
+Module focus: ${modTitle}
 
 This is a learning conversation, not an assessment. Be warm. Lead with compassion. Be exacting on standards but gentle in delivery.`;
 

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APC Year Two Readiness Review — Get Chartered AI</title>
+<meta name="description" content="A professional diagnostic benchmark for Year One APC candidates. 32 questions across 5 assessment areas. Know exactly where you stand before Year Two begins. £127.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2563EB;--blue-dark:#1d4ed8;--blue-light:#3b82f6;
+  --amber:#f59e0b;
+  --f:'Inter',sans-serif;
+  --fh:'Plus Jakarta Sans','Inter',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);background:#0D0F1C;color:#f8fafc;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;left:0;right:0;z-index:1000;
+  background:rgba(11,12,28,0.97);backdrop-filter:blur(16px);
+  height:64px;display:flex;align-items:center;padding:0 40px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:30px}
+.nav-logo-stack{display:flex;flex-direction:column;gap:0}
+.nav-logo-name{font-size:14px;font-weight:600;color:#fff;letter-spacing:-.01em;line-height:1.3}
+.nav-rics-tag{font-size:9px;font-weight:400;font-style:italic;color:rgba(255,255,255,.35);letter-spacing:.02em;line-height:1.2;display:block}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.nav-link{font-size:13px;font-weight:500;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 12px;border-radius:6px;cursor:pointer;background:none;border:none;transition:.15s;font-family:var(--f)}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.07)}
+.nav-btn{font-size:13px;font-weight:600;color:#fff;background:var(--blue);padding:7px 16px;border-radius:7px;border:none;cursor:pointer;text-decoration:none;transition:.15s}
+.nav-btn:hover{background:var(--blue-light)}
+
+/* ── HERO ── */
+.hero{
+  padding:96px 40px 80px;
+  background:linear-gradient(160deg,#0D0F1C 0%,#111527 60%,#0a1020 100%);
+  position:relative;overflow:hidden;text-align:center;
+}
+.hero::before{
+  content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);
+  width:700px;height:700px;
+  background:radial-gradient(ellipse,rgba(37,99,235,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:24px;
+  background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);
+  padding:6px 14px;border-radius:20px;
+}
+.hero h1{
+  font-family:var(--fh);
+  font-size:clamp(32px,5vw,60px);
+  font-weight:800;line-height:1.08;letter-spacing:-.03em;
+  color:#fff;margin-bottom:20px;max-width:780px;margin-left:auto;margin-right:auto;
+}
+.hero h1 em{font-style:normal;color:#93c5fd}
+.hero-sub{
+  font-size:16px;color:rgba(248,250,252,.6);
+  max-width:580px;margin:0 auto 36px;line-height:1.7;font-weight:400;
+}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{font-family:var(--f);font-size:13px;font-weight:700;letter-spacing:.02em;padding:13px 26px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:.18s;text-align:center}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-light);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.15)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.35);color:#fff}
+.hero-stats{
+  display:flex;justify-content:center;gap:48px;flex-wrap:wrap;
+  margin-top:60px;padding-top:48px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.stat-num{font-family:var(--fh);font-size:2.2rem;font-weight:800;color:#fff;letter-spacing:-.03em}
+.stat-lbl{font-size:11px;font-weight:500;color:rgba(248,250,252,.35);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+
+/* ── SECTIONS ── */
+.sec{padding:80px 40px}
+.sec-dark{background:#0D0F1C}
+.sec-mid{background:#111527}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:10px}
+.h2{font-family:var(--fh);font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:14px}
+.sub{font-size:15px;color:rgba(248,250,252,.55);max-width:560px;line-height:1.7}
+
+/* ── WHY ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto}
+.why-points{display:flex;flex-direction:column;gap:22px;margin-top:28px}
+.why-point{display:flex;gap:14px;align-items:flex-start}
+.why-icon{
+  width:38px;height:38px;border-radius:8px;flex-shrink:0;
+  background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.2);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.why-point h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.why-point p{font-size:13px;color:rgba(248,250,252,.5);line-height:1.6}
+.why-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;padding:32px;
+}
+.why-card-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.why-card h3{font-family:var(--fh);font-size:1.35rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:12px;letter-spacing:-.02em}
+.why-card p{font-size:13px;color:rgba(248,250,252,.5);line-height:1.7;margin-bottom:16px}
+.why-stat{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:8px;padding:14px 18px}
+.why-stat-num{font-family:var(--fh);font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.03em}
+.why-stat-txt{font-size:12px;color:rgba(147,197,253,.7);margin-top:2px}
+
+/* ── WHAT YOU GET ── */
+.what-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.what-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:24px;
+  transition:border-color .2s,background .2s;
+}
+.what-card:hover{border-color:rgba(37,99,235,.3);background:rgba(37,99,235,.04)}
+.what-icon{font-size:22px;margin-bottom:12px}
+.what-card h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:-.01em}
+.what-card p{font-size:13px;color:rgba(248,250,252,.5);line-height:1.6}
+.badge{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:rgba(37,99,235,.12);color:#93c5fd;border:1px solid rgba(37,99,235,.2)}
+
+/* ── ASSESSMENT AREAS ── */
+.areas-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:40px}
+.area-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:24px 20px;text-align:center;
+  transition:border-color .2s,background .2s;
+}
+.area-card:hover{border-color:rgba(37,99,235,.3);background:rgba(37,99,235,.04)}
+.area-num{
+  width:44px;height:44px;border-radius:50%;
+  background:#161a2e;border:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fh);font-size:1rem;font-weight:700;color:#fff;
+  margin:0 auto 14px;letter-spacing:-.02em;
+}
+.area-card h4{font-size:13px;font-weight:600;color:#fff;margin-bottom:8px;line-height:1.3;letter-spacing:-.01em}
+.area-card p{font-size:12px;color:rgba(248,250,252,.45);line-height:1.6}
+.area-q{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,158,11,.7)}
+
+/* ── PRICING ── */
+.pricing-wrap{max-width:480px;margin:48px auto 0}
+.price-card-single{
+  background:#fff;border-radius:20px;padding:40px;
+  box-shadow:0 8px 40px rgba(0,0,0,.35);
+  position:relative;
+}
+.price-card-badge{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--blue);color:#fff;font-size:10px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;padding:5px 18px;
+  border-radius:20px;white-space:nowrap;
+}
+.price-card-name{font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.price-card-title{font-family:var(--fh);font-size:1.25rem;font-weight:700;color:#0D0F1C;margin-bottom:24px;line-height:1.3;letter-spacing:-.02em}
+.price-amount-row{display:flex;align-items:baseline;gap:4px;margin-bottom:6px}
+.price-sym{font-family:var(--fh);font-size:1.5rem;font-weight:700;color:#0D0F1C}
+.price-num{font-family:var(--fh);font-size:3.5rem;font-weight:800;color:#0D0F1C;letter-spacing:-.04em;line-height:1}
+.price-period{font-size:13px;color:#94a3b8;margin-bottom:24px}
+.price-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;padding-top:20px;border-top:1px solid #f1f5f9}
+.price-feats li{font-size:14px;color:#374151;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.price-feats li span.chk{color:#10b981;font-weight:700;flex-shrink:0;margin-top:1px}
+.price-cta{
+  display:block;width:100%;padding:14px;text-align:center;
+  background:var(--blue);color:#fff;border:none;border-radius:10px;
+  font-family:var(--f);font-size:15px;font-weight:700;letter-spacing:.02em;
+  cursor:pointer;text-decoration:none;transition:.18s;
+}
+.price-cta:hover{background:var(--blue-light)}
+.price-guarantee{text-align:center;font-size:12px;color:#94a3b8;margin-top:14px;line-height:1.6}
+
+/* ── QUOTE ── */
+.quote-sec{background:#111527;padding:72px 40px;text-align:center;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+.quote-text{font-family:var(--fh);font-size:clamp(1.1rem,2.2vw,1.6rem);font-weight:600;color:#fff;max-width:720px;margin:0 auto 20px;line-height:1.5;letter-spacing:-.02em}
+.quote-attr{font-size:13px;color:rgba(248,250,252,.35)}
+.quote-attr strong{color:rgba(248,250,252,.55)}
+
+/* ── STEPS ── */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;position:relative}
+.steps::before{content:'';position:absolute;top:26px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),rgba(255,255,255,.08),transparent);pointer-events:none}
+.step{padding:24px 16px;text-align:center}
+.step-num{width:52px;height:52px;border-radius:50%;background:#161a2e;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1;letter-spacing:-.02em}
+.step h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
+.step p{font-size:12.5px;color:rgba(248,250,252,.45);line-height:1.6}
+
+/* ── FOOTER ── */
+footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;border-top:1px solid rgba(255,255,255,.05)}
+.foot-brand{font-size:14px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.foot-brand span{color:var(--amber)}
+.foot-links{display:flex;gap:18px;flex-wrap:wrap}
+.foot-links a{color:rgba(248,250,252,.3);font-size:12px;text-decoration:none;transition:color .18s}
+.foot-links a:hover{color:rgba(248,250,252,.6)}
+.foot-copy{font-size:11px;color:rgba(248,250,252,.2);width:100%}
+
+/* ── FADE ── */
+.fu{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.fu.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .sec{padding:60px 20px}
+  .hero{padding:72px 20px 60px}
+  .why-grid,.what-grid,.areas-grid,.steps{grid-template-columns:1fr}
+  .steps::before{display:none}
+  .hero-stats{gap:24px}
+  footer{padding:32px 20px 24px}
+  .pricing-wrap{margin:40px 0 0}
+  .price-card-single{padding:32px 24px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://getcharteredai.com" class="nav-logo">
+    <div class="nav-logo-stack">
+      <span class="nav-logo-name">Get Chartered AI</span>
+      <span class="nav-rics-tag">APC Year Two Readiness Review</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a href="#why" class="nav-link">Why this</a>
+    <a href="#what-you-get" class="nav-link">What you get</a>
+    <a href="#the-assessment" class="nav-link">The assessment</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="#pricing" class="nav-btn">Get started →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">📋 APC Year Two Readiness Review</div>
+  <h1>Am I <em>ready</em> for Year Two?</h1>
+  <p class="hero-sub">Most APC candidates enter Year Two without knowing whether they are on track, whether their competency evidence is strong enough, or where their biggest development gaps sit. This benchmark tells you — clearly, honestly and specifically.</p>
+  <div class="hero-btns">
+    <button class="btn btn-primary" onclick="startCheckout()">Start the Review — £127</button>
+    <a href="#what-you-get" class="btn btn-ghost">See what's included</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-num">32</div><div class="stat-lbl">Diagnostic questions</div></div>
+    <div><div class="stat-num">5</div><div class="stat-lbl">Assessment areas</div></div>
+    <div><div class="stat-num">30</div><div class="stat-lbl">Days access</div></div>
+    <div><div class="stat-num">1</div><div class="stat-lbl">Personalised readiness report</div></div>
+  </div>
+</section>
+
+<!-- WHY THIS EXISTS -->
+<section class="sec sec-mid" id="why">
+  <div class="why-grid">
+    <div class="fu">
+      <div class="lbl">The problem</div>
+      <h2 class="h2">Most Year One candidates don't know where they actually stand</h2>
+      <p class="sub">You have evidence building up, counsellor sessions happening and an assessment date somewhere on the horizon. But without an honest diagnostic, you don't know whether what you have is good enough — or where the gaps are.</p>
+      <div class="why-points">
+        <div class="why-point">
+          <div class="why-icon">📋</div>
+          <div>
+            <h4>Evidence quality is invisible until it's too late</h4>
+            <p>Most candidates think they're building strong evidence. Most are describing their work rather than demonstrating professional judgement. The difference only becomes visible at assessment — or at referral.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">🎯</div>
+          <div>
+            <h4>You don't know what you don't know</h4>
+            <p>The APC has specific levels, criteria and patterns that assessors score against. Candidates who haven't had structured feedback on their evidence tend to have systematic gaps they can't see from the inside.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">⏰</div>
+          <div>
+            <h4>Year Two is not the time to discover problems</h4>
+            <p>Arriving at Year Two with unidentified gaps means spending preparation time on the wrong things. The readiness review gives you a clear picture while you still have time to address what matters.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fu">
+      <div class="why-card">
+        <div class="why-card-eyebrow">The cost of late discovery</div>
+        <h3>Catching a gap in Year One costs hours. Catching it at referral costs months.</h3>
+        <p>Candidates who discover competency evidence problems at final assessment — or worse, after referral — face a minimum of six months of additional preparation before they can resit. A 30-minute diagnostic benchmark now changes the entire trajectory.</p>
+        <p>The readiness review is not a test you pass or fail. It is a structured picture of exactly where you are — with specific, actionable guidance on what to address and in what order.</p>
+        <div class="why-stat">
+          <div class="why-stat-num">6 months</div>
+          <div class="why-stat-txt">Minimum delay a single referral adds to a candidate's chartership timeline</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="sec sec-dark" id="what-you-get">
+  <div class="fu" style="text-align:center;margin-bottom:8px">
+    <div class="lbl" style="justify-content:center;display:flex">What's included</div>
+    <h2 class="h2" style="text-align:center;max-width:580px;margin:0 auto 12px">Your personalised readiness report</h2>
+    <p class="sub" style="margin:0 auto;text-align:center">The review covers five structured assessment areas and produces a specific, honest report on your Year Two readiness — not a generic score but a breakdown you can actually act on.</p>
+  </div>
+  <div class="what-grid fu">
+    <div class="what-card">
+      <div class="what-icon">🔍</div>
+      <h4>Diagnostic Questionnaire</h4>
+      <p>32 targeted questions designed to surface specific gaps rather than give you a false sense of security. Calibrated against the evidencing standards assessors actually use.</p>
+      <span class="badge">32 questions</span>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">📊</div>
+      <h4>Competency Evidence Analysis</h4>
+      <p>A structured assessment of whether your current evidence demonstrates professional judgement at Level 2 — the standard assessors score at final assessment — not just activity description.</p>
+      <span class="badge">Level 2 benchmark</span>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">📋</div>
+      <h4>Mandatory Competency Coverage</h4>
+      <p>A check of your depth across all 11 RICS mandatory competencies. Surfaces coverage gaps before they become referral reasons — while you still have a full year to address them.</p>
+      <span class="badge">All 11 competencies</span>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">📝</div>
+      <h4>Personalised Readiness Report</h4>
+      <p>A specific, honest assessment of where you stand — broken down by each of the five assessment areas. Named strengths and named gaps, not a single readiness score.</p>
+      <span class="badge">Personalised output</span>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">🎯</div>
+      <h4>Gap Priority Map</h4>
+      <p>The three to five specific areas that will have the greatest impact on your pass likelihood if addressed now. Ranked by urgency so you know where to start.</p>
+      <span class="badge">Prioritised by impact</span>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">✅</div>
+      <h4>Structured Action Plan</h4>
+      <p>Specific recommended next steps for each gap identified, with guidance on which platform tools and resources to use for each one. Not generic advice — a named preparation plan.</p>
+      <span class="badge">30 days access</span>
+    </div>
+  </div>
+</section>
+
+<!-- THE ASSESSMENT -->
+<section class="sec sec-mid" id="the-assessment">
+  <div class="fu" style="text-align:center;margin-bottom:8px">
+    <div class="lbl" style="justify-content:center;display:flex">The assessment</div>
+    <h2 class="h2" style="text-align:center;max-width:640px;margin:0 auto 12px">Five areas. Thirty-two questions. One honest picture.</h2>
+    <p class="sub" style="margin:0 auto;text-align:center">The benchmark covers the five areas that determine Year Two readiness. Each area is assessed independently so the report can be specific about exactly where the gaps are.</p>
+  </div>
+  <div class="areas-grid fu">
+    <div class="area-card">
+      <div class="area-num">01</div>
+      <h4>Evidence Quality</h4>
+      <p>Are your competency examples demonstrating professional judgement at Level 2, or describing what you did? The most common and damaging gap in Year One preparation.</p>
+      <span class="area-q">8 questions</span>
+    </div>
+    <div class="area-card">
+      <div class="area-num">02</div>
+      <h4>Mandatory Competency Depth</h4>
+      <p>Do you have sufficient breadth and depth across all 11 mandatory competencies? Which are underdeveloped at this stage of your training?</p>
+      <span class="area-q">8 questions</span>
+    </div>
+    <div class="area-card">
+      <div class="area-num">03</div>
+      <h4>Experience Record</h4>
+      <p>Is your summary of experience structured and evidential? Are your case studies meeting RICS format requirements and demonstrating the judgement assessors look for?</p>
+      <span class="area-q">6 questions</span>
+    </div>
+    <div class="area-card">
+      <div class="area-num">04</div>
+      <h4>Professional Practice &amp; Ethics</h4>
+      <p>Are you adequately prepared for Level 3 Professional Practice? Can you handle the ethics and conduct questions that routinely catch candidates off guard?</p>
+      <span class="area-q">5 questions</span>
+    </div>
+    <div class="area-card">
+      <div class="area-num">05</div>
+      <h4>Assessment Readiness</h4>
+      <p>Are you mentally, practically and logistically prepared to perform under assessment pressure? Do you have a Year Two preparation plan in place?</p>
+      <span class="area-q">5 questions</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec sec-dark">
+  <div class="fu" style="text-align:center;margin-bottom:8px">
+    <div class="lbl" style="justify-content:center;display:flex">How it works</div>
+    <h2 class="h2" style="text-align:center">Complete it in 30 minutes. Know exactly where you stand.</h2>
+  </div>
+  <div class="steps fu">
+    <div class="step"><div class="step-num">01</div><h4>Purchase</h4><p>One-off payment of £127. Instant access. No subscription, no cancellation required.</p></div>
+    <div class="step"><div class="step-num">02</div><h4>Complete the benchmark</h4><p>Work through 32 diagnostic questions across the five assessment areas. Takes around 30 minutes — designed for honest reflection, not optimistic answers.</p></div>
+    <div class="step"><div class="step-num">03</div><h4>Receive your report</h4><p>Your personalised readiness report identifies exactly where you stand in each area and names the specific gaps that need addressing before Year Two.</p></div>
+    <div class="step"><div class="step-num">04</div><h4>Act on it</h4><p>Use the gap priority map and action plan to focus your Year Two preparation on what will actually move the needle. 30 days access to revisit as your preparation evolves.</p></div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-sec fu">
+  <p class="quote-text">"I thought I was in good shape going into Year Two. The review told me I had a Level 2 evidencing problem I hadn't noticed. Fixing that structure before the assessment was the single most useful thing I did in my APC preparation."</p>
+  <p class="quote-attr"><strong>APC Candidate — Quantity Surveying pathway</strong> · Passed first time</p>
+</div>
+
+<!-- PRICING -->
+<section class="sec sec-dark" id="pricing">
+  <div class="fu" style="text-align:center">
+    <div class="lbl" style="justify-content:center;display:flex">Pricing</div>
+    <h2 class="h2" style="text-align:center">One payment. No subscription.</h2>
+    <p class="sub" style="margin:0 auto;text-align:center">A professional diagnostic benchmark at a price that reflects its place in your preparation — useful, specific and immediately actionable.</p>
+  </div>
+  <div class="pricing-wrap fu">
+    <div class="price-card-single">
+      <div class="price-card-badge">APC Year Two Readiness Review</div>
+      <div style="margin-top:8px">
+        <div class="price-card-name">Diagnostic Benchmark</div>
+        <div class="price-card-title">APC Year Two Readiness Review.<br>Know exactly where you stand.</div>
+        <div class="price-amount-row">
+          <span class="price-sym">£</span>
+          <span class="price-num">127</span>
+        </div>
+        <p class="price-period">One-off payment · Instant access · 30 days</p>
+        <ul class="price-feats">
+          <li><span class="chk">✓</span>32 diagnostic questions across 5 structured assessment areas</li>
+          <li><span class="chk">✓</span>Personalised readiness report — specific to your answers</li>
+          <li><span class="chk">✓</span>Competency evidence quality benchmark against Level 2 standard</li>
+          <li><span class="chk">✓</span>Mandatory competency coverage analysis — all 11 RICS requirements</li>
+          <li><span class="chk">✓</span>Gap priority map — ranked by impact on your pass likelihood</li>
+          <li><span class="chk">✓</span>Structured action plan with specific preparation guidance</li>
+          <li><span class="chk">✓</span>30 days access to revisit as your Year Two preparation progresses</li>
+        </ul>
+        <button class="price-cta" onclick="startCheckout()">Start the Review — £127</button>
+        <p class="price-guarantee">One-off payment · No subscription · No cancellation required.<br>Questions? <a href="mailto:info@getcharteredai.com" style="color:#2563EB">info@getcharteredai.com</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-brand">Get Chartered <span>AI</span></div>
+  <div class="foot-links">
+    <a href="https://getcharteredai.com">Platform</a>
+    <a href="/sprint">APC Sprint</a>
+    <a href="/referred-programme">Referred Programme</a>
+    <a href="/guides">Candidate Guides</a>
+    <a href="mailto:info@getcharteredai.com">info@getcharteredai.com</a>
+  </div>
+  <p class="foot-copy">© Get Chartered AI 2026 · Built by Chartered Surveyors · getcharteredai.com</p>
+</footer>
+
+<script>
+async function startCheckout() {
+  try {
+    const r = await fetch('/.netlify/functions/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan: 'year-one' })
+    });
+    const data = await r.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      window.location.href = 'mailto:info@getcharteredai.com?subject=APC Year Two Readiness Review — Purchase&body=I would like to purchase the APC Year Two Readiness Review (£127). Please send me a payment link.';
+    }
+  } catch(e) {
+    window.location.href = 'mailto:info@getcharteredai.com?subject=APC Year Two Readiness Review — Purchase&body=I would like to purchase the APC Year Two Readiness Review (£127). Please send me a payment link.';
+  }
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold:0.07});
+document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

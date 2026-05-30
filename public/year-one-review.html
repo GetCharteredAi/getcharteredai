@@ -85,6 +85,7 @@ nav{
 .sec{padding:80px 40px}
 .sec-dark{background:#0D0F1C}
 .sec-mid{background:#111527}
+.sec-light{background:#f8fafc}
 .lbl{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:10px}
 .h2{font-family:var(--fh);font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:14px}
 .sub{font-size:15px;color:rgba(248,250,252,.55);max-width:560px;line-height:1.7}
@@ -147,7 +148,8 @@ nav{
 .pricing-wrap{max-width:480px;margin:48px auto 0}
 .price-card-single{
   background:#fff;border-radius:20px;padding:40px;
-  box-shadow:0 8px 40px rgba(0,0,0,.35);
+  box-shadow:0 8px 40px rgba(0,0,0,.12);
+  border:1px solid #e2e8f0;
   position:relative;
 }
 .price-card-badge{
@@ -163,15 +165,15 @@ nav{
 .price-num{font-family:var(--fh);font-size:3.5rem;font-weight:800;color:#0D0F1C;letter-spacing:-.04em;line-height:1}
 .price-period{font-size:13px;color:#94a3b8;margin-bottom:24px}
 .price-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;padding-top:20px;border-top:1px solid #f1f5f9}
-.price-feats li{font-size:14px;color:#374151;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.price-feats li{font-size:14px;color:#475569;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
 .price-feats li span.chk{color:#10b981;font-weight:700;flex-shrink:0;margin-top:1px}
 .price-cta{
   display:block;width:100%;padding:14px;text-align:center;
-  background:var(--blue);color:#fff;border:none;border-radius:10px;
+  background:#0D0F1C;color:#fff;border:none;border-radius:10px;
   font-family:var(--f);font-size:15px;font-weight:700;letter-spacing:.02em;
   cursor:pointer;text-decoration:none;transition:.18s;
 }
-.price-cta:hover{background:var(--blue-light)}
+.price-cta:hover{background:#1a1f3a}
 .price-guarantee{text-align:center;font-size:12px;color:#94a3b8;margin-top:14px;line-height:1.6}
 
 /* ── QUOTE ── */
@@ -404,11 +406,11 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 </div>
 
 <!-- PRICING -->
-<section class="sec sec-dark" id="pricing">
+<section class="sec sec-light" id="pricing">
   <div class="fu" style="text-align:center">
-    <div class="lbl" style="justify-content:center;display:flex">Pricing</div>
-    <h2 class="h2" style="text-align:center">One payment. No subscription.</h2>
-    <p class="sub" style="margin:0 auto;text-align:center">A professional diagnostic benchmark at a price that reflects its place in your preparation — useful, specific and immediately actionable.</p>
+    <div class="lbl" style="justify-content:center;display:flex;color:#2563EB">Pricing</div>
+    <h2 class="h2" style="text-align:center;color:#0D0F1C">One payment. No subscription.</h2>
+    <p class="sub" style="margin:0 auto;text-align:center;color:#64748b">A professional diagnostic benchmark at a price that reflects its place in your preparation — useful, specific and immediately actionable.</p>
   </div>
   <div class="pricing-wrap fu">
     <div class="price-card-single">

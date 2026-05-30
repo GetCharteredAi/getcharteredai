@@ -81,7 +81,7 @@ exports.handler = async (event) => {
                   Start My Sprint Now →
                 </a>
                 <p style="font-size:12px;color:#94a3b8;margin:0">
-                  Access valid for 49 days (6-week sprint plus one week revision buffer). If you didn't pass your APC, contact us — your £197 is credited against the full programme.<br><br>
+                  Access valid for 49 days (6-week sprint plus one week revision buffer). If you didn't pass your APC, contact us — your £297 is credited against the full programme.<br><br>
                   Questions? <a href="mailto:info@getcharteredai.com" style="color:#2563EB">info@getcharteredai.com</a>
                 </p>
               </div>

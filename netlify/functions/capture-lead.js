@@ -44,7 +44,7 @@ exports.handler = async (event) => {
   const nearTerm = examDate === '3–6 months';
   const product = veryUrgent || urgent ? 'sprint' : 'full';
   const productUrl = veryUrgent || urgent ? 'https://getcharteredai.com/sprint' : 'https://getcharteredai.com/#pricing-sec';
-  const productName = veryUrgent || urgent ? 'APC Sprint (£197)' : 'Full Programme (£39.90/month or £383/year)';
+  const productName = veryUrgent || urgent ? 'APC Sprint (£297)' : 'Full Programme (£39.90/month or £383/year)';
 
   // Follow-up dates
   const now = new Date();

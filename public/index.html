@@ -55,7 +55,7 @@ nav{
 /* ── TYPOGRAPHY ── */
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:10px}
 .sec-blue .eyebrow,.sec-dark .eyebrow{color:rgba(255,255,255,.55)}
-h1.hero-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(36px,5.5vw,58px);font-weight:900;line-height:1.02;letter-spacing:-.04em;color:#fff}
+h1.hero-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(28px,3.5vw,48px);font-weight:900;line-height:1.02;letter-spacing:-.04em;color:#fff}
 h1.hero-title span{color:#93c5fd}
 .h2{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(22px,2.5vw,32px);font-weight:800;letter-spacing:-.03em;line-height:1.15;color:var(--text);margin-bottom:10px}
 .h2-white{color:#fff}
@@ -1045,7 +1045,7 @@ input.err{border-color:var(--red)}
         </div>
         <div class="inside-card free-resources-card" style="border-top-color:#10b981;grid-column:1 / span 4;text-align:center;padding:24px 32px 32px">
           <div class="inside-module" style="color:#6ee7b7">Candidate Resources</div>
-          <div class="inside-title" style="font-size:17px;margin-bottom:16px">12 Free Guides &amp; Tools — No Sign-Up Required</div>
+          <div class="inside-title" style="font-size:17px;margin-bottom:16px">12 Candidate Resources &amp; Tools — No Sign-Up Required</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:left">
             <ul class="inside-list" style="margin:0">
               <li>Competency choice checker — December 2025 rules, instant results</li>
@@ -1101,7 +1101,8 @@ input.err{border-color:var(--red)}
           <p class="pname">12-Month APC Programme</p>
         </div>
         <div class="pcard-price"><span class="psym">£</span><span class="pnum">497</span><div class="pright"><span class="pdec"></span><span class="pper">one-off</span></div></div>
-        <p class="pnote">or £49/month, cancel anytime · Full programme access</p>
+        <p style="font-size:16px;color:var(--muted);margin:4px 28px 0;line-height:1.4">or £49/month</p>
+        <p class="pnote">cancel anytime · Full programme access</p>
         <ul class="pfeats">
           <li>12 modules covering all mandatory competencies</li>
           <li>24/7 AI tutor for guided practice and questioning</li>
@@ -1112,7 +1113,7 @@ input.err{border-color:var(--red)}
         <p style="font-size:12px;font-style:italic;color:#64748b;padding:0 28px 14px;text-align:left;line-height:1.5">This is the route for candidates who want to prepare properly, not reactively.</p>
         <div class="pcard-foot" style="display:flex;gap:8px">
           <button class="pbtn pbtn-fill" style="flex:1" onclick="checkout('annual')">Get Full Access — £497</button>
-          <button class="pbtn pbtn-outline" style="flex:1" onclick="checkout('monthly')">Monthly — £49</button>
+          <button class="pbtn pbtn-outline" style="flex:1" onclick="checkout('monthly')">Start Monthly — £49/month</button>
         </div>
       </div>
 
@@ -1241,7 +1242,7 @@ var fProducts = {
   annual:{title:'Full Programme — Annual Access',price:'£383',note:'one-off · 18 months',url:'/#pricing-sec'},
   monthly:{title:'Monthly Access',price:'£39.90',note:'per month',url:'/#pricing-sec'},
   reset:{title:'APC Confidence Reset',price:'£397',note:'one-off · 90 days',url:'/referred-programme'},
-  free:{title:'Free Guides and Tools',price:'Free',note:'no payment required',url:'/guides'}
+  free:{title:'Candidate Guides and Tools',price:'Free',note:'no payment required',url:'/guides'}
 };
 
 var fQ2 = {
@@ -1265,7 +1266,7 @@ var fQ2 = {
 };
 
 var fResults = {
-  starting_far:{primary:'free',secondary:'monthly',reason:'With plenty of time, start with the free guides to understand what the APC requires. When you are 12 months out, the monthly programme is the right next step.'},
+  starting_far:{primary:'free',secondary:'monthly',reason:'With plenty of time, start with the candidate guides to understand what the APC requires. When you are 12 months out, the monthly programme is the right next step.'},
   starting_medium:{primary:'monthly',secondary:null,reason:'12–18 months out is the right time to start structured preparation. Monthly access unlocks one module per month — paced to your training timeline.'},
   starting_closer:{primary:'annual',secondary:null,reason:'With less than 12 months to go, annual access gives you all 12 modules immediately so you can move at your own pace.'},
   mid_unstructured:{primary:'monthly',secondary:'annual',reason:'Monthly or annual access gives you the structured framework your preparation is currently missing — content, AI coaching and mock interview practice in one place.'},

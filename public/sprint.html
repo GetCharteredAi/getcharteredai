@@ -304,7 +304,7 @@ footer a{color:#60a5fa;text-decoration:none}
         <li>Counts toward your annual RICS CPD requirement</li>
         <li>Instant access on enrolment · Revise right up to your assessment</li>
       </ul>
-      <a href="https://buy.stripe.com/9B614p3Uff76cPCgamfrW07" class="btn-sprint">Start My Sprint Now</a>
+      <button class="btn-sprint" onclick="checkout('sprint')">Start My Sprint Now</button>
       <div class="price-guarantee">One-off payment · No subscription · No cancellation required.<br>Questions? <a href="mailto:info@getcharteredai.com" style="color:#60a5fa">info@getcharteredai.com</a></div>
     </div>
 
@@ -374,6 +374,24 @@ footer a{color:#60a5fa;text-decoration:none}
 </footer>
 
 <script>
+async function checkout(plan) {
+  try {
+    const r = await fetch('/.netlify/functions/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan })
+    });
+    const data = await r.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert('Could not start checkout. Please try again or contact info@getcharteredai.com');
+    }
+  } catch(e) {
+    alert('Connection error. Please check your internet and try again.');
+  }
+}
+
 function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
   const isOpen = item.classList.contains('open');

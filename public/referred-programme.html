@@ -259,20 +259,10 @@ async function enrollReferred() {
   alertEl.style.display = 'none';
 
   try {
-    // Use Stripe direct link for referred programme
-    // Price ID to be set once Stripe product is created
-    const REFERRED_PRICE_ID = 'price_1TaFxDRkzyH1h56URvfFhEbr';
-    
-    if (REFERRED_PRICE_ID === 'REFERRED_PRICE_ID_PLACEHOLDER') {
-      // Fallback to email contact until Stripe product is created
-      window.location.href = 'mailto:info@getcharteredai.com?subject=Referred Candidate Programme — Enrolment&body=I would like to enrol in the APC Referred Candidate Programme (£397). Please send me a payment link.';
-      return;
-    }
-
     const r = await fetch('/.netlify/functions/create-checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ priceId: REFERRED_PRICE_ID, mode: 'payment' })
+      body: JSON.stringify({ plan: 'referred' })
     });
     const data = await r.json();
     if (data.url) {

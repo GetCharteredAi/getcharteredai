@@ -3531,6 +3531,26 @@ async function initYearOneAssessment() {
     renderYr1Welcome();
   }
 }
+
+// TESTING ONLY — remove both functions before next production release
+function testYearOne() {
+  localStorage.setItem('gca_plan', 'year-one');
+  localStorage.setItem('gca_token', 'test-token-year-one');
+  localStorage.setItem('gca_user', 'test@getcharteredai.com');
+  localStorage.setItem('gca_activated', Date.now().toString());
+  showYearOneAssessment();
+  console.warn('TEST MODE ACTIVE — run cleanupTestYearOne() when done');
+}
+
+function cleanupTestYearOne() {
+  localStorage.removeItem('gca_plan');
+  localStorage.removeItem('gca_token');
+  localStorage.removeItem('gca_user');
+  localStorage.removeItem('gca_activated');
+  localStorage.removeItem('gca_yr1_progress');
+  showView('landing');
+  console.log('Test data cleared — back to normal');
+}
 </script>
 </body>
 

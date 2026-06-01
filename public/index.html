@@ -3327,6 +3327,7 @@ Be honest and specific. Base your ratings on the actual quality and depth of the
     p.report = report;
     p.reportDate = Date.now();
     saveYr1Progress(p);
+    saveReportToServer(report);
     renderYr1Report(p, report);
   } catch(e) {
     renderYr1ReportError(p);
@@ -3416,10 +3417,51 @@ function renderYr1Report(p, report) {
   </div>`;
 }
 
+async function saveReportToServer(report) {
+  try {
+    const token = getToken();
+    const r = await fetch('/.netlify/functions/save-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, report })
+    });
+    const d = await r.json();
+    return d.success;
+  } catch(e) {
+    console.error('Could not save report to server:', e);
+    return false;
+  }
+}
+
+async function getReportFromServer() {
+  try {
+    const token = getToken();
+    if (!token) return null;
+    const r = await fetch('/.netlify/functions/get-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token })
+    });
+    const d = await r.json();
+    return d.report || null;
+  } catch(e) {
+    return null;
+  }
+}
+
 function renderYearOneAssessment() {
   const session_check = async () => {
     const session = await getSession();
     if (!session.valid) { showView('landing'); openLogin(); return; }
+    // Check server for a previously saved report (cross-device)
+    const serverReport = await getReportFromServer();
+    if (serverReport) {
+      const p = getYr1Progress();
+      p.report = serverReport;
+      saveYr1Progress(p);
+      renderYr1Report(p, serverReport);
+      return;
+    }
     const p = getYr1Progress();
     if (p.report) { renderYr1Report(p, p.report); return; }
     renderYr1Welcome(p);

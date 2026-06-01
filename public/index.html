@@ -1611,7 +1611,7 @@ function showView(name) {
   document.getElementById('view-' + name).classList.add('active');
   window.scrollTo(0,0);
   if (name === 'dashboard') renderDashboard();
-  if (name === 'year-one-assessment') renderYearOneAssessment();
+  if (name === 'year-one-assessment') initYearOneAssessment();
   if (name === 'landing') updateNav();
   updateNav();
   // Hide announcement bar for logged-in members
@@ -1771,7 +1771,7 @@ async function renderDashboard() {
   const session = await getSession();
   if (!session.valid) { showView('landing'); openLogin(); return; }
   const plan = session.plan || localStorage.getItem('gca_plan') || 'monthly';
-  if (plan === 'year-one') { showView('year-one-assessment'); return; }
+  if (plan === 'year-one') { showYearOneAssessment(); return; }
   const activatedAt = session.activatedAt || parseInt(localStorage.getItem('gca_activated')) || Date.now();
   const unlockedCount = getUnlockedCount(plan, activatedAt);
   const done = completedCount();
@@ -3060,75 +3060,72 @@ window.addEventListener('DOMContentLoaded', async () => {
 // ── YEAR ONE ASSESSMENT ────────────────────────────────────────────────────────
 
 const YR1_QUESTIONS = [
-  // AREA 1 — MANDATORY COMPETENCIES (8 questions)
-  { id:1, area:1, areaName:'Mandatory Competencies', q:'Walk me through how your understanding of ethics and professional practice has developed over the past year. Give me a specific example where it shaped a decision you made at work.' },
-  { id:2, area:1, areaName:'Mandatory Competencies', q:'How do you ensure the advice you give is within the limits of your current competence? Describe a situation where you recognised those limits.' },
-  { id:3, area:1, areaName:'Mandatory Competencies', q:'Tell me about a piece of client communication you produced this year. What made it professional and appropriate to the audience?' },
-  { id:4, area:1, areaName:'Mandatory Competencies', q:'Describe a situation where you had to manage competing priorities or a difficult stakeholder. How did you handle it and what was the outcome?' },
-  { id:5, area:1, areaName:'Mandatory Competencies', q:'What sustainability considerations have you applied in your day-to-day work this year? Give a concrete example.' },
-  { id:6, area:1, areaName:'Mandatory Competencies', q:'How are you currently keeping your technical knowledge up to date? What CPD have you completed in the past twelve months?' },
-  { id:7, area:1, areaName:'Mandatory Competencies', q:'Describe a time this year when you identified a risk — commercial, legal or technical — and explain how you escalated or managed it.' },
-  { id:8, area:1, areaName:'Mandatory Competencies', q:'How do you demonstrate that the advice you give clients is independent and objective, even when there is commercial pressure to say something different?' },
-
-  // AREA 2 — TECHNICAL KNOWLEDGE (8 questions)
-  { id:9,  area:2, areaName:'Technical Knowledge', q:'Choose one core technical competency from your APC pathway and explain it to me as if I were a knowledgeable client who is unfamiliar with the detail. What are the key things I need to understand?' },
-  { id:10, area:2, areaName:'Technical Knowledge', q:'Describe a technical problem you solved this year. Walk me through your methodology and the outcome.' },
-  { id:11, area:2, areaName:'Technical Knowledge', q:'What legislation or regulation is most relevant to your day-to-day work? How does it influence what you do in practice?' },
-  { id:12, area:2, areaName:'Technical Knowledge', q:'How has your technical confidence grown over the past year? What area do you feel most solid in, and what area still needs work?' },
-  { id:13, area:2, areaName:'Technical Knowledge', q:'Tell me about a piece of advice you gave that required you to research or consult before you could answer. How did you approach it?' },
-  { id:14, area:2, areaName:'Technical Knowledge', q:'Describe a project or instruction where you had to apply more than one competency area at the same time. How did you manage that?' },
-  { id:15, area:2, areaName:'Technical Knowledge', q:'What is the most technically complex thing you have worked on in the past year? How did you ensure your advice was sound?' },
-  { id:16, area:2, areaName:'Technical Knowledge', q:'If an assessor asked you about a competency you have limited experience in, how would you approach the answer honestly and professionally?' },
-
-  // AREA 3 — EXPERIENCE QUALITY & DIARY (6 questions)
-  { id:17, area:3, areaName:'Experience Quality & Diary', q:'How complete is your APC graduate diary right now? Are your entries up to date, and do they demonstrate genuine Level 1, 2 and 3 competency development?' },
-  { id:18, area:3, areaName:'Experience Quality & Diary', q:'Pick one diary entry from the past three months that you are proud of. Tell me what it demonstrates and why it is strong evidence.' },
-  { id:19, area:3, areaName:'Experience Quality & Diary', q:'Is there any gap in your experience record — a competency where you have limited diary evidence? How are you addressing it?' },
-  { id:20, area:3, areaName:'Experience Quality & Diary', q:'How does your current role give you exposure to your required competencies? Are there any competencies you are not getting enough practice in?' },
-  { id:21, area:3, areaName:'Experience Quality & Diary', q:'Describe an experience from this year that you would use to demonstrate Level 3 competency. Why does it meet that bar?' },
-  { id:22, area:3, areaName:'Experience Quality & Diary', q:'How are you using your supervisor or counsellor to check the quality of your evidence? What feedback have you received?' },
-
-  // AREA 4 — APC PROCESS & SUBMISSION READINESS (5 questions)
-  { id:23, area:4, areaName:'APC Process & Submission Readiness', q:'Where are you in the APC timeline? Do you have a target submission date, and what is your plan between now and then?' },
-  { id:24, area:4, areaName:'APC Process & Submission Readiness', q:'Have you started your Summary of Experience? If so, how confident are you in it? If not, what is holding you back?' },
-  { id:25, area:4, areaName:'APC Process & Submission Readiness', q:'What do you know about the format and expectations of the final assessment interview? How are you preparing for it?' },
-  { id:26, area:4, areaName:'APC Process & Submission Readiness', q:'Describe one weakness in your current APC submission that you know you need to address before you are ready to go forward.' },
-  { id:27, area:4, areaName:'APC Process & Submission Readiness', q:'Have you done any mock interviews or structured practice? What feedback did you receive and how are you acting on it?' },
-
-  // AREA 5 — PROFESSIONAL MINDSET & CONFIDENCE (5 questions)
-  { id:28, area:5, areaName:'Professional Mindset & Confidence', q:'How do you feel about your progress overall — are you where you expected to be at this point in your APC journey?' },
-  { id:29, area:5, areaName:'Professional Mindset & Confidence', q:'What is the biggest thing holding you back right now — time, confidence, experience, or something else? How are you dealing with it?' },
-  { id:30, area:5, areaName:'Professional Mindset & Confidence', q:'If an assessor asked you a question you genuinely could not answer, how would you handle it in the interview room?' },
-  { id:31, area:5, areaName:'Professional Mindset & Confidence', q:'What has been your biggest professional achievement in the past year? Why does it matter to you?' },
-  { id:32, area:5, areaName:'Professional Mindset & Confidence', q:'Thinking about your final assessment interview — what are you most confident about, and what keeps you up at night?' }
+  // AREA 1 — APC Framework (1-6)
+  { id:1,  area:1, areaName:'APC Framework', question:'Which APC route are you on — and do you have a sense yet of how the structured training period works and what it requires of you?' },
+  { id:2,  area:1, areaName:'APC Framework', question:'You will hear people mention the APC diary and the logbook as if they are the same thing — do you know the difference between them and which one actually gets submitted?' },
+  { id:3,  area:1, areaName:'APC Framework', question:'How are you finding the diary so far — are you updating it regularly, and what kind of things are you recording?' },
+  { id:4,  area:1, areaName:'APC Framework', question:'The APC uses three competency levels — Level 1, 2 and 3. In your own words, what do you think each one is asking you to show?' },
+  { id:5,  area:1, areaName:'APC Framework', question:'There is a deadline called Intent to Submit that catches candidates off guard. Have you come across it yet and do you know what happens if it is missed?' },
+  { id:6,  area:1, areaName:'APC Framework', question:'When you eventually submit, there are specific documents that must all be included or the submission is treated as invalid. Do you have a sense yet of what those are?' },
+  // AREA 2 — Competency Level Understanding (7-13)
+  { id:7,  area:2, areaName:'Competency Level Understanding', question:'Imagine a colleague tells you their Ethics answer is strong because they explained all five Ethical Standards really clearly. What do you think might still be missing from that answer?' },
+  { id:8,  area:2, areaName:'Competency Level Understanding', question:'Pick one mandatory competency you feel least sure about right now. How would you describe your current understanding of it — just in a sentence or two?' },
+  { id:9,  area:2, areaName:'Competency Level Understanding', question:'There is an important difference between describing your work and evidencing it. In your own words, what do you think that difference is — and can you give me an example of each from something you have actually done?' },
+  { id:10, area:2, areaName:'Competency Level Understanding', question:'Level 3 asks for something that Level 2 does not. What do you think that extra thing is?' },
+  { id:11, area:2, areaName:'Competency Level Understanding', question:'Think of a competency you are planning to claim at Level 2. Can you bring to mind a specific situation, a specific decision you personally made and what happened as a result?' },
+  { id:12, area:2, areaName:'Competency Level Understanding', question:'When an assessor asks "tell me about a time when..." — what do you think they are really trying to find out about you?' },
+  { id:13, area:2, areaName:'Competency Level Understanding', question:'Honestly — how many of your mandatory competencies do you currently have a strong, specific example ready for?' },
+  // AREA 3 — Diary and Experience Quality (14-19)
+  { id:14, area:3, areaName:'Diary and Experience Quality', question:'When did you last add something to your APC diary — and how did it feel to write it?' },
+  { id:15, area:3, areaName:'Diary and Experience Quality', question:'Think about your most recent diary entry. If you read it back now, does it mostly describe what happened on a project — or does it capture a decision you personally made and why?' },
+  { id:16, area:3, areaName:'Diary and Experience Quality', question:'Looking across your mandatory competencies — which ones feel well evidenced so far and which ones feel thin or harder to find examples for?' },
+  { id:17, area:3, areaName:'Diary and Experience Quality', question:'Have you ever sat down and compared your diary entries against your full list of competency requirements to see where the gaps are?' },
+  { id:18, area:3, areaName:'Diary and Experience Quality', question:'Think about something that happened in your work in the last three months that felt professionally significant — something where you had to think, decide or advise. Can you describe it?' },
+  { id:19, area:3, areaName:'Diary and Experience Quality', question:'If your counsellor sat down with your diary today and read it through — what do you think they would say?' },
+  // AREA 4 — Articulation and Communication (20-26)
+  { id:20, area:4, areaName:'Articulation and Communication', question:'If you had to explain what you actually do day to day to an assessor who knows nothing about your firm — how would you describe it in three sentences?' },
+  { id:21, area:4, areaName:'Articulation and Communication', question:'Think of the competency you feel most confident about. Have a go at explaining it here as you would in the interview room — just talk me through it naturally.' },
+  { id:22, area:4, areaName:'Articulation and Communication', question:'Have you come across the PREP framework yet — Point, Reason, Example, Point? If so, could you have a go at applying it to a quick answer about Client Care?' },
+  { id:23, area:4, areaName:'Articulation and Communication', question:'When you talk about your work — do you tend to naturally say "we did this" or "I did this"? Which comes more naturally and why do you think that is?' },
+  { id:24, area:4, areaName:'Articulation and Communication', question:'Have you ever actually practised answering APC questions out loud — not just read about them or revised the content?' },
+  { id:25, area:4, areaName:'Articulation and Communication', question:'If an assessor followed up one of your answers with "why did you choose that option rather than the alternatives" — do you feel ready to answer that question for the examples you are planning to use?' },
+  { id:26, area:4, areaName:'Articulation and Communication', question:'Read back the answer you gave to question 21. Does it sound like something you know — or something you have done?' },
+  // AREA 5 — Legislation and Currency (27-32)
+  { id:27, area:5, areaName:'Legislation and Currency', question:'Have you come across any legislation or RICS updates recently that felt relevant to your pathway — anything that came up in work or that you have read about?' },
+  { id:28, area:5, areaName:'Legislation and Currency', question:'Have you heard of MEES — Minimum Energy Efficiency Standards? What do you understand it to mean in practice?' },
+  { id:29, area:5, areaName:'Legislation and Currency', question:'The Renters Rights Act 2025 made some significant changes to residential tenancies. Have you come across it yet — and if so what did you take from it?' },
+  { id:30, area:5, areaName:'Legislation and Currency', question:'RICS introduced a mandatory AI Standard in March 2026. Have you heard of it — and do you have a sense of what it requires of you professionally?' },
+  { id:31, area:5, areaName:'Legislation and Currency', question:'The Building Safety Levy came into force in October 2026. Does that mean anything to you yet in the context of your work?' },
+  { id:32, area:5, areaName:'Legislation and Currency', question:'How are you currently keeping your professional knowledge up to date — is that something you are thinking about yet or does it feel early?' }
 ];
 
 const YR1_AREA_NOTES = {
-  1: 'Mandatory competencies underpin everything. Assessors look for evidence that candidates think and act professionally by instinct — not just when prompted. Strong answers include specific, real examples.',
-  2: 'Technical depth matters, but so does self-awareness. The best candidates know what they know, know what they don\'t, and can explain both clearly. Gaps are fine — unexplained gaps are not.',
-  3: 'Your diary is your evidence base. Weak diary entries are one of the most common reasons APC candidates are deferred. Strong entries show progression through competency levels with real context.',
-  4: 'Many candidates underestimate submission preparation. Having experience is not enough — you need to structure it, articulate it clearly, and be ready to defend it under questioning.',
-  5: 'Mindset shapes performance in the interview room more than candidates expect. Confidence comes from preparation, not from hoping the right questions come up.'
+  1: 'There are no trick questions here — just tell me what you actually know at this point.',
+  2: 'Be honest about where your understanding sits — this is where most candidates discover something useful.',
+  3: 'Your diary is the foundation of your submission — how it is right now is exactly what I need to know.',
+  4: 'This area is about how you communicate — not just what you know. Assessors are listening for ownership, specificity and the ability to think on your feet.',
+  5: 'Currency of professional knowledge matters more than most Year One candidates expect. You do not need to know everything — but you need to be aware of what is relevant to your pathway.'
 };
 
+const YR1_DEFAULT_PROGRESS = () => ({ started: false, currentQuestion: 0, answers: {}, completed: false, report: null });
+
 function getYr1Progress() {
-  try { return JSON.parse(localStorage.getItem('gca_yr1_progress') || 'null') || { answers:{}, started: Date.now() }; }
-  catch(e) { return { answers:{}, started: Date.now() }; }
+  try { return JSON.parse(localStorage.getItem('gca_yr1_progress') || 'null') || YR1_DEFAULT_PROGRESS(); }
+  catch(e) { return YR1_DEFAULT_PROGRESS(); }
 }
 function saveYr1Progress(p) {
   localStorage.setItem('gca_yr1_progress', JSON.stringify(p));
 }
+function resetYearOneAssessment() {
+  saveYr1Progress(YR1_DEFAULT_PROGRESS());
+  initYearOneAssessment();
+}
 function yr1AnsweredCount(p) {
-  return Object.keys(p.answers || {}).length;
+  return p.currentQuestion || 0;
 }
-function yr1NextQuestion(p) {
-  return YR1_QUESTIONS.find(q => !(q.id in (p.answers || {})));
-}
-
-function yr1El(html) {
-  const d = document.createElement('div');
-  d.innerHTML = html;
-  return d.firstElementChild;
+function yr1CurrentQuestion(p) {
+  const idx = p.currentQuestion || 0;
+  return YR1_QUESTIONS[idx] || null;
 }
 
 function yr1Header(subtitle) {
@@ -3164,7 +3161,7 @@ function renderYr1Welcome(p) {
       </div>`).join('')}
     </div>
     <p style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:24px">Answer as honestly as you can — there are no right or wrong answers. Michael's coaching is most useful when your responses reflect where you actually are, not where you think you should be.</p>
-    <button onclick="renderYr1Question(getYr1Progress())" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;width:100%">Begin the Assessment →</button>
+    <button onclick="yr1Begin()" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;width:100%">Begin the Assessment →</button>
   </div>`;
 }
 
@@ -3186,58 +3183,60 @@ function renderYr1Returning(p) {
       ${isComplete
         ? `<button onclick="renderYr1Generating(getYr1Progress())" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer;flex:1">Generate My Report →</button>`
         : `<button onclick="renderYr1Question(getYr1Progress())" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer;flex:1">Continue →</button>`}
-      <button onclick="renderYr1Reset()" style="background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);border-radius:10px;padding:13px 24px;font-size:14px;cursor:pointer">Start again</button>
+      <button onclick="yr1ConfirmReset()" style="background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);border-radius:10px;padding:13px 24px;font-size:14px;cursor:pointer">Start again</button>
     </div>
   </div>`;
 }
 
-function renderYr1Reset() {
+function yr1ConfirmReset() {
   const el = document.getElementById('yr1-content');
-  el.innerHTML = yr1Header('Reset') + `
+  el.innerHTML = yr1Header('Start again') + `
   <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:40px;text-align:center">
-    <p style="font-size:15px;color:rgba(255,255,255,.7);margin-bottom:24px">This will delete all your saved answers and start the assessment again from scratch. Are you sure?</p>
+    <p style="font-size:15px;color:rgba(255,255,255,.7);margin-bottom:24px">This will delete all your saved answers and start from the beginning. Are you sure?</p>
     <div style="display:flex;gap:12px;justify-content:center">
-      <button onclick="saveYr1Progress({answers:{},started:Date.now()});renderYearOneAssessment();" style="background:#ef4444;color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer">Yes, start again</button>
+      <button onclick="resetYearOneAssessment()" style="background:#ef4444;color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer">Yes, start again</button>
       <button onclick="renderYr1Returning(getYr1Progress())" style="background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);border-radius:10px;padding:13px 24px;font-size:14px;cursor:pointer">Cancel</button>
     </div>
   </div>`;
 }
 
-function renderYr1Question(p) {
-  const q = yr1NextQuestion(p);
-  if (!q) { renderYr1Generating(p); return; }
-  const el = document.getElementById('yr1-content');
-  const answered = yr1AnsweredCount(p);
-  const total = YR1_QUESTIONS.length;
-  const pct = Math.round((answered/total)*100);
+function yr1Begin() {
+  const p = getYr1Progress();
+  p.started = true;
+  p.currentQuestion = 0;
+  saveYr1Progress(p);
+  renderYr1Question(p);
+}
 
-  // Show area note if this is first question of a new area
+function renderYr1Question(p) {
+  const q = yr1CurrentQuestion(p);
+  if (!q) { renderYr1Returning(p); return; }
+  const el = document.getElementById('yr1-content');
+  const idx = p.currentQuestion || 0;
+  const total = YR1_QUESTIONS.length;
+  const pct = Math.round((idx / total) * 100);
   const areaNote = YR1_AREA_NOTES[q.area];
-  const isFirstInArea = !YR1_QUESTIONS.slice(0, q.id-1).some(prev => prev.area === q.area);
 
   el.innerHTML = yr1Header(`Question ${q.id} of ${total} — ${q.areaName}`) + `
   <div style="background:rgba(255,255,255,.06);border-radius:8px;height:6px;margin-bottom:24px;overflow:hidden">
     <div style="background:#2563EB;height:6px;width:${pct}%;transition:width .4s"></div>
   </div>
-  ${isFirstInArea ? `<div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:10px;padding:16px 20px;margin-bottom:20px">
-    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563EB;margin-bottom:6px">Area ${q.area}: ${q.areaName}</div>
-    <p style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.6">${areaNote}</p>
-  </div>` : ''}
   <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px;margin-bottom:16px">
-    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px">Question ${q.id}</div>
-    <p style="font-size:17px;color:#fff;line-height:1.65;margin-bottom:24px;font-weight:500">${q.q}</p>
-    <textarea id="yr1-answer" placeholder="Type your answer here — be specific and use real examples from your experience…" style="width:100%;min-height:160px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:16px;font-size:14px;color:#fff;font-family:'Inter',sans-serif;line-height:1.6;resize:vertical;outline:none" oninput="this.style.borderColor='rgba(37,99,235,.5)'"></textarea>
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px">Question ${q.id} of ${total} — <span style="color:rgba(255,255,255,.5)">${q.areaName}</span></div>
+    <p style="font-size:17px;color:#fff;line-height:1.65;margin-bottom:20px;font-weight:500">${q.question}</p>
+    <p style="font-size:12px;color:rgba(255,255,255,.35);font-style:italic;margin-bottom:20px">${areaNote}</p>
+    <textarea id="yr1-answer" placeholder="Type your answer here — be honest, be specific…" style="width:100%;min-height:160px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:16px;font-size:14px;color:#fff;font-family:'Inter',sans-serif;line-height:1.6;resize:vertical;outline:none" oninput="this.style.borderColor='rgba(37,99,235,.5)'"></textarea>
   </div>
   <div style="display:flex;gap:10px">
-    <button onclick="yr1SubmitAnswer(${q.id})" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer;flex:1">Save & Continue →</button>
-    <button onclick="yr1SkipQuestion(${q.id})" style="background:none;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);border-radius:10px;padding:13px 20px;font-size:13px;cursor:pointer">Skip</button>
+    <button onclick="yr1SubmitAnswer()" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer;flex:1">Save & Continue →</button>
+    <button onclick="yr1SkipQuestion()" style="background:none;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);border-radius:10px;padding:13px 20px;font-size:13px;cursor:pointer">Skip</button>
   </div>`;
 
   const ta = document.getElementById('yr1-answer');
   if (ta) ta.focus();
 }
 
-function yr1SubmitAnswer(qId) {
+function yr1SubmitAnswer() {
   const ta = document.getElementById('yr1-answer');
   const answer = (ta ? ta.value : '').trim();
   if (!answer) {
@@ -3246,19 +3245,23 @@ function yr1SubmitAnswer(qId) {
     return;
   }
   const p = getYr1Progress();
-  p.answers[qId] = answer;
+  const q = yr1CurrentQuestion(p);
+  if (q) p.answers[q.id] = answer;
+  p.currentQuestion = (p.currentQuestion || 0) + 1;
+  if (p.currentQuestion >= YR1_QUESTIONS.length) p.completed = true;
   saveYr1Progress(p);
-  const nextQ = yr1NextQuestion(p);
-  if (!nextQ) { renderYr1Returning(p); return; }
+  if (p.completed) { renderYr1Returning(p); return; }
   renderYr1Question(p);
 }
 
-function yr1SkipQuestion(qId) {
+function yr1SkipQuestion() {
   const p = getYr1Progress();
-  p.answers[qId] = '[skipped]';
+  const q = yr1CurrentQuestion(p);
+  if (q) p.answers[q.id] = '[skipped]';
+  p.currentQuestion = (p.currentQuestion || 0) + 1;
+  if (p.currentQuestion >= YR1_QUESTIONS.length) p.completed = true;
   saveYr1Progress(p);
-  const nextQ = yr1NextQuestion(p);
-  if (!nextQ) { renderYr1Returning(p); return; }
+  if (p.completed) { renderYr1Returning(p); return; }
   renderYr1Question(p);
 }
 
@@ -3275,7 +3278,7 @@ async function renderYr1Generating(p) {
 
   const answersText = YR1_QUESTIONS.map(q => {
     const ans = p.answers[q.id] || '[not answered]';
-    return `Q${q.id} [${q.areaName}]: ${q.q}\nAnswer: ${ans}`;
+    return `Q${q.id} [${q.areaName}]: ${q.question}\nAnswer: ${ans}`;
   }).join('\n\n');
 
   const systemPrompt = `You are Michael, an expert APC preparation coach. You have just reviewed a candidate's responses to a 32-question Year Two Readiness Diagnostic. Your task is to produce a structured readiness report.
@@ -3449,8 +3452,18 @@ async function getReportFromServer() {
   }
 }
 
-function renderYearOneAssessment() {
-  const session_check = async () => {
+function showYearOneAssessment() {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-year-one-assessment').classList.add('active');
+  window.scrollTo(0, 0);
+  const bar = document.getElementById('announceBar');
+  if (bar) bar.style.display = 'none';
+  updateNav();
+  initYearOneAssessment();
+}
+
+function initYearOneAssessment() {
+  const run = async () => {
     const session = await getSession();
     if (!session.valid) { showView('landing'); openLogin(); return; }
     // Check server for a previously saved report (cross-device)
@@ -3464,9 +3477,10 @@ function renderYearOneAssessment() {
     }
     const p = getYr1Progress();
     if (p.report) { renderYr1Report(p, p.report); return; }
+    if (p.started && (p.currentQuestion || 0) > 0) { renderYr1Returning(p); return; }
     renderYr1Welcome(p);
   };
-  session_check();
+  run();
 }
 </script>
 </body>

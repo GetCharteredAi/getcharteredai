@@ -1834,11 +1834,9 @@ async function requireAccess(modId) {
 
 // ── DASHBOARD ─────────────────────────────────────────────────────────────────
 async function renderDashboard() {
-  const lsPlan = localStorage.getItem('gca_plan') || 'monthly';
-  if (lsPlan === 'year-one') { showYearOneAssessment(); return; }
   const session = await getSession();
   if (!session.valid) { showView('landing'); openLogin(); return; }
-  const plan = session.plan || lsPlan;
+  const plan = session.plan || localStorage.getItem('gca_plan') || 'monthly';
   if (plan === 'year-one') { showYearOneAssessment(); return; }
   const activatedAt = session.activatedAt || parseInt(localStorage.getItem('gca_activated')) || Date.now();
   const unlockedCount = getUnlockedCount(plan, activatedAt);

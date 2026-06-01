@@ -3531,6 +3531,29 @@ async function initYearOneAssessment() {
     renderYr1Welcome();
   }
 }
+
+// TESTING ONLY — remove both functions before next production release
+window.testYr1 = function() {
+  localStorage.setItem('gca_plan','year-one');
+  localStorage.setItem('gca_token','test-token');
+  localStorage.setItem('gca_user','test@test.com');
+  localStorage.setItem('gca_activated',Date.now().toString());
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-year-one-assessment').classList.add('active');
+  window.scrollTo(0,0);
+  initYearOneAssessment();
+  console.warn('TEST MODE ACTIVE — remember to run cleanupYr1Test() when done');
+}
+
+window.cleanupYr1Test = function() {
+  localStorage.removeItem('gca_plan');
+  localStorage.removeItem('gca_token');
+  localStorage.removeItem('gca_user');
+  localStorage.removeItem('gca_activated');
+  localStorage.removeItem('gca_yr1_progress');
+  location.reload();
+  console.log('Test data cleared — reloading');
+}
 </script>
 </body>
 

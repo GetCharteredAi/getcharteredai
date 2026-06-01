@@ -703,6 +703,7 @@ input.err{border-color:var(--red)}
 .hero-pill-gold strong{color:#bfdbfe;font-weight:700}
 .hero-pill-green{background:rgba(16,185,129,.1);border:1.5px solid rgba(16,185,129,.4);color:#6ee7b7}
 .hero-pill-dot{font-size:12px}
+@keyframes yr1dot{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
 </style>
 </head>
 <body>
@@ -1469,6 +1470,15 @@ function fRestart() {
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════════════
+     YEAR ONE ASSESSMENT VIEW
+══════════════════════════════════════════════════ -->
+<div id="view-year-one-assessment" class="view">
+  <div style="min-height:100vh;background:#0D0F1C;padding:40px 24px 80px">
+    <div id="yr1-content" style="max-width:760px;margin:0 auto"></div>
+  </div>
+</div>
+
 <!-- COOKIE BANNER -->
 <div class="cookie-banner" id="cookieBanner" style="display:none">
   <p class="cookie-text">
@@ -1601,6 +1611,7 @@ function showView(name) {
   document.getElementById('view-' + name).classList.add('active');
   window.scrollTo(0,0);
   if (name === 'dashboard') renderDashboard();
+  if (name === 'year-one-assessment') renderYearOneAssessment();
   if (name === 'landing') updateNav();
   updateNav();
   // Hide announcement bar for logged-in members
@@ -1760,6 +1771,7 @@ async function renderDashboard() {
   const session = await getSession();
   if (!session.valid) { showView('landing'); openLogin(); return; }
   const plan = session.plan || localStorage.getItem('gca_plan') || 'monthly';
+  if (plan === 'year-one') { showView('year-one-assessment'); return; }
   const activatedAt = session.activatedAt || parseInt(localStorage.getItem('gca_activated')) || Date.now();
   const unlockedCount = getUnlockedCount(plan, activatedAt);
   const done = completedCount();
@@ -3044,6 +3056,376 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (e.target === document.getElementById('loginModal')) closeLogin();
   });
 });
+
+// ── YEAR ONE ASSESSMENT ────────────────────────────────────────────────────────
+
+const YR1_QUESTIONS = [
+  // AREA 1 — MANDATORY COMPETENCIES (8 questions)
+  { id:1, area:1, areaName:'Mandatory Competencies', q:'Walk me through how your understanding of ethics and professional practice has developed over the past year. Give me a specific example where it shaped a decision you made at work.' },
+  { id:2, area:1, areaName:'Mandatory Competencies', q:'How do you ensure the advice you give is within the limits of your current competence? Describe a situation where you recognised those limits.' },
+  { id:3, area:1, areaName:'Mandatory Competencies', q:'Tell me about a piece of client communication you produced this year. What made it professional and appropriate to the audience?' },
+  { id:4, area:1, areaName:'Mandatory Competencies', q:'Describe a situation where you had to manage competing priorities or a difficult stakeholder. How did you handle it and what was the outcome?' },
+  { id:5, area:1, areaName:'Mandatory Competencies', q:'What sustainability considerations have you applied in your day-to-day work this year? Give a concrete example.' },
+  { id:6, area:1, areaName:'Mandatory Competencies', q:'How are you currently keeping your technical knowledge up to date? What CPD have you completed in the past twelve months?' },
+  { id:7, area:1, areaName:'Mandatory Competencies', q:'Describe a time this year when you identified a risk — commercial, legal or technical — and explain how you escalated or managed it.' },
+  { id:8, area:1, areaName:'Mandatory Competencies', q:'How do you demonstrate that the advice you give clients is independent and objective, even when there is commercial pressure to say something different?' },
+
+  // AREA 2 — TECHNICAL KNOWLEDGE (8 questions)
+  { id:9,  area:2, areaName:'Technical Knowledge', q:'Choose one core technical competency from your APC pathway and explain it to me as if I were a knowledgeable client who is unfamiliar with the detail. What are the key things I need to understand?' },
+  { id:10, area:2, areaName:'Technical Knowledge', q:'Describe a technical problem you solved this year. Walk me through your methodology and the outcome.' },
+  { id:11, area:2, areaName:'Technical Knowledge', q:'What legislation or regulation is most relevant to your day-to-day work? How does it influence what you do in practice?' },
+  { id:12, area:2, areaName:'Technical Knowledge', q:'How has your technical confidence grown over the past year? What area do you feel most solid in, and what area still needs work?' },
+  { id:13, area:2, areaName:'Technical Knowledge', q:'Tell me about a piece of advice you gave that required you to research or consult before you could answer. How did you approach it?' },
+  { id:14, area:2, areaName:'Technical Knowledge', q:'Describe a project or instruction where you had to apply more than one competency area at the same time. How did you manage that?' },
+  { id:15, area:2, areaName:'Technical Knowledge', q:'What is the most technically complex thing you have worked on in the past year? How did you ensure your advice was sound?' },
+  { id:16, area:2, areaName:'Technical Knowledge', q:'If an assessor asked you about a competency you have limited experience in, how would you approach the answer honestly and professionally?' },
+
+  // AREA 3 — EXPERIENCE QUALITY & DIARY (6 questions)
+  { id:17, area:3, areaName:'Experience Quality & Diary', q:'How complete is your APC graduate diary right now? Are your entries up to date, and do they demonstrate genuine Level 1, 2 and 3 competency development?' },
+  { id:18, area:3, areaName:'Experience Quality & Diary', q:'Pick one diary entry from the past three months that you are proud of. Tell me what it demonstrates and why it is strong evidence.' },
+  { id:19, area:3, areaName:'Experience Quality & Diary', q:'Is there any gap in your experience record — a competency where you have limited diary evidence? How are you addressing it?' },
+  { id:20, area:3, areaName:'Experience Quality & Diary', q:'How does your current role give you exposure to your required competencies? Are there any competencies you are not getting enough practice in?' },
+  { id:21, area:3, areaName:'Experience Quality & Diary', q:'Describe an experience from this year that you would use to demonstrate Level 3 competency. Why does it meet that bar?' },
+  { id:22, area:3, areaName:'Experience Quality & Diary', q:'How are you using your supervisor or counsellor to check the quality of your evidence? What feedback have you received?' },
+
+  // AREA 4 — APC PROCESS & SUBMISSION READINESS (5 questions)
+  { id:23, area:4, areaName:'APC Process & Submission Readiness', q:'Where are you in the APC timeline? Do you have a target submission date, and what is your plan between now and then?' },
+  { id:24, area:4, areaName:'APC Process & Submission Readiness', q:'Have you started your Summary of Experience? If so, how confident are you in it? If not, what is holding you back?' },
+  { id:25, area:4, areaName:'APC Process & Submission Readiness', q:'What do you know about the format and expectations of the final assessment interview? How are you preparing for it?' },
+  { id:26, area:4, areaName:'APC Process & Submission Readiness', q:'Describe one weakness in your current APC submission that you know you need to address before you are ready to go forward.' },
+  { id:27, area:4, areaName:'APC Process & Submission Readiness', q:'Have you done any mock interviews or structured practice? What feedback did you receive and how are you acting on it?' },
+
+  // AREA 5 — PROFESSIONAL MINDSET & CONFIDENCE (5 questions)
+  { id:28, area:5, areaName:'Professional Mindset & Confidence', q:'How do you feel about your progress overall — are you where you expected to be at this point in your APC journey?' },
+  { id:29, area:5, areaName:'Professional Mindset & Confidence', q:'What is the biggest thing holding you back right now — time, confidence, experience, or something else? How are you dealing with it?' },
+  { id:30, area:5, areaName:'Professional Mindset & Confidence', q:'If an assessor asked you a question you genuinely could not answer, how would you handle it in the interview room?' },
+  { id:31, area:5, areaName:'Professional Mindset & Confidence', q:'What has been your biggest professional achievement in the past year? Why does it matter to you?' },
+  { id:32, area:5, areaName:'Professional Mindset & Confidence', q:'Thinking about your final assessment interview — what are you most confident about, and what keeps you up at night?' }
+];
+
+const YR1_AREA_NOTES = {
+  1: 'Mandatory competencies underpin everything. Assessors look for evidence that candidates think and act professionally by instinct — not just when prompted. Strong answers include specific, real examples.',
+  2: 'Technical depth matters, but so does self-awareness. The best candidates know what they know, know what they don\'t, and can explain both clearly. Gaps are fine — unexplained gaps are not.',
+  3: 'Your diary is your evidence base. Weak diary entries are one of the most common reasons APC candidates are deferred. Strong entries show progression through competency levels with real context.',
+  4: 'Many candidates underestimate submission preparation. Having experience is not enough — you need to structure it, articulate it clearly, and be ready to defend it under questioning.',
+  5: 'Mindset shapes performance in the interview room more than candidates expect. Confidence comes from preparation, not from hoping the right questions come up.'
+};
+
+function getYr1Progress() {
+  try { return JSON.parse(localStorage.getItem('gca_yr1_progress') || 'null') || { answers:{}, started: Date.now() }; }
+  catch(e) { return { answers:{}, started: Date.now() }; }
+}
+function saveYr1Progress(p) {
+  localStorage.setItem('gca_yr1_progress', JSON.stringify(p));
+}
+function yr1AnsweredCount(p) {
+  return Object.keys(p.answers || {}).length;
+}
+function yr1NextQuestion(p) {
+  return YR1_QUESTIONS.find(q => !(q.id in (p.answers || {})));
+}
+
+function yr1El(html) {
+  const d = document.createElement('div');
+  d.innerHTML = html;
+  return d.firstElementChild;
+}
+
+function yr1Header(subtitle) {
+  return `<div style="display:flex;align-items:center;gap:12px;margin-bottom:32px">
+    <button onclick="showView('landing')" style="background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:22px;line-height:1;padding:4px 8px 4px 0">←</button>
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2563EB;margin-bottom:2px">APC Year Two Readiness Review</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.45)">${subtitle}</div>
+    </div>
+  </div>`;
+}
+
+function renderYr1Welcome(p) {
+  const el = document.getElementById('yr1-content');
+  const answered = yr1AnsweredCount(p);
+  if (answered > 0) {
+    renderYr1Returning(p);
+    return;
+  }
+  el.innerHTML = yr1Header('Welcome') + `
+  <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:40px">
+    <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800;color:#fff;margin-bottom:12px;letter-spacing:-.02em">Your Year Two Readiness Diagnostic</h1>
+    <p style="font-size:15px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:28px">This is a 32-question structured diagnostic designed to benchmark your APC readiness as you approach Year Two. Michael will coach you through five key areas and produce a personalised readiness report and Year Two development roadmap.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px">
+      ${[
+        ['32 questions','across 5 competency areas'],
+        ['Coaching notes','from Michael after each section'],
+        ['Traffic light report','readiness scored per area'],
+        ['Year Two roadmap','5 prioritised development actions']
+      ].map(([t,s]) => `<div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:10px;padding:16px">
+        <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:4px">${t}</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45)">${s}</div>
+      </div>`).join('')}
+    </div>
+    <p style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:24px">Answer as honestly as you can — there are no right or wrong answers. Michael's coaching is most useful when your responses reflect where you actually are, not where you think you should be.</p>
+    <button onclick="renderYr1Question(getYr1Progress())" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;width:100%">Begin the Assessment →</button>
+  </div>`;
+}
+
+function renderYr1Returning(p) {
+  const el = document.getElementById('yr1-content');
+  const answered = yr1AnsweredCount(p);
+  const total = YR1_QUESTIONS.length;
+  const pct = Math.round((answered/total)*100);
+  const isComplete = answered >= total;
+  el.innerHTML = yr1Header('Welcome back') + `
+  <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:40px">
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:8px">Welcome back</h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.55);margin-bottom:24px">${isComplete ? 'You have completed all 32 questions. Generate your readiness report below.' : `You have answered ${answered} of ${total} questions.`}</p>
+    <div style="background:rgba(255,255,255,.06);border-radius:8px;height:8px;margin-bottom:8px;overflow:hidden">
+      <div style="background:#2563EB;height:8px;width:${pct}%;transition:width .4s"></div>
+    </div>
+    <p style="font-size:12px;color:rgba(255,255,255,.35);margin-bottom:28px">${pct}% complete</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      ${isComplete
+        ? `<button onclick="renderYr1Generating(getYr1Progress())" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer;flex:1">Generate My Report →</button>`
+        : `<button onclick="renderYr1Question(getYr1Progress())" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer;flex:1">Continue →</button>`}
+      <button onclick="renderYr1Reset()" style="background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);border-radius:10px;padding:13px 24px;font-size:14px;cursor:pointer">Start again</button>
+    </div>
+  </div>`;
+}
+
+function renderYr1Reset() {
+  const el = document.getElementById('yr1-content');
+  el.innerHTML = yr1Header('Reset') + `
+  <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:40px;text-align:center">
+    <p style="font-size:15px;color:rgba(255,255,255,.7);margin-bottom:24px">This will delete all your saved answers and start the assessment again from scratch. Are you sure?</p>
+    <div style="display:flex;gap:12px;justify-content:center">
+      <button onclick="saveYr1Progress({answers:{},started:Date.now()});renderYearOneAssessment();" style="background:#ef4444;color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer">Yes, start again</button>
+      <button onclick="renderYr1Returning(getYr1Progress())" style="background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);border-radius:10px;padding:13px 24px;font-size:14px;cursor:pointer">Cancel</button>
+    </div>
+  </div>`;
+}
+
+function renderYr1Question(p) {
+  const q = yr1NextQuestion(p);
+  if (!q) { renderYr1Generating(p); return; }
+  const el = document.getElementById('yr1-content');
+  const answered = yr1AnsweredCount(p);
+  const total = YR1_QUESTIONS.length;
+  const pct = Math.round((answered/total)*100);
+
+  // Show area note if this is first question of a new area
+  const areaNote = YR1_AREA_NOTES[q.area];
+  const isFirstInArea = !YR1_QUESTIONS.slice(0, q.id-1).some(prev => prev.area === q.area);
+
+  el.innerHTML = yr1Header(`Question ${q.id} of ${total} — ${q.areaName}`) + `
+  <div style="background:rgba(255,255,255,.06);border-radius:8px;height:6px;margin-bottom:24px;overflow:hidden">
+    <div style="background:#2563EB;height:6px;width:${pct}%;transition:width .4s"></div>
+  </div>
+  ${isFirstInArea ? `<div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:10px;padding:16px 20px;margin-bottom:20px">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563EB;margin-bottom:6px">Area ${q.area}: ${q.areaName}</div>
+    <p style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.6">${areaNote}</p>
+  </div>` : ''}
+  <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px;margin-bottom:16px">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px">Question ${q.id}</div>
+    <p style="font-size:17px;color:#fff;line-height:1.65;margin-bottom:24px;font-weight:500">${q.q}</p>
+    <textarea id="yr1-answer" placeholder="Type your answer here — be specific and use real examples from your experience…" style="width:100%;min-height:160px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:16px;font-size:14px;color:#fff;font-family:'Inter',sans-serif;line-height:1.6;resize:vertical;outline:none" oninput="this.style.borderColor='rgba(37,99,235,.5)'"></textarea>
+  </div>
+  <div style="display:flex;gap:10px">
+    <button onclick="yr1SubmitAnswer(${q.id})" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer;flex:1">Save & Continue →</button>
+    <button onclick="yr1SkipQuestion(${q.id})" style="background:none;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);border-radius:10px;padding:13px 20px;font-size:13px;cursor:pointer">Skip</button>
+  </div>`;
+
+  const ta = document.getElementById('yr1-answer');
+  if (ta) ta.focus();
+}
+
+function yr1SubmitAnswer(qId) {
+  const ta = document.getElementById('yr1-answer');
+  const answer = (ta ? ta.value : '').trim();
+  if (!answer) {
+    ta.style.borderColor = '#ef4444';
+    ta.placeholder = 'Please write a response before continuing — even a brief note is fine.';
+    return;
+  }
+  const p = getYr1Progress();
+  p.answers[qId] = answer;
+  saveYr1Progress(p);
+  const nextQ = yr1NextQuestion(p);
+  if (!nextQ) { renderYr1Returning(p); return; }
+  renderYr1Question(p);
+}
+
+function yr1SkipQuestion(qId) {
+  const p = getYr1Progress();
+  p.answers[qId] = '[skipped]';
+  saveYr1Progress(p);
+  const nextQ = yr1NextQuestion(p);
+  if (!nextQ) { renderYr1Returning(p); return; }
+  renderYr1Question(p);
+}
+
+async function renderYr1Generating(p) {
+  const el = document.getElementById('yr1-content');
+  el.innerHTML = yr1Header('Generating your report') + `
+  <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:56px 40px;text-align:center">
+    <div style="display:flex;justify-content:center;gap:8px;margin-bottom:24px">
+      ${[0,1,2].map(i => `<span style="width:10px;height:10px;border-radius:50%;background:#2563EB;display:inline-block;animation:yr1dot 1.4s ${i*0.2}s ease-in-out infinite"></span>`).join('')}
+    </div>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:8px">Michael is reviewing your responses</h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.45)">Analysing your answers across all five areas and building your personalised readiness report. This takes about 15–20 seconds.</p>
+  </div>`;
+
+  const answersText = YR1_QUESTIONS.map(q => {
+    const ans = p.answers[q.id] || '[not answered]';
+    return `Q${q.id} [${q.areaName}]: ${q.q}\nAnswer: ${ans}`;
+  }).join('\n\n');
+
+  const systemPrompt = `You are Michael, an expert APC preparation coach. You have just reviewed a candidate's responses to a 32-question Year Two Readiness Diagnostic. Your task is to produce a structured readiness report.
+
+Respond with ONLY a valid JSON object in this exact format — no markdown, no commentary, just the JSON:
+{
+  "score": <integer 0-100 representing overall readiness>,
+  "trafficLights": [
+    {"area": "Mandatory Competencies", "status": "<RED|AMBER|GREEN>", "note": "<1-2 sentence coaching note>"},
+    {"area": "Technical Knowledge", "status": "<RED|AMBER|GREEN>", "note": "<1-2 sentence coaching note>"},
+    {"area": "Experience Quality & Diary", "status": "<RED|AMBER|GREEN>", "note": "<1-2 sentence coaching note>"},
+    {"area": "APC Process & Submission Readiness", "status": "<RED|AMBER|GREEN>", "note": "<1-2 sentence coaching note>"},
+    {"area": "Professional Mindset & Confidence", "status": "<RED|AMBER|GREEN>", "note": "<1-2 sentence coaching note>"}
+  ],
+  "strengths": ["<strength 1>", "<strength 2>", "<strength 3>"],
+  "priorities": ["<priority 1>", "<priority 2>", "<priority 3>"],
+  "roadmap": [
+    {"action": "<action title>", "detail": "<1-2 sentence explanation of what to do and why>"},
+    {"action": "<action title>", "detail": "<1-2 sentence explanation>"},
+    {"action": "<action title>", "detail": "<1-2 sentence explanation>"},
+    {"action": "<action title>", "detail": "<1-2 sentence explanation>"},
+    {"action": "<action title>", "detail": "<1-2 sentence explanation>"}
+  ],
+  "closing": "<3-4 sentence personalised coaching note directly addressing the candidate by name if visible, summarising where they are and what will make the biggest difference between now and their final assessment>"
+}
+
+Be honest and specific. Base your ratings on the actual quality and depth of the answers given. A GREEN rating means the candidate is demonstrating genuine readiness in this area. AMBER means partial readiness with identifiable gaps. RED means significant work is needed. Do not inflate scores. The most useful report is an accurate one.`;
+
+  const messages = [
+    { role: 'user', content: `Here are the candidate's responses to the 32-question diagnostic:\n\n${answersText}\n\nPlease produce the readiness report JSON.` }
+  ];
+
+  try {
+    const r = await fetch('/.netlify/functions/ai-tutor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ system: systemPrompt, messages, max_tokens: 1800 })
+    });
+    const data = await r.json();
+    const raw = data.content?.map(i => i.text || '').join('') || '';
+    let report;
+    try {
+      const jsonMatch = raw.match(/\{[\s\S]*\}/);
+      report = JSON.parse(jsonMatch ? jsonMatch[0] : raw);
+    } catch(e) {
+      renderYr1ReportError(p);
+      return;
+    }
+    p.report = report;
+    p.reportDate = Date.now();
+    saveYr1Progress(p);
+    renderYr1Report(p, report);
+  } catch(e) {
+    renderYr1ReportError(p);
+  }
+}
+
+function renderYr1ReportError(p) {
+  const el = document.getElementById('yr1-content');
+  el.innerHTML = yr1Header('Report error') + `
+  <div style="background:#161a2e;border:1px solid rgba(239,68,68,.3);border-radius:16px;padding:40px;text-align:center">
+    <p style="font-size:15px;color:rgba(255,255,255,.7);margin-bottom:24px">Something went wrong generating your report. Your answers have been saved — please try again.</p>
+    <button onclick="renderYr1Generating(getYr1Progress())" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer">Try again</button>
+  </div>`;
+}
+
+function renderYr1Report(p, report) {
+  const el = document.getElementById('yr1-content');
+  const tlColors = { GREEN:'#10b981', AMBER:'#f59e0b', RED:'#ef4444' };
+  const tlBg = { GREEN:'rgba(16,185,129,.08)', AMBER:'rgba(245,158,11,.08)', RED:'rgba(239,68,68,.08)' };
+  const tlBorder = { GREEN:'rgba(16,185,129,.25)', AMBER:'rgba(245,158,11,.25)', RED:'rgba(239,68,68,.25)' };
+  const scoreColor = report.score >= 70 ? '#10b981' : report.score >= 50 ? '#f59e0b' : '#ef4444';
+
+  el.innerHTML = yr1Header('Your Readiness Report') + `
+
+  <!-- Score -->
+  <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:36px;margin-bottom:16px;text-align:center">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px">Overall Readiness Score</div>
+    <div style="font-size:72px;font-weight:900;font-family:'Plus Jakarta Sans',sans-serif;color:${scoreColor};line-height:1;margin-bottom:8px">${report.score}</div>
+    <div style="font-size:14px;color:rgba(255,255,255,.4)">/100</div>
+  </div>
+
+  <!-- Traffic lights -->
+  <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px;margin-bottom:16px">
+    <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px">Area Breakdown</div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      ${(report.trafficLights||[]).map(tl => `
+      <div style="background:${tlBg[tl.status]||'rgba(255,255,255,.05)'};border:1px solid ${tlBorder[tl.status]||'rgba(255,255,255,.1)'};border-radius:10px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start">
+        <div style="width:14px;height:14px;border-radius:50%;background:${tlColors[tl.status]||'#94a3b8'};flex-shrink:0;margin-top:2px"></div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:4px">${tl.area}</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.5">${tl.note}</div>
+        </div>
+        <div style="margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.08em;color:${tlColors[tl.status]||'#94a3b8'};flex-shrink:0">${tl.status}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- Strengths -->
+  <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px;margin-bottom:16px">
+    <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px">What You Are Doing Well</div>
+    <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+      ${(report.strengths||[]).map(s => `<li style="display:flex;gap:12px;align-items:flex-start"><span style="color:#10b981;font-size:16px;line-height:1.4;flex-shrink:0">✓</span><span style="font-size:14px;color:rgba(255,255,255,.65);line-height:1.5">${s}</span></li>`).join('')}
+    </ul>
+  </div>
+
+  <!-- Priorities -->
+  <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px;margin-bottom:16px">
+    <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px">Where to Focus Before Year Two</div>
+    <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+      ${(report.priorities||[]).map((s,i) => `<li style="display:flex;gap:12px;align-items:flex-start"><span style="color:#f59e0b;font-size:13px;font-weight:800;line-height:1.5;flex-shrink:0;min-width:20px">${i+1}.</span><span style="font-size:14px;color:rgba(255,255,255,.65);line-height:1.5">${s}</span></li>`).join('')}
+    </ul>
+  </div>
+
+  <!-- Roadmap -->
+  <div style="background:#161a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px;margin-bottom:16px">
+    <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px">Your Year Two Development Roadmap</div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      ${(report.roadmap||[]).map((item,i) => `
+      <div style="display:flex;gap:16px;align-items:flex-start">
+        <div style="background:#2563EB;color:#fff;font-size:12px;font-weight:800;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${i+1}</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:4px">${item.action}</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.5">${item.detail}</div>
+        </div>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- Michael's closing note -->
+  ${report.closing ? `<div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.25);border-radius:16px;padding:28px;margin-bottom:24px">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2563EB;margin-bottom:12px">From Michael</div>
+    <p style="font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;font-style:italic">"${report.closing}"</p>
+  </div>` : ''}
+
+  <div style="text-align:center;padding:8px 0 40px">
+    <button onclick="renderYr1Returning(getYr1Progress())" style="background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);border-radius:10px;padding:12px 24px;font-size:13px;cursor:pointer">← Back to summary</button>
+  </div>`;
+}
+
+function renderYearOneAssessment() {
+  const session_check = async () => {
+    const session = await getSession();
+    if (!session.valid) { showView('landing'); openLogin(); return; }
+    const p = getYr1Progress();
+    if (p.report) { renderYr1Report(p, p.report); return; }
+    renderYr1Welcome(p);
+  };
+  session_check();
+}
 </script>
 </body>
 

@@ -3512,31 +3512,8 @@ async function showYearOneAssessment() {
 
 async function initYearOneAssessment() {
   const content = document.getElementById('yr1-content');
-  if (!content) return;
-  content.innerHTML = '<div style="text-align:center;padding:60px 24px;color:rgba(255,255,255,.4);font-size:14px">Loading your assessment...</div>';
-
-  try {
-    const serverReport = await getReportFromServer();
-    if (serverReport) {
-      const p = getYr1Progress();
-      p.completed = true;
-      p.report = serverReport;
-      saveYr1Progress(p);
-      renderYr1Report(serverReport);
-      return;
-    }
-  } catch(e) {
-    console.log('Could not reach server — continuing with local state');
-  }
-
-  const p = getYr1Progress();
-  if (p.completed && p.report) {
-    renderYr1Report(p.report);
-  } else if (p.started) {
-    renderYr1Returning(p.currentQuestion);
-  } else {
-    renderYr1Welcome();
-  }
+  if (!content) { console.error('yr1-content not found'); return; }
+  content.innerHTML = '<div style="color:red;font-size:40px;padding:40px;font-weight:bold">INIT REACHED</div>';
 }
 
 window.testYr1 = function() { localStorage.setItem('gca_plan','year-one'); localStorage.setItem('gca_activated',Date.now().toString()); document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');}); var v = document.getElementById('view-year-one-assessment'); if(v){v.classList.add('active');} if(typeof initYearOneAssessment === 'function'){initYearOneAssessment();} console.warn('TEST MODE ACTIVE'); };

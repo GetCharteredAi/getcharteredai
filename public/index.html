@@ -3543,7 +3543,7 @@ window.testYr1 = function() { localStorage.setItem('gca_plan','year-one'); local
 window.cleanupYr1Test = function() { localStorage.removeItem('gca_plan'); localStorage.removeItem('gca_activated'); localStorage.removeItem('gca_yr1_progress'); location.reload(); };
 </script>
 <!-- TEMPORARY TEST BUTTON — DELETE AFTER TESTING -->
-<div id="yr1-test-btn" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:#ef4444;color:#fff;padding:12px 20px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.4)" onclick="document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');v.style.display='none';});var t=document.getElementById('view-year-one-assessment');if(t){t.classList.add('active');t.style.display='block';t.style.background='#0D0F1C';t.style.minHeight='100vh';}">
+<div id="yr1-test-btn" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:#ef4444;color:#fff;padding:12px 20px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.4)" onclick="localStorage.setItem('gca_plan','year-one');localStorage.setItem('gca_token','test-token-yr1');localStorage.setItem('gca_user','test@test.com');localStorage.setItem('gca_activated',Date.now().toString());showView('year-one-assessment');">
   TEST: Year One Assessment
 </div>
 </body>

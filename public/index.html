@@ -3556,7 +3556,7 @@ window.testYr1 = function() { localStorage.setItem('gca_plan','year-one'); local
 window.cleanupYr1Test = function() { localStorage.removeItem('gca_plan'); localStorage.removeItem('gca_activated'); localStorage.removeItem('gca_yr1_progress'); location.reload(); };
 </script>
 <!-- TEMPORARY TEST BUTTON — DELETE AFTER TESTING -->
-<div id="yr1-test-btn" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:#ef4444;color:#fff;padding:12px 20px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.4)" onclick="var views=document.querySelectorAll('.view');views.forEach(function(v){v.classList.remove('active');v.style.display='none';});var t=document.getElementById('view-year-one-assessment');t.classList.add('active');t.style.display='block';t.style.background='#0D0F1C';window.scrollTo(0,0);console.log('view switched',t.innerHTML.substring(0,100));">
+<div id="yr1-test-btn" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:#ef4444;color:#fff;padding:12px 20px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.4)" onclick="document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');v.style.display='none';});var t=document.getElementById('view-year-one-assessment');if(t){t.classList.add('active');t.style.display='block';t.style.background='#0D0F1C';t.style.minHeight='100vh';}">
   TEST: Year One Assessment
 </div>
 </body>

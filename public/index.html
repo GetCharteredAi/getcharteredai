@@ -1543,9 +1543,7 @@ function fRestart() {
      YEAR ONE ASSESSMENT VIEW
 ══════════════════════════════════════════════════ -->
 <div id="view-year-one-assessment" class="view" style="background:#0D0F1C;min-height:100vh;padding-top:64px">
-  <div id="yr1-content" style="padding:40px 24px">
-    <p style="color:red;font-size:40px;font-weight:bold;padding:40px">HELLO TEST</p>
-  </div>
+  <div id="yr1-content" style="padding:40px 24px"></div>
 </div>
 
 <!-- COOKIE BANNER -->
@@ -3517,39 +3515,7 @@ async function initYearOneAssessment() {
   content.innerHTML = '<div style="color:red;font-size:40px;padding:40px;font-weight:bold">INIT REACHED</div>';
 }
 
-window.testYr1 = function() { localStorage.setItem('gca_plan','year-one'); localStorage.setItem('gca_activated',Date.now().toString()); document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');}); var v = document.getElementById('view-year-one-assessment'); if(v){v.classList.add('active');} if(typeof initYearOneAssessment === 'function'){initYearOneAssessment();} console.warn('TEST MODE ACTIVE'); };
-window.cleanupYr1Test = function() { localStorage.removeItem('gca_plan'); localStorage.removeItem('gca_activated'); localStorage.removeItem('gca_yr1_progress'); location.reload(); };
-
-function runYr1Test() {
-  localStorage.setItem('gca_plan','year-one');
-  localStorage.setItem('gca_token','test-token-yr1');
-  localStorage.setItem('gca_user','test@test.com');
-  localStorage.setItem('gca_activated', Date.now().toString());
-  var el = document.getElementById('yr1-content');
-  if (el) {
-    el.style.display = 'block';
-    el.style.color = 'red';
-    el.style.fontSize = '40px';
-    el.style.padding = '40px';
-    el.textContent = 'DIRECT WRITE WORKED';
-  } else {
-    alert('yr1-content NOT FOUND');
-  }
-  document.querySelectorAll('.view').forEach(function(v) {
-    v.classList.remove('active');
-  });
-  var view = document.getElementById('view-year-one-assessment');
-  if (view) {
-    view.classList.add('active');
-  } else {
-    alert('view-year-one-assessment NOT FOUND');
-  }
-}
 </script>
-<!-- TEMPORARY TEST BUTTON — DELETE AFTER TESTING -->
-<div id="yr1-test-btn" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:#ef4444;color:#fff;padding:12px 20px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.4)" onclick="runYr1Test()">
-  TEST: Year One Assessment
-</div>
 </body>
 
 </html>

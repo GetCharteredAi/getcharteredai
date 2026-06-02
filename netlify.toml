@@ -27,11 +27,6 @@
   compress = false
 
 [[redirects]]
-  from = "/employer-guide"
-  to = "/employer"
-  status = 301
-
-[[redirects]]
   from = "/employer-guide.html"
   to = "/employer"
   status = 301

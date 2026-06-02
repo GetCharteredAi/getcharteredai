@@ -61,6 +61,31 @@
   to = "/sprint-success.html"
   status = 200
 
+[[redirects]]
+  from = "/year-one-review"
+  to = "/year-one-review.html"
+  status = 200
+
+[[redirects]]
+  from = "/sprint"
+  to = "/sprint.html"
+  status = 200
+
+[[redirects]]
+  from = "/referred-programme"
+  to = "/referred-programme.html"
+  status = 200
+
+[[redirects]]
+  from = "/employer-guide"
+  to = "/employer-guide.html"
+  status = 200
+
+[[redirects]]
+  from = "/which-programme"
+  to = "/which-programme.html"
+  status = 200
+
 [[headers]]
   for = "/*.pdf"
   [headers.values]

@@ -3510,16 +3510,21 @@ async function showYearOneAssessment() {
 
 async function initYearOneAssessment() {
   const content = document.getElementById('yr1-content');
+  if (!content) return;
   content.innerHTML = '<div style="text-align:center;padding:60px 24px;color:rgba(255,255,255,.4);font-size:14px">Loading your assessment...</div>';
 
-  const serverReport = await getReportFromServer();
-  if (serverReport) {
-    const p = getYr1Progress();
-    p.completed = true;
-    p.report = serverReport;
-    saveYr1Progress(p);
-    renderYr1Report(serverReport);
-    return;
+  try {
+    const serverReport = await getReportFromServer();
+    if (serverReport) {
+      const p = getYr1Progress();
+      p.completed = true;
+      p.report = serverReport;
+      saveYr1Progress(p);
+      renderYr1Report(serverReport);
+      return;
+    }
+  } catch(e) {
+    console.log('Could not reach server — continuing with local state');
   }
 
   const p = getYr1Progress();

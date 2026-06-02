@@ -16,7 +16,7 @@ nav{padding:18px 40px;display:flex;justify-content:space-between;align-items:cen
 .nav-back{font-size:13px;color:var(--muted);text-decoration:none}.nav-back:hover{color:#f8fafc}
 
 /* HERO */
-.hero{padding:72px 24px 64px;text-align:center;position:relative;overflow:hidden}
+.hero{padding:72px 24px 48px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(239,68,68,.08) 0%,transparent 70%);pointer-events:none}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fca5a5;margin-bottom:20px}
 h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(28px,5vw,54px);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:18px;max-width:820px;margin-left:auto;margin-right:auto}
@@ -24,7 +24,7 @@ h1 em{font-style:italic;color:var(--gold)}
 .hero-sub{font-size:17px;color:rgba(248,250,252,.65);line-height:1.75;max-width:640px;margin:0 auto 36px;font-weight:300}
 
 /* DISTINCTION BANNER */
-.distinction{max-width:900px;margin:0 auto 60px;display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 24px}
+.distinction{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 24px 64px}
 .dist-card{border-radius:14px;padding:24px 28px}
 .dist-card.sprint{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2)}
 .dist-card.referred{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2)}
@@ -34,23 +34,23 @@ h1 em{font-style:italic;color:var(--gold)}
 .dist-title{font-size:17px;font-weight:700;margin-bottom:8px}
 .dist-body{font-size:13px;color:rgba(248,250,252,.65);line-height:1.65}
 
-/* CONTENT */
-.content{max-width:900px;margin:0 auto;padding:0 24px 80px}
+/* SECTION INNER */
+.sec-inner{max-width:900px;margin:0 auto}
+
+/* TYPOGRAPHY */
 .section-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fca5a5;margin-bottom:12px;display:block}
 h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,3vw,36px);font-weight:800;line-height:1.15;margin-bottom:16px}
 .section-lead{font-size:16px;color:rgba(248,250,252,.65);line-height:1.75;margin-bottom:40px;font-weight:300}
 
 /* MODULES */
-.modules-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:56px}
-.mod-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px}
-.mod-num{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.mod-title{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--white)}
-.mod-body{font-size:13px;color:rgba(248,250,252,.6);line-height:1.65}
-.mod-card.featured{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.2)}
-.mod-card.featured .mod-num{color:#fca5a5}
+.modules-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mod-card{border-radius:14px;padding:24px}
+.mod-num{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.mod-title{font-size:16px;font-weight:700;margin-bottom:8px}
+.mod-body{font-size:13px;line-height:1.65}
 
 /* COMPARISON */
-.compare-section{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:36px;margin-bottom:56px}
+.compare-section{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:36px}
 .compare-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-top:24px}
 .compare-col{padding:0 16px}
 .compare-col:not(:last-child){border-right:1px solid rgba(255,255,255,.08)}
@@ -63,162 +63,183 @@ h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,3vw,36px);fon
 .compare-row strong{color:var(--white);display:block;font-weight:600}
 
 /* PRICING */
-.price-card{background:rgba(239,68,68,.06);border:1.5px solid rgba(239,68,68,.25);border-radius:20px;padding:40px;max-width:560px;margin:0 auto 56px;text-align:center}
-.price-badge{display:inline-block;background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:100px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.price-card{border-radius:20px;padding:40px;max-width:560px;margin:0 auto;text-align:center}
+.price-badge{display:inline-block;border-radius:100px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
 .price-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:26px;font-weight:800;margin-bottom:8px}
-.price-amount{font-size:52px;font-weight:800;color:var(--white);line-height:1;margin:16px 0 6px}
-.price-amount span{font-size:24px;font-weight:400;color:var(--muted);vertical-align:super}
-.price-note{font-size:13px;color:var(--muted);margin-bottom:28px}
+.price-amount{font-size:52px;font-weight:800;line-height:1;margin:16px 0 6px}
+.price-amount span{font-size:24px;font-weight:400;vertical-align:super}
+.price-note{font-size:13px;margin-bottom:28px}
 .price-features{text-align:left;margin-bottom:28px}
-.price-features li{font-size:14px;color:rgba(248,250,252,.8);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);line-height:1.5;list-style:none;padding-left:20px;position:relative}
-.price-features li::before{content:'✓';position:absolute;left:0;color:#fca5a5;font-weight:700}
+.price-features li{font-size:14px;padding:8px 0 8px 20px;border-bottom:1px solid #e2e8f0;line-height:1.5;list-style:none;position:relative;color:#475569}
+.price-features li::before{content:'✓';position:absolute;left:0;color:#2563EB;font-weight:700}
 .btn-red{width:100%;padding:16px;background:var(--red);color:#fff;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:.18s}
 .btn-red:hover{background:#dc2626;transform:translateY(-1px)}
-.btn-red:disabled{background:#334155;color:#64748b;cursor:not-allowed;transform:none}
-.credit-note{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.6}
+.btn-red:disabled{background:#cbd5e1;color:#94a3b8;cursor:not-allowed;transform:none}
+.credit-note{font-size:12px;margin-top:14px;line-height:1.6}
 .alert{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:14px;display:none}
-.alert-err{background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);color:#fca5a5}
-.alert-ok{background:rgba(22,163,74,.15);border:1px solid rgba(22,163,74,.3);color:#86efac}
+.alert-err{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.25);color:#dc2626}
+.alert-ok{background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.25);color:#16a34a}
 
 /* FAQ */
-.faq-section{margin-bottom:56px}
 .faq-item{border-bottom:1px solid rgba(255,255,255,.08);overflow:hidden}
 .faq-q{width:100%;background:none;border:none;padding:18px 0;text-align:left;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--white);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px}
 .faq-a{font-size:14px;color:rgba(248,250,252,.7);line-height:1.75;padding-bottom:18px;display:none}
 .arrow{font-size:18px;color:var(--muted);flex-shrink:0;transition:.2s}
 
-@media(max-width:700px){.distinction{grid-template-columns:1fr}.modules-grid{grid-template-columns:1fr}.compare-grid{grid-template-columns:1fr;gap:20px}.compare-col{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:16px}nav{padding:16px 20px}}
+@media(max-width:700px){
+  .distinction{grid-template-columns:1fr}
+  .modules-grid{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr;gap:20px}
+  .compare-col{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:16px}
+  nav{padding:16px 20px}
+}
 </style>
 </head>
 <body>
+
 <nav>
   <a href="/" class="nav-logo">Get Chartered <span>AI</span></a>
   <a href="/" class="nav-back">← Back to platform</a>
 </nav>
 
-<div class="hero">
-  <div class="hero-eyebrow">📋 APC Confidence Reset</div>
-  <h1>APC Confidence Reset.<br><em>Performance Reconstruction After Referral.</em></h1>
-  <p class="hero-sub">A premium recovery programme that helps you move from referral confusion to structured resit readiness. Six modules. Rebuilt confidence. Assessor-ready performance.</p>
+<!-- HERO — #0D0F1C -->
+<div style="background:#0D0F1C">
+  <div class="hero">
+    <div class="hero-eyebrow">📋 APC Confidence Reset</div>
+    <h1>APC Confidence Reset.<br><em>Performance Reconstruction After Referral.</em></h1>
+    <p class="hero-sub">A premium recovery programme that helps you move from referral confusion to structured resit readiness. Six modules. Rebuilt confidence. Assessor-ready performance.</p>
+  </div>
+
+  <div class="distinction">
+    <div class="dist-card referred">
+      <div class="dist-label red">APC Confidence Reset — £397</div>
+      <div class="dist-title">For candidates who were referred and need to rebuild performance</div>
+      <p class="dist-body">Six modules of performance reconstruction — understanding your referral, rebuilding evidence and structure, common referral patterns, mandatory competency rebuilding, mock practice and resit mindset. <strong style="color:rgba(248,250,252,.8)">A specialist recovery programme, not a revision product.</strong></p>
+    </div>
+    <div class="dist-card sprint">
+      <div class="dist-label gold">APC Sprint — £297</div>
+      <div class="dist-title">For candidates sitting soon who already know their subject</div>
+      <p class="dist-body">Revision, mock interview practice and AI Tutor coaching. Assumes existing subject knowledge. Designed to sharpen performance before assessment day. <strong style="color:rgba(248,250,252,.8)">Not designed for candidates who need structural performance rebuilding.</strong></p>
+    </div>
+  </div>
 </div>
 
-<!-- DISTINCTION BANNER -->
-<div class="distinction">
-  <div class="dist-card referred">
-    <div class="dist-label red">APC Confidence Reset — £397</div>
-    <div class="dist-title">For candidates who were referred and need to rebuild performance</div>
-    <p class="dist-body">Six modules of performance reconstruction — understanding your referral, rebuilding evidence and structure, common referral patterns, mandatory competency rebuilding, mock practice and resit mindset. <strong style="color:rgba(248,250,252,.8)">A specialist recovery programme, not a revision product.</strong></p>
-  </div>
-  <div class="dist-card sprint">
-    <div class="dist-label gold">APC Sprint — £297</div>
-    <div class="dist-title">For candidates sitting soon who already know their subject</div>
-    <p class="dist-body">Revision, mock interview practice and AI Tutor coaching. Assumes existing subject knowledge. Designed to sharpen performance before assessment day. <strong style="color:rgba(248,250,252,.8)">Not designed for candidates who need structural performance rebuilding.</strong></p>
-  </div>
-</div>
-
-<div class="content">
-
-  <!-- THE HONEST PROBLEM -->
-  <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:14px;padding:28px 32px;margin-bottom:48px">
+<!-- HONEST TRUTH — #111527 -->
+<div style="background:#111527;padding:64px 24px">
+  <div class="sec-inner">
     <span class="section-eyebrow">The honest truth about referrals</span>
     <p style="font-size:16px;color:rgba(248,250,252,.85);line-height:1.75;margin:0">The RICS referral letter names the competencies where the panel had concerns. What it does not tell you is whether the problem was in the written submission, the interview or both — and whether the issue was one of structure, evidence or content. Most referred candidates had a structural evidencing problem: they described their work rather than evidenced their professional judgement. Adding more words to an answer that already fails for that reason will not fix it. This programme starts there.</p>
   </div>
+</div>
 
-  <!-- MODULES -->
-  <span class="section-eyebrow">The programme</span>
-  <h2>Six modules. Structured to fix<br>the most common referral causes.</h2>
-  <p class="section-lead">Every module addresses a specific structural reason candidates are referred — not general revision, but targeted reconstruction of how you demonstrate professional competence in writing and under questioning.</p>
+<!-- SIX MODULES — #f8fafc (light) -->
+<div style="background:#f8fafc;padding:80px 24px">
+  <div class="sec-inner">
+    <span class="section-eyebrow" style="color:#2563EB">The programme</span>
+    <h2 style="color:#0D0F1C">Six modules. Structured to fix<br>the most common referral causes.</h2>
+    <p class="section-lead" style="color:#475569">Every module addresses a specific structural reason candidates are referred — not general revision, but targeted reconstruction of how you demonstrate professional competence in writing and under questioning.</p>
 
-  <div class="modules-grid">
-    <div class="mod-card featured">
-      <div class="mod-num">Module 01</div>
-      <div class="mod-title">Understanding Your Referral Properly</div>
-      <p class="mod-body">How to read the referral report calmly and accurately. Identifying patterns in assessor feedback. Separating technical gaps from performance gaps. Recognising communication, confidence and articulation issues. Understanding what the report is really telling you — without panic.</p>
-    </div>
-    <div class="mod-card featured">
-      <div class="mod-num">Module 02</div>
-      <div class="mod-title">What APC Assessors Actually Score</div>
-      <p class="mod-body">Resetting your understanding of Level 1, Level 2 and Level 3 expectations. The difference between knowledge, application and decision-making. What professional judgement looks like in practice. Why communication and reflection matter. The "safe pair of hands" standard — what it means and how to demonstrate it.</p>
-    </div>
-    <div class="mod-card">
-      <div class="mod-num">Module 03</div>
-      <div class="mod-title">Evidence, Structure and Common Referral Patterns</div>
-      <p class="mod-body">Moving from describing activity to demonstrating competence. The most common referral patterns — over-description, weak reasoning, generic answers, overuse of "we", shallow examples, poor structure. How to spot these in your own answers and rebuild them with stronger evidence and professional ownership.</p>
-    </div>
-    <div class="mod-card">
-      <div class="mod-num">Module 04</div>
-      <div class="mod-title">Rebuilding Your Mandatory Competency Answers</div>
-      <p class="mod-body">All 11 mandatory competencies rebuilt with proper Level 2 evidencing. Updated for 2026 — ECCTA, BSR independence, RICS AI Standard, Renters Rights Act. Annotated examples for Ethics, Client Care and Health and Safety. The competencies most commonly flagged in referral letters addressed specifically.</p>
-    </div>
-    <div class="mod-card">
-      <div class="mod-num">Module 05</div>
-      <div class="mod-title">Performing Under Pressure — Mock Practice and Your Final 30 Days</div>
-      <p class="mod-body">Handling silence and pressure more effectively. Structuring answers clearly in real time. Slowing down and answering with control. Michael — your AI Tutor in Assessor Mode — available 24 hours a day for repeat mock questioning on your weakest competencies. Plus a structured 30-day resit countdown: what to prioritise, how to build a mock practice routine and how to enter the room with a different mindset from the first attempt.</p>
-    </div>
-    <div class="mod-card">
-      <div class="mod-num">Module 06</div>
-      <div class="mod-title">Reflection, Self-Awareness and Resit Mindset</div>
-      <p class="mod-body">Reflecting honestly on what went wrong. Identifying the real cause of referral. Understanding how confidence, clarity and professional judgement are connected. Rebuilding answers with more maturity and insight. Developing a stronger internal review process — so you can evaluate your own answers against assessor criteria before the resit.</p>
-    </div>
-  </div>
-
-  <!-- COMPARISON TABLE -->
-  <div class="compare-section">
-    <span class="section-eyebrow" style="margin-bottom:8px">How it compares</span>
-    <h2 style="font-size:24px;margin-bottom:0">Sprint vs Referred Programme vs Full Course</h2>
-    <div class="compare-grid">
-      <div class="compare-col">
-        <div class="compare-head gold">APC Sprint — £297</div>
-        <div class="compare-row"><strong>Who it is for</strong>Candidates sitting soon with existing knowledge</div>
-        <div class="compare-row"><strong>Core focus</strong>Revision, practice and mock interview</div>
-        <div class="compare-row"><strong>AI Tutor</strong>Full scope — all 11 competencies</div>
-        <div class="compare-row"><strong>Mock interview</strong>✓ Full 60 minutes</div>
-        <div class="compare-row"><strong>Evidencing framework</strong>Not included</div>
-        <div class="compare-row"><strong>Referral-specific content</strong>Not included</div>
+    <div class="modules-grid">
+      <div class="mod-card" style="background:#fff;border:1.5px solid #e2e8f0">
+        <div class="mod-num" style="color:#64748b">Module 01</div>
+        <div class="mod-title" style="color:#0D0F1C">Understanding Your Referral Properly</div>
+        <p class="mod-body" style="color:#475569">How to read the referral report calmly and accurately. Identifying patterns in assessor feedback. Separating technical gaps from performance gaps. Recognising communication, confidence and articulation issues. Understanding what the report is really telling you — without panic.</p>
       </div>
-      <div class="compare-col">
-        <div class="compare-head red">APC Confidence Reset — £397</div>
-        <div class="compare-row"><strong>Who it is for</strong>Candidates who were referred and need performance reconstruction</div>
-        <div class="compare-row"><strong>Core focus</strong>Referral understanding, performance rebuilding, resit mindset</div>
-        <div class="compare-row"><strong>AI Tutor</strong>Assessor Mode — challenging, uncompromising</div>
-        <div class="compare-row"><strong>Mock interview</strong>✓ Full 60 minutes</div>
-        <div class="compare-row"><strong>Evidencing framework</strong>✓ Central to the programme</div>
-        <div class="compare-row"><strong>Referral-specific content</strong>✓ Every module</div>
+      <div class="mod-card" style="background:#fff;border:1.5px solid #e2e8f0">
+        <div class="mod-num" style="color:#64748b">Module 02</div>
+        <div class="mod-title" style="color:#0D0F1C">What APC Assessors Actually Score</div>
+        <p class="mod-body" style="color:#475569">Resetting your understanding of Level 1, Level 2 and Level 3 expectations. The difference between knowledge, application and decision-making. What professional judgement looks like in practice. Why communication and reflection matter. The "safe pair of hands" standard — what it means and how to demonstrate it.</p>
       </div>
-      <div class="compare-col">
-        <div class="compare-head blue">Full Programme — £497</div>
-        <div class="compare-row"><strong>Who it is for</strong>Candidates starting structured preparation from scratch</div>
-        <div class="compare-row"><strong>Core focus</strong>12 modules — all competencies from Level 1</div>
-        <div class="compare-row"><strong>AI Tutor</strong>Full scope — progressive unlock</div>
-        <div class="compare-row"><strong>Mock interview</strong>✓ Full 60 minutes</div>
-        <div class="compare-row"><strong>Evidencing framework</strong>✓ Throughout all modules</div>
-        <div class="compare-row"><strong>Referral-specific content</strong>Not the primary focus</div>
+      <div class="mod-card" style="background:#fff;border:1.5px solid #e2e8f0">
+        <div class="mod-num" style="color:#64748b">Module 03</div>
+        <div class="mod-title" style="color:#0D0F1C">Evidence, Structure and Common Referral Patterns</div>
+        <p class="mod-body" style="color:#475569">Moving from describing activity to demonstrating competence. The most common referral patterns — over-description, weak reasoning, generic answers, overuse of "we", shallow examples, poor structure. How to spot these in your own answers and rebuild them with stronger evidence and professional ownership.</p>
+      </div>
+      <div class="mod-card" style="background:#fff;border:1.5px solid #e2e8f0">
+        <div class="mod-num" style="color:#64748b">Module 04</div>
+        <div class="mod-title" style="color:#0D0F1C">Rebuilding Your Mandatory Competency Answers</div>
+        <p class="mod-body" style="color:#475569">All 11 mandatory competencies rebuilt with proper Level 2 evidencing. Updated for 2026 — ECCTA, BSR independence, RICS AI Standard, Renters Rights Act. Annotated examples for Ethics, Client Care and Health and Safety. The competencies most commonly flagged in referral letters addressed specifically.</p>
+      </div>
+      <div class="mod-card" style="background:#fff;border:1.5px solid #e2e8f0">
+        <div class="mod-num" style="color:#64748b">Module 05</div>
+        <div class="mod-title" style="color:#0D0F1C">Performing Under Pressure — Mock Practice and Your Final 30 Days</div>
+        <p class="mod-body" style="color:#475569">Handling silence and pressure more effectively. Structuring answers clearly in real time. Slowing down and answering with control. Michael — your AI Tutor in Assessor Mode — available 24 hours a day for repeat mock questioning on your weakest competencies. Plus a structured 30-day resit countdown: what to prioritise, how to build a mock practice routine and how to enter the room with a different mindset from the first attempt.</p>
+      </div>
+      <div class="mod-card" style="background:#fff;border:1.5px solid #e2e8f0">
+        <div class="mod-num" style="color:#64748b">Module 06</div>
+        <div class="mod-title" style="color:#0D0F1C">Reflection, Self-Awareness and Resit Mindset</div>
+        <p class="mod-body" style="color:#475569">Reflecting honestly on what went wrong. Identifying the real cause of referral. Understanding how confidence, clarity and professional judgement are connected. Rebuilding answers with more maturity and insight. Developing a stronger internal review process — so you can evaluate your own answers against assessor criteria before the resit.</p>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- PRICING -->
-  <div class="price-card">
-    <div class="price-badge">APC Confidence Reset</div>
-    <div class="price-title">APC Confidence Reset.<br>Performance Reconstruction After Referral.</div>
-    <div class="price-amount"><span>£</span>397</div>
-    <p class="price-note">One-off payment · Immediate access · 90 days access</p>
-    <ul class="price-features">
-      <li>6 modules — performance reconstruction from referral to resit readiness</li>
-      <li>Evidence, structure and common referral pattern analysis</li>
-      <li>All 11 mandatory competencies rebuilt with 2026 legislation</li>
-      <li>Michael — AI Tutor in Assessor Mode, available 24/7 for repeat mock practice</li>
-      <li>60-minute AI-scored mock interview — all 22 RICS pathways</li>
-      <li>30-day structured resit countdown and mindset framework</li>
-      <li>Counts toward your annual RICS CPD requirement</li>
-    </ul>
-    <button class="btn-red" id="enrollBtn" onclick="enrollReferred()">Start the APC Confidence Reset — £397</button>
-    <div id="enrollAlert" class="alert"></div>
-    <p class="credit-note">Already have the APC Sprint? The £297 Sprint price is credited toward the Referred Programme — pay the £100 difference only. <a href="mailto:info@getcharteredai.com" style="color:#fca5a5">Email us to arrange →</a></p>
+<!-- HOW IT COMPARES — #0D0F1C -->
+<div style="background:#0D0F1C;padding:80px 24px">
+  <div class="sec-inner">
+    <div class="compare-section">
+      <span class="section-eyebrow" style="margin-bottom:8px">How it compares</span>
+      <h2 style="font-size:24px;margin-bottom:0">Sprint vs Referred Programme vs Full Course</h2>
+      <div class="compare-grid">
+        <div class="compare-col">
+          <div class="compare-head gold">APC Sprint — £297</div>
+          <div class="compare-row"><strong>Who it is for</strong>Candidates sitting soon with existing knowledge</div>
+          <div class="compare-row"><strong>Core focus</strong>Revision, practice and mock interview</div>
+          <div class="compare-row"><strong>AI Tutor</strong>Full scope — all 11 competencies</div>
+          <div class="compare-row"><strong>Mock interview</strong>✓ Full 60 minutes</div>
+          <div class="compare-row"><strong>Evidencing framework</strong>Not included</div>
+          <div class="compare-row"><strong>Referral-specific content</strong>Not included</div>
+        </div>
+        <div class="compare-col">
+          <div class="compare-head red">APC Confidence Reset — £397</div>
+          <div class="compare-row"><strong>Who it is for</strong>Candidates who were referred and need performance reconstruction</div>
+          <div class="compare-row"><strong>Core focus</strong>Referral understanding, performance rebuilding, resit mindset</div>
+          <div class="compare-row"><strong>AI Tutor</strong>Assessor Mode — challenging, uncompromising</div>
+          <div class="compare-row"><strong>Mock interview</strong>✓ Full 60 minutes</div>
+          <div class="compare-row"><strong>Evidencing framework</strong>✓ Central to the programme</div>
+          <div class="compare-row"><strong>Referral-specific content</strong>✓ Every module</div>
+        </div>
+        <div class="compare-col">
+          <div class="compare-head blue">Full Programme — £497</div>
+          <div class="compare-row"><strong>Who it is for</strong>Candidates starting structured preparation from scratch</div>
+          <div class="compare-row"><strong>Core focus</strong>12 modules — all competencies from Level 1</div>
+          <div class="compare-row"><strong>AI Tutor</strong>Full scope — progressive unlock</div>
+          <div class="compare-row"><strong>Mock interview</strong>✓ Full 60 minutes</div>
+          <div class="compare-row"><strong>Evidencing framework</strong>✓ Throughout all modules</div>
+          <div class="compare-row"><strong>Referral-specific content</strong>Not the primary focus</div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
-  <!-- FAQ -->
-  <div class="faq-section">
+<!-- PRICING — #f8fafc (light) -->
+<div style="background:#f8fafc;padding:80px 24px">
+  <div class="sec-inner">
+    <div class="price-card" style="background:#fff;border:1.5px solid #e2e8f0">
+      <div class="price-badge" style="background:rgba(37,99,235,.08);color:#2563EB;border:1px solid rgba(37,99,235,.2)">APC Confidence Reset</div>
+      <div class="price-title" style="color:#0D0F1C">APC Confidence Reset.<br>Performance Reconstruction After Referral.</div>
+      <div class="price-amount" style="color:#0D0F1C"><span style="color:#64748b">£</span>397</div>
+      <p class="price-note" style="color:#64748b">One-off payment · Immediate access · 90 days access</p>
+      <ul class="price-features">
+        <li>6 modules — performance reconstruction from referral to resit readiness</li>
+        <li>Evidence, structure and common referral pattern analysis</li>
+        <li>All 11 mandatory competencies rebuilt with 2026 legislation</li>
+        <li>Michael — AI Tutor in Assessor Mode, available 24/7 for repeat mock practice</li>
+        <li>60-minute AI-scored mock interview — all 22 RICS pathways</li>
+        <li>30-day structured resit countdown and mindset framework</li>
+        <li>Counts toward your annual RICS CPD requirement</li>
+      </ul>
+      <button class="btn-red" id="enrollBtn" onclick="enrollReferred()">Start the APC Confidence Reset — £397</button>
+      <div id="enrollAlert" class="alert"></div>
+      <p class="credit-note" style="color:#64748b">Already have the APC Sprint? The £297 Sprint price is credited toward the Referred Programme — pay the £100 difference only. <a href="mailto:info@getcharteredai.com" style="color:#2563EB">Email us to arrange →</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ — #111527 -->
+<div style="background:#111527;padding:80px 24px">
+  <div class="sec-inner">
     <span class="section-eyebrow">Questions</span>
     <h2 style="font-size:24px;margin-bottom:24px">Common questions</h2>
 
@@ -247,7 +268,6 @@ h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,3vw,36px);fon
       <div class="faq-a">The AI-scored mock interview in Module 6 is available 24 hours a day and can be repeated as many times as you need. It provides pathway-specific questioning, follow-up probing and written feedback on every answer. Whether it replaces a human mock depends on your situation — if you have access to an experienced assessor, a human mock adds value. If you do not, or if you want to practise repeatedly before paying for a single human session, this gives you the structured practice environment to do that.</div>
     </div>
   </div>
-
 </div>
 
 <script>

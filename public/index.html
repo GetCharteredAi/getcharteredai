@@ -3520,7 +3520,7 @@ window.testYr1 = function() { localStorage.setItem('gca_plan','year-one'); local
 window.cleanupYr1Test = function() { localStorage.removeItem('gca_plan'); localStorage.removeItem('gca_activated'); localStorage.removeItem('gca_yr1_progress'); location.reload(); };
 </script>
 <!-- TEMPORARY TEST BUTTON — DELETE AFTER TESTING -->
-<div id="yr1-test-btn" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:#ef4444;color:#fff;padding:12px 20px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.4)" onclick="localStorage.setItem('gca_plan','year-one');localStorage.setItem('gca_token','test-token-yr1');localStorage.setItem('gca_user','test@test.com');localStorage.setItem('gca_activated',Date.now().toString());showView('year-one-assessment');">
+<div id="yr1-test-btn" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:#ef4444;color:#fff;padding:12px 20px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.4)" onclick="localStorage.setItem('gca_plan','year-one');localStorage.setItem('gca_token','test-token-yr1');localStorage.setItem('gca_user','test@test.com');localStorage.setItem('gca_activated',Date.now().toString());var el=document.getElementById('yr1-content');if(el){el.style.display='block';el.innerHTML='<p style=color:red;font-size:40px;padding:40px>DIRECT WRITE</p>';}else{alert('yr1-content NOT FOUND');}document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});document.getElementById('view-year-one-assessment').classList.add('active');">
   TEST: Year One Assessment
 </div>
 </body>

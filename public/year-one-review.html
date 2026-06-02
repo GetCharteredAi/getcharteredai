@@ -672,6 +672,7 @@ function yr1RenderLogin() {
       <button class="yr1-btn-primary" onclick="yr1DoLogin()">Sign in →</button>
       <button class="yr1-btn-secondary" onclick="yr1HideOverlay()">Back to page</button>
     </div>
+    <p style="font-size:12px;color:rgba(255,255,255,.2);text-align:center;margin-top:16px;line-height:1.6">Your assessment and report are saved to this account. Sharing access overwrites your results permanently.</p>
     <p style="font-size:12px;color:rgba(255,255,255,.25);text-align:center;margin-top:16px">Purchased but can't log in? Email <a href="mailto:info@getcharteredai.com" style="color:#60a5fa">info@getcharteredai.com</a></p>
   `);
 }
@@ -898,6 +899,8 @@ function yr1RenderReport(report) {
   yr1Render(`
     <div style="max-width:720px;margin:0 auto">
 
+      <p style="font-size:11px;color:rgba(255,255,255,.2);text-align:center;margin-bottom:20px;line-height:1.5">This report is saved to your account. If your login is shared, your results will be overwritten and cannot be recovered.</p>
+
       <div style="text-align:center;padding:40px 0 32px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:32px">
         <div class="yr1-score-num" style="color:${scoreCol}">${score}</div>
         <div style="font-size:13px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Your APC Year Two Readiness Score / 100</div>
@@ -950,7 +953,32 @@ function yr1RenderReport(report) {
           <p style="font-size:12px;color:rgba(255,255,255,.3);margin-top:10px">£497 one-off · or £49/month · cancel anytime</p>
         </div>
         <p style="font-size:12px;color:#4ade80;margin-top:16px">✓ Your report is saved to your account — accessible on any device</p>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:28px;margin-top:24px;text-align:left">
+          <h3 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:20px">Useful next steps</h3>
+          <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.06)">
+            <div style="width:28px;height:28px;background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">1</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Download your RICS pathway guide</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.6">Go to rics.org and download the December 2025 version of your specific pathway guide. Check your competency selection carefully — the rules changed in December 2025 and selecting the wrong combination can invalidate your submission.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.06)">
+            <div style="width:28px;height:28px;background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">2</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Understand what each competency level looks like in practice</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.6">RICS tells you what Level 1, 2 and 3 require. What it does not show you is what good evidence actually looks like — the difference between an answer that scores and one that does not. The Get Chartered AI 12-Month APC Programme was built specifically for this. Twelve structured modules covering all 11 mandatory competencies — with assessor-annotated examples, weak versus strong answers, Michael your AI tutor available 24/7, and a 60-minute mock interview across all 22 RICS pathways.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">3</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Start building your evidence bank now</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.6">The candidates who pass comfortably are those who have specific, personal examples ready for every competency before Year Two pressure begins. You now know exactly which areas need the most work. The time to start is now — not six months before your assessment.</div>
+            </div>
+          </div>
+        </div>
         <button style="background:none;border:none;color:rgba(255,255,255,.25);font-family:'Inter',sans-serif;font-size:12px;cursor:pointer;margin-top:12px;text-decoration:underline" onclick="yr1ResetAssessment()">Retake the assessment</button>
+        <p style="font-size:12px;color:rgba(255,255,255,.3);text-align:center;margin-top:8px;line-height:1.6;max-width:400px;margin-left:auto;margin-right:auto">You can retake this assessment as many times as you like within your 30 days — use it to benchmark your progress as you work through your development priorities.</p>
       </div>
 
     </div>

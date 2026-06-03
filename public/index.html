@@ -694,6 +694,8 @@ input.err{border-color:var(--red)}
   .footer-top{grid-template-columns:1fr!important}
 }
 
+@media(max-width:900px){.hero-two-col{grid-template-columns:1fr!important}.hero-two-col .video-col{order:-1}}
+
 /* HERO PILLS ROW */
 .hero-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;position:relative;z-index:1;width:100%;max-width:840px}
 .hero-pill{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:8px;font-family:'DM Sans','Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.02em;text-decoration:none;transition:.18s;white-space:nowrap}
@@ -773,25 +775,34 @@ input.err{border-color:var(--red)}
       <span>Were you referred? <strong>Referred Programme →</strong></span>
     </a>
   </div>
-  <h1 class="hero-title">You've done the work.<br>The assessment is about proving it under pressure.</h1>
-  <p class="hero-strap">Professional chartership preparation that works.</p>
-  <p class="hero-intro" style="font-size:clamp(18px,2vw,22px);font-weight:500;color:rgba(255,255,255,.9);line-height:1.5">Most candidates don't fail the APC because they lack knowledge.<br>They fail because they cannot demonstrate it under pressure.</p>
-  <p class="hero-sub">12 modules. All 11 mandatory competencies. 861+ pathway questions across all 22 RICS pathways. A full 60-minute AI-scored mock interview — and alongside every module, <strong style="color:#f8fafc">Michael</strong>, your AI Tutor, available any time. Warm when you are learning. Exacting when you are ready to be tested. Built by Chartered Surveyors. Updated for 2026.</p>
-  <p style="margin-bottom:32px;position:relative;z-index:1">
-    <a href="#pricing-sec" onclick="goToSection('pricing-sec');return false;" style="color:rgba(255,255,255,.5);font-size:14px;text-decoration:underline;text-underline-offset:3px;transition:.18s" onmouseover="this.style.color='rgba(255,255,255,.8)'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Ready to enrol? →</a>
-  </p>
+  <div class="hero-two-col" style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto;padding:40px 0 20px">
 
-  <div class="video-wrap">
-    <iframe src="https://app.heygen.com/embeds/151f77a48aa7442e8658b0b88da7a83c" title="Hi there" frameborder="0" allow="encrypted-media; fullscreen;" allowfullscreen></iframe>
-  </div>
+    <!-- LEFT COLUMN — copy -->
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:16px">APC Preparation Platform</div>
+      <h1 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(28px,3.5vw,48px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:20px">You've done the work.<br>The assessment is about<br><em style="font-style:normal;color:#93c5fd">proving it under pressure.</em></h1>
+      <p style="font-size:15px;color:rgba(248,250,252,.55);margin-bottom:24px;line-height:1.7;max-width:480px">Many APC candidates feel uncertain, even when they're capable. If any of this sounds familiar, you're not alone:</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px">
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(248,250,252,.65);line-height:1.5"><span style="color:#f59e0b;flex-shrink:0;margin-top:2px">→</span>You know your work, but can't explain it properly under pressure</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(248,250,252,.65);line-height:1.5"><span style="color:#f59e0b;flex-shrink:0;margin-top:2px">→</span>You're worried you'll freeze in the assessment room</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(248,250,252,.65);line-height:1.5"><span style="color:#f59e0b;flex-shrink:0;margin-top:2px">→</span>You feel unsure whether you're genuinely on track</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(248,250,252,.65);line-height:1.5"><span style="color:#f59e0b;flex-shrink:0;margin-top:2px">→</span>Your support at work is inconsistent or hard to access</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(248,250,252,.65);line-height:1.5"><span style="color:#f59e0b;flex-shrink:0;margin-top:2px">→</span>You thought you were prepared — but weren't</li>
+      </ul>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <a href="#pricing-sec" style="background:#2563EB;color:#fff;padding:13px 26px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:.18s">See programmes →</a>
+        <a href="#pathways-sec" style="background:transparent;color:rgba(255,255,255,.6);border:1.5px solid rgba(255,255,255,.15);padding:12px 22px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:.18s">Find my programme</a>
+      </div>
+    </div>
 
-  <div class="hero-btns" style="margin-top:32px;margin-bottom:0">
-    <button class="btn btn-white" onclick="goToSection('pricing-sec')">Enrol Now</button>
-    <button class="btn btn-outline-white" onclick="goToSection('modules-sec')">Explore Modules</button>
-    <a href="/guides" class="hero-pill hero-pill-green" style="font-size:13px;padding:10px 20px">
-      <span class="hero-pill-dot">📋</span>
-      <span>Candidate Resources →</span>
-    </a>
+    <!-- RIGHT COLUMN — video -->
+    <div class="video-col">
+      <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 16px 48px rgba(0,0,0,.45);position:relative">
+        <iframe src="https://app.heygen.com/embeds/151f77a48aa7442e8658b0b88da7a83c" title="Hi there" frameborder="0" allow="encrypted-media; fullscreen;" allowfullscreen style="width:100%;aspect-ratio:16/9;display:block;border:none"></iframe>
+      </div>
+      <p style="font-size:12px;color:rgba(255,255,255,.25);text-align:center;margin-top:10px">Michael — your AI Tutor · Available 24/7</p>
+    </div>
+
   </div>
 </section>
 

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12-Month APC Programme — Get Chartered AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2563EB;--blue-dark:#1d4ed8;--blue-light:#3b82f6;
+  --amber:#f59e0b;
+  --f:'Inter',sans-serif;
+  --fh:'Plus Jakarta Sans','Inter',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);background:#0D0F1C;color:#f8fafc;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;left:0;right:0;z-index:1000;
+  background:rgba(11,12,28,0.97);backdrop-filter:blur(16px);
+  height:64px;display:flex;align-items:center;padding:0 40px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-stack{display:flex;flex-direction:column;gap:0}
+.nav-logo-name{font-size:14px;font-weight:600;color:#fff;letter-spacing:-.01em;line-height:1.3}
+.nav-rics-tag{font-size:9px;font-weight:400;font-style:italic;color:rgba(255,255,255,.35);letter-spacing:.02em;line-height:1.2;display:block}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.nav-link{font-size:13px;font-weight:500;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 12px;border-radius:6px;transition:.15s;font-family:var(--f)}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.07)}
+.nav-btn{font-size:13px;font-weight:600;color:#fff;background:var(--blue);padding:7px 16px;border-radius:7px;border:none;cursor:pointer;text-decoration:none;transition:.15s}
+.nav-btn:hover{background:var(--blue-light)}
+
+/* ── HERO ── */
+.hero{
+  padding:96px 40px 80px;
+  background:linear-gradient(160deg,#0D0F1C 0%,#111527 60%,#0a1020 100%);
+  position:relative;overflow:hidden;text-align:center;
+}
+.hero::before{
+  content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);
+  width:700px;height:700px;
+  background:radial-gradient(ellipse,rgba(37,99,235,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:24px;
+  background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);
+  padding:6px 14px;border-radius:20px;
+}
+.hero h1{
+  font-family:var(--fh);
+  font-size:clamp(32px,5vw,60px);
+  font-weight:800;line-height:1.08;letter-spacing:-.03em;
+  color:#fff;margin-bottom:20px;max-width:780px;margin-left:auto;margin-right:auto;
+}
+.hero h1 em{font-style:normal;color:#93c5fd}
+.hero-sub{
+  font-size:16px;color:rgba(248,250,252,.6);
+  max-width:560px;margin:0 auto 36px;line-height:1.7;font-weight:400;
+}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{font-family:var(--f);font-size:13px;font-weight:700;letter-spacing:.02em;padding:13px 26px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:.18s;text-align:center}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-light);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.15)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.35);color:#fff}
+.hero-stats{
+  display:flex;justify-content:center;gap:48px;flex-wrap:wrap;
+  margin-top:60px;padding-top:48px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.stat-num{font-family:var(--fh);font-size:2.2rem;font-weight:800;color:#fff;letter-spacing:-.03em}
+.stat-lbl{font-size:11px;font-weight:500;color:rgba(248,250,252,.35);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+
+/* ── SECTIONS ── */
+.sec{padding:80px 40px}
+.sec-dark{background:#0D0F1C}
+.sec-mid{background:#111527}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:10px}
+.h2{font-family:var(--fh);font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:14px}
+.sub{font-size:15px;color:rgba(248,250,252,.55);max-width:560px;line-height:1.7}
+
+/* ── WHY ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto}
+.why-points{display:flex;flex-direction:column;gap:22px;margin-top:28px}
+.why-point{display:flex;gap:14px;align-items:flex-start}
+.why-icon{
+  width:38px;height:38px;border-radius:8px;flex-shrink:0;
+  background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.2);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.why-point h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.why-point p{font-size:13px;color:rgba(248,250,252,.5);line-height:1.6}
+.why-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;padding:32px;
+}
+.why-card-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.why-card h3{font-family:var(--fh);font-size:1.35rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:12px;letter-spacing:-.02em}
+.why-card p{font-size:13px;color:rgba(248,250,252,.5);line-height:1.7;margin-bottom:16px}
+.why-stat{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:8px;padding:14px 18px}
+.why-stat-num{font-family:var(--fh);font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.03em}
+.why-stat-txt{font-size:12px;color:rgba(147,197,253,.7);margin-top:2px}
+
+/* ── WHAT'S INCLUDED ── */
+.what-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.what-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:24px;
+  transition:border-color .2s,background .2s;
+}
+.what-card:hover{border-color:rgba(37,99,235,.3);background:rgba(37,99,235,.04)}
+.what-icon{font-size:22px;margin-bottom:12px}
+.what-card h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:-.01em}
+.what-card p{font-size:13px;color:rgba(248,250,252,.5);line-height:1.6}
+.badge{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:rgba(37,99,235,.12);color:#93c5fd;border:1px solid rgba(37,99,235,.2)}
+
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;position:relative}
+.steps::before{content:'';position:absolute;top:26px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),rgba(255,255,255,.08),transparent);pointer-events:none}
+.step{padding:24px 16px;text-align:center}
+.step-num{width:52px;height:52px;border-radius:50%;background:#161a2e;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1;letter-spacing:-.02em}
+.step h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
+.step p{font-size:12.5px;color:rgba(248,250,252,.45);line-height:1.6}
+
+/* ── QUOTE ── */
+.quote-sec{background:#111527;padding:72px 40px;text-align:center;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+.quote-text{font-family:var(--fh);font-size:clamp(1.1rem,2.2vw,1.6rem);font-weight:600;color:#fff;max-width:720px;margin:0 auto 20px;line-height:1.5;letter-spacing:-.02em}
+.quote-attr{font-size:13px;color:rgba(248,250,252,.35)}
+.quote-attr strong{color:rgba(248,250,252,.55)}
+
+/* ── PRICING CARDS (light section) ── */
+.price-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:640px;margin-top:32px}
+
+/* ── ALSO CONSIDER ── */
+.also-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;max-width:960px}
+.also-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:24px;text-decoration:none;
+  transition:border-color .2s,background .2s;display:flex;flex-direction:column;
+}
+.also-card:hover{border-color:rgba(37,99,235,.3);background:rgba(37,99,235,.04)}
+.also-icon{font-size:22px;margin-bottom:10px}
+.also-card h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:-.01em}
+.also-card p{font-size:13px;color:rgba(248,250,252,.5);line-height:1.6;flex:1}
+.also-meta{font-size:11px;font-weight:600;color:rgba(147,197,253,.6);letter-spacing:.04em;margin-top:10px}
+.also-arrow{font-size:12px;color:rgba(255,255,255,.25);margin-top:6px}
+
+/* ── FOOTER ── */
+footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;border-top:1px solid rgba(255,255,255,.05)}
+.foot-brand{font-size:14px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.foot-brand span{color:var(--amber)}
+.foot-links{display:flex;gap:18px;flex-wrap:wrap}
+.foot-links a{color:rgba(248,250,252,.3);font-size:12px;text-decoration:none;transition:color .18s}
+.foot-links a:hover{color:rgba(248,250,252,.6)}
+.foot-copy{font-size:11px;color:rgba(248,250,252,.2);width:100%}
+
+/* ── FADE ── */
+.fu{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.fu.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .sec{padding:60px 20px}
+  .hero{padding:72px 20px 60px}
+  .why-grid,.what-grid,.steps,.also-grid{grid-template-columns:1fr}
+  .price-grid-2{grid-template-columns:1fr;max-width:100%}
+  .steps::before{display:none}
+  .hero-stats{gap:24px}
+  footer{padding:32px 20px 24px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://getcharteredai.com" class="nav-logo">
+    <div class="nav-logo-stack">
+      <span class="nav-logo-name">Get Chartered AI</span>
+      <span class="nav-rics-tag">12-Month APC Programme</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a href="#what" class="nav-link">What's included</a>
+    <a href="#how" class="nav-link">How it works</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="#pricing" class="nav-btn">Enrol now →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">📚 12-Month APC Programme</div>
+  <h1>Structured preparation. <em>From wherever you are now — all the way to assessment day.</em></h1>
+  <p class="hero-sub">Twelve modules. Eleven mandatory competencies. Michael your AI Tutor. 861+ practice questions. A 60-minute mock interview. Everything you need to pass the APC — in one structured programme. Updated for 2026.</p>
+  <div class="hero-btns">
+    <a href="#pricing" class="btn btn-primary">Enrol now — £497 →</a>
+    <a href="#what" class="btn btn-ghost">See what's included</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-num">12</div><div class="stat-lbl">Structured modules</div></div>
+    <div><div class="stat-num">11</div><div class="stat-lbl">Mandatory competencies</div></div>
+    <div><div class="stat-num">861+</div><div class="stat-lbl">Practice questions</div></div>
+    <div><div class="stat-num">22</div><div class="stat-lbl">RICS pathways covered</div></div>
+  </div>
+</section>
+
+<section class="sec sec-mid" id="why">
+  <div class="why-grid">
+    <div class="fu">
+      <div class="lbl">Why candidates are referred</div>
+      <h2 class="h2">Most APC referrals are not caused by lack of knowledge</h2>
+      <p class="sub">They happen because technically capable candidates cannot demonstrate what they know in the format assessors require. Knowing your subject is not enough — you need to evidence it, structure it and articulate it under pressure.</p>
+      <div class="why-points">
+        <div class="why-point">
+          <div class="why-icon">📋</div>
+          <div>
+            <h4>Evidencing gaps, not knowledge gaps</h4>
+            <p>Candidates describe their work rather than evidence professional judgement. Get Chartered AI teaches the specific structure assessors score.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">🎯</div>
+          <div>
+            <h4>No structured mock interview practice</h4>
+            <p>Most candidates arrive at final assessment having never answered a probing follow-up question under pressure. The 60-minute AI simulator changes that.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">⏰</div>
+          <div>
+            <h4>Michael is available when your counsellor isn't</h4>
+            <p>Michael — the AI Tutor — is available whenever you need it, not just during counsellor sessions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fu">
+      <div class="why-card">
+        <div class="why-card-eyebrow">The preparation gap</div>
+        <h3>The candidates who pass are not always the most experienced — they are the most prepared</h3>
+        <p>The APC is not a knowledge test. It is a performance under pressure. Candidates who practise articulating their experience, structure their evidence correctly and prepare for probing follow-up questions pass at a significantly higher rate.</p>
+        <p>Get Chartered AI was built specifically to close the gap between what you know and what you can demonstrate.</p>
+        <div class="why-stat">
+          <div class="why-stat-num">94%</div>
+          <div class="why-stat-txt">Pass rate among Get Chartered AI candidates who complete the full programme</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-dark" id="what">
+  <div class="fu" style="text-align:center;margin-bottom:8px">
+    <div class="lbl" style="justify-content:center;display:flex">What's included</div>
+    <h2 class="h2" style="text-align:center;max-width:580px;margin:0 auto 12px">Everything you need in one structured programme</h2>
+    <p class="sub" style="margin:0 auto;text-align:center">Twelve modules built around how assessors actually score — not just what RICS guidance says.</p>
+  </div>
+  <div class="what-grid fu">
+    <div class="what-card">
+      <div class="what-icon">📚</div>
+      <h4>12 Structured Modules</h4>
+      <p>All 11 mandatory competencies covered in depth — built around the specific structure assessors score.</p>
+      <span class="badge">Updated for 2026</span>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">🎓</div>
+      <h4>Michael — AI Tutor</h4>
+      <p>Available 24/7. Ask questions, practise answers, get competency feedback. Tutor Mode for learning, Assessor Mode for pressure testing.</p>
+      <span class="badge">Unlimited use</span>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">🎯</div>
+      <h4>60-Minute Mock Interview</h4>
+      <p>Full AI-scored mock interview simulation specific to your RICS pathway. Timed, structured, probing. The closest thing to the real room.</p>
+      <span class="badge">All 22 pathways</span>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">✅</div>
+      <h4>861+ Practice Questions</h4>
+      <p>Mandatory competency and pathway-specific questions. Practise by competency, by module or in randomised assessment format.</p>
+      <span class="badge">Quiz engine</span>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">📊</div>
+      <h4>Progress Dashboard</h4>
+      <p>Track your completion, quiz scores and mock interview performance. Designed for self-directed learning alongside counsellor sessions.</p>
+      <span class="badge">Per candidate</span>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">🔄</div>
+      <h4>Legislation Updates</h4>
+      <p>Current 2026 legislation updates relevant to your pathway — including the RICS AI Standard, Building Safety Levy and Renters Rights Act.</p>
+      <span class="badge">2026 current</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-mid" id="how">
+  <div class="fu" style="text-align:center;margin-bottom:8px">
+    <div class="lbl" style="justify-content:center;display:flex">How it works</div>
+    <h2 class="h2" style="text-align:center">Simple. Structured. Self-paced.</h2>
+  </div>
+  <div class="steps fu">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h4>Enrol and get immediate access</h4>
+      <p>Your login arrives instantly. Full access to all 12 modules, Michael and the mock interview simulator from day one.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h4>Work through the modules</h4>
+      <p>Each module covers one mandatory competency in depth — what assessors look for, what good evidence looks like, and how to structure your answers.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h4>Practise with Michael</h4>
+      <p>Ask questions, test your answers, get feedback. Use Tutor Mode to learn and Assessor Mode when you are ready to be challenged.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h4>Sit confidently</h4>
+      <p>Complete the 60-minute mock interview when you feel ready. Arrive at your assessment having already answered probing follow-up questions under pressure.</p>
+    </div>
+  </div>
+</section>
+
+<div class="quote-sec fu">
+  <p class="quote-text">"The candidates who used Get Chartered AI arrived at their counsellor sessions noticeably more structured in how they spoke about their competencies. The evidencing gap — which is what most firms struggle with — was much smaller."</p>
+  <p class="quote-attr"><strong>MRICS Counsellor</strong> — National surveying practice</p>
+</div>
+
+<section class="sec" id="pricing" style="background:#f8fafc">
+  <div class="fu">
+    <div class="lbl">Pricing</div>
+    <h2 class="h2" style="color:#0D0F1C">Simple pricing. No hidden costs.</h2>
+    <p class="sub" style="color:#64748b">One programme. Two ways to pay. Full access from day one.</p>
+  </div>
+  <div class="price-grid-2 fu">
+
+    <div style="background:#fff;border:2px solid #2563EB;border-radius:16px;padding:30px;display:flex;flex-direction:column;position:relative">
+      <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#2563EB;color:#fff;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 12px;border-radius:20px;white-space:nowrap">Most popular</div>
+      <div style="font-size:13px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Annual Access</div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:36px;font-weight:800;color:#0D0F1C;line-height:1;margin-bottom:4px">£497</div>
+      <div style="font-size:12px;color:#94a3b8;margin-bottom:20px">one-off payment · 12 months access</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px;flex:1">
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>All 12 modules — immediate access</li>
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>Michael AI Tutor — unlimited use</li>
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>60-minute mock interview</li>
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>861+ practice questions</li>
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>All 22 RICS pathways</li>
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>Progress dashboard</li>
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>2026 legislation updates</li>
+      </ul>
+      <button onclick="checkout('annual')" style="width:100%;padding:13px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.02em;cursor:pointer">Enrol now — £497 →</button>
+    </div>
+
+    <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:30px;display:flex;flex-direction:column;position:relative">
+      <div style="font-size:13px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Monthly Access</div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:36px;font-weight:800;color:#0D0F1C;line-height:1;margin-bottom:4px">£49</div>
+      <div style="font-size:12px;color:#94a3b8;margin-bottom:20px">per month · cancel anytime</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px;flex:1">
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>All 12 modules — unlocked monthly</li>
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>Michael AI Tutor — unlimited use</li>
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>60-minute mock interview</li>
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>861+ practice questions</li>
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>All 22 RICS pathways</li>
+        <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>Progress dashboard</li>
+      </ul>
+      <button onclick="checkout('monthly')" style="width:100%;padding:13px;background:transparent;color:#0D0F1C;border:1.5px solid #cbd5e1;border-radius:8px;font-size:13px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.02em;cursor:pointer">Start monthly — £49/month →</button>
+    </div>
+
+  </div>
+  <p class="fu" style="margin-top:20px;font-size:13px;color:#64748b;max-width:560px">Already on the Year Two Readiness Review? Upgrading to the full programme is the natural next step — your benchmark results show you exactly what to work on first.</p>
+</section>
+
+<section class="sec sec-mid">
+  <div class="fu" style="text-align:center;margin-bottom:8px">
+    <div class="lbl" style="justify-content:center;display:flex">Other programmes</div>
+    <h2 class="h2" style="text-align:center">Not sure this is the right fit?</h2>
+    <p class="sub" style="margin:0 auto;text-align:center">There may be a better starting point depending on where you are in your journey.</p>
+  </div>
+  <div class="also-grid fu">
+    <a href="/year-one-review" class="also-card">
+      <div class="also-icon">📋</div>
+      <h4>Year Two Readiness Review</h4>
+      <p>Not sure you're ready for the full programme yet? Benchmark where you stand first.</p>
+      <div class="also-meta">£127 · 30 days</div>
+      <div class="also-arrow">Find out where you stand →</div>
+    </a>
+    <a href="/sprint" class="also-card">
+      <div class="also-icon">🚀</div>
+      <h4>APC Sprint</h4>
+      <p>Sitting soon and need to prepare fast? The Sprint is focused 42-day preparation.</p>
+      <div class="also-meta">£297 · 42 days</div>
+      <div class="also-arrow">Prepare fast →</div>
+    </a>
+    <a href="/referred-programme" class="also-card">
+      <div class="also-icon">🔄</div>
+      <h4>APC Confidence Reset</h4>
+      <p>Been referred? The Recovery Programme addresses root causes and rebuilds your evidence structure.</p>
+      <div class="also-meta">£397 · 90 days</div>
+      <div class="also-arrow">Start recovery →</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-brand">Get Chartered <span>AI</span></div>
+  <div class="foot-links">
+    <a href="https://getcharteredai.com">Platform</a>
+    <a href="/programme">Programmes</a>
+    <a href="/employer-guide">Employer access</a>
+    <a href="mailto:info@getcharteredai.com">info@getcharteredai.com</a>
+    <a href="https://www.linkedin.com/company/getcharteredai" target="_blank">LinkedIn</a>
+  </div>
+  <p class="foot-copy">© Get Chartered AI 2026 · Built by Chartered Surveyors · getcharteredai.com</p>
+</footer>
+
+<script>
+async function checkout(plan) {
+  try {
+    const response = await fetch('/.netlify/functions/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan })
+    });
+    const data = await response.json();
+    if (data.url) { window.location.href = data.url; }
+    else { alert('Could not start checkout. Please try again or contact info@getcharteredai.com'); }
+  } catch (err) {
+    alert('Connection error. Please check your internet and try again.');
+  }
+}
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold:0.07});
+document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

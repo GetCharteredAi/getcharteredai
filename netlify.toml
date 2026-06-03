@@ -81,6 +81,11 @@
   to = "/which-programme.html"
   status = 200
 
+[[redirects]]
+  from = "/programme"
+  to = "/programme.html"
+  status = 200
+
 [[headers]]
   for = "/*.pdf"
   [headers.values]

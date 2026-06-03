@@ -716,7 +716,7 @@ input.err{border-color:var(--red)}
 .nav-dd-sub{font-size:11px;color:rgba(255,255,255,.4)}
 @keyframes yr2scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .module-updates{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
-.module-updates li{font-size:13px;color:rgba(248,250,252,.6);line-height:1.5;padding-left:16px;position:relative}
+.module-updates li{font-size:13px;color:#475569;line-height:1.5;padding-left:16px;position:relative}
 .module-updates li::before{content:'→';position:absolute;left:0;color:#f59e0b;font-size:11px;top:1px}
 </style>
 </head>
@@ -1588,7 +1588,7 @@ function renderLandingModGrid() {
     const updItems = MODULE_UPDATES[m.id] || [];
     const updatesHtml = updItems.length ? `<ul class="module-updates">${updItems.map(u => `<li>${u}</li>`).join('')}</ul>` : '';
     return `
-    <div class="mod-card" id="lmc-${m.id}" onclick="landingCardClick(${m.id})">
+    <div class="mod-card${m.id <= 12 ? ' open' : ''}" id="lmc-${m.id}" onclick="landingCardClick(${m.id})">
       <div class="mod-tick">✓</div>
       <span class="mod-num">Module ${m.num}</span>
       <div class="mod-title-t">${m.title}</div>

@@ -884,7 +884,11 @@ input.err{border-color:var(--red)}
         <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:28px 32px;border-top:3px solid #2563EB;transition:.2s;box-sizing:border-box" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(37,99,235,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
           <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#2563EB;margin-bottom:10px">Ending Year One</div>
           <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:800;color:#0D0F1C;margin-bottom:8px">Are you ready for Year Two?</div>
-          <p style="font-size:13px;color:#475569;line-height:1.6;margin-bottom:16px">A structured diagnostic benchmark for candidates approaching Year Two — 32 coaching questions, a personalised readiness report from Michael and a clear development roadmap. Know exactly where you stand before final-year preparation begins.</p>
+          <p style="font-size:13px;color:#475569;line-height:1.6;margin-bottom:16px">Most APC candidates enter Year Two without knowing whether they are on track, whether their competency evidence is strong enough, or where their biggest development gaps sit.</p>
+          <div style="border-top:1px solid #e2e8f0;padding-top:14px;margin-bottom:16px">
+            <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:10px">What you get</div>
+            <div id="yr2-rotating" style="font-size:13px;color:#2563EB;font-weight:600;min-height:20px;transition:opacity .4s ease">✓ 32 diagnostic questions across 5 areas</div>
+          </div>
           <span style="font-size:13px;font-weight:700;color:#2563EB">Find out →</span>
         </div>
       </a>
@@ -3074,6 +3078,28 @@ document.addEventListener('click', function(e) {
     closeProgrammesDropdown();
   }
 });
+
+(function() {
+  var items = [
+    '✓ 32 diagnostic questions across 5 areas',
+    '✓ Personalised readiness report from Michael',
+    '✓ Traffic light competency analysis',
+    '✓ Year Two development roadmap',
+    '✓ Private — results are yours only'
+  ];
+  var i = 0;
+  var el = document.getElementById('yr2-rotating');
+  if (el) {
+    setInterval(function() {
+      el.style.opacity = '0';
+      setTimeout(function() {
+        i = (i + 1) % items.length;
+        el.textContent = items[i];
+        el.style.opacity = '1';
+      }, 400);
+    }, 2500);
+  }
+})();
 
 </script>
 </body>

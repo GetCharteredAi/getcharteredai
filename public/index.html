@@ -724,7 +724,7 @@ input.err{border-color:var(--red)}
 @media(max-width:768px){.enrol-steps{grid-template-columns:1fr!important}}
 @media(max-width:768px){.how-it-works-grid{grid-template-columns:1fr!important}}
 .pf-opt-card:hover{background:rgba(37,99,235,.12)!important;border-color:rgba(37,99,235,.4)!important}
-@media(max-width:600px){.pf-grid{grid-template-columns:1fr!important}}
+@media(max-width:768px){.pf-grid{grid-template-columns:1fr 1fr!important}}
 </style>
 </head>
 <body>
@@ -1101,7 +1101,7 @@ input.err{border-color:var(--red)}
 </section>
 
 <section class="sec" id="finder-sec" style="background:#0D0F1C;padding:56px 24px 64px">
-  <div style="max-width:640px;margin:0 auto;padding:0 24px">
+  <div style="max-width:900px;margin:0 auto;padding:0 24px">
   <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;text-align:center;margin-bottom:8px">Find your programme</div>
   <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(22px,3vw,32px);font-weight:800;color:#fff;text-align:center;margin-bottom:6px;letter-spacing:-.02em">Where are you in your APC journey?</h2>
   <p style="font-size:14px;color:rgba(248,250,252,.45);text-align:center;margin-bottom:28px">Two questions. One recommendation.</p>
@@ -1111,24 +1111,24 @@ input.err{border-color:var(--red)}
   </div>
   <div id="pf-q1">
     <div style="font-size:17px;font-weight:600;color:#fff;text-align:center;margin-bottom:20px;line-height:1.5">Which path describes you?</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px" class="pf-grid">
-      <div class="pf-opt-card" onclick="pfSelectQ1('yr1')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;cursor:pointer;transition:.15s">
-        <div style="font-size:20px;margin-bottom:8px">📋</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px" class="pf-grid">
+      <div class="pf-opt-card" onclick="pfSelectQ1('yr1')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s">
+        <div style="font-size:16px;margin-bottom:8px">📋</div>
         <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">In Year One</div>
         <div style="font-size:12px;color:rgba(248,250,252,.45);line-height:1.4">Just started my structured training</div>
       </div>
-      <div class="pf-opt-card" onclick="pfSelectQ1('yr2')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;cursor:pointer;transition:.15s">
-        <div style="font-size:20px;margin-bottom:8px">📈</div>
+      <div class="pf-opt-card" onclick="pfSelectQ1('yr2')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s">
+        <div style="font-size:16px;margin-bottom:8px">📈</div>
         <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">In Year Two</div>
         <div style="font-size:12px;color:rgba(248,250,252,.45);line-height:1.4">Building towards final assessment</div>
       </div>
-      <div class="pf-opt-card" onclick="pfSelectQ1('soon')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;cursor:pointer;transition:.15s">
-        <div style="font-size:20px;margin-bottom:8px">⏱</div>
+      <div class="pf-opt-card" onclick="pfSelectQ1('soon')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s">
+        <div style="font-size:16px;margin-bottom:8px">⏱</div>
         <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Sitting soon</div>
         <div style="font-size:12px;color:rgba(248,250,252,.45);line-height:1.4">Assessment within the next 8 weeks</div>
       </div>
-      <div class="pf-opt-card" onclick="pfSelectQ1('referred')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;cursor:pointer;transition:.15s">
-        <div style="font-size:20px;margin-bottom:8px">🔄</div>
+      <div class="pf-opt-card" onclick="pfSelectQ1('referred')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s">
+        <div style="font-size:16px;margin-bottom:8px">🔄</div>
         <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Been referred</div>
         <div style="font-size:12px;color:rgba(248,250,252,.45);line-height:1.4">Need to prepare for a resit</div>
       </div>
@@ -1152,7 +1152,7 @@ input.err{border-color:var(--red)}
 <script>
 var pfResults={yr1:{badge:'Year One',title:'APC Year Two Readiness Review',desc:'A 30-minute diagnostic benchmark — 32 coaching questions, a personalised readiness report from Michael and a clear Year Two development roadmap.',link:'/year-one-review'},yr2:{badge:'Full Programme',title:'12-Month APC Programme',desc:'Twelve modules. Eleven mandatory competencies. Michael your AI Tutor. 861+ practice questions. Structured preparation from wherever you are.',link:'/programme'},soon:{badge:'Final Preparation',title:'APC Sprint',desc:'A focused 42-day programme — revision, mock interview practice and Michael in Assessor Mode. Built for candidates sitting soon.',link:'/sprint'},referred:{badge:'Recovery Programme',title:'APC Confidence Reset',desc:'Six dedicated modules — starting with your referral letter, rebuilding your evidence structure and preparing you specifically for the resit.',link:'/referred-programme'}};
 
-function pfSelectQ1(val){document.getElementById('pf-dot1').style.background='rgba(255,255,255,.15)';document.getElementById('pf-dot2').style.background='#2563EB';document.getElementById('pf-q1').style.display='none';if(val==='yr2'){document.getElementById('pf-q2text').textContent='How much time before your assessment?';document.getElementById('pf-q2opts').innerHTML='<div class="pf-opt-card" onclick="pfShowResult('yr2')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;cursor:pointer;transition:.15s"><div style="font-size:20px;margin-bottom:8px">📅</div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">More than 6 months</div><div style="font-size:12px;color:rgba(248,250,252,.45);line-height:1.4">Time for full structured preparation</div></div><div class="pf-opt-card" onclick="pfShowResult('soon')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;cursor:pointer;transition:.15s"><div style="font-size:20px;margin-bottom:8px">⚡</div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Less than 6 months</div><div style="font-size:12px;color:rgba(248,250,252,.45);line-height:1.4">Need focused fast preparation</div></div>';document.getElementById('pf-q2').style.display='block';}else{pfShowResult(val);}}
+function pfSelectQ1(val){document.getElementById('pf-dot1').style.background='rgba(255,255,255,.15)';document.getElementById('pf-dot2').style.background='#2563EB';document.getElementById('pf-q1').style.display='none';if(val==='yr2'){document.getElementById('pf-q2text').textContent='How much time before your assessment?';document.getElementById('pf-q2opts').innerHTML='<div class="pf-opt-card" onclick="pfShowResult(\'yr2\')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s"><div style="font-size:16px;margin-bottom:8px">📅</div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">More than 6 months</div><div style="font-size:12px;color:rgba(248,250,252,.45);line-height:1.4">Time for full structured preparation</div></div><div class="pf-opt-card" onclick="pfShowResult(\'soon\')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s"><div style="font-size:16px;margin-bottom:8px">⚡</div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Less than 6 months</div><div style="font-size:12px;color:rgba(248,250,252,.45);line-height:1.4">Need focused fast preparation</div></div>';document.getElementById('pf-q2').style.display='block';}else{pfShowResult(val);}}
 
 function pfShowResult(key){document.getElementById('pf-q2').style.display='none';var r=pfResults[key];document.getElementById('pf-r-badge').textContent=r.badge;document.getElementById('pf-r-title').textContent=r.title;document.getElementById('pf-r-desc').textContent=r.desc;document.getElementById('pf-r-link').href=r.link;document.getElementById('pf-result').style.display='block';}
 

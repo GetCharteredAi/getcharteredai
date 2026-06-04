@@ -100,7 +100,7 @@ h1.hero-title span{color:#93c5fd}
   border-top:1px solid rgba(255,255,255,.1);padding-top:16px;
 }
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;margin-bottom:32px}
-.f-opt{background:#fff;border:1.5px solid #e2e8f0;border-radius:8px;padding:13px 16px;cursor:pointer;text-align:left;font-family:var(--f);font-size:14px;color:#374151;transition:.18s;line-height:1.5;width:100%}.f-opt:hover{border-color:#2563EB;background:#eff6ff;color:#0D0F1C}
+.f-opt{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:13px 16px;cursor:pointer;text-align:left;font-family:var(--f);font-size:14px;color:#fff;transition:.18s;line-height:1.5;width:100%}.f-opt:hover{border-color:rgba(37,99,235,.4);background:rgba(37,99,235,.15);color:#fff}
 .btn{font-family:var(--f);font-size:13px;font-weight:700;letter-spacing:.02em;padding:13px 26px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:.18s;text-align:center}
 .btn-white{background:#fff;color:var(--blue)}
 .btn-white:hover{background:#f0f9ff}
@@ -817,7 +817,7 @@ input.err{border-color:var(--red)}
       </ul>
       <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
         <a href="#pricing-sec" style="background:#2563EB;color:#fff;padding:13px 26px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:.18s">See programmes →</a>
-        <a href="#contact-sec" style="background:transparent;color:rgba(255,255,255,.6);border:1.5px solid rgba(255,255,255,.15);padding:12px 22px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:.18s">Find my programme</a>
+        <a href="#finder-sec" style="background:transparent;color:rgba(255,255,255,.6);border:1.5px solid rgba(255,255,255,.15);padding:12px 22px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:.18s">Find my programme</a>
       </div>
     </div>
 
@@ -1189,27 +1189,27 @@ input.err{border-color:var(--red)}
 </section>
 
 <!-- CONTACT — White section -->
-<section class="sec sec-white" id="contact-sec" style="padding:56px 24px 64px">
+<section class="sec" id="finder-sec" style="background:#0D0F1C;padding:56px 24px 64px">
   <div class="sec-inner" style="max-width:680px">
 
     <!-- PROGRAMME FINDER -->
     <div style="text-align:center;margin-bottom:40px">
-      <h2 class="h2" style="margin-bottom:8px">Where are you in your APC journey?</h2>
-      <p style="font-size:15px;font-weight:600;color:rgba(13,15,28,.55);margin-bottom:8px">Start here — find your programme</p>
-      <p class="lead" style="margin:0 auto;font-size:14px;max-width:480px">Answer two or three quick questions and we'll point you in the right direction.</p>
+      <h2 class="h2" style="margin-bottom:8px;color:#fff">Where are you in your APC journey?</h2>
+      <p style="font-size:15px;font-weight:600;color:rgba(248,250,252,.6);margin-bottom:8px">Start here — find your programme</p>
+      <p class="lead" style="margin:0 auto;font-size:14px;max-width:480px;color:rgba(248,250,252,.55)">Answer two or three quick questions and we'll point you in the right direction.</p>
     </div>
 
     <!-- INLINE FINDER -->
-    <div id="finder-wrap" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-bottom:48px">
+    <div id="finder-wrap" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px">
 
       <div id="f-step1">
         <div style="display:flex;gap:6px;margin-bottom:20px">
           <div style="height:4px;flex:1;border-radius:2px;background:#2563EB"></div>
-          <div style="height:4px;flex:1;border-radius:2px;background:#e2e8f0"></div>
-          <div style="height:4px;flex:1;border-radius:2px;background:#e2e8f0"></div>
+          <div style="height:4px;flex:1;border-radius:2px;background:rgba(255,255,255,.12)"></div>
+          <div style="height:4px;flex:1;border-radius:2px;background:rgba(255,255,255,.12)"></div>
         </div>
-        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:8px">Question 1 of 3</div>
-        <div style="font-size:17px;font-weight:700;color:#0D0F1C;margin-bottom:18px;line-height:1.3">Where are you in your APC journey?</div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px">Question 1 of 3</div>
+        <div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:18px;line-height:1.3">Where are you in your APC journey?</div>
         <div style="display:flex;flex-direction:column;gap:8px">
           <button onclick="fPick(1,'starting')" class="f-opt">🌱 &nbsp;Just starting out — first year or haven't begun yet</button>
           <button onclick="fPick(1,'mid')" class="f-opt">📚 &nbsp;Mid-preparation — assessment more than 6 months away</button>
@@ -1222,25 +1222,17 @@ input.err{border-color:var(--red)}
         <div style="display:flex;gap:6px;margin-bottom:20px">
           <div style="height:4px;flex:1;border-radius:2px;background:#2563EB"></div>
           <div style="height:4px;flex:1;border-radius:2px;background:#2563EB"></div>
-          <div style="height:4px;flex:1;border-radius:2px;background:#e2e8f0"></div>
+          <div style="height:4px;flex:1;border-radius:2px;background:rgba(255,255,255,.12)"></div>
         </div>
-        <button onclick="fBack(2)" style="font-size:12px;color:#94a3b8;background:none;border:none;cursor:pointer;font-family:inherit;margin-bottom:14px;padding:0">← Back</button>
-        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:8px">Question 2 of 3</div>
-        <div id="f-q2text" style="font-size:17px;font-weight:700;color:#0D0F1C;margin-bottom:18px;line-height:1.3"></div>
+        <button onclick="fBack(2)" style="font-size:12px;color:rgba(255,255,255,.4);background:none;border:none;cursor:pointer;font-family:inherit;margin-bottom:14px;padding:0">← Back</button>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px">Question 2 of 3</div>
+        <div id="f-q2text" style="font-size:17px;font-weight:700;color:#fff;margin-bottom:18px;line-height:1.3"></div>
         <div id="f-q2opts" style="display:flex;flex-direction:column;gap:8px"></div>
       </div>
 
       <div id="f-result" style="display:none">
         <div id="f-result-content"></div>
       </div>
-    </div>
-
-    <!-- CONTACT -->
-    <div style="text-align:center;border-top:1px solid #e2e8f0;padding-top:36px">
-      <span class="eyebrow">Get in Touch</span>
-      <h2 class="h2" style="margin-bottom:8px;font-size:24px">Still have questions?</h2>
-      <p class="lead" style="margin:0 auto 24px;font-size:15px;max-width:400px">Email us directly and we will come back to you directly.</p>
-      <a href="mailto:info@getcharteredai.com" class="btn btn-blue">Email info@getcharteredai.com</a>
     </div>
 
   </div>
@@ -1315,22 +1307,22 @@ function fShowResult(key) {
   var r = fResults[key] || {primary:'monthly',secondary:null,reason:'The monthly programme is a solid starting point.'};
   var p = fProducts[r.primary];
   var html = '<div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2563EB;margin-bottom:10px">Our recommendation</div>';
-  html += '<div style="background:#fff;border:2px solid #2563EB;border-radius:10px;padding:20px;margin-bottom:12px">';
-  html += '<div style="font-size:17px;font-weight:700;color:#0D0F1C;margin-bottom:8px">'+p.title+'</div>';
-  html += '<div style="font-size:13px;color:#4b5563;line-height:1.65;margin-bottom:12px;padding:10px 12px;background:#eff6ff;border-radius:6px;border-left:3px solid #2563EB">'+r.reason+'</div>';
-  html += '<div style="font-size:20px;font-weight:700;color:#0D0F1C;margin-bottom:12px">'+p.price+' <span style="font-size:13px;color:#94a3b8;font-weight:400">— '+p.note+'</span></div>';
-  html += '<a href="'+p.url+'" style="display:inline-block;background:#0D0F1C;color:#fff;padding:11px 22px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none">View programme →</a>';
+  html += '<div style="background:rgba(255,255,255,.06);border:2px solid #2563EB;border-radius:10px;padding:20px;margin-bottom:12px">';
+  html += '<div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">'+p.title+'</div>';
+  html += '<div style="font-size:13px;color:rgba(248,250,252,.7);line-height:1.65;margin-bottom:12px;padding:10px 12px;background:rgba(37,99,235,.15);border-radius:6px;border-left:3px solid #2563EB">'+r.reason+'</div>';
+  html += '<div style="font-size:20px;font-weight:700;color:#fff;margin-bottom:12px">'+p.price+' <span style="font-size:13px;color:rgba(255,255,255,.4);font-weight:400">— '+p.note+'</span></div>';
+  html += '<a href="'+p.url+'" style="display:inline-block;background:#2563EB;color:#fff;padding:11px 22px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none">View programme →</a>';
   html += '</div>';
   if (r.secondary) {
     var s = fProducts[r.secondary];
-    html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">';
-    html += '<div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:3px">Also worth considering</div>';
-    html += '<div style="font-size:14px;font-weight:600;color:#0D0F1C">'+s.title+'</div>';
-    html += '<div style="font-size:13px;color:#94a3b8">'+s.price+' — '+s.note+'</div></div>';
+    html += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">';
+    html += '<div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.35);margin-bottom:3px">Also worth considering</div>';
+    html += '<div style="font-size:14px;font-weight:600;color:#fff">'+s.title+'</div>';
+    html += '<div style="font-size:13px;color:rgba(255,255,255,.4)">'+s.price+' — '+s.note+'</div></div>';
     html += '<a href="'+s.url+'" style="font-size:13px;font-weight:700;color:#2563EB;text-decoration:none">View →</a></div>';
   }
   html += '<div style="text-align:right"><a href="/which-programme" style="font-size:12px;color:#2563EB;text-decoration:none">Full programme finder →</a> &nbsp;';
-  html += '<button onclick="fRestart()" style="font-size:12px;color:#94a3b8;background:none;border:none;cursor:pointer;font-family:inherit">Start again</button></div>';
+  html += '<button onclick="fRestart()" style="font-size:12px;color:rgba(255,255,255,.35);background:none;border:none;cursor:pointer;font-family:inherit">Start again</button></div>';
   document.getElementById('f-result-content').innerHTML = html;
   document.getElementById('f-result').style.display = 'block';
 }
@@ -1350,6 +1342,16 @@ function fRestart() {
   document.getElementById('f-step1').style.display = 'block';
 }
 </script>
+
+<section class="sec" id="contact-sec" style="background:#0D0F1C;padding:40px 24px;border-top:1px solid rgba(255,255,255,.06)">
+  <div style="max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+    <div>
+      <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:4px">Have a question?</div>
+      <div style="font-size:13px;color:rgba(248,250,252,.45)">We respond within one working day.</div>
+    </div>
+    <a href="mailto:info@getcharteredai.com" style="display:inline-block;background:#2563EB;color:#fff;padding:12px 24px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none">info@getcharteredai.com →</a>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>

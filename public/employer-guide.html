@@ -155,7 +155,7 @@ nav{
 .quote-attr strong{color:rgba(248,250,252,.55)}
 
 /* ── DOWNLOADS ── */
-.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;max-width:720px}
+.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;max-width:720px;margin-left:auto;margin-right:auto}
 .dl-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:22px;display:flex;align-items:flex-start;gap:14px;transition:border-color .18s}
 .dl-card:hover{border-color:rgba(255,255,255,.14)}
 .dl-icon{width:38px;height:38px;border-radius:8px;flex-shrink:0;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);display:flex;align-items:center;justify-content:center;font-size:16px}
@@ -165,7 +165,7 @@ nav{
 .dl-link:hover{color:#93c5fd}
 
 /* ── CONTACT ── */
-.contact-inner{max-width:580px}
+.contact-inner{max-width:580px;margin:0 auto}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
 .form-full{grid-column:1/-1}
 .form-group label{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(248,250,252,.35);margin-bottom:6px}
@@ -378,9 +378,9 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
 <section class="sec sec-mid">
   <div class="fu">
-    <div class="lbl">Resources</div>
-    <h2 class="h2">Useful reading before you enquire</h2>
-    <p class="sub">Two documents to share with your HR, L&D or senior leadership team.</p>
+    <div class="lbl" style="text-align:center">Resources</div>
+    <h2 class="h2" style="text-align:center">Useful reading before you enquire</h2>
+    <p class="sub" style="text-align:center">Two documents to share with your HR, L&D or senior leadership team.</p>
   </div>
   <div class="dl-grid fu">
     <div class="dl-card">
@@ -404,9 +404,9 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
 <section class="sec sec-dark" id="contact">
   <div class="contact-inner fu">
-    <div class="lbl">Get in touch</div>
-    <h2 class="h2">Tell us about your cohort</h2>
-    <p class="sub">We'll come back within one working day with a specific pricing proposal and answer any questions you have.</p>
+    <div class="lbl" style="text-align:center">Get in touch</div>
+    <h2 class="h2" style="text-align:center">Tell us about your cohort</h2>
+    <p class="sub" style="text-align:center">We'll come back within one working day with a specific pricing proposal and answer any questions you have.</p>
     <form class="form-grid" id="enquiryForm" onsubmit="submitEnquiry(event)">
       <div class="form-group"><label>Your name</label><input type="text" id="eName" placeholder="Jane Smith" required></div>
       <div class="form-group"><label>Firm / Organisation</label><input type="text" id="eFirm" placeholder="Smith &amp; Partners LLP" required></div>

@@ -140,7 +140,7 @@ h1.hero-title span{color:#93c5fd}
 .info-card{background:var(--blue-dark);border-radius:16px;padding:32px;box-shadow:0 20px 48px rgba(0,0,0,.2)}
 .info-card-tag{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#93c5fd;margin-bottom:12px;display:block}
 .info-card-h{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:32px;font-weight:900;letter-spacing:-.03em;color:#fff;line-height:1.15;margin-bottom:28px}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;overflow:hidden}
 .info-stat{background:rgba(255,255,255,.07);border-radius:10px;padding:16px;border:1px solid rgba(255,255,255,.08)}
 .info-n{font-size:24px;font-weight:800;letter-spacing:-.03em;color:#fff;display:block;line-height:1;margin-bottom:2px;font-variant-numeric:tabular-nums}
 .info-l{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4)}
@@ -219,7 +219,7 @@ h1.hero-title span{color:#93c5fd}
 .mod-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.08);transform:translateY(-2px)}
 .mod-card:hover::before{transform:scaleX(1)}
 .mod-num{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:7px}
-.mod-title-t{font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--text);margin-bottom:6px;line-height:1.25}
+.mod-title-t{font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--text);margin-bottom:6px;line-height:1.25;white-space:normal;overflow-wrap:break-word;word-break:break-word}
 .mod-lvl{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--off);padding:3px 8px;border-radius:100px;display:inline-block}
 .mod-tick{position:absolute;top:14px;right:14px;width:20px;height:20px;background:var(--green);border-radius:50%;display:none;align-items:center;justify-content:center;color:#fff;font-size:11px}
 .mod-card.done .mod-tick{display:flex}
@@ -725,6 +725,10 @@ input.err{border-color:var(--red)}
 @media(max-width:768px){.how-it-works-grid{grid-template-columns:1fr!important}}
 .pf-opt-card:hover{background:rgba(37,99,235,.12)!important;border-color:rgba(37,99,235,.4)!important}
 @media(max-width:768px){.pf-grid{grid-template-columns:1fr 1fr!important}}
+@media(max-width:768px){.resources-grid,.guide-grid,.res-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;overflow:hidden}}
+@media(max-width:480px){.info-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+.mod-title{white-space:normal;overflow-wrap:break-word;word-break:break-word}
+.pathway-label,.pathway-name,.mod-card-title{white-space:normal;overflow-wrap:break-word;word-break:break-word}
 </style>
 </head>
 <body>
@@ -855,7 +859,7 @@ input.err{border-color:var(--red)}
         <p class="about-body" style="margin-top:6px"><strong>Alongside every module, meet Michael — your AI Tutor.</strong></p>
         <p class="about-body" style="margin-top:8px">Michael is not a chatbox. He is a coaching presence that runs through the entire programme. In <strong>Tutor Mode</strong> he meets you where you are — asking you about a real situation from your working life, helping you shape it into competency evidence, naming the level of every answer and making the gap feel bridgeable. In <strong>Assessor Mode</strong> he challenges you exactly as the panel will — directly, without softening, with the follow-up questions you were not expecting.</p>
         <p class="about-body" style="margin-top:8px;font-style:italic;color:rgba(13,15,28,.65)">"Warm when you are learning. Exacting when you are ready to be tested. Two modes. One goal."</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;margin-top:16px">
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 20px;margin-top:16px;overflow:hidden">
           <ul class="checklist" style="margin:0">
             <li>All 11 RICS mandatory competencies covered in full</li>
             <li>Michael — Tutor Mode and Assessor Mode, scope expands as you progress</li>

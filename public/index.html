@@ -719,6 +719,8 @@ input.err{border-color:var(--red)}
 .module-updates li{font-size:13px;color:#475569;line-height:1.5;padding-left:16px;position:relative}
 .module-updates li::before{content:'→';position:absolute;left:0;color:#f59e0b;font-size:11px;top:1px}
 @media(max-width:768px){.michael-two-col{grid-template-columns:1fr!important}}
+.mod-header::after{content:'﹢';font-size:18px;color:rgba(255,255,255,.3);margin-left:auto;transition:.2s}
+.mod-card.open .mod-header::after{content:'－';color:rgba(255,255,255,.5)}
 </style>
 </head>
 <body>
@@ -948,16 +950,6 @@ input.err{border-color:var(--red)}
   </div>
   </section>
 
-<!-- MODULES — Blue section -->
-<section class="sec sec-blue" id="modules-sec">
-  <div class="sec-inner">
-    <span class="eyebrow">Inside the Platform</span>
-    <h2 class="h2 h2-white" style="margin-bottom:10px">Built by APC Chartered Surveyors</h2>
-    <p class="lead lead-white" style="margin-bottom:40px">Here is a taste of what is waiting inside the platform modules.</p>
-    <div class="mod-grid" id="landingModGrid"></div>
-  </div>
-</section>
-
 <section class="sec sec-dark" id="michael-sec" style="background:#0D0F1C;padding:72px 40px">
   <div style="max-width:1100px;margin:0 auto">
     <div style="text-align:center;margin-bottom:48px">
@@ -987,6 +979,17 @@ input.err{border-color:var(--red)}
     </div>
   </div>
 </section>
+
+<!-- MODULES — Blue section -->
+<section class="sec sec-blue" id="modules-sec">
+  <div class="sec-inner">
+    <span class="eyebrow">Inside the Platform</span>
+    <h2 class="h2 h2-white" style="margin-bottom:10px">Built by APC Chartered Surveyors</h2>
+    <p class="lead lead-white" style="margin-bottom:40px">Here is a taste of what is waiting inside the platform modules — <strong>click any module to explore its contents.</strong></p>
+    <div class="mod-grid" id="landingModGrid"></div>
+  </div>
+</section>
+
 
   <!-- WHY — White section -->
 <section class="sec sec-white" id="why-sec" style="padding-top:36px">

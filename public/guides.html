@@ -14,13 +14,13 @@ body{font-family:'Inter',sans-serif;background:#DBEAFE;color:#1a1a2e;min-height:
 nav{padding:18px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06);background:#0D0F1C}
 .nav-logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:700;color:#f8fafc;text-decoration:none}.nav-logo span{color:var(--gold)}
 .nav-back{font-size:13px;color:#94a3b8;text-decoration:none;transition:.18s}.nav-back:hover{color:#f8fafc}
-.wrap{max-width:1120px;margin:0 auto;padding:56px 24px 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:56px 24px 80px;overflow:hidden}
 .eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1d4ed8;margin-bottom:14px}
 h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(30px,5vw,48px);font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:14px;color:#0D0F1C}
 h1 em{font-style:italic;color:var(--gold)}
 .lead{font-size:16px;color:#3b5280;line-height:1.7;margin-bottom:36px;max-width:560px;font-weight:300}
-.guides-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px}
-@media(max-width:900px){.guides-grid{grid-template-columns:repeat(2,1fr)}}
+.guides-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px;overflow:hidden}
+@media(max-width:900px){.guides-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.guides-grid{grid-template-columns:1fr}}
 .guide-card{background:#ffffff;border:1px solid #BFDBFE;border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:12px;transition:.2s;text-decoration:none;color:#1a1a2e;box-shadow:0 2px 8px rgba(37,99,235,.07);cursor:pointer}
 .guide-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(37,99,235,.13);border-color:#93C5FD}
@@ -64,6 +64,11 @@ h1 em{font-style:italic;color:var(--gold)}
 .unlocked-banner.show{display:flex}
 .unlocked-banner p{font-size:14px;color:#166534;line-height:1.5}
 @media(max-width:500px){.form-row{grid-template-columns:1fr}.modal{padding:24px}}
+@media(max-width:768px){
+  body{overflow-x:hidden}
+  .guides-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;overflow:hidden}
+  *{max-width:100%;box-sizing:border-box}
+}
 </style>
 </head>
 <body>
@@ -149,7 +154,7 @@ h1 em{font-style:italic;color:var(--gold)}
     </a>
 
     <!-- PATHWAY INTERVIEW NOTE -->
-    <div style="grid-column:1 / span 3;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:16px 20px;margin-bottom:4px">
+    <div style="grid-column:1 / -1;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:16px 20px;margin-bottom:4px;overflow:hidden;word-wrap:break-word;overflow-wrap:break-word;max-width:100%">
       <p style="font-size:13px;color:#1e40af;line-height:1.65;margin:0"><strong style="color:#1d4ed8">Building Surveying and Quantity Surveying graduates face pathway-specific technical questions from their very first interview.</strong> These guides cover what the general graduate guide does not — defects knowledge and inspection methodology for BS, and commercial awareness and cost management thinking for QS. Pathway-specific guides for Commercial Real Estate, Project Management and Valuation are in development.</p>
     </div>
 

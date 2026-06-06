@@ -187,7 +187,7 @@ function setupQ2(q1){
   var cfg=q2config[q1];
   document.getElementById('q2text').textContent=cfg.text;
   var html='';
-  cfg.opts.forEach(function(o){html+='<button class="opt" onclick="pick(2,''+o.val+'')"><span>'+o.label+'</span></button>';});
+  cfg.opts.forEach(function(o){html+=`<button class="opt" onclick="pick(2,'${o.val}')"><span>${o.label}</span></button>`;});
   document.getElementById('q2opts').innerHTML=html;
 }
 

@@ -730,6 +730,39 @@ input.err{border-color:var(--red)}
 @media(max-width:480px){.info-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 .mod-title{white-space:normal;overflow-wrap:break-word;word-break:break-word}
 .pathway-label,.pathway-name,.mod-card-title{white-space:normal;overflow-wrap:break-word;word-break:break-word}
+
+.cpd-panel{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px 24px;margin-bottom:20px}
+.cpd-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cpd-panel-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em}
+.cpd-stats{display:flex;gap:24px;margin-bottom:16px}
+.cpd-stat-num{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;color:#fff;letter-spacing:-.03em}
+.cpd-stat-lbl{font-size:11px;color:rgba(248,250,252,.35);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.cpd-add-btn{background:#2563EB;color:#fff;border:none;padding:8px 16px;border-radius:7px;font-family:var(--f);font-size:12px;font-weight:700;cursor:pointer;transition:.15s}
+.cpd-add-btn:hover{background:#1d4ed8}
+.cpd-view-btn{background:transparent;color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:7px;font-family:var(--f);font-size:12px;cursor:pointer;transition:.15s}
+.cpd-view-btn:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+.cpd-form{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:18px;margin-top:14px;display:none}
+.cpd-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.cpd-form-full{grid-column:1/-1}
+.cpd-form label{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(248,250,252,.35);margin-bottom:5px}
+.cpd-form input,.cpd-form select,.cpd-form textarea{width:100%;padding:9px 12px;border:1.5px solid rgba(255,255,255,.08);border-radius:7px;font-family:var(--f);font-size:13px;color:#fff;background:rgba(255,255,255,.05);outline:none;transition:.18s;appearance:none}
+.cpd-form input:focus,.cpd-form select:focus,.cpd-form textarea:focus{border-color:rgba(37,99,235,.5)}
+.cpd-form select option{background:#111527;color:#fff}
+.cpd-form textarea{resize:vertical;min-height:72px}
+.cpd-form-actions{display:flex;gap:10px}
+.cpd-save-btn{background:#2563EB;color:#fff;border:none;padding:9px 20px;border-radius:7px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer}
+.cpd-cancel-btn{background:transparent;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);padding:9px 16px;border-radius:7px;font-family:var(--f);font-size:13px;cursor:pointer}
+.cpd-log-view{display:none;margin-top:14px}
+.cpd-log-table{width:100%;border-collapse:collapse}
+.cpd-log-table th{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,250,252,.3);padding:6px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.06)}
+.cpd-log-table td{font-size:13px;color:rgba(248,250,252,.7);padding:10px 10px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
+.cpd-log-table tr:last-child td{border-bottom:none}
+.cpd-type-s{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;background:rgba(37,99,235,.15);color:#60a5fa;letter-spacing:.06em}
+.cpd-type-u{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;background:rgba(16,185,129,.1);color:#6ee7b7;letter-spacing:.06em}
+.cpd-delete-btn{background:none;border:none;color:rgba(248,250,252,.2);font-size:12px;cursor:pointer;padding:0}
+.cpd-delete-btn:hover{color:#f87171}
+.cpd-empty{font-size:13px;color:rgba(248,250,252,.3);text-align:center;padding:20px 0;font-style:italic}
+@media(max-width:768px){.cpd-form-grid{grid-template-columns:1fr}.cpd-stats{gap:16px}}
 </style>
 </head>
 <body>
@@ -1389,6 +1422,92 @@ document.addEventListener('click', function(e) {
 
       </div>
 
+      <div class="cpd-panel" id="cpdPanel">
+        <div class="cpd-panel-header">
+          <div class="cpd-panel-title">📋 CPD Log</div>
+          <div style="display:flex;gap:8px">
+            <button class="cpd-view-btn" onclick="cpdToggleLog()">View log</button>
+            <button class="cpd-add-btn" onclick="cpdToggleForm()">+ Add entry</button>
+          </div>
+        </div>
+        <div class="cpd-stats">
+          <div>
+            <div class="cpd-stat-num" id="cpdTotalHours">0</div>
+            <div class="cpd-stat-lbl">Total hours</div>
+          </div>
+          <div>
+            <div class="cpd-stat-num" id="cpdEntryCount">0</div>
+            <div class="cpd-stat-lbl">Entries logged</div>
+          </div>
+          <div>
+            <div class="cpd-stat-num" id="cpdLastEntry">—</div>
+            <div class="cpd-stat-lbl">Last entry</div>
+          </div>
+        </div>
+        <div class="cpd-form" id="cpdForm">
+          <div class="cpd-form-grid">
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" id="cpdDate">
+            </div>
+            <div class="form-group">
+              <label>Hours</label>
+              <input type="number" id="cpdHours" placeholder="1.5" step="0.5" min="0.5">
+            </div>
+            <div class="form-group cpd-form-full">
+              <label>Activity</label>
+              <textarea id="cpdActivity" placeholder="Describe the CPD activity..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Competency</label>
+              <select id="cpdCompetency">
+                <option value="General">General / APC preparation</option>
+                <option value="Ethics">Ethics, Conduct &amp; Professionalism</option>
+                <option value="Client Care">Client Care</option>
+                <option value="Communication">Communication &amp; Negotiation</option>
+                <option value="Health &amp; Safety">Health &amp; Safety</option>
+                <option value="Accounting">Accounting Principles &amp; Procedures</option>
+                <option value="Business Planning">Business Planning</option>
+                <option value="Conflict">Conflict Avoidance &amp; Dispute Resolution</option>
+                <option value="Data Management">Data Management</option>
+                <option value="Sustainability">Sustainability</option>
+                <option value="Inclusive Practice">Inclusive Professional Practice</option>
+                <option value="Teamworking">Diversity, Inclusion &amp; Teamworking</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Type</label>
+              <select id="cpdType">
+                <option value="Structured">Structured</option>
+                <option value="Unstructured">Unstructured</option>
+              </select>
+            </div>
+          </div>
+          <div class="cpd-form-actions">
+            <button class="cpd-save-btn" onclick="cpdSaveEntry()">Save entry</button>
+            <button class="cpd-cancel-btn" onclick="cpdToggleForm()">Cancel</button>
+          </div>
+          <div id="cpdFormMsg" style="font-size:12px;margin-top:8px;display:none"></div>
+        </div>
+        <div class="cpd-log-view" id="cpdLogView">
+          <table class="cpd-log-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Activity</th>
+                <th>Competency</th>
+                <th>Hrs</th>
+                <th>Type</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cpdLogBody">
+              <tr><td colspan="6" class="cpd-empty">No entries yet — add your first CPD activity above.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="dash-welcome" style="display:none">
         <p id="dashSubOld"></p>
         <div class="progress-bar-wrap" style="display:none"><div class="progress-bar-fill" id="dashProgressBarOld"></div></div>
@@ -1919,6 +2038,7 @@ async function renderDashboard() {
     `;
     document.getElementById('dashModGrid').before(banner);
   }
+  cpdLoad();
 }
 
 // ── MODULE PAGE ───────────────────────────────────────────────────────────────
@@ -3024,6 +3144,140 @@ document.addEventListener('click', function(e) {
     closeProgrammesDropdown();
   }
 });
+
+// ── CPD TRACKER ────────────────────────────────────────────────────
+
+var cpdEntries = [];
+
+async function cpdLoad() {
+  try {
+    const token = getToken();
+    if (!token) return;
+    const r = await fetch('/.netlify/functions/get-cpd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token })
+    });
+    const d = await r.json();
+    if (d.success) {
+      cpdEntries = d.entries || [];
+      cpdUpdateDisplay();
+    }
+  } catch(e) { console.log('CPD load error:', e); }
+}
+
+function cpdUpdateDisplay() {
+  var total = cpdEntries.reduce(function(sum, e) { return sum + parseFloat(e.hours || 0); }, 0);
+  var el = document.getElementById('cpdTotalHours');
+  if (el) el.textContent = total % 1 === 0 ? total : total.toFixed(1);
+  var countEl = document.getElementById('cpdEntryCount');
+  if (countEl) countEl.textContent = cpdEntries.length;
+  var lastEl = document.getElementById('cpdLastEntry');
+  if (lastEl) {
+    if (cpdEntries.length > 0) {
+      var d = new Date(cpdEntries[0].date);
+      lastEl.textContent = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    } else {
+      lastEl.textContent = '—';
+    }
+  }
+  cpdRenderLog();
+}
+
+function cpdRenderLog() {
+  var tbody = document.getElementById('cpdLogBody');
+  if (!tbody) return;
+  if (cpdEntries.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" class="cpd-empty">No entries yet — add your first CPD activity above.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = cpdEntries.map(function(e) {
+    var d = new Date(e.date);
+    var dateStr = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' });
+    var typeBadge = e.type === 'Structured' ? '<span class="cpd-type-s">S</span>' : '<span class="cpd-type-u">U</span>';
+    return '<tr>' +
+      '<td style="white-space:nowrap">' + dateStr + '</td>' +
+      '<td>' + e.activity + '</td>' +
+      '<td style="white-space:nowrap">' + e.competency + '</td>' +
+      '<td style="white-space:nowrap">' + e.hours + '</td>' +
+      '<td>' + typeBadge + '</td>' +
+      '<td><button class="cpd-delete-btn" onclick="cpdDelete(\'' + e.id + '\')">\u2715</button></td>' +
+      '</tr>';
+  }).join('');
+}
+
+function cpdToggleForm() {
+  var form = document.getElementById('cpdForm');
+  if (!form) return;
+  var isVisible = form.style.display === 'block';
+  form.style.display = isVisible ? 'none' : 'block';
+  if (!isVisible) {
+    var today = new Date().toISOString().split('T')[0];
+    var dateEl = document.getElementById('cpdDate');
+    if (dateEl) dateEl.value = today;
+  }
+}
+
+function cpdToggleLog() {
+  var log = document.getElementById('cpdLogView');
+  if (!log) return;
+  var isVisible = log.style.display === 'block';
+  log.style.display = isVisible ? 'none' : 'block';
+  var btn = document.querySelector('.cpd-view-btn');
+  if (btn) btn.textContent = isVisible ? 'View log' : 'Hide log';
+}
+
+async function cpdSaveEntry() {
+  var activity = document.getElementById('cpdActivity').value.trim();
+  var hours = document.getElementById('cpdHours').value;
+  var date = document.getElementById('cpdDate').value;
+  var competency = document.getElementById('cpdCompetency').value;
+  var type = document.getElementById('cpdType').value;
+  var msg = document.getElementById('cpdFormMsg');
+
+  if (!activity || !hours || !date) {
+    if (msg) { msg.style.display = 'block'; msg.style.color = '#fca5a5'; msg.textContent = 'Please fill in date, activity and hours.'; }
+    return;
+  }
+
+  try {
+    const token = getToken();
+    const r = await fetch('/.netlify/functions/save-cpd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, entry: { date, activity, hours: parseFloat(hours), competency, type } })
+    });
+    const d = await r.json();
+    if (d.success) {
+      cpdEntries.unshift(d.entry);
+      cpdUpdateDisplay();
+      document.getElementById('cpdActivity').value = '';
+      document.getElementById('cpdHours').value = '';
+      document.getElementById('cpdForm').style.display = 'none';
+      if (msg) msg.style.display = 'none';
+    }
+  } catch(e) {
+    if (msg) { msg.style.display = 'block'; msg.style.color = '#fca5a5'; msg.textContent = 'Could not save. Please try again.'; }
+  }
+}
+
+async function cpdDelete(entryId) {
+  if (!confirm('Delete this CPD entry?')) return;
+  try {
+    const token = getToken();
+    const r = await fetch('/.netlify/functions/delete-cpd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, entryId })
+    });
+    const d = await r.json();
+    if (d.success) {
+      cpdEntries = cpdEntries.filter(function(e) { return e.id !== entryId; });
+      cpdUpdateDisplay();
+    }
+  } catch(e) {}
+}
+
 
 
 </script>

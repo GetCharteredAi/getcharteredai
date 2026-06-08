@@ -1925,11 +1925,11 @@ async function renderDashboard() {
   let actionsHTML = '';
 
   if (lastMod) {
-    actionsHTML += `<a class="ds-btn ds-btn-primary" onclick="openModule(${lastMod.id})">
+    actionsHTML += `<a class="ds-btn ds-btn-primary" style="min-width:0;flex:1" onclick="openModule(${lastMod.id})">
       <span class="ds-btn-icon">▶️</span>
       <div class="ds-btn-text">
         <span class="ds-btn-label">Continue</span>
-        <span class="ds-btn-val" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:calc(100% - 20px)">${lastMod.num}: ${lastMod.title}</span>
+        <span class="ds-btn-val" style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:calc(100% - 20px)">${lastMod.num}: ${lastMod.title}</span>
       </div>
     </a>`;
   } else if (done === 0) {

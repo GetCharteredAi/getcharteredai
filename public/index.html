@@ -1596,7 +1596,7 @@ function clearToken() {
 // Returns { valid, email, plan, activatedAt } or { valid: false }
 async function getSession() {
   const token = getToken();
-  if (!token) return { valid: false };
+  if (!token) { console.log('[getSession] no token'); return { valid: false }; }
   try {
     const r = await fetch('/.netlify/functions/login', {
       method: 'POST',
@@ -1604,6 +1604,7 @@ async function getSession() {
       body: JSON.stringify({ token })
     });
     const d = await r.json();
+    console.log('[getSession] login response:', JSON.stringify(d));
     if (d.valid) {
       currentUser = d.email;
       localStorage.setItem('gca_plan', d.plan);
@@ -1612,7 +1613,7 @@ async function getSession() {
     }
     clearToken();
     return { valid: false };
-  } catch { return { valid: false }; }
+  } catch(e) { console.log('[getSession] fetch error:', e.message); return { valid: false }; }
 }
 
 async function hasAccess() {
@@ -1650,11 +1651,14 @@ function getLastInProgressModule(plan, activatedAt) {
 }
 
 function isModuleUnlocked(modId, plan, activatedAt) {
+  console.log('[isModuleUnlocked] modId:', modId, 'plan:', plan);
   if (plan === 'referred') {
-    return modId >= 13 && modId <= 18; // Only Confidence Reset modules
+    const result = modId >= 13 && modId <= 18;
+    console.log('[isModuleUnlocked] referred plan — result:', result, '(modId 13-18 allowed)');
+    return result;
   }
   if (plan === 'sprint') {
-    return modId === 1 || modId === 12; // Sprint: Module 1 and 12 only
+    return modId === 1 || modId === 12;
   }
   const unlocked = getUnlockedCount(plan, activatedAt);
   return modId <= unlocked;
@@ -1882,11 +1886,17 @@ async function landingCardClick(id) {
 
 
 async function requireAccess(modId) {
+  console.log('[requireAccess] called with modId:', modId);
   const session = await getSession();
-  if (!session.valid) { return; }
+  console.log('[requireAccess] session:', JSON.stringify(session));
+  if (!session.valid) { console.log('[requireAccess] BLOCKED — session not valid'); return; }
   const plan = session.plan || localStorage.getItem('gca_plan') || 'monthly';
   const activatedAt = session.activatedAt || parseInt(localStorage.getItem('gca_activated')) || Date.now();
-  if (isModuleUnlocked(modId, plan, activatedAt)) {
+  console.log('[requireAccess] plan:', plan, 'activatedAt:', activatedAt);
+  const unlockResult = isModuleUnlocked(modId, plan, activatedAt);
+  console.log('[requireAccess] isModuleUnlocked('+modId+', '+plan+'):', unlockResult);
+  if (unlockResult) {
+    console.log('[requireAccess] ACCESS GRANTED — calling openModule');
     openModule(modId, plan, activatedAt);
     showView('module');
   } else {

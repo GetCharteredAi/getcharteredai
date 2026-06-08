@@ -5,7 +5,7 @@ function verifyToken(token) {
   if (parts.length !== 2) throw new Error('Invalid token format');
   const payload = JSON.parse(Buffer.from(parts[0], 'base64').toString());
   if (payload.expires && Date.now() > payload.expires) throw new Error('Token expired');
-  const secret = process.env.JWT_SECRET || 'gca-secure-platform-2025-apc';
+  const secret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
   const expectedSig = Buffer.from(`${parts[0]}.${secret}`).toString('base64').slice(0, 32);
   if (parts[1] !== expectedSig) throw new Error('Invalid token');
   return payload;

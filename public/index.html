@@ -307,7 +307,7 @@ footer{background:#0D0F1C;padding:52px 32px 32px}
 .ds-btn-icon{font-size:18px;flex-shrink:0}
 .ds-btn-text{flex:1;min-width:0}
 .ds-btn-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
-.ds-btn-val{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ds-btn-val{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .ds-btn-primary .ds-btn-label{color:#2563EB}
 .ds-btn-primary .ds-btn-val{color:#1d4ed8}
 
@@ -609,7 +609,7 @@ input.err{border-color:var(--red)}
 .ds-btn-icon{font-size:18px;flex-shrink:0}
 .ds-btn-text{flex:1;min-width:0}
 .ds-btn-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
-.ds-btn-val{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ds-btn-val{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .ds-btn-primary .ds-btn-label{color:#2563EB}
 .ds-btn-primary .ds-btn-val{color:#1d4ed8}
 
@@ -2079,6 +2079,7 @@ async function renderDashboard() {
 function openModule(id, plan, activatedAt) {
   plan = plan || localStorage.getItem('gca_plan') || 'annual';
   activatedAt = activatedAt || parseInt(localStorage.getItem('gca_activated')) || Date.now();
+  console.log('plan value:', plan);
   aiHistory = []; // reset AI conversation on new module
   currentModuleId = id;
   quizAnswers = {};
@@ -2110,7 +2111,7 @@ function openModule(id, plan, activatedAt) {
       <h1>${m.title}</h1>
       <p>${m.intro}</p>
     </div>
-    ${m.sections.filter(s => !s.h.startsWith('Sprint Learners') || plan === 'sprint').map((s,i) => `
+    ${m.sections.filter(s => !(s.h.startsWith('Sprint Learners') && plan !== 'sprint')).map((s,i) => `
       <div class="content-section" id="sec-${id}-${i}">
         <h2>${s.h}</h2>
         <div class="content-body">${s.body}</div>

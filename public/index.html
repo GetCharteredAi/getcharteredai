@@ -1699,30 +1699,37 @@ async function doLogin() {
   const err = document.getElementById('loginErr');
   const btn = document.querySelector('#loginModal .form-submit');
   if (!email || !pass) { err.textContent = 'Please enter your email and password.'; err.style.display='block'; return; }
-  // Admin test login
-  if (email === 'test@getcharteredai.com' && pass === 'testing911') {
-    const plan = (document.getElementById('adminPlan') || {}).value || 'annual';
+
+  // Admin test account — bypasses normal login entirely
+  if (email === 'test@getcharteredai.com') {
     try {
       const r = await fetch('/.netlify/functions/admin-login', {
         method: 'POST', headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ email, password: pass, plan })
+        body: JSON.stringify({ email, password: pass, plan: 'annual' })
       });
       const d = await r.json();
       if (d.token) {
         setToken(d.token);
         currentUser = d.email;
         localStorage.setItem('gca_user', d.email);
-        localStorage.setItem('gca_plan', d.plan);
-        localStorage.setItem('gca_activated', d.activatedAt.toString());
+        localStorage.setItem('gca_plan', 'annual');
+        localStorage.setItem('gca_activated', Date.now().toString());
         err.style.display = 'none';
         closeLogin();
         showView('dashboard');
         renderDashboard();
-        return;
+      } else {
+        err.textContent = 'Incorrect password for test account.';
+        err.style.display = 'block';
       }
-    } catch(e) { err.textContent = 'Admin login failed.'; err.style.display = 'block'; return; }
+    } catch(e) {
+      err.textContent = 'Admin login error. Please try again.';
+      err.style.display = 'block';
+    }
+    return;
   }
-  // Check stored token matches this email
+
+  // Normal login — validate stored token
   const token = getToken();
   if (token) {
     try {

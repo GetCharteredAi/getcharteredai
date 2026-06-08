@@ -1700,6 +1700,27 @@ function openLogin() {
 function closeLogin() {
   document.getElementById('loginModal').classList.remove('open');
 }
+function showPlanSelector() {
+  return new Promise(resolve => {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center';
+    const card = document.createElement('div');
+    card.style.cssText = 'background:#0D0F1C;border:1px solid #2563EB;border-radius:12px;padding:32px 28px;min-width:260px;text-align:center';
+    card.innerHTML = '<div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:20px;letter-spacing:.01em">Select Test Plan</div>';
+    ['annual','monthly','sprint','referred'].forEach(plan => {
+      const btn = document.createElement('button');
+      btn.textContent = plan.charAt(0).toUpperCase() + plan.slice(1);
+      btn.style.cssText = 'display:block;width:100%;padding:10px 0;margin-bottom:10px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s';
+      btn.onmouseenter = () => { btn.style.background = '#1d4ed8'; };
+      btn.onmouseleave = () => { btn.style.background = '#2563EB'; };
+      btn.onclick = () => { document.body.removeChild(overlay); resolve(plan); };
+      card.appendChild(btn);
+    });
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+  });
+}
+
 async function doLogin() {
   const email = document.getElementById('loginEmail').value.trim().toLowerCase();
   const pass = document.getElementById('loginPassword').value;
@@ -1709,17 +1730,18 @@ async function doLogin() {
 
   // Admin test account — bypasses normal login entirely
   if (email === 'test@getcharteredai.com') {
+    const selectedPlan = await showPlanSelector();
     try {
       const r = await fetch('/.netlify/functions/admin-login', {
         method: 'POST', headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ email, password: pass, plan: 'annual' })
+        body: JSON.stringify({ email, password: pass, plan: selectedPlan })
       });
       const d = await r.json();
       if (d.token) {
         setToken(d.token);
         currentUser = d.email;
         localStorage.setItem('gca_user', d.email);
-        localStorage.setItem('gca_plan', 'annual');
+        localStorage.setItem('gca_plan', selectedPlan);
         localStorage.setItem('gca_activated', Date.now().toString());
         err.style.display = 'none';
         closeLogin();

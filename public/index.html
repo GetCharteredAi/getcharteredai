@@ -1929,7 +1929,7 @@ async function renderDashboard() {
       <span class="ds-btn-icon">▶️</span>
       <div class="ds-btn-text">
         <span class="ds-btn-label">Continue</span>
-        <span class="ds-btn-val">${lastMod.num}: ${lastMod.title}</span>
+        <span class="ds-btn-val" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:calc(100% - 20px)">${lastMod.num}: ${lastMod.title}</span>
       </div>
     </a>`;
   } else if (done === 0) {
@@ -2111,7 +2111,7 @@ function openModule(id, plan, activatedAt) {
       <h1>${m.title}</h1>
       <p>${m.intro}</p>
     </div>
-    ${m.sections.filter(s => !(s.h.startsWith('Sprint Learners') && plan !== 'sprint')).map((s,i) => `
+    ${m.sections.filter(s => !(s.h.includes('Sprint Learners') && plan !== 'sprint')).map((s,i) => `
       <div class="content-section" id="sec-${id}-${i}">
         <h2>${s.h}</h2>
         <div class="content-body">${s.body}</div>
@@ -3282,6 +3282,7 @@ async function cpdSaveEntry() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token, entry: { date, activity, hours: parseFloat(hours), competency, type } })
     });
+    if (!r.ok) { const errText = await r.text(); alert('CPD save failed: ' + r.status + ' ' + errText); return; }
     const d = await r.json();
     if (d.success) {
       cpdEntries.unshift(d.entry);

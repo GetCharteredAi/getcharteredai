@@ -1653,8 +1653,8 @@ function getLastInProgressModule(plan, activatedAt) {
 function isModuleUnlocked(modId, plan, activatedAt) {
   console.log('[isModuleUnlocked] modId:', modId, 'plan:', plan);
   if (plan === 'referred') {
-    const result = modId >= 13 && modId <= 18;
-    console.log('[isModuleUnlocked] referred plan — result:', result, '(modId 13-18 allowed)');
+    const result = modId === 12 || (modId >= 13 && modId <= 18);
+    console.log('[isModuleUnlocked] referred plan — result:', result, '(modId 12-18 allowed)');
     return result;
   }
   if (plan === 'sprint') {
@@ -1907,6 +1907,17 @@ async function requireAccess(modId) {
   }
 }
 
+function openAITutorDirect() {
+  openModule(12);
+  showView('module');
+  setTimeout(() => { const el = document.getElementById('aiTutorBox'); if (el) el.scrollIntoView({behavior:'smooth'}); }, 300);
+}
+function openMockInterviewDirect() {
+  openModule(12);
+  showView('module');
+  setTimeout(() => { const el = document.getElementById('mockSimulator'); if (el) el.scrollIntoView({behavior:'smooth'}); }, 300);
+}
+
 // ── DASHBOARD ─────────────────────────────────────────────────────────────────
 async function renderDashboard() {
   const session = await getSession();
@@ -1978,7 +1989,7 @@ async function renderDashboard() {
   }
 
   // Michael link — always available
-  actionsHTML += `<a class="ds-btn" onclick="openModule(12); showView('module')">
+  actionsHTML += `<a class="ds-btn" onclick="${plan === 'referred' ? 'openAITutorDirect()' : 'openModule(12); showView(\'module\')'}" >
     <span class="ds-btn-icon">🎓</span>
     <div class="ds-btn-text">
       <span class="ds-btn-label">Ask Michael</span>
@@ -1998,7 +2009,7 @@ async function renderDashboard() {
       </div>
     </a>`;
   } else if (plan === 'referred') {
-    actionsHTML += `<a class="ds-btn" onclick="openModule(12); showView('module')">
+    actionsHTML += `<a class="ds-btn" onclick="openMockInterviewDirect()">
       <span class="ds-btn-icon">🎯</span>
       <div class="ds-btn-text">
         <span class="ds-btn-label">Mock Interview</span>

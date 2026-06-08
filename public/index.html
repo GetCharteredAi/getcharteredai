@@ -1661,6 +1661,13 @@ function isModuleUnlocked(modId, plan, activatedAt) {
 }
 
 // ── VIEWS ─────────────────────────────────────────────────────────────────────
+window.addEventListener('popstate', function() {
+  if (getToken()) {
+    history.pushState(null, '', window.location.href);
+    showView('dashboard');
+  }
+});
+
 function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
@@ -1922,7 +1929,7 @@ async function renderDashboard() {
       <span class="ds-btn-icon">▶️</span>
       <div class="ds-btn-text">
         <span class="ds-btn-label">Continue</span>
-        <span class="ds-btn-val">${lastMod.num}: ${lastMod.title.substring(0,28)}${lastMod.title.length>28?'…':''}</span>
+        <span class="ds-btn-val">${lastMod.num}: ${lastMod.title}</span>
       </div>
     </a>`;
   } else if (done === 0) {
@@ -2103,7 +2110,7 @@ function openModule(id, plan, activatedAt) {
       <h1>${m.title}</h1>
       <p>${m.intro}</p>
     </div>
-    ${m.sections.map((s,i) => `
+    ${m.sections.filter(s => !s.h.startsWith('Sprint Learners') || localStorage.getItem('gca_plan') === 'sprint').map((s,i) => `
       <div class="content-section" id="sec-${id}-${i}">
         <h2>${s.h}</h2>
         <div class="content-body">${s.body}</div>
@@ -3190,7 +3197,7 @@ async function cpdLoad() {
       cpdEntries = d.entries || [];
       cpdUpdateDisplay();
     }
-  } catch(e) { console.log('CPD load error:', e); }
+  } catch(e) { console.error('CPD load error:', e); }
 }
 
 function cpdUpdateDisplay() {
@@ -3285,6 +3292,7 @@ async function cpdSaveEntry() {
     }
   } catch(e) {
     if (msg) { msg.style.display = 'block'; msg.style.color = '#fca5a5'; msg.textContent = 'Could not save. Please try again.'; }
+    console.error('CPD save error:', e);
   }
 }
 

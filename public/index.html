@@ -351,6 +351,7 @@ footer{background:#0D0F1C;padding:52px 32px 32px}
 .mod-toc-item:hover{color:#fff;background:rgba(255,255,255,.04)}
 .mod-toc-item.active{color:#fff;border-left-color:var(--blue);background:rgba(255,255,255,.05)}
 .mod-content{padding:40px;background:var(--off);overflow-y:auto}
+.sim-direct-mode .mod-header{display:none}
 .mod-header{background:var(--blue);border-radius:14px;padding:28px;margin-bottom:28px;color:#fff}
 .mod-header-num{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:6px}
 .mod-header h1{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-bottom:8px}
@@ -1907,14 +1908,16 @@ async function requireAccess(modId) {
   }
 }
 
-function openAITutorDirect() {
+function openAITutorDirect(skipHeader) {
   openModule(12);
   showView('module');
+  if (skipHeader) { const mc = document.getElementById('modContent'); if (mc) mc.classList.add('sim-direct-mode'); }
   setTimeout(() => { const el = document.getElementById('aiTutorBox'); if (el) el.scrollIntoView({behavior:'smooth'}); }, 500);
 }
-function openMockInterviewDirect() {
+function openMockInterviewDirect(skipHeader) {
   openModule(12);
   showView('module');
+  if (skipHeader) { const mc = document.getElementById('modContent'); if (mc) mc.classList.add('sim-direct-mode'); }
   setTimeout(() => { const el = document.getElementById('mockSimulator'); if (el) el.scrollIntoView({behavior:'smooth'}); }, 500);
 }
 
@@ -1989,7 +1992,7 @@ async function renderDashboard() {
   }
 
   // Michael link — always available
-  actionsHTML += `<a class="ds-btn" onclick="${plan === 'referred' ? 'openAITutorDirect()' : 'openModule(12); showView(\'module\')'}" >
+  actionsHTML += `<a class="ds-btn" onclick="${plan === 'referred' ? 'openAITutorDirect()' : plan === 'sprint' ? 'openAITutorDirect(true)' : 'openModule(12); showView(\'module\')'}" >
     <span class="ds-btn-icon">🎓</span>
     <div class="ds-btn-text">
       <span class="ds-btn-label">Ask Michael</span>
@@ -2001,7 +2004,7 @@ async function renderDashboard() {
   const mockMod = MODULES.find(m => m.id === 12);
   const mockUnlocked = plan === 'annual' || plan === 'sprint' || (plan === 'monthly' && isModuleUnlocked(12, plan, activatedAt));
   if (mockUnlocked && plan !== 'referred') {
-    actionsHTML += `<a class="ds-btn" onclick="openModule(12); showView('module')">
+    actionsHTML += `<a class="ds-btn" onclick="${plan === 'sprint' ? 'openMockInterviewDirect(true)' : 'openModule(12); showView(\'module\')'}" >
       <span class="ds-btn-icon">🎯</span>
       <div class="ds-btn-text">
         <span class="ds-btn-label">Mock Interview</span>
@@ -2129,6 +2132,8 @@ function openModule(id, plan, activatedAt) {
   quizSubmitted = false;
   const m = MODULES.find(x => x.id === id);
   if (!m) return;
+  const _mc = document.getElementById('modContent');
+  if (_mc) _mc.classList.remove('sim-direct-mode');
 
   // Sidebar TOC
   const sb = document.getElementById('modSidebar');

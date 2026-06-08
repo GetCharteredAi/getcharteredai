@@ -1957,7 +1957,7 @@ async function renderDashboard() {
   let actionsHTML = '';
 
   if (lastMod) {
-    actionsHTML += `<a class="ds-btn ds-btn-primary" style="min-width:0;flex:1" onclick="openModule(${lastMod.id})">
+    actionsHTML += `<a class="ds-btn ds-btn-primary" style="min-width:0;flex:1" onclick="openModule(${lastMod.id}); showView('module')">
       <span class="ds-btn-icon">▶️</span>
       <div class="ds-btn-text">
         <span class="ds-btn-label">Continue</span>
@@ -1967,7 +1967,7 @@ async function renderDashboard() {
   } else if (done === 0) {
     const firstMod = MODULES.find(m => isModuleUnlocked(m.id, plan, activatedAt));
     if (firstMod) {
-      actionsHTML += `<a class="ds-btn ds-btn-primary" onclick="openModule(${firstMod.id})">
+      actionsHTML += `<a class="ds-btn ds-btn-primary" onclick="openModule(${firstMod.id}); showView('module')">
         <span class="ds-btn-icon">🚀</span>
         <div class="ds-btn-text">
           <span class="ds-btn-label">Start here</span>
@@ -1978,11 +1978,11 @@ async function renderDashboard() {
   }
 
   // Michael link — always available
-  actionsHTML += `<a class="ds-btn" onclick="openModule(12)">
+  actionsHTML += `<a class="ds-btn" onclick="openModule(12); showView('module')">
     <span class="ds-btn-icon">🎓</span>
     <div class="ds-btn-text">
-      <span class="ds-btn-label">AI Tutor</span>
-      <span class="ds-btn-val">${plan === 'referred' ? 'Michael — Assessor Mode' : 'Ask Michael'}</span>
+      <span class="ds-btn-label">Ask Michael</span>
+      <span class="ds-btn-val">AI Tutor · 24/7</span>
     </div>
   </a>`;
 
@@ -1990,7 +1990,7 @@ async function renderDashboard() {
   const mockMod = MODULES.find(m => m.id === 12);
   const mockUnlocked = plan === 'annual' || plan === 'sprint' || (plan === 'monthly' && isModuleUnlocked(12, plan, activatedAt));
   if (mockUnlocked && plan !== 'referred') {
-    actionsHTML += `<a class="ds-btn" onclick="openModule(12)">
+    actionsHTML += `<a class="ds-btn" onclick="openModule(12); showView('module')">
       <span class="ds-btn-icon">🎯</span>
       <div class="ds-btn-text">
         <span class="ds-btn-label">Mock Interview</span>
@@ -1998,11 +1998,11 @@ async function renderDashboard() {
       </div>
     </a>`;
   } else if (plan === 'referred') {
-    actionsHTML += `<a class="ds-btn" onclick="openModule(12)">
+    actionsHTML += `<a class="ds-btn" onclick="openModule(12); showView('module')">
       <span class="ds-btn-icon">🎯</span>
       <div class="ds-btn-text">
-        <span class="ds-btn-label">Assessor Practice</span>
-        <span class="ds-btn-val">Assessor Mode — Michael</span>
+        <span class="ds-btn-label">Mock Interview</span>
+        <span class="ds-btn-val">Assessor Mode · Michael</span>
       </div>
     </a>`;
   } else if (plan === 'monthly') {

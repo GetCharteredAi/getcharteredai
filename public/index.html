@@ -302,14 +302,14 @@ footer{background:#0D0F1C;padding:52px 32px 32px}
 .ds-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
 .ds-btn{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.03);cursor:pointer;text-decoration:none;transition:.18s}
 .ds-btn:hover{border-color:rgba(37,99,235,.4);background:rgba(37,99,235,.06)}
-.ds-btn-primary{background:rgba(37,99,235,.12);border-color:rgba(37,99,235,.35)}
+.ds-btn-primary{background:#eff6ff;border-color:#bfdbfe}
 .ds-btn-primary:hover{background:rgba(37,99,235,.2)}
 .ds-btn-icon{font-size:18px;flex-shrink:0}
 .ds-btn-text{flex:1;min-width:0}
 .ds-btn-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
 .ds-btn-val{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ds-btn-primary .ds-btn-label{color:#93c5fd}
-.ds-btn-primary .ds-btn-val{color:#fff}
+.ds-btn-primary .ds-btn-label{color:#2563EB}
+.ds-btn-primary .ds-btn-val{color:#1d4ed8}
 
 .dash-layout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 60px);margin-top:60px}
 .sidebar{background:#0D0F1C;padding:24px 0;border-right:1px solid rgba(255,255,255,.06);position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto}
@@ -604,14 +604,14 @@ input.err{border-color:var(--red)}
 .ds-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
 .ds-btn{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.03);cursor:pointer;text-decoration:none;transition:.18s}
 .ds-btn:hover{border-color:rgba(37,99,235,.4);background:rgba(37,99,235,.06)}
-.ds-btn-primary{background:rgba(37,99,235,.12);border-color:rgba(37,99,235,.35)}
+.ds-btn-primary{background:#eff6ff;border-color:#bfdbfe}
 .ds-btn-primary:hover{background:rgba(37,99,235,.2)}
 .ds-btn-icon{font-size:18px;flex-shrink:0}
 .ds-btn-text{flex:1;min-width:0}
 .ds-btn-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
 .ds-btn-val{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ds-btn-primary .ds-btn-label{color:#93c5fd}
-.ds-btn-primary .ds-btn-val{color:#fff}
+.ds-btn-primary .ds-btn-label{color:#2563EB}
+.ds-btn-primary .ds-btn-val{color:#1d4ed8}
 
 /* ── MOBILE HAMBURGER ─────────────────────────────────────────────────────── */
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;margin-left:auto}
@@ -1661,9 +1661,9 @@ function isModuleUnlocked(modId, plan, activatedAt) {
 }
 
 // ── VIEWS ─────────────────────────────────────────────────────────────────────
-window.addEventListener('popstate', function() {
-  if (getToken()) {
-    history.pushState(null, '', window.location.href);
+window.addEventListener('popstate', function(e) {
+  if (e.state && e.state.page === 'dashboard' && getToken()) {
+    history.pushState({page: 'dashboard'}, '');
     showView('dashboard');
   }
 });
@@ -1672,7 +1672,7 @@ function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
   window.scrollTo(0,0);
-  if (name === 'dashboard') renderDashboard();
+  if (name === 'dashboard') { renderDashboard(); history.pushState({page: 'dashboard'}, ''); }
   if (name === 'landing') updateNav();
   updateNav();
   // Hide announcement bar for logged-in members
@@ -2110,7 +2110,7 @@ function openModule(id, plan, activatedAt) {
       <h1>${m.title}</h1>
       <p>${m.intro}</p>
     </div>
-    ${m.sections.filter(s => !s.h.startsWith('Sprint Learners') || localStorage.getItem('gca_plan') === 'sprint').map((s,i) => `
+    ${m.sections.filter(s => !s.h.startsWith('Sprint Learners') || plan === 'sprint').map((s,i) => `
       <div class="content-section" id="sec-${id}-${i}">
         <h2>${s.h}</h2>
         <div class="content-body">${s.body}</div>

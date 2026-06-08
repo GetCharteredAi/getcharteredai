@@ -21,7 +21,7 @@ exports.handler = async (event) => {
     const payload = verifyToken(token);
     const email = payload.email;
 
-    const store = getStore('cpd-logs');
+    const store = getStore({ name: 'cpd-logs', siteID: process.env.SITE_ID || process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_TOKEN || process.env.NETLIFY_ACCESS_TOKEN });
 
     let entries = [];
     try {

@@ -2095,7 +2095,7 @@ function openModule(id, plan, activatedAt) {
       <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.3">${m.title}</div>
     </div>
     <div>
-      ${m.sections.map((s,i) => `<div class="mod-toc-item" onclick="scrollToSection('sec-${id}-${i}')" id="toc-${id}-${i}">${s.h}</div>`).join('')}
+      ${m.sections.filter(s => !(s.h.includes('Sprint Learners') && plan !== 'sprint')).map((s,i) => `<div class="mod-toc-item" onclick="scrollToSection('sec-${id}-${i}')" id="toc-${id}-${i}">${s.h}</div>`).join('')}
       <div class="mod-toc-item" onclick="scrollToSection('quiz-${id}')">📝 Module Quiz</div>
     </div>
   `;

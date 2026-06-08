@@ -2165,7 +2165,7 @@ function openModule(id, plan, activatedAt) {
     <div class="mod-header">
       <div class="mod-header-num">Module ${m.num} · ${m.level}</div>
       <h1>${m.title}</h1>
-      <p>${m.intro}</p>
+      <p>${plan === 'sprint' && id === 1 ? 'You have submitted. You have the experience. Now it is time to perform. This module cuts straight to what matters in the final weeks before your interview.' : m.intro}</p>
     </div>
     ${m.sections.filter(s => {
       if (s.h.includes('Sprint Learners') && plan !== 'sprint') return false;

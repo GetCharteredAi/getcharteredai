@@ -1881,7 +1881,7 @@ async function doLogin() {
 }
 
 // ── STRIPE CHECKOUT ────────────────────────────────────────────────────────────
-async function checkout(plan) {
+async async function checkout(plan) {
   try {
     const response = await fetch('/.netlify/functions/create-checkout', {
       method: 'POST',

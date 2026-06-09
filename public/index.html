@@ -735,6 +735,51 @@ input.err{border-color:var(--red)}
 .bs-qbank{background:#0f172a;border:1px solid rgba(37,99,235,.25);border-radius:12px;padding:20px 24px;margin-bottom:20px}
 .bs-qbank-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
 .bs-qbank-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px;line-height:1.5}
+.bs-qbank-stats{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.bs-stat-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(37,99,235,.15);color:#93c5fd;border:1px solid rgba(37,99,235,.2)}
+.bs-mini-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;flex:1;max-width:120px}
+.bs-mini-bar-fill{height:100%;background:#2563EB;border-radius:2px;transition:width .4s}
+#bsOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9998;overflow-y:auto;flex-direction:column}
+.bso-topbar{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;flex-wrap:wrap}
+.bso-counter{font-size:13px;font-weight:700;color:#fff}
+.bso-module{font-size:11px;color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);padding:3px 10px;border-radius:20px}
+.bso-progress{flex:1;min-width:80px;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.bso-progress-fill{height:100%;background:#2563EB;border-radius:3px;transition:width .3s}
+.bso-filter{font-size:12px;padding:5px 10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:#fff;font-family:var(--f);cursor:pointer}
+.bso-close{margin-left:auto;background:none;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;padding:4px 8px;line-height:1}
+.bso-close:hover{color:#fff}
+.bso-body{flex:1;padding:24px 20px 40px;max-width:760px;margin:0 auto;width:100%}
+.bso-q{font-size:clamp(17px,2.5vw,22px);font-weight:700;color:#fff;line-height:1.45;margin-bottom:28px}
+.bso-reveal-stack{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.bso-reveal-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:0;overflow:hidden;text-align:left;transition:border-color .15s;font-family:var(--f)}
+.bso-reveal-btn.unlocked{cursor:pointer}
+.bso-reveal-btn.unlocked:hover{border-color:rgba(255,255,255,.3)}
+.bso-reveal-btn.revealed{border-color:rgba(37,99,235,.4);background:rgba(37,99,235,.05)}
+.bso-reveal-btn.locked{opacity:.4;cursor:not-allowed}
+.bso-reveal-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;gap:12px}
+.bso-reveal-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.7)}
+.bso-reveal-btn.revealed .bso-reveal-label{color:#93c5fd}
+.bso-reveal-arrow{font-size:14px;color:rgba(255,255,255,.3);transition:.2s}
+.bso-reveal-content{display:none;padding:0 16px 14px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.65}
+.bso-reveal-content.show{display:block}
+.bso-referral-bad{color:#fca5a5;font-size:12px;margin-top:8px}
+.bso-referral-why{list-style:none;padding:0;margin:6px 0 0}
+.bso-referral-why li{font-size:12px;color:rgba(252,165,165,.8);padding-left:14px;position:relative;margin-bottom:3px}
+.bso-referral-why li::before{content:'⚠';position:absolute;left:0;font-size:10px}
+.bso-extras{display:none;margin-top:4px}
+.bso-extras.show{display:block}
+.bso-extra-block{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:14px 16px;margin-bottom:10px}
+.bso-extra-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px}
+.bso-extra-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px}
+.bso-extra-list li{font-size:13px;color:rgba(255,255,255,.65);padding-left:14px;position:relative;line-height:1.5}
+.bso-extra-list li::before{content:'→';position:absolute;left:0;color:#2563EB;font-size:11px;top:1px}
+.bso-verdict{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.bso-got{background:#16a34a;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f);flex:1;min-width:140px}
+.bso-practice{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:12px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--f);flex:1;min-width:140px}
+.bso-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.07)}
+.bso-nav-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:10px 18px;color:rgba(255,255,255,.7);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--f);transition:.15s}
+.bso-nav-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+.bso-nav-btn:disabled{opacity:.3;cursor:not-allowed}
 @keyframes yr2scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .module-updates{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
 .module-updates li{font-size:13px;color:#475569;line-height:1.5;padding-left:16px;position:relative}
@@ -1545,7 +1590,12 @@ document.addEventListener('click', function(e) {
       <div class="bs-qbank" id="bsQuestionBank" style="display:none">
         <div class="bs-qbank-title">🏗️ Your Building Surveying Question Bank</div>
         <div class="bs-qbank-sub">50 assessor-led questions every Building Surveying candidate should be able to answer before final assessment.</div>
-        <button onclick="alert('Coming soon — Building Surveying Question Bank')" style="background:#2563EB;color:#fff;border:none;border-radius:7px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
+        <div class="bs-qbank-stats" id="bsQBankStats">
+          <span class="bs-stat-pill" id="bsStatAttempted">0 of 50 attempted</span>
+          <span class="bs-stat-pill" id="bsStatGot" style="background:rgba(22,163,74,.15);color:#86efac;border-color:rgba(22,163,74,.2)">0 ✓ confident</span>
+          <div class="bs-mini-bar"><div class="bs-mini-bar-fill" id="bsMiniBarFill" style="width:0%"></div></div>
+        </div>
+        <button onclick="openBSQuestionBank()" style="background:#2563EB;color:#fff;border:none;border-radius:7px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
       </div>
 
       <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
@@ -3481,8 +3531,141 @@ async function cpdDelete(entryId) {
 }
 
 
+// ── BUILDING SURVEYING QUESTION BANK DATA ────────────────────────────────────
+const BS_QUESTIONS = [
+  // MODULE 1 — Building Pathology & Defects (Q1–10)
+  {
+    q: "A client reports cracking to the external brickwork of a three-storey Victorian property. How would you investigate the cause and what factors would influence your advice?",
+    why: "Assessors are testing whether you can follow a logical inspection process, differentiate between possible causes, understand inspection limitations, assess risk and provide proportionate client advice.",
+    pass: "I would undertake a visual inspection and record the location, width, direction and pattern of the cracking. I would consider potential causes including settlement, subsidence, heave, thermal movement, moisture movement and structural overloading. I would inspect both internally and externally and assess factors such as nearby trees, drainage defects, topography and the building's age and construction. Where the cause could not be confidently established through visual inspection alone, I would recommend further investigations such as a structural engineer's assessment or CCTV drainage survey.",
+    high: "My first priority would be establishing whether the cracking presents an immediate safety or structural risk. As this is a Victorian building, I would consider whether some movement may be historic and typical of the building's age. I would evaluate crack patterns, environmental factors and evidence of previous repairs before reaching a conclusion. Where uncertainty remained, I would clearly explain the limitations of my inspection and recommend proportionate investigations. My advice would balance technical risk, remediation costs and the client's objectives.",
+    referral: "The cracking sounds like subsidence so I would recommend underpinning.",
+    referralWhy: ["Immediate diagnosis without evidence", "No investigation process", "No consideration of alternative causes", "Poor professional judgement"],
+    challenge: ["What crack width would concern you?", "How would you determine whether movement is ongoing?", "When would monitoring be appropriate?", "Why might drainage defects cause cracking?"],
+    keyPoints: ["Never diagnose before investigating", "Consider multiple causes", "Explain limitations", "Assess risk first", "Focus on client advice"],
+    module: "Building Pathology & Defects"
+  },
+  {
+    q: "What is the difference between subsidence, settlement and heave, and why is it important to distinguish between them?",
+    why: "Assessors want to test your understanding of structural movement and whether you appreciate that different causes require different remedial solutions.",
+    pass: "Settlement is downward movement caused by consolidation of the ground beneath foundations, often occurring shortly after construction. Subsidence is downward movement of the ground that was not anticipated within the original design and may result from clay shrinkage, leaking drains or mining activity. Heave is upward movement of the ground, commonly associated with clay expansion following increased moisture levels.",
+    high: "Settlement often stabilises naturally, whereas subsidence may continue if the underlying cause is not addressed. Heave frequently occurs following removal of mature vegetation and can place significant upward pressure on foundations. Correct diagnosis is critical because each mechanism requires different investigations and remedial solutions.",
+    referral: "They all mean movement in foundations.",
+    referralWhy: ["No distinction between mechanisms", "Demonstrates weak understanding"],
+    challenge: ["Which is most common on shrinkable clay soils?", "How can tree removal contribute to heave?", "Can settlement occur years after construction?"],
+    keyPoints: ["Different mechanisms require different remedies", "Understand the causes", "Diagnosis influences advice", "Avoid using the terms interchangeably"],
+    module: "Building Pathology & Defects"
+  },
+  {
+    q: "How would you determine whether cracking is structural or cosmetic?",
+    why: "To assess your ability to investigate defects rather than rely on assumptions.",
+    pass: "I would assess the width, pattern, location and extent of the cracking together with any signs of distortion or movement. I would inspect both internally and externally and review any evidence of historic movement or repairs.",
+    high: "I would avoid relying solely on crack width. I would assess the building's age, construction type, crack pattern, associated defects and whether structural elements are affected. Where uncertainty existed, I would recommend specialist structural advice.",
+    referral: "Anything wider than 3mm is structural.",
+    referralWhy: ["Oversimplifies diagnosis", "Ignores wider evidence"],
+    challenge: ["Can a small crack indicate serious movement?", "What additional signs would concern you?", "How does building age influence assessment?"],
+    keyPoints: ["Crack width alone is insufficient", "Consider all evidence", "Assess the wider context", "Avoid assumptions"],
+    module: "Building Pathology & Defects"
+  },
+  {
+    q: "What are the most common causes of dampness in buildings and how would you investigate them?",
+    why: "Dampness is one of the most frequently tested APC topics.",
+    pass: "Common causes include rising damp, penetrating damp, condensation, plumbing leaks, roof defects and defective rainwater goods. I would investigate each possible source before reaching a conclusion.",
+    high: "I would assess construction type, ventilation, occupancy patterns and maintenance history. My objective would be identifying the root cause rather than treating symptoms.",
+    referral: "Most dampness is rising damp.",
+    referralWhy: ["Common misdiagnosis", "Insufficient investigation"],
+    challenge: ["Why is rising damp often misdiagnosed?", "What evidence would support condensation?", "How would you investigate penetrating damp?"],
+    keyPoints: ["Dampness has multiple causes", "Investigate before diagnosing", "Understand building performance", "Focus on root causes"],
+    module: "Building Pathology & Defects"
+  },
+  {
+    q: "How would you distinguish between rising damp, penetrating damp and condensation during an inspection?",
+    why: "To assess practical diagnostic ability.",
+    pass: "Rising damp is generally concentrated at low level and may be associated with salt deposits and damp proof course defects. Penetrating damp is usually linked to defects in the building envelope. Condensation commonly occurs on colder surfaces and is associated with inadequate ventilation and elevated humidity levels.",
+    high: "I would assess moisture patterns, ventilation provision, construction type, occupancy conditions and external defects. I would avoid relying solely on moisture meter readings and would correlate findings with wider evidence.",
+    referral: "I would use a moisture meter to determine the type of damp.",
+    referralWhy: ["Moisture meters identify moisture not cause", "Demonstrates weak understanding of limitations"],
+    challenge: ["What are the limitations of moisture meters?", "What causes condensation?", "What external defects commonly cause penetrating damp?"],
+    keyPoints: ["Moisture meters have limitations", "Damp diagnosis requires multiple evidence sources", "Condensation is increasingly common", "Corroborate findings before concluding"],
+    module: "Building Pathology & Defects"
+  },
+  {
+    q: "What limitations might affect your diagnosis of dampness and how would you manage those limitations?",
+    why: "To test professional judgement and understanding of inspection limitations.",
+    pass: "Limitations may include inaccessible areas, finishes concealing defects, recent weather conditions and restrictions on intrusive investigations. I would explain these limitations to the client and recommend further investigations where necessary.",
+    high: "I would avoid providing definitive conclusions where evidence is incomplete. Dampness can be seasonal and symptoms may not be fully visible at the time of inspection. I would clearly document limitations and ensure recommendations reflect the level of certainty available.",
+    referral: "A moisture meter removes uncertainty.",
+    referralWhy: ["Over-reliance on equipment", "Poor appreciation of limitations"],
+    challenge: ["Can condensation exist alongside penetrating damp?", "How can weather affect findings?", "How should limitations be reported?"],
+    keyPoints: ["Inspections have limitations", "Evidence may be incomplete", "Report limitations clearly", "Recommendations should reflect certainty levels"],
+    module: "Building Pathology & Defects"
+  },
+  {
+    q: "During an inspection you identify evidence of timber decay. What investigations would you undertake and what advice would you provide?",
+    why: "Assessors are testing whether you can diagnose timber defects, identify root causes, assess risk, understand limitations and provide proportionate client advice.",
+    pass: "I would establish the extent of the decay, identify whether the timber remains structurally adequate and investigate the likely moisture source. I would inspect adjacent timbers, assess whether deterioration is localised or widespread and determine whether further opening-up works were required.",
+    high: "My priority would be identifying and eliminating the moisture source before considering repairs. I would assess whether the decay affects structural performance, inspect surrounding timbers for concealed deterioration and consider whether specialist timber investigations were required. My advice would focus on risk, remediation options and preventing recurrence.",
+    referral: "I would replace the affected timber.",
+    referralWhy: ["Treats the symptom rather than the cause", "No investigation process", "No risk assessment"],
+    challenge: ["What moisture conditions encourage decay?", "Would all affected timbers require replacement?", "When would opening-up works be appropriate?", "When should a specialist be involved?"],
+    keyPoints: ["Find the moisture source first", "Assess structural implications", "Consider concealed defects", "Recommend proportionate action"],
+    module: "Building Pathology & Defects"
+  },
+  {
+    q: "Explain the difference between wet rot and dry rot and the implications of each for a building owner.",
+    why: "Assessors want practical understanding rather than textbook definitions.",
+    pass: "Wet rot occurs where timber is exposed to persistent moisture and is generally localised to affected areas. Dry rot is a fungal decay that can spread beyond the initial moisture source and affect concealed timbers. Both require moisture to develop and can result in structural deterioration if left untreated.",
+    high: "Although both forms of decay require moisture, dry rot can spread through concealed areas and behind finishes, making diagnosis and remediation more complex. The implications for the building owner include repair costs, disruption and potential structural consequences if the issue is not addressed promptly.",
+    referral: "Dry rot is worse than wet rot.",
+    referralWhy: ["Oversimplifies the issue", "Demonstrates limited understanding"],
+    challenge: ["Does dry rot require moisture?", "Why is dry rot difficult to identify?", "What investigations would you undertake?", "How would treatment differ?"],
+    keyPoints: ["Both require moisture", "Dry rot can spread beyond the original source", "Eliminate moisture first", "Assess the extent before recommending treatment"],
+    module: "Building Pathology & Defects"
+  },
+  {
+    q: "What is sulphate attack and how might it affect a building?",
+    why: "To test understanding of concrete deterioration and construction defects.",
+    pass: "Sulphate attack occurs when sulphates react with components within concrete, causing expansion, cracking and deterioration. It is commonly associated with foundations and ground-bearing slabs.",
+    high: "I would consider the age of construction, ground conditions and visible signs of deterioration. Where sulphate attack is suspected, I would recommend specialist testing to confirm the diagnosis and assess structural implications before advising on remediation.",
+    referral: "Sulphate attack damages concrete.",
+    referralWhy: ["Too simplistic", "No understanding of the mechanism", "No appreciation of consequences"],
+    challenge: ["What signs may indicate sulphate attack?", "Why are older buildings often more susceptible?", "What investigations may be required?", "How might structural performance be affected?"],
+    keyPoints: ["Sulphates cause expansion within concrete", "Expansion can lead to cracking and failure", "Specialist investigation may be required", "Severity determines remediation"],
+    module: "Building Pathology & Defects"
+  },
+  {
+    q: "A reinforced concrete frame shows signs of spalling and exposed reinforcement. How would you investigate the issue and advise your client?",
+    why: "Assessors are testing building pathology, concrete deterioration, health and safety awareness, professional judgement and client advice.",
+    pass: "I would undertake a detailed visual inspection to establish the extent of spalling and whether reinforcement is exposed. I would assess any immediate safety concerns and determine whether further specialist investigations were required.",
+    high: "My first priority would be identifying any immediate risk to occupants or building users. I would consider possible causes including reinforcement corrosion, carbonation, chloride contamination and water ingress. Depending on severity, I may recommend specialist investigations such as carbonation testing, cover meter surveys, concrete sampling or structural engineering advice. I would then advise the client on risk, repair options and future maintenance implications.",
+    referral: "I would repair the concrete.",
+    referralWhy: ["Jumps straight to remedial works", "No diagnosis process", "No consideration of safety", "No investigation strategy"],
+    challenge: ["What causes reinforcement corrosion?", "What is carbonation?", "When should a structural engineer be instructed?", "What immediate risks could exist?"],
+    keyPoints: ["Safety comes first", "Diagnose before specifying repairs", "Consider multiple causes", "Use specialist investigations where appropriate", "Provide risk-based client advice"],
+    module: "Building Pathology & Defects"
+  }
+];
 
 </script>
+
+<!-- BS QUESTION BANK OVERLAY -->
+<div id="bsOverlay" style="display:none;flex-direction:column">
+  <div class="bso-topbar">
+    <span class="bso-counter" id="bsoCounter">Question 1 of 50</span>
+    <span class="bso-module" id="bsoModule"></span>
+    <div class="bso-progress"><div class="bso-progress-fill" id="bsoProgressFill" style="width:0%"></div></div>
+    <select class="bso-filter" id="bsoModuleFilter" onchange="bsoJumpToModule(this.value)">
+      <option value="">All modules</option>
+      <option value="Building Pathology &amp; Defects">Module 1 — Building Pathology &amp; Defects</option>
+      <option value="Inspection, Surveys &amp; Reporting">Module 2 — Inspection, Surveys &amp; Reporting</option>
+      <option value="Construction Technology &amp; Building Performance">Module 3 — Construction Technology &amp; Building Performance</option>
+      <option value="Contract Administration, Procurement &amp; Dilapidations">Module 4 — Contract Administration, Procurement &amp; Dilapidations</option>
+      <option value="Professional Judgement &amp; Assessor Challenge">Module 5 — Professional Judgement &amp; Assessor Challenge</option>
+    </select>
+    <button class="bso-close" onclick="closeBSOverlay()">✕</button>
+  </div>
+  <div class="bso-body" id="bsoBody"></div>
+</div>
 </body>
 
 </html>

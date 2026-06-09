@@ -1585,7 +1585,7 @@ document.addEventListener('click', function(e) {
           <span class="bs-stat-pill" id="bsStatGot" style="background:rgba(22,163,74,.15);color:#86efac;border-color:rgba(22,163,74,.2)">0 ✓ confident</span>
           <div class="bs-mini-bar"><div class="bs-mini-bar-fill" id="bsMiniBarFill" style="width:0%"></div></div>
         </div>
-        <button onclick="openBSOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:7px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
+        <button id="bsStartBtn" onclick="openBSOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:7px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
       </div>
 
       <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
@@ -4099,6 +4099,8 @@ function openBSOverlay() {
 
 function closeBSOverlay() {
   document.getElementById('bsOverlay').style.display = 'none';
+  const btn = document.getElementById('bsStartBtn');
+  if (btn) btn.textContent = 'Continue from Q' + (_bsoIndex + 1);
 }
 
 function bsoQuestions() {
@@ -4143,10 +4145,25 @@ function bsoRender() {
       '<button onclick="bsoNav(-1)" ' + (_bsoIndex===0?'disabled':'') + '>← Previous</button>' +
       '<button onclick="bsoNav(1)" ' + (_bsoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
     '</div>';
+  // Force inline styles so no other rule can override them
+  const body = document.getElementById('bsoBody');
+  body.querySelectorAll('.bso-reveal-content').forEach(function(el) {
+    el.style.color = '#f0f4ff';
+    el.style.background = '#1e2235';
+  });
+  const ref = document.getElementById('bsoContent3');
+  if (ref) { ref.style.background = '#2d1515'; ref.style.color = '#fca5a5'; }
+  body.querySelectorAll('.bso-reveal-btn').forEach(function(el) {
+    el.style.color = '#ffffff';
+  });
+  const closeBtn = document.querySelector('#bsOverlay .bso-close');
+  if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
 }
 
 function bsoReveal(n) {
-  document.getElementById('bsoBtn' + n).classList.add('revealed');
+  const btn = document.getElementById('bsoBtn' + n);
+  btn.classList.add('revealed');
+  btn.style.color = '#93c5fd';
   document.getElementById('bsoContent' + n).classList.add('show');
   if (n < 3) {
     document.getElementById('bsoBtn' + (n + 1)).disabled = false;

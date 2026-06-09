@@ -358,7 +358,7 @@ footer{background:#0D0F1C;padding:52px 32px 32px}
 .mod-header p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.65}
 .content-section{background:#fff;border-radius:12px;padding:28px;margin-bottom:16px;border:1px solid var(--border)}
 .content-section h2{font-size:17px;font-weight:700;color:var(--text);margin-bottom:14px;letter-spacing:-.01em;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.content-section p,.content-body{font-size:14px;color:var(--muted);line-height:1.8}
+.content-section p:not(#bsOverlay p),.content-body{font-size:14px;color:var(--muted);line-height:1.8}
 .content-body strong{color:var(--text);font-weight:600}
 .mod-nav-btns{display:flex;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
 .mod-progress{background:#fff;border-radius:12px;padding:20px;border:1px solid var(--border);position:sticky;top:76px;height:fit-content;margin:16px}
@@ -818,10 +818,11 @@ input.err{border-color:var(--red)}
 .cpd-delete-btn:hover{color:#ef4444}
 .cpd-empty{font-size:13px;color:#94a3b8;text-align:center;padding:20px 0;font-style:italic}
 @media(max-width:768px){.cpd-form-grid{grid-template-columns:1fr}.cpd-stats{gap:16px}}
-.bso-question{color:#ffffff !important}
-.bso-reveal-btn{color:#ffffff !important}
-.bso-reveal-content{color:#f0f4ff !important;background:#1e2235 !important}
-#bsoContent3{color:#fca5a5 !important;background:#2d1515 !important}
+#bsOverlay .bso-question{color:#ffffff !important;font-size:clamp(16px,2.2vw,20px) !important;font-weight:600 !important}
+#bsOverlay .bso-reveal-btn{color:#ffffff !important}
+#bsOverlay .bso-reveal-btn.revealed{color:#93c5fd !important}
+#bsOverlay .bso-reveal-content{color:#f0f4ff !important;background:#1e2235 !important;padding:14px 18px !important;border-radius:8px !important;margin-bottom:16px !important;line-height:1.7 !important;font-size:14px !important}
+#bsOverlay #bsoContent3{color:#fca5a5 !important;background:#2d1515 !important}
 </style>
 </head>
 <body>
@@ -4157,17 +4158,6 @@ function bsoRender() {
       '<button onclick="bsoNav(-1)" ' + (_bsoIndex===0?'disabled':'') + '>← Previous</button>' +
       '<button onclick="bsoNav(1)" ' + (_bsoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
     '</div>';
-  // Force inline styles so no other rule can override them
-  const body = document.getElementById('bsoBody');
-  body.querySelectorAll('.bso-reveal-content').forEach(function(el) {
-    el.style.color = '#f0f4ff';
-    el.style.background = '#1e2235';
-  });
-  const ref = document.getElementById('bsoContent3');
-  if (ref) { ref.style.background = '#2d1515'; ref.style.color = '#fca5a5'; }
-  body.querySelectorAll('.bso-reveal-btn').forEach(function(el) {
-    el.style.color = '#ffffff';
-  });
   const closeBtn = document.querySelector('#bsOverlay .bso-close');
   if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
 }
@@ -4175,7 +4165,6 @@ function bsoRender() {
 function bsoReveal(n) {
   const btn = document.getElementById('bsoBtn' + n);
   btn.classList.add('revealed');
-  btn.style.color = '#93c5fd';
   document.getElementById('bsoContent' + n).classList.add('show');
   if (n < 3) {
     document.getElementById('bsoBtn' + (n + 1)).disabled = false;

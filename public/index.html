@@ -717,6 +717,24 @@ input.err{border-color:var(--red)}
 .nav-dd-icon{font-size:20px;line-height:1}
 .nav-dd-title{font-size:13px;font-weight:600;color:#fff}
 .nav-dd-sub{font-size:11px;color:rgba(255,255,255,.4);line-height:1.4}
+#pathwayOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9999;overflow-y:auto;padding:48px 20px}
+.pathway-inner{max-width:720px;margin:0 auto;text-align:center}
+.pathway-heading{font-size:clamp(22px,3.5vw,30px);font-weight:800;color:#fff;margin-bottom:10px}
+.pathway-sub{font-size:15px;color:rgba(255,255,255,.5);margin-bottom:36px}
+.pathway-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:32px;text-align:left}
+@media(max-width:640px){.pathway-grid{grid-template-columns:repeat(2,1fr)}}
+.pathway-btn{background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:12px 16px;color:#fff;font-size:13px;font-weight:500;cursor:pointer;text-align:left;transition:border-color .15s,background .15s;font-family:var(--f);width:100%}
+.pathway-btn:hover{border-color:#2563EB;background:rgba(37,99,235,.08)}
+.pathway-btn.selected{border-color:#2563EB;background:rgba(37,99,235,.12)}
+.pathway-confirm{background:#2563EB;color:#fff;border:none;border-radius:8px;padding:14px 44px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--f);opacity:.35;pointer-events:none;transition:opacity .15s}
+.pathway-confirm.ready{opacity:1;pointer-events:all}
+.pathway-badge-row{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
+.pathway-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.75);background:rgba(37,99,235,.18);border:1px solid rgba(37,99,235,.35);border-radius:20px;padding:3px 10px}
+.pathway-change{font-size:11px;color:rgba(255,255,255,.35);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:var(--f)}
+.pathway-change:hover{color:rgba(255,255,255,.6)}
+.bs-qbank{background:#0f172a;border:1px solid rgba(37,99,235,.25);border-radius:12px;padding:20px 24px;margin-bottom:20px}
+.bs-qbank-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.bs-qbank-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px;line-height:1.5}
 @keyframes yr2scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .module-updates{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
 .module-updates li{font-size:13px;color:#475569;line-height:1.5;padding-left:16px;position:relative}
@@ -1410,6 +1428,10 @@ document.addEventListener('click', function(e) {
             <div class="ds-plan-badge" id="dsPlanBadge">Loading...</div>
             <h2 class="ds-welcome" id="dashWelcome">Welcome back</h2>
             <p class="ds-sub" id="dashSub">Your APC preparation is ready.</p>
+            <div class="pathway-badge-row" id="pathwayBadgeRow" style="display:none">
+              <span class="pathway-badge" id="pathwayBadge"></span>
+              <button class="pathway-change" onclick="resetPathway()">change</button>
+            </div>
           </div>
           <div class="ds-expiry" id="dsExpiry"></div>
         </div>
@@ -1520,12 +1542,28 @@ document.addEventListener('click', function(e) {
         <div class="progress-bar-wrap" style="display:none"><div class="progress-bar-fill" id="dashProgressBarOld"></div></div>
         <p class="progress-label" id="dashProgressLabelOld"></p>
       </div>
+      <div class="bs-qbank" id="bsQuestionBank" style="display:none">
+        <div class="bs-qbank-title">🏗️ Your Building Surveying Question Bank</div>
+        <div class="bs-qbank-sub">50 assessor-led questions every Building Surveying candidate should be able to answer before final assessment.</div>
+        <button onclick="alert('Coming soon — Building Surveying Question Bank')" style="background:#2563EB;color:#fff;border:none;border-radius:7px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
+      </div>
+
       <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
         <h3 style="font-size:16px;font-weight:700;color:var(--text)">Your Modules</h3>
         <span style="font-size:12px;color:var(--muted)" id="dashCompletedCount">0 completed</span>
       </div>
       <div class="dash-modules-grid" id="dashModGrid"></div>
     </div>
+  </div>
+</div>
+
+<!-- PATHWAY SELECTION OVERLAY -->
+<div id="pathwayOverlay">
+  <div class="pathway-inner">
+    <h1 class="pathway-heading">Which RICS pathway are you on?</h1>
+    <p class="pathway-sub">We'll personalise your experience around your pathway</p>
+    <div class="pathway-grid" id="pathwayGrid"></div>
+    <button class="pathway-confirm" id="pathwayConfirmBtn" onclick="confirmPathway()">Confirm</button>
   </div>
 </div>
 
@@ -1682,7 +1720,11 @@ function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
   window.scrollTo(0,0);
-  if (name === 'dashboard') { renderDashboard(); history.pushState({page: 'dashboard'}, ''); }
+  if (name === 'dashboard') {
+    renderDashboard();
+    history.pushState({page: 'dashboard'}, '');
+    if (!localStorage.getItem('gca_pathway')) showPathwaySelection();
+  }
   if (name === 'landing') updateNav();
   updateNav();
   // Hide announcement bar for logged-in members
@@ -1927,6 +1969,58 @@ function openMockInterviewDirect(skipHeader) {
 }
 
 // ── DASHBOARD ─────────────────────────────────────────────────────────────────
+// ── PATHWAY SELECTION ─────────────────────────────────────────────────────────
+const PATHWAYS = ['Arts and Antiques','Building Control','Building Surveying','Commercial Real Estate','Corporate Real Estate','Environmental Surveying','Facility Management','Geomatics','Infrastructure','Land and Resources','Management Consultancy','Mineral and Waste Management','Planning and Development','Project Management','Property Finance and Investment','Quantity Surveying and Construction','Research','Residential','Rural','Taxation Allowances','Valuation'];
+let _selectedPathway = null;
+
+function showPathwaySelection() {
+  _selectedPathway = null;
+  const grid = document.getElementById('pathwayGrid');
+  grid.innerHTML = PATHWAYS.map(p =>
+    `<button class="pathway-btn" data-pathway="${p}" onclick="selectPathway(this)">${p}</button>`
+  ).join('');
+  document.getElementById('pathwayConfirmBtn').classList.remove('ready');
+  document.getElementById('pathwayOverlay').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function selectPathway(btn) {
+  _selectedPathway = btn.dataset.pathway;
+  document.querySelectorAll('.pathway-btn').forEach(b => {
+    const sel = b === btn;
+    b.classList.toggle('selected', sel);
+    b.textContent = sel ? b.dataset.pathway + ' ✓' : b.dataset.pathway;
+  });
+  document.getElementById('pathwayConfirmBtn').classList.add('ready');
+}
+
+function confirmPathway() {
+  if (!_selectedPathway) return;
+  localStorage.setItem('gca_pathway', _selectedPathway);
+  document.getElementById('pathwayOverlay').style.display = 'none';
+  renderPathwayBadge();
+}
+
+function resetPathway() {
+  localStorage.removeItem('gca_pathway');
+  _selectedPathway = null;
+  showPathwaySelection();
+}
+
+function renderPathwayBadge() {
+  const pathway = localStorage.getItem('gca_pathway');
+  const row = document.getElementById('pathwayBadgeRow');
+  const badge = document.getElementById('pathwayBadge');
+  const bs = document.getElementById('bsQuestionBank');
+  if (pathway && row && badge) {
+    badge.textContent = '🗺️ ' + pathway + ' pathway';
+    row.style.display = 'flex';
+  } else if (row) {
+    row.style.display = 'none';
+  }
+  if (bs) bs.style.display = (pathway === 'Building Surveying') ? 'block' : 'none';
+}
+
 async function renderDashboard() {
   const session = await getSession();
   if (!session.valid) { showView('landing'); openLogin(); return; }
@@ -2123,6 +2217,7 @@ async function renderDashboard() {
     `;
     document.getElementById('dashModGrid').before(banner);
   }
+  renderPathwayBadge();
   cpdLoad();
 }
 

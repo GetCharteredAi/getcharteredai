@@ -1562,7 +1562,7 @@ document.addEventListener('click', function(e) {
   <div class="pathway-inner">
     <h1 class="pathway-heading">Which RICS pathway are you on?</h1>
     <p class="pathway-sub">We'll personalise your experience around your pathway</p>
-    <div class="pathway-grid" id="pathwayGrid"></div>
+    <div class="pathway-grid" id="pathwaySelectionGrid"></div>
     <button class="pathway-confirm" id="pathwayConfirmBtn" onclick="confirmPathway()">Confirm</button>
   </div>
 </div>
@@ -1975,18 +1975,19 @@ let _selectedPathway = null;
 
 function showPathwaySelection() {
   _selectedPathway = null;
-  const grid = document.getElementById('pathwayGrid');
+  const grid = document.getElementById('pathwaySelectionGrid');
   grid.innerHTML = PATHWAYS.map(p =>
-    `<button class="pathway-btn" data-pathway="${p}" onclick="selectPathway(this)">${p}</button>`
+    `<button class="pathway-btn" data-pathway="${p}" onclick="choosePathway(this)">${p}</button>`
   ).join('');
   document.getElementById('pathwayConfirmBtn').classList.remove('ready');
   document.getElementById('pathwayOverlay').style.display = 'block';
   window.scrollTo(0,0);
 }
 
-function selectPathway(btn) {
+function choosePathway(btn) {
   _selectedPathway = btn.dataset.pathway;
-  document.querySelectorAll('.pathway-btn').forEach(b => {
+  const grid = document.getElementById('pathwaySelectionGrid');
+  grid.querySelectorAll('.pathway-btn').forEach(b => {
     const sel = b === btn;
     b.classList.toggle('selected', sel);
     b.textContent = sel ? b.dataset.pathway + ' ✓' : b.dataset.pathway;

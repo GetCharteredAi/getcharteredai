@@ -4094,7 +4094,13 @@ function openBSOverlay() {
   el.style.display = 'flex';
   const sel = document.getElementById('bsoModuleFilter');
   if (sel) sel.value = '';
-  bsoRender();
+  if (Object.keys(saved).length === 0) {
+    document.getElementById('bsoBody').innerHTML = '<div style="max-width:600px;margin:0 auto;padding:40px 20px;text-align:center"><div style="font-size:48px;margin-bottom:24px">🏗️</div><h2 style="color:#fff;font-size:24px;margin-bottom:16px">How to use your Question Bank</h2><div style="text-align:left;background:#1e2235;border-radius:12px;padding:24px;margin-bottom:28px"><p style="color:#f0f4ff;margin-bottom:16px">Each question works like a real APC assessor conversation. Here is how to get the most from it:</p><ol style="color:#f0f4ff;line-height:2"><li><strong style="color:#60a5fa">Read the question</strong> — think about how you would answer it out loud</li><li><strong style="color:#60a5fa">Reveal why assessors ask it</strong> — understand what they are really testing</li><li><strong style="color:#60a5fa">Check the pass-level answer</strong> — the minimum expected from a chartered candidate</li><li><strong style="color:#60a5fa">Read the high-scoring answer</strong> — this is what separates passes from strong passes</li><li><strong style="color:#60a5fa">See the referral answer</strong> — understand exactly what to avoid</li><li><strong style="color:#60a5fa">Mark your confidence</strong> — "I got this" or "Need more practice" tracks your progress</li></ol></div><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:28px">You can close at any time and your progress is saved. Use the module filter to jump to specific topics.</p><button onclick="bsoRender()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:14px 32px;font-size:16px;font-weight:600;cursor:pointer">Start with Question 1 →</button></div>';
+    const closeBtn = document.querySelector('#bsOverlay .bso-close');
+    if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
+  } else {
+    bsoRender();
+  }
 }
 
 function closeBSOverlay() {

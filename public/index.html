@@ -754,15 +754,15 @@ input.err{border-color:var(--red)}
 .bso-reveal-btn:hover:not(:disabled){border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.06)}
 .bso-reveal-btn:disabled{opacity:.35;cursor:not-allowed}
 .bso-reveal-btn.revealed{border-color:#2563EB;background:rgba(37,99,235,.08);color:#93c5fd}
-.bso-reveal-content{display:none;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:8px;margin-bottom:16px;color:rgba(255,255,255,.85);font-size:14px;line-height:1.7}
+.bso-reveal-content{display:none;padding:14px 18px;background:#1e2235;border-radius:8px;margin-bottom:16px;color:#f0f4ff;font-size:14px;line-height:1.7}
 .bso-reveal-content.show{display:block}
-.bso-referral-content{border-left:3px solid #ef4444;padding-left:14px}
+.bso-referral-content{background:#2d1515;border-left:3px solid #ef4444;color:#fca5a5}
 .bso-referral-content ul{margin:8px 0 0;padding-left:0;list-style:none}
 .bso-referral-content li{font-size:13px;color:#fca5a5;padding:2px 0}
-.bso-challenge{margin-top:24px;padding:16px;background:rgba(37,99,235,.08);border-radius:8px;border:1px solid rgba(37,99,235,.2);color:rgba(255,255,255,.8);font-size:14px;line-height:1.7}
+.bso-challenge{margin-top:24px;padding:16px;background:#1a2540;border-radius:8px;border:1px solid rgba(37,99,235,.3);color:#93c5fd;font-size:14px;line-height:1.7}
 .bso-challenge ul,.bso-keypoints ol{margin:8px 0 0;padding-left:20px}
 .bso-challenge li,.bso-keypoints li{margin-bottom:4px}
-.bso-keypoints{margin-top:16px;padding:16px;background:rgba(16,185,129,.08);border-radius:8px;border:1px solid rgba(16,185,129,.2);color:rgba(255,255,255,.8);font-size:14px;line-height:1.7}
+.bso-keypoints{margin-top:16px;padding:16px;background:#0f2d24;border-radius:8px;border:1px solid rgba(16,185,129,.3);color:#6ee7b7;font-size:14px;line-height:1.7}
 .bso-actions{display:flex;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
 .bso-got{flex:1;padding:12px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--f)}
 .bso-practice{flex:1;padding:12px;background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:8px;font-size:14px;cursor:pointer;font-family:var(--f)}
@@ -4087,7 +4087,9 @@ let _bsoFiltered = null;
 
 function openBSOverlay() {
   _bsoFiltered = null;
-  _bsoIndex = 0;
+  const saved = JSON.parse(localStorage.getItem('gca_bs_progress') || '{}');
+  const resume = BS_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
+  _bsoIndex = resume === -1 ? 0 : resume;
   const el = document.getElementById('bsOverlay');
   el.style.display = 'flex';
   const sel = document.getElementById('bsoModuleFilter');

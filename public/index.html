@@ -711,11 +711,12 @@ input.err{border-color:var(--red)}
 .nav-dropdown{position:relative}
 .nav-dropdown-trigger{background:none;border:none;font-family:var(--f);font-size:13px;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer;padding:6px 12px;border-radius:6px;transition:.15s}
 .nav-dropdown-trigger:hover{color:#fff;background:rgba(255,255,255,0.07)}
-.nav-dropdown-menu{position:absolute;top:calc(100% + 8px);left:0;background:rgba(11,12,28,0.98);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px;min-width:240px;z-index:2000;backdrop-filter:blur(16px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
-.nav-dropdown-item{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:7px;text-decoration:none;transition:.15s;cursor:pointer}
-.nav-dropdown-item:hover{background:rgba(255,255,255,.06)}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 8px);left:0;background:#0B0C1C;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;min-width:520px;z-index:2000;backdrop-filter:blur(16px);box-shadow:0 16px 40px rgba(0,0,0,.5);display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.nav-dropdown-item{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,.08);text-decoration:none;transition:border-color .15s,background .15s;cursor:pointer;background:rgba(255,255,255,.02)}
+.nav-dropdown-item:hover{border-color:#2563EB;background:rgba(37,99,235,.07)}
+.nav-dd-icon{font-size:20px;line-height:1}
 .nav-dd-title{font-size:13px;font-weight:600;color:#fff}
-.nav-dd-sub{font-size:11px;color:rgba(255,255,255,.4)}
+.nav-dd-sub{font-size:11px;color:rgba(255,255,255,.4);line-height:1.4}
 @keyframes yr2scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .module-updates{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
 .module-updates li{font-size:13px;color:#475569;line-height:1.5;padding-left:16px;position:relative}
@@ -780,18 +781,22 @@ input.err{border-color:var(--red)}
       <button class="nav-link nav-dropdown-trigger" onclick="toggleProgrammesDropdown()">Programmes ▾</button>
       <div class="nav-dropdown-menu" id="programmesMenu" style="display:none">
         <a href="/year-one-review" class="nav-dropdown-item">
+          <span class="nav-dd-icon">📋</span>
           <span class="nav-dd-title">Year Two Readiness Review</span>
           <span class="nav-dd-sub">Benchmark your Year One progress</span>
         </a>
         <a href="/programme" class="nav-dropdown-item">
+          <span class="nav-dd-icon">🎓</span>
           <span class="nav-dd-title">APC Full 12 Module Programme</span>
           <span class="nav-dd-sub">Full structured preparation</span>
         </a>
         <a href="/sprint" class="nav-dropdown-item">
+          <span class="nav-dd-icon">⚡</span>
           <span class="nav-dd-title">APC Sprint</span>
           <span class="nav-dd-sub">Know your subject. Test it. Pass it.</span>
         </a>
         <a href="/referred-programme" class="nav-dropdown-item">
+          <span class="nav-dd-icon">🔄</span>
           <span class="nav-dd-title">APC Confidence Reset</span>
           <span class="nav-dd-sub">Recovery programme after referral</span>
         </a>

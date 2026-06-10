@@ -2293,7 +2293,8 @@ async function renderDashboard() {
 
   // Sidebar
   const sb = document.getElementById('sidebarModules');
-  sb.innerHTML = MODULES.map(m => {
+  const dashMods = plan === 'referred' ? MODULES.filter(m => m.id >= 13 && m.id <= 18) : MODULES.filter(m => m.id <= 12);
+  sb.innerHTML = dashMods.map(m => {
     const unlocked = isModuleUnlocked(m.id, plan, activatedAt);
     return `<div class="sidebar-item ${isComplete(m.id)?'done':''} ${!unlocked?'locked':''}"
       onclick="requireAccess(${m.id})"
@@ -2306,7 +2307,7 @@ async function renderDashboard() {
 
   // Main grid
   const grid = document.getElementById('dashModGrid');
-  grid.innerHTML = MODULES.map(m => {
+  grid.innerHTML = dashMods.map(m => {
     const unlocked = isModuleUnlocked(m.id, plan, activatedAt);
     return `<div class="dash-mod-card ${isComplete(m.id)?'done':''} ${!unlocked?'locked':''}"
       onclick="requireAccess(${m.id})"

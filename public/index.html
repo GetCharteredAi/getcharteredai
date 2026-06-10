@@ -831,6 +831,47 @@ input.err{border-color:var(--red)}
 #michaelPanelInput:focus{outline:none;border-color:#2563EB}
 #michaelPanelInput::placeholder{color:rgba(255,255,255,.35)}
 @media(max-width:768px){#michaelPanel{width:100%}}
+
+.prep-stats{display:flex;gap:24px;margin-bottom:14px;align-items:center}
+.prep-progress-track{flex:1;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden}
+.prep-progress-fill{height:100%;background:linear-gradient(90deg,#2563EB,#7c3aed);border-radius:3px;transition:width .5s ease}
+.prep-recent{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.prep-recent-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc}
+.prep-recent-comp{font-size:13px;font-weight:600;color:#0f172a}
+.prep-recent-level{font-size:11px;color:#64748b;margin-top:2px}
+.prep-badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.prep-badge-pass{background:rgba(37,99,235,.1);color:#2563EB;border:1px solid rgba(37,99,235,.25)}
+.prep-badge-high{background:rgba(22,163,74,.1);color:#16a34a;border:1px solid rgba(22,163,74,.25)}
+.prep-badge-needs{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)}
+.prep-badge-pending{background:rgba(100,116,139,.1);color:#64748b;border:1px solid rgba(100,116,139,.25)}
+.prep-empty{font-size:13px;color:#94a3b8;text-align:center;padding:16px 0;font-style:italic}
+.prep-viewall{font-size:12px;color:#2563EB;cursor:pointer;font-weight:600;margin-top:10px;display:inline-block}
+
+#prepOverlay,#prepViewOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9999;overflow-y:auto;padding:48px 20px;color:#f0f4ff}
+#prepOverlay .prep-modal,#prepViewOverlay .prep-modal{max-width:640px;margin:0 auto}
+#prepOverlay .prep-field{margin-bottom:16px}
+#prepOverlay label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px}
+#prepOverlay select,#prepOverlay textarea{width:100%;padding:10px 13px;border:1.5px solid rgba(255,255,255,.15);border-radius:8px;font-family:var(--f);font-size:14px;color:#fff;background:#1e2235;outline:none;transition:.15s}
+#prepOverlay select:focus,#prepOverlay textarea:focus{border-color:#2563EB}
+#prepOverlay textarea{min-height:80px;resize:vertical;line-height:1.6}
+#prepOverlay select option{background:#1e2235;color:#fff}
+.prep-form-actions{display:flex;gap:10px;margin-top:8px}
+.prep-save-btn{background:#2563EB;color:#fff;border:none;padding:11px 22px;border-radius:8px;font-family:var(--f);font-size:14px;font-weight:700;cursor:pointer}
+.prep-save-btn:disabled{opacity:.5;cursor:default}
+.prep-cancel-btn{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.15);padding:11px 18px;border-radius:8px;font-family:var(--f);font-size:14px;cursor:pointer}
+.prep-feedback-box{background:#1e2235;border:1px solid rgba(37,99,235,.3);border-radius:10px;padding:16px 18px;margin-top:18px;color:#f0f4ff;line-height:1.7;font-size:14px;display:none}
+.prep-close-x{position:absolute;top:20px;right:24px;background:none;border:none;color:rgba(255,255,255,.6);font-size:22px;cursor:pointer;line-height:1}
+
+.prep-view-card{background:#1e2235;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px 18px;margin-bottom:14px}
+.prep-view-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.prep-view-card-title{font-size:14px;font-weight:700;color:#fff}
+.prep-view-card-level{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px}
+.prep-view-field{margin-bottom:10px}
+.prep-view-field-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px}
+.prep-view-field-text{font-size:13px;color:rgba(255,255,255,.85);line-height:1.6}
+.prep-view-delete{background:rgba(239,68,68,.1);color:#fca5a5;border:1px solid rgba(239,68,68,.25);padding:5px 12px;border-radius:6px;font-size:11px;cursor:pointer;font-family:var(--f)}
+.prep-group-heading{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.08)}
+.prep-group-heading:first-of-type{margin-top:0}
 </style>
 </head>
 <body>
@@ -1585,6 +1626,25 @@ document.addEventListener('click', function(e) {
         </div>
       </div>
 
+      
+      <div class="cpd-panel" id="prepPanel">
+        <div class="cpd-panel-header">
+          <div class="cpd-panel-title">📝 Competency Evidence Bank</div>
+          <button class="cpd-add-btn" onclick="prepOpenOverlay()">+ Add Evidence</button>
+        </div>
+        <div class="cpd-stats">
+          <div>
+            <div class="cpd-stat-num" id="prepCompCount">0 / 11</div>
+            <div class="cpd-stat-lbl">Competencies covered</div>
+          </div>
+        </div>
+        <div class="prep-progress-track"><div class="prep-progress-fill" id="prepProgressFill" style="width:0%"></div></div>
+        <div class="prep-recent" id="prepRecentList">
+          <div class="prep-empty">No evidence entries yet — add your first one above.</div>
+        </div>
+        <a class="prep-viewall" id="prepViewAllLink" onclick="prepOpenViewAll()" style="display:none">View all entries →</a>
+      </div>
+
       <div class="dash-welcome" style="display:none">
         <p id="dashSubOld"></p>
         <div class="progress-bar-wrap" style="display:none"><div class="progress-bar-fill" id="dashProgressBarOld"></div></div>
@@ -2276,6 +2336,7 @@ async function renderDashboard() {
   }
   renderPathwayBadge();
   cpdLoad();
+  prepLoad();
 }
 
 // ── MODULE PAGE ───────────────────────────────────────────────────────────────
@@ -3538,6 +3599,265 @@ async function cpdDelete(entryId) {
 }
 
 
+// ── PREP BUILDER (COMPETENCY EVIDENCE BANK) ─────────────────────────────────
+
+var prepEntries = [];
+var prepCurrentEntry = null;
+var prepFeedbackPending = null;
+
+var PREP_MANDATORY_COMPETENCIES = ["Ethics, Conduct & Professionalism","Client Care","Communication & Negotiation","Health & Safety","Accounting Principles & Procedures","Business Planning","Conflict Avoidance & Dispute Resolution","Data Management","Sustainability","Inclusive Professional Practice","Diversity, Inclusion & Teamworking"];
+
+async function prepLoad() {
+  try {
+    const token = getToken();
+    if (!token) return;
+    const r = await fetch('/.netlify/functions/get-prep', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token })
+    });
+    const d = await r.json();
+    if (d.success) {
+      prepEntries = d.entries || [];
+      prepUpdateDashboard();
+    }
+  } catch(e) { console.error('PREP load error:', e); }
+}
+
+function prepUpdateDashboard() {
+  var covered = {};
+  prepEntries.forEach(function(e) { covered[e.competency] = true; });
+  var coveredCount = PREP_MANDATORY_COMPETENCIES.filter(function(c) { return covered[c]; }).length;
+
+  var countEl = document.getElementById('prepCompCount');
+  if (countEl) countEl.textContent = coveredCount + ' / ' + PREP_MANDATORY_COMPETENCIES.length;
+
+  var fillEl = document.getElementById('prepProgressFill');
+  if (fillEl) fillEl.style.width = Math.round((coveredCount / PREP_MANDATORY_COMPETENCIES.length) * 100) + '%';
+
+  var listEl = document.getElementById('prepRecentList');
+  var linkEl = document.getElementById('prepViewAllLink');
+  if (listEl) {
+    if (prepEntries.length === 0) {
+      listEl.innerHTML = '<div class="prep-empty">No evidence entries yet — add your first one above.</div>';
+      if (linkEl) linkEl.style.display = 'none';
+    } else {
+      listEl.innerHTML = prepEntries.slice(0, 3).map(function(e) {
+        return '<div class="prep-recent-item">' +
+          '<div><div class="prep-recent-comp">' + e.competency + '</div>' +
+          '<div class="prep-recent-level">' + e.level + '</div></div>' +
+          prepRatingBadge(e.michaelFeedback) +
+          '</div>';
+      }).join('');
+      if (linkEl) linkEl.style.display = 'inline-block';
+    }
+  }
+}
+
+function prepRatingBadge(feedback) {
+  var rating = prepParseRating(feedback);
+  if (rating === 'HIGH SCORING') return '<span class="prep-badge prep-badge-high">High scoring</span>';
+  if (rating === 'PASS LEVEL') return '<span class="prep-badge prep-badge-pass">Pass level</span>';
+  if (rating === 'NEEDS WORK') return '<span class="prep-badge prep-badge-needs">Needs work</span>';
+  return '<span class="prep-badge prep-badge-pending">Pending</span>';
+}
+
+function prepParseRating(feedback) {
+  if (!feedback) return null;
+  if (feedback.indexOf('HIGH SCORING') !== -1) return 'HIGH SCORING';
+  if (feedback.indexOf('NEEDS WORK') !== -1) return 'NEEDS WORK';
+  if (feedback.indexOf('PASS LEVEL') !== -1) return 'PASS LEVEL';
+  return null;
+}
+
+function prepOpenOverlay() {
+  prepCurrentEntry = null;
+  document.getElementById('prepCompetency').value = PREP_MANDATORY_COMPETENCIES[0];
+  document.getElementById('prepLevel').selectedIndex = 0;
+  document.getElementById('prepSituation').value = '';
+  document.getElementById('prepDecision').value = '';
+  document.getElementById('prepAction').value = '';
+  document.getElementById('prepOutcome').value = '';
+  document.getElementById('prepFeedbackBox').style.display = 'none';
+  document.getElementById('prepFeedbackText').innerHTML = '';
+  var msg = document.getElementById('prepFormMsg');
+  msg.style.display = 'none';
+  msg.textContent = '';
+  var btn = document.getElementById('prepSaveBtn');
+  btn.disabled = false;
+  btn.textContent = "Save & Get Michael's Feedback";
+  document.getElementById('prepOverlay').style.display = 'block';
+}
+
+function prepCloseOverlay() {
+  document.getElementById('prepOverlay').style.display = 'none';
+}
+
+async function prepSaveEntry() {
+  var competency = document.getElementById('prepCompetency').value;
+  var level = document.getElementById('prepLevel').value;
+  var situation = document.getElementById('prepSituation').value.trim();
+  var decision = document.getElementById('prepDecision').value.trim();
+  var action = document.getElementById('prepAction').value.trim();
+  var outcome = document.getElementById('prepOutcome').value.trim();
+
+  var msg = document.getElementById('prepFormMsg');
+
+  if (!situation || !decision || !action || !outcome) {
+    msg.textContent = 'Please complete all four STAR fields.';
+    msg.style.display = 'block';
+    return;
+  }
+  msg.style.display = 'none';
+
+  var btn = document.getElementById('prepSaveBtn');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  try {
+    const token = getToken();
+    var entry = {
+      competency: competency,
+      level: level,
+      situation: situation,
+      decision: decision,
+      action: action,
+      outcome: outcome
+    };
+
+    var r = await fetch('/.netlify/functions/save-prep', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: token, entry: entry })
+    });
+    var d = await r.json();
+    if (!d.success) {
+      msg.textContent = 'Could not save entry. Please try again.';
+      msg.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = "Save & Get Michael's Feedback";
+      return;
+    }
+
+    prepCurrentEntry = d.entry;
+    prepEntries.unshift(d.entry);
+    prepUpdateDashboard();
+
+    btn.textContent = 'Getting feedback...';
+
+    var promptMsg = 'Competency: ' + competency + '\n' +
+      'Level: ' + level + '\n\n' +
+      'Situation: ' + situation + '\n\n' +
+      'Decision: ' + decision + '\n\n' +
+      'Action: ' + action + '\n\n' +
+      'Outcome: ' + outcome;
+
+    var fr = await fetch('/.netlify/functions/ai-tutor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: 'You are Michael, an expert RICS APC coach. A candidate has submitted a competency evidence entry. Review it against APC assessment standards. Rate it as one of: PASS LEVEL, HIGH SCORING, or NEEDS WORK. Then in 2-3 sentences explain why. Then give one specific suggestion to improve it. Be direct and constructive.',
+        messages: [{ role: 'user', content: promptMsg }],
+        scoring: true
+      })
+    });
+    var fd = await fr.json();
+    var feedbackText = (fd.content && fd.content[0] && fd.content[0].text) ? fd.content[0].text : 'Michael was unable to provide feedback right now. You can still save this entry to your Evidence Bank.';
+
+    prepFeedbackPending = feedbackText;
+    document.getElementById('prepFeedbackText').textContent = feedbackText;
+    document.getElementById('prepFeedbackBox').style.display = 'block';
+
+    btn.disabled = false;
+    btn.textContent = 'Re-submit for feedback';
+  } catch(e) {
+    console.error('PREP save error:', e);
+    msg.textContent = 'Something went wrong. Please try again.';
+    msg.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = "Save & Get Michael's Feedback";
+  }
+}
+
+async function prepConfirmSave() {
+  if (!prepCurrentEntry) return;
+  try {
+    const token = getToken();
+    var entry = {
+      id: prepCurrentEntry.id,
+      michaelFeedback: prepFeedbackPending
+    };
+    var r = await fetch('/.netlify/functions/save-prep', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: token, entry: entry })
+    });
+    var d = await r.json();
+    if (d.success) {
+      var idx = prepEntries.findIndex(function(e) { return e.id === prepCurrentEntry.id; });
+      if (idx !== -1) prepEntries[idx] = d.entry;
+      prepUpdateDashboard();
+      prepCloseOverlay();
+    }
+  } catch(e) { console.error('PREP confirm save error:', e); }
+}
+
+function prepOpenViewAll() {
+  var listEl = document.getElementById('prepViewList');
+  if (prepEntries.length === 0) {
+    listEl.innerHTML = '<div class="prep-empty">No evidence entries yet.</div>';
+  } else {
+    var grouped = {};
+    var order = [];
+    prepEntries.forEach(function(e) {
+      if (!grouped[e.competency]) { grouped[e.competency] = []; order.push(e.competency); }
+      grouped[e.competency].push(e);
+    });
+    listEl.innerHTML = order.map(function(comp) {
+      return '<div class="prep-group-heading">' + comp + '</div>' +
+        grouped[comp].map(function(e) {
+          return '<div class="prep-view-card">' +
+            '<div class="prep-view-card-header">' +
+              '<div><div class="prep-view-card-title">' + e.competency + '</div>' +
+              '<div class="prep-view-card-level">' + e.level + '</div></div>' +
+              prepRatingBadge(e.michaelFeedback) +
+            '</div>' +
+            '<div class="prep-view-field"><div class="prep-view-field-label">Situation</div><div class="prep-view-field-text">' + e.situation + '</div></div>' +
+            '<div class="prep-view-field"><div class="prep-view-field-label">Decision</div><div class="prep-view-field-text">' + e.decision + '</div></div>' +
+            '<div class="prep-view-field"><div class="prep-view-field-label">Action</div><div class="prep-view-field-text">' + e.action + '</div></div>' +
+            '<div class="prep-view-field"><div class="prep-view-field-label">Outcome</div><div class="prep-view-field-text">' + e.outcome + '</div></div>' +
+            (e.michaelFeedback ? '<div class="prep-view-field"><div class="prep-view-field-label">Michael\'s Feedback</div><div class="prep-view-field-text">' + e.michaelFeedback + '</div></div>' : '') +
+            '<div class="prep-form-actions"><button class="prep-view-delete" onclick="prepDelete(\'' + e.id + '\')">Delete</button></div>' +
+          '</div>';
+        }).join('');
+    }).join('');
+  }
+  document.getElementById('prepViewOverlay').style.display = 'block';
+}
+
+function prepCloseViewAll() {
+  document.getElementById('prepViewOverlay').style.display = 'none';
+}
+
+async function prepDelete(id) {
+  if (!confirm('Delete this evidence entry?')) return;
+  try {
+    const token = getToken();
+    var r = await fetch('/.netlify/functions/delete-prep', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: token, id: id })
+    });
+    var d = await r.json();
+    if (d.success) {
+      prepEntries = prepEntries.filter(function(e) { return e.id !== id; });
+      prepUpdateDashboard();
+      prepOpenViewAll();
+    }
+  } catch(e) { console.error('PREP delete error:', e); }
+}
+
+
 // ── BUILDING SURVEYING QUESTION BANK DATA ────────────────────────────────────
 const BS_QUESTIONS = [
   // MODULE 1 — Building Pathology & Defects (Q1–10)
@@ -4314,6 +4634,83 @@ async function sendMichaelPanel() {
   <div style="display:flex;gap:8px;padding:16px 20px;border-top:1px solid rgba(255,255,255,.08)">
     <input id="michaelPanelInput" type="text" placeholder="Ask Michael a question..." onkeydown="if(event.key==='Enter') sendMichaelPanel()">
     <button onclick="sendMichaelPanel()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer;font-weight:600">Send</button>
+  </div>
+</div>
+
+<div id="prepOverlay" style="display:none">
+  <div class="prep-modal" style="position:relative">
+    <button class="prep-close-x" onclick="prepCloseOverlay()">✕</button>
+    <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;margin-bottom:8px">Add Competency Evidence</h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.6);margin-bottom:24px">Write your evidence in STAR format. Michael will review it and give you feedback before you save it to your Evidence Bank.</p>
+
+    <div class="prep-field">
+      <label>Competency</label>
+      <select id="prepCompetency">
+        <option value="Ethics, Conduct &amp; Professionalism">Ethics, Conduct &amp; Professionalism</option>
+        <option value="Client Care">Client Care</option>
+        <option value="Communication &amp; Negotiation">Communication &amp; Negotiation</option>
+        <option value="Health &amp; Safety">Health &amp; Safety</option>
+        <option value="Accounting Principles &amp; Procedures">Accounting Principles &amp; Procedures</option>
+        <option value="Business Planning">Business Planning</option>
+        <option value="Conflict Avoidance &amp; Dispute Resolution">Conflict Avoidance &amp; Dispute Resolution</option>
+        <option value="Data Management">Data Management</option>
+        <option value="Sustainability">Sustainability</option>
+        <option value="Inclusive Professional Practice">Inclusive Professional Practice</option>
+        <option value="Diversity, Inclusion &amp; Teamworking">Diversity, Inclusion &amp; Teamworking</option>
+      </select>
+    </div>
+
+    <div class="prep-field">
+      <label>Level</label>
+      <select id="prepLevel">
+        <option value="Level 1 — Knowledge">Level 1 — Knowledge</option>
+        <option value="Level 2 — Application">Level 2 — Application</option>
+        <option value="Level 3 — Reasoned Advice">Level 3 — Reasoned Advice</option>
+      </select>
+    </div>
+
+    <div class="prep-field">
+      <label>Situation</label>
+      <textarea id="prepSituation" placeholder="What was the context and what was required of you?"></textarea>
+    </div>
+
+    <div class="prep-field">
+      <label>Decision</label>
+      <textarea id="prepDecision" placeholder="What did you decide to do and why?"></textarea>
+    </div>
+
+    <div class="prep-field">
+      <label>Action</label>
+      <textarea id="prepAction" placeholder="What specifically did you do?"></textarea>
+    </div>
+
+    <div class="prep-field">
+      <label>Outcome</label>
+      <textarea id="prepOutcome" placeholder="What was the result and how was it measured?"></textarea>
+    </div>
+
+    <div class="prep-form-actions">
+      <button class="prep-save-btn" id="prepSaveBtn" onclick="prepSaveEntry()">Save &amp; Get Michael's Feedback</button>
+      <button class="prep-cancel-btn" onclick="prepCloseOverlay()">Cancel</button>
+    </div>
+
+    <div id="prepFormMsg" style="font-size:12px;margin-top:8px;display:none;color:#fca5a5"></div>
+
+    <div class="prep-feedback-box" id="prepFeedbackBox">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px">🎓 Michael's Feedback</div>
+      <div id="prepFeedbackText"></div>
+      <div class="prep-form-actions" style="margin-top:16px">
+        <button class="prep-save-btn" onclick="prepConfirmSave()">Save to Evidence Bank</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="prepViewOverlay" style="display:none">
+  <div class="prep-modal" style="position:relative;max-width:760px">
+    <button class="prep-close-x" onclick="prepCloseViewAll()">✕</button>
+    <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;margin-bottom:24px">Your Evidence Bank</h2>
+    <div id="prepViewList"></div>
   </div>
 </div>
 </body>

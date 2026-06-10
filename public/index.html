@@ -549,6 +549,7 @@ footer{background:#0D0F1C;padding:52px 32px 32px}
 .quiz-wrap{background:#fff;border-radius:14px;padding:28px;border:1px solid var(--border);margin-top:8px}
 .quiz-wrap h2{font-size:17px;font-weight:700;color:var(--text);margin-bottom:6px}
 .quiz-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.quiz-pathway-heading{font-size:14px;font-weight:700;color:#2563EB;margin:28px 0 16px;padding-top:20px;border-top:1px solid var(--border)}
 .quiz-q{margin-bottom:24px}
 .quiz-q p{font-size:14px;font-weight:600;color:var(--text);margin-bottom:12px;line-height:1.5}
 .quiz-opts{display:flex;flex-direction:column;gap:8px}
@@ -2907,11 +2908,16 @@ CURRENT MODE: ${tutorMode}`,
 
 function renderQuiz(m) {
   const letters = ['A','B','C','D'];
+  const pathway = localStorage.getItem('gca_pathway');
+  const pathwayQs = (m.pathwayQuestions && pathway && m.pathwayQuestions[pathway]) ? m.pathwayQuestions[pathway] : [];
+  const allQuestions = m.quiz.concat(pathwayQs);
+  m._quizQuestions = allQuestions;
   return `
     <div class="quiz-wrap" id="quiz-${m.id}">
       <h2>Module ${m.num} Quiz</h2>
       <p class="quiz-sub">Answer all questions, then click Submit to see your results.</p>
-      ${m.quiz.map((q,qi) => `
+      ${allQuestions.map((q,qi) => `
+        ${qi === m.quiz.length && pathwayQs.length ? `<div class="quiz-pathway-heading">🏗️ Your ${pathway} Questions</div>` : ''}
         <div class="quiz-q" id="qq-${m.id}-${qi}">
           <p>Q${qi+1}. ${q.q}</p>
           <div class="quiz-opts">
@@ -2933,14 +2939,15 @@ function renderQuiz(m) {
 function selectOpt(modId, qi, oi) {
   if (quizSubmitted) return;
   const m = MODULES.find(x => x.id === modId);
+  const questions = m._quizQuestions || m.quiz;
   // Clear row
-  m.quiz[qi].opts.forEach((_,k) => {
+  questions[qi].opts.forEach((_,k) => {
     document.getElementById(`opt-${modId}-${qi}-${k}`).classList.remove('selected');
   });
   document.getElementById(`opt-${modId}-${qi}-${oi}`).classList.add('selected');
   quizAnswers[qi] = oi;
   // Enable submit if all answered
-  if (Object.keys(quizAnswers).length === m.quiz.length) {
+  if (Object.keys(quizAnswers).length === questions.length) {
     document.getElementById(`quizSubmit-${modId}`).disabled = false;
   }
 }
@@ -2949,8 +2956,9 @@ function submitQuiz(modId) {
   if (quizSubmitted) return;
   quizSubmitted = true;
   const m = MODULES.find(x => x.id === modId);
+  const questions = m._quizQuestions || m.quiz;
   let score = 0;
-  m.quiz.forEach((q, qi) => {
+  questions.forEach((q, qi) => {
     const userAns = quizAnswers[qi];
     q.opts.forEach((_,oi) => {
       const el = document.getElementById(`opt-${modId}-${qi}-${oi}`);
@@ -2959,15 +2967,15 @@ function submitQuiz(modId) {
     });
     if (userAns === q.ans) score++;
   });
-  const pct = Math.round((score/m.quiz.length)*100);
+  const pct = Math.round((score/questions.length)*100);
   const res = document.getElementById(`quizResult-${modId}`);
   res.style.display = 'block';
   if (pct >= 60) {
     res.className = 'quiz-result pass';
-    res.innerHTML = `✓ You scored ${score}/${m.quiz.length} (${pct}%). Well done! You can now mark this module as complete.`;
+    res.innerHTML = `✓ You scored ${score}/${questions.length} (${pct}%). Well done! You can now mark this module as complete.`;
   } else {
     res.className = 'quiz-result fail';
-    res.innerHTML = `You scored ${score}/${m.quiz.length} (${pct}%). Review the module content and try again — correct answers are shown above.`;
+    res.innerHTML = `You scored ${score}/${questions.length} (${pct}%). Review the module content and try again — correct answers are shown above.`;
   }
   document.getElementById(`quizSubmit-${modId}`).disabled = true;
 }

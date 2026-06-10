@@ -25,7 +25,7 @@ exports.handler = async (event) => {
     return { statusCode: 500, headers, body: JSON.stringify({ error: 'Payment system not configured' }) };
   }
 
-  const CASE_STUDY_PRICE_ID = 'price_1TgqRWRkzyH1h56UUABcQsTH';
+  const CASE_STUDY_PRICE_ID = 'price_1Tgqf1RkzyH1h56UvxEISPgl';
 
   try {
     const r = await fetch(`https://api.stripe.com/v1/checkout/sessions/${session_id}?expand[]=line_items`, {

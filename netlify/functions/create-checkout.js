@@ -25,7 +25,7 @@ exports.handler = async (event) => {
     'referred':   { priceId: 'price_1TcsEeRkzyH1h56UidHDLTKy', mode: 'payment' },
     'year-one':   { priceId: 'price_1TcsGcRkzyH1h56U7bJWaaBD', mode: 'payment' },
     'sprint':     { priceId: 'price_1TcsLoRkzyH1h56UOSPEAPSq', mode: 'payment' },
-    'case-study': { priceId: 'price_1TgqRWRkzyH1h56UUABcQsTH', mode: 'payment', successUrl: 'https://getcharteredai.com/index.html?cs_purchase=success&session_id={CHECKOUT_SESSION_ID}&view=dashboard' },
+    'case-study': { priceId: 'price_1Tgqf1RkzyH1h56UvxEISPgl', mode: 'payment', successUrl: 'https://getcharteredai.com/index.html?cs_purchase=success&session_id={CHECKOUT_SESSION_ID}&view=dashboard' },
   };
 
   const planConfig = PLANS[body.plan];

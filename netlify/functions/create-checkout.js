@@ -20,18 +20,20 @@ exports.handler = async (event) => {
   catch { return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
   const PLANS = {
-    'annual':   { priceId: 'price_1Tcs9lRkzyH1h56UY5JMcA7M', mode: 'payment' },
-    'monthly':  { priceId: 'price_1TcsBZRkzyH1h56UFH6ESfRe', mode: 'subscription' },
-    'referred': { priceId: 'price_1TcsEeRkzyH1h56UidHDLTKy', mode: 'payment' },
-    'year-one': { priceId: 'price_1TcsGcRkzyH1h56U7bJWaaBD', mode: 'payment' },
-    'sprint':   { priceId: 'price_1TcsLoRkzyH1h56UOSPEAPSq', mode: 'payment' },
+    'annual':     { priceId: 'price_1Tcs9lRkzyH1h56UY5JMcA7M', mode: 'payment' },
+    'monthly':    { priceId: 'price_1TcsBZRkzyH1h56UFH6ESfRe', mode: 'subscription' },
+    'referred':   { priceId: 'price_1TcsEeRkzyH1h56UidHDLTKy', mode: 'payment' },
+    'year-one':   { priceId: 'price_1TcsGcRkzyH1h56U7bJWaaBD', mode: 'payment' },
+    'sprint':     { priceId: 'price_1TcsLoRkzyH1h56UOSPEAPSq', mode: 'payment' },
+    // TODO: replace with the real Stripe price ID once the Case Study Review product is created
+    'case-study': { priceId: 'price_PLACEHOLDER', mode: 'payment', successUrl: 'https://getcharteredai.com/index.html?cs_purchase=success&session_id={CHECKOUT_SESSION_ID}&view=dashboard' },
   };
 
   const planConfig = PLANS[body.plan];
   if (!planConfig) {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Unknown plan' }) };
   }
-  const { priceId, mode } = planConfig;
+  const { priceId, mode, successUrl } = planConfig;
   const secretKey = process.env.STRIPE_SECRET_KEY;
 
   if (!secretKey) {
@@ -45,9 +47,12 @@ exports.handler = async (event) => {
     params.append('mode', mode);
     params.append('line_items[0][price]', priceId);
     params.append('line_items[0][quantity]', '1');
-    params.append('success_url', 'https://getcharteredai.com/success.html?session_id={CHECKOUT_SESSION_ID}');
+    params.append('success_url', successUrl || 'https://getcharteredai.com/success.html?session_id={CHECKOUT_SESSION_ID}');
     params.append('cancel_url', 'https://getcharteredai.com/cancel.html');
     params.append('billing_address_collection', 'auto');
+    if (body.email) {
+      params.append('customer_email', body.email);
+    }
 
     const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
       method: 'POST',

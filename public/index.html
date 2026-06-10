@@ -4823,6 +4823,120 @@ const BS_QUESTIONS = [
   }
 ];
 
+const QS_QUESTIONS = [
+  // MODULE 1 — Cost Planning & Commercial Fundamentals (Q1–10)
+  {
+    q: "What is the purpose of cost planning and how does it support client decision-making throughout a project?",
+    why: "Assessors want to establish whether candidates understand why cost planning exists, how it influences project outcomes and the QS role as an adviser.",
+    pass: "Cost planning is the process of forecasting and controlling project costs from inception through to completion. It helps the client understand the likely cost of the project and supports informed decisions regarding design, scope and procurement.",
+    high: "Cost planning is not simply predicting cost. It provides a framework for controlling expenditure and aligning project aspirations with available budget. Effective cost planning allows informed decision-making throughout design development and helps identify cost risks before they affect project viability.",
+    referral: "Cost planning is estimating the cost of a project.",
+    referralWhy: ["Too simplistic", "No understanding of strategic purpose", "No client focus"],
+    challenge: ["When should cost planning begin?", "How does cost planning evolve through project stages?", "What happens if the budget is exceeded?"],
+    keyPoints: ["Cost planning supports decision-making", "It starts early", "It continues throughout the project", "It helps manage risk"],
+    module: "Cost Planning & Commercial Fundamentals"
+  },
+  {
+    q: "What factors would you consider when preparing an initial cost estimate?",
+    why: "To test commercial awareness and practical cost planning skills.",
+    pass: "Factors include project scope, location, procurement route, programme, market conditions, site constraints, inflation and risk allowances.",
+    high: "I would also consider the quality expectations, level of design information available, abnormal costs and benchmarking data from comparable projects. The estimate should reflect the level of certainty available at the time.",
+    referral: "I would calculate the construction cost.",
+    referralWhy: ["Ignores wider project costs", "Demonstrates weak commercial awareness"],
+    challenge: ["How do you account for uncertainty?", "What benchmark data might you use?", "How would inflation affect the estimate?"],
+    keyPoints: ["Estimates are based on available information", "Consider risk and uncertainty", "Include project-specific factors", "Communicate assumptions clearly"],
+    module: "Cost Planning & Commercial Fundamentals"
+  },
+  {
+    q: "How would you explain the difference between an estimate, a cost plan and a tender sum?",
+    why: "A classic APC question that reveals whether candidates truly understand cost management.",
+    pass: "An estimate provides an early forecast of likely project cost. A cost plan develops cost information as design progresses and supports cost control. A tender sum is the contractor's submitted price for carrying out the works.",
+    high: "The level of certainty increases as the project progresses. An estimate is often based on limited information, whereas a cost plan becomes progressively more detailed. The tender sum reflects market pricing at a specific point in time and may differ from previous forecasts.",
+    referral: "They are all different ways of pricing a project.",
+    referralWhy: ["No understanding of purpose", "Demonstrates weak commercial knowledge"],
+    challenge: ["Why might a tender sum differ from a cost plan?", "When is a cost plan updated?", "How do market conditions affect pricing?"],
+    keyPoints: ["Understand the differences", "Cost certainty evolves over time", "Tender sums reflect market conditions", "Cost plans support control"],
+    module: "Cost Planning & Commercial Fundamentals"
+  },
+  {
+    q: "What is benchmarking and how would you use it when preparing cost advice?",
+    why: "Assessors want to see practical cost planning skills and commercial awareness.",
+    pass: "Benchmarking involves comparing project costs against historical data from similar projects. It can help validate estimates and identify unusual cost drivers.",
+    high: "I would ensure benchmark projects are genuinely comparable in terms of scope, location, specification, procurement route and market conditions. Benchmarking is a useful tool but should not replace project-specific analysis.",
+    referral: "I would compare the project to another project.",
+    referralWhy: ["Too simplistic", "No understanding of comparability"],
+    challenge: ["What makes a benchmark reliable?", "What limitations exist?", "How would location affect benchmarking?"],
+    keyPoints: ["Use comparable data", "Understand limitations", "Adjust for project differences", "Benchmarking supports judgement"],
+    module: "Cost Planning & Commercial Fundamentals"
+  },
+  {
+    q: "What is value for money and how would you demonstrate it to a client?",
+    why: "A favourite APC question because it moves candidates beyond pure cost.",
+    pass: "Value for money considers cost, quality, performance and whole-life value rather than simply selecting the lowest-cost option.",
+    high: "I would demonstrate value through comparison of options, lifecycle costing, risk assessment and alignment with client objectives. The cheapest solution is not always the best value solution.",
+    referral: "Value for money means achieving the lowest price.",
+    referralWhy: ["Common APC mistake", "No understanding of value"],
+    challenge: ["How do you assess whole-life value?", "Can higher capital cost represent better value?", "How do client priorities influence value?"],
+    keyPoints: ["Value does not equal lowest cost", "Consider performance", "Consider lifecycle costs", "Align with client objectives"],
+    module: "Cost Planning & Commercial Fundamentals"
+  },
+  {
+    q: "How would you deal with a situation where the client's budget is lower than the current cost plan?",
+    why: "Assessors want to test cost planning knowledge, commercial judgement, client advisory skills and value engineering awareness.",
+    pass: "I would identify the cost variance and review the project scope, specification and design proposals to identify opportunities for savings. I would discuss the findings with the client and project team and consider options that align the project with the available budget.",
+    high: "My objective would be to maintain the client's requirements while reducing cost where possible. I would undertake a structured review of design, specification, procurement and risk allowances. I would explain the implications of each option so the client could make an informed decision. I would avoid recommending changes that significantly compromise quality, compliance or long-term value.",
+    referral: "I would tell the client the budget is unrealistic.",
+    referralWhy: ["No problem-solving", "No client-focused advice", "Demonstrates weak commercial awareness"],
+    challenge: ["How would you prioritise savings opportunities?", "What role does value engineering play?", "How would you explain the implications of scope reductions?"],
+    keyPoints: ["Focus on solutions", "Maintain value where possible", "Explain consequences of changes", "Support informed decisions"],
+    module: "Cost Planning & Commercial Fundamentals"
+  },
+  {
+    q: "What is risk allowance and why is it included within a cost plan?",
+    why: "Risk management is a core QS skill. Assessors want to know whether candidates understand uncertainty in cost forecasting.",
+    pass: "A risk allowance is included to reflect uncertainty and potential future cost events that have not yet been fully defined. It helps improve the reliability of the cost plan.",
+    high: "Risk allowances should be evidence-based and reflect the level of design development, project complexity and identified risks. The allowance should reduce as uncertainty decreases and risks are either mitigated or quantified more accurately.",
+    referral: "It is added in case something goes wrong.",
+    referralWhy: ["Oversimplified", "No understanding of risk management"],
+    challenge: ["How do you calculate a risk allowance?", "How does risk change during a project?", "Should all projects have the same contingency?"],
+    keyPoints: ["Risk allowances should be justified", "Reflect project uncertainty", "Review regularly", "Reduce as certainty increases"],
+    module: "Cost Planning & Commercial Fundamentals"
+  },
+  {
+    q: "How would inflation affect a cost plan?",
+    why: "Construction inflation has become a major commercial issue. Assessors want to test awareness of market conditions.",
+    pass: "Inflation can increase labour, material and subcontractor costs and therefore affect overall project cost. Appropriate allowances should be included where future inflation is anticipated.",
+    high: "I would consider the project programme, procurement strategy and likely market conditions. Inflation assumptions should be clearly communicated to the client and reviewed regularly as market conditions change.",
+    referral: "Inflation makes projects more expensive.",
+    referralWhy: ["Too simplistic", "No practical application"],
+    challenge: ["How would long programmes affect inflation risk?", "How often should inflation assumptions be reviewed?", "What data sources would you use?"],
+    keyPoints: ["Inflation affects cost forecasts", "Assumptions should be transparent", "Review regularly", "Consider programme length"],
+    module: "Cost Planning & Commercial Fundamentals"
+  },
+  {
+    q: "What is whole-life costing and why is it important?",
+    why: "This question tests commercial awareness and client-focused advice.",
+    pass: "Whole-life costing considers all costs associated with an asset throughout its life, including capital expenditure, maintenance, operation and replacement costs. It helps clients make informed investment decisions.",
+    high: "Whole-life costing allows clients to evaluate long-term value rather than simply focusing on capital cost. A higher initial investment may result in lower maintenance costs, reduced operational expenditure and better overall value.",
+    referral: "It is the total construction cost.",
+    referralWhy: ["Incorrect definition", "No understanding of lifecycle thinking"],
+    challenge: ["When is whole-life costing most valuable?", "Can a more expensive solution provide better value?", "What costs should be included?"],
+    keyPoints: ["Consider costs over the asset life", "Not limited to construction cost", "Supports investment decisions", "Focus on long-term value"],
+    module: "Cost Planning & Commercial Fundamentals"
+  },
+  {
+    q: "How would you explain cost certainty to a client?",
+    why: "Clients frequently ask for cost certainty. Assessors want to know whether candidates understand how certainty develops during a project.",
+    pass: "Cost certainty refers to the degree of confidence that the final project cost will align with the forecast cost. Cost certainty generally improves as design information becomes more detailed and project risks become better understood.",
+    high: "I would explain that cost certainty is not fixed and changes throughout the project lifecycle. Factors such as design development, procurement strategy, market conditions and risk management all influence certainty. Different procurement routes also provide different levels of cost certainty at different stages.",
+    referral: "Cost certainty means knowing exactly what the project will cost.",
+    referralWhy: ["Unrealistic", "Demonstrates poor commercial understanding"],
+    challenge: ["When is cost certainty highest?", "How does procurement influence certainty?", "What factors reduce certainty?"],
+    keyPoints: ["Cost certainty evolves", "Risk affects certainty", "Procurement influences outcomes", "Communicate uncertainty honestly"],
+    module: "Cost Planning & Commercial Fundamentals"
+  }
+];
+
 // ── BS QUESTION BANK UI ───────────────────────────────────────────────────────
 let _bsoIndex = 0;
 let _bsoFiltered = null;

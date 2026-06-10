@@ -1601,6 +1601,13 @@ document.addEventListener('click', function(e) {
 
       </div>
 
+      <div class="bs-qbank" id="industryBriefingCard">
+        <div class="panel-eyebrow panel-eyebrow-light">Stay current</div>
+        <div class="bs-qbank-title" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:18px">📋 Industry Briefing <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.25);letter-spacing:.02em">Updated Autumn 2026</span></div>
+        <div class="bs-qbank-sub">The legislation changes and technical developments most likely to come up in your assessment. Updated every window.</div>
+        <a href="https://getcharteredai.com/hot-topics" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Read the Briefing →</a>
+      </div>
+
       <div class="cpd-panel" id="cpdPanel">
         <div class="cpd-panel-header">
           <div>
@@ -2520,6 +2527,7 @@ function openModule(id, plan, activatedAt) {
     </div>
     <div style="padding:12px 0 20px 0;"><button onclick="openMichaelPanel(${id}, '${m.title}')" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;">🎓 Ask Michael about this module</button></div>
     <div style="margin:0 0 24px 0;padding:16px 20px;background:rgba(37,99,235,0.06);border:1px solid rgba(37,99,235,0.25);border-radius:10px;font-size:14px;color:#1e3a5f;line-height:1.7;"><strong style="color:#60a5fa;">💬 Michael is here to help</strong><br>If a revision sheet raises a question Michael is there to assist — ask him to explain a concept, challenge your answer, or work through a scenario with you. If an area feels less secure, use Michael to explore it further. He can help you build and sharpen your answers across any competency.</div>
+    <div style="margin:0 0 24px 0;padding:16px 20px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:10px;font-size:14px;line-height:1.7;"><strong style="color:#f59e0b;">📋 Industry Briefing</strong><br><span style="color:#1e3a5f;">Before your assessment, check the <a href="https://getcharteredai.com/hot-topics" target="_blank" style="color:#2563EB;font-weight:600;">Industry Briefing</a> for the latest legislation and RICS updates most likely to come up in your window.</span></div>
     ${m.sections.filter(s => {
       if (s.h.includes('Sprint Learners') && plan !== 'sprint') return false;
       if (s.sprintOnly && plan !== 'sprint') return false;

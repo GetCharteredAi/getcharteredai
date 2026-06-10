@@ -744,7 +744,7 @@ input.err{border-color:var(--red)}
 .bs-stat-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(37,99,235,.15);color:#93c5fd;border:1px solid rgba(37,99,235,.2)}
 .bs-mini-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;flex:1;max-width:120px}
 .bs-mini-bar-fill{height:100%;background:#2563EB;border-radius:2px;transition:width .4s}
-#bsOverlay,#qsOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9998;overflow-y:auto;flex-direction:column}
+#bsOverlay,#qsOverlay,#creOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9998;overflow-y:auto;flex-direction:column}
 .bso-topbar{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;flex-wrap:wrap}
 .bso-counter{font-size:13px;font-weight:700;color:#fff}
 .bso-module{font-size:11px;color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);padding:3px 10px;border-radius:20px}
@@ -836,12 +836,13 @@ input.err{border-color:var(--red)}
 .cpd-delete-btn:hover{color:#ef4444}
 .cpd-empty{font-size:13px;color:#94a3b8;text-align:center;padding:20px 0;font-style:italic}
 @media(max-width:768px){.cpd-form-grid{grid-template-columns:1fr}.cpd-stats{gap:16px}}
-#bsOverlay .bso-question,#qsOverlay .bso-question{color:#ffffff !important;font-size:clamp(16px,2.2vw,20px) !important;font-weight:600 !important}
-#bsOverlay .bso-reveal-btn,#qsOverlay .bso-reveal-btn{color:#ffffff !important}
-#bsOverlay .bso-reveal-btn.revealed,#qsOverlay .bso-reveal-btn.revealed{color:#93c5fd !important}
-#bsOverlay .bso-reveal-content,#qsOverlay .bso-reveal-content{color:#f0f4ff !important;background:#1e2235 !important;padding:14px 18px !important;border-radius:8px !important;margin-bottom:16px !important;line-height:1.7 !important;font-size:14px !important}
+#bsOverlay .bso-question,#qsOverlay .bso-question,#creOverlay .bso-question{color:#ffffff !important;font-size:clamp(16px,2.2vw,20px) !important;font-weight:600 !important}
+#bsOverlay .bso-reveal-btn,#qsOverlay .bso-reveal-btn,#creOverlay .bso-reveal-btn{color:#ffffff !important}
+#bsOverlay .bso-reveal-btn.revealed,#qsOverlay .bso-reveal-btn.revealed,#creOverlay .bso-reveal-btn.revealed{color:#93c5fd !important}
+#bsOverlay .bso-reveal-content,#qsOverlay .bso-reveal-content,#creOverlay .bso-reveal-content{color:#f0f4ff !important;background:#1e2235 !important;padding:14px 18px !important;border-radius:8px !important;margin-bottom:16px !important;line-height:1.7 !important;font-size:14px !important}
 #bsOverlay #bsoContent3{color:#fca5a5 !important;background:#2d1515 !important}
 #qsOverlay #qsoContent3{color:#fca5a5 !important;background:#2d1515 !important}
+#creOverlay #creoContent3{color:#fca5a5 !important;background:#2d1515 !important}
 
 #michaelPanel{position:fixed;top:0;right:0;height:100vh;width:380px;max-width:100vw;background:#0D0F1C;z-index:9998;box-shadow:-8px 0 32px rgba(0,0,0,.4);transform:translateX(100%);transition:transform .3s ease;flex-direction:column}
 #michaelPanel.open{transform:translateX(0)}
@@ -1771,6 +1772,17 @@ document.addEventListener('click', function(e) {
         </div>
         <button id="qsStartBtn" onclick="openQSOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
       </div>
+      <div class="bs-qbank" id="creQuestionBank" style="display:none">
+        <div class="panel-eyebrow panel-eyebrow-light">CRE PATHWAY</div>
+        <div class="bs-qbank-title">🏢 Your Commercial Real Estate Question Bank</div>
+        <div class="bs-qbank-sub">50 assessor-led questions every Commercial Real Estate candidate should be able to answer before final assessment</div>
+        <div class="bs-qbank-stats" id="creQBankStats">
+          <span class="bs-stat-pill" id="creStatAttempted">0 of 50 attempted</span>
+          <span class="bs-stat-pill" id="creStatGot" style="background:rgba(22,163,74,.15);color:#86efac;border-color:rgba(22,163,74,.2)">0 ✓ confident</span>
+          <div class="bs-mini-bar"><div class="bs-mini-bar-fill" id="creMiniBarFill" style="width:0%"></div></div>
+        </div>
+        <button id="creStartBtn" onclick="openCREOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
+      </div>
 
       <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
         <h3 style="font-family:var(--fh);font-size:16px;font-weight:700;color:var(--text)">Your Modules</h3>
@@ -2241,6 +2253,7 @@ function renderPathwayBadge() {
   const badge = document.getElementById('pathwayBadge');
   const bs = document.getElementById('bsQuestionBank');
   const qs = document.getElementById('qsQuestionBank');
+  const cre = document.getElementById('creQuestionBank');
   if (pathway && row && badge) {
     badge.textContent = '🗺️ ' + pathway + ' pathway';
     row.style.display = 'flex';
@@ -2249,8 +2262,10 @@ function renderPathwayBadge() {
   }
   if (bs) bs.style.display = (pathway === 'Building Surveying') ? 'block' : 'none';
   if (qs) qs.style.display = (pathway === 'Quantity Surveying and Construction') ? 'block' : 'none';
+  if (cre) cre.style.display = (pathway === 'Commercial Real Estate') ? 'block' : 'none';
   bsoUpdateDashboardStats();
   qsoUpdateDashboardStats();
+  creoUpdateDashboardStats();
 }
 
 async function renderDashboard() {
@@ -5847,6 +5862,118 @@ const CRE_QUESTIONS = [
     challenge: ["Is the highest price always the best disposal outcome?", "Why might pre-sale asset management be useful?", "What is an informal tender?", "How would market conditions influence timing?"],
     keyPoints: ["Disposal strategy should reflect the client's objective", "Timing and market conditions matter", "Pre-sale preparation can improve value and certainty", "The best offer is not always the highest offer if execution risk is high"],
     module: "Investment & Asset Management"
+  },
+
+  // MODULE 5 — APC Case Study & Final Assessment (Q41–50)
+  {
+    q: "Tell us about your APC case study.",
+    why: "Assessors open the discussion around your submission and test whether you genuinely understand the project you selected, your personal role, the client's objective, the key issue, the advice you gave and the outcome.",
+    pass: "My case study concerned a commercial property instruction where my client required advice on a key issue. My role was to review relevant property information, analyse market evidence, identify the main risks and prepare advice for the client. The client's objective was clearly defined and I considered available options before making my recommendation.",
+    high: "The strongest case study answers are structured and concise — assessors want your role not the whole project story. I would explain the client's objective, the key challenge and why it mattered commercially, the options I considered, my recommendation and why it was appropriate, the outcome and my main learning point. Using I rather than we throughout is essential to demonstrate personal involvement.",
+    referral: "The project involved a large team and we successfully completed the transaction.",
+    referralWhy: ["Uses we instead of I", "Describes events rather than advice", "Fails to explain personal involvement", "No outcome or learning"],
+    challenge: ["What was your personal role?", "Why did you choose this case study?", "What was the key professional judgement?", "What would you do differently?"],
+    keyPoints: ["Assessors want your role not the whole project story", "Structure answers concisely", "Explain advice and reasoning not just events", "Reflection demonstrates professional maturity"],
+    module: "APC Case Study & Final Assessment"
+  },
+  {
+    q: "Why was your advice appropriate?",
+    why: "This is one of the most important final assessment questions because it tests professional judgement. Assessors want to know whether your recommendation was reasoned, proportionate and in the client's best interests.",
+    pass: "My advice was appropriate because it was based on the client's stated objective, the evidence available and the risks identified during the instruction. I did not simply recommend the most attractive option on the surface — I considered the alternatives and assessed each against the client's priorities.",
+    high: "Although one option may have produced a stronger headline position, it carried greater execution risk. My recommendation balanced the potential benefit with the likelihood of achieving the desired outcome. I communicated the limitations of my advice and recommended specialist input where appropriate, ensuring the client understood the basis of my recommendation and could make an informed decision.",
+    referral: "My advice was appropriate because the client accepted it.",
+    referralWhy: ["No explanation of evidence or reasoning", "Ignores rejected alternatives", "Does not mention risk", "Defensive rather than reasoned"],
+    challenge: ["What evidence supported your advice?", "What risks did you identify?", "What alternatives were rejected and why?", "Would your advice change with hindsight?"],
+    keyPoints: ["Appropriate advice is evidence-based and client-specific", "Assessors want the reasoning behind the recommendation", "Strong candidates explain why alternatives were not chosen", "Link advice to risk outcome and client objective"],
+    module: "APC Case Study & Final Assessment"
+  },
+  {
+    q: "What alternatives did you consider?",
+    why: "Assessors test whether you exercised judgement rather than simply following one route. Commercial Real Estate candidates should explain the options available and why the selected course of action was preferred.",
+    pass: "I considered several alternatives before making my recommendation. I assessed the advantages and disadvantages of each option against the client's objective, considering cost, timing, risk, deliverability and commercial impact.",
+    high: "The first option had certain advantages but carried risk in relation to cost or timing. The second option may have achieved a different benefit but carried execution uncertainty. The third option was most aligned with the client's objective because it provided the best balance between commercial benefit, deliverability and risk. I made sure the client understood why the other options were not preferred.",
+    referral: "There was really only one option that made sense.",
+    referralWhy: ["Demonstrates no judgement or alternatives considered", "Listing options without comparing them", "Ignoring risk", "Not linking decision to client objective"],
+    challenge: ["Which option carried the greatest risk?", "Did the client disagree with your recommendation?", "What would have happened if the client chose another option?", "How did you communicate the alternatives?"],
+    keyPoints: ["Level 3 advice usually involves evaluating options", "Assessors want to see judgement not hindsight", "Alternatives should be realistic", "Strong answers explain why an option was rejected"],
+    module: "APC Case Study & Final Assessment"
+  },
+  {
+    q: "What was the greatest commercial risk?",
+    why: "Assessors test whether you understood the commercial consequences of your advice and can identify risk, explain its impact and advise on mitigation.",
+    pass: "The greatest commercial risk was one that had the potential to affect income, value, occupation, timing, cost, transaction certainty or client liability. I assessed the risk by reviewing market evidence, lease terms, tenant covenant, comparable transactions, building condition or legal information.",
+    high: "To mitigate the risk I advised on specific actions which allowed the client to make a more informed decision. I also explained any residual risk that could not be fully removed. For example in a letting instruction the greatest risk may have been an extended void period if the property was marketed at an unrealistic rent — I would advise on rental strategy and review market feedback regularly.",
+    referral: "The greatest risk was that the deal might not complete.",
+    referralWhy: ["Chooses a minor or vague risk", "Describes the problem but not the impact", "Does not explain mitigation", "Ignores residual risk"],
+    challenge: ["How did you identify the risk?", "What would have happened if the risk was ignored?", "How did you communicate the risk to the client?", "Was the risk fully mitigated?"],
+    keyPoints: ["Commercial risk must be linked to client impact", "Strong candidates explain both risk and mitigation", "Not all risk can be eliminated", "Assessors want commercial awareness not just technical knowledge"],
+    module: "APC Case Study & Final Assessment"
+  },
+  {
+    q: "How did you protect your client's interests?",
+    why: "This question tests client care, professional judgement and ethical awareness. Assessors want to see whether you acted in the client's best interests while remaining professional, objective and within your competence.",
+    pass: "I protected my client's interests by first making sure I understood their objective and the commercial outcome they wanted to achieve. I reviewed the relevant evidence, identified the main risks that could affect the client's position and explained those risks clearly including their potential financial and operational impact.",
+    high: "Where the client's preferred approach carried risk I advised them on the implications rather than simply agreeing with their view. I documented my advice and recommended specialist legal or technical input where issues fell outside my competence. My aim was to support the client's objective while ensuring they made an informed decision — protecting the client is not the same as simply obeying the client.",
+    referral: "I did whatever the client asked me to do.",
+    referralWhy: ["No professional judgement", "Did not challenge unrealistic expectations", "Forgot documentation", "Ignored competence limits and ethics"],
+    challenge: ["Did your client ever disagree with your advice?", "How did you manage expectations?", "How did you record your advice?", "How did you balance commercial pressure with professional standards?"],
+    keyPoints: ["Protecting the client is not the same as simply obeying the client", "Clients need clear reasoned and honest advice", "Advice should be documented", "Professional judgement includes knowing when to recommend specialist input"],
+    module: "APC Case Study & Final Assessment"
+  },
+  {
+    q: "How did you negotiate a successful outcome?",
+    why: "Negotiation is central to Commercial Real Estate practice. Assessors test whether you can prepare, communicate and reach an outcome that supports the client's objective.",
+    pass: "I began by agreeing the client's objectives and understanding the acceptable negotiation range. I then prepared my position using relevant evidence including comparable transactions, market conditions and the specific facts of the instruction. I also considered the likely priorities of the other party to identify where there may be room for compromise.",
+    high: "During the negotiation I presented my position clearly and supported it with evidence. I listened to the other party's points and tested whether their position was evidence-based. Where appropriate I advised the client on the benefits of settlement rather than pursuing a more aggressive position that could create delay or risk. The outcome was successful because it achieved the client's commercial objective while remaining proportionate.",
+    referral: "I negotiated hard until I got the best deal.",
+    referralWhy: ["Does not explain preparation or evidence", "Ignores the other party's position", "Does not link outcome to client objective", "No mention of professional conduct"],
+    challenge: ["What was your opening position?", "What was your fall-back position?", "How did you use evidence in negotiation?", "How did you know the outcome was successful?"],
+    keyPoints: ["Good negotiation is prepared evidence-based and professional", "A successful outcome is not always the most aggressive outcome", "Understanding the other party can improve results", "Settlement should be assessed against client objectives and risk"],
+    module: "APC Case Study & Final Assessment"
+  },
+  {
+    q: "How did sustainability influence your recommendation?",
+    why: "Sustainability is increasingly relevant across Commercial Real Estate. Assessors want to see whether candidates can link sustainability to commercial advice not just make general ESG statements.",
+    pass: "Sustainability influenced my recommendation because it affected the property's marketability, future risk and potential value. I considered the EPC rating, likely MEES compliance position, energy performance, occupier expectations and any capital expenditure required to improve the building.",
+    high: "Where a property had a weaker EPC rating I advised the client that this could affect future letting prospects, investor demand and compliance risk. I recommended that sustainability improvements should be considered as part of the wider asset strategy rather than treated as a separate issue. My recommendation balanced commercial return with future resilience and I explained that sustainability can influence both occupational demand and long-term investment performance.",
+    referral: "I mentioned the EPC rating in my report.",
+    referralWhy: ["Gives generic environmental comments", "Does not link sustainability to value or marketability", "Ignores future regulation", "Treats sustainability as an afterthought"],
+    challenge: ["What is MEES?", "How can EPC rating affect value?", "How does ESG influence occupier demand?", "Did sustainability change your final recommendation?"],
+    keyPoints: ["Sustainability must be linked to commercial decision-making", "EPC and MEES can affect lettability and value", "ESG expectations are increasingly important to occupiers and investors", "Strong candidates explain sustainability as part of risk and strategy"],
+    module: "APC Case Study & Final Assessment"
+  },
+  {
+    q: "What would you do differently?",
+    why: "Assessors test reflection, professional maturity and learning. They are not looking for a perfect candidate — they are looking for someone who can evaluate their own performance and improve.",
+    pass: "With hindsight I would have taken a specific action that would have helped achieve a better outcome — for example engaging with the client earlier on a particular risk, gathering additional comparable evidence at an earlier stage or documenting an assumption more clearly.",
+    high: "The key learning for me was a specific insight that I have since applied to improve the way I approach similar instructions. I would not change my overall recommendation if I still believed it was supported by the evidence, but I would improve the process in a specific way. Assessors expect learning not perfection — the answer should be specific and credible.",
+    referral: "I would not do anything differently — the advice was correct.",
+    referralWhy: ["Demonstrates limited reflection", "No specific learning identified", "Does not explain how learning was applied", "Suggesting the whole advice was wrong without explanation"],
+    challenge: ["Did anything go wrong?", "What did you learn?", "How have you applied that learning since?", "How did you seek feedback?"],
+    keyPoints: ["Reflection is a strength when handled well", "Assessors expect learning not perfection", "The answer should be specific and credible", "Strong candidates show how they changed their practice"],
+    module: "APC Case Study & Final Assessment"
+  },
+  {
+    q: "Why do Commercial Real Estate candidates get referred?",
+    why: "Assessors may ask this to test whether you understand the assessment standard and whether you can distinguish between knowledge, experience and competence.",
+    pass: "Commercial Real Estate candidates are often referred not because they lack experience but because they do not demonstrate competence at the required level. Common issues include describing transactions rather than explaining advice, failing to show personal involvement, misunderstanding lease provisions and not linking recommendations to the client's objective.",
+    high: "At Level 3, assessors expect candidates to demonstrate reasoned professional advice — explaining the evidence considered, the options available, the risks identified and why a particular recommendation was appropriate. To avoid referral I would ensure my answers are structured, evidence-based and focused on my own judgement and advice rather than describing what happened.",
+    referral: "Candidates get referred because they are nervous on the day.",
+    referralWhy: ["Does not understand Level 3 requirements", "Blames external factors", "Thinks technical knowledge alone is enough", "Fails to explain personal advice"],
+    challenge: ["What is the difference between Level 2 and Level 3?", "How would you demonstrate personal involvement?", "How do you avoid sounding descriptive?", "What have you done to prepare for final assessment?"],
+    keyPoints: ["Referral risk often comes from weak demonstration not weak experience", "Candidates must explain judgement", "Level 3 requires advice not description", "Personal involvement must be clear"],
+    module: "APC Case Study & Final Assessment"
+  },
+  {
+    q: "Why should RICS award you MRICS status?",
+    why: "This is a final professionalism question. Assessors want to know whether you understand what it means to become a Chartered Surveyor — testing professional identity, responsibility and readiness.",
+    pass: "RICS should award me MRICS status because I have demonstrated the required technical competence, professional judgement and ethical awareness expected of a Chartered Surveyor. Through my experience in Commercial Real Estate I have provided reasoned advice to clients, considered evidence, assessed risk and communicated recommendations clearly.",
+    high: "I understand that MRICS status is not simply a qualification — it carries professional responsibility. As a Chartered Surveyor I would be expected to act with integrity, provide competent advice, maintain professional standards and protect public confidence in the profession. I am committed to continuing professional development and to working within the RICS Rules of Conduct.",
+    referral: "Because I have completed my training and passed my exams.",
+    referralWhy: ["Does not understand professional responsibility", "Fails to mention ethics", "Treats MRICS as just career progression", "Does not demonstrate readiness or judgement"],
+    challenge: ["What does being chartered mean to you?", "How will you maintain competence?", "What ethical responsibilities come with MRICS status?", "How do you protect public confidence?"],
+    keyPoints: ["MRICS status is about responsibility as well as competence", "Chartered Surveyors must act ethically and professionally", "Candidates should demonstrate readiness not entitlement", "The strongest answers combine competence judgement and public trust"],
+    module: "APC Case Study & Final Assessment"
   }
 ];
 
@@ -6088,6 +6215,124 @@ function qsoUpdateDashboardStats() {
 }
 
 
+// ── CRE QUESTION BANK UI ───────────────────────────────────────────────────────
+let _creoIndex = 0;
+let _creoFiltered = null;
+
+function openCREOverlay() {
+  _creoFiltered = null;
+  const saved = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
+  const isFirstTime = Object.keys(saved).length === 0;
+  const resume = CRE_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
+  _creoIndex = resume === -1 ? 0 : resume;
+  const el = document.getElementById('creOverlay');
+  el.style.display = 'flex';
+  const sel = document.getElementById('creoModuleFilter');
+  if (sel) sel.value = '';
+  const closeBtn = document.querySelector('#creOverlay .bso-close');
+  if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
+  if (isFirstTime) {
+    document.getElementById('creoBody').innerHTML = '<div style="max-width:780px;margin:0 auto;padding:40px 20px;text-align:center"><div style="font-size:48px;margin-bottom:24px">🏢</div><h2 style="color:#fff;font-size:24px;margin-bottom:16px">How to use your Question Bank</h2><div style="text-align:left;background:#1e2235;border-radius:12px;padding:40px 48px;margin-bottom:28px"><p style="color:#f0f4ff;margin-bottom:16px">Each question works like a real APC assessor conversation. Here is how to get the most from it:</p><ol style="color:#f0f4ff;line-height:2"><li><strong style="color:#60a5fa">Read the question</strong> — think about how you would answer it out loud</li><li><strong style="color:#60a5fa">Reveal why assessors ask it</strong> — understand what they are really testing</li><li><strong style="color:#60a5fa">Check the pass-level answer</strong> — the minimum expected from a chartered candidate</li><li><strong style="color:#60a5fa">Read the high-scoring answer</strong> — this is what separates passes from strong passes</li><li><strong style="color:#60a5fa">See the referral answer</strong> — understand exactly what to avoid</li><li><strong style="color:#60a5fa">Mark your confidence</strong> — "I got this" or "Need more practice" tracks your progress</li></ol></div><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:28px">You can close at any time and your progress is saved. Use the module filter to jump to specific topics.</p><button onclick="creoRender()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:14px 32px;font-size:16px;font-weight:600;cursor:pointer">Start with Question 1 →</button></div>';
+  } else {
+    creoRender();
+  }
+}
+
+function closeCREOverlay() {
+  document.getElementById('creOverlay').style.display = 'none';
+  const btn = document.getElementById('creStartBtn');
+  if (btn) btn.textContent = 'Continue from Q' + (_creoIndex + 1);
+}
+
+function creoQuestions() {
+  return _creoFiltered || CRE_QUESTIONS;
+}
+
+function creoJumpToModule(mod) {
+  _creoFiltered = mod ? CRE_QUESTIONS.filter(q => q.module === mod) : null;
+  _creoIndex = 0;
+  creoRender();
+}
+
+function creoRender() {
+  const qs = creoQuestions();
+  const q = qs[_creoIndex];
+  const prog = Math.round((_creoIndex / qs.length) * 100);
+  document.getElementById('creoCounter').textContent = 'Question ' + (_creoIndex + 1) + ' of ' + qs.length;
+  document.getElementById('creoModule').textContent = q.module;
+  document.getElementById('creoProgressFill').style.width = prog + '%';
+  const saved = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
+  const globalIdx = CRE_QUESTIONS.indexOf(q);
+  const verdict = saved[globalIdx];
+  document.getElementById('creoBody').innerHTML =
+    '<div class="bso-question">' + q.q + '</div>' +
+    '<button class="bso-reveal-btn" id="creoBtn0" onclick="creoReveal(0)">💡 Why do assessors ask this?</button>' +
+    '<div class="bso-reveal-content" id="creoContent0">' + q.why + '</div>' +
+    '<button class="bso-reveal-btn" id="creoBtn1" onclick="creoReveal(1)" disabled>✅ Pass-level answer</button>' +
+    '<div class="bso-reveal-content" id="creoContent1">' + q.pass + '</div>' +
+    '<button class="bso-reveal-btn" id="creoBtn2" onclick="creoReveal(2)" disabled>🏆 High-scoring answer</button>' +
+    '<div class="bso-reveal-content" id="creoContent2">' + q.high + '</div>' +
+    '<button class="bso-reveal-btn" id="creoBtn3" onclick="creoReveal(3)" disabled>⚠️ Referral answer — what to avoid</button>' +
+    '<div class="bso-reveal-content bso-referral-content" id="creoContent3"><strong>' + q.referral + '</strong><ul>' + q.referralWhy.map(function(r){return '<li>❌ ' + r + '</li>';}).join('') + '</ul></div>' +
+    '<div id="creoFinal" style="display:none">' +
+      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>' + c + '</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>' + k + '</li>';}).join('') + '</ol></div>' +
+      '<div class="bso-actions">' +
+        '<button class="bso-got" onclick="creoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>I got this ✓</button>' +
+        '<button class="bso-practice" onclick="creoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#f59e0b"':'') + '>Need more practice</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="bso-nav">' +
+      '<button onclick="creoNav(-1)" ' + (_creoIndex===0?'disabled':'') + '>← Previous</button>' +
+      '<button onclick="creoNav(1)" ' + (_creoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
+    '</div>';
+  const closeBtn = document.querySelector('#creOverlay .bso-close');
+  if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
+}
+
+function creoReveal(n) {
+  const btn = document.getElementById('creoBtn' + n);
+  btn.classList.add('revealed');
+  document.getElementById('creoContent' + n).classList.add('show');
+  if (n < 3) {
+    document.getElementById('creoBtn' + (n + 1)).disabled = false;
+  } else {
+    document.getElementById('creoFinal').style.display = 'block';
+  }
+}
+
+function creoMark(val) {
+  const qs = creoQuestions();
+  const globalIdx = CRE_QUESTIONS.indexOf(qs[_creoIndex]);
+  const saved = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
+  saved[globalIdx] = val;
+  localStorage.setItem('gca_cre_progress', JSON.stringify(saved));
+  creoUpdateDashboardStats();
+  const ql = qs.length;
+  if (_creoIndex < ql - 1) { creoNav(1); } else { creoRender(); }
+}
+
+function creoNav(dir) {
+  const qs = creoQuestions();
+  _creoIndex = Math.max(0, Math.min(qs.length - 1, _creoIndex + dir));
+  creoRender();
+  document.getElementById('creOverlay').scrollTop = 0;
+}
+
+function creoUpdateDashboardStats() {
+  const saved = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
+  const attempted = Object.keys(saved).length;
+  const got = Object.values(saved).filter(function(v){return v==='got';}).length;
+  const pct = Math.round((attempted / CRE_QUESTIONS.length) * 100);
+  const aEl = document.getElementById('creStatAttempted');
+  const gEl = document.getElementById('creStatGot');
+  const bEl = document.getElementById('creMiniBarFill');
+  if (aEl) aEl.textContent = attempted + ' of ' + CRE_QUESTIONS.length + ' attempted';
+  if (gEl) gEl.textContent = got + ' ✓ confident';
+  if (bEl) bEl.style.width = pct + '%';
+}
+
+
 // ── MICHAEL IN-MODULE CHAT PANEL ───────────────────────────────────────────────
 let _michaelPanelHistory = [];
 
@@ -6191,6 +6436,25 @@ async function sendMichaelPanel() {
     <button class="bso-close" onclick="closeQSOverlay()">✕</button>
   </div>
   <div class="bso-body" id="qsoBody"></div>
+</div>
+
+<!-- CRE QUESTION BANK OVERLAY -->
+<div id="creOverlay" style="display:none;flex-direction:column">
+  <div class="bso-topbar">
+    <span class="bso-counter" id="creoCounter">Question 1 of 50</span>
+    <span class="bso-module" id="creoModule"></span>
+    <div class="bso-progress"><div class="bso-progress-fill" id="creoProgressFill" style="width:0%"></div></div>
+    <select class="bso-filter" id="creoModuleFilter" onchange="creoJumpToModule(this.value)">
+      <option value="">All modules</option>
+      <option value="Agency, Leasing &amp; Transactions">Module 1 — Agency, Leasing &amp; Transactions</option>
+      <option value="Landlord &amp; Tenant">Module 2 — Landlord &amp; Tenant</option>
+      <option value="Valuation">Module 3 — Valuation</option>
+      <option value="Investment &amp; Asset Management">Module 4 — Investment &amp; Asset Management</option>
+      <option value="APC Case Study &amp; Final Assessment">Module 5 — APC Case Study &amp; Final Assessment</option>
+    </select>
+    <button class="bso-close" onclick="closeCREOverlay()">✕</button>
+  </div>
+  <div class="bso-body" id="creoBody"></div>
 </div>
 
 <div id="michaelPanel" style="display:none">

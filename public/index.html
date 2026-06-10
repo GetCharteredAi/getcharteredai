@@ -1759,6 +1759,17 @@ document.addEventListener('click', function(e) {
         </div>
         <button id="bsStartBtn" onclick="openBSOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
       </div>
+      <div class="bs-qbank" id="qsQuestionBank" style="display:none">
+        <div class="panel-eyebrow panel-eyebrow-light">Practice questions</div>
+        <div class="bs-qbank-title">🏗️ Your Quantity Surveying Question Bank</div>
+        <div class="bs-qbank-sub">50 assessor-led questions every Quantity Surveying candidate should be able to answer before final assessment</div>
+        <div class="bs-qbank-stats" id="qsQBankStats">
+          <span class="bs-stat-pill" id="qsStatAttempted">0 of 50 attempted</span>
+          <span class="bs-stat-pill" id="qsStatGot" style="background:rgba(22,163,74,.15);color:#86efac;border-color:rgba(22,163,74,.2)">0 ✓ confident</span>
+          <div class="bs-mini-bar"><div class="bs-mini-bar-fill" id="qsMiniBarFill" style="width:0%"></div></div>
+        </div>
+        <button id="qsStartBtn" onclick="openQSOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
+      </div>
 
       <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
         <h3 style="font-family:var(--fh);font-size:16px;font-weight:700;color:var(--text)">Your Modules</h3>
@@ -2228,6 +2239,7 @@ function renderPathwayBadge() {
   const row = document.getElementById('pathwayBadgeRow');
   const badge = document.getElementById('pathwayBadge');
   const bs = document.getElementById('bsQuestionBank');
+  const qs = document.getElementById('qsQuestionBank');
   if (pathway && row && badge) {
     badge.textContent = '🗺️ ' + pathway + ' pathway';
     row.style.display = 'flex';
@@ -2235,7 +2247,9 @@ function renderPathwayBadge() {
     row.style.display = 'none';
   }
   if (bs) bs.style.display = (pathway === 'Building Surveying') ? 'block' : 'none';
+  if (qs) qs.style.display = (pathway === 'Quantity Surveying and Construction') ? 'block' : 'none';
   bsoUpdateDashboardStats();
+  qsoUpdateDashboardStats();
 }
 
 async function renderDashboard() {
@@ -5048,7 +5062,7 @@ const QS_QUESTIONS = [
     module: "Procurement & Tendering"
   },
 
-  // MODULE 3 — Contract Administration & Change Management (Q21–25)
+  // MODULE 3 — Contract Administration & Change Management (Q21–30)
   {
     q: "What is a variation and how should it be valued?",
     why: "Variations are one of the most common topics discussed in QS APC interviews. Assessors want to test contract administration knowledge and commercial awareness.",
@@ -5103,6 +5117,285 @@ const QS_QUESTIONS = [
     challenge: ["How does concurrent delay affect entitlement?", "Can time be granted without cost?", "How would you assess causation?"],
     keyPoints: ["Understand causation", "Review contract provisions", "Time and cost are separate issues", "Evidence is essential"],
     module: "Contract Administration & Change Management"
+  },
+  {
+    q: "What is loss and expense and when might it arise?",
+    why: "To test contract administration knowledge and commercial awareness.",
+    pass: "Loss and expense refers to additional costs incurred by a contractor as a result of certain employer-related events identified within the contract.",
+    high: "I would first establish whether a relevant contractual event has occurred. I would then assess causation, entitlement and supporting evidence before valuing any claim. The contractor must demonstrate that the costs were actually incurred and directly attributable to the event.",
+    referral: "It is extra money paid to the contractor.",
+    referralWhy: ["No understanding of entitlement"],
+    challenge: ["What evidence would you require?", "How do you assess causation?", "How does loss and expense differ from variations?"],
+    keyPoints: ["Establish entitlement first", "Assess causation", "Review evidence", "Follow contract procedures"],
+    module: "Contract Administration & Change Management"
+  },
+  {
+    q: "What is a provisional sum and how should it be managed?",
+    why: "Provisional sums frequently appear in tender documentation and final accounts.",
+    pass: "A provisional sum is an allowance for work that cannot be fully defined at the time of tender. It is included within the contract sum but adjusted when the work is defined and executed.",
+    high: "Provisional sums introduce uncertainty and should be managed carefully. As information becomes available, I would seek to replace provisional allowances with defined scope and accurate cost forecasts.",
+    referral: "It is contingency.",
+    referralWhy: ["Incorrect", "Demonstrates weak cost management knowledge"],
+    challenge: ["How does a provisional sum differ from contingency?", "Why do provisional sums create risk?", "How are adjustments made?"],
+    keyPoints: ["Provisional sums are not contingency", "They reflect undefined work", "Manage proactively", "Reduce uncertainty as design develops"],
+    module: "Contract Administration & Change Management"
+  },
+  {
+    q: "What is retention and why is it used?",
+    why: "A core contract administration topic.",
+    pass: "Retention is a percentage of payments withheld from the contractor to provide security against defects and incomplete work.",
+    high: "Retention acts as a commercial incentive for completion of the works and rectification of defects. The release mechanism should follow the contract provisions and be administered fairly.",
+    referral: "Retention is a penalty.",
+    referralWhy: ["Incorrect", "Demonstrates misunderstanding"],
+    challenge: ["When is retention released?", "What alternatives exist?", "Why is retention controversial?"],
+    keyPoints: ["Retention is security not a penalty", "Follow contract provisions", "Understand release mechanisms", "Protect both parties interests"],
+    module: "Contract Administration & Change Management"
+  },
+  {
+    q: "How would you manage a dispute regarding valuation of a variation?",
+    why: "To test communication, negotiation and commercial judgement.",
+    pass: "I would review the contract provisions, supporting records and valuation methodology before discussing the matter with the relevant parties.",
+    high: "My objective would be early resolution. I would seek to understand both positions, review evidence and attempt to reach agreement through negotiation before formal dispute resolution became necessary.",
+    referral: "I would let the lawyers deal with it.",
+    referralWhy: ["Avoids responsibility", "Demonstrates weak dispute avoidance skills"],
+    challenge: ["How would you negotiate?", "What evidence is important?", "When should disputes be escalated?"],
+    keyPoints: ["Understand the facts", "Follow the contract", "Use evidence", "Resolve disputes early where possible"],
+    module: "Contract Administration & Change Management"
+  },
+  {
+    q: "What is the purpose of a final account?",
+    why: "One of the most common QS APC questions.",
+    pass: "A final account establishes the final contract sum following completion of the works. It reflects all adjustments made during the project.",
+    high: "The final account provides commercial closure and confirms the financial outcome of the project. It should reflect agreed variations, loss and expense, provisional sum adjustments and all other contractual changes. Timely agreement reduces the likelihood of disputes.",
+    referral: "It is the contractor's final invoice.",
+    referralWhy: ["Oversimplified", "No understanding of contract administration"],
+    challenge: ["What information is included?", "Why do final accounts become disputed?", "How can agreement be accelerated?"],
+    keyPoints: ["Final accounts provide closure", "Reflect all contractual adjustments", "Evidence is critical", "Early agreement reduces disputes"],
+    module: "Contract Administration & Change Management"
+  },
+
+  // MODULE 4 — Risk, Commercial Management & Final Accounts (Q31–40)
+  {
+    q: "What is risk management and why is it important on construction projects?",
+    why: "Risk management is fundamental to Quantity Surveying practice. Assessors want to test commercial awareness and project management understanding.",
+    pass: "Risk management is the process of identifying, assessing, monitoring and managing potential events that could affect project objectives. Effective risk management helps reduce uncertainty and improve project outcomes.",
+    high: "Risk management should be proactive rather than reactive. The objective is not necessarily to eliminate risk but to understand it, allocate it appropriately and manage its impact. Good risk management supports informed decision-making throughout the project lifecycle.",
+    referral: "Risk management is dealing with problems when they occur.",
+    referralWhy: ["Reactive approach", "Poor understanding of risk management"],
+    challenge: ["Can risk ever be eliminated?", "How do you identify risks?", "How should risk ownership be allocated?"],
+    keyPoints: ["Risk should be managed proactively", "Not all risks can be removed", "Allocate risk appropriately", "Review regularly"],
+    module: "Risk, Commercial Management & Final Accounts"
+  },
+  {
+    q: "How would you develop and maintain a project risk register?",
+    why: "A practical commercial management question.",
+    pass: "A risk register records identified risks, their likelihood, impact, mitigation measures and ownership. It should be reviewed and updated throughout the project.",
+    high: "I would ensure risks are clearly described, assigned to appropriate owners and regularly reviewed with the project team. The register should remain a live management tool rather than simply a project document.",
+    referral: "I would list project risks.",
+    referralWhy: ["No management process", "No ownership or mitigation strategy"],
+    challenge: ["How often should it be updated?", "Who owns project risks?", "How do you prioritise risks?"],
+    keyPoints: ["Risk registers are live documents", "Assign ownership", "Record mitigation actions", "Review regularly"],
+    module: "Risk, Commercial Management & Final Accounts"
+  },
+  {
+    q: "How would you advise a client regarding inflation risk on a long-term project?",
+    why: "Construction inflation remains a major commercial challenge.",
+    pass: "I would explain the potential impact of inflation on project costs and recommend appropriate allowances within the cost plan.",
+    high: "My advice would consider programme duration, procurement strategy, market conditions and supply chain factors. I would explain the level of uncertainty involved and review inflation assumptions regularly throughout the project.",
+    referral: "I would add extra contingency.",
+    referralWhy: ["Too simplistic", "No structured assessment"],
+    challenge: ["How does procurement affect inflation exposure?", "What market indicators would you monitor?", "How would inflation affect contractor pricing?"],
+    keyPoints: ["Inflation should be actively managed", "Review assumptions regularly", "Consider programme duration", "Communicate uncertainty clearly"],
+    module: "Risk, Commercial Management & Final Accounts"
+  },
+  {
+    q: "What is cash flow forecasting and why is it important?",
+    why: "Cash flow is a critical commercial management tool.",
+    pass: "Cash flow forecasting predicts when project expenditure is likely to occur. It helps clients plan funding requirements and manage financial commitments.",
+    high: "Cash flow forecasting supports financial planning, procurement decisions and stakeholder reporting. Regular updates help identify changes in expenditure profiles and potential funding issues.",
+    referral: "It shows project costs.",
+    referralWhy: ["Confuses cost with timing"],
+    challenge: ["How would delays affect cash flow?", "What information is required?", "Why is cash flow important to contractors?"],
+    keyPoints: ["Cash flow is about timing", "Supports financial planning", "Requires regular updates", "Influences decision-making"],
+    module: "Risk, Commercial Management & Final Accounts"
+  },
+  {
+    q: "What is cost reporting and what should be included within a cost report?",
+    why: "Cost reporting is one of the most common day-to-day QS responsibilities.",
+    pass: "Cost reporting communicates the project's financial position and highlights cost risks, changes and forecasts.",
+    high: "A cost report should clearly communicate the approved budget, forecast final cost, variances, risk allowances, changes and key commercial issues. The report should support informed client decision-making.",
+    referral: "It tells the client what has been spent.",
+    referralWhy: ["Too narrow", "No forecasting focus"],
+    challenge: ["What is forecast final cost?", "How often should reports be issued?", "How would you present cost risk?"],
+    keyPoints: ["Cost reporting supports decisions", "Forecasting is critical", "Focus on risks and trends", "Communicate clearly"],
+    module: "Risk, Commercial Management & Final Accounts"
+  },
+  {
+    q: "What is forecast final account and how is it calculated?",
+    why: "Assessors want to test forecasting ability and commercial awareness.",
+    pass: "The forecast final account is the anticipated final project cost based on current information. It includes the original contract sum together with anticipated adjustments.",
+    high: "The forecast final account should reflect variations, loss and expense, risk allowances, provisional sum adjustments and known commercial issues. It should be updated regularly as information changes.",
+    referral: "It is the current contract value.",
+    referralWhy: ["Incorrect", "Demonstrates weak forecasting knowledge"],
+    challenge: ["Why is forecasting important?", "How often should forecasts be reviewed?", "What information influences forecasts?"],
+    keyPoints: ["Forecasting is forward-looking", "Reflect current information", "Update regularly", "Support client decisions"],
+    module: "Risk, Commercial Management & Final Accounts"
+  },
+  {
+    q: "What commercial risks might arise from poor change control?",
+    why: "Poor change control is a common cause of disputes and cost overruns.",
+    pass: "Poor change control can lead to cost overruns, programme delays, disputes and uncertainty regarding entitlement.",
+    high: "Without effective change control, project teams may lose visibility of cost commitments and contractual obligations. This can result in inaccurate forecasting, delayed decision-making and increased dispute risk.",
+    referral: "Costs might increase.",
+    referralWhy: ["Too simplistic", "No understanding of wider consequences"],
+    challenge: ["How would you improve change control?", "What records are important?", "How does change affect forecasting?"],
+    keyPoints: ["Control change early", "Maintain records", "Monitor impacts", "Reduce dispute risk"],
+    module: "Risk, Commercial Management & Final Accounts"
+  },
+  {
+    q: "How would you advise a client when actual costs begin exceeding budget forecasts?",
+    why: "To test commercial judgement and client advisory skills.",
+    pass: "I would identify the causes of the variance and explain the implications to the client. I would then recommend options to address the issue.",
+    high: "My advice would focus on understanding the root causes, reviewing available mitigation measures and presenting realistic options to the client. The client should understand both the financial consequences and the implications of any corrective actions.",
+    referral: "I would tell the client they need more money.",
+    referralWhy: ["No problem-solving", "No commercial analysis"],
+    challenge: ["What mitigation options may exist?", "How would you communicate the issue?", "What if the client cannot increase funding?"],
+    keyPoints: ["Diagnose the cause", "Present options", "Explain implications", "Support decision-making"],
+    module: "Risk, Commercial Management & Final Accounts"
+  },
+  {
+    q: "What causes disputes on construction projects and how can they be avoided?",
+    why: "Dispute avoidance is a key QS skill.",
+    pass: "Common causes include poor communication, inadequate records, unclear scope, poor contract administration and disagreements regarding valuation.",
+    high: "Most disputes arise from misunderstandings, poor documentation or failure to follow contractual procedures. Good communication, accurate records and early intervention are often the most effective dispute avoidance tools.",
+    referral: "Disputes happen because people disagree.",
+    referralWhy: ["Too simplistic", "No practical understanding"],
+    challenge: ["What role do records play?", "How does contract administration help?", "What early warning signs might exist?"],
+    keyPoints: ["Most disputes are avoidable", "Communication is critical", "Follow procedures", "Maintain records"],
+    module: "Risk, Commercial Management & Final Accounts"
+  },
+  {
+    q: "Why is early commercial reporting important to clients?",
+    why: "To test whether candidates understand the strategic value of commercial management.",
+    pass: "Early commercial reporting provides visibility of risks, opportunities and financial performance. It supports informed decision-making.",
+    high: "Timely reporting allows clients to take corrective action before issues become significant problems. It improves governance, supports investment decisions and helps maintain control over project outcomes.",
+    referral: "Clients like regular updates.",
+    referralWhy: ["Too simplistic", "No understanding of commercial value"],
+    challenge: ["How does reporting influence decisions?", "What information should be escalated?", "How often should reports be issued?"],
+    keyPoints: ["Reporting supports governance", "Early visibility is valuable", "Focus on risks and trends", "Help clients make informed decisions"],
+    module: "Risk, Commercial Management & Final Accounts"
+  },
+
+  // MODULE 5 — Professional Judgement & Assessor Challenge (Q41–50)
+  {
+    q: "Tell me about a recommendation you made that the client initially disagreed with.",
+    why: "To assess client management, communication skills, professional confidence and advisory capability.",
+    pass: "I would explain the recommendation, the client's concerns and how I communicated the reasoning behind my advice. I would demonstrate how I helped the client understand the risks and implications before making an informed decision.",
+    high: "I would explain how I balanced commercial considerations, project objectives and professional obligations. Where appropriate I would demonstrate how I challenged the client's initial position while remaining objective and evidence-based.",
+    referral: "The client eventually agreed with me.",
+    referralWhy: ["No explanation of reasoning", "No evidence of communication skills"],
+    challenge: ["What if the client still disagreed?", "How did you manage the relationship?", "What evidence supported your recommendation?"],
+    keyPoints: ["Explain your reasoning", "Remain objective", "Use evidence", "Focus on client outcomes"],
+    module: "Professional Judgement & Assessor Challenge"
+  },
+  {
+    q: "Describe a situation where you had incomplete information but still needed to provide cost advice.",
+    why: "Cost advice often needs to be provided before all information is available. Assessors want to understand how you manage uncertainty.",
+    pass: "I would explain the limitations of available information, identify assumptions and communicate the level of certainty associated with the advice.",
+    high: "I would provide advice based on the best available information while clearly explaining assumptions, risks and potential cost implications. I would also identify what further information would improve certainty.",
+    referral: "I would wait until all information was available.",
+    referralWhy: ["Often unrealistic", "Demonstrates poor commercial awareness"],
+    challenge: ["How would you communicate uncertainty?", "What assumptions were made?", "How would you protect the client?"],
+    keyPoints: ["Perfect information rarely exists", "Explain assumptions", "Manage uncertainty", "Support decisions"],
+    module: "Professional Judgement & Assessor Challenge"
+  },
+  {
+    q: "Describe a significant commercial risk you identified and how you managed it.",
+    why: "Risk management is central to Quantity Surveying.",
+    pass: "I would explain the risk, its potential impact and the actions taken to mitigate it.",
+    high: "I would explain how I identified the risk, assessed its likelihood and financial impact and implemented mitigation measures. I would also explain how the risk was communicated to stakeholders and monitored throughout the project.",
+    referral: "I reported the risk.",
+    referralWhy: ["Reporting alone is not management"],
+    challenge: ["How was the risk identified?", "What alternatives were considered?", "What was the outcome?"],
+    keyPoints: ["Identify risks early", "Assess impact", "Mitigate appropriately", "Monitor continuously"],
+    module: "Professional Judgement & Assessor Challenge"
+  },
+  {
+    q: "Describe a recommendation that increased cost but reduced risk for your client.",
+    why: "To assess commercial judgement.",
+    pass: "I would explain why the additional expenditure was justified and how it reduced project risk.",
+    high: "I would demonstrate consideration of lifecycle costs, programme implications and future liabilities. The recommendation should be proportionate, evidence-based and aligned with the client's objectives.",
+    referral: "I chose the most expensive option because it was best.",
+    referralWhy: ["No cost-benefit analysis", "Weak commercial reasoning"],
+    challenge: ["How was the decision justified?", "What alternatives were considered?", "How did the client respond?"],
+    keyPoints: ["Balance cost and risk", "Justify recommendations", "Consider long-term value", "Demonstrate commercial awareness"],
+    module: "Professional Judgement & Assessor Challenge"
+  },
+  {
+    q: "How do you determine when specialist advice is required?",
+    why: "To assess competence and professional judgement.",
+    pass: "I would seek specialist advice where issues fall outside my competence or where specialist expertise is required.",
+    high: "Recognising limitations is a professional responsibility. I would consider complexity, risk, financial implications and client consequences before recommending specialist advice.",
+    referral: "I only use specialists when I don't know the answer.",
+    referralWhy: ["Poor understanding of professional responsibility"],
+    challenge: ["What specialists might be engaged?", "How does specialist advice reduce risk?", "How would you explain this to a client?"],
+    keyPoints: ["Know your limitations", "Protect the client", "Use specialists appropriately", "Manage risk"],
+    module: "Professional Judgement & Assessor Challenge"
+  },
+  {
+    q: "A client wants to proceed with a commercial decision that you believe carries significant risk. What would you do?",
+    why: "To test ethics, professionalism and advisory skills.",
+    pass: "I would explain the risks clearly and ensure my advice was documented. The client should understand the implications before making a decision.",
+    high: "I would present objective evidence, explain the risks and provide alternative options where appropriate. While the decision ultimately belongs to the client, my responsibility is to ensure they fully understand the consequences.",
+    referral: "If the client wants it I would proceed.",
+    referralWhy: ["Demonstrates poor professional judgement", "Ignores advisory responsibilities"],
+    challenge: ["What if the risk affects others?", "How would you document advice?", "What ethical principles apply?"],
+    keyPoints: ["Provide objective advice", "Document recommendations", "Explain consequences", "Act professionally"],
+    module: "Professional Judgement & Assessor Challenge"
+  },
+  {
+    q: "How do you ensure you remain within your competence?",
+    why: "A core RICS professionalism topic.",
+    pass: "I only undertake work where I have the necessary knowledge, skills and experience and seek assistance where required.",
+    high: "I maintain competence through CPD, experience, mentoring and regular self-assessment. Where appropriate I seek support from colleagues or specialists.",
+    referral: "I learn as I go.",
+    referralWhy: ["Potential negligence risk", "Poor professional awareness"],
+    challenge: ["How do you maintain competence?", "What would you do if instructed beyond your expertise?", "Why is CPD important?"],
+    keyPoints: ["Stay within competence", "Maintain CPD", "Seek support when needed", "Protect clients"],
+    module: "Professional Judgement & Assessor Challenge"
+  },
+  {
+    q: "How do you balance commercial pressure against professional obligations?",
+    why: "One of the most common APC ethics questions.",
+    pass: "I would always provide objective professional advice based on evidence and professional standards.",
+    high: "Commercial pressures may influence decision-making but should never compromise professional integrity. Where conflicts arise I would explain the risks, remain objective and ensure recommendations are evidence-based.",
+    referral: "The client is paying so I would do what they want.",
+    referralWhy: ["Serious ethics concern"],
+    challenge: ["What if pressured to alter a report?", "How does integrity protect clients?", "What professional principles apply?"],
+    keyPoints: ["Integrity is essential", "Remain objective", "Base advice on evidence", "Protect professional reputation"],
+    module: "Professional Judgement & Assessor Challenge"
+  },
+  {
+    q: "What would you do differently if you were delivering a previous project again today?",
+    why: "To assess reflection and professional growth.",
+    pass: "I would identify lessons learned and explain how they would improve future outcomes.",
+    high: "I would provide a balanced reflection demonstrating self-awareness and continuous improvement. The objective is to demonstrate learning rather than criticise previous decisions.",
+    referral: "Nothing. I would do exactly the same.",
+    referralWhy: ["Demonstrates limited reflection"],
+    challenge: ["What lessons were learned?", "How has your practice improved?", "How would future projects benefit?"],
+    keyPoints: ["Reflect honestly", "Demonstrate learning", "Show growth", "Continually improve"],
+    module: "Professional Judgement & Assessor Challenge"
+  },
+  {
+    q: "Why should an APC assessor be confident in your professional judgement as a Quantity Surveyor?",
+    why: "This is effectively the question behind the entire APC.",
+    pass: "My professional judgement is based on technical knowledge, practical experience, risk assessment and client-focused advice. I understand the importance of working within my competence and providing objective recommendations.",
+    high: "Throughout my experience I have demonstrated the ability to assess commercial issues, identify risks, evaluate evidence and provide proportionate advice aligned with client objectives. I understand the importance of integrity, competence and sound judgement when advising clients.",
+    referral: "Because I understand cost management.",
+    referralWhy: ["APC is not simply a technical knowledge test", "Ignores professionalism and judgement"],
+    challenge: ["How do you demonstrate integrity?", "How do you manage uncertainty?", "How do you protect client interests?", "What does Chartered status mean to you?"],
+    keyPoints: ["APC assesses judgement", "Technical knowledge alone is insufficient", "Professionalism matters", "Client-focused advice is critical", "Integrity underpins Chartered status"],
+    module: "Professional Judgement & Assessor Challenge"
   }
 ];
 
@@ -5225,6 +5518,125 @@ function bsoUpdateDashboardStats() {
 }
 
 
+// ── QS QUESTION BANK UI ───────────────────────────────────────────────────────
+let _qsoIndex = 0;
+let _qsoFiltered = null;
+
+function openQSOverlay() {
+  _qsoFiltered = null;
+  const saved = JSON.parse(localStorage.getItem('gca_qs_progress') || '{}');
+  const isFirstTime = Object.keys(saved).length === 0;
+  console.log('[QSOverlay] gca_qs_progress keys:', Object.keys(saved).length, 'isFirstTime:', isFirstTime);
+  const resume = QS_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
+  _qsoIndex = resume === -1 ? 0 : resume;
+  const el = document.getElementById('qsOverlay');
+  el.style.display = 'flex';
+  const sel = document.getElementById('qsoModuleFilter');
+  if (sel) sel.value = '';
+  const closeBtn = document.querySelector('#qsOverlay .bso-close');
+  if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
+  if (isFirstTime) {
+    document.getElementById('qsoBody').innerHTML = '<div style="max-width:780px;margin:0 auto;padding:40px 20px;text-align:center"><div style="font-size:48px;margin-bottom:24px">🏗️</div><h2 style="color:#fff;font-size:24px;margin-bottom:16px">How to use your Question Bank</h2><div style="text-align:left;background:#1e2235;border-radius:12px;padding:40px 48px;margin-bottom:28px"><p style="color:#f0f4ff;margin-bottom:16px">Each question works like a real APC assessor conversation. Here is how to get the most from it:</p><ol style="color:#f0f4ff;line-height:2"><li><strong style="color:#60a5fa">Read the question</strong> — think about how you would answer it out loud</li><li><strong style="color:#60a5fa">Reveal why assessors ask it</strong> — understand what they are really testing</li><li><strong style="color:#60a5fa">Check the pass-level answer</strong> — the minimum expected from a chartered candidate</li><li><strong style="color:#60a5fa">Read the high-scoring answer</strong> — this is what separates passes from strong passes</li><li><strong style="color:#60a5fa">See the referral answer</strong> — understand exactly what to avoid</li><li><strong style="color:#60a5fa">Mark your confidence</strong> — "I got this" or "Need more practice" tracks your progress</li></ol></div><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:28px">You can close at any time and your progress is saved. Use the module filter to jump to specific topics.</p><button onclick="qsoRender()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:14px 32px;font-size:16px;font-weight:600;cursor:pointer">Start with Question 1 →</button></div>';
+  } else {
+    qsoRender();
+  }
+}
+
+function closeQSOverlay() {
+  document.getElementById('qsOverlay').style.display = 'none';
+  const btn = document.getElementById('qsStartBtn');
+  if (btn) btn.textContent = 'Continue from Q' + (_qsoIndex + 1);
+}
+
+function qsoQuestions() {
+  return _qsoFiltered || QS_QUESTIONS;
+}
+
+function qsoJumpToModule(mod) {
+  _qsoFiltered = mod ? QS_QUESTIONS.filter(q => q.module === mod) : null;
+  _qsoIndex = 0;
+  qsoRender();
+}
+
+function qsoRender() {
+  const qs = qsoQuestions();
+  const q = qs[_qsoIndex];
+  const prog = Math.round((_qsoIndex / qs.length) * 100);
+  document.getElementById('qsoCounter').textContent = 'Question ' + (_qsoIndex + 1) + ' of ' + qs.length;
+  document.getElementById('qsoModule').textContent = q.module;
+  document.getElementById('qsoProgressFill').style.width = prog + '%';
+  const saved = JSON.parse(localStorage.getItem('gca_qs_progress') || '{}');
+  const globalIdx = QS_QUESTIONS.indexOf(q);
+  const verdict = saved[globalIdx];
+  document.getElementById('qsoBody').innerHTML =
+    '<div class="bso-question">' + q.q + '</div>' +
+    '<button class="bso-reveal-btn" id="qsoBtn0" onclick="qsoReveal(0)">💡 Why do assessors ask this?</button>' +
+    '<div class="bso-reveal-content" id="qsoContent0">' + q.why + '</div>' +
+    '<button class="bso-reveal-btn" id="qsoBtn1" onclick="qsoReveal(1)" disabled>✅ Pass-level answer</button>' +
+    '<div class="bso-reveal-content" id="qsoContent1">' + q.pass + '</div>' +
+    '<button class="bso-reveal-btn" id="qsoBtn2" onclick="qsoReveal(2)" disabled>🏆 High-scoring answer</button>' +
+    '<div class="bso-reveal-content" id="qsoContent2">' + q.high + '</div>' +
+    '<button class="bso-reveal-btn" id="qsoBtn3" onclick="qsoReveal(3)" disabled>⚠️ Referral answer — what to avoid</button>' +
+    '<div class="bso-reveal-content bso-referral-content" id="qsoContent3"><strong>' + q.referral + '</strong><ul>' + q.referralWhy.map(function(r){return '<li>❌ ' + r + '</li>';}).join('') + '</ul></div>' +
+    '<div id="qsoFinal" style="display:none">' +
+      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>' + c + '</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>' + k + '</li>';}).join('') + '</ol></div>' +
+      '<div class="bso-actions">' +
+        '<button class="bso-got" onclick="qsoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>I got this ✓</button>' +
+        '<button class="bso-practice" onclick="qsoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#f59e0b"':'') + '>Need more practice</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="bso-nav">' +
+      '<button onclick="qsoNav(-1)" ' + (_qsoIndex===0?'disabled':'') + '>← Previous</button>' +
+      '<button onclick="qsoNav(1)" ' + (_qsoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
+    '</div>';
+  const closeBtn = document.querySelector('#qsOverlay .bso-close');
+  if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
+}
+
+function qsoReveal(n) {
+  const btn = document.getElementById('qsoBtn' + n);
+  btn.classList.add('revealed');
+  document.getElementById('qsoContent' + n).classList.add('show');
+  if (n < 3) {
+    document.getElementById('qsoBtn' + (n + 1)).disabled = false;
+  } else {
+    document.getElementById('qsoFinal').style.display = 'block';
+  }
+}
+
+function qsoMark(val) {
+  const qs = qsoQuestions();
+  const globalIdx = QS_QUESTIONS.indexOf(qs[_qsoIndex]);
+  const saved = JSON.parse(localStorage.getItem('gca_qs_progress') || '{}');
+  saved[globalIdx] = val;
+  localStorage.setItem('gca_qs_progress', JSON.stringify(saved));
+  qsoUpdateDashboardStats();
+  const ql = qs.length;
+  if (_qsoIndex < ql - 1) { qsoNav(1); } else { qsoRender(); }
+}
+
+function qsoNav(dir) {
+  const qs = qsoQuestions();
+  _qsoIndex = Math.max(0, Math.min(qs.length - 1, _qsoIndex + dir));
+  qsoRender();
+  document.getElementById('qsOverlay').scrollTop = 0;
+}
+
+function qsoUpdateDashboardStats() {
+  const saved = JSON.parse(localStorage.getItem('gca_qs_progress') || '{}');
+  const attempted = Object.keys(saved).length;
+  const got = Object.values(saved).filter(function(v){return v==='got';}).length;
+  const pct = Math.round((attempted / QS_QUESTIONS.length) * 100);
+  const aEl = document.getElementById('qsStatAttempted');
+  const gEl = document.getElementById('qsStatGot');
+  const bEl = document.getElementById('qsMiniBarFill');
+  if (aEl) aEl.textContent = attempted + ' of ' + QS_QUESTIONS.length + ' attempted';
+  if (gEl) gEl.textContent = got + ' ✓ confident';
+  if (bEl) bEl.style.width = pct + '%';
+}
+
+
 // ── MICHAEL IN-MODULE CHAT PANEL ───────────────────────────────────────────────
 let _michaelPanelHistory = [];
 
@@ -5309,6 +5721,25 @@ async function sendMichaelPanel() {
     <button class="bso-close" onclick="closeBSOverlay()">✕</button>
   </div>
   <div class="bso-body" id="bsoBody"></div>
+</div>
+
+<!-- QS QUESTION BANK OVERLAY -->
+<div id="qsOverlay" style="display:none;flex-direction:column">
+  <div class="bso-topbar">
+    <span class="bso-counter" id="qsoCounter">Question 1 of 50</span>
+    <span class="bso-module" id="qsoModule"></span>
+    <div class="bso-progress"><div class="bso-progress-fill" id="qsoProgressFill" style="width:0%"></div></div>
+    <select class="bso-filter" id="qsoModuleFilter" onchange="qsoJumpToModule(this.value)">
+      <option value="">All modules</option>
+      <option value="Cost Planning &amp; Commercial Fundamentals">Module 1 — Cost Planning &amp; Commercial Fundamentals</option>
+      <option value="Procurement &amp; Tendering">Module 2 — Procurement &amp; Tendering</option>
+      <option value="Contract Administration &amp; Change Management">Module 3 — Contract Administration &amp; Change Management</option>
+      <option value="Risk, Commercial Management &amp; Final Accounts">Module 4 — Risk, Commercial Management &amp; Final Accounts</option>
+      <option value="Professional Judgement &amp; Assessor Challenge">Module 5 — Professional Judgement &amp; Assessor Challenge</option>
+    </select>
+    <button class="bso-close" onclick="closeQSOverlay()">✕</button>
+  </div>
+  <div class="bso-body" id="qsoBody"></div>
 </div>
 
 <div id="michaelPanel" style="display:none">

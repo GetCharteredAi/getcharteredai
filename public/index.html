@@ -1754,9 +1754,9 @@ function isModuleUnlocked(modId, plan, activatedAt) {
 
 // ── VIEWS ─────────────────────────────────────────────────────────────────────
 window.addEventListener('popstate', function(e) {
-  if (e.state && e.state.page === 'dashboard' && getToken()) {
-    history.pushState({page: 'dashboard'}, '');
+  if (localStorage.getItem('gca_token')) {
     showView('dashboard');
+    history.pushState({view: 'dashboard'}, '', window.location.pathname);
   }
 });
 
@@ -1766,8 +1766,11 @@ function showView(name) {
   window.scrollTo(0,0);
   if (name === 'dashboard') {
     renderDashboard();
-    history.pushState({page: 'dashboard'}, '');
+    if (localStorage.getItem('gca_token')) history.pushState({view: 'dashboard'}, '', window.location.pathname);
     if (!localStorage.getItem('gca_pathway')) showPathwaySelection();
+  }
+  if (name === 'module' && localStorage.getItem('gca_token')) {
+    history.pushState({view: 'module'}, '', window.location.pathname);
   }
   if (name === 'landing') updateNav();
   updateNav();

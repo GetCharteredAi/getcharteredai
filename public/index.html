@@ -734,7 +734,7 @@ input.err{border-color:var(--red)}
 .pathway-change:hover{color:rgba(255,255,255,.6)}
 .bs-qbank{background:#0f172a;border:1px solid rgba(37,99,235,.25);border-radius:12px;padding:20px 24px;margin-bottom:20px}
 .bs-qbank-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
-.bs-qbank-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px;line-height:1.5}
+.bs-qbank-sub{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:16px;line-height:1.5}
 .bs-qbank-stats{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
 .bs-stat-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(37,99,235,.15);color:#93c5fd;border:1px solid rgba(37,99,235,.2)}
 .bs-mini-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;flex:1;max-width:120px}
@@ -1548,6 +1548,7 @@ document.addEventListener('click', function(e) {
             <button class="cpd-add-btn" onclick="cpdToggleForm()">+ Add entry</button>
           </div>
         </div>
+        <div style="font-size:13px;color:rgba(0,0,0,0.4);margin-bottom:14px">Record your continuing professional development hours and activities</div>
         <div class="cpd-stats">
           <div>
             <div class="cpd-stat-num" id="cpdTotalHours">0</div>
@@ -1632,6 +1633,7 @@ document.addEventListener('click', function(e) {
           <div class="cpd-panel-title">📝 Competency Evidence Bank</div>
           <button class="cpd-add-btn" onclick="prepOpenOverlay()">+ Add Evidence</button>
         </div>
+        <div style="font-size:13px;color:rgba(0,0,0,0.4);margin-bottom:14px">Build and refine your PREP examples for every APC competency</div>
         <div class="cpd-stats">
           <div>
             <div class="cpd-stat-num" id="prepCompCount">0 / 11</div>
@@ -1652,7 +1654,7 @@ document.addEventListener('click', function(e) {
       </div>
       <div class="bs-qbank" id="bsQuestionBank" style="display:none">
         <div class="bs-qbank-title">🏗️ Your Building Surveying Question Bank</div>
-        <div class="bs-qbank-sub">50 assessor-led questions every Building Surveying candidate should be able to answer before final assessment.</div>
+        <div class="bs-qbank-sub">50 assessor-led questions to test your technical knowledge before final assessment</div>
         <div class="bs-qbank-stats" id="bsQBankStats">
           <span class="bs-stat-pill" id="bsStatAttempted">0 of 50 attempted</span>
           <span class="bs-stat-pill" id="bsStatGot" style="background:rgba(22,163,74,.15);color:#86efac;border-color:rgba(22,163,74,.2)">0 ✓ confident</span>

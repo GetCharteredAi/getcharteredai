@@ -5400,6 +5400,120 @@ const QS_QUESTIONS = [
   }
 ];
 
+const CRE_QUESTIONS = [
+  // MODULE 1 — Agency, Leasing & Transactions (Q1–10)
+  {
+    q: "How would you advise a landlord on the appropriate quoting rent for a commercial property?",
+    why: "Assessors want to see whether you can move beyond simply collecting comparable evidence and provide reasoned commercial advice about market evidence, property characteristics and client objectives.",
+    pass: "When advising a landlord on quoting rent I would review recent comparable lettings considering location, size, specification, lease terms, incentives and condition. I would assess competing stock and tenant demand, then provide a recommended quoting rent supported by evidence.",
+    high: "I would explain the risks of setting rent too high — reduced enquiries, extended void period and increased holding costs — and the risk of setting it too low and missing the opportunity to maximise rental income. My final advice would be linked to the landlord's objective. If they wanted a quick letting I may recommend a competitive quoting rent. If they were prepared to wait I may recommend testing the market at a higher level but reviewing feedback regularly.",
+    referral: "I would set the rent based on what the landlord wants.",
+    referralWhy: ["No market analysis", "Ignores comparable evidence", "No consideration of risk or client objectives"],
+    challenge: ["What makes a good comparable?", "How would you adjust evidence from a different building?", "How do incentives affect effective rent?", "What would you do if the landlord insisted on an unrealistic quoting rent?"],
+    keyPoints: ["Assessors test reasoning not the rent figure", "Analyse comparables and adjust for property factors", "Link advice to client objectives", "Explain risks of pricing too high or too low"],
+    module: "Agency, Leasing & Transactions"
+  },
+  {
+    q: "How would you advise a tenant considering a new office lease?",
+    why: "Assessors want to see whether you understand that lease advice is about more than rent and can identify wider commercial risks and obligations affecting the tenant.",
+    pass: "When advising a tenant on a new office lease I would begin by understanding their business requirements including location, size, budget, occupational timescale and need for flexibility. I would then review the proposed heads of terms and identify the main commercial issues including rent, lease term, rent review, service charge, repairing obligations, break clauses and alienation provisions.",
+    high: "I would advise the tenant not just on headline rent but on total occupational cost and long-term liability. A full repairing and insuring lease could create significant future dilapidations exposure so I would recommend the client considers limiting liability through a schedule of condition where appropriate. I would also consider whether the lease gives sufficient flexibility — if the client expected growth or uncertainty I would advise on break options, assignment and underletting rights.",
+    referral: "I would focus on getting the lowest possible rent.",
+    referralWhy: ["Focuses only on headline rent", "Ignores service charge and repair liability", "Fails to consider tenant's future plans"],
+    challenge: ["What is an FRI lease?", "Why might a schedule of condition be useful?", "What is the difference between assignment and underletting?", "Why are break clauses often heavily negotiated?"],
+    keyPoints: ["Good tenant advice protects from future liability not just immediate cost", "Consider total occupational cost", "Advise on flexibility and future options", "Explain repairing obligations clearly"],
+    module: "Agency, Leasing & Transactions"
+  },
+  {
+    q: "What factors influence commercial rental value?",
+    why: "Rental value is central to leasing, valuation and landlord and tenant advice. Assessors want to see whether candidates understand value drivers and can explain them commercially.",
+    pass: "Commercial rental value is influenced by property-specific factors including location, size, specification, condition, layout, accessibility, parking and energy performance. Market factors include supply and demand, tenant activity, competing stock and economic conditions.",
+    high: "Lease terms also influence rental value. A longer lease with strong tenant covenant may support a different rental tone compared with a shorter or more flexible lease. Incentives such as rent-free periods affect the effective rent achieved. When advising a client I would not simply list these factors — I would explain how each affects rental value in that particular market.",
+    referral: "Rental value is mainly about location.",
+    referralWhy: ["Oversimplified", "Ignores lease terms and incentives", "Treats all comparable evidence equally"],
+    challenge: ["How does lease length affect rental value?", "How do incentives affect rental evidence?", "What is the difference between headline rent and effective rent?", "How does EPC rating influence marketability?"],
+    keyPoints: ["Rental value is formed by interpreting property evidence within market context", "Consider both property-specific and market factors", "Lease terms and incentives affect effective rent", "Never treat headline rent as achieved rent"],
+    module: "Agency, Leasing & Transactions"
+  },
+  {
+    q: "How would you conduct a commercial property viewing?",
+    why: "Assessors want to see whether you understand agency practice, client care, presentation, compliance and risk management. A viewing is not simply opening the door — it is part of the leasing or sales process.",
+    pass: "Before conducting a viewing I would ensure I understood the property, the client's instructions, the marketing details and key lease or sale terms. I would consider health and safety including access arrangements, hazards, lighting and whether PPE was required.",
+    high: "During the viewing I would explain key features including size, specification, services, access, amenities and lease terms. I would answer questions accurately and avoid giving unverified information. I would also use the viewing to understand the occupier's requirements including timing, budget and fit-out needs. After the viewing I would report feedback to the client and agree next steps.",
+    referral: "I would show them around and answer any questions.",
+    referralWhy: ["Treats viewings as informal", "No health and safety consideration", "Fails to qualify the occupier", "No follow-up process"],
+    challenge: ["What health and safety checks would you make before a viewing?", "What should you do if you are unsure of the answer to a question?", "How do you avoid misrepresentation?", "What information would you report back to the landlord?"],
+    keyPoints: ["A viewing is part of the professional advice process", "Prepare, control, verify and follow up", "Never give unverified answers", "Health and safety must be considered"],
+    module: "Agency, Leasing & Transactions"
+  },
+  {
+    q: "How would you advise a landlord regarding incentive packages?",
+    why: "Incentives are central to commercial leasing. Assessors want to see whether candidates understand the difference between headline rent and effective rent.",
+    pass: "I would advise a landlord that incentives are used to secure tenant commitment, particularly where there is competing supply or where tenants require support with fit-out costs. Common incentives include rent-free periods, stepped rents, capital contributions or landlord works.",
+    high: "I would explain the difference between headline rent and effective rent. A landlord may achieve a strong headline rent but offer a long rent-free period which reduces the effective rent over the lease term. My advice would compare the proposed incentive package against market evidence and link it to the landlord's objective. A strong covenant tenant on a longer lease may justify a more attractive incentive package.",
+    referral: "I would offer whatever the tenant asks for to secure the letting.",
+    referralWhy: ["No commercial analysis", "Ignores effective rent", "Fails to consider market conditions or tenant covenant"],
+    challenge: ["What is a rent-free period?", "How do you calculate effective rent?", "Why might a landlord offer a capital contribution?", "What if the tenant asks for an excessive incentive?"],
+    keyPoints: ["Incentives are a commercial tool assessed as part of the total package", "Headline rent does not equal effective rent", "Link incentive advice to market conditions and client objectives", "Consider void costs when advising on incentives"],
+    module: "Agency, Leasing & Transactions"
+  },
+  {
+    q: "What information should be included within marketing particulars?",
+    why: "Assessors want to see whether candidates understand agency best practice, accurate marketing and the need to avoid misleading information.",
+    pass: "Marketing particulars should include the property address, description, accommodation schedule, floor areas, tenure, rent or price, EPC rating, planning use, business rates, service charge where relevant, lease or sale terms, photographs, plans and viewing arrangements.",
+    high: "I would ensure information is verified before publication — floor areas should be measured or confirmed and planning use and service charge information checked with the client or managing agent. I would include appropriate disclaimers but would not rely on them to justify inaccurate or misleading information.",
+    referral: "I would include whatever makes the property look good.",
+    referralWhy: ["Treats particulars as sales material only", "Includes unverified information", "Ignores misrepresentation risk"],
+    challenge: ["Why is accuracy important in marketing particulars?", "What could happen if particulars are misleading?", "How should floor areas be reported?", "What would you do if information had not yet been confirmed?"],
+    keyPoints: ["Marketing particulars are professional documents not just promotional material", "Accuracy is a professional obligation", "Verify information before publishing", "Disclaimers do not justify misleading information"],
+    module: "Agency, Leasing & Transactions"
+  },
+  {
+    q: "How would you manage multiple competing offers?",
+    why: "Assessors want to test judgement, fairness, transparency and ability to advise the client when there is competitive interest.",
+    pass: "If multiple offers were received I would record each one clearly and ensure sufficient information was provided for comparison. I would analyse headline rent or price, tenant covenant, lease term, incentives requested, funding position, conditions attached and timing.",
+    high: "I would present the offers to the client in a structured way explaining the strengths and risks of each. The highest offer may not always be the best if it carries greater uncertainty or a weaker covenant. Depending on the level of interest I may recommend a best and final offers process, ensuring it was handled transparently and fairly with clear deadlines.",
+    referral: "I would recommend the highest offer.",
+    referralWhy: ["No analysis beyond price", "Ignores covenant strength", "Fails to consider conditionality", "No documentation of advice"],
+    challenge: ["Is the highest offer always the best offer?", "What is a best and final offers process?", "How would you assess tenant covenant?", "How would you document your advice?"],
+    keyPoints: ["A strong offer is about certainty and deliverability not just price", "Assess covenant, conditions and timing alongside rent", "Handle competing offers transparently and fairly", "Document advice clearly"],
+    module: "Agency, Leasing & Transactions"
+  },
+  {
+    q: "What are the risks associated with Heads of Terms?",
+    why: "Assessors want to know whether you understand the importance and limitations of Heads of Terms in leasing and sale transactions.",
+    pass: "Heads of Terms set out the agreed commercial terms of a proposed transaction. They are usually subject to contract and not generally intended to be legally binding. The main risk is that unclear or incomplete terms can cause delay, disagreement or legal uncertainty.",
+    high: "Important terms such as rent, lease length, break clauses, rent review, repairing obligations, service charge and incentives should all be clearly recorded. I would ensure Heads of Terms accurately reflect the negotiated position and advise the client to obtain legal advice before entering binding commitments. I would be careful not to stray into legal advice — my role is to agree and record the commercial terms.",
+    referral: "Heads of Terms are just a formality before the lawyers take over.",
+    referralWhy: ["Underestimates importance of Heads of Terms", "Ignores risk of unclear or missing terms", "No appreciation of professional boundaries"],
+    challenge: ["Are Heads of Terms legally binding?", "What does subject to contract mean?", "What key terms should be included?", "When should solicitors become involved?"],
+    keyPoints: ["Good Heads of Terms reduce transaction risk", "Poor Heads of Terms create confusion delay and dispute", "Record all commercial terms clearly", "Do not stray into legal advice"],
+    module: "Agency, Leasing & Transactions"
+  },
+  {
+    q: "How would you advise a client regarding an Agreement for Lease?",
+    why: "Assessors want to know whether candidates understand the commercial purpose and risk of Agreements for Lease which are common where a lease will be granted in the future.",
+    pass: "An Agreement for Lease is a legally binding agreement where parties commit to enter into a lease at a future date, usually once certain conditions have been satisfied. It may be used where the property is under construction, refurbishment works are required or planning consent is needed.",
+    high: "When advising a client I would explain the commercial purpose and key risks. For a landlord it can secure tenant commitment before works are completed. For a tenant it provides certainty over future occupation. The agreement must clearly set out conditions, timescales, specification of works, longstop dates, rent commencement and consequences if obligations are not met. I would recommend legal advice because the Agreement for Lease creates binding obligations.",
+    referral: "An Agreement for Lease is the same as Heads of Terms.",
+    referralWhy: ["Confuses Agreement for Lease with Heads of Terms", "Does not recognise it can be legally binding", "Ignores importance of conditions and timescales"],
+    challenge: ["When might an Agreement for Lease be used?", "What is a condition precedent?", "What is a longstop date?", "How does it differ from Heads of Terms?"],
+    keyPoints: ["An Agreement for Lease creates binding future obligations", "Risk lies in unclear obligations conditions and timescales", "Distinguish clearly from Heads of Terms", "Always recommend legal advice"],
+    module: "Agency, Leasing & Transactions"
+  },
+  {
+    q: "How do you demonstrate best practice during an agency instruction?",
+    why: "Agency work carries professional ethical and regulatory responsibilities. Assessors want to see that candidates understand how to act professionally, transparently and in the client's best interests.",
+    pass: "Best practice starts with clear instructions from the client. I would ensure scope, fees, marketing strategy, reporting arrangements and basis of instruction were agreed in writing. Before accepting the instruction I would consider conflicts of interest.",
+    high: "Throughout the instruction I would ensure marketing information was accurate, enquiries handled professionally and all offers recorded and reported promptly to the client. I would maintain clear records of advice, negotiations and decisions — important for both client care and professional protection. I would also agree a marketing strategy including quoting terms, target occupiers, marketing channels and timescales.",
+    referral: "I would focus on getting the deal done as quickly as possible.",
+    referralWhy: ["No mention of terms of engagement", "Ignores conflicts of interest", "Poor record keeping", "Treats agency as purely transaction-focused"],
+    challenge: ["What should be included in terms of engagement?", "How would you identify a conflict of interest?", "How should offers be reported?", "Why is record keeping important?"],
+    keyPoints: ["Agency best practice starts before the transaction begins", "Terms of engagement and conflict checks are essential", "Record all advice negotiations and offers", "Act professionally transparently and in the client's best interests"],
+    module: "Agency, Leasing & Transactions"
+  }
+];
+
 // ── BS QUESTION BANK UI ───────────────────────────────────────────────────────
 let _bsoIndex = 0;
 let _bsoFiltered = null;

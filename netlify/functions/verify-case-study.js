@@ -25,8 +25,7 @@ exports.handler = async (event) => {
     return { statusCode: 500, headers, body: JSON.stringify({ error: 'Payment system not configured' }) };
   }
 
-  // TODO: replace with the real Stripe price ID once the Case Study Review product is created
-  const CASE_STUDY_PRICE_ID = 'price_PLACEHOLDER';
+  const CASE_STUDY_PRICE_ID = 'price_1TgqRWRkzyH1h56UUABcQsTH';
 
   try {
     const r = await fetch(`https://api.stripe.com/v1/checkout/sessions/${session_id}?expand[]=line_items`, {

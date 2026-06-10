@@ -14,7 +14,8 @@
   --blue:#2563EB;--blue-dark:#1d4ed8;--blue-light:#3b82f6;--blue-pale:#eff6ff;
   --white:#fff;--off:#f8fafc;--border:#e2e8f0;--text:#0f172a;--muted:#64748b;
   --green:#16a34a;--green-bg:#dcfce7;--red:#dc2626;--red-bg:#fee2e2;
-  --f:'Inter',sans-serif;
+  --navy:#0D0F1C;
+  --f:'Inter',sans-serif;--fh:'Plus Jakarta Sans','Inter',sans-serif;
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--f);background:var(--off);color:var(--text);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.6}
@@ -289,27 +290,28 @@ footer{background:#0D0F1C;padding:52px 32px 32px}
 
 /* ── DASHBOARD ── */
 /* ── DASHBOARD SUMMARY PANEL ──────────────────────────────────────────────── */
-.dash-summary{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px}
+.dash-summary{background:var(--navy);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:28px;margin-bottom:24px}
 .ds-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px;flex-wrap:wrap}
-.ds-plan-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:rgba(37,99,235,.12);color:#93c5fd;border:1px solid rgba(37,99,235,.3);margin-bottom:8px}
-.ds-welcome{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.2}
-.ds-sub{font-size:14px;color:var(--muted);line-height:1.5}
-.ds-expiry{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap;padding-top:4px}
+.ds-eyebrow{font-family:var(--fh);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:10px}
+.ds-plan-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:rgba(37,99,235,.12);color:#93c5fd;border:1px solid rgba(37,99,235,.3);margin-bottom:8px}
+.ds-welcome{font-family:var(--fh);font-size:22px;font-weight:800;letter-spacing:-.02em;color:#fff;margin-bottom:4px;line-height:1.2}
+.ds-sub{font-size:14px;color:rgba(255,255,255,.55);line-height:1.5}
+.ds-expiry{font-size:12px;color:rgba(255,255,255,.4);text-align:right;white-space:nowrap;padding-top:4px}
 .ds-progress-wrap{margin-bottom:20px}
 .ds-progress-track{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:8px}
 .ds-progress-fill{height:100%;background:linear-gradient(90deg,#2563EB,#7c3aed);border-radius:3px;transition:width .6s ease}
-.ds-progress-label{font-size:12px;color:var(--muted)}
+.ds-progress-label{font-size:12px;color:rgba(255,255,255,.45)}
 .ds-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
-.ds-btn{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.03);cursor:pointer;text-decoration:none;transition:.18s;overflow:hidden}
-.ds-btn:hover{border-color:rgba(37,99,235,.4);background:rgba(37,99,235,.06)}
-.ds-btn-primary{background:#eff6ff;border-color:#bfdbfe}
-.ds-btn-primary:hover{background:rgba(37,99,235,.2)}
-.ds-btn-icon{font-size:18px;flex-shrink:0}
+.ds-btn{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;text-decoration:none;transition:.18s;overflow:hidden}
+.ds-btn:hover{border-color:rgba(37,99,235,.3);background:rgba(37,99,235,.06)}
+.ds-btn-primary{background:rgba(37,99,235,.12);border-color:rgba(37,99,235,.35)}
+.ds-btn-primary:hover{background:rgba(37,99,235,.18)}
+.ds-btn-icon{font-size:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(37,99,235,.15);border-radius:8px;padding:8px;line-height:1}
 .ds-btn-text{flex:1;min-width:0}
-.ds-btn-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
-.ds-btn-val{display:block;font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.ds-btn-primary .ds-btn-label{color:#2563EB}
-.ds-btn-primary .ds-btn-val{color:#1d4ed8}
+.ds-btn-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);display:block;margin-bottom:2px}
+.ds-btn-val{display:block;font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.ds-btn-primary .ds-btn-label{color:#93c5fd}
+.ds-btn-primary .ds-btn-val{color:#fff}
 
 .dash-layout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 60px);margin-top:60px}
 .sidebar{background:#0D0F1C;padding:24px 0;border-right:1px solid rgba(255,255,255,.06);position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto}
@@ -333,15 +335,16 @@ footer{background:#0D0F1C;padding:52px 32px 32px}
 .progress-bar-fill{background:#fff;border-radius:100px;height:6px;transition:width .5s ease}
 .progress-label{font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;position:relative}
 .dash-modules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.dash-mod-card{background:#fff;border-radius:12px;padding:20px;border:1px solid var(--border);cursor:pointer;transition:.2s;position:relative}
-.dash-mod-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.07);border-color:#93c5fd;transform:translateY(-1px)}
+.dash-mod-card{background:#fff;border-radius:14px;padding:20px;border:1px solid var(--border);cursor:pointer;transition:.2s;position:relative}
+.dash-mod-card:hover{box-shadow:0 8px 32px rgba(37,99,235,.12);border-color:#93c5fd;transform:translateY(-1px)}
 .dash-mod-card.done{border-color:#bbf7d0}
-.dash-mod-card.done .dmcard-top{background:var(--green-bg)}
-.dmcard-top{background:var(--blue-pale);border-radius:8px;padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.dmcard-num{font-size:11px;font-weight:700;color:var(--blue)}
+.dash-mod-card.done .dmcard-num{background:var(--green)}
+.dash-mod-card.locked .dmcard-num{background:#fca5a5}
+.dmcard-top{border-radius:8px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.dmcard-num{display:inline-block;font-family:var(--fh);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--blue);padding:4px 10px;border-radius:20px}
 .dmcard-tick{font-size:14px;display:none}
 .dash-mod-card.done .dmcard-tick{display:block}
-.dmcard-title{font-size:13px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:5px}
+.dmcard-title{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:5px}
 .dmcard-level{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 
 /* ── MODULE PAGE ── */
@@ -593,27 +596,28 @@ input.err{border-color:var(--red)}
 .alert-red{background:var(--red-bg);color:var(--red);border:1px solid #fca5a5}
 
 /* ── DASHBOARD SUMMARY PANEL ──────────────────────────────────────────────── */
-.dash-summary{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px}
+.dash-summary{background:var(--navy);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:28px;margin-bottom:24px}
 .ds-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px;flex-wrap:wrap}
-.ds-plan-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:rgba(37,99,235,.12);color:#93c5fd;border:1px solid rgba(37,99,235,.3);margin-bottom:8px}
-.ds-welcome{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.2}
-.ds-sub{font-size:14px;color:var(--muted);line-height:1.5}
-.ds-expiry{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap;padding-top:4px}
+.ds-eyebrow{font-family:var(--fh);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:10px}
+.ds-plan-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:rgba(37,99,235,.12);color:#93c5fd;border:1px solid rgba(37,99,235,.3);margin-bottom:8px}
+.ds-welcome{font-family:var(--fh);font-size:22px;font-weight:800;letter-spacing:-.02em;color:#fff;margin-bottom:4px;line-height:1.2}
+.ds-sub{font-size:14px;color:rgba(255,255,255,.55);line-height:1.5}
+.ds-expiry{font-size:12px;color:rgba(255,255,255,.4);text-align:right;white-space:nowrap;padding-top:4px}
 .ds-progress-wrap{margin-bottom:20px}
 .ds-progress-track{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:8px}
 .ds-progress-fill{height:100%;background:linear-gradient(90deg,#2563EB,#7c3aed);border-radius:3px;transition:width .6s ease}
-.ds-progress-label{font-size:12px;color:var(--muted)}
+.ds-progress-label{font-size:12px;color:rgba(255,255,255,.45)}
 .ds-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
-.ds-btn{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.03);cursor:pointer;text-decoration:none;transition:.18s;overflow:hidden}
-.ds-btn:hover{border-color:rgba(37,99,235,.4);background:rgba(37,99,235,.06)}
-.ds-btn-primary{background:#eff6ff;border-color:#bfdbfe}
-.ds-btn-primary:hover{background:rgba(37,99,235,.2)}
-.ds-btn-icon{font-size:18px;flex-shrink:0}
+.ds-btn{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;text-decoration:none;transition:.18s;overflow:hidden}
+.ds-btn:hover{border-color:rgba(37,99,235,.3);background:rgba(37,99,235,.06)}
+.ds-btn-primary{background:rgba(37,99,235,.12);border-color:rgba(37,99,235,.35)}
+.ds-btn-primary:hover{background:rgba(37,99,235,.18)}
+.ds-btn-icon{font-size:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(37,99,235,.15);border-radius:8px;padding:8px;line-height:1}
 .ds-btn-text{flex:1;min-width:0}
-.ds-btn-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
-.ds-btn-val{display:block;font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.ds-btn-primary .ds-btn-label{color:#2563EB}
-.ds-btn-primary .ds-btn-val{color:#1d4ed8}
+.ds-btn-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);display:block;margin-bottom:2px}
+.ds-btn-val{display:block;font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.ds-btn-primary .ds-btn-label{color:#93c5fd}
+.ds-btn-primary .ds-btn-val{color:#fff}
 
 /* ── MOBILE HAMBURGER ─────────────────────────────────────────────────────── */
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;margin-left:auto}
@@ -733,8 +737,8 @@ input.err{border-color:var(--red)}
 .pathway-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.75);background:rgba(37,99,235,.18);border:1px solid rgba(37,99,235,.35);border-radius:20px;padding:3px 10px}
 .pathway-change{font-size:11px;color:rgba(255,255,255,.35);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:var(--f)}
 .pathway-change:hover{color:rgba(255,255,255,.6)}
-.bs-qbank{background:#0f172a;border:1px solid rgba(37,99,235,.25);border-radius:12px;padding:20px 24px;margin-bottom:20px}
-.bs-qbank-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.bs-qbank{background:#0f172a;border:1px solid rgba(37,99,235,.25);border-radius:16px;padding:20px 24px;margin-bottom:20px}
+.bs-qbank-title{font-family:var(--fh);font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
 .bs-qbank-sub{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:16px;line-height:1.5}
 .bs-qbank-stats{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
 .bs-stat-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(37,99,235,.15);color:#93c5fd;border:1px solid rgba(37,99,235,.2)}
@@ -787,16 +791,18 @@ input.err{border-color:var(--red)}
 .mod-title{white-space:normal;overflow-wrap:break-word;word-break:break-word}
 .pathway-label,.pathway-name,.mod-card-title{white-space:normal;overflow-wrap:break-word;word-break:break-word}
 
-.cpd-panel{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin-bottom:20px}
-.cpd-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cpd-panel{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:20px 24px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.cpd-panel-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.panel-eyebrow{font-family:var(--fh);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2563EB;margin-bottom:4px;display:block}
+.panel-eyebrow-light{color:#60a5fa}
 .cpd-panel-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:15px;font-weight:700;color:#0f172a;letter-spacing:-.01em}
 .cpd-stats{display:flex;gap:24px;margin-bottom:16px}
 .cpd-stat-num{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;color:#0f172a;letter-spacing:-.03em}
 .cpd-stat-lbl{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
-.cpd-add-btn{background:#2563EB;color:#fff;border:none;padding:8px 16px;border-radius:7px;font-family:var(--f);font-size:12px;font-weight:700;cursor:pointer;transition:.15s}
+.cpd-add-btn{background:#2563EB;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.01em;cursor:pointer;transition:.15s}
 .cpd-add-btn:hover{background:#1d4ed8}
-.cpd-view-btn{background:transparent;color:#64748b;border:1px solid #e2e8f0;padding:7px 14px;border-radius:7px;font-family:var(--f);font-size:12px;cursor:pointer;transition:.15s}
-.cpd-view-btn:hover{color:#0f172a;border-color:#cbd5e1}
+.cpd-view-btn{background:transparent;color:#64748b;border:1.5px solid rgba(0,0,0,.12);padding:7px 14px;border-radius:8px;font-family:var(--f);font-size:12px;font-weight:600;cursor:pointer;transition:.15s}
+.cpd-view-btn:hover{color:#0f172a;border-color:rgba(37,99,235,.4)}
 .cpd-form{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-top:14px;display:none}
 .cpd-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .cpd-form-full{grid-column:1/-1}
@@ -806,8 +812,8 @@ input.err{border-color:var(--red)}
 .cpd-form select option{background:#fff;color:#0f172a}
 .cpd-form textarea{resize:vertical;min-height:72px}
 .cpd-form-actions{display:flex;gap:10px}
-.cpd-save-btn{background:#2563EB;color:#fff;border:none;padding:9px 20px;border-radius:7px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer}
-.cpd-cancel-btn{background:transparent;color:#64748b;border:1px solid #e2e8f0;padding:9px 16px;border-radius:7px;font-family:var(--f);font-size:13px;cursor:pointer}
+.cpd-save-btn{background:#2563EB;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer}
+.cpd-cancel-btn{background:transparent;color:#64748b;border:1.5px solid rgba(0,0,0,.12);padding:9px 16px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:600;cursor:pointer}
 .cpd-log-view{display:none;margin-top:14px}
 .cpd-log-table{width:100%;border-collapse:collapse}
 .cpd-log-table th{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;padding:6px 10px;text-align:left;border-bottom:1px solid #f1f5f9}
@@ -1555,6 +1561,7 @@ document.addEventListener('click', function(e) {
         <!-- Top row: welcome + plan badge -->
         <div class="ds-header">
           <div>
+            <div class="ds-eyebrow">Your APC Dashboard</div>
             <div class="ds-plan-badge" id="dsPlanBadge">Loading...</div>
             <h2 class="ds-welcome" id="dashWelcome">Welcome back</h2>
             <p class="ds-sub" id="dashSub">Your APC preparation is ready.</p>
@@ -1583,13 +1590,16 @@ document.addEventListener('click', function(e) {
 
       <div class="cpd-panel" id="cpdPanel">
         <div class="cpd-panel-header">
-          <div class="cpd-panel-title">📋 CPD Log</div>
+          <div>
+            <div class="panel-eyebrow">Professional development</div>
+            <div class="cpd-panel-title">📋 CPD Log</div>
+          </div>
           <div style="display:flex;gap:8px">
             <button class="cpd-view-btn" onclick="cpdToggleLog()">View log</button>
             <button class="cpd-add-btn" onclick="cpdToggleForm()">+ Add entry</button>
           </div>
         </div>
-        <div style="font-size:13px;color:rgba(0,0,0,0.4);margin-bottom:14px">Record your continuing professional development hours and activities</div>
+        <div style="font-size:13px;color:rgba(0,0,0,0.5);margin-bottom:14px">Record your continuing professional development hours and activities</div>
         <div class="cpd-stats">
           <div>
             <div class="cpd-stat-num" id="cpdTotalHours">0</div>
@@ -1671,10 +1681,13 @@ document.addEventListener('click', function(e) {
       
       <div class="cpd-panel" id="prepPanel">
         <div class="cpd-panel-header">
-          <div class="cpd-panel-title">📝 Competency Evidence Bank</div>
+          <div>
+            <div class="panel-eyebrow">PREP examples</div>
+            <div class="cpd-panel-title">📝 Competency Evidence Bank</div>
+          </div>
           <button class="cpd-add-btn" onclick="prepOpenOverlay()">+ Add Evidence</button>
         </div>
-        <div style="font-size:13px;color:rgba(0,0,0,0.4);margin-bottom:14px">Build and refine your PREP examples for every APC competency</div>
+        <div style="font-size:13px;color:rgba(0,0,0,0.5);margin-bottom:14px">Build and refine your PREP examples for every APC competency</div>
         <div class="cpd-stats">
           <div>
             <div class="cpd-stat-num" id="prepCompCount">0 / 11</div>
@@ -1691,10 +1704,13 @@ document.addEventListener('click', function(e) {
       
       <div class="cpd-panel" id="checklistPanel">
         <div class="cpd-panel-header">
-          <div class="cpd-panel-title">📋 Submission Checklist</div>
+          <div>
+            <div class="panel-eyebrow">Final preparation</div>
+            <div class="cpd-panel-title">📋 Submission Checklist</div>
+          </div>
           <button class="cpd-add-btn" onclick="checklistOpen()">Open Checklist</button>
         </div>
-        <div style="font-size:13px;color:rgba(0,0,0,0.4);margin-bottom:14px">Track your readiness for final submission across documents, sign-offs and platform preparation</div>
+        <div style="font-size:13px;color:rgba(0,0,0,0.5);margin-bottom:14px">Track your readiness for final submission across documents, sign-offs and platform preparation</div>
         <div class="cpd-stats">
           <div>
             <div class="cpd-stat-num" id="checklistCount">0 / 18</div>
@@ -1708,7 +1724,10 @@ document.addEventListener('click', function(e) {
       
       <div class="cpd-panel" id="csPanel" style="display:none">
         <div class="cpd-panel-header">
-          <div class="cpd-panel-title">📝 Case Study Review</div>
+          <div>
+            <div class="panel-eyebrow">AI coaching feedback</div>
+            <div class="cpd-panel-title">📝 Case Study Review</div>
+          </div>
         </div>
         <div id="csPanelBody"></div>
       </div>
@@ -1719,6 +1738,7 @@ document.addEventListener('click', function(e) {
         <p class="progress-label" id="dashProgressLabelOld"></p>
       </div>
       <div class="bs-qbank" id="bsQuestionBank" style="display:none">
+        <div class="panel-eyebrow panel-eyebrow-light">Practice questions</div>
         <div class="bs-qbank-title">🏗️ Your Building Surveying Question Bank</div>
         <div class="bs-qbank-sub">50 assessor-led questions to test your technical knowledge before final assessment</div>
         <div class="bs-qbank-stats" id="bsQBankStats">
@@ -1726,11 +1746,11 @@ document.addEventListener('click', function(e) {
           <span class="bs-stat-pill" id="bsStatGot" style="background:rgba(22,163,74,.15);color:#86efac;border-color:rgba(22,163,74,.2)">0 ✓ confident</span>
           <div class="bs-mini-bar"><div class="bs-mini-bar-fill" id="bsMiniBarFill" style="width:0%"></div></div>
         </div>
-        <button id="bsStartBtn" onclick="openBSOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:7px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
+        <button id="bsStartBtn" onclick="openBSOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
       </div>
 
       <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
-        <h3 style="font-size:16px;font-weight:700;color:var(--text)">Your Modules</h3>
+        <h3 style="font-family:var(--fh);font-size:16px;font-weight:700;color:var(--text)">Your Modules</h3>
         <span style="font-size:12px;color:var(--muted)" id="dashCompletedCount">0 completed</span>
       </div>
       <div class="dash-modules-grid" id="dashModGrid"></div>
@@ -2379,8 +2399,8 @@ async function renderDashboard() {
     return `<div class="dash-mod-card ${isComplete(m.id)?'done':''} ${!unlocked?'locked':''}"
       onclick="requireAccess(${m.id})"
       style="${!unlocked ? 'opacity:0.5;cursor:not-allowed;border-color:#fecaca' : ''}">
-      <div class="dmcard-top" style="${!unlocked ? 'background:#fee2e2' : ''}">
-        <span class="dmcard-num" style="${!unlocked ? 'color:#ef4444' : ''}">MODULE ${m.num}</span>
+      <div class="dmcard-top">
+        <span class="dmcard-num">MODULE ${m.num}</span>
         <span class="dmcard-tick">${isComplete(m.id) ? '✅' : (!unlocked ? '🔒' : '')}</span>
       </div>
       <div class="dmcard-title">${m.title}</div>
@@ -2394,13 +2414,13 @@ async function renderDashboard() {
   if (plan === 'monthly' && unlockedCount < 12) {
     const banner = document.createElement('div');
     banner.id = 'upgradeBanner';
-    banner.style.cssText = 'background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px';
+    banner.style.cssText = 'background:#eff6ff;border:1px solid #bfdbfe;border-radius:16px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px';
     banner.innerHTML = `
       <div>
-        <p style="font-size:13px;font-weight:700;color:#1d4ed8;margin-bottom:2px">📚 ${12 - unlockedCount} modules still locked</p>
+        <p style="font-family:var(--fh);font-size:13px;font-weight:700;color:#1d4ed8;margin-bottom:2px">📚 ${12 - unlockedCount} modules still locked</p>
         <p style="font-size:12px;color:#64748b">Upgrade to annual access — unlock all 12 modules right now for £497</p>
       </div>
-      <button onclick="checkout('annual')" style="background:#2563EB;color:#fff;border:none;padding:9px 18px;border-radius:7px;font-family:var(--f);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Upgrade to Full Access</button>
+      <button onclick="checkout('annual')" style="background:#2563EB;color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.01em;cursor:pointer;white-space:nowrap">Upgrade to Full Access</button>
     `;
     document.getElementById('dashModGrid').before(banner);
   }

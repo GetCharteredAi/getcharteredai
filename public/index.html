@@ -796,6 +796,17 @@ input.err{border-color:var(--red)}
 .panel-eyebrow{font-family:var(--fh);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2563EB;margin-bottom:4px;display:block}
 .panel-eyebrow-light{color:#60a5fa}
 .cpd-panel-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:15px;font-weight:700;color:#0f172a;letter-spacing:-.01em}
+#prepPanel{background:#0f172a;border:1px solid rgba(37,99,235,.25);box-shadow:none}
+#prepPanel .panel-eyebrow{color:#60a5fa}
+#prepPanel .cpd-panel-title{color:#fff}
+#prepPanel .cpd-stat-num{color:#fff}
+#prepPanel .cpd-stat-lbl{color:rgba(255,255,255,.5)}
+#prepPanel .prep-progress-track{background:rgba(255,255,255,.1)}
+#prepPanel .prep-recent-item{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08)}
+#prepPanel .prep-recent-comp{color:#fff}
+#prepPanel .prep-recent-level{color:rgba(255,255,255,.5)}
+#prepPanel .prep-empty{color:rgba(255,255,255,.4)}
+#prepPanel .prep-viewall{color:#60a5fa}
 .cpd-stats{display:flex;gap:24px;margin-bottom:16px}
 .cpd-stat-num{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;color:#0f172a;letter-spacing:-.03em}
 .cpd-stat-lbl{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
@@ -1687,7 +1698,7 @@ document.addEventListener('click', function(e) {
           </div>
           <button class="cpd-add-btn" onclick="prepOpenOverlay()">+ Add Evidence</button>
         </div>
-        <div style="font-size:13px;color:rgba(0,0,0,0.5);margin-bottom:14px">Build and refine your PREP examples for every APC competency</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:14px">Build and refine your PREP examples for every APC competency</div>
         <div class="cpd-stats">
           <div>
             <div class="cpd-stat-num" id="prepCompCount">0 / 11</div>

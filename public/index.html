@@ -872,6 +872,20 @@ input.err{border-color:var(--red)}
 .prep-view-delete{background:rgba(239,68,68,.1);color:#fca5a5;border:1px solid rgba(239,68,68,.25);padding:5px 12px;border-radius:6px;font-size:11px;cursor:pointer;font-family:var(--f)}
 .prep-group-heading{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.08)}
 .prep-group-heading:first-of-type{margin-top:0}
+
+.checklist-complete-banner{background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.25);border-radius:8px;padding:10px 14px;font-size:13px;color:#15803d;margin-top:14px;font-weight:600}
+
+#checklistOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9999;overflow-y:auto;padding:48px 20px;color:#f0f4ff}
+#checklistOverlay .checklist-modal{max-width:680px;margin:0 auto;position:relative}
+.checklist-disclaimer{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 14px;margin-bottom:24px}
+.checklist-section-heading{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.08)}
+.checklist-section-heading:first-of-type{margin-top:0}
+.checklist-item{display:flex;align-items:flex-start;gap:12px;padding:10px 4px;cursor:pointer;border-radius:8px;transition:.15s}
+.checklist-item:hover{background:rgba(255,255,255,.03)}
+.checklist-box{flex-shrink:0;width:20px;height:20px;border:1.5px solid rgba(255,255,255,.25);border-radius:5px;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:.15s;font-size:13px;color:#fff}
+.checklist-item.checked .checklist-box{background:#16a34a;border-color:#16a34a}
+.checklist-item-text{font-size:14px;color:#f0f4ff;line-height:1.5}
+.checklist-item.checked .checklist-item-text{color:rgba(255,255,255,.4);text-decoration:line-through}
 </style>
 </head>
 <body>
@@ -1647,6 +1661,23 @@ document.addEventListener('click', function(e) {
         <a class="prep-viewall" id="prepViewAllLink" onclick="prepOpenViewAll()" style="display:none">View all entries →</a>
       </div>
 
+      
+      <div class="cpd-panel" id="checklistPanel">
+        <div class="cpd-panel-header">
+          <div class="cpd-panel-title">📋 Submission Checklist</div>
+          <button class="cpd-add-btn" onclick="checklistOpen()">Open Checklist</button>
+        </div>
+        <div style="font-size:13px;color:rgba(0,0,0,0.4);margin-bottom:14px">Track your readiness for final submission across documents, sign-offs and platform preparation</div>
+        <div class="cpd-stats">
+          <div>
+            <div class="cpd-stat-num" id="checklistCount">0 / 18</div>
+            <div class="cpd-stat-lbl">Items complete</div>
+          </div>
+        </div>
+        <div class="prep-progress-track"><div class="prep-progress-fill" id="checklistProgressFill" style="width:0%"></div></div>
+        <div id="checklistCompleteBanner" class="checklist-complete-banner" style="display:none">✅ Your preparation checklist is complete. Good luck with your submission.</div>
+      </div>
+
       <div class="dash-welcome" style="display:none">
         <p id="dashSubOld"></p>
         <div class="progress-bar-wrap" style="display:none"><div class="progress-bar-fill" id="dashProgressBarOld"></div></div>
@@ -2340,6 +2371,7 @@ async function renderDashboard() {
   renderPathwayBadge();
   cpdLoad();
   prepLoad();
+  checklistLoad();
 }
 
 // ── MODULE PAGE ───────────────────────────────────────────────────────────────
@@ -3861,6 +3893,78 @@ async function prepDelete(id) {
 }
 
 
+// ── SUBMISSION CHECKLIST ─────────────────────────────────────────────────────
+
+var CHECKLIST_GROUPS = [{"h":"Submission Documents","items":[["soeAllCompetencies","Summary of Experience — all competencies recorded"],["soeCounsellorReview","Summary of Experience — reviewed by counsellor"],["csFirstDraft","Case Study — first draft complete"],["csCounsellorFeedback","Case Study — counsellor feedback received"],["csFinalVersion","Case Study — final version ready"],["diaryUpToDate","APC Diary — entries up to date"],["cpd48Hours","CPD Record — minimum 48 hours recorded"],["cpdRelevant","CPD Record — relevant to competencies held"]]},{"h":"Sign-offs","items":[["counsellorReviewCompleted","Counsellor review completed"],["supervisorSignOff","Supervisor sign-off obtained"],["pathwayLevelsAgreed","Pathway competency levels agreed"]]},{"h":"Platform Preparation","items":[["modulesCompleted","All 12 modules completed or reviewed"],["mockInterviewCompleted","Mock interview completed at least once"],["prepBankComplete","Competency evidence bank entries complete"],["ethicsModuleCompleted","Ethics module completed"]]},{"h":"Final Checks","items":[["ricsPortalSetup","RICS submission portal account set up"],["documentsSavedFormat","All documents saved in required format"],["checklistReviewedWithCounsellor","Submission checklist reviewed with counsellor"]]}];
+var CHECKLIST_TOTAL = 18;
+var checklistState = {};
+
+function checklistLoadState() {
+  try {
+    var raw = localStorage.getItem('gca_checklist');
+    checklistState = raw ? JSON.parse(raw) : {};
+  } catch(e) { checklistState = {}; }
+}
+
+function checklistSaveState() {
+  localStorage.setItem('gca_checklist', JSON.stringify(checklistState));
+}
+
+function checklistLoad() {
+  checklistLoadState();
+  checklistUpdateDashboard();
+}
+
+function checklistUpdateDashboard() {
+  var done = 0;
+  CHECKLIST_GROUPS.forEach(function(g) {
+    g.items.forEach(function(item) { if (checklistState[item[0]]) done++; });
+  });
+
+  var countEl = document.getElementById('checklistCount');
+  if (countEl) countEl.textContent = done + ' / ' + CHECKLIST_TOTAL;
+
+  var fillEl = document.getElementById('checklistProgressFill');
+  if (fillEl) fillEl.style.width = Math.round((done / CHECKLIST_TOTAL) * 100) + '%';
+
+  var bannerEl = document.getElementById('checklistCompleteBanner');
+  if (bannerEl) bannerEl.style.display = (done === CHECKLIST_TOTAL) ? 'block' : 'none';
+}
+
+function checklistRender() {
+  var container = document.getElementById('checklistItems');
+  container.innerHTML = CHECKLIST_GROUPS.map(function(g) {
+    var itemsHtml = g.items.map(function(item) {
+      var key = item[0], label = item[1];
+      var checked = !!checklistState[key];
+      return '<div class="checklist-item' + (checked ? ' checked' : '') + '" onclick="checklistToggle(\'' + key + '\')">' +
+        '<div class="checklist-box">' + (checked ? '✓' : '') + '</div>' +
+        '<div class="checklist-item-text">' + label + '</div>' +
+      '</div>';
+    }).join('');
+    return '<div class="checklist-section-heading">' + g.h + '</div>' + itemsHtml;
+  }).join('');
+}
+
+function checklistToggle(key) {
+  checklistState[key] = !checklistState[key];
+  checklistSaveState();
+  checklistRender();
+  checklistUpdateDashboard();
+}
+
+function checklistOpen() {
+  checklistLoadState();
+  checklistRender();
+  checklistUpdateDashboard();
+  document.getElementById('checklistOverlay').style.display = 'block';
+}
+
+function checklistClose() {
+  document.getElementById('checklistOverlay').style.display = 'none';
+}
+
+
 // ── BUILDING SURVEYING QUESTION BANK DATA ────────────────────────────────────
 const BS_QUESTIONS = [
   // MODULE 1 — Building Pathology & Defects (Q1–10)
@@ -4714,6 +4818,17 @@ async function sendMichaelPanel() {
     <button class="prep-close-x" onclick="prepCloseViewAll()">✕</button>
     <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;margin-bottom:24px">Your Evidence Bank</h2>
     <div id="prepViewList"></div>
+  </div>
+</div>
+
+<div id="checklistOverlay" style="display:none">
+  <div class="checklist-modal">
+    <button class="prep-close-x" onclick="checklistClose()">✕</button>
+    <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;margin-bottom:16px">Submission Checklist</h2>
+
+    <div class="checklist-disclaimer">This checklist is a preparation guide only. Always verify your submission requirements and deadlines directly with RICS. Get Chartered AI is not responsible for submission compliance or deadline management.</div>
+
+    <div id="checklistItems"></div>
   </div>
 </div>
 </body>

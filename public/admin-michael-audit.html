@@ -86,7 +86,7 @@
     </div>
     <button class="run-all" id="runAllBtn" onclick="runAllTests()">▶ Run all 30 tests</button>
     <button class="run-all" id="markAllPassedBtn" onclick="markAllPassed()" style="background:rgba(74,222,128,.15);color:#86efac">✓ Mark all as passed</button>
-    <button class="run-all" id="resetAllBtn" onclick="resetAllTests()" style="background:rgba(239,68,68,.15);color:#fca5a5">↺ Reset All Tests</button>
+    <button class="run-all" onclick="location.reload()" style="background:rgba(239,68,68,.15);color:#fca5a5">↺ Reset All Tests</button>
   </div>
 
   <table class="topics-table">
@@ -169,25 +169,10 @@ const TEST_QUESTIONS = {
   ]
 };
 
-const STORAGE_KEY = 'gca_michael_audit_v1';
 let auditState = {};
-try { auditState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { auditState = {}; }
 
 function isRealResponse(text) {
   return !!text && !/^(no response received|api error|error: could not reach)/i.test(String(text).trim());
-}
-
-// Only treat saved entries as "tested" if they actually have a real response —
-// older saved state may have tested:true with placeholder/error text.
-Object.keys(auditState).forEach(id => {
-  const s = auditState[id];
-  if (s && !isRealResponse(s.response)) {
-    s.tested = false;
-  }
-});
-
-function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(auditState));
 }
 
 function qId(modId, qIdx) {
@@ -294,7 +279,6 @@ async function runTest(modId, qIdx) {
     auditState[id] = auditState[id] || {};
     auditState[id].response = text;
     auditState[id].tested = isReal;
-    saveState();
 
     statusEl.textContent = isReal ? 'Tested' : 'Not yet tested';
     statusEl.classList.toggle('tested', isReal);
@@ -321,16 +305,6 @@ async function runAllTests() {
   runAllBtn.textContent = '▶ Run all 30 tests';
 }
 
-function resetAllTests() {
-  Object.keys(localStorage).forEach(key => {
-    if (key.startsWith('gca_michael_audit')) {
-      localStorage.removeItem(key);
-    }
-  });
-  console.log('storage after reset:', localStorage.getItem(STORAGE_KEY));
-  location.reload();
-}
-
 function markAllPassed() {
   Object.keys(TEST_QUESTIONS).forEach(modIdStr => {
     const modId = Number(modIdStr);
@@ -345,7 +319,6 @@ function setNote(modId, qIdx, value) {
   document.getElementById('note_' + id).value = value;
   auditState[id] = auditState[id] || {};
   auditState[id].note = value;
-  saveState();
   applyNoteClass(id, value);
   updateSummary();
 }
@@ -355,7 +328,6 @@ function saveNote(modId, qIdx) {
   const value = document.getElementById('note_' + id).value;
   auditState[id] = auditState[id] || {};
   auditState[id].note = value;
-  saveState();
   applyNoteClass(id, value);
   updateSummary();
 }

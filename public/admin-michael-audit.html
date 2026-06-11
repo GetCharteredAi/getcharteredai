@@ -243,6 +243,7 @@ function escapeHtml(str) {
 
 async function runTest(modId, qIdx) {
   const id = qId(modId, qIdx);
+  console.log('runTest called for:', id);
   const question = TEST_QUESTIONS[modId][qIdx];
   const modTitle = MODULE_TOPICS[modId].title;
   const respEl = document.getElementById('resp_' + id);
@@ -266,14 +267,17 @@ async function runTest(modId, qIdx) {
         max_tokens: 400
       })
     });
+    console.log('fetch status:', response.status, response.ok);
     const data = await response.json();
-    console.log('response for Q:', id, data);
+    console.log('parsed data:', JSON.stringify(data));
     const text = data.error
       ? 'API Error: ' + data.error
       : (data.content && data.content.map(c => c.text || '').join('')) || data.reply || data.message || 'No response received.';
+    console.log('reply text:', text);
 
     respEl.classList.remove('loading');
     respEl.textContent = text;
+    console.log('textarea set for:', id, document.getElementById('resp_' + id));
 
     const isReal = isRealResponse(text);
     auditState[id] = auditState[id] || {};
@@ -284,6 +288,7 @@ async function runTest(modId, qIdx) {
     statusEl.classList.toggle('tested', isReal);
     updateSummary();
   } catch (e) {
+    console.error('runTest error:', e);
     respEl.classList.remove('loading');
     respEl.textContent = 'Error: could not reach ai-tutor — ' + e.message;
   }

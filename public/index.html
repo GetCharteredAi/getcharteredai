@@ -744,7 +744,7 @@ input.err{border-color:var(--red)}
 .bs-stat-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(37,99,235,.15);color:#93c5fd;border:1px solid rgba(37,99,235,.2)}
 .bs-mini-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;flex:1;max-width:120px}
 .bs-mini-bar-fill{height:100%;background:#2563EB;border-radius:2px;transition:width .4s}
-#bsOverlay,#qsOverlay,#creOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9998;overflow-y:auto;flex-direction:column}
+#bsOverlay,#qsOverlay,#creOverlay,#taOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9998;overflow-y:auto;flex-direction:column}
 .bso-topbar{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;flex-wrap:wrap}
 .bso-counter{font-size:13px;font-weight:700;color:#fff}
 .bso-module{font-size:11px;color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);padding:3px 10px;border-radius:20px}
@@ -836,13 +836,14 @@ input.err{border-color:var(--red)}
 .cpd-delete-btn:hover{color:#ef4444}
 .cpd-empty{font-size:13px;color:#94a3b8;text-align:center;padding:20px 0;font-style:italic}
 @media(max-width:768px){.cpd-form-grid{grid-template-columns:1fr}.cpd-stats{gap:16px}}
-#bsOverlay .bso-question,#qsOverlay .bso-question,#creOverlay .bso-question{color:#ffffff !important;font-size:clamp(16px,2.2vw,20px) !important;font-weight:600 !important}
-#bsOverlay .bso-reveal-btn,#qsOverlay .bso-reveal-btn,#creOverlay .bso-reveal-btn{color:#ffffff !important}
-#bsOverlay .bso-reveal-btn.revealed,#qsOverlay .bso-reveal-btn.revealed,#creOverlay .bso-reveal-btn.revealed{color:#93c5fd !important}
-#bsOverlay .bso-reveal-content,#qsOverlay .bso-reveal-content,#creOverlay .bso-reveal-content{color:#f0f4ff !important;background:#1e2235 !important;padding:14px 18px !important;border-radius:8px !important;margin-bottom:16px !important;line-height:1.7 !important;font-size:14px !important}
+#bsOverlay .bso-question,#qsOverlay .bso-question,#creOverlay .bso-question,#taOverlay .bso-question{color:#ffffff !important;font-size:clamp(16px,2.2vw,20px) !important;font-weight:600 !important}
+#bsOverlay .bso-reveal-btn,#qsOverlay .bso-reveal-btn,#creOverlay .bso-reveal-btn,#taOverlay .bso-reveal-btn{color:#ffffff !important}
+#bsOverlay .bso-reveal-btn.revealed,#qsOverlay .bso-reveal-btn.revealed,#creOverlay .bso-reveal-btn.revealed,#taOverlay .bso-reveal-btn.revealed{color:#93c5fd !important}
+#bsOverlay .bso-reveal-content,#qsOverlay .bso-reveal-content,#creOverlay .bso-reveal-content,#taOverlay .bso-reveal-content{color:#f0f4ff !important;background:#1e2235 !important;padding:14px 18px !important;border-radius:8px !important;margin-bottom:16px !important;line-height:1.7 !important;font-size:14px !important}
 #bsOverlay #bsoContent3{color:#fca5a5 !important;background:#2d1515 !important}
 #qsOverlay #qsoContent3{color:#fca5a5 !important;background:#2d1515 !important}
 #creOverlay #creoContent3{color:#fca5a5 !important;background:#2d1515 !important}
+#taOverlay #taoContent3{color:#fca5a5 !important;background:#2d1515 !important}
 
 #michaelPanel{position:fixed;top:0;right:0;height:100vh;width:380px;max-width:100vw;background:#0D0F1C;z-index:9998;box-shadow:-8px 0 32px rgba(0,0,0,.4);transform:translateX(100%);transition:transform .3s ease;flex-direction:column}
 #michaelPanel.open{transform:translateX(0)}
@@ -1808,6 +1809,17 @@ document.addEventListener('click', function(e) {
         </div>
         <button id="creStartBtn" onclick="openCREOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
       </div>
+      <div class="bs-qbank" id="taQuestionBank" style="display:none">
+        <div class="panel-eyebrow panel-eyebrow-light">TAXATION ALLOWANCES PATHWAY</div>
+        <div class="bs-qbank-title">💰 Your Taxation Allowances Question Bank</div>
+        <div class="bs-qbank-sub">50 assessor-led questions every Taxation Allowances candidate should be able to answer before final assessment</div>
+        <div class="bs-qbank-stats" id="taQBankStats">
+          <span class="bs-stat-pill" id="taStatAttempted">0 of 50 attempted</span>
+          <span class="bs-stat-pill" id="taStatGot" style="background:rgba(22,163,74,.15);color:#86efac;border-color:rgba(22,163,74,.2)">0 ✓ confident</span>
+          <div class="bs-mini-bar"><div class="bs-mini-bar-fill" id="taMiniBarFill" style="width:0%"></div></div>
+        </div>
+        <button id="taStartBtn" onclick="openTAOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
+      </div>
 
       <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
         <h3 style="font-family:var(--fh);font-size:16px;font-weight:700;color:var(--text)">Your Modules</h3>
@@ -2279,6 +2291,7 @@ function renderPathwayBadge() {
   const bs = document.getElementById('bsQuestionBank');
   const qs = document.getElementById('qsQuestionBank');
   const cre = document.getElementById('creQuestionBank');
+  const ta = document.getElementById('taQuestionBank');
   if (pathway && row && badge) {
     badge.textContent = '🗺️ ' + pathway + ' pathway';
     row.style.display = 'flex';
@@ -2288,9 +2301,11 @@ function renderPathwayBadge() {
   if (bs) bs.style.display = (pathway === 'Building Surveying') ? 'block' : 'none';
   if (qs) qs.style.display = (pathway === 'Quantity Surveying and Construction') ? 'block' : 'none';
   if (cre) cre.style.display = (pathway === 'Commercial Real Estate') ? 'block' : 'none';
+  if (ta) ta.style.display = (pathway === 'Taxation Allowances') ? 'block' : 'none';
   bsoUpdateDashboardStats();
   qsoUpdateDashboardStats();
   creoUpdateDashboardStats();
+  taoUpdateDashboardStats();
 }
 
 async function renderDashboard() {
@@ -5882,6 +5897,116 @@ const TA_QUESTIONS = [
     challenge: ["Give an example where you used professional judgement", "How did you decide whether to include an uncertain item?", "How did you balance client benefit and risk?", "When would you involve another adviser?"],
     keyPoints: ["Professional judgement is central to Level 3", "It involves evidence risk and client advice", "Judgement must be documented and explainable", "Strong candidates balance opportunity with professional responsibility"],
     module: "Tax Advice, Valuation & Risk"
+  },
+  {
+    q: "Tell us about your capital allowances case study.",
+    why: "Assessors establish whether the candidate genuinely understands their case study and can explain their personal role, the client objective, the technical issue, the advice given and the outcome. RICS Level 3 Capital Allowances competence requires giving reasoned advice, preparing claims, presenting reports to clients and corresponding or negotiating with relevant authorities.",
+    pass: "My case study involved a capital allowances instruction for a commercial property acquisition or refurbishment. My role was to review the property information, analyse the available cost or transaction documents, identify qualifying expenditure and assist in preparing the capital allowances analysis. The client wanted to understand the potential tax relief available and ensure the claim was supported by appropriate evidence.",
+    high: "My case study involved a capital allowances instruction where the client required advice on the availability and value of qualifying expenditure. My personal role was to review the instruction, identify the key capital allowances issues, analyse the available evidence and prepare advice for the client. I reviewed the relevant documents, identified the qualifying expenditure, considered how it should be classified and documented the assumptions and limitations. My advice was not simply to produce a claim figure — I advised the client on the strength of the evidence, the areas of risk and the practical steps needed to support or protect the claim.",
+    referral: "My case study was about a capital allowances claim on a commercial property. I reviewed the costs and prepared the claim for the client.",
+    referralWhy: ["Too generic", "Does not explain personal role client objective evidence or advice given"],
+    challenge: ["What was your personal role?", "What was the key capital allowances issue?", "What evidence did you rely on?", "What was the greatest risk in the claim?"],
+    keyPoints: ["Case study answers must focus on your advice", "Assessors want personal involvement not project history", "Evidence and methodology should be clear", "Level 3 requires judgement not just participation"],
+    module: "Case Study, Client Advice & Final Assessment"
+  },
+  {
+    q: "What was your personal role in the instruction?",
+    why: "Assessors ask this because candidates often describe team activity rather than their own contribution — they need to know what the candidate personally did, what decisions they made and how they contributed to the advice.",
+    pass: "My personal role was to review the project information, assist with identifying qualifying expenditure and contribute to the capital allowances analysis. I reviewed cost information and helped prepare the supporting schedules for the client report.",
+    high: "My personal role was to lead or undertake the analysis of specific elements and advise the client on specific issues. I reviewed the relevant evidence, identified the key qualifying and non-qualifying expenditure and where costs were not clearly separated I applied a reasoned apportionment methodology and documented the assumptions. I also identified the main risk and explained this to the client, recommending specific action such as obtaining further evidence, adopting a conservative treatment or involving the tax adviser. My contribution was therefore not limited to preparing calculations — I exercised judgement and provided advice that helped the client make an informed decision.",
+    referral: "We reviewed the information and prepared the capital allowances claim.",
+    referralWhy: ["Hides personal responsibility", "Assessors cannot assess competence if everything is described as team activity"],
+    challenge: ["What did you personally decide?", "What part of the claim did you prepare?", "What advice came directly from you?", "Who reviewed your work?"],
+    keyPoints: ["APC assessors score your competence not the team's competence", "Use I where appropriate", "Personal role should include judgement not just activity", "Be honest about supervision and responsibility"],
+    module: "Case Study, Client Advice & Final Assessment"
+  },
+  {
+    q: "Why was your advice appropriate?",
+    why: "This is a core Level 3 question. Assessors want to know whether the candidate can justify their recommendation — that it was evidence-based, proportionate, client-specific and professionally defensible.",
+    pass: "My advice was appropriate because it was based on the cost information and capital allowances rules. I identified qualifying expenditure and prepared the claim based on the available evidence.",
+    high: "My advice was appropriate because it reflected the client's objective, the available evidence, the technical capital allowances position and the level of risk. Where evidence was strong I included the expenditure. Where the position was uncertain I either obtained further information, applied a cautious apportionment or excluded the item. I also considered the client's wider position — for example if the instruction related to an acquisition I advised on transaction timing and whether the pooling and fixed value requirements had been addressed. The advice was therefore appropriate because it balanced tax relief opportunity with evidence, risk and professional responsibility.",
+    referral: "My advice was appropriate because the client accepted it.",
+    referralWhy: ["Client acceptance does not prove the advice was correct", "Lacks evidence reasoning and professional judgement"],
+    challenge: ["What evidence supported your advice?", "What alternatives did you consider?", "What risk did you explain to the client?", "Would your advice change with hindsight?"],
+    keyPoints: ["Appropriate advice is reasoned and evidence-based", "The client must understand both opportunity and risk", "Not every possible item should be claimed", "Level 3 answers justify the recommendation"],
+    module: "Case Study, Client Advice & Final Assessment"
+  },
+  {
+    q: "What alternatives or claim approaches did you consider?",
+    why: "Assessors test whether the candidate exercised judgement rather than simply following one approach — capital allowances work involves choices around evidence, apportionment, timing, transaction strategy and risk tolerance.",
+    pass: "I considered different approaches depending on the evidence available. For example I considered whether costs could be directly allocated or whether apportionment was required. I also considered whether further information should be requested before finalising the claim.",
+    high: "I considered several alternative approaches before finalising my advice. The first approach was to rely only on directly identified costs — lower risk but may have underclaimed because some qualifying expenditure was embedded within broader cost headings. The second approach was to use apportionment for mixed costs supported by drawings, specifications and cost breakdowns — creating a more complete claim but requiring clear documentation of assumptions. The third approach was to seek further evidence before finalising the position. After considering the client's objective, available evidence, materiality and risk I recommended the approach that gave the client a reasonable and defensible claim rather than simply the largest possible figure.",
+    referral: "There were not really any alternatives. We just prepared the claim.",
+    referralWhy: ["Suggests the candidate did not evaluate options or exercise professional judgement"],
+    challenge: ["Why did you reject the other approaches?", "What was the risk of a conservative approach?", "How did you decide whether apportionment was reasonable?", "How did you explain the options to the client?"],
+    keyPoints: ["Level 3 advice often involves comparing options", "Different claim approaches carry different risks", "The best approach is not always the highest claim", "Candidates should explain why their chosen method was appropriate"],
+    module: "Case Study, Client Advice & Final Assessment"
+  },
+  {
+    q: "What was the greatest risk in your instruction?",
+    why: "Assessors check whether the candidate understood the real professional risk within the instruction and can identify, assess and mitigate risk rather than simply describe technical work.",
+    pass: "The greatest risk was insufficient evidence to support part of the claim. This could have affected whether some expenditure could be included. I managed this by requesting further information and documenting assumptions.",
+    high: "The greatest risk was a specific issue that could have affected the client's entitlement, claim value or ability to defend the claim. For example in an acquisition instruction the greatest risk may have been that the seller had not pooled the relevant expenditure or that no appropriate Section 198 election had been agreed. In a construction claim the greatest risk may have been incomplete cost information meaning qualifying expenditure was embedded within wider cost headings. I mitigated the risk by obtaining further evidence, liaising with solicitors, involving the tax adviser, applying conservative apportionment or clearly reporting assumptions. I also explained any residual risk to the client.",
+    referral: "The main risk was that the claim might be wrong.",
+    referralWhy: ["Too general", "Does not explain source of risk impact on the client or mitigation"],
+    challenge: ["How did you identify the risk?", "What would have happened if the risk was ignored?", "Was the risk fully resolved?", "How did the client respond?"],
+    keyPoints: ["Strong candidates identify specific risk", "Risk must be linked to client impact", "Mitigation should be practical and evidenced", "Residual risk should be communicated clearly"],
+    module: "Case Study, Client Advice & Final Assessment"
+  },
+  {
+    q: "How did you protect your client's interests?",
+    why: "Assessors test whether the candidate understands client care in a specialist advisory context — protecting the client is not just about increasing claim value but also protecting them from weak claims, lost entitlement, poor documentation and acting outside competence.",
+    pass: "I protected the client by identifying qualifying expenditure, requesting supporting evidence and preparing the claim on a reasonable basis. I also explained areas of uncertainty and recommended that the client involve their tax adviser where required.",
+    high: "I protected the client's interests by balancing the opportunity to claim relief with the need for a robust, defensible and properly evidenced position. I reviewed the evidence, identified qualifying expenditure, excluded unsupported items and documented assumptions. Where transaction risk existed I advised the client before key decision points — for example on an acquisition I ensured capital allowances were addressed before exchange because the purchaser may lose entitlement if pooling, fixed value or Section 198 elections are not dealt with. I also protected the client by staying within my competence, providing property and capital allowances analysis while working with solicitors and tax advisers on legal drafting and tax computation.",
+    referral: "I protected the client by finding as many allowances as possible.",
+    referralWhy: ["Too narrow and potentially risky", "Client protection is not the same as maximising the claim at all costs"],
+    challenge: ["Did you ever challenge the client's preferred approach?", "How did you avoid overclaiming?", "What advice did you document?", "When did you involve other advisers?"],
+    keyPoints: ["Client protection includes risk control", "Strong advice is clear documented and defensible", "Maximising the claim is not the only objective", "Professional boundaries protect the client and the adviser"],
+    module: "Case Study, Client Advice & Final Assessment"
+  },
+  {
+    q: "How did you use construction knowledge in your advice?",
+    why: "Assessors ask this because Taxation Allowances is not just a tax pathway — candidates must show how surveying and construction knowledge helped them identify, analyse and support qualifying expenditure.",
+    pass: "I used construction knowledge to review the cost plan, drawings, specifications and M&E information. This helped me identify qualifying plant and machinery, integral features and non-qualifying building fabric.",
+    high: "I used construction knowledge to understand what had physically been installed, how the systems functioned and how the costs related to qualifying and non-qualifying works. I reviewed M&E specifications and drawings to identify systems such as heating, cooling, ventilation, lighting, electrical installations, lifts or sanitary installations, then considered whether those items were qualifying plant and machinery or integral features and which pool they should be allocated to. Construction knowledge also helped me challenge broad cost headings — a description such as mechanical works may include qualifying plant, builder's work in connection and non-qualifying elements — so I used technical documents to support a reasoned apportionment.",
+    referral: "I used construction knowledge to understand the building.",
+    referralWhy: ["Too vague", "Does not show how construction knowledge affected the claim"],
+    challenge: ["Give a specific example of a system you identified", "How did you distinguish plant from structure?", "What M&E information did you rely on?", "What could go wrong if you misunderstood the works?"],
+    keyPoints: ["Construction knowledge is central to Taxation Allowances", "It helps identify qualifying assets and avoid weak claims", "M&E systems are often key evidence sources", "Strong answers show how technical knowledge changed the advice"],
+    module: "Case Study, Client Advice & Final Assessment"
+  },
+  {
+    q: "What would you do differently if undertaking the instruction again?",
+    why: "Assessors test reflection and professional maturity — they expect candidates to understand what they learned and how they would improve future practice.",
+    pass: "If undertaking the instruction again I would request more detailed cost information earlier in the process. This would have reduced the need for assumptions and made the claim analysis more efficient.",
+    high: "If undertaking the instruction again I would improve the process by requesting M&E breakdowns and contractor information earlier rather than relying initially on high-level cost headings. This would have allowed me to identify qualifying expenditure more efficiently and reduce uncertainty around apportionment. I would also engage the client's tax adviser or solicitor earlier where the instruction involved transaction risk, tax treatment, Section 198 election or incomplete seller information. The key learning was that capital allowances advice is most effective when brought into the project or transaction early — I have since applied this by issuing clearer initial information requests and flagging evidence gaps sooner.",
+    referral: "I do not think I would do anything differently.",
+    referralWhy: ["Suggests limited reflection", "Even successful instructions usually offer learning points"],
+    challenge: ["Did anything go wrong?", "How did you learn from the instruction?", "How have you changed your process since?", "What feedback did you receive?"],
+    keyPoints: ["Reflection demonstrates maturity", "Improvements should be specific and credible", "Learning should change future practice", "Strong candidates can reflect without undermining their competence"],
+    module: "Case Study, Client Advice & Final Assessment"
+  },
+  {
+    q: "Why do Taxation Allowances candidates get referred?",
+    why: "Assessors test whether the candidate understands the assessment standard and the difference between knowledge, experience and competence at Level 3.",
+    pass: "Taxation Allowances candidates may get referred if they cannot explain capital allowances clearly, do not understand qualifying expenditure, or cannot apply the rules to transactions, construction projects and client advice. They may also struggle if they cannot explain their personal role.",
+    high: "Taxation Allowances candidates are often referred not because they have never worked on claims but because they cannot demonstrate the required level of professional judgement. Common referral reasons include describing claim preparation without explaining advice, failing to distinguish their personal role, weak understanding of fixtures and transaction requirements, poor explanation of pooling or fixed value, unsupported apportionment methodology and inability to discuss risk. At Level 3 assessors expect candidates to explain how they used evidence, considered alternatives, advised the client and managed uncertainty. To avoid referral candidates need structured answers that show evidence, reasoning, client impact and professional boundaries.",
+    referral: "Candidates get referred because they do not know enough tax rules.",
+    referralWhy: ["Too narrow", "Many referrals arise because candidates cannot demonstrate advice judgement evidence or client impact"],
+    challenge: ["What is the difference between Level 2 and Level 3?", "How would you demonstrate reasoned advice?", "What makes a capital allowances answer weak?", "How have you prepared for technical questioning?"],
+    keyPoints: ["Referral risk often comes from weak demonstration not lack of experience", "Level 3 requires reasoned advice", "Candidates must explain methodology and judgement", "Personal role must be clear"],
+    module: "Case Study, Client Advice & Final Assessment"
+  },
+  {
+    q: "Why should RICS award you MRICS status?",
+    why: "This is a final professionalism question. Assessors want to know whether the candidate understands what chartered status means and whether they are ready to accept the responsibility of giving professional advice.",
+    pass: "RICS should award me MRICS status because I have developed the required technical knowledge and practical experience in capital allowances and property advice. I understand the importance of acting professionally, providing clear advice and working within my competence.",
+    high: "RICS should award me MRICS status because I have demonstrated the technical competence, professional judgement and ethical awareness expected of a Chartered Surveyor. In my Taxation Allowances experience I have applied capital allowances knowledge to real property instructions, reviewed evidence, prepared reasoned analysis, advised clients on opportunity and risk and recognised when specialist legal or tax input was required. I understand that MRICS status carries responsibility to clients, the profession and the public — as a Chartered Surveyor I must act with integrity, maintain competence, give objective advice and ensure my work is evidence-based and professionally defensible.",
+    referral: "Because I have completed my APC and worked hard to get here.",
+    referralWhy: ["Hard work matters but does not demonstrate professional readiness competence ethics or responsibility"],
+    challenge: ["What does being chartered mean to you?", "How will you maintain competence?", "What would you do if asked to act outside your competence?", "How do you protect public trust?"],
+    keyPoints: ["MRICS status is about responsibility as well as achievement", "Candidates must show ethical awareness and professional maturity", "Chartered Surveyors give advice that others rely on", "Strong answers combine competence judgement and public trust"],
+    module: "Case Study, Client Advice & Final Assessment"
   }
 ];
 
@@ -6803,6 +6928,124 @@ function creoUpdateDashboardStats() {
 }
 
 
+// ── TA QUESTION BANK UI ───────────────────────────────────────────────────────
+let _taoIndex = 0;
+let _taoFiltered = null;
+
+function openTAOverlay() {
+  _taoFiltered = null;
+  const saved = JSON.parse(localStorage.getItem('gca_ta_progress') || '{}');
+  const isFirstTime = Object.keys(saved).length === 0;
+  const resume = TA_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
+  _taoIndex = resume === -1 ? 0 : resume;
+  const el = document.getElementById('taOverlay');
+  el.style.display = 'flex';
+  const sel = document.getElementById('taoModuleFilter');
+  if (sel) sel.value = '';
+  const closeBtn = document.querySelector('#taOverlay .bso-close');
+  if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
+  if (isFirstTime) {
+    document.getElementById('taoBody').innerHTML = '<div style="max-width:780px;margin:0 auto;padding:40px 20px;text-align:center"><div style="font-size:48px;margin-bottom:24px">💰</div><h2 style="color:#fff;font-size:24px;margin-bottom:16px">How to use your Question Bank</h2><div style="text-align:left;background:#1e2235;border-radius:12px;padding:40px 48px;margin-bottom:28px"><p style="color:#f0f4ff;margin-bottom:16px">Each question works like a real APC assessor conversation. Here is how to get the most from it:</p><ol style="color:#f0f4ff;line-height:2"><li><strong style="color:#60a5fa">Read the question</strong> — think about how you would answer it out loud</li><li><strong style="color:#60a5fa">Reveal why assessors ask it</strong> — understand what they are really testing</li><li><strong style="color:#60a5fa">Check the pass-level answer</strong> — the minimum expected from a chartered candidate</li><li><strong style="color:#60a5fa">Read the high-scoring answer</strong> — this is what separates passes from strong passes</li><li><strong style="color:#60a5fa">See the referral answer</strong> — understand exactly what to avoid</li><li><strong style="color:#60a5fa">Mark your confidence</strong> — "I got this" or "Need more practice" tracks your progress</li></ol></div><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:28px">You can close at any time and your progress is saved. Use the module filter to jump to specific topics.</p><button onclick="taoRender()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:14px 32px;font-size:16px;font-weight:600;cursor:pointer">Start with Question 1 →</button></div>';
+  } else {
+    taoRender();
+  }
+}
+
+function closeTAOverlay() {
+  document.getElementById('taOverlay').style.display = 'none';
+  const btn = document.getElementById('taStartBtn');
+  if (btn) btn.textContent = 'Continue from Q' + (_taoIndex + 1);
+}
+
+function taoQuestions() {
+  return _taoFiltered || TA_QUESTIONS;
+}
+
+function taoJumpToModule(mod) {
+  _taoFiltered = mod ? TA_QUESTIONS.filter(q => q.module === mod) : null;
+  _taoIndex = 0;
+  taoRender();
+}
+
+function taoRender() {
+  const qs = taoQuestions();
+  const q = qs[_taoIndex];
+  const prog = Math.round((_taoIndex / qs.length) * 100);
+  document.getElementById('taoCounter').textContent = 'Question ' + (_taoIndex + 1) + ' of ' + qs.length;
+  document.getElementById('taoModule').textContent = q.module;
+  document.getElementById('taoProgressFill').style.width = prog + '%';
+  const saved = JSON.parse(localStorage.getItem('gca_ta_progress') || '{}');
+  const globalIdx = TA_QUESTIONS.indexOf(q);
+  const verdict = saved[globalIdx];
+  document.getElementById('taoBody').innerHTML =
+    '<div class="bso-question">' + q.q + '</div>' +
+    '<button class="bso-reveal-btn" id="taoBtn0" onclick="taoReveal(0)">💡 Why do assessors ask this?</button>' +
+    '<div class="bso-reveal-content" id="taoContent0">' + q.why + '</div>' +
+    '<button class="bso-reveal-btn" id="taoBtn1" onclick="taoReveal(1)" disabled>✅ Pass-level answer</button>' +
+    '<div class="bso-reveal-content" id="taoContent1">' + q.pass + '</div>' +
+    '<button class="bso-reveal-btn" id="taoBtn2" onclick="taoReveal(2)" disabled>🏆 High-scoring answer</button>' +
+    '<div class="bso-reveal-content" id="taoContent2">' + q.high + '</div>' +
+    '<button class="bso-reveal-btn" id="taoBtn3" onclick="taoReveal(3)" disabled>⚠️ Referral answer — what to avoid</button>' +
+    '<div class="bso-reveal-content bso-referral-content" id="taoContent3"><strong>' + q.referral + '</strong><ul>' + q.referralWhy.map(function(r){return '<li>❌ ' + r + '</li>';}).join('') + '</ul></div>' +
+    '<div id="taoFinal" style="display:none">' +
+      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>' + c + '</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>' + k + '</li>';}).join('') + '</ol></div>' +
+      '<div class="bso-actions">' +
+        '<button class="bso-got" onclick="taoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>I got this ✓</button>' +
+        '<button class="bso-practice" onclick="taoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#f59e0b"':'') + '>Need more practice</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="bso-nav">' +
+      '<button onclick="taoNav(-1)" ' + (_taoIndex===0?'disabled':'') + '>← Previous</button>' +
+      '<button onclick="taoNav(1)" ' + (_taoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
+    '</div>';
+  const closeBtn = document.querySelector('#taOverlay .bso-close');
+  if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
+}
+
+function taoReveal(n) {
+  const btn = document.getElementById('taoBtn' + n);
+  btn.classList.add('revealed');
+  document.getElementById('taoContent' + n).classList.add('show');
+  if (n < 3) {
+    document.getElementById('taoBtn' + (n + 1)).disabled = false;
+  } else {
+    document.getElementById('taoFinal').style.display = 'block';
+  }
+}
+
+function taoMark(val) {
+  const qs = taoQuestions();
+  const globalIdx = TA_QUESTIONS.indexOf(qs[_taoIndex]);
+  const saved = JSON.parse(localStorage.getItem('gca_ta_progress') || '{}');
+  saved[globalIdx] = val;
+  localStorage.setItem('gca_ta_progress', JSON.stringify(saved));
+  taoUpdateDashboardStats();
+  const ql = qs.length;
+  if (_taoIndex < ql - 1) { taoNav(1); } else { taoRender(); }
+}
+
+function taoNav(dir) {
+  const qs = taoQuestions();
+  _taoIndex = Math.max(0, Math.min(qs.length - 1, _taoIndex + dir));
+  taoRender();
+  document.getElementById('taOverlay').scrollTop = 0;
+}
+
+function taoUpdateDashboardStats() {
+  const saved = JSON.parse(localStorage.getItem('gca_ta_progress') || '{}');
+  const attempted = Object.keys(saved).length;
+  const got = Object.values(saved).filter(function(v){return v==='got';}).length;
+  const pct = Math.round((attempted / TA_QUESTIONS.length) * 100);
+  const aEl = document.getElementById('taStatAttempted');
+  const gEl = document.getElementById('taStatGot');
+  const bEl = document.getElementById('taMiniBarFill');
+  if (aEl) aEl.textContent = attempted + ' of ' + TA_QUESTIONS.length + ' attempted';
+  if (gEl) gEl.textContent = got + ' ✓ confident';
+  if (bEl) bEl.style.width = pct + '%';
+}
+
+
 // ── MICHAEL IN-MODULE CHAT PANEL ───────────────────────────────────────────────
 let _michaelPanelHistory = [];
 
@@ -6925,6 +7168,24 @@ async function sendMichaelPanel() {
     <button class="bso-close" onclick="closeCREOverlay()">✕</button>
   </div>
   <div class="bso-body" id="creoBody"></div>
+</div>
+
+<div id="taOverlay" style="display:none;flex-direction:column">
+  <div class="bso-topbar">
+    <span class="bso-counter" id="taoCounter">Question 1 of 50</span>
+    <span class="bso-module" id="taoModule"></span>
+    <div class="bso-progress"><div class="bso-progress-fill" id="taoProgressFill" style="width:0%"></div></div>
+    <select class="bso-filter" id="taoModuleFilter" onchange="taoJumpToModule(this.value)">
+      <option value="">All modules</option>
+      <option value="Capital Allowances Fundamentals">Module 1 — Capital Allowances Fundamentals</option>
+      <option value="Property Transactions &amp; Due Diligence">Module 2 — Property Transactions &amp; Due Diligence</option>
+      <option value="Construction, Refurbishment &amp; Cost Analysis">Module 3 — Construction, Refurbishment &amp; Cost Analysis</option>
+      <option value="Tax Advice, Valuation &amp; Risk">Module 4 — Tax Advice, Valuation &amp; Risk</option>
+      <option value="Case Study, Client Advice &amp; Final Assessment">Module 5 — Case Study, Client Advice &amp; Final Assessment</option>
+    </select>
+    <button class="bso-close" onclick="closeTAOverlay()">✕</button>
+  </div>
+  <div class="bso-body" id="taoBody"></div>
 </div>
 
 <div id="michaelPanel" style="display:none">

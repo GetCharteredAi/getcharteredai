@@ -86,6 +86,7 @@
     </div>
     <button class="run-all" id="runAllBtn" onclick="runAllTests()">▶ Run all 30 tests</button>
     <button class="run-all" id="markAllPassedBtn" onclick="markAllPassed()" style="background:rgba(74,222,128,.15);color:#86efac">✓ Mark all as passed</button>
+    <button class="run-all" id="resetAllBtn" onclick="resetAllTests()" style="background:rgba(239,68,68,.15);color:#fca5a5">↺ Reset All Tests</button>
   </div>
 
   <table class="topics-table">
@@ -301,6 +302,11 @@ async function runAllTests() {
   }
   runAllBtn.disabled = false;
   runAllBtn.textContent = '▶ Run all 30 tests';
+}
+
+function resetAllTests() {
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
 }
 
 function markAllPassed() {

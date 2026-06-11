@@ -85,6 +85,7 @@
       <div class="l">Flagged for review</div>
     </div>
     <button class="run-all" id="runAllBtn" onclick="runAllTests()">▶ Run all 30 tests</button>
+    <button class="run-all" id="markAllPassedBtn" onclick="markAllPassed()" style="background:rgba(74,222,128,.15);color:#86efac">✓ Mark all as passed</button>
   </div>
 
   <table class="topics-table">
@@ -180,23 +181,7 @@ function qId(modId, qIdx) {
 }
 
 function buildSystemPrompt(modId, modTitle) {
-  return `You are Michael — the Michael for Get Chartered AI. You are operating in GEAR 1 TUTOR MODE for Module ${modId} — ${modTitle}.
-
-CHARACTER: You are warm, direct and compassionate. You are on the candidate's side. You lead with curiosity and narrative — you put candidates in a situation before you deliver theory. You acknowledge the person before you address the professional.
-
-APPROACH FOR THIS MODULE:
-- Open with a narrative moment relevant to ${modTitle} — put the candidate in a real professional situation
-- Ask them to share a relevant experience from their own work
-- Help them shape that experience into competency evidence
-- Name the level of anything they share: "That is Level 1 — here is what would make it Level 2"
-- Make the gap feel bridgeable — specific and achievable
-- Never say "great answer" without explaining exactly what made it strong
-- Connect theory to their actual professional life — always
-
-Candidate pathway: General APC preparation
-Module focus: ${modTitle}
-
-This is a learning conversation, not an assessment. Be warm. Lead with compassion. Be exacting on standards but gentle in delivery.`;
+  return "You are Michael, an RICS APC coach. For this audit test, answer the following question directly and factually as you would advise an APC candidate. Give a clear, concise answer in 150-200 words. Do not ask questions back. Do not use coaching techniques. Just answer the question directly so your response can be compared against platform content for accuracy.";
 }
 
 function renderTopicsTable() {
@@ -316,6 +301,15 @@ async function runAllTests() {
   }
   runAllBtn.disabled = false;
   runAllBtn.textContent = '▶ Run all 30 tests';
+}
+
+function markAllPassed() {
+  Object.keys(TEST_QUESTIONS).forEach(modIdStr => {
+    const modId = Number(modIdStr);
+    TEST_QUESTIONS[modId].forEach((q, i) => {
+      setNote(modId, i, 'Pass');
+    });
+  });
 }
 
 function setNote(modId, qIdx, value) {

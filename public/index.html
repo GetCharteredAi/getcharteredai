@@ -2451,17 +2451,21 @@ async function renderDashboard() {
     cd.innerHTML = 'To cancel your subscription email <a href="mailto:info@getcharteredai.com" style="color:rgba(255,255,255,.45)">info@getcharteredai.com</a>';
     document.getElementById('dashWelcome').appendChild(cd);
   }
+  const dashMods = plan === 'referred' ? MODULES.filter(m => m.id >= 13 && m.id <= 18) : MODULES.filter(m => m.id <= 12);
   document.getElementById('dashProgressBar').style.width = pct + '%';
   document.getElementById('dashProgressLabel').textContent = plan === 'annual'
     ? `${done} of 12 modules complete (${pct}%)`
+    : plan === 'referred'
+    ? `${dashMods.length} modules unlocked · ${done} completed`
     : `${unlockedCount} modules unlocked · ${done} completed`;
   document.getElementById('dashCompletedCount').textContent = plan === 'annual'
     ? `${done} of 12 completed`
+    : plan === 'referred'
+    ? `${dashMods.length} unlocked · ${done} done`
     : `${unlockedCount} unlocked · ${done} done`;
 
   // Sidebar
   const sb = document.getElementById('sidebarModules');
-  const dashMods = plan === 'referred' ? MODULES.filter(m => m.id >= 13 && m.id <= 18) : MODULES.filter(m => m.id <= 12);
   sb.innerHTML = dashMods.map(m => {
     const unlocked = isModuleUnlocked(m.id, plan, activatedAt);
     return `<div class="sidebar-item ${isComplete(m.id)?'done':''} ${!unlocked?'locked':''}"
@@ -4136,6 +4140,7 @@ function csUpdateDashboard(plan) {
   const body = document.getElementById('csPanelBody');
   if (!panel || !body) return;
 
+  console.log('plan for cs panel:', plan);
   if (plan !== 'annual' && plan !== 'referred') {
     panel.style.display = 'none';
     return;

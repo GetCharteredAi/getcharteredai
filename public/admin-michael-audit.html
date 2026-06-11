@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Michael Audit — Admin</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;background:#0D0F1C;color:#f0f4ff;line-height:1.6;padding:24px}
+  .wrap{max-width:980px;margin:0 auto}
+  .warning{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.35);border-radius:10px;padding:14px 18px;font-size:13px;font-weight:700;color:#fca5a5;letter-spacing:.04em;text-transform:uppercase;margin-bottom:24px;text-align:center}
+  h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+  .sub{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:24px}
+
+  .summary-bar{position:sticky;top:0;z-index:10;display:flex;gap:16px;flex-wrap:wrap;background:#151829;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 20px;margin-bottom:28px}
+  .summary-stat{flex:1;min-width:120px;text-align:center}
+  .summary-stat .n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .summary-stat .l{font-size:11px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+  .summary-stat.tested .n{color:#60a5fa}
+  .summary-stat.flagged .n{color:#f59e0b}
+  .summary-stat.passed .n{color:#4ade80}
+
+  .run-all{background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .run-all:hover{background:#1d4ed8}
+  .run-all:disabled{opacity:.5;cursor:not-allowed}
+
+  .topics-table{width:100%;border-collapse:collapse;margin-bottom:32px;font-size:13px;background:#151829;border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden}
+  .topics-table th,.topics-table td{padding:10px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,.06)}
+  .topics-table th{color:rgba(255,255,255,.45);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+  .topics-table tr:last-child td{border-bottom:none}
+  .topics-table .mod-num{color:#60a5fa;font-weight:700;white-space:nowrap}
+  .topics-table .mod-title{font-weight:600;white-space:nowrap}
+  .topics-table .mod-topics{color:rgba(255,255,255,.6)}
+
+  .module-card{background:#151829;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px;margin-bottom:24px}
+  .module-card h2{font-size:18px;font-weight:700;margin-bottom:4px}
+  .module-card .mod-sub{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:18px}
+
+  .question-block{background:#1e2235;border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px 18px;margin-bottom:14px}
+  .question-block:last-child{margin-bottom:0}
+  .question-text{font-size:14px;font-weight:600;color:#fff;margin-bottom:10px}
+  .question-controls{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .test-btn{background:#2563EB;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer}
+  .test-btn:hover{background:#1d4ed8}
+  .test-btn:disabled{opacity:.5;cursor:not-allowed}
+  .status-badge{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)}
+  .status-badge.tested{background:rgba(37,99,235,.15);color:#93c5fd}
+
+  .response-box{background:#0D0F1C;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:12px 14px;font-size:13px;color:rgba(255,255,255,.8);white-space:pre-wrap;margin-bottom:10px;min-height:24px}
+  .response-box.empty{color:rgba(255,255,255,.3);font-style:italic}
+  .response-box.loading{color:rgba(255,255,255,.4);font-style:italic}
+
+  .note-row{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+  .note-row textarea{flex:1;min-width:220px;background:#0D0F1C;border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;font-size:12px;color:#fff;font-family:inherit;resize:vertical;min-height:40px}
+  .note-row textarea:focus{outline:none;border-color:#2563EB}
+  .note-quick{display:flex;flex-direction:column;gap:6px}
+  .note-quick button{font-size:11px;font-weight:600;border-radius:6px;padding:5px 10px;cursor:pointer;border:1px solid;white-space:nowrap}
+  .note-quick .pass-btn{background:rgba(74,222,128,.1);border-color:rgba(74,222,128,.3);color:#86efac}
+  .note-quick .flag-btn{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:#fcd34d}
+
+  .note-row.is-pass textarea{border-color:rgba(74,222,128,.4)}
+  .note-row.is-flag textarea{border-color:rgba(245,158,11,.4)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="warning">⚠ Admin only — not linked from platform</div>
+
+  <h1>Michael Audit Tool</h1>
+  <p class="sub">Systematic testing of Michael's responses against platform module content. Run each test question, review the response, and log Pass / Flag for review.</p>
+
+  <div class="summary-bar">
+    <div class="summary-stat tested">
+      <div class="n" id="summaryTested">0 / 30</div>
+      <div class="l">Tested</div>
+    </div>
+    <div class="summary-stat passed">
+      <div class="n" id="summaryPassed">0</div>
+      <div class="l">Passed</div>
+    </div>
+    <div class="summary-stat flagged">
+      <div class="n" id="summaryFlagged">0</div>
+      <div class="l">Flagged for review</div>
+    </div>
+    <button class="run-all" id="runAllBtn" onclick="runAllTests()">▶ Run all 30 tests</button>
+  </div>
+
+  <table class="topics-table">
+    <thead>
+      <tr><th>Module</th><th>Title</th><th>Key topics</th></tr>
+    </thead>
+    <tbody id="topicsTableBody"></tbody>
+  </table>
+
+  <div id="moduleCards"></div>
+
+</div>
+
+<script>
+const MODULE_TOPICS = {
+  1: { title: 'Preparing for RICS APC Exams', topics: 'APC framework, routes, submissions, case study, competency choice rules, diary and logbook' },
+  2: { title: 'Ethics, Conduct and Professionalism', topics: 'RICS Rules of Conduct, ethical standards, bribery, money laundering, ECCTA' },
+  3: { title: 'Client Care', topics: 'Consumer regulation, complaints, terms of engagement, Equality Act, Renters Rights Act' },
+  4: { title: 'Communication and Negotiation', topics: 'IPMS, measurement standards, Zone A, Cat A/B fit-out, BMS, JCT' },
+  5: { title: 'Health and Safety', topics: 'CDM 2015, Building Safety Regulator, Gateway process, Building Safety Levy' },
+  6: { title: 'Accounting Principles and Procedures', topics: 'Working capital, gearing, financial ratios, capital allowances' },
+  7: { title: 'Business Planning', topics: 'PESTLE, SWOT, KPIs, 2026 legislative context for business' },
+  8: { title: 'Conflict Avoidance and Dispute Resolution', topics: 'Mediation, adjudication, arbitration, dilapidations' },
+  9: { title: 'Data Management', topics: 'GDPR, data breach, ICO, RICS AI Standard, residual valuation' },
+  10: { title: 'Sustainability', topics: 'Paris Agreement, net zero, embodied carbon, EPC changes, BNG, Future Homes Standard' },
+  11: { title: 'Inclusive Professional Practice', topics: 'Inclusive environments, Part M, BS 8300, Equality Act' },
+  12: { title: 'Revision, Mock Tests & APC Simulation', topics: 'Revision sheets for all 11 mandatory competencies, mock interview, AI simulator' }
+};
+
+const TEST_QUESTIONS = {
+  2: [
+    'What are the five RICS ethical standards?',
+    'A client pressures you to omit a material fact — what do you do?',
+    'What does the Bribery Act 2010 require of surveyors?'
+  ],
+  3: [
+    'A client disputes your findings — what is your first obligation?',
+    'What should terms of engagement include?',
+    'How do you handle a formal complaint?'
+  ],
+  4: [
+    'What is the PREP framework?',
+    'A negotiation breaks down — what do you do?',
+    'How do you communicate complex technical information to a non-technical client?'
+  ],
+  5: [
+    'What are your CDM 2015 responsibilities?',
+    'What is the 5-step risk assessment model?',
+    'You identify an unsafe condition on site — what do you do?'
+  ],
+  6: [
+    'What is the difference between capital and revenue expenditure?',
+    'What are capital allowances and what is the current main pool WDA rate?',
+    'What is the difference between cash flow and profit?'
+  ],
+  7: [
+    'What is a business plan and what does it contain?',
+    'What are KPIs?',
+    'How does business planning apply to surveying practice?'
+  ],
+  8: [
+    'What is the dispute resolution hierarchy?',
+    'What is adjudication and when is it used?',
+    'What is a without prejudice communication?'
+  ],
+  9: [
+    'What are the six GDPR principles?',
+    'A data breach occurs — what do you do in the first 72 hours?',
+    'What does the RICS AI Standard 2026 require?'
+  ],
+  10: [
+    'What is Biodiversity Net Gain and when did it become mandatory?',
+    'What is the difference between operational and embodied carbon?',
+    'What are the current MEES requirements for commercial lettings?'
+  ],
+  11: [
+    'What are the nine protected characteristics under the Equality Act 2010?',
+    'What does inclusive practice mean as a professional obligation?',
+    'A colleague excludes a team member — what do you do?'
+  ]
+};
+
+const STORAGE_KEY = 'gca_michael_audit_v1';
+let auditState = {};
+try { auditState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { auditState = {}; }
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(auditState));
+}
+
+function qId(modId, qIdx) {
+  return 'm' + modId + '_q' + qIdx;
+}
+
+function buildSystemPrompt(modId, modTitle) {
+  return `You are Michael — the Michael for Get Chartered AI. You are operating in GEAR 1 TUTOR MODE for Module ${modId} — ${modTitle}.
+
+CHARACTER: You are warm, direct and compassionate. You are on the candidate's side. You lead with curiosity and narrative — you put candidates in a situation before you deliver theory. You acknowledge the person before you address the professional.
+
+APPROACH FOR THIS MODULE:
+- Open with a narrative moment relevant to ${modTitle} — put the candidate in a real professional situation
+- Ask them to share a relevant experience from their own work
+- Help them shape that experience into competency evidence
+- Name the level of anything they share: "That is Level 1 — here is what would make it Level 2"
+- Make the gap feel bridgeable — specific and achievable
+- Never say "great answer" without explaining exactly what made it strong
+- Connect theory to their actual professional life — always
+
+Candidate pathway: General APC preparation
+Module focus: ${modTitle}
+
+This is a learning conversation, not an assessment. Be warm. Lead with compassion. Be exacting on standards but gentle in delivery.`;
+}
+
+function renderTopicsTable() {
+  const body = document.getElementById('topicsTableBody');
+  body.innerHTML = Object.keys(MODULE_TOPICS).map(id => {
+    const m = MODULE_TOPICS[id];
+    return `<tr><td class="mod-num">Module ${String(id).padStart(2,'0')}</td><td class="mod-title">${m.title}</td><td class="mod-topics">${m.topics}</td></tr>`;
+  }).join('');
+}
+
+function renderModuleCards() {
+  const container = document.getElementById('moduleCards');
+  container.innerHTML = Object.keys(TEST_QUESTIONS).map(modIdStr => {
+    const modId = Number(modIdStr);
+    const mod = MODULE_TOPICS[modId];
+    const questions = TEST_QUESTIONS[modId];
+    const questionsHtml = questions.map((q, i) => {
+      const id = qId(modId, i);
+      const saved = auditState[id] || {};
+      const responseHtml = saved.response
+        ? escapeHtml(saved.response)
+        : '';
+      const note = saved.note || '';
+      const noteClass = /flag/i.test(note) ? 'is-flag' : (/pass/i.test(note) ? 'is-pass' : '');
+      return `
+        <div class="question-block">
+          <div class="question-text">Q${i+1}. ${escapeHtml(q)}</div>
+          <div class="question-controls">
+            <button class="test-btn" id="btn_${id}" onclick="runTest(${modId}, ${i})">▶ Run Test</button>
+            <span class="status-badge ${saved.tested ? 'tested' : ''}" id="status_${id}">${saved.tested ? 'Tested' : 'Not yet tested'}</span>
+          </div>
+          <div class="response-box ${responseHtml ? '' : 'empty'}" id="resp_${id}">${responseHtml || 'No response yet — click Run Test.'}</div>
+          <div class="note-row ${noteClass}" id="noterow_${id}">
+            <textarea id="note_${id}" placeholder="Pass / Flag for review — add notes here" oninput="saveNote(${modId}, ${i})">${escapeHtml(note)}</textarea>
+            <div class="note-quick">
+              <button class="pass-btn" onclick="setNote(${modId}, ${i}, 'Pass')">Pass</button>
+              <button class="flag-btn" onclick="setNote(${modId}, ${i}, 'Flag for review')">Flag for review</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="module-card">
+        <h2>Module ${String(modId).padStart(2,'0')} — ${mod.title}</h2>
+        <div class="mod-sub">${mod.topics}</div>
+        ${questionsHtml}
+      </div>
+    `;
+  }).join('');
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+async function runTest(modId, qIdx) {
+  const id = qId(modId, qIdx);
+  const question = TEST_QUESTIONS[modId][qIdx];
+  const modTitle = MODULE_TOPICS[modId].title;
+  const respEl = document.getElementById('resp_' + id);
+  const btn = document.getElementById('btn_' + id);
+  const statusEl = document.getElementById('status_' + id);
+
+  btn.disabled = true;
+  respEl.classList.remove('empty');
+  respEl.classList.add('loading');
+  respEl.textContent = 'Michael is thinking...';
+
+  const systemPrompt = buildSystemPrompt(modId, modTitle);
+
+  try {
+    const response = await fetch('/.netlify/functions/ai-tutor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: systemPrompt,
+        messages: [{ role: 'user', content: question }],
+        max_tokens: 400
+      })
+    });
+    const data = await response.json();
+    const text = (data.content && data.content.map(c => c.text || '').join('')) || data.reply || data.message || 'No response received.';
+
+    respEl.classList.remove('loading');
+    respEl.textContent = text;
+
+    auditState[id] = auditState[id] || {};
+    auditState[id].response = text;
+    auditState[id].tested = true;
+    saveState();
+
+    statusEl.textContent = 'Tested';
+    statusEl.classList.add('tested');
+    updateSummary();
+  } catch (e) {
+    respEl.classList.remove('loading');
+    respEl.textContent = 'Error: could not reach ai-tutor — ' + e.message;
+  }
+
+  btn.disabled = false;
+}
+
+async function runAllTests() {
+  const runAllBtn = document.getElementById('runAllBtn');
+  runAllBtn.disabled = true;
+  runAllBtn.textContent = '⏳ Running...';
+  for (const modIdStr of Object.keys(TEST_QUESTIONS)) {
+    const modId = Number(modIdStr);
+    for (let i = 0; i < TEST_QUESTIONS[modId].length; i++) {
+      await runTest(modId, i);
+    }
+  }
+  runAllBtn.disabled = false;
+  runAllBtn.textContent = '▶ Run all 30 tests';
+}
+
+function setNote(modId, qIdx, value) {
+  const id = qId(modId, qIdx);
+  document.getElementById('note_' + id).value = value;
+  auditState[id] = auditState[id] || {};
+  auditState[id].note = value;
+  saveState();
+  applyNoteClass(id, value);
+  updateSummary();
+}
+
+function saveNote(modId, qIdx) {
+  const id = qId(modId, qIdx);
+  const value = document.getElementById('note_' + id).value;
+  auditState[id] = auditState[id] || {};
+  auditState[id].note = value;
+  saveState();
+  applyNoteClass(id, value);
+  updateSummary();
+}
+
+function applyNoteClass(id, value) {
+  const row = document.getElementById('noterow_' + id);
+  row.classList.remove('is-pass', 'is-flag');
+  if (/flag/i.test(value)) row.classList.add('is-flag');
+  else if (/pass/i.test(value)) row.classList.add('is-pass');
+}
+
+function updateSummary() {
+  let total = 0, tested = 0, flagged = 0, passed = 0;
+  Object.keys(TEST_QUESTIONS).forEach(modIdStr => {
+    const modId = Number(modIdStr);
+    TEST_QUESTIONS[modId].forEach((q, i) => {
+      total++;
+      const s = auditState[qId(modId, i)] || {};
+      if (s.tested) tested++;
+      if (s.note && /flag/i.test(s.note)) flagged++;
+      else if (s.note && /pass/i.test(s.note)) passed++;
+    });
+  });
+  document.getElementById('summaryTested').textContent = tested + ' / ' + total;
+  document.getElementById('summaryFlagged').textContent = flagged;
+  document.getElementById('summaryPassed').textContent = passed;
+}
+
+renderTopicsTable();
+renderModuleCards();
+updateSummary();
+</script>
+</body>
+</html>

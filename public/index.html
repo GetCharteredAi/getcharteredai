@@ -2782,7 +2782,7 @@ APPROACH FOR THIS MODULE:
 Candidate pathway: ${pathway}
 Module focus: ${modTitle}
 
-This is a learning conversation, not an assessment. Be warm. Lead with compassion. Be exacting on standards but gentle in delivery.`;
+This is a learning conversation, not an assessment. Be warm. Lead with compassion. Be exacting on standards but gentle in delivery.` + getMichaelModuleBriefing(modId);
 
     const messages = isSystem
       ? [{role:'user', content: msg}]

@@ -915,6 +915,12 @@ input.err{border-color:var(--red)}
 .cs-unlock-btn{background:#2563EB;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
 .cs-unlock-btn:hover{background:#1d4ed8}
 
+.ds-header-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex:1;flex-wrap:wrap}
+.cs-panel-compact{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px 16px;max-width:280px;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.cs-panel-compact-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:8px}
+.cs-locked-sub-compact{font-size:12px;color:#64748b;line-height:1.4;margin-bottom:8px}
+.cs-locked-price-compact{font-size:13px;font-weight:700;color:#2563EB;margin-bottom:10px}
+
 #csReviewOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9999;overflow-y:auto;padding:48px 20px;color:#f0f4ff}
 #csReviewOverlay .cs-modal{max-width:680px;margin:0 auto;position:relative}
 .cs-disclaimer{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.35);border-radius:10px;padding:14px 16px;font-size:13px;color:#fcd34d;line-height:1.6;margin-bottom:24px}
@@ -1592,14 +1598,20 @@ document.addEventListener('click', function(e) {
 
         <!-- Top row: welcome + plan badge -->
         <div class="ds-header">
-          <div>
-            <div class="ds-eyebrow">Your APC Dashboard</div>
-            <div class="ds-plan-badge" id="dsPlanBadge">Loading...</div>
-            <h2 class="ds-welcome" id="dashWelcome">Welcome back</h2>
-            <p class="ds-sub" id="dashSub">Your APC preparation is ready.</p>
-            <div class="pathway-badge-row" id="pathwayBadgeRow" style="display:none">
-              <span class="pathway-badge" id="pathwayBadge"></span>
-              <button class="pathway-change" onclick="resetPathway()">change</button>
+          <div class="ds-header-row">
+            <div>
+              <div class="ds-eyebrow">Your APC Dashboard</div>
+              <div class="ds-plan-badge" id="dsPlanBadge">Loading...</div>
+              <h2 class="ds-welcome" id="dashWelcome">Welcome back</h2>
+              <p class="ds-sub" id="dashSub">Your APC preparation is ready.</p>
+              <div class="pathway-badge-row" id="pathwayBadgeRow" style="display:none">
+                <span class="pathway-badge" id="pathwayBadge"></span>
+                <button class="pathway-change" onclick="resetPathway()">change</button>
+              </div>
+            </div>
+            <div class="cs-panel-compact" id="csPanelCompact" style="display:none">
+              <div class="cs-panel-compact-title">📝 Case Study Review</div>
+              <div id="csPanelCompactBody"></div>
             </div>
           </div>
           <div class="ds-expiry" id="dsExpiry"></div>
@@ -1758,17 +1770,6 @@ document.addEventListener('click', function(e) {
         </div>
         <div class="prep-progress-track"><div class="prep-progress-fill" id="checklistProgressFill" style="width:0%"></div></div>
         <div id="checklistCompleteBanner" class="checklist-complete-banner" style="display:none">✅ Your preparation checklist is complete. Good luck with your submission.</div>
-      </div>
-
-      
-      <div class="cpd-panel" id="csPanel" style="display:none">
-        <div class="cpd-panel-header">
-          <div>
-            <div class="panel-eyebrow">AI coaching feedback</div>
-            <div class="cpd-panel-title">📝 Case Study Review</div>
-          </div>
-        </div>
-        <div id="csPanelBody"></div>
       </div>
 
       <div class="dash-welcome" style="display:none">
@@ -4136,8 +4137,8 @@ function checklistClose() {
 // ── CASE STUDY REVIEW ────────────────────────────────────────────────────────
 
 function csUpdateDashboard(plan) {
-  const panel = document.getElementById('csPanel');
-  const body = document.getElementById('csPanelBody');
+  const panel = document.getElementById('csPanelCompact');
+  const body = document.getElementById('csPanelCompactBody');
   if (!panel || !body) return;
 
   console.log('plan for cs panel:', plan);
@@ -4150,18 +4151,12 @@ function csUpdateDashboard(plan) {
   const unlocked = localStorage.getItem('gca_cs_access') === 'true';
   if (unlocked) {
     body.innerHTML =
-      '<div style="font-size:13px;color:rgba(0,0,0,0.4);margin-bottom:14px">Get structured coaching feedback on your case study draft from Michael before submission.</div>' +
-      '<button class="cpd-add-btn" onclick="csOpenOverlay()">Open Case Study Review</button>';
+      '<button class="cpd-add-btn" onclick="csOpenOverlay()" style="width:100%">📝 Case Study Review — Open</button>';
   } else {
     body.innerHTML =
-      '<div class="cs-locked-wrap">' +
-        '<div>' +
-          '<div class="cs-locked-heading">Case Study Review — AI Coaching</div>' +
-          '<div class="cs-locked-sub">Paste your draft and get structured coaching feedback from Michael before submission.</div>' +
-          '<div class="cs-locked-price">£29 one-time</div>' +
-        '</div>' +
-        '<button class="cs-unlock-btn" onclick="checkoutCaseStudy()">Unlock for £29</button>' +
-      '</div>';
+      '<div class="cs-locked-sub-compact">Get coaching feedback on your case study draft from Michael.</div>' +
+      '<div class="cs-locked-price-compact">£29 one-time</div>' +
+      '<button class="cs-unlock-btn" onclick="checkoutCaseStudy()" style="width:100%">Unlock for £29</button>';
   }
 }
 

@@ -4210,8 +4210,8 @@ function csUpdateWordCount() {
   const text = document.getElementById('csText').value.trim();
   const words = text ? text.split(/\s+/).length : 0;
   const el = document.getElementById('csWordCount');
-  el.textContent = words.toLocaleString() + ' / 1,500 words';
-  if (words > 1500) el.classList.add('over');
+  el.textContent = words.toLocaleString() + ' / 3,000 words';
+  if (words > 3000) el.classList.add('over');
   else el.classList.remove('over');
 }
 
@@ -4296,8 +4296,8 @@ async function submitCaseStudy() {
     msg.style.display = 'block';
     return;
   }
-  if (words > 1500) {
-    msg.textContent = 'Your draft is over 1,500 words. Please shorten it before submitting.';
+  if (words > 3000) {
+    msg.textContent = 'Your draft is over 3,000 words. Please shorten it before submitting.';
     msg.style.display = 'block';
     return;
   }
@@ -7297,6 +7297,19 @@ async function sendMichaelPanel() {
     <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;margin-bottom:8px">📝 Case Study Review — Michael's Coaching</h2>
     <p style="font-size:14px;color:rgba(255,255,255,.6);margin-bottom:20px">Paste your case study draft below. Michael will review it and give you specific coaching feedback.</p>
 
+    <div style="background:#1e2235;border:1px solid rgba(37,99,235,0.2);border-radius:10px;padding:16px 20px;margin-bottom:16px;">
+      <p style="color:#60a5fa;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">RICS Case Study Requirements</p>
+      <p style="color:#f0f4ff;font-size:14px;margin-bottom:10px;">Your case study is strictly limited to <strong>3,000 words maximum</strong>. This includes headings and subheadings but excludes the cover page, contents page and appendices.</p>
+      <p style="color:rgba(255,255,255,0.6);font-size:13px;margin-bottom:8px;">The recommended structure is:</p>
+      <ul style="color:rgba(255,255,255,0.7);font-size:13px;line-height:1.8;padding-left:16px;margin-bottom:10px;">
+        <li><strong style="color:#f0f4ff;">Introduction</strong> — approximately 400 words</li>
+        <li><strong style="color:#f0f4ff;">Approach</strong> — approximately 1,000 words</li>
+        <li><strong style="color:#f0f4ff;">Achievements</strong> — approximately 1,200 words</li>
+        <li><strong style="color:#f0f4ff;">Conclusion</strong> — approximately 400 words</li>
+      </ul>
+      <p style="color:rgba(255,255,255,0.5);font-size:12px;margin:0;">Source: RICS APC submissions and assessment guidance</p>
+    </div>
+
     <div class="cs-disclaimer">This is AI-generated coaching feedback to help you develop your case study. It is not an official RICS assessment and does not predict your outcome. Always review feedback with your counsellor before submission. Get Chartered AI accepts no responsibility for APC submission outcomes.</div>
 
     <div id="csForm">
@@ -7308,7 +7321,7 @@ async function sendMichaelPanel() {
       <div class="cs-field">
         <label>Your Case Study Draft</label>
         <textarea id="csText" placeholder="Paste your case study here..." oninput="csUpdateWordCount()"></textarea>
-        <div class="cs-word-count" id="csWordCount">0 / 1,500 words</div>
+        <div class="cs-word-count" id="csWordCount">0 / 3,000 words</div>
       </div>
 
       <button class="cs-submit-btn" id="csSubmitBtn" onclick="submitCaseStudy()">Get Michael's Feedback</button>

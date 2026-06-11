@@ -269,7 +269,10 @@ async function runTest(modId, qIdx) {
       })
     });
     const data = await response.json();
-    const text = (data.content && data.content.map(c => c.text || '').join('')) || data.reply || data.message || 'No response received.';
+    console.log('response for Q:', id, data);
+    const text = data.error
+      ? 'API Error: ' + data.error
+      : (data.content && data.content.map(c => c.text || '').join('')) || data.reply || data.message || 'No response received.';
 
     respEl.classList.remove('loading');
     respEl.textContent = text;

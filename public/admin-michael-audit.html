@@ -327,6 +327,7 @@ function resetAllTests() {
       localStorage.removeItem(key);
     }
   });
+  console.log('storage after reset:', localStorage.getItem(STORAGE_KEY));
   location.reload();
 }
 
@@ -373,7 +374,7 @@ function updateSummary() {
     TEST_QUESTIONS[modId].forEach((q, i) => {
       total++;
       const s = auditState[qId(modId, i)] || {};
-      if (s.tested && isRealResponse(s.response)) tested++;
+      if (isRealResponse(s.response)) tested++;
       if (s.note && /flag/i.test(s.note)) flagged++;
       else if (s.note && /pass/i.test(s.note)) passed++;
     });

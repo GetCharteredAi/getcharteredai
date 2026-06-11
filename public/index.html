@@ -2845,11 +2845,12 @@ function buildAITutorScope() {
 
   // Get current session to determine unlocked modules
   let unlockedModules = 1;
+  let plan = 'monthly';
   try {
     const raw = localStorage.getItem('gca_session');
     if (raw) {
       const sess = JSON.parse(raw);
-      const plan = sess.plan || 'monthly';
+      plan = sess.plan || 'monthly';
       const activatedAt = sess.activatedAt || Date.now();
       if (plan === 'annual') {
         unlockedModules = 12;

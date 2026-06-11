@@ -7103,6 +7103,7 @@ async function sendMichaelPanel() {
   michaelPanelAppend('Michael', '...');
   const mod = window._michaelPanelModule;
   const systemPrompt = `You are Michael, an expert RICS APC coach. The candidate is currently studying ${mod.title}. Focus your responses on helping them understand and apply this competency for their APC interview. Be concise, practical and assessor-focused. Challenge their answers and ask follow-up questions to test their understanding.` + getMichaelModuleBriefing(mod.id);
+  console.log('system prompt:', systemPrompt);
   try {
     const response = await fetch('/.netlify/functions/ai-tutor', {
       method: 'POST',

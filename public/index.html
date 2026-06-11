@@ -2766,7 +2766,8 @@ async function callModuleTutor(modId, msg, isSystem) {
     const candidateName = sess.name || sess.firstName || '';
     const modTitles = {1:'Preparing for RICS APC Exams',2:'Ethics Conduct and Professionalism',3:'Client Care',4:'Communication and Negotiation',5:'Health and Safety',6:'Accounting Principles and Procedures',7:'Business Planning',8:'Conflict Avoidance and Dispute Resolution',9:'Data Management',10:'Sustainability',11:'Inclusive Professional Practice'};
     const modTitle = modTitles[modId] || 'this module';
-    const systemPrompt = `You are Michael — the Michael for Get Chartered AI. You are operating in GEAR 1 TUTOR MODE for Module ${modId} — ${modTitle}.
+    const moduleBriefing = getMichaelModuleBriefing(modId);
+    const systemPrompt = (moduleBriefing ? moduleBriefing + ' ' : '') + `You are Michael — the Michael for Get Chartered AI. You are operating in GEAR 1 TUTOR MODE for Module ${modId} — ${modTitle}.
 
 CHARACTER: You are warm, direct and compassionate. You are on the candidate's side. You lead with curiosity and narrative — you put candidates in a situation before you deliver theory. You acknowledge the person before you address the professional.
 
@@ -2782,7 +2783,7 @@ APPROACH FOR THIS MODULE:
 Candidate pathway: ${pathway}
 Module focus: ${modTitle}
 
-This is a learning conversation, not an assessment. Be warm. Lead with compassion. Be exacting on standards but gentle in delivery.` + getMichaelModuleBriefing(modId);
+This is a learning conversation, not an assessment. Be warm. Lead with compassion. Be exacting on standards but gentle in delivery.`;
 
     const messages = isSystem
       ? [{role:'user', content: msg}]
@@ -7089,7 +7090,7 @@ function getMichaelModuleBriefing(moduleId) {
   if (moduleId === 2) {
     return ' The RICS Five Ethical Standards are exactly: 1. Act with integrity 2. Always provide a high standard of service 3. Act in a way that promotes trust in the profession 4. Treat others with respect 5. Take responsibility. These are the official RICS standards — do not substitute or rename them. When asked about ethical standards always state these five exactly as written.';
   }
-  if (moduleId === 6) return ' Key facts candidates must know for Module 6: The main pool Writing Down Allowance (WDA) for capital allowances is 14% (reduced from 18%, effective April 2026). The special rate pool WDA remains 6%. The Annual Investment Allowance (AIA) allows 100% relief on qualifying plant and machinery up to the annual limit. Capital expenditure creates or improves an enduring asset. Revenue expenditure relates to repairs and running costs. Cash flow measures actual movement of money; profit measures income against expenditure. When asked about specific rates, give the current correct figure — do not tell candidates to avoid memorising rates. The 14% main pool rate is correct and candidates should know it.';
+  if (moduleId === 6) return 'IMPORTANT ACCURACY CORRECTION — READ FIRST: The current main pool Writing Down Allowance (WDA) for capital allowances is 14% (NOT 18% — this changed April 2026). The special rate pool WDA is 6%. When any candidate asks about the main pool WDA rate, you MUST answer "14%" immediately and directly. Do not deflect, do not say rates change regularly, do not redirect to other topics. Give the correct figure: 14%. This is tested in the APC and candidates must know it. After giving the rate, you may then discuss application. Capital expenditure creates or improves an enduring asset. Revenue expenditure relates to repairs and running costs. Cash flow measures actual movement of money; profit measures income against expenditure.';
   return '';
 }
 
@@ -7102,7 +7103,8 @@ async function sendMichaelPanel() {
   _michaelPanelHistory.push({ role: 'user', content: msg });
   michaelPanelAppend('Michael', '...');
   const mod = window._michaelPanelModule;
-  const systemPrompt = `You are Michael, an expert RICS APC coach. The candidate is currently studying ${mod.title}. Focus your responses on helping them understand and apply this competency for their APC interview. Be concise, practical and assessor-focused. Challenge their answers and ask follow-up questions to test their understanding.` + getMichaelModuleBriefing(mod.id);
+  const moduleBriefing = getMichaelModuleBriefing(mod.id);
+  const systemPrompt = (moduleBriefing ? moduleBriefing + ' ' : '') + `You are Michael, an expert RICS APC coach. The candidate is currently studying ${mod.title}. Focus your responses on helping them understand and apply this competency for their APC interview. Be concise, practical and assessor-focused. Challenge their answers and ask follow-up questions to test their understanding.`;
   console.log('system prompt:', systemPrompt);
   try {
     const response = await fetch('/.netlify/functions/ai-tutor', {

@@ -7085,6 +7085,13 @@ function michaelPanelAppend(sender, text) {
   msgs.scrollTop = msgs.scrollHeight;
 }
 
+function getMichaelModuleBriefing(moduleId) {
+  if (moduleId === 2) {
+    return ' The RICS Five Ethical Standards are exactly: 1. Act with integrity 2. Always provide a high standard of service 3. Act in a way that promotes trust in the profession 4. Treat others with respect 5. Take responsibility. These are the official RICS standards — do not substitute or rename them. When asked about ethical standards always state these five exactly as written.';
+  }
+  return '';
+}
+
 async function sendMichaelPanel() {
   const input = document.getElementById('michaelPanelInput');
   const msg = input.value.trim();
@@ -7094,7 +7101,7 @@ async function sendMichaelPanel() {
   _michaelPanelHistory.push({ role: 'user', content: msg });
   michaelPanelAppend('Michael', '...');
   const mod = window._michaelPanelModule;
-  const systemPrompt = `You are Michael, an expert RICS APC coach. The candidate is currently studying ${mod.title}. Focus your responses on helping them understand and apply this competency for their APC interview. Be concise, practical and assessor-focused. Challenge their answers and ask follow-up questions to test their understanding.`;
+  const systemPrompt = `You are Michael, an expert RICS APC coach. The candidate is currently studying ${mod.title}. Focus your responses on helping them understand and apply this competency for their APC interview. Be concise, practical and assessor-focused. Challenge their answers and ask follow-up questions to test their understanding.` + getMichaelModuleBriefing(mod.id);
   try {
     const response = await fetch('/.netlify/functions/ai-tutor', {
       method: 'POST',

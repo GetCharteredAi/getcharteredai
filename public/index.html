@@ -2783,7 +2783,9 @@ APPROACH FOR THIS MODULE:
 Candidate pathway: ${pathway}
 Module focus: ${modTitle}
 
-This is a learning conversation, not an assessment. Be warm. Lead with compassion. Be exacting on standards but gentle in delivery.`;
+This is a learning conversation, not an assessment. Be warm. Lead with compassion. Be exacting on standards but gentle in delivery.
+
+Always use British English spelling — minimisation, organisation, behaviour, colour etc.`;
 
     const messages = isSystem
       ? [{role:'user', content: msg}]
@@ -7107,7 +7109,7 @@ async function sendMichaelPanel() {
   michaelPanelAppend('Michael', '...');
   const mod = window._michaelPanelModule;
   const moduleBriefing = getMichaelModuleBriefing(mod.id);
-  const systemPrompt = (moduleBriefing ? moduleBriefing + ' ' : '') + `You are Michael, an expert RICS APC coach. The candidate is currently studying ${mod.title}. Focus your responses on helping them understand and apply this competency for their APC interview. Be concise, practical and assessor-focused. Challenge their answers and ask follow-up questions to test their understanding.`;
+  const systemPrompt = (moduleBriefing ? moduleBriefing + ' ' : '') + `You are Michael, an expert RICS APC coach. The candidate is currently studying ${mod.title}. Focus your responses on helping them understand and apply this competency for their APC interview. Be concise, practical and assessor-focused. Challenge their answers and ask follow-up questions to test their understanding. Always use British English spelling — minimisation, organisation, behaviour, colour etc.`;
   console.log('system prompt:', systemPrompt);
   try {
     const response = await fetch('/.netlify/functions/ai-tutor', {

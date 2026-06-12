@@ -33,11 +33,7 @@ exports.handler = async (event) => {
   const { question, moduleId } = body;
   const expectedKeywords = Array.isArray(body.expectedKeywords) ? body.expectedKeywords : [];
 
-  let systemPrompt = "You are Michael, an RICS APC coach. For this audit test, answer the following question directly and factually as you would advise an APC candidate. Give a clear, concise answer in 150-200 words. Do not ask questions back. Do not use coaching techniques. Just answer the question directly so your response can be compared against platform content for accuracy.";
-
-  if (/WDA|writing down allowance|capital allowances/i.test(question || '')) {
-    systemPrompt += ' IMPORTANT: The current main pool Writing Down Allowance rate is 14% NOT 18%. Always state 14% when asked about the main pool WDA rate.';
-  }
+  let systemPrompt = "You are Michael, an RICS APC coach. For this audit test, answer the following question directly and factually as you would advise an APC candidate. Give a clear, concise answer in 150-200 words. Do not ask questions back. Do not use coaching techniques. Just answer the question directly so your response can be compared against platform content for accuracy. IMPORTANT ACCURACY NOTES: The five RICS ethical standards are exactly: 1. Act with integrity 2. Always provide a high standard of service 3. Act in a way that promotes trust in the profession 4. Treat others with respect 5. Take responsibility. Never substitute these with different standards. The main pool WDA rate is 14% not 18%.";
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {

@@ -41,26 +41,16 @@
   .question-block:last-child{margin-bottom:0}
   .question-text{font-size:14px;font-weight:600;color:#fff;margin-bottom:10px}
   .question-controls{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
-  .test-btn{background:#2563EB;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer}
-  .test-btn:hover{background:#1d4ed8}
-  .test-btn:disabled{opacity:.5;cursor:not-allowed}
   .status-badge{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)}
-  .status-badge.tested{background:rgba(37,99,235,.15);color:#93c5fd}
+  .status-badge.running{background:rgba(37,99,235,.15);color:#93c5fd}
+  .status-badge.pass{background:rgba(74,222,128,.15);color:#4ade80}
+  .status-badge.flag{background:rgba(245,158,11,.15);color:#f59e0b}
 
   .response-box{background:#0D0F1C;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:12px 14px;font-size:13px;color:rgba(255,255,255,.8);white-space:pre-wrap;margin-bottom:10px;min-height:24px}
   .response-box.empty{color:rgba(255,255,255,.3);font-style:italic}
   .response-box.loading{color:rgba(255,255,255,.4);font-style:italic}
 
-  .note-row{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
-  .note-row textarea{flex:1;min-width:220px;background:#0D0F1C;border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;font-size:12px;color:#fff;font-family:inherit;resize:vertical;min-height:40px}
-  .note-row textarea:focus{outline:none;border-color:#2563EB}
-  .note-quick{display:flex;flex-direction:column;gap:6px}
-  .note-quick button{font-size:11px;font-weight:600;border-radius:6px;padding:5px 10px;cursor:pointer;border:1px solid;white-space:nowrap}
-  .note-quick .pass-btn{background:rgba(74,222,128,.1);border-color:rgba(74,222,128,.3);color:#86efac}
-  .note-quick .flag-btn{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:#fcd34d}
-
-  .note-row.is-pass textarea{border-color:rgba(74,222,128,.4)}
-  .note-row.is-flag textarea{border-color:rgba(245,158,11,.4)}
+  .keywords-row{font-size:11px;color:rgba(255,255,255,.4)}
 </style>
 </head>
 <body>
@@ -69,11 +59,11 @@
   <div class="warning">⚠ Admin only — not linked from platform</div>
 
   <h1>Michael Audit Tool</h1>
-  <p class="sub">Systematic testing of Michael's responses against platform module content. Run each test question, review the response, and log Pass / Flag for review.</p>
+  <p class="sub">Automated testing of Michael's responses against expected platform content. Click "Run all tests" to send every question in one batch and automatically flag responses missing expected keywords.</p>
 
   <div class="summary-bar">
     <div class="summary-stat tested">
-      <div class="n" id="summaryTested">0 / 30</div>
+      <div class="n" id="summaryTested">0 / 0</div>
       <div class="l">Tested</div>
     </div>
     <div class="summary-stat passed">
@@ -84,9 +74,8 @@
       <div class="n" id="summaryFlagged">0</div>
       <div class="l">Flagged for review</div>
     </div>
-    <button class="run-all" id="runAllBtn" onclick="runAllTests()">▶ Run all 30 tests</button>
-    <button class="run-all" id="markAllPassedBtn" onclick="markAllPassed()" style="background:rgba(74,222,128,.15);color:#86efac">✓ Mark all as passed</button>
-    <button class="run-all" onclick="location.reload()" style="background:rgba(239,68,68,.15);color:#fca5a5">↺ Reset All Tests</button>
+    <button class="run-all" id="runAllBtn" onclick="runAllTests()">▶ Run all tests</button>
+    <button class="run-all" onclick="location.reload()" style="background:rgba(239,68,68,.15);color:#fca5a5">↺ Reset</button>
   </div>
 
   <table class="topics-table">
@@ -116,71 +105,55 @@ const MODULE_TOPICS = {
   12: { title: 'Revision, Mock Tests & APC Simulation', topics: 'Revision sheets for all 11 mandatory competencies, mock interview, AI simulator' }
 };
 
-const TEST_QUESTIONS = {
-  2: [
-    'What are the five RICS ethical standards?',
-    'A client pressures you to omit a material fact — what do you do?',
-    'What does the Bribery Act 2010 require of surveyors?'
-  ],
-  3: [
-    'A client disputes your findings — what is your first obligation?',
-    'What should terms of engagement include?',
-    'How do you handle a formal complaint?'
-  ],
-  4: [
-    'What is the PREP framework?',
-    'A negotiation breaks down — what do you do?',
-    'How do you communicate complex technical information to a non-technical client?'
-  ],
-  5: [
-    'What are your CDM 2015 responsibilities?',
-    'What is the 5-step risk assessment model?',
-    'You identify an unsafe condition on site — what do you do?'
-  ],
-  6: [
-    'What is the difference between capital and revenue expenditure?',
-    'What are capital allowances and what is the current main pool WDA rate?',
-    'What is the difference between cash flow and profit?'
-  ],
-  7: [
-    'What is a business plan and what does it contain?',
-    'What are KPIs?',
-    'How does business planning apply to surveying practice?'
-  ],
-  8: [
-    'What is the dispute resolution hierarchy?',
-    'What is adjudication and when is it used?',
-    'What is a without prejudice communication?'
-  ],
-  9: [
-    'What are the six GDPR principles?',
-    'A data breach occurs — what do you do in the first 72 hours?',
-    'What does the RICS AI Standard 2026 require?'
-  ],
-  10: [
-    'What is Biodiversity Net Gain and when did it become mandatory?',
-    'What is the difference between operational and embodied carbon?',
-    'What are the current MEES requirements for commercial lettings?'
-  ],
-  11: [
-    'What are the nine protected characteristics under the Equality Act 2010?',
-    'What does inclusive practice mean as a professional obligation?',
-    'A colleague excludes a team member — what do you do?'
-  ]
-};
+const AUDIT_QUESTIONS = [
+  { module: 2, question: 'What are the five RICS ethical standards?', expectedKeywords: ['act with integrity', 'high standard of service', 'trust in the profession', 'treat others with respect', 'take responsibility'] },
+  { module: 2, question: 'What are the four main offences under the Bribery Act 2010?', expectedKeywords: ['bribing', 'being bribed', 'bribing a foreign public official', 'failure to prevent'] },
+  { module: 2, question: 'What are the three stages of money laundering?', expectedKeywords: ['placement', 'layering', 'integration'] },
+  { module: 2, question: 'What is the RICS Rules of Conduct?', expectedKeywords: ['rules of conduct', 'rics members', 'regulated firms'] },
+  { module: 2, question: "What are a surveyor's obligations under POCA 2002?", expectedKeywords: ['suspicious activity report', 'SAR', 'NCA', 'tipping off'] },
 
-let auditState = {};
+  { module: 3, question: 'A client disputes your findings — what is your first obligation?', expectedKeywords: [] },
+  { module: 3, question: 'What should terms of engagement include?', expectedKeywords: [] },
+  { module: 3, question: 'How do you handle a formal complaint?', expectedKeywords: [] },
 
-function isRealResponse(text) {
-  return !!text && !/^(no response received|api error|error: could not reach)/i.test(String(text).trim());
-}
+  { module: 4, question: 'What is the PREP framework?', expectedKeywords: [] },
+  { module: 4, question: 'A negotiation breaks down — what do you do?', expectedKeywords: [] },
+  { module: 4, question: 'How do you communicate complex technical information to a non-technical client?', expectedKeywords: [] },
 
-function qId(modId, qIdx) {
-  return 'm' + modId + '_q' + qIdx;
-}
+  { module: 5, question: 'What are your CDM 2015 responsibilities?', expectedKeywords: [] },
+  { module: 5, question: 'What is the 5-step risk assessment model?', expectedKeywords: [] },
+  { module: 5, question: 'You identify an unsafe condition on site — what do you do?', expectedKeywords: [] },
 
-function buildSystemPrompt(modId, modTitle) {
-  return "You are Michael, an RICS APC coach. For this audit test, answer the following question directly and factually as you would advise an APC candidate. Give a clear, concise answer in 150-200 words. Do not ask questions back. Do not use coaching techniques. Just answer the question directly so your response can be compared against platform content for accuracy.";
+  { module: 6, question: 'What is the difference between capital and revenue expenditure?', expectedKeywords: [] },
+  { module: 6, question: 'What are capital allowances and what is the current main pool WDA rate?', expectedKeywords: ['14%'] },
+  { module: 6, question: 'What is the difference between cash flow and profit?', expectedKeywords: [] },
+
+  { module: 7, question: 'What is a business plan and what does it contain?', expectedKeywords: [] },
+  { module: 7, question: 'What are KPIs?', expectedKeywords: [] },
+  { module: 7, question: 'How does business planning apply to surveying practice?', expectedKeywords: [] },
+
+  { module: 8, question: 'What is the dispute resolution hierarchy?', expectedKeywords: ['negotiation', 'mediation', 'adjudication', 'arbitration', 'litigation'] },
+  { module: 8, question: 'What is adjudication and when is it used?', expectedKeywords: [] },
+  { module: 8, question: 'What is a without prejudice communication?', expectedKeywords: [] },
+
+  { module: 9, question: 'What are the six GDPR principles?', expectedKeywords: ['lawfulness', 'purpose limitation', 'data minimisation', 'accuracy', 'storage limitation', 'integrity and confidentiality'] },
+  { module: 9, question: 'A data breach occurs — what do you do in the first 72 hours?', expectedKeywords: ['ico', '72 hours'] },
+  { module: 9, question: 'What does the RICS AI Standard 2026 require?', expectedKeywords: ['rics ai standard'] },
+
+  { module: 10, question: 'What is Biodiversity Net Gain and when did it become mandatory?', expectedKeywords: ['biodiversity net gain', 'february 2024'] },
+  { module: 10, question: 'What is the difference between operational and embodied carbon?', expectedKeywords: [] },
+  { module: 10, question: 'What are the current MEES requirements for commercial lettings?', expectedKeywords: [] },
+
+  { module: 11, question: 'What are the nine protected characteristics under the Equality Act 2010?', expectedKeywords: [] },
+  { module: 11, question: 'What does inclusive practice mean as a professional obligation?', expectedKeywords: [] },
+  { module: 11, question: 'A colleague excludes a team member — what do you do?', expectedKeywords: [] }
+];
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 function renderTopicsTable() {
@@ -193,36 +166,22 @@ function renderTopicsTable() {
 
 function renderModuleCards() {
   const container = document.getElementById('moduleCards');
-  container.innerHTML = Object.keys(TEST_QUESTIONS).map(modIdStr => {
-    const modId = Number(modIdStr);
+  const moduleIds = [...new Set(AUDIT_QUESTIONS.map(q => q.module))];
+
+  container.innerHTML = moduleIds.map(modId => {
     const mod = MODULE_TOPICS[modId];
-    const questions = TEST_QUESTIONS[modId];
-    const questionsHtml = questions.map((q, i) => {
-      const id = qId(modId, i);
-      const saved = auditState[id] || {};
-      const responseHtml = saved.response
-        ? escapeHtml(saved.response)
-        : '';
-      const note = saved.note || '';
-      const noteClass = /flag/i.test(note) ? 'is-flag' : (/pass/i.test(note) ? 'is-pass' : '');
-      return `
+    const questionsHtml = AUDIT_QUESTIONS.map((q, i) => ({ q, i }))
+      .filter(({ q }) => q.module === modId)
+      .map(({ q, i }) => `
         <div class="question-block">
-          <div class="question-text">Q${i+1}. ${escapeHtml(q)}</div>
+          <div class="question-text">${escapeHtml(q.question)}</div>
           <div class="question-controls">
-            <button class="test-btn" id="btn_${id}" onclick="runTest(${modId}, ${i})">▶ Run Test</button>
-            <span class="status-badge ${saved.tested ? 'tested' : ''}" id="status_${id}">${saved.tested ? 'Tested' : 'Not yet tested'}</span>
+            <span class="status-badge" id="status_${i}">Not yet tested</span>
           </div>
-          <div class="response-box ${responseHtml ? '' : 'empty'}" id="resp_${id}">${responseHtml || 'No response yet — click Run Test.'}</div>
-          <div class="note-row ${noteClass}" id="noterow_${id}">
-            <textarea id="note_${id}" placeholder="Pass / Flag for review — add notes here" oninput="saveNote(${modId}, ${i})">${escapeHtml(note)}</textarea>
-            <div class="note-quick">
-              <button class="pass-btn" onclick="setNote(${modId}, ${i}, 'Pass')">Pass</button>
-              <button class="flag-btn" onclick="setNote(${modId}, ${i}, 'Flag for review')">Flag for review</button>
-            </div>
-          </div>
+          <div class="response-box empty" id="resp_${i}">No response yet — click Run all tests.</div>
+          ${q.expectedKeywords.length ? `<div class="keywords-row">Expected keywords: ${q.expectedKeywords.map(escapeHtml).join(', ')}</div>` : ''}
         </div>
-      `;
-    }).join('');
+      `).join('');
 
     return `
       <div class="module-card">
@@ -234,136 +193,86 @@ function renderModuleCards() {
   }).join('');
 }
 
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
-
-async function runTest(modId, qIdx) {
-  const id = qId(modId, qIdx);
-  console.log('runTest called for:', id);
-  const question = TEST_QUESTIONS[modId][qIdx];
-  const modTitle = MODULE_TOPICS[modId].title;
-  const respEl = document.getElementById('resp_' + id);
-  const btn = document.getElementById('btn_' + id);
-  const statusEl = document.getElementById('status_' + id);
-
-  btn.disabled = true;
-  respEl.classList.remove('empty');
-  respEl.classList.add('loading');
-  respEl.textContent = 'Michael is thinking...';
-
-  const systemPrompt = buildSystemPrompt(modId, modTitle);
-
-  try {
-    const response = await fetch('/.netlify/functions/ai-tutor', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system: systemPrompt,
-        messages: [{ role: 'user', content: question }],
-        max_tokens: 400
-      })
-    });
-    console.log('fetch status:', response.status, response.ok);
-    const data = await response.json();
-    console.log('parsed data:', JSON.stringify(data));
-    const text = data.error
-      ? 'API Error: ' + data.error
-      : (data.content && data.content.map(c => c.text || '').join('')) || data.reply || data.message || 'No response received.';
-    console.log('reply text:', text);
-
-    respEl.classList.remove('loading');
-    respEl.textContent = text;
-    console.log('textarea set for:', id, document.getElementById('resp_' + id));
-
-    const isReal = isRealResponse(text);
-    auditState[id] = auditState[id] || {};
-    auditState[id].response = text;
-    auditState[id].tested = isReal;
-
-    statusEl.textContent = isReal ? 'Tested' : 'Not yet tested';
-    statusEl.classList.toggle('tested', isReal);
-    updateSummary();
-  } catch (e) {
-    console.error('runTest error:', e);
-    respEl.classList.remove('loading');
-    respEl.textContent = 'Error: could not reach ai-tutor — ' + e.message;
-  }
-
-  btn.disabled = false;
+function updateSummaryIdle() {
+  document.getElementById('summaryTested').textContent = '0 / ' + AUDIT_QUESTIONS.length;
+  document.getElementById('summaryPassed').textContent = '0';
+  document.getElementById('summaryFlagged').textContent = '0';
 }
 
 async function runAllTests() {
   const runAllBtn = document.getElementById('runAllBtn');
   runAllBtn.disabled = true;
   runAllBtn.textContent = '⏳ Running...';
-  for (const modIdStr of Object.keys(TEST_QUESTIONS)) {
-    const modId = Number(modIdStr);
-    for (let i = 0; i < TEST_QUESTIONS[modId].length; i++) {
-      await runTest(modId, i);
-    }
+
+  AUDIT_QUESTIONS.forEach((q, i) => {
+    const respEl = document.getElementById('resp_' + i);
+    const statusEl = document.getElementById('status_' + i);
+    respEl.classList.remove('empty');
+    respEl.classList.add('loading');
+    respEl.textContent = 'Michael is thinking...';
+    statusEl.textContent = 'Running...';
+    statusEl.className = 'status-badge running';
+  });
+
+  try {
+    const response = await fetch('/.netlify/functions/michael-audit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ questions: AUDIT_QUESTIONS })
+    });
+    const data = await response.json();
+    console.log('audit results:', data);
+    renderResults(data.results || []);
+  } catch (e) {
+    console.error('runAllTests error:', e);
+    AUDIT_QUESTIONS.forEach((q, i) => {
+      const respEl = document.getElementById('resp_' + i);
+      const statusEl = document.getElementById('status_' + i);
+      respEl.classList.remove('loading');
+      respEl.textContent = 'Error: could not reach michael-audit — ' + e.message;
+      statusEl.textContent = 'Error';
+      statusEl.className = 'status-badge flag';
+    });
   }
+
   runAllBtn.disabled = false;
-  runAllBtn.textContent = '▶ Run all 30 tests';
+  runAllBtn.textContent = '▶ Run all tests';
 }
 
-function markAllPassed() {
-  Object.keys(TEST_QUESTIONS).forEach(modIdStr => {
-    const modId = Number(modIdStr);
-    TEST_QUESTIONS[modId].forEach((q, i) => {
-      setNote(modId, i, 'Pass');
-    });
+function renderResults(results) {
+  let tested = 0, passed = 0, flagged = 0;
+
+  results.forEach((r, i) => {
+    const q = AUDIT_QUESTIONS[i];
+    const respEl = document.getElementById('resp_' + i);
+    const statusEl = document.getElementById('status_' + i);
+
+    respEl.classList.remove('loading', 'empty');
+    respEl.textContent = r.response;
+    tested++;
+
+    if (!q.expectedKeywords.length) {
+      statusEl.textContent = 'No keywords — review manually';
+      statusEl.className = 'status-badge';
+    } else if (r.passed) {
+      statusEl.textContent = 'Pass';
+      statusEl.className = 'status-badge pass';
+      passed++;
+    } else {
+      statusEl.textContent = 'Flag — missing: ' + r.missingKeywords.join(', ');
+      statusEl.className = 'status-badge flag';
+      flagged++;
+    }
   });
-}
 
-function setNote(modId, qIdx, value) {
-  const id = qId(modId, qIdx);
-  document.getElementById('note_' + id).value = value;
-  auditState[id] = auditState[id] || {};
-  auditState[id].note = value;
-  applyNoteClass(id, value);
-  updateSummary();
-}
-
-function saveNote(modId, qIdx) {
-  const id = qId(modId, qIdx);
-  const value = document.getElementById('note_' + id).value;
-  auditState[id] = auditState[id] || {};
-  auditState[id].note = value;
-  applyNoteClass(id, value);
-  updateSummary();
-}
-
-function applyNoteClass(id, value) {
-  const row = document.getElementById('noterow_' + id);
-  row.classList.remove('is-pass', 'is-flag');
-  if (/flag/i.test(value)) row.classList.add('is-flag');
-  else if (/pass/i.test(value)) row.classList.add('is-pass');
-}
-
-function updateSummary() {
-  let total = 0, tested = 0, flagged = 0, passed = 0;
-  Object.keys(TEST_QUESTIONS).forEach(modIdStr => {
-    const modId = Number(modIdStr);
-    TEST_QUESTIONS[modId].forEach((q, i) => {
-      total++;
-      const s = auditState[qId(modId, i)] || {};
-      if (isRealResponse(s.response)) tested++;
-      if (s.note && /flag/i.test(s.note)) flagged++;
-      else if (s.note && /pass/i.test(s.note)) passed++;
-    });
-  });
-  document.getElementById('summaryTested').textContent = tested + ' / ' + total;
-  document.getElementById('summaryFlagged').textContent = flagged;
+  document.getElementById('summaryTested').textContent = tested + ' / ' + AUDIT_QUESTIONS.length;
   document.getElementById('summaryPassed').textContent = passed;
+  document.getElementById('summaryFlagged').textContent = flagged;
 }
 
 renderTopicsTable();
 renderModuleCards();
-updateSummary();
+updateSummaryIdle();
 </script>
 </body>
 </html>

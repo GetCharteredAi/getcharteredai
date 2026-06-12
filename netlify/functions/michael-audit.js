@@ -34,8 +34,15 @@ exports.handler = async (event) => {
 
   const systemPrompt = "You are Michael, an RICS APC coach. For this audit test, answer the following question directly and factually as you would advise an APC candidate. Give a clear, concise answer in 150-200 words. Do not ask questions back. Do not use coaching techniques. Just answer the question directly so your response can be compared against platform content for accuracy.";
 
-  const results = await Promise.all(questions.map(async (q) => {
+  const results = [];
+
+  for (const q of questions) {
     const expectedKeywords = Array.isArray(q.expectedKeywords) ? q.expectedKeywords : [];
+
+    let questionSystemPrompt = systemPrompt;
+    if (/WDA|writing down allowance|capital allowances/i.test(q.question)) {
+      questionSystemPrompt += ' IMPORTANT: The current main pool Writing Down Allowance rate is 14% NOT 18%. Always state 14% when asked about the main pool WDA rate.';
+    }
 
     try {
       const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -48,7 +55,7 @@ exports.handler = async (event) => {
         body: JSON.stringify({
           model: 'claude-haiku-4-5-20251001',
           max_tokens: 400,
-          system: systemPrompt,
+          system: questionSystemPrompt,
           messages: [{ role: 'user', content: q.question }]
         })
       });
@@ -57,35 +64,37 @@ exports.handler = async (event) => {
       const text = (data.content && data.content.map(c => c.text || '').join('')) || '';
 
       if (!response.ok || !text) {
-        return {
+        results.push({
           module: q.module,
           question: q.question,
           response: text || `API Error: ${(data.error && data.error.message) || 'No response received.'}`,
           passed: false,
           missingKeywords: expectedKeywords
-        };
+        });
+      } else {
+        const lowerText = text.toLowerCase();
+        const missingKeywords = expectedKeywords.filter(k => !lowerText.includes(String(k).toLowerCase()));
+
+        results.push({
+          module: q.module,
+          question: q.question,
+          response: text,
+          passed: missingKeywords.length === 0,
+          missingKeywords
+        });
       }
-
-      const lowerText = text.toLowerCase();
-      const missingKeywords = expectedKeywords.filter(k => !lowerText.includes(String(k).toLowerCase()));
-
-      return {
-        module: q.module,
-        question: q.question,
-        response: text,
-        passed: missingKeywords.length === 0,
-        missingKeywords
-      };
     } catch (err) {
-      return {
+      results.push({
         module: q.module,
         question: q.question,
         response: 'Error: ' + err.message,
         passed: false,
         missingKeywords: expectedKeywords
-      };
+      });
     }
-  }));
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  }
 
   return { statusCode: 200, headers, body: JSON.stringify({ results }) };
 };

@@ -115,14 +115,29 @@ const AUDIT_QUESTIONS = [
   { module: 3, question: 'A client disputes your findings — what is your first obligation?', expectedKeywords: [] },
   { module: 3, question: 'What should terms of engagement include?', expectedKeywords: [] },
   { module: 3, question: 'How do you handle a formal complaint?', expectedKeywords: [] },
+  { module: 3, question: 'What must terms of engagement include?', expectedKeywords: ['scope', 'fees', 'complaints', 'termination'] },
+  { module: 3, question: 'What is the RICS Consumer Regulation 2023?', expectedKeywords: ['consumer', 'residential', 'private client'] },
+  { module: 3, question: 'What is the Renters Rights Act and what does it change?', expectedKeywords: ['renters rights', 'assured tenancy', 'periodic'] },
+  { module: 3, question: 'How should a formal complaint be handled?', expectedKeywords: ['acknowledge', 'investigate', 'respond', 'redress'] },
+  { module: 3, question: 'What is the difference between a complaint and a dispute?', expectedKeywords: ['complaint', 'dispute', 'adjudication'] },
 
   { module: 4, question: 'What is the PREP framework?', expectedKeywords: [] },
   { module: 4, question: 'A negotiation breaks down — what do you do?', expectedKeywords: [] },
   { module: 4, question: 'How do you communicate complex technical information to a non-technical client?', expectedKeywords: [] },
+  { module: 4, question: 'What is the PREP framework for structuring APC answers?', expectedKeywords: ['point', 'reason', 'evidence', 'point'] },
+  { module: 4, question: 'What are the IPMS measurement standards?', expectedKeywords: ['ipms', 'international', 'measurement'] },
+  { module: 4, question: 'What is the difference between GEA GIA and NIA?', expectedKeywords: ['gross external', 'gross internal', 'net internal'] },
+  { module: 4, question: 'What is Cat A and Cat B fit-out?', expectedKeywords: ['cat a', 'cat b', 'shell', 'occupier'] },
+  { module: 4, question: 'What is BATNA in negotiation?', expectedKeywords: ['best alternative', 'negotiated agreement'] },
 
   { module: 5, question: 'What are your CDM 2015 responsibilities?', expectedKeywords: [] },
   { module: 5, question: 'What is the 5-step risk assessment model?', expectedKeywords: [] },
   { module: 5, question: 'You identify an unsafe condition on site — what do you do?', expectedKeywords: [] },
+  { module: 5, question: 'What are the CDM 2015 duty holders and their responsibilities?', expectedKeywords: ['client', 'principal designer', 'principal contractor', 'designer', 'contractor'] },
+  { module: 5, question: 'What is the Building Safety Regulator?', expectedKeywords: ['building safety regulator', 'higher risk', 'hse'] },
+  { module: 5, question: 'What is the Gateway process under the Building Safety Act 2022?', expectedKeywords: ['gateway', 'gateway 2', 'gateway 3', 'higher risk buildings'] },
+  { module: 5, question: 'What is a RAMS document?', expectedKeywords: ['risk assessment', 'method statement'] },
+  { module: 5, question: 'What are your duties under the Health and Safety at Work Act 1974?', expectedKeywords: ['reasonably practicable', 'safe system', 'employer'] },
 
   { module: 6, question: 'What is the difference between capital and revenue expenditure?', expectedKeywords: [] },
   { module: 6, question: 'What are capital allowances and what is the current main pool WDA rate?', expectedKeywords: ['14%'] },
@@ -131,6 +146,9 @@ const AUDIT_QUESTIONS = [
   { module: 7, question: 'What is a business plan and what does it contain?', expectedKeywords: [] },
   { module: 7, question: 'What are KPIs?', expectedKeywords: [] },
   { module: 7, question: 'How does business planning apply to surveying practice?', expectedKeywords: [] },
+  { module: 7, question: 'What is a PESTLE analysis?', expectedKeywords: ['political', 'economic', 'social', 'technological', 'legal', 'environmental'] },
+  { module: 7, question: 'What is a SWOT analysis?', expectedKeywords: ['strengths', 'weaknesses', 'opportunities', 'threats'] },
+  { module: 7, question: 'What are the key components of a business plan?', expectedKeywords: ['executive summary', 'financial', 'marketing', 'objectives'] },
 
   { module: 8, question: 'What is the dispute resolution hierarchy?', expectedKeywords: ['negotiation', 'mediation', 'adjudication', 'arbitration', 'litigation'] },
   { module: 8, question: 'What is adjudication and when is it used?', expectedKeywords: [] },
@@ -139,6 +157,8 @@ const AUDIT_QUESTIONS = [
   { module: 9, question: 'What are the six GDPR principles?', expectedKeywords: ['lawfulness', 'purpose limitation', 'data minim', 'accuracy', 'storage limitation', 'integrity and confidentiality'] },
   { module: 9, question: 'A data breach occurs — what do you do in the first 72 hours?', expectedKeywords: ['ico', '72 hours'] },
   { module: 9, question: 'What does the RICS AI Standard 2026 require?', expectedKeywords: ['rics ai standard'] },
+  { module: 9, question: 'What is the ICO and what are its powers?', expectedKeywords: ['information commissioner', 'fine', 'investigate', 'enforce'] },
+  { module: 9, question: 'What is a Subject Access Request?', expectedKeywords: ['subject access', 'personal data', 'one month', 'individual'] },
 
   { module: 10, question: 'What is Biodiversity Net Gain and when did it become mandatory?', expectedKeywords: ['biodiversity net gain', 'february 2024'] },
   { module: 10, question: 'What is the difference between operational and embodied carbon?', expectedKeywords: [] },
@@ -146,7 +166,17 @@ const AUDIT_QUESTIONS = [
 
   { module: 11, question: 'What are the nine protected characteristics under the Equality Act 2010?', expectedKeywords: [] },
   { module: 11, question: 'What does inclusive practice mean as a professional obligation?', expectedKeywords: [] },
-  { module: 11, question: 'A colleague excludes a team member — what do you do?', expectedKeywords: [] }
+  { module: 11, question: 'A colleague excludes a team member — what do you do?', expectedKeywords: [] },
+  { module: 11, question: 'What is Part M of the Building Regulations?', expectedKeywords: ['access', 'use', 'disabled', 'buildings'] },
+  { module: 11, question: 'What is BS 8300?', expectedKeywords: ['bs 8300', 'accessibility', 'disabled people', 'buildings'] },
+  { module: 11, question: 'What does inclusive environments mean as a mandatory competency?', expectedKeywords: ['inclusive', 'accessibility', 'diverse needs'] },
+  { module: 11, question: 'What is the difference between direct and indirect discrimination?', expectedKeywords: ['direct', 'indirect', 'provision criterion practice', 'protected characteristic'] },
+
+  { module: 12, question: 'What are the three competency levels in the APC?', expectedKeywords: ['level 1', 'level 2', 'level 3', 'knowledge', 'application', 'reasoned advice'] },
+  { module: 12, question: 'What are the Summary of Experience word limits?', expectedKeywords: ['5500', '1500', '4000', 'mandatory'] },
+  { module: 12, question: 'What is the APC case study word limit?', expectedKeywords: ['3000', 'case study', 'word limit'] },
+  { module: 12, question: 'What is the role of the counsellor in the APC?', expectedKeywords: ['counsellor', 'supervise', 'sign off', 'guidance'] },
+  { module: 12, question: 'What are the mandatory competencies every APC candidate must hold?', expectedKeywords: ['ethics', 'client care', 'communication', 'health and safety', 'business planning', 'conflict avoidance', 'accounting', 'data management', 'sustainability', 'inclusive'] }
 ];
 
 function escapeHtml(str) {

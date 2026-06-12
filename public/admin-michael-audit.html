@@ -199,10 +199,45 @@ function updateSummaryIdle() {
   document.getElementById('summaryFlagged').textContent = '0';
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+let summaryCounts = { tested: 0, passed: 0, flagged: 0 };
+
+function applyResult(i, r) {
+  const q = AUDIT_QUESTIONS[i];
+  const respEl = document.getElementById('resp_' + i);
+  const statusEl = document.getElementById('status_' + i);
+
+  respEl.classList.remove('loading', 'empty');
+  respEl.textContent = r.response;
+  summaryCounts.tested++;
+
+  if (!q.expectedKeywords.length) {
+    statusEl.textContent = 'No keywords — review manually';
+    statusEl.className = 'status-badge';
+  } else if (r.passed) {
+    statusEl.textContent = 'Pass';
+    statusEl.className = 'status-badge pass';
+    summaryCounts.passed++;
+  } else {
+    statusEl.textContent = 'Flag — missing: ' + r.missingKeywords.join(', ');
+    statusEl.className = 'status-badge flag';
+    summaryCounts.flagged++;
+  }
+
+  document.getElementById('summaryTested').textContent = summaryCounts.tested + ' / ' + AUDIT_QUESTIONS.length;
+  document.getElementById('summaryPassed').textContent = summaryCounts.passed;
+  document.getElementById('summaryFlagged').textContent = summaryCounts.flagged;
+}
+
 async function runAllTests() {
   const runAllBtn = document.getElementById('runAllBtn');
   runAllBtn.disabled = true;
-  runAllBtn.textContent = '⏳ Running...';
+
+  summaryCounts = { tested: 0, passed: 0, flagged: 0 };
+  updateSummaryIdle();
 
   AUDIT_QUESTIONS.forEach((q, i) => {
     const respEl = document.getElementById('resp_' + i);
@@ -210,64 +245,47 @@ async function runAllTests() {
     respEl.classList.remove('empty');
     respEl.classList.add('loading');
     respEl.textContent = 'Michael is thinking...';
-    statusEl.textContent = 'Running...';
-    statusEl.className = 'status-badge running';
+    statusEl.textContent = 'Queued...';
+    statusEl.className = 'status-badge';
   });
 
-  try {
-    const response = await fetch('/.netlify/functions/michael-audit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ questions: AUDIT_QUESTIONS })
-    });
-    const data = await response.json();
-    console.log('audit results:', data);
-    renderResults(data.results || []);
-  } catch (e) {
-    console.error('runAllTests error:', e);
-    AUDIT_QUESTIONS.forEach((q, i) => {
+  for (let i = 0; i < AUDIT_QUESTIONS.length; i++) {
+    const q = AUDIT_QUESTIONS[i];
+    runAllBtn.textContent = `⏳ Running ${i + 1} / ${AUDIT_QUESTIONS.length}...`;
+
+    const statusEl = document.getElementById('status_' + i);
+    statusEl.textContent = 'Running...';
+    statusEl.className = 'status-badge running';
+
+    try {
+      const response = await fetch('/.netlify/functions/michael-audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question: q.question,
+          expectedKeywords: q.expectedKeywords,
+          moduleId: q.module
+        })
+      });
+      const r = await response.json();
+      console.log('audit result for Q' + i + ':', r);
+      applyResult(i, r);
+    } catch (e) {
+      console.error('runAllTests error for Q' + i + ':', e);
       const respEl = document.getElementById('resp_' + i);
-      const statusEl = document.getElementById('status_' + i);
       respEl.classList.remove('loading');
       respEl.textContent = 'Error: could not reach michael-audit — ' + e.message;
       statusEl.textContent = 'Error';
       statusEl.className = 'status-badge flag';
-    });
+    }
+
+    if (i < AUDIT_QUESTIONS.length - 1) {
+      await sleep(500);
+    }
   }
 
   runAllBtn.disabled = false;
   runAllBtn.textContent = '▶ Run all tests';
-}
-
-function renderResults(results) {
-  let tested = 0, passed = 0, flagged = 0;
-
-  results.forEach((r, i) => {
-    const q = AUDIT_QUESTIONS[i];
-    const respEl = document.getElementById('resp_' + i);
-    const statusEl = document.getElementById('status_' + i);
-
-    respEl.classList.remove('loading', 'empty');
-    respEl.textContent = r.response;
-    tested++;
-
-    if (!q.expectedKeywords.length) {
-      statusEl.textContent = 'No keywords — review manually';
-      statusEl.className = 'status-badge';
-    } else if (r.passed) {
-      statusEl.textContent = 'Pass';
-      statusEl.className = 'status-badge pass';
-      passed++;
-    } else {
-      statusEl.textContent = 'Flag — missing: ' + r.missingKeywords.join(', ');
-      statusEl.className = 'status-badge flag';
-      flagged++;
-    }
-  });
-
-  document.getElementById('summaryTested').textContent = tested + ' / ' + AUDIT_QUESTIONS.length;
-  document.getElementById('summaryPassed').textContent = passed;
-  document.getElementById('summaryFlagged').textContent = flagged;
 }
 
 renderTopicsTable();

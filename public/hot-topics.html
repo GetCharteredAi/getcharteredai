@@ -338,7 +338,7 @@ async function submitForm() {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({name, email, pathway:'Not specified', examDate:'Not yet scheduled', guideType:'hot-topics'})
     });
-    showAlert('✓ We will notify you when the next APC Assessors' Briefing update is published.', 'green');
+    showAlert("✓ We will notify you when the next APC Assessors' Briefing update is published.", 'green');
   } catch(e) { showAlert('✓ Saved.', 'green'); }
 }
 function showAlert(msg, type) {

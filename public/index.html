@@ -1916,6 +1916,12 @@ document.addEventListener('click', function(e) {
         </div>
         <button id="resStartBtn" onclick="openRESOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
       </div>
+      <div class="bs-qbank" id="comingSoonQuestionBank" style="display:none">
+        <div class="panel-eyebrow panel-eyebrow-light">Practice questions</div>
+        <div class="bs-qbank-title">🚧 <span id="comingSoonPathwayName"></span> Question Bank</div>
+        <div class="bs-qbank-sub">Pathway-specific technical banks are being released in phases. If your pathway is not yet live, you can still access the full mandatory competency programme, mock interview simulator, submission checklist and the full Michael AI Tutor.</div>
+        <a id="comingSoonRequestBtn" href="#" style="display:inline-block;background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f);text-decoration:none">Request priority release</a>
+      </div>
 
       <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
         <h3 style="font-family:var(--fh);font-size:16px;font-weight:700;color:var(--text)">Your Modules</h3>
@@ -2392,6 +2398,7 @@ function renderPathwayBadge() {
   const pd = document.getElementById('pdQuestionBank');
   const pm = document.getElementById('pmQuestionBank');
   const res = document.getElementById('resQuestionBank');
+  const comingSoon = document.getElementById('comingSoonQuestionBank');
   if (pathway && row && badge) {
     badge.textContent = '🗺️ ' + pathway + ' pathway';
     row.style.display = 'flex';
@@ -2406,6 +2413,18 @@ function renderPathwayBadge() {
   if (pd) pd.style.display = (pathway === 'Planning and Development') ? 'block' : 'none';
   if (pm) pm.style.display = (pathway === 'Project Management') ? 'block' : 'none';
   if (res) res.style.display = (pathway === 'Residential') ? 'block' : 'none';
+  if (comingSoon) {
+    const NOT_YET_LIVE_PATHWAYS = ['Arts and Antiques','Building Control','Corporate Real Estate','Environmental Surveying','Facility Management','Geomatics','Land and Resources','Management Consultancy','Mineral and Waste Management','Property Finance and Investment','Research','Rural'];
+    if (NOT_YET_LIVE_PATHWAYS.includes(pathway)) {
+      comingSoon.style.display = 'block';
+      const nameEl = document.getElementById('comingSoonPathwayName');
+      if (nameEl) nameEl.textContent = pathway;
+      const reqBtn = document.getElementById('comingSoonRequestBtn');
+      if (reqBtn) reqBtn.href = 'mailto:info@getcharteredai.com?subject=' + encodeURIComponent('Priority release request: ' + pathway);
+    } else {
+      comingSoon.style.display = 'none';
+    }
+  }
   bsoUpdateDashboardStats();
   qsoUpdateDashboardStats();
   creoUpdateDashboardStats();

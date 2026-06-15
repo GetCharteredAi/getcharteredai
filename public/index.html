@@ -2173,6 +2173,7 @@ async function doLogin() {
         localStorage.setItem('gca_user', d.email);
         localStorage.setItem('gca_plan', selectedPlan);
         localStorage.setItem('gca_activated', Date.now().toString());
+        if (!localStorage.getItem('gca_pathway')) localStorage.setItem('gca_pathway', 'Valuation');
         err.style.display = 'none';
         closeLogin();
         showView('dashboard');

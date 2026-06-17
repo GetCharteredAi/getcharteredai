@@ -836,10 +836,10 @@ input.err{border-color:var(--red)}
 .cpd-delete-btn:hover{color:#ef4444}
 .cpd-empty{font-size:13px;color:#94a3b8;text-align:center;padding:20px 0;font-style:italic}
 @media(max-width:768px){.cpd-form-grid{grid-template-columns:1fr}.cpd-stats{gap:16px}}
-#bsOverlay .bso-question,#qsOverlay .bso-question,#creOverlay .bso-question,#taOverlay .bso-question,#valOverlay .bso-question,#pdOverlay .bso-question,#pmOverlay .bso-question,#resOverlay .bso-question{color:#ffffff !important;font-size:clamp(16px,2.2vw,20px) !important;font-weight:600 !important}
-#bsOverlay .bso-reveal-btn,#qsOverlay .bso-reveal-btn,#creOverlay .bso-reveal-btn,#taOverlay .bso-reveal-btn,#valOverlay .bso-reveal-btn,#pdOverlay .bso-reveal-btn,#pmOverlay .bso-reveal-btn,#resOverlay .bso-reveal-btn{color:#ffffff !important}
-#bsOverlay .bso-reveal-btn.revealed,#qsOverlay .bso-reveal-btn.revealed,#creOverlay .bso-reveal-btn.revealed,#taOverlay .bso-reveal-btn.revealed,#valOverlay .bso-reveal-btn.revealed,#pdOverlay .bso-reveal-btn.revealed,#pmOverlay .bso-reveal-btn.revealed,#resOverlay .bso-reveal-btn.revealed{color:#93c5fd !important}
-#bsOverlay .bso-reveal-content,#qsOverlay .bso-reveal-content,#creOverlay .bso-reveal-content,#taOverlay .bso-reveal-content,#valOverlay .bso-reveal-content,#pdOverlay .bso-reveal-content,#pmOverlay .bso-reveal-content,#resOverlay .bso-reveal-content{color:#f0f4ff !important;background:#1e2235 !important;padding:14px 18px !important;border-radius:8px !important;margin-bottom:16px !important;line-height:1.7 !important;font-size:14px !important}
+#bsOverlay .bso-question,#qsOverlay .bso-question,#creOverlay .bso-question,#taOverlay .bso-question,#valOverlay .bso-question,#pdOverlay .bso-question,#pmOverlay .bso-question,#resOverlay .bso-question,#pfiOverlay .bso-question{color:#ffffff !important;font-size:clamp(16px,2.2vw,20px) !important;font-weight:600 !important}
+#bsOverlay .bso-reveal-btn,#qsOverlay .bso-reveal-btn,#creOverlay .bso-reveal-btn,#taOverlay .bso-reveal-btn,#valOverlay .bso-reveal-btn,#pdOverlay .bso-reveal-btn,#pmOverlay .bso-reveal-btn,#resOverlay .bso-reveal-btn,#pfiOverlay .bso-reveal-btn{color:#ffffff !important}
+#bsOverlay .bso-reveal-btn.revealed,#qsOverlay .bso-reveal-btn.revealed,#creOverlay .bso-reveal-btn.revealed,#taOverlay .bso-reveal-btn.revealed,#valOverlay .bso-reveal-btn.revealed,#pdOverlay .bso-reveal-btn.revealed,#pmOverlay .bso-reveal-btn.revealed,#resOverlay .bso-reveal-btn.revealed,#pfiOverlay .bso-reveal-btn.revealed{color:#93c5fd !important}
+#bsOverlay .bso-reveal-content,#qsOverlay .bso-reveal-content,#creOverlay .bso-reveal-content,#taOverlay .bso-reveal-content,#valOverlay .bso-reveal-content,#pdOverlay .bso-reveal-content,#pmOverlay .bso-reveal-content,#resOverlay .bso-reveal-content,#pfiOverlay .bso-reveal-content{color:#f0f4ff !important;background:#1e2235 !important;padding:14px 18px !important;border-radius:8px !important;margin-bottom:16px !important;line-height:1.7 !important;font-size:14px !important}
 #bsOverlay #bsoContent3{color:#fca5a5 !important;background:#2d1515 !important}
 #qsOverlay #qsoContent3{color:#fca5a5 !important;background:#2d1515 !important}
 #creOverlay #creoContent3{color:#fca5a5 !important;background:#2d1515 !important}
@@ -7983,35 +7983,26 @@ function pfoRender() {
   document.getElementById('pfoProgressFill').style.width = ((_pfoIndex + 1) / PFI_QUESTIONS.length * 100) + '%';
   const got = state.mark === 'got';
   const struggled = state.mark === 'struggled';
-  document.getElementById('pfoBody').innerHTML = `
-    <div class="bso-card${got ? ' bso-got' : struggled ? ' bso-struggled' : ''}">
-      <div class="bso-q-label">Question ${_pfoIndex + 1}</div>
-      <div class="bso-q-text">${q.q}</div>
-      <div class="bso-why">${q.why}</div>
-      ${_pfoRevealed ? `
-        <div class="bso-section-label">Pass-level answer</div>
-        <div class="bso-answer-text">${q.pass}</div>
-        <div class="bso-section-label">High-distinction answer</div>
-        <div class="bso-answer-text">${q.high}</div>
-        <div class="bso-section-label">Referral answer (avoid this)</div>
-        <div class="bso-answer-text bso-referral">${q.referral}</div>
-        <ul class="bso-referral-why">${q.referralWhy.map(r=>'<li>'+r+'</li>').join('')}</ul>
-        <div class="bso-section-label">Challenge questions</div>
-        <ul class="bso-challenges">${q.challenge.map(c=>'<li>'+c+'</li>').join('')}</ul>
-        <div class="bso-section-label">Key points</div>
-        <ul class="bso-key-points">${q.keyPoints.map(k=>'<li>'+k+'</li>').join('')}</ul>
-        <div class="bso-mark-row">
-          <button class="bso-mark-btn${got?' bso-mark-active':''}" onclick="pfoMark('got')">\u2713 Got it</button>
-          <button class="bso-mark-btn bso-mark-struggled${struggled?' bso-mark-active':''}" onclick="pfoMark('struggled')">\u2717 Struggled</button>
-        </div>
-      ` : `
-        <button class="bso-reveal-btn" onclick="pfoReveal()">Reveal answer</button>
-      `}
-      <div class="bso-nav-row">
-        <button class="bso-nav-btn" onclick="pfoNav(-1)" ${_pfoIndex===0?'disabled':''}>\u2190 Previous</button>
-        <button class="bso-nav-btn" onclick="pfoNav(1)" ${_pfoIndex===PFI_QUESTIONS.length-1?'disabled':''}>Next \u2192</button>
-      </div>
-    </div>`;
+  document.getElementById('pfoBody').innerHTML =
+    '<div class="bso-question">' + q.q + '</div>' +
+    '<div class="bso-reveal-content show" style="margin-bottom:16px">' + q.why + '</div>' +
+    (_pfoRevealed ?
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">Pass-level answer</strong>' + q.pass + '</div>' +
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">High-distinction answer</strong>' + q.high + '</div>' +
+      '<div class="bso-reveal-content bso-referral-content show"><strong>Referral answer \u2014 avoid this</strong><br>' + q.referral + '<ul>' + q.referralWhy.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-challenge"><strong>\ud83c\udfaf Challenge questions</strong><ul>' + q.challenge.map(function(c){return '<li>'+c+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>\ud83d\udccc Key learning points</strong><ol>' + q.keyPoints.map(function(k){return '<li>'+k+'</li>';}).join('') + '</ol></div>' +
+      '<div class="bso-actions">' +
+        '<button class="bso-got" onclick="pfoMark(\'got\')" ' + (got ? 'style="background:#16a34a"' : '') + '>\u2713 Got it</button>' +
+        '<button class="bso-practice" onclick="pfoMark(\'struggled\')" ' + (struggled ? 'style="border-color:#f59e0b;color:#fbbf24"' : '') + '>\u2717 Struggled</button>' +
+      '</div>'
+    :
+      '<button class="bso-reveal-btn" onclick="pfoReveal()">Reveal answer</button>'
+    ) +
+    '<div class="bso-nav">' +
+      '<button onclick="pfoNav(-1)" ' + (_pfoIndex===0?'disabled':'') + '>\u2190 Previous</button>' +
+      '<button onclick="pfoNav(1)" ' + (_pfoIndex===PFI_QUESTIONS.length-1?'disabled':'') + '>Next \u2192</button>' +
+    '</div>';
 }
 function pfoReveal() {
   _pfoRevealed = true;

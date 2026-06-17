@@ -7018,10 +7018,12 @@ const PFI_QUESTIONS = [
 
 // ── BS QUESTION BANK UI ───────────────────────────────────────────────────────
 let _bsoIndex = 0;
+let _bsoRevealed = false;
 let _bsoFiltered = null;
 
 function openBSOverlay() {
   _bsoFiltered = null;
+  _bsoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_bs_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   console.log('[BSOverlay] gca_bs_progress keys:', Object.keys(saved).length, 'isFirstTime:', isFirstTime);
@@ -7068,22 +7070,20 @@ function bsoRender() {
   const verdict = saved[globalIdx];
   document.getElementById('bsoBody').innerHTML =
     '<div class="bso-question">' + q.q + '</div>' +
-    '<button class="bso-reveal-btn" id="bsoBtn0" onclick="bsoReveal(0)">💡 Why do assessors ask this?</button>' +
-    '<div class="bso-reveal-content" id="bsoContent0">' + q.why + '</div>' +
-    '<button class="bso-reveal-btn" id="bsoBtn1" onclick="bsoReveal(1)" disabled>✅ Pass-level answer</button>' +
-    '<div class="bso-reveal-content" id="bsoContent1">' + q.pass + '</div>' +
-    '<button class="bso-reveal-btn" id="bsoBtn2" onclick="bsoReveal(2)" disabled>🏆 High-scoring answer</button>' +
-    '<div class="bso-reveal-content" id="bsoContent2">' + q.high + '</div>' +
-    '<button class="bso-reveal-btn" id="bsoBtn3" onclick="bsoReveal(3)" disabled>⚠️ Referral answer — what to avoid</button>' +
-    '<div class="bso-reveal-content bso-referral-content" id="bsoContent3"><strong>' + q.referral + '</strong><ul>' + q.referralWhy.map(function(r){return '<li>❌ ' + r + '</li>';}).join('') + '</ul></div>' +
-    '<div id="bsoFinal" style="display:none">' +
-      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>' + c + '</li>';}).join('') + '</ul></div>' +
-      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>' + k + '</li>';}).join('') + '</ol></div>' +
+    '<div class="bso-reveal-content show" style="margin-bottom:16px">' + q.why + '</div>' +
+    (_bsoRevealed ?
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">Pass-level answer</strong>' + q.pass + '</div>' +
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">High-distinction answer</strong>' + q.high + '</div>' +
+      '<div class="bso-reveal-content bso-referral-content show"><strong>Referral answer — avoid this</strong><br>' + q.referral + '<ul>' + q.referralWhy.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>'+c+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>'+k+'</li>';}).join('') + '</ol></div>' +
       '<div class="bso-actions">' +
-        '<button class="bso-got" onclick="bsoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>I got this ✓</button>' +
-        '<button class="bso-practice" onclick="bsoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#f59e0b"':'') + '>Need more practice</button>' +
-      '</div>' +
-    '</div>' +
+        '<button class="bso-got" onclick="bsoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>✓ Got it</button>' +
+        '<button class="bso-practice" onclick="bsoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#fbbf24"':'') + '>✗ Struggled</button>' +
+      '</div>'
+    :
+      '<button class="bso-reveal-btn" onclick="bsoReveal()">Reveal answer</button>'
+    ) +
     '<div class="bso-nav">' +
       '<button onclick="bsoNav(-1)" ' + (_bsoIndex===0?'disabled':'') + '>← Previous</button>' +
       '<button onclick="bsoNav(1)" ' + (_bsoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
@@ -7092,15 +7092,9 @@ function bsoRender() {
   if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
 }
 
-function bsoReveal(n) {
-  const btn = document.getElementById('bsoBtn' + n);
-  btn.classList.add('revealed');
-  document.getElementById('bsoContent' + n).classList.add('show');
-  if (n < 3) {
-    document.getElementById('bsoBtn' + (n + 1)).disabled = false;
-  } else {
-    document.getElementById('bsoFinal').style.display = 'block';
-  }
+function bsoReveal() {
+  _bsoRevealed = true;
+  bsoRender();
 }
 
 function bsoMark(val) {
@@ -7117,6 +7111,7 @@ function bsoMark(val) {
 function bsoNav(dir) {
   const qs = bsoQuestions();
   _bsoIndex = Math.max(0, Math.min(qs.length - 1, _bsoIndex + dir));
+  _bsoRevealed = false;
   bsoRender();
   document.getElementById('bsOverlay').scrollTop = 0;
 }
@@ -7137,10 +7132,12 @@ function bsoUpdateDashboardStats() {
 
 // ── QS QUESTION BANK UI ───────────────────────────────────────────────────────
 let _qsoIndex = 0;
+let _qsoRevealed = false;
 let _qsoFiltered = null;
 
 function openQSOverlay() {
   _qsoFiltered = null;
+  _qsoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_qs_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   console.log('[QSOverlay] gca_qs_progress keys:', Object.keys(saved).length, 'isFirstTime:', isFirstTime);
@@ -7187,22 +7184,20 @@ function qsoRender() {
   const verdict = saved[globalIdx];
   document.getElementById('qsoBody').innerHTML =
     '<div class="bso-question">' + q.q + '</div>' +
-    '<button class="bso-reveal-btn" id="qsoBtn0" onclick="qsoReveal(0)">💡 Why do assessors ask this?</button>' +
-    '<div class="bso-reveal-content" id="qsoContent0">' + q.why + '</div>' +
-    '<button class="bso-reveal-btn" id="qsoBtn1" onclick="qsoReveal(1)" disabled>✅ Pass-level answer</button>' +
-    '<div class="bso-reveal-content" id="qsoContent1">' + q.pass + '</div>' +
-    '<button class="bso-reveal-btn" id="qsoBtn2" onclick="qsoReveal(2)" disabled>🏆 High-scoring answer</button>' +
-    '<div class="bso-reveal-content" id="qsoContent2">' + q.high + '</div>' +
-    '<button class="bso-reveal-btn" id="qsoBtn3" onclick="qsoReveal(3)" disabled>⚠️ Referral answer — what to avoid</button>' +
-    '<div class="bso-reveal-content bso-referral-content" id="qsoContent3"><strong>' + q.referral + '</strong><ul>' + q.referralWhy.map(function(r){return '<li>❌ ' + r + '</li>';}).join('') + '</ul></div>' +
-    '<div id="qsoFinal" style="display:none">' +
-      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>' + c + '</li>';}).join('') + '</ul></div>' +
-      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>' + k + '</li>';}).join('') + '</ol></div>' +
+    '<div class="bso-reveal-content show" style="margin-bottom:16px">' + q.why + '</div>' +
+    (_qsoRevealed ?
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">Pass-level answer</strong>' + q.pass + '</div>' +
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">High-distinction answer</strong>' + q.high + '</div>' +
+      '<div class="bso-reveal-content bso-referral-content show"><strong>Referral answer — avoid this</strong><br>' + q.referral + '<ul>' + q.referralWhy.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>'+c+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>'+k+'</li>';}).join('') + '</ol></div>' +
       '<div class="bso-actions">' +
-        '<button class="bso-got" onclick="qsoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>I got this ✓</button>' +
-        '<button class="bso-practice" onclick="qsoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#f59e0b"':'') + '>Need more practice</button>' +
-      '</div>' +
-    '</div>' +
+        '<button class="bso-got" onclick="qsoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>✓ Got it</button>' +
+        '<button class="bso-practice" onclick="qsoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#fbbf24"':'') + '>✗ Struggled</button>' +
+      '</div>'
+    :
+      '<button class="bso-reveal-btn" onclick="qsoReveal()">Reveal answer</button>'
+    ) +
     '<div class="bso-nav">' +
       '<button onclick="qsoNav(-1)" ' + (_qsoIndex===0?'disabled':'') + '>← Previous</button>' +
       '<button onclick="qsoNav(1)" ' + (_qsoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
@@ -7211,15 +7206,9 @@ function qsoRender() {
   if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
 }
 
-function qsoReveal(n) {
-  const btn = document.getElementById('qsoBtn' + n);
-  btn.classList.add('revealed');
-  document.getElementById('qsoContent' + n).classList.add('show');
-  if (n < 3) {
-    document.getElementById('qsoBtn' + (n + 1)).disabled = false;
-  } else {
-    document.getElementById('qsoFinal').style.display = 'block';
-  }
+function qsoReveal() {
+  _qsoRevealed = true;
+  qsoRender();
 }
 
 function qsoMark(val) {
@@ -7236,6 +7225,7 @@ function qsoMark(val) {
 function qsoNav(dir) {
   const qs = qsoQuestions();
   _qsoIndex = Math.max(0, Math.min(qs.length - 1, _qsoIndex + dir));
+  _qsoRevealed = false;
   qsoRender();
   document.getElementById('qsOverlay').scrollTop = 0;
 }
@@ -7374,10 +7364,12 @@ function creoUpdateDashboardStats() {
 
 // ── TA QUESTION BANK UI ───────────────────────────────────────────────────────
 let _taoIndex = 0;
+let _taoRevealed = false;
 let _taoFiltered = null;
 
 function openTAOverlay() {
   _taoFiltered = null;
+  _taoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_ta_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = TA_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
@@ -7423,22 +7415,20 @@ function taoRender() {
   const verdict = saved[globalIdx];
   document.getElementById('taoBody').innerHTML =
     '<div class="bso-question">' + q.q + '</div>' +
-    '<button class="bso-reveal-btn" id="taoBtn0" onclick="taoReveal(0)">💡 Why do assessors ask this?</button>' +
-    '<div class="bso-reveal-content" id="taoContent0">' + q.why + '</div>' +
-    '<button class="bso-reveal-btn" id="taoBtn1" onclick="taoReveal(1)" disabled>✅ Pass-level answer</button>' +
-    '<div class="bso-reveal-content" id="taoContent1">' + q.pass + '</div>' +
-    '<button class="bso-reveal-btn" id="taoBtn2" onclick="taoReveal(2)" disabled>🏆 High-scoring answer</button>' +
-    '<div class="bso-reveal-content" id="taoContent2">' + q.high + '</div>' +
-    '<button class="bso-reveal-btn" id="taoBtn3" onclick="taoReveal(3)" disabled>⚠️ Referral answer — what to avoid</button>' +
-    '<div class="bso-reveal-content bso-referral-content" id="taoContent3"><strong>' + q.referral + '</strong><ul>' + q.referralWhy.map(function(r){return '<li>❌ ' + r + '</li>';}).join('') + '</ul></div>' +
-    '<div id="taoFinal" style="display:none">' +
-      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>' + c + '</li>';}).join('') + '</ul></div>' +
-      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>' + k + '</li>';}).join('') + '</ol></div>' +
+    '<div class="bso-reveal-content show" style="margin-bottom:16px">' + q.why + '</div>' +
+    (_taoRevealed ?
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">Pass-level answer</strong>' + q.pass + '</div>' +
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">High-distinction answer</strong>' + q.high + '</div>' +
+      '<div class="bso-reveal-content bso-referral-content show"><strong>Referral answer — avoid this</strong><br>' + q.referral + '<ul>' + q.referralWhy.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>'+c+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>'+k+'</li>';}).join('') + '</ol></div>' +
       '<div class="bso-actions">' +
-        '<button class="bso-got" onclick="taoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>I got this ✓</button>' +
-        '<button class="bso-practice" onclick="taoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#f59e0b"':'') + '>Need more practice</button>' +
-      '</div>' +
-    '</div>' +
+        '<button class="bso-got" onclick="taoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>✓ Got it</button>' +
+        '<button class="bso-practice" onclick="taoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#fbbf24"':'') + '>✗ Struggled</button>' +
+      '</div>'
+    :
+      '<button class="bso-reveal-btn" onclick="taoReveal()">Reveal answer</button>'
+    ) +
     '<div class="bso-nav">' +
       '<button onclick="taoNav(-1)" ' + (_taoIndex===0?'disabled':'') + '>← Previous</button>' +
       '<button onclick="taoNav(1)" ' + (_taoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
@@ -7447,15 +7437,9 @@ function taoRender() {
   if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
 }
 
-function taoReveal(n) {
-  const btn = document.getElementById('taoBtn' + n);
-  btn.classList.add('revealed');
-  document.getElementById('taoContent' + n).classList.add('show');
-  if (n < 3) {
-    document.getElementById('taoBtn' + (n + 1)).disabled = false;
-  } else {
-    document.getElementById('taoFinal').style.display = 'block';
-  }
+function taoReveal() {
+  _taoRevealed = true;
+  taoRender();
 }
 
 function taoMark(val) {
@@ -7472,6 +7456,7 @@ function taoMark(val) {
 function taoNav(dir) {
   const qs = taoQuestions();
   _taoIndex = Math.max(0, Math.min(qs.length - 1, _taoIndex + dir));
+  _taoRevealed = false;
   taoRender();
   document.getElementById('taOverlay').scrollTop = 0;
 }

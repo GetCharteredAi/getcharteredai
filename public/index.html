@@ -718,7 +718,7 @@ input.err{border-color:var(--red)}
 .nav-dropdown-trigger:hover{color:#fff;background:rgba(255,255,255,0.07)}
 .nav-dropdown-menu{position:absolute;top:calc(100% + 8px);left:0;background:#0B0C1C;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;min-width:520px;z-index:2000;backdrop-filter:blur(16px);box-shadow:0 16px 40px rgba(0,0,0,.5);display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .nav-dropdown-item{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,.08);text-decoration:none;transition:border-color .15s,background .15s;cursor:pointer;background:rgba(255,255,255,.02)}
-.nav-dropdown-item:hover{border-color:#2563EB;background:rgba(37,99,235,.07)}
+.nav-dropdown-item:hover{border-color:#2563EB;background:rgba(37,99,235,.07)}.guides-nav-menu{grid-template-columns:1fr;min-width:280px;max-height:80vh;overflow-y:auto}.guides-nav-item{display:block;padding:10px 14px;font-size:13px;font-weight:500;color:rgba(255,255,255,.8);text-decoration:none;border-radius:8px;border:1px solid transparent;transition:.15s}.guides-nav-item:hover{background:rgba(37,99,235,.07);border-color:#2563EB;color:#fff}
 .nav-dd-icon{font-size:20px;line-height:1}
 .nav-dd-title{font-size:13px;font-weight:600;color:#fff}
 .nav-dd-sub{font-size:11px;color:rgba(255,255,255,.4);line-height:1.4}
@@ -981,7 +981,24 @@ input.err{border-color:var(--red)}
       </div>
     </div>
     <a href="/employer-guide" class="nav-link">Employers</a>
-    <a href="/guides" class="nav-link">Candidate Resources</a>
+    <div class="nav-dropdown" id="guidesDropdown">
+      <button class="nav-link nav-dropdown-trigger" onclick="toggleGuidesDropdown()">APC Guides &amp; Downloads ▾</button>
+      <div class="nav-dropdown-menu guides-nav-menu" id="guidesMenu" style="display:none">
+        <a href="/guides?goto=/confidence-checklist" class="guides-nav-item">APC Readiness Benchmark</a>
+        <a href="/guides?goto=/grad-assessment-guide" class="guides-nav-item">Graduate Surveyor Assessment Day Prep</a>
+        <a href="/guides?goto=/apc-guide" class="guides-nav-item">What Assessors Are Looking For</a>
+        <a href="/guides?goto=/grad-interview-guide" class="guides-nav-item">Graduate Surveyor First Interview Prep</a>
+        <a href="/guides?goto=/grad-bs-guide" class="guides-nav-item">Building Surveyor First Interview Prep</a>
+        <a href="/guides?goto=/grad-qs-guide" class="guides-nav-item">Quantity Surveyor Interview Prep</a>
+        <a href="/guides?goto=/counsellor-guide" class="guides-nav-item">APC Counsellor and Supervisor Guide</a>
+        <a href="/guides?goto=/why-candidates-are-referred" class="guides-nav-item">Why Candidates Are Referred</a>
+        <a href="/guides?goto=/referred-guide" class="guides-nav-item">Referred — What Now</a>
+        <a href="/guides?goto=/competency-checker" class="guides-nav-item">APC Competency Checker</a>
+        <a href="/guides?goto=/hot-topics" class="guides-nav-item">APC Assessors Briefing — Updated Summer 2026</a>
+        <a href="/guides?goto=/assocrics-guide" class="guides-nav-item">What is AssocRICS</a>
+        <a href="/guides?goto=/apprentice-guide-info" class="guides-nav-item">The Chartered Surveyor Apprenticeship Route</a>
+      </div>
+    </div>
     <button class="nav-link nav-ghost" onclick="openLogin()" id="navLoginBtn">Member Login</button>
     <button class="nav-btn" onclick="goToSection('pricing-sec')" id="navEnrolBtn">Enrol Now</button>
   </div>
@@ -999,7 +1016,7 @@ input.err{border-color:var(--red)}
   <a href="/referred-programme" onclick="closeMobileNav()">APC Confidence Reset</a>
   <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0"></div>
   <a href="/employer-guide" onclick="closeMobileNav()">Employers</a>
-  <a href="/guides" onclick="closeMobileNav()">Candidate Resources</a>
+  <a href="/guides" onclick="closeMobileNav()">APC Guides &amp; Downloads</a>
   <button onclick="closeMobileNav();openLogin()" id="drawerLoginBtn">Member Login</button>
   <button class="drawer-enrol" onclick="closeMobileNav();goToSection('pricing-sec')" id="drawerEnrolBtn">Enrol Now</button>
 </div>
@@ -3816,7 +3833,17 @@ document.addEventListener('click', function(e) {
   if (!e.target.closest('#programmesDropdown')) {
     closeProgrammesDropdown();
   }
+  if (!e.target.closest('#guidesDropdown')) {
+    closeGuidesDropdown();
+  }
 });
+function toggleGuidesDropdown() {
+  const menu = document.getElementById('guidesMenu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+function closeGuidesDropdown() {
+  document.getElementById('guidesMenu').style.display = 'none';
+}
 
 // ── CPD TRACKER ────────────────────────────────────────────────────
 

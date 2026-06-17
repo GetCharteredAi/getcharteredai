@@ -1967,6 +1967,7 @@ document.addEventListener('click', function(e) {
     <h1 class="pathway-heading">Which RICS pathway are you on?</h1>
     <p class="pathway-sub">We'll personalise your experience around your pathway</p>
     <div class="pathway-grid" id="pathwaySelectionGrid"></div>
+    <p style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.65;max-width:620px;margin:0 auto 20px;text-align:center;font-style:italic">Infrastructure is not a standalone RICS APC pathway — please select the pathway that matches your role, typically one of the following depending on your specialism: Project Management (infrastructure projects, programme delivery), Quantity Surveying &amp; Construction (cost management on infrastructure schemes), Building Surveying (building/structures elements), Planning &amp; Development (infrastructure planning, DCO work), Geospatial (utilities, mapping, land referencing).</p>
     <button class="pathway-confirm" id="pathwayConfirmBtn" onclick="confirmPathway()">Confirm</button>
   </div>
 </div>
@@ -4279,10 +4280,14 @@ function checklistUpdateDashboard() {
 }
 
 function checklistRender() {
+  var plan = localStorage.getItem('gca_plan') || 'annual';
   var container = document.getElementById('checklistItems');
   container.innerHTML = CHECKLIST_GROUPS.map(function(g) {
     var itemsHtml = g.items.map(function(item) {
-      var key = item[0], label = item[1];
+      var key = item[0];
+      var label = (plan === 'referred' && key === 'modulesCompleted')
+        ? 'All 6 modules completed or reviewed'
+        : item[1];
       var checked = !!checklistState[key];
       return '<div class="checklist-item' + (checked ? ' checked' : '') + '" onclick="checklistToggle(\'' + key + '\')">' +
         '<div class="checklist-box">' + (checked ? '✓' : '') + '</div>' +

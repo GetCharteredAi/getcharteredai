@@ -1125,9 +1125,9 @@ input.err{border-color:var(--red)}
 <script>
 var pfResults={
   yr1:{title:'APC Year Two Readiness Review',desc:'A 30-minute diagnostic benchmark — 32 coaching questions, a personalised readiness report from Michael and a clear Year Two development roadmap.',link:'/year-one-review'},
-  yr2:{title:'APC Full 12 Module Programme',desc:'Structured preparation across all 11 mandatory competencies — modules, Michael your AI Tutor and a 60-minute mock interview. No fixed schedule — work when it suits you.',link:'/programme'},
-  'yr2-none':{title:'APC Full 12 Module Programme',desc:'Structured preparation across all 11 mandatory competencies — modules, Michael your AI Tutor and a 60-minute mock interview. No fixed schedule — work when it suits you.',link:'/programme'},
-  'yr2-some':{title:'APC Full 12 Module Programme',desc:'Structured preparation across all 11 mandatory competencies — modules, Michael your AI Tutor and a 60-minute mock interview. No fixed schedule — work when it suits you.',link:'/programme'},
+  yr2:{title:'APC Full 12 Module Programme',desc:'The 12-module programme begins with an introduction module, followed by 10 content modules that collectively cover all 11 mandatory RICS competencies, and concludes with a dedicated testing and mock interview module. Monthly subscribers unlock one module per month, paced to the training timeline. Annual subscribers get immediate access to all 12 modules from day one.',link:'/programme'},
+  'yr2-none':{title:'APC Full 12 Module Programme',desc:'The 12-module programme begins with an introduction module, followed by 10 content modules that collectively cover all 11 mandatory RICS competencies, and concludes with a dedicated testing and mock interview module. Monthly subscribers unlock one module per month, paced to the training timeline. Annual subscribers get immediate access to all 12 modules from day one.',link:'/programme'},
+  'yr2-some':{title:'APC Full 12 Module Programme',desc:'The 12-module programme begins with an introduction module, followed by 10 content modules that collectively cover all 11 mandatory RICS competencies, and concludes with a dedicated testing and mock interview module. Monthly subscribers unlock one module per month, paced to the training timeline. Annual subscribers get immediate access to all 12 modules from day one.',link:'/programme'},
   'yr2-using':{title:'APC Sprint',desc:'All modules covered in a focused programme — reinforce your knowledge, pressure-test your answers with Michael and complete a full mock interview.',link:'/sprint'},
   soon:{title:'APC Sprint',desc:'A focused programme — reinforce your knowledge, pressure-test your answers with Michael and complete a full AI-scored mock interview.',link:'/sprint'},
   referred:{title:'APC Confidence Reset',desc:'Six dedicated modules — starting with your referral letter, rebuilding your evidence structure and preparing you specifically for the resit.',link:'/referred-programme'}
@@ -2321,7 +2321,7 @@ function renderLandingModGrid() {
   };
   const stdMods = MODULES.filter(m => m.id <= 12);
   const crMods = MODULES.filter(m => m.id >= 13);
-  const separator = `<div style="grid-column:1/-1;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:16px 20px;margin:8px 0 4px"><p style="font-size:13px;color:#991b1b;line-height:1.65;margin:0"><strong style="color:#dc2626">&#9888;&#65039; APC Confidence Reset — Referred Candidates Only.</strong> The six modules below are part of the Referred Candidate Programme (£397 &middot; 90 days). They are only accessible with a Confidence Reset subscription and are not included in standard Annual or Monthly access.</p></div>`;
+  const separator = `<div style="grid-column:1/-1;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:16px 20px;margin:8px 0 4px"><p style="font-size:13px;color:#991b1b;line-height:1.65;margin:0"><strong style="color:#dc2626">&#9888;&#65039; APC Confidence Reset — Referred Candidates Only.</strong> The six modules below are part of the Referred Candidate Recovery Programme (£397 &middot; 90 days). They are only accessible with a Confidence Reset subscription and are not included in standard Annual or Monthly access.</p></div>`;
   el.innerHTML = stdMods.map(renderCard).join('') + separator + crMods.map(renderCard).join('');
 }
 

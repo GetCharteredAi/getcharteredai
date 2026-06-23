@@ -1570,7 +1570,7 @@ document.addEventListener('click', function(e) {
       <div class="pcard">
         <div class="pcard-top">
           <span class="ptype">After referral — preparing for resit</span>
-          <p class="pname">Referred Candidate Recovery Programme</p>
+          <p class="pname">APC Referred — Confidence Reset</p>
         </div>
         <div class="pcard-price"><span class="psym">£</span><span class="pnum">397</span><div class="pright"><span class="pdec"></span><span class="pper">one-off</span></div></div>
         <p class="pnote">90 days access · Dedicated resit programme</p>
@@ -7383,10 +7383,12 @@ function qsoUpdateDashboardStats() {
 
 // ── CRE QUESTION BANK UI ───────────────────────────────────────────────────────
 let _creoIndex = 0;
+let _creoRevealed = false;
 let _creoFiltered = null;
 
 function openCREOverlay() {
   _creoFiltered = null;
+  _creoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = CRE_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
@@ -7423,31 +7425,31 @@ function creoJumpToModule(mod) {
 function creoRender() {
   const qs = creoQuestions();
   const q = qs[_creoIndex];
-  const prog = Math.round((_creoIndex / qs.length) * 100);
+  const progress = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
+  const globalIdx = CRE_QUESTIONS.indexOf(q);
+  const state = progress[globalIdx] || {};
+  _creoRevealed = !!state.revealed;
   document.getElementById('creoCounter').textContent = 'Question ' + (_creoIndex + 1) + ' of ' + qs.length;
   document.getElementById('creoModule').textContent = q.module;
-  document.getElementById('creoProgressFill').style.width = prog + '%';
-  const saved = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
-  const globalIdx = CRE_QUESTIONS.indexOf(q);
-  const verdict = saved[globalIdx];
+  document.getElementById('creoProgressFill').style.width = ((_creoIndex + 1) / qs.length * 100) + '%';
+  const got = state.mark === 'got';
+  const struggled = state.mark === 'struggled';
   document.getElementById('creoBody').innerHTML =
     '<div class="bso-question">' + q.q + '</div>' +
-    '<button class="bso-reveal-btn" id="creoBtn0" onclick="creoReveal(0)">💡 Why do assessors ask this?</button>' +
-    '<div class="bso-reveal-content" id="creoContent0">' + q.why + '</div>' +
-    '<button class="bso-reveal-btn" id="creoBtn1" onclick="creoReveal(1)" disabled>✅ Pass-level answer</button>' +
-    '<div class="bso-reveal-content" id="creoContent1">' + q.pass + '</div>' +
-    '<button class="bso-reveal-btn" id="creoBtn2" onclick="creoReveal(2)" disabled>🏆 High-scoring answer</button>' +
-    '<div class="bso-reveal-content" id="creoContent2">' + q.high + '</div>' +
-    '<button class="bso-reveal-btn" id="creoBtn3" onclick="creoReveal(3)" disabled>⚠️ Referral answer — what to avoid</button>' +
-    '<div class="bso-reveal-content bso-referral-content" id="creoContent3"><strong>' + q.referral + '</strong><ul>' + q.referralWhy.map(function(r){return '<li>❌ ' + r + '</li>';}).join('') + '</ul></div>' +
-    '<div id="creoFinal" style="display:none">' +
-      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>' + c + '</li>';}).join('') + '</ul></div>' +
-      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>' + k + '</li>';}).join('') + '</ol></div>' +
+    '<div class="bso-reveal-content show" style="margin-bottom:16px">' + q.why + '</div>' +
+    (_creoRevealed ?
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">Pass-level answer</strong>' + q.pass + '</div>' +
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">High-distinction answer</strong>' + q.high + '</div>' +
+      '<div class="bso-reveal-content bso-referral-content show"><strong>Referral answer — avoid this</strong><br>' + q.referral + '<ul>' + q.referralWhy.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-challenge"><strong>🎯 Challenge questions</strong><ul>' + q.challenge.map(function(c){return '<li>'+c+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key learning points</strong><ol>' + q.keyPoints.map(function(k){return '<li>'+k+'</li>';}).join('') + '</ol></div>' +
       '<div class="bso-actions">' +
-        '<button class="bso-got" onclick="creoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>I got this ✓</button>' +
-        '<button class="bso-practice" onclick="creoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#f59e0b"':'') + '>Need more practice</button>' +
-      '</div>' +
-    '</div>' +
+        '<button class="bso-got" onclick="creoMark(\'got\')" ' + (got ? 'style="background:#16a34a"' : '') + '>✓ Got it</button>' +
+        '<button class="bso-practice" onclick="creoMark(\'struggled\')" ' + (struggled ? 'style="border-color:#f59e0b;color:#fbbf24"' : '') + '>✗ Struggled</button>' +
+      '</div>'
+    :
+      '<button class="bso-reveal-btn" onclick="creoReveal()">Reveal answer</button>'
+    ) +
     '<div class="bso-nav">' +
       '<button onclick="creoNav(-1)" ' + (_creoIndex===0?'disabled':'') + '>← Previous</button>' +
       '<button onclick="creoNav(1)" ' + (_creoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
@@ -7456,40 +7458,41 @@ function creoRender() {
   if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
 }
 
-function creoReveal(n) {
-  const btn = document.getElementById('creoBtn' + n);
-  btn.classList.add('revealed');
-  document.getElementById('creoContent' + n).classList.add('show');
-  if (n < 3) {
-    document.getElementById('creoBtn' + (n + 1)).disabled = false;
-  } else {
-    document.getElementById('creoFinal').style.display = 'block';
-  }
+function creoReveal() {
+  _creoRevealed = true;
+  const qs = creoQuestions();
+  const globalIdx = CRE_QUESTIONS.indexOf(qs[_creoIndex]);
+  const progress = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
+  if (!progress[globalIdx]) progress[globalIdx] = {};
+  progress[globalIdx].revealed = true;
+  localStorage.setItem('gca_cre_progress', JSON.stringify(progress));
+  creoRender();
 }
 
 function creoMark(val) {
   const qs = creoQuestions();
   const globalIdx = CRE_QUESTIONS.indexOf(qs[_creoIndex]);
-  const saved = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
-  saved[globalIdx] = val;
-  localStorage.setItem('gca_cre_progress', JSON.stringify(saved));
+  const progress = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
+  if (!progress[globalIdx]) progress[globalIdx] = {};
+  progress[globalIdx].mark = val;
+  localStorage.setItem('gca_cre_progress', JSON.stringify(progress));
   creoUpdateDashboardStats();
-  const ql = qs.length;
-  if (_creoIndex < ql - 1) { creoNav(1); } else { creoRender(); }
+  creoRender();
 }
 
 function creoNav(dir) {
   const qs = creoQuestions();
   _creoIndex = Math.max(0, Math.min(qs.length - 1, _creoIndex + dir));
+  _creoRevealed = false;
   creoRender();
   document.getElementById('creOverlay').scrollTop = 0;
 }
 
 function creoUpdateDashboardStats() {
-  const saved = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
-  const attempted = Object.keys(saved).length;
-  const got = Object.values(saved).filter(function(v){return v==='got';}).length;
-  const pct = Math.round((attempted / CRE_QUESTIONS.length) * 100);
+  const progress = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
+  const attempted = Object.keys(progress).filter(k => progress[k] && progress[k].revealed).length;
+  const got = Object.keys(progress).filter(k => progress[k] && progress[k].mark === 'got').length;
+  const pct = Math.round(attempted / CRE_QUESTIONS.length * 100);
   const aEl = document.getElementById('creStatAttempted');
   const gEl = document.getElementById('creStatGot');
   const bEl = document.getElementById('creMiniBarFill');
@@ -7614,10 +7617,12 @@ function taoUpdateDashboardStats() {
 
 // ── VAL QUESTION BANK UI ───────────────────────────────────────────────────────
 let _valoIndex = 0;
+let _valoRevealed = false;
 let _valoFiltered = null;
 
 function openVALOverlay() {
   _valoFiltered = null;
+  _valoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_val_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = VAL_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
@@ -7654,31 +7659,31 @@ function valoJumpToModule(mod) {
 function valoRender() {
   const qs = valoQuestions();
   const q = qs[_valoIndex];
-  const prog = Math.round((_valoIndex / qs.length) * 100);
+  const progress = JSON.parse(localStorage.getItem('gca_val_progress') || '{}');
+  const globalIdx = VAL_QUESTIONS.indexOf(q);
+  const state = progress[globalIdx] || {};
+  _valoRevealed = !!state.revealed;
   document.getElementById('valoCounter').textContent = 'Question ' + (_valoIndex + 1) + ' of ' + qs.length;
   document.getElementById('valoModule').textContent = q.module;
-  document.getElementById('valoProgressFill').style.width = prog + '%';
-  const saved = JSON.parse(localStorage.getItem('gca_val_progress') || '{}');
-  const globalIdx = VAL_QUESTIONS.indexOf(q);
-  const verdict = saved[globalIdx];
+  document.getElementById('valoProgressFill').style.width = ((_valoIndex + 1) / qs.length * 100) + '%';
+  const got = state.mark === 'got';
+  const struggled = state.mark === 'struggled';
   document.getElementById('valoBody').innerHTML =
     '<div class="bso-question">' + q.q + '</div>' +
-    '<button class="bso-reveal-btn" id="valoBtn0" onclick="valoReveal(0)">💡 Why do assessors ask this?</button>' +
-    '<div class="bso-reveal-content" id="valoContent0">' + q.why + '</div>' +
-    '<button class="bso-reveal-btn" id="valoBtn1" onclick="valoReveal(1)" disabled>✅ Pass-level answer</button>' +
-    '<div class="bso-reveal-content" id="valoContent1">' + q.pass + '</div>' +
-    '<button class="bso-reveal-btn" id="valoBtn2" onclick="valoReveal(2)" disabled>🏆 High-scoring answer</button>' +
-    '<div class="bso-reveal-content" id="valoContent2">' + q.high + '</div>' +
-    '<button class="bso-reveal-btn" id="valoBtn3" onclick="valoReveal(3)" disabled>⚠️ Referral answer — what to avoid</button>' +
-    '<div class="bso-reveal-content bso-referral-content" id="valoContent3"><strong>' + q.referral + '</strong><ul>' + q.referralWhy.map(function(r){return '<li>❌ ' + r + '</li>';}).join('') + '</ul></div>' +
-    '<div id="valoFinal" style="display:none">' +
-      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>' + c + '</li>';}).join('') + '</ul></div>' +
-      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>' + k + '</li>';}).join('') + '</ol></div>' +
+    '<div class="bso-reveal-content show" style="margin-bottom:16px">' + q.why + '</div>' +
+    (_valoRevealed ?
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">Pass-level answer</strong>' + q.pass + '</div>' +
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">High-distinction answer</strong>' + q.high + '</div>' +
+      '<div class="bso-reveal-content bso-referral-content show"><strong>Referral answer — avoid this</strong><br>' + q.referral + '<ul>' + q.referralWhy.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-challenge"><strong>🎯 Challenge questions</strong><ul>' + q.challenge.map(function(c){return '<li>'+c+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key learning points</strong><ol>' + q.keyPoints.map(function(k){return '<li>'+k+'</li>';}).join('') + '</ol></div>' +
       '<div class="bso-actions">' +
-        '<button class="bso-got" onclick="valoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>I got this ✓</button>' +
-        '<button class="bso-practice" onclick="valoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#f59e0b"':'') + '>Need more practice</button>' +
-      '</div>' +
-    '</div>' +
+        '<button class="bso-got" onclick="valoMark(\'got\')" ' + (got ? 'style="background:#16a34a"' : '') + '>✓ Got it</button>' +
+        '<button class="bso-practice" onclick="valoMark(\'struggled\')" ' + (struggled ? 'style="border-color:#f59e0b;color:#fbbf24"' : '') + '>✗ Struggled</button>' +
+      '</div>'
+    :
+      '<button class="bso-reveal-btn" onclick="valoReveal()">Reveal answer</button>'
+    ) +
     '<div class="bso-nav">' +
       '<button onclick="valoNav(-1)" ' + (_valoIndex===0?'disabled':'') + '>← Previous</button>' +
       '<button onclick="valoNav(1)" ' + (_valoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
@@ -7687,40 +7692,41 @@ function valoRender() {
   if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
 }
 
-function valoReveal(n) {
-  const btn = document.getElementById('valoBtn' + n);
-  btn.classList.add('revealed');
-  document.getElementById('valoContent' + n).classList.add('show');
-  if (n < 3) {
-    document.getElementById('valoBtn' + (n + 1)).disabled = false;
-  } else {
-    document.getElementById('valoFinal').style.display = 'block';
-  }
+function valoReveal() {
+  _valoRevealed = true;
+  const qs = valoQuestions();
+  const globalIdx = VAL_QUESTIONS.indexOf(qs[_valoIndex]);
+  const progress = JSON.parse(localStorage.getItem('gca_val_progress') || '{}');
+  if (!progress[globalIdx]) progress[globalIdx] = {};
+  progress[globalIdx].revealed = true;
+  localStorage.setItem('gca_val_progress', JSON.stringify(progress));
+  valoRender();
 }
 
 function valoMark(val) {
   const qs = valoQuestions();
   const globalIdx = VAL_QUESTIONS.indexOf(qs[_valoIndex]);
-  const saved = JSON.parse(localStorage.getItem('gca_val_progress') || '{}');
-  saved[globalIdx] = val;
-  localStorage.setItem('gca_val_progress', JSON.stringify(saved));
+  const progress = JSON.parse(localStorage.getItem('gca_val_progress') || '{}');
+  if (!progress[globalIdx]) progress[globalIdx] = {};
+  progress[globalIdx].mark = val;
+  localStorage.setItem('gca_val_progress', JSON.stringify(progress));
   valoUpdateDashboardStats();
-  const ql = qs.length;
-  if (_valoIndex < ql - 1) { valoNav(1); } else { valoRender(); }
+  valoRender();
 }
 
 function valoNav(dir) {
   const qs = valoQuestions();
   _valoIndex = Math.max(0, Math.min(qs.length - 1, _valoIndex + dir));
+  _valoRevealed = false;
   valoRender();
   document.getElementById('valOverlay').scrollTop = 0;
 }
 
 function valoUpdateDashboardStats() {
-  const saved = JSON.parse(localStorage.getItem('gca_val_progress') || '{}');
-  const attempted = Object.keys(saved).length;
-  const got = Object.values(saved).filter(function(v){return v==='got';}).length;
-  const pct = Math.round((attempted / VAL_QUESTIONS.length) * 100);
+  const progress = JSON.parse(localStorage.getItem('gca_val_progress') || '{}');
+  const attempted = Object.keys(progress).filter(k => progress[k] && progress[k].revealed).length;
+  const got = Object.keys(progress).filter(k => progress[k] && progress[k].mark === 'got').length;
+  const pct = Math.round(attempted / VAL_QUESTIONS.length * 100);
   const aEl = document.getElementById('valStatAttempted');
   const gEl = document.getElementById('valStatGot');
   const bEl = document.getElementById('valMiniBarFill');
@@ -7732,10 +7738,12 @@ function valoUpdateDashboardStats() {
 
 // ── PD QUESTION BANK UI ────────────────────────────────────────────────────────
 let _pdoIndex = 0;
+let _pdoRevealed = false;
 let _pdoFiltered = null;
 
 function openPDOverlay() {
   _pdoFiltered = null;
+  _pdoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_pd_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = PD_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
@@ -7772,31 +7780,31 @@ function pdoJumpToModule(mod) {
 function pdoRender() {
   const qs = pdoQuestions();
   const q = qs[_pdoIndex];
-  const prog = Math.round((_pdoIndex / qs.length) * 100);
+  const progress = JSON.parse(localStorage.getItem('gca_pd_progress') || '{}');
+  const globalIdx = PD_QUESTIONS.indexOf(q);
+  const state = progress[globalIdx] || {};
+  _pdoRevealed = !!state.revealed;
   document.getElementById('pdoCounter').textContent = 'Question ' + (_pdoIndex + 1) + ' of ' + qs.length;
   document.getElementById('pdoModule').textContent = q.module;
-  document.getElementById('pdoProgressFill').style.width = prog + '%';
-  const saved = JSON.parse(localStorage.getItem('gca_pd_progress') || '{}');
-  const globalIdx = PD_QUESTIONS.indexOf(q);
-  const verdict = saved[globalIdx];
+  document.getElementById('pdoProgressFill').style.width = ((_pdoIndex + 1) / qs.length * 100) + '%';
+  const got = state.mark === 'got';
+  const struggled = state.mark === 'struggled';
   document.getElementById('pdoBody').innerHTML =
     '<div class="bso-question">' + q.q + '</div>' +
-    '<button class="bso-reveal-btn" id="pdoBtn0" onclick="pdoReveal(0)">💡 Why do assessors ask this?</button>' +
-    '<div class="bso-reveal-content" id="pdoContent0">' + q.why + '</div>' +
-    '<button class="bso-reveal-btn" id="pdoBtn1" onclick="pdoReveal(1)" disabled>✅ Pass-level answer</button>' +
-    '<div class="bso-reveal-content" id="pdoContent1">' + q.pass + '</div>' +
-    '<button class="bso-reveal-btn" id="pdoBtn2" onclick="pdoReveal(2)" disabled>🏆 High-scoring answer</button>' +
-    '<div class="bso-reveal-content" id="pdoContent2">' + q.high + '</div>' +
-    '<button class="bso-reveal-btn" id="pdoBtn3" onclick="pdoReveal(3)" disabled>⚠️ Referral answer — what to avoid</button>' +
-    '<div class="bso-reveal-content bso-referral-content" id="pdoContent3"><strong>' + q.referral + '</strong><ul>' + q.referralWhy.map(function(r){return '<li>❌ ' + r + '</li>';}).join('') + '</ul></div>' +
-    '<div id="pdoFinal" style="display:none">' +
-      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>' + c + '</li>';}).join('') + '</ul></div>' +
-      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>' + k + '</li>';}).join('') + '</ol></div>' +
+    '<div class="bso-reveal-content show" style="margin-bottom:16px">' + q.why + '</div>' +
+    (_pdoRevealed ?
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">Pass-level answer</strong>' + q.pass + '</div>' +
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">High-distinction answer</strong>' + q.high + '</div>' +
+      '<div class="bso-reveal-content bso-referral-content show"><strong>Referral answer — avoid this</strong><br>' + q.referral + '<ul>' + q.referralWhy.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-challenge"><strong>🎯 Challenge questions</strong><ul>' + q.challenge.map(function(c){return '<li>'+c+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key learning points</strong><ol>' + q.keyPoints.map(function(k){return '<li>'+k+'</li>';}).join('') + '</ol></div>' +
       '<div class="bso-actions">' +
-        '<button class="bso-got" onclick="pdoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>I got this ✓</button>' +
-        '<button class="bso-practice" onclick="pdoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#f59e0b"':'') + '>Need more practice</button>' +
-      '</div>' +
-    '</div>' +
+        '<button class="bso-got" onclick="pdoMark(\'got\')" ' + (got ? 'style="background:#16a34a"' : '') + '>✓ Got it</button>' +
+        '<button class="bso-practice" onclick="pdoMark(\'struggled\')" ' + (struggled ? 'style="border-color:#f59e0b;color:#fbbf24"' : '') + '>✗ Struggled</button>' +
+      '</div>'
+    :
+      '<button class="bso-reveal-btn" onclick="pdoReveal()">Reveal answer</button>'
+    ) +
     '<div class="bso-nav">' +
       '<button onclick="pdoNav(-1)" ' + (_pdoIndex===0?'disabled':'') + '>← Previous</button>' +
       '<button onclick="pdoNav(1)" ' + (_pdoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
@@ -7805,40 +7813,41 @@ function pdoRender() {
   if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
 }
 
-function pdoReveal(n) {
-  const btn = document.getElementById('pdoBtn' + n);
-  btn.classList.add('revealed');
-  document.getElementById('pdoContent' + n).classList.add('show');
-  if (n < 3) {
-    document.getElementById('pdoBtn' + (n + 1)).disabled = false;
-  } else {
-    document.getElementById('pdoFinal').style.display = 'block';
-  }
+function pdoReveal() {
+  _pdoRevealed = true;
+  const qs = pdoQuestions();
+  const globalIdx = PD_QUESTIONS.indexOf(qs[_pdoIndex]);
+  const progress = JSON.parse(localStorage.getItem('gca_pd_progress') || '{}');
+  if (!progress[globalIdx]) progress[globalIdx] = {};
+  progress[globalIdx].revealed = true;
+  localStorage.setItem('gca_pd_progress', JSON.stringify(progress));
+  pdoRender();
 }
 
 function pdoMark(val) {
   const qs = pdoQuestions();
   const globalIdx = PD_QUESTIONS.indexOf(qs[_pdoIndex]);
-  const saved = JSON.parse(localStorage.getItem('gca_pd_progress') || '{}');
-  saved[globalIdx] = val;
-  localStorage.setItem('gca_pd_progress', JSON.stringify(saved));
+  const progress = JSON.parse(localStorage.getItem('gca_pd_progress') || '{}');
+  if (!progress[globalIdx]) progress[globalIdx] = {};
+  progress[globalIdx].mark = val;
+  localStorage.setItem('gca_pd_progress', JSON.stringify(progress));
   pdoUpdateDashboardStats();
-  const ql = qs.length;
-  if (_pdoIndex < ql - 1) { pdoNav(1); } else { pdoRender(); }
+  pdoRender();
 }
 
 function pdoNav(dir) {
   const qs = pdoQuestions();
   _pdoIndex = Math.max(0, Math.min(qs.length - 1, _pdoIndex + dir));
+  _pdoRevealed = false;
   pdoRender();
   document.getElementById('pdOverlay').scrollTop = 0;
 }
 
 function pdoUpdateDashboardStats() {
-  const saved = JSON.parse(localStorage.getItem('gca_pd_progress') || '{}');
-  const attempted = Object.keys(saved).length;
-  const got = Object.values(saved).filter(function(v){return v==='got';}).length;
-  const pct = Math.round((attempted / PD_QUESTIONS.length) * 100);
+  const progress = JSON.parse(localStorage.getItem('gca_pd_progress') || '{}');
+  const attempted = Object.keys(progress).filter(k => progress[k] && progress[k].revealed).length;
+  const got = Object.keys(progress).filter(k => progress[k] && progress[k].mark === 'got').length;
+  const pct = Math.round(attempted / PD_QUESTIONS.length * 100);
   const aEl = document.getElementById('pdStatAttempted');
   const gEl = document.getElementById('pdStatGot');
   const bEl = document.getElementById('pdMiniBarFill');
@@ -7850,10 +7859,12 @@ function pdoUpdateDashboardStats() {
 
 // ── PM QUESTION BANK UI ────────────────────────────────────────────────────────
 let _pmoIndex = 0;
+let _pmoRevealed = false;
 let _pmoFiltered = null;
 
 function openPMOverlay() {
   _pmoFiltered = null;
+  _pmoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_pm_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = PM_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
@@ -7890,31 +7901,31 @@ function pmoJumpToModule(mod) {
 function pmoRender() {
   const qs = pmoQuestions();
   const q = qs[_pmoIndex];
-  const prog = Math.round((_pmoIndex / qs.length) * 100);
+  const progress = JSON.parse(localStorage.getItem('gca_pm_progress') || '{}');
+  const globalIdx = PM_QUESTIONS.indexOf(q);
+  const state = progress[globalIdx] || {};
+  _pmoRevealed = !!state.revealed;
   document.getElementById('pmoCounter').textContent = 'Question ' + (_pmoIndex + 1) + ' of ' + qs.length;
   document.getElementById('pmoModule').textContent = q.module;
-  document.getElementById('pmoProgressFill').style.width = prog + '%';
-  const saved = JSON.parse(localStorage.getItem('gca_pm_progress') || '{}');
-  const globalIdx = PM_QUESTIONS.indexOf(q);
-  const verdict = saved[globalIdx];
+  document.getElementById('pmoProgressFill').style.width = ((_pmoIndex + 1) / qs.length * 100) + '%';
+  const got = state.mark === 'got';
+  const struggled = state.mark === 'struggled';
   document.getElementById('pmoBody').innerHTML =
     '<div class="bso-question">' + q.q + '</div>' +
-    '<button class="bso-reveal-btn" id="pmoBtn0" onclick="pmoReveal(0)">💡 Why do assessors ask this?</button>' +
-    '<div class="bso-reveal-content" id="pmoContent0">' + q.why + '</div>' +
-    '<button class="bso-reveal-btn" id="pmoBtn1" onclick="pmoReveal(1)" disabled>✅ Pass-level answer</button>' +
-    '<div class="bso-reveal-content" id="pmoContent1">' + q.pass + '</div>' +
-    '<button class="bso-reveal-btn" id="pmoBtn2" onclick="pmoReveal(2)" disabled>🏆 High-scoring answer</button>' +
-    '<div class="bso-reveal-content" id="pmoContent2">' + q.high + '</div>' +
-    '<button class="bso-reveal-btn" id="pmoBtn3" onclick="pmoReveal(3)" disabled>⚠️ Referral answer — what to avoid</button>' +
-    '<div class="bso-reveal-content bso-referral-content" id="pmoContent3"><strong>' + q.referral + '</strong><ul>' + q.referralWhy.map(function(r){return '<li>❌ ' + r + '</li>';}).join('') + '</ul></div>' +
-    '<div id="pmoFinal" style="display:none">' +
-      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>' + c + '</li>';}).join('') + '</ul></div>' +
-      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>' + k + '</li>';}).join('') + '</ol></div>' +
+    '<div class="bso-reveal-content show" style="margin-bottom:16px">' + q.why + '</div>' +
+    (_pmoRevealed ?
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">Pass-level answer</strong>' + q.pass + '</div>' +
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">High-distinction answer</strong>' + q.high + '</div>' +
+      '<div class="bso-reveal-content bso-referral-content show"><strong>Referral answer — avoid this</strong><br>' + q.referral + '<ul>' + q.referralWhy.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-challenge"><strong>🎯 Challenge questions</strong><ul>' + q.challenge.map(function(c){return '<li>'+c+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key learning points</strong><ol>' + q.keyPoints.map(function(k){return '<li>'+k+'</li>';}).join('') + '</ol></div>' +
       '<div class="bso-actions">' +
-        '<button class="bso-got" onclick="pmoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>I got this ✓</button>' +
-        '<button class="bso-practice" onclick="pmoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#f59e0b"':'') + '>Need more practice</button>' +
-      '</div>' +
-    '</div>' +
+        '<button class="bso-got" onclick="pmoMark(\'got\')" ' + (got ? 'style="background:#16a34a"' : '') + '>✓ Got it</button>' +
+        '<button class="bso-practice" onclick="pmoMark(\'struggled\')" ' + (struggled ? 'style="border-color:#f59e0b;color:#fbbf24"' : '') + '>✗ Struggled</button>' +
+      '</div>'
+    :
+      '<button class="bso-reveal-btn" onclick="pmoReveal()">Reveal answer</button>'
+    ) +
     '<div class="bso-nav">' +
       '<button onclick="pmoNav(-1)" ' + (_pmoIndex===0?'disabled':'') + '>← Previous</button>' +
       '<button onclick="pmoNav(1)" ' + (_pmoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
@@ -7923,40 +7934,41 @@ function pmoRender() {
   if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
 }
 
-function pmoReveal(n) {
-  const btn = document.getElementById('pmoBtn' + n);
-  btn.classList.add('revealed');
-  document.getElementById('pmoContent' + n).classList.add('show');
-  if (n < 3) {
-    document.getElementById('pmoBtn' + (n + 1)).disabled = false;
-  } else {
-    document.getElementById('pmoFinal').style.display = 'block';
-  }
+function pmoReveal() {
+  _pmoRevealed = true;
+  const qs = pmoQuestions();
+  const globalIdx = PM_QUESTIONS.indexOf(qs[_pmoIndex]);
+  const progress = JSON.parse(localStorage.getItem('gca_pm_progress') || '{}');
+  if (!progress[globalIdx]) progress[globalIdx] = {};
+  progress[globalIdx].revealed = true;
+  localStorage.setItem('gca_pm_progress', JSON.stringify(progress));
+  pmoRender();
 }
 
 function pmoMark(val) {
   const qs = pmoQuestions();
   const globalIdx = PM_QUESTIONS.indexOf(qs[_pmoIndex]);
-  const saved = JSON.parse(localStorage.getItem('gca_pm_progress') || '{}');
-  saved[globalIdx] = val;
-  localStorage.setItem('gca_pm_progress', JSON.stringify(saved));
+  const progress = JSON.parse(localStorage.getItem('gca_pm_progress') || '{}');
+  if (!progress[globalIdx]) progress[globalIdx] = {};
+  progress[globalIdx].mark = val;
+  localStorage.setItem('gca_pm_progress', JSON.stringify(progress));
   pmoUpdateDashboardStats();
-  const ql = qs.length;
-  if (_pmoIndex < ql - 1) { pmoNav(1); } else { pmoRender(); }
+  pmoRender();
 }
 
 function pmoNav(dir) {
   const qs = pmoQuestions();
   _pmoIndex = Math.max(0, Math.min(qs.length - 1, _pmoIndex + dir));
+  _pmoRevealed = false;
   pmoRender();
   document.getElementById('pmOverlay').scrollTop = 0;
 }
 
 function pmoUpdateDashboardStats() {
-  const saved = JSON.parse(localStorage.getItem('gca_pm_progress') || '{}');
-  const attempted = Object.keys(saved).length;
-  const got = Object.values(saved).filter(function(v){return v==='got';}).length;
-  const pct = Math.round((attempted / PM_QUESTIONS.length) * 100);
+  const progress = JSON.parse(localStorage.getItem('gca_pm_progress') || '{}');
+  const attempted = Object.keys(progress).filter(k => progress[k] && progress[k].revealed).length;
+  const got = Object.keys(progress).filter(k => progress[k] && progress[k].mark === 'got').length;
+  const pct = Math.round(attempted / PM_QUESTIONS.length * 100);
   const aEl = document.getElementById('pmStatAttempted');
   const gEl = document.getElementById('pmStatGot');
   const bEl = document.getElementById('pmMiniBarFill');
@@ -7966,10 +7978,12 @@ function pmoUpdateDashboardStats() {
 }
 
 let _resoIndex = 0;
+let _resoRevealed = false;
 let _resoFiltered = null;
 
 function openRESOverlay() {
   _resoFiltered = null;
+  _resoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_res_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = RES_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
@@ -8006,31 +8020,31 @@ function resoJumpToModule(mod) {
 function resoRender() {
   const qs = resoQuestions();
   const q = qs[_resoIndex];
-  const prog = Math.round((_resoIndex / qs.length) * 100);
+  const progress = JSON.parse(localStorage.getItem('gca_res_progress') || '{}');
+  const globalIdx = RES_QUESTIONS.indexOf(q);
+  const state = progress[globalIdx] || {};
+  _resoRevealed = !!state.revealed;
   document.getElementById('resoCounter').textContent = 'Question ' + (_resoIndex + 1) + ' of ' + qs.length;
   document.getElementById('resoModule').textContent = q.module;
-  document.getElementById('resoProgressFill').style.width = prog + '%';
-  const saved = JSON.parse(localStorage.getItem('gca_res_progress') || '{}');
-  const globalIdx = RES_QUESTIONS.indexOf(q);
-  const verdict = saved[globalIdx];
+  document.getElementById('resoProgressFill').style.width = ((_resoIndex + 1) / qs.length * 100) + '%';
+  const got = state.mark === 'got';
+  const struggled = state.mark === 'struggled';
   document.getElementById('resoBody').innerHTML =
     '<div class="bso-question">' + q.q + '</div>' +
-    '<button class="bso-reveal-btn" id="resoBtn0" onclick="resoReveal(0)">💡 Why do assessors ask this?</button>' +
-    '<div class="bso-reveal-content" id="resoContent0">' + q.why + '</div>' +
-    '<button class="bso-reveal-btn" id="resoBtn1" onclick="resoReveal(1)" disabled>✅ Pass-level answer</button>' +
-    '<div class="bso-reveal-content" id="resoContent1">' + q.pass + '</div>' +
-    '<button class="bso-reveal-btn" id="resoBtn2" onclick="resoReveal(2)" disabled>🏆 High-scoring answer</button>' +
-    '<div class="bso-reveal-content" id="resoContent2">' + q.high + '</div>' +
-    '<button class="bso-reveal-btn" id="resoBtn3" onclick="resoReveal(3)" disabled>⚠️ Referral answer — what to avoid</button>' +
-    '<div class="bso-reveal-content bso-referral-content" id="resoContent3"><strong>' + q.referral + '</strong><ul>' + q.referralWhy.map(function(r){return '<li>❌ ' + r + '</li>';}).join('') + '</ul></div>' +
-    '<div id="resoFinal" style="display:none">' +
-      '<div class="bso-challenge"><strong>🎯 Challenge Questions</strong><ul>' + q.challenge.map(function(c){return '<li>' + c + '</li>';}).join('') + '</ul></div>' +
-      '<div class="bso-keypoints"><strong>📌 Key Learning Points</strong><ol>' + q.keyPoints.map(function(k){return '<li>' + k + '</li>';}).join('') + '</ol></div>' +
+    '<div class="bso-reveal-content show" style="margin-bottom:16px">' + q.why + '</div>' +
+    (_resoRevealed ?
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">Pass-level answer</strong>' + q.pass + '</div>' +
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">High-distinction answer</strong>' + q.high + '</div>' +
+      '<div class="bso-reveal-content bso-referral-content show"><strong>Referral answer — avoid this</strong><br>' + q.referral + '<ul>' + q.referralWhy.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-challenge"><strong>🎯 Challenge questions</strong><ul>' + q.challenge.map(function(c){return '<li>'+c+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key learning points</strong><ol>' + q.keyPoints.map(function(k){return '<li>'+k+'</li>';}).join('') + '</ol></div>' +
       '<div class="bso-actions">' +
-        '<button class="bso-got" onclick="resoMark(\'got\')" ' + (verdict==='got'?'style="background:#16a34a"':'') + '>I got this ✓</button>' +
-        '<button class="bso-practice" onclick="resoMark(\'practice\')" ' + (verdict==='practice'?'style="border-color:#f59e0b;color:#f59e0b"':'') + '>Need more practice</button>' +
-      '</div>' +
-    '</div>' +
+        '<button class="bso-got" onclick="resoMark(\'got\')" ' + (got ? 'style="background:#16a34a"' : '') + '>✓ Got it</button>' +
+        '<button class="bso-practice" onclick="resoMark(\'struggled\')" ' + (struggled ? 'style="border-color:#f59e0b;color:#fbbf24"' : '') + '>✗ Struggled</button>' +
+      '</div>'
+    :
+      '<button class="bso-reveal-btn" onclick="resoReveal()">Reveal answer</button>'
+    ) +
     '<div class="bso-nav">' +
       '<button onclick="resoNav(-1)" ' + (_resoIndex===0?'disabled':'') + '>← Previous</button>' +
       '<button onclick="resoNav(1)" ' + (_resoIndex===qs.length-1?'disabled':'') + '>Next →</button>' +
@@ -8039,40 +8053,41 @@ function resoRender() {
   if (closeBtn) closeBtn.textContent = '✕ Save & Exit';
 }
 
-function resoReveal(n) {
-  const btn = document.getElementById('resoBtn' + n);
-  btn.classList.add('revealed');
-  document.getElementById('resoContent' + n).classList.add('show');
-  if (n < 3) {
-    document.getElementById('resoBtn' + (n + 1)).disabled = false;
-  } else {
-    document.getElementById('resoFinal').style.display = 'block';
-  }
+function resoReveal() {
+  _resoRevealed = true;
+  const qs = resoQuestions();
+  const globalIdx = RES_QUESTIONS.indexOf(qs[_resoIndex]);
+  const progress = JSON.parse(localStorage.getItem('gca_res_progress') || '{}');
+  if (!progress[globalIdx]) progress[globalIdx] = {};
+  progress[globalIdx].revealed = true;
+  localStorage.setItem('gca_res_progress', JSON.stringify(progress));
+  resoRender();
 }
 
 function resoMark(val) {
   const qs = resoQuestions();
   const globalIdx = RES_QUESTIONS.indexOf(qs[_resoIndex]);
-  const saved = JSON.parse(localStorage.getItem('gca_res_progress') || '{}');
-  saved[globalIdx] = val;
-  localStorage.setItem('gca_res_progress', JSON.stringify(saved));
+  const progress = JSON.parse(localStorage.getItem('gca_res_progress') || '{}');
+  if (!progress[globalIdx]) progress[globalIdx] = {};
+  progress[globalIdx].mark = val;
+  localStorage.setItem('gca_res_progress', JSON.stringify(progress));
   resoUpdateDashboardStats();
-  const ql = qs.length;
-  if (_resoIndex < ql - 1) { resoNav(1); } else { resoRender(); }
+  resoRender();
 }
 
 function resoNav(dir) {
   const qs = resoQuestions();
   _resoIndex = Math.max(0, Math.min(qs.length - 1, _resoIndex + dir));
+  _resoRevealed = false;
   resoRender();
   document.getElementById('resOverlay').scrollTop = 0;
 }
 
 function resoUpdateDashboardStats() {
-  const saved = JSON.parse(localStorage.getItem('gca_res_progress') || '{}');
-  const attempted = Object.keys(saved).length;
-  const got = Object.values(saved).filter(function(v){return v==='got';}).length;
-  const pct = Math.round((attempted / RES_QUESTIONS.length) * 100);
+  const progress = JSON.parse(localStorage.getItem('gca_res_progress') || '{}');
+  const attempted = Object.keys(progress).filter(k => progress[k] && progress[k].revealed).length;
+  const got = Object.keys(progress).filter(k => progress[k] && progress[k].mark === 'got').length;
+  const pct = Math.round(attempted / RES_QUESTIONS.length * 100);
   const aEl = document.getElementById('resStatAttempted');
   const gEl = document.getElementById('resStatGot');
   const bEl = document.getElementById('resMiniBarFill');

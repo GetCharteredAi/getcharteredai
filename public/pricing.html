@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pricing — Get Chartered AI</title>
+<meta name="description" content="Choose the APC preparation programme that fits where you are. Four programmes built for every stage of the APC journey.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0D0F1C;color:#f8fafc;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px;background:rgba(13,15,28,.95);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{width:36px;height:36px;border-radius:8px;object-fit:cover}
+.nav-logo-stack{display:flex;flex-direction:column}
+.nav-logo-name{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:13px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2}
+.nav-rics-tag{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.nav-right{display:flex;align-items:center;gap:6px}
+.nav-link{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:8px 12px;border-radius:8px;transition:.15s;background:none;border:none;cursor:pointer}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-btn{background:#2563EB;color:#fff;border:none;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s}
+.nav-btn:hover{background:#1d4ed8}
+@media(max-width:768px){.nav-right{display:none}}
+
+/* PAGE */
+.page-wrap{max-width:1100px;margin:0 auto;padding:72px 24px 96px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#60a5fa;display:block;margin-bottom:12px}
+.page-h{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:#fff;letter-spacing:-.04em;line-height:1.1;margin-bottom:16px}
+.page-lead{font-size:16px;color:rgba(248,250,252,.55);line-height:1.7;max-width:600px;margin-bottom:56px}
+
+/* PRICING GRID */
+.pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+@media(max-width:768px){.pricing-grid{grid-template-columns:1fr}}
+
+.pcard{background:#13162a;border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:.2s}
+.pcard:hover{border-color:rgba(255,255,255,.15);transform:translateY(-2px)}
+.pcard.hot{border-color:#2563EB;box-shadow:0 0 0 1px #2563EB,0 24px 48px rgba(37,99,235,.15)}
+.pcard-top{padding:32px 32px 0}
+.pbadge{display:inline-block;background:#2563EB;color:#fff;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:12px}
+.ptype{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,250,252,.4);display:block;margin-bottom:10px}
+.pname{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:0}
+.pcard-price{display:flex;align-items:flex-end;gap:4px;padding:20px 32px 0}
+.psym{font-size:22px;font-weight:700;color:rgba(248,250,252,.6);line-height:1.4}
+.pnum{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:48px;font-weight:900;color:#fff;letter-spacing:-.04em;line-height:1}
+.pper{font-size:13px;color:rgba(248,250,252,.4);font-weight:500;padding-bottom:8px;padding-left:4px}
+.pnote{font-size:12px;color:rgba(248,250,252,.35);padding:6px 32px 0;line-height:1.5}
+.pmonth{font-size:14px;color:rgba(248,250,252,.5);padding:4px 32px 0}
+.pfeats{list-style:none;padding:20px 32px;display:flex;flex-direction:column;gap:10px;flex:1}
+.pfeats li{font-size:14px;color:rgba(248,250,252,.7);line-height:1.5;display:flex;align-items:flex-start;gap:10px}
+.pfeats li::before{content:'✓';color:#60a5fa;font-weight:700;flex-shrink:0;margin-top:1px}
+.pitag{font-size:12px;font-style:italic;color:rgba(248,250,252,.35);padding:0 32px 20px;line-height:1.5}
+.pcard-foot{padding:0 32px 32px;display:flex;flex-direction:column;gap:10px}
+.pbtn{width:100%;padding:13px 20px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:.15s;letter-spacing:.01em}
+.pbtn-fill{background:#2563EB;color:#fff}
+.pbtn-fill:hover{background:#1d4ed8}
+.pbtn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.2)}
+.pbtn-outline:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.35)}
+
+/* STRIPE NOTE */
+.stripe-note{text-align:center;margin-top:32px;font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.06em;text-transform:uppercase}
+
+/* EMPLOYER BANNER */
+.employer-banner{margin-top:64px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.employer-banner h3{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:-.02em}
+.employer-banner p{font-size:14px;color:rgba(248,250,252,.55);max-width:480px;line-height:1.6}
+.employer-banner a{background:#f59e0b;color:#0a0f1e;padding:12px 24px;border-radius:8px;font-size:13px;font-weight:700;white-space:nowrap;transition:.15s}
+.employer-banner a:hover{background:#d97706}
+
+/* FOOTER */
+footer{background:#080a16;border-top:1px solid rgba(255,255,255,.06);padding:48px 32px 32px}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px}
+@media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.footer-top{grid-template-columns:1fr}}
+.footer-logo img{width:40px;height:40px;border-radius:8px;margin-bottom:12px;display:block;object-fit:cover}
+.footer-logo p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;max-width:240px}
+.footer-col h4{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.footer-col ul li a{font-size:13px;color:rgba(255,255,255,.5);transition:.15s}
+.footer-col ul li a:hover{color:#fff}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.06);padding-top:24px;flex-wrap:wrap;gap:12px}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,.25)}
+.socials{display:flex;gap:12px}
+.social-icon,.insta{opacity:.4;transition:.15s}
+.social-icon:hover,.insta:hover{opacity:1}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="/favicon-32x32.png" alt="Get Chartered AI" onerror="this.style.display='none'">
+    <span class="nav-logo-stack"><span class="nav-logo-name">Get Chartered AI</span><span class="nav-rics-tag">RICS APC Preparation Platform</span></span>
+  </a>
+  <div class="nav-right">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/platform" class="nav-link">Inside the platform</a>
+    <a href="/employer-guide" class="nav-link">Employers</a>
+    <a href="/guides" class="nav-link">APC Guides</a>
+    <button class="nav-btn" onclick="window.location.href='/pricing'">Enrol Now</button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <span class="eyebrow">Pricing</span>
+  <h1 class="page-h">Choose the support<br>that fits where you are</h1>
+  <p class="page-lead">Four programmes. Each built for a specific stage of the APC journey. Start where you are — and prepare the way assessors actually expect.</p>
+
+  <div class="pricing-grid">
+
+    <!-- APC Full 12 Module Programme -->
+    <div class="pcard hot">
+      <div class="pcard-top">
+        <div class="pbadge">Most Complete</div>
+        <span class="ptype">Year 1 &amp; Year 2 APC candidates</span>
+        <p class="pname">APC Full 12 Module Programme</p>
+      </div>
+      <div class="pcard-price"><span class="psym">£</span><span class="pnum">497</span><span class="pper">one-off</span></div>
+      <p class="pmonth">or £49/month — cancel anytime</p>
+      <p class="pnote">Full 12 module access · Annual or monthly</p>
+      <ul class="pfeats">
+        <li>12 structured modules covering all 11 mandatory RICS competencies</li>
+        <li>Michael — AI Tutor in Tutor Mode and Assessor Mode, in every module</li>
+        <li>2,000+ practice questions across all 22 RICS pathways</li>
+        <li>60-minute AI-scored mock interview — all 22 pathways</li>
+        <li>PREP Builder — competency evidence builder with Michael feedback</li>
+        <li>Industry Briefing updated every assessment window</li>
+        <li>CPD tracker, submission checklist and competency evidence bank</li>
+        <li>Monthly access: one module unlocked per month · Annual: all 12 from day one</li>
+      </ul>
+      <p class="pitag">The structured route for candidates who want to prepare properly, not reactively.</p>
+      <div class="pcard-foot">
+        <button class="pbtn pbtn-fill" onclick="window.location.href='/programme'">Get Full Access — £497</button>
+        <button class="pbtn pbtn-outline" onclick="window.location.href='/programme'">Start Monthly — £49/month</button>
+      </div>
+    </div>
+
+    <!-- APC Sprint -->
+    <div class="pcard">
+      <div class="pcard-top">
+        <span class="ptype">Sitting within 6–12 weeks</span>
+        <p class="pname">APC Sprint Programme</p>
+      </div>
+      <div class="pcard-price"><span class="psym">£</span><span class="pnum">297</span><span class="pper">one-off</span></div>
+      <p class="pnote">42 days access · Full sprint programme</p>
+      <ul class="pfeats">
+        <li>Targeted preparation on assessment-critical competencies</li>
+        <li>Michael — Assessor Mode pressure testing, available 24/7</li>
+        <li>Pathway-specific question bank — 50 questions every candidate must answer</li>
+        <li>60-minute AI-scored mock interview</li>
+        <li>Industry Briefing — what's current in your assessment window</li>
+        <li>Structured to sharpen performance under real assessor conditions</li>
+      </ul>
+      <p class="pitag">For candidates who know their work but need to perform clearly under pressure.</p>
+      <div class="pcard-foot">
+        <button class="pbtn pbtn-outline" onclick="window.location.href='/sprint'">Start My Sprint — £297</button>
+      </div>
+    </div>
+
+    <!-- Referred Candidate Recovery Programme -->
+    <div class="pcard">
+      <div class="pcard-top">
+        <span class="ptype">After referral — preparing for resit</span>
+        <p class="pname">Referred Candidate Recovery Programme</p>
+      </div>
+      <div class="pcard-price"><span class="psym">£</span><span class="pnum">397</span><span class="pper">one-off</span></div>
+      <p class="pnote">90 days access · Six-module recovery programme</p>
+      <ul class="pfeats">
+        <li>Starts with your referral letter — understand exactly what happened</li>
+        <li>Six structured modules (CR01–CR06) built specifically for the resit journey</li>
+        <li>Rebuild your evidence structure from the ground up</li>
+        <li>Michael — targeted Assessor Mode questioning on your weak areas</li>
+        <li>60-minute AI-scored mock interview</li>
+        <li>Practical and emotional support for the full resit process</li>
+      </ul>
+      <p class="pitag">For candidates who know they can pass — and need a clear, structured route to prove it.</p>
+      <div class="pcard-foot">
+        <button class="pbtn pbtn-outline" onclick="window.location.href='/referred-programme'">Start the Programme — £397</button>
+      </div>
+    </div>
+
+    <!-- APC Year Two Readiness Review -->
+    <div class="pcard">
+      <div class="pcard-top">
+        <span class="ptype">Approaching Year Two</span>
+        <p class="pname">APC Year Two Readiness Review</p>
+      </div>
+      <div class="pcard-price"><span class="psym">£</span><span class="pnum">127</span><span class="pper">one-off</span></div>
+      <p class="pnote">Diagnostic benchmark · Year Two development roadmap</p>
+      <ul class="pfeats">
+        <li>32 diagnostic coaching questions across 5 readiness areas</li>
+        <li>Personalised readiness report from Michael</li>
+        <li>Traffic light competency gap analysis</li>
+        <li>Clear Year Two development roadmap — private, specific to you</li>
+        <li>Results are yours only — not shared with your employer or counsellor</li>
+      </ul>
+      <p class="pitag">For candidates who want to start Year Two with clarity, not uncertainty.</p>
+      <div class="pcard-foot">
+        <button class="pbtn pbtn-outline" onclick="window.location.href='/year-one-review'">Get Started — £127</button>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="stripe-note">Secure checkout · Powered by Stripe · All payments encrypted</p>
+
+  <div class="employer-banner">
+    <div>
+      <h3>Employer Annual Access</h3>
+      <p>Give your whole team structured APC preparation from day one. £497 for 18 months — all programmes, all pathways, unlimited candidates.</p>
+    </div>
+    <a href="/employer-guide">See employer access →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-logo">
+        <img src="/favicon-32x32.png" alt="Get Chartered AI" onerror="this.style.display='none'">
+        <p>Expert-led APC preparation for aspiring RICS Chartered Surveyors.</p>
+      </div>
+      <div class="footer-col"><h4>Platform</h4><ul><li><a href="/platform">Inside the Platform</a></li><li><a href="/#about-sec">About</a></li><li><a href="/pricing">Pricing</a></li></ul></div>
+      <div class="footer-col"><h4>Programmes</h4><ul><li><a href="/programme">APC Full 12 Module Programme</a></li><li><a href="/sprint">APC Sprint</a></li><li><a href="/referred-programme">APC Referred</a></li><li><a href="/year-one-review">Year Two Readiness Review</a></li></ul></div>
+      <div class="footer-col"><h4>Resources</h4><ul><li><a href="/guides">All Guides</a></li><li><a href="/employer-guide">Employers</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="/terms.html">Terms &amp; Conditions</a></li><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="mailto:info@getcharteredai.com">info@getcharteredai.com</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Get Chartered AI. All rights reserved.</p>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/angela-h-getcharteredai-16072a17b/" target="_blank" class="social-icon" aria-label="LinkedIn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://www.instagram.com/getcharteredai" target="_blank" class="insta" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

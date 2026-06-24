@@ -1081,10 +1081,122 @@ input.err{border-color:var(--red)}
   </div>
 </section>
 
+<section class="sec" id="finder-sec" style="background:#0D0F1C;padding:56px 24px 64px">
+  <div style="max-width:640px;margin:0 auto;padding:0 24px">
+  <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;text-align:center;margin-bottom:8px">Find your programme</div>
+  <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(22px,3vw,32px);font-weight:800;color:#fff;text-align:center;margin-bottom:6px;letter-spacing:-.02em">Where are you in your APC journey?</h2>
+  <p style="font-size:14px;color:rgba(248,250,252,.45);text-align:center;margin-bottom:28px">Two questions. One recommendation.</p>
+  <div style="display:flex;gap:6px;justify-content:center;margin-bottom:28px">
+    <div id="pf-dot1" style="width:32px;height:3px;border-radius:2px;background:#2563EB"></div>
+    <div id="pf-dot2" style="width:32px;height:3px;border-radius:2px;background:rgba(255,255,255,.15)"></div>
+  </div>
+  <div id="pf-q1">
+    <div style="font-size:17px;font-weight:600;color:#fff;text-align:center;margin-bottom:20px;line-height:1.5">Which path describes you?</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px" class="pf-grid">
+      <div class="pf-opt-card" data-pf-action="q1:yr1" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;text-align:center">
+        <div style="font-size:18px;margin-bottom:8px">🌱</div>
+        <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">In Year One</div>
+        <div style="font-size:11px;color:rgba(248,250,252,.45);line-height:1.4">Want to know where I stand before Year Two</div>
+      </div>
+      <div class="pf-opt-card" data-pf-action="q1:yr2" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;text-align:center">
+        <div style="font-size:18px;margin-bottom:8px">📚</div>
+        <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">In Year Two</div>
+        <div style="font-size:11px;color:rgba(248,250,252,.45);line-height:1.4">Building towards my final assessment</div>
+      </div>
+      <div class="pf-opt-card" data-pf-action="q1:soon" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;text-align:center">
+        <div style="font-size:18px;margin-bottom:8px">⏱</div>
+        <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">Sitting soon</div>
+        <div style="font-size:11px;color:rgba(248,250,252,.45);line-height:1.4">Feel prepared — want to reinforce and pressure-test</div>
+      </div>
+      <div class="pf-opt-card" data-pf-action="q1:referred" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;text-align:center">
+        <div style="font-size:18px;margin-bottom:8px">🔁</div>
+        <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">Been referred</div>
+        <div style="font-size:11px;color:rgba(248,250,252,.45);line-height:1.4">Preparing for my resit</div>
+      </div>
+    </div>
+  </div>
+  <div id="pf-q2" style="display:none">
+    <div id="pf-q2text" style="font-size:17px;font-weight:600;color:#fff;text-align:center;margin-bottom:20px;line-height:1.5"></div>
+    <div id="pf-q2opts" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px" class="pf-grid"></div>
+    <div data-pf-action="back" style="font-size:12px;color:rgba(248,250,252,.35);cursor:pointer;text-align:center;margin-top:8px">← Back</div>
+  </div>
+  <div id="pf-result" style="display:none;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px;text-align:center">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa;margin-bottom:14px">Recommended</div>
+    <div id="pf-r-title" style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:10px;letter-spacing:-.02em"></div>
+    <div id="pf-r-desc" style="font-size:13px;color:rgba(248,250,252,.55);line-height:1.7;margin-bottom:16px;max-width:440px;margin-left:auto;margin-right:auto"></div>
+    <a id="pf-r-link" href="#" style="display:inline-block;background:#2563EB;color:#fff;padding:12px 24px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:14px">See the programme →</a>
+    <div data-pf-action="reset" style="font-size:12px;color:rgba(248,250,252,.3);cursor:pointer">← Start again</div>
+  </div>
+</div>
+</section>
+
+<script>
+var pfResults={
+  yr1:{title:'APC Year Two Readiness Review',desc:'A 30-minute diagnostic benchmark — 32 coaching questions, a personalised readiness report from Michael and a clear Year Two development roadmap.',link:'/year-one-review'},
+  yr2:{title:'APC Full 12 Module Programme',desc:'The 12-module programme begins with an introduction module, followed by 10 content modules that collectively cover all 11 mandatory RICS competencies, and concludes with a dedicated testing and mock interview module. Monthly subscribers unlock one module per month, paced to the training timeline. Annual subscribers get immediate access to all 12 modules from day one.',link:'/programme'},
+  'yr2-none':{title:'APC Full 12 Module Programme',desc:'The 12-module programme begins with an introduction module, followed by 10 content modules that collectively cover all 11 mandatory RICS competencies, and concludes with a dedicated testing and mock interview module. Monthly subscribers unlock one module per month, paced to the training timeline. Annual subscribers get immediate access to all 12 modules from day one.',link:'/programme'},
+  'yr2-some':{title:'APC Full 12 Module Programme',desc:'The 12-module programme begins with an introduction module, followed by 10 content modules that collectively cover all 11 mandatory RICS competencies, and concludes with a dedicated testing and mock interview module. Monthly subscribers unlock one module per month, paced to the training timeline. Annual subscribers get immediately access to all 12 modules from day one.',link:'/programme'},
+  'yr2-using':{title:'APC Sprint',desc:'All modules covered in a focused programme — reinforce your knowledge, pressure-test your answers with Michael and complete a full mock interview.',link:'/sprint'},
+  soon:{title:'APC Sprint',desc:'A focused programme — reinforce your knowledge, pressure-test your answers with Michael and complete a full AI-scored mock interview.',link:'/sprint'},
+  referred:{title:'APC Referred — Confidence Reset',desc:'Six dedicated modules — starting with your referral letter, rebuilding your evidence structure and preparing you specifically for the resit.',link:'/referred-programme'}
+};
+
+function pfSelectQ1(val){
+  document.getElementById('pf-dot1').style.background='rgba(255,255,255,.15)';
+  document.getElementById('pf-dot2').style.background='#2563EB';
+  document.getElementById('pf-q1').style.display='none';
+  if(val==='yr2'){
+    document.getElementById('pf-q2text').textContent='How structured is your current preparation?';
+    document.getElementById('pf-q2opts').innerHTML='<div class="pf-opt-card" data-pf-action="show:yr2-none" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;text-align:center"><div style="font-size:18px;margin-bottom:8px">📋</div><div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">No structured programme</div><div style="font-size:11px;color:rgba(248,250,252,.45);line-height:1.4">Studying independently</div></div><div class="pf-opt-card" data-pf-action="show:yr2-some" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;text-align:center"><div style="font-size:18px;margin-bottom:8px">🤝</div><div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">Some counsellor support</div><div style="font-size:11px;color:rgba(248,250,252,.45);line-height:1.4">But nothing systematic</div></div><div class="pf-opt-card" data-pf-action="show:yr2-using" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;text-align:center"><div style="font-size:18px;margin-bottom:8px">📖</div><div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">Already using a resource</div><div style="font-size:11px;color:rgba(248,250,252,.45);line-height:1.4">Want to supplement it</div></div>';
+    document.getElementById('pf-q2').style.display='block';
+  } else {
+    pfShowResult(val);
+  }
+}
+
+function pfShowResult(key){
+  document.getElementById('pf-q2').style.display='none';
+  var r=pfResults[key];
+  document.getElementById('pf-r-title').textContent=r.title;
+  document.getElementById('pf-r-desc').textContent=r.desc;
+  document.getElementById('pf-r-link').href=r.link;
+  var el=document.getElementById('pf-result');
+  el.style.display='block';
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function pfBack(){
+  document.getElementById('pf-q2').style.display='none';
+  document.getElementById('pf-q1').style.display='block';
+  document.getElementById('pf-dot1').style.background='#2563EB';
+  document.getElementById('pf-dot2').style.background='rgba(255,255,255,.15)';
+}
+
+function pfReset(){
+  document.getElementById('pf-result').style.display='none';
+  document.getElementById('pf-q1').style.display='block';
+  document.getElementById('pf-dot1').style.background='#2563EB';
+  document.getElementById('pf-dot2').style.background='rgba(255,255,255,.15)';
+}
+
+document.addEventListener('click', function(e) {
+  var t = e.target.closest('[data-pf-action]');
+  if (!t) return;
+  var a = t.getAttribute('data-pf-action');
+  if (a.startsWith('q1:')) { pfSelectQ1(a.slice(3)); }
+  else if (a.startsWith('show:')) { pfShowResult(a.slice(5)); }
+  else if (a === 'back') { pfBack(); }
+  else if (a === 'reset') { pfReset(); }
+});
+</script>
 
 <!-- STATS -->
 <div class="stats-bar" style="flex-wrap:nowrap;overflow-x:auto">
-  <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">22</span><span class="stat-l" style="font-size:10px">Mock interviews for all 22 pathways</span></div>
+  <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">12</span><span class="stat-l" style="font-size:10px">Structured Modules</span></div>
+  <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">11</span><span class="stat-l" style="font-size:10px">Mandatory Competencies</span></div>
+  <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">2,000+</span><span class="stat-l" style="font-size:10px">APC Questions</span></div>
+  <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">24/7</span><span class="stat-l" style="font-size:10px">Available</span></div>
+  <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">22</span><span class="stat-l" style="font-size:10px">Mock Interview Pathways</span></div>
 </div>
 
 <!-- ABOUT — Light section -->

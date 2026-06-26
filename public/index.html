@@ -1121,6 +1121,40 @@ input.err{border-color:var(--red)}
 <div style="background:#0D0F1C;padding:16px 24px;text-align:center">
   <p style="font-size:15px;color:#94a3b8;margin:0">Still not sure which programme is right for you? <strong style="color:#f8fafc">Two questions. One recommendation.</strong> <a href="#finder-sec" onclick="window.scrollTo({top:document.getElementById('finder-sec').offsetTop,behavior:'smooth'});return false;" style="color:#2563EB;font-weight:700;white-space:nowrap">Find your programme →</a></p>
 </div>
+<div class="stats-bar" style="overflow:hidden;flex-wrap:nowrap" id="statsBar">
+  <div id="statsScrollInner" style="display:flex;width:max-content;animation:statsScroll 90s linear infinite;animation-delay:0s">
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">12</span><span class="stat-l" style="font-size:10px">STRUCTURED MODULES</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">2,000+</span><span class="stat-l" style="font-size:10px">APC QUESTIONS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">24/7</span><span class="stat-l" style="font-size:10px">TUTOR IN YOUR POCKET</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">22</span><span class="stat-l" style="font-size:10px">RICS PATHWAYS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">60</span><span class="stat-l" style="font-size:10px">MINUTE MOCK INTERVIEW</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">50</span><span class="stat-l" style="font-size:10px">TECHNICAL PATHWAY QUESTIONS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">11</span><span class="stat-l" style="font-size:10px">MANDATORY COMPETENCIES</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">12</span><span class="stat-l" style="font-size:10px">STRUCTURED MODULES</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">2,000+</span><span class="stat-l" style="font-size:10px">APC QUESTIONS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">24/7</span><span class="stat-l" style="font-size:10px">TUTOR IN YOUR POCKET</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">22</span><span class="stat-l" style="font-size:10px">RICS PATHWAYS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">60</span><span class="stat-l" style="font-size:10px">MINUTE MOCK INTERVIEW</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">50</span><span class="stat-l" style="font-size:10px">TECHNICAL PATHWAY QUESTIONS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">11</span><span class="stat-l" style="font-size:10px">MANDATORY COMPETENCIES</span></div>
+  </div>
+</div>
+<script>
+(function(){
+  var inner = document.getElementById('statsScrollInner');
+  if (!inner || !window.IntersectionObserver) return;
+  var seen = false;
+  new IntersectionObserver(function(entries){
+    if (entries[0].isIntersecting && !seen) {
+      seen = true;
+      inner.style.animation = 'none';
+      inner.offsetHeight;
+      inner.style.animation = 'statsScroll 90s linear infinite';
+      inner.style.animationDelay = '0s';
+    }
+  }, {threshold: 0.1}).observe(inner);
+})();
+</script>
 
 <!-- SUPPORT PATHWAYS -->
 <section class="sec sec-white" id="pathways-sec" style="padding-top:24px">
@@ -1252,26 +1286,6 @@ document.addEventListener('click', function(e) {
   else if (a === 'reset') { pfReset(); }
 });
 </script>
-
-<!-- STATS -->
-<div class="stats-bar" style="overflow:hidden;flex-wrap:nowrap">
-  <div style="display:flex;width:max-content;animation:statsScroll 90s linear infinite">
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">12</span><span class="stat-l" style="font-size:10px">STRUCTURED MODULES</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">2,000+</span><span class="stat-l" style="font-size:10px">APC QUESTIONS</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">24/7</span><span class="stat-l" style="font-size:10px">TUTOR IN YOUR POCKET</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">22</span><span class="stat-l" style="font-size:10px">RICS PATHWAYS</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">60</span><span class="stat-l" style="font-size:10px">MINUTE MOCK INTERVIEW</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">50</span><span class="stat-l" style="font-size:10px">TECHNICAL PATHWAY QUESTIONS</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">11</span><span class="stat-l" style="font-size:10px">MANDATORY COMPETENCIES</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">12</span><span class="stat-l" style="font-size:10px">STRUCTURED MODULES</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">2,000+</span><span class="stat-l" style="font-size:10px">APC QUESTIONS</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">24/7</span><span class="stat-l" style="font-size:10px">TUTOR IN YOUR POCKET</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">22</span><span class="stat-l" style="font-size:10px">RICS PATHWAYS</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">60</span><span class="stat-l" style="font-size:10px">MINUTE MOCK INTERVIEW</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">50</span><span class="stat-l" style="font-size:10px">TECHNICAL PATHWAY QUESTIONS</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">11</span><span class="stat-l" style="font-size:10px">MANDATORY COMPETENCIES</span></div>
-  </div>
-</div>
 
 <!-- ABOUT — Light section -->
 <section class="sec sec-white" id="about-sec" style="padding-bottom:28px">

@@ -254,7 +254,7 @@ h1.hero-title span{color:#93c5fd}
 .pbtn-outline:hover{border-color:var(--blue);color:var(--blue)}
 
 /* WHY CARDS */
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}@media(max-width:900px){.why-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.why-grid{grid-template-columns:1fr}}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}@media(max-width:900px){.why-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.why-grid{grid-template-columns:1fr}}
 .why-card{background:var(--blue-pale);border-radius:14px;padding:28px 24px;border:1px solid #dbeafe}
 .why-icon{font-size:22px;margin-bottom:14px;display:block}
 .why-card h3{font-size:15px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-.01em}
@@ -992,7 +992,7 @@ input.err{border-color:var(--red)}
     <a href="/platform" class="nav-link">Inside the platform</a>
     <a href="/pricing" class="nav-link">Pricing</a>
     <div class="nav-dropdown" id="guidesDropdown">
-      <button class="nav-link nav-dropdown-trigger" onclick="toggleGuidesDropdown()">APC Guides &amp; Downloads ▾</button>
+      <button class="nav-link nav-dropdown-trigger" onclick="toggleGuidesDropdown()">Guides ▾</button>
       <div class="nav-dropdown-menu guides-nav-menu" id="guidesMenu" style="display:none">
         <a href="/guides?goto=/confidence-checklist" class="guides-nav-item">APC Readiness Benchmark</a>
         <a href="/guides?goto=/grad-assessment-guide" class="guides-nav-item">Graduate Surveyor Assessment Day Prep</a>
@@ -1028,7 +1028,7 @@ input.err{border-color:var(--red)}
   <a href="/employer-guide" onclick="closeMobileNav()">Employers</a>
   <a href="/platform" onclick="closeMobileNav()">Inside the platform</a>
   <a href="/pricing" onclick="closeMobileNav()">Pricing</a>
-  <a href="/guides" onclick="closeMobileNav()">APC Guides &amp; Downloads</a>
+  <a href="/guides" onclick="closeMobileNav()">Guides</a>
   <button onclick="closeMobileNav();openLogin()" id="drawerLoginBtn">Member Login</button>
   <button class="drawer-enrol" onclick="closeMobileNav();window.location.href='/pricing'" id="drawerEnrolBtn">Enrol Now</button>
 </div>
@@ -1059,7 +1059,7 @@ input.err{border-color:var(--red)}
 
     <!-- LEFT COLUMN — copy -->
     <div>
-      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:16px">APC Preparation Platform</div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:16px">THE PLATFORM THAT THINKS LIKE AN ASSESSOR</div>
       <h1 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(28px,3.5vw,48px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:20px;text-align:left">You've done the work.<br>The assessment is about<br><em style="font-style:normal;color:#93c5fd">proving it under pressure.</em></h1>
       <p style="font-size:15px;color:rgba(248,250,252,.55);margin-bottom:24px;line-height:1.7;max-width:480px;text-align:left">Get Chartered AI helps candidates across the built environment develop the confidence, competency and assessment readiness to become chartered — supported by structured learning and AI-assisted preparation.</p>
       <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;text-align:left">
@@ -1122,14 +1122,14 @@ input.err{border-color:var(--red)}
   <p style="font-size:15px;color:#94a3b8;margin:0">Still not sure which programme is right for you? <strong style="color:#f8fafc">Two questions. One recommendation.</strong> <a href="#finder-sec" onclick="window.scrollTo({top:document.getElementById('finder-sec').offsetTop,behavior:'smooth'});return false;" style="color:#2563EB;font-weight:700;white-space:nowrap">Find your programme →</a></p>
 </div>
 <div class="stats-bar" style="overflow:hidden;flex-wrap:nowrap" id="statsBar">
-  <div id="statsScrollInner" style="display:flex;width:max-content;animation:statsScroll 90s linear infinite;animation-delay:0s">
+  <div id="statsScrollInner" style="display:flex;width:max-content;animation:statsScroll 90s linear infinite 0s;animation-play-state:paused">
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">12</span><span class="stat-l" style="font-size:10px">STRUCTURED MODULES</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">2,000+</span><span class="stat-l" style="font-size:10px">APC QUESTIONS</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">24/7</span><span class="stat-l" style="font-size:10px">TUTOR IN YOUR POCKET</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">22</span><span class="stat-l" style="font-size:10px">RICS PATHWAYS</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">60</span><span class="stat-l" style="font-size:10px">MINUTE MOCK INTERVIEW</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">50</span><span class="stat-l" style="font-size:10px">TECHNICAL PATHWAY QUESTIONS</span></div>
-    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">11</span><span class="stat-l" style="font-size:10px">MANDATORY COMPETENCIES</span></div>
+    <div class="stat-item" style="padding:18px 24px;border-right:1px solid var(--border)"><span class="stat-n" style="font-size:26px">11</span><span class="stat-l" style="font-size:10px">MANDATORY COMPETENCIES</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">12</span><span class="stat-l" style="font-size:10px">STRUCTURED MODULES</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">2,000+</span><span class="stat-l" style="font-size:10px">APC QUESTIONS</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">24/7</span><span class="stat-l" style="font-size:10px">TUTOR IN YOUR POCKET</span></div>
@@ -1142,15 +1142,13 @@ input.err{border-color:var(--red)}
 <script>
 (function(){
   var inner = document.getElementById('statsScrollInner');
-  if (!inner || !window.IntersectionObserver) return;
+  if (!inner) return;
+  if (!window.IntersectionObserver) { inner.style.animationPlayState = 'running'; return; }
   var seen = false;
   new IntersectionObserver(function(entries){
     if (entries[0].isIntersecting && !seen) {
       seen = true;
-      inner.style.animation = 'none';
-      inner.offsetHeight;
-      inner.style.animation = 'statsScroll 90s linear infinite';
-      inner.style.animationDelay = '0s';
+      inner.style.animationPlayState = 'running';
     }
   }, {threshold: 0.1}).observe(inner);
 })();
@@ -1493,7 +1491,7 @@ document.addEventListener('click', function(e) {
 <section class="sec sec-white" id="why-sec" style="padding-top:36px">
   <div class="sec-inner">
     <span class="eyebrow">Why Get Chartered AI</span>
-    <h2 class="h2" style="margin-bottom:10px">What changes when you prepare properly.</h2>
+    <h2 class="h2" style="margin-bottom:10px">What does a candidate need to walk in confident and come out chartered.</h2>
     <p class="lead" style="margin-bottom:40px">Every element of this platform is built around one question: what does a candidate need to walk in confident and come out chartered.</p>
     <div class="why-grid">
       <div class="why-card"><span class="why-icon">🎯</span><h3>Stop preparing in the dark</h3><p>Every module is built around how assessors actually score. You learn what they're looking for, not just what the competency says.</p></div>

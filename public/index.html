@@ -776,7 +776,7 @@ input.err{border-color:var(--red)}
 .bso-nav button:hover:not(:disabled){background:rgba(255,255,255,.1)}
 .bso-nav button:disabled{opacity:.3;cursor:not-allowed}
 @keyframes yr2scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes statsScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .module-updates{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
 .module-updates li{font-size:13px;color:#475569;line-height:1.5;padding-left:16px;position:relative}
 .module-updates li::before{content:'→';position:absolute;left:0;color:#f59e0b;font-size:11px;top:1px}
@@ -1253,20 +1253,24 @@ document.addEventListener('click', function(e) {
 });
 </script>
 
-<!-- TICKER -->
-<div style="overflow:hidden;background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 0">
-  <div style="display:inline-block;white-space:nowrap;animation:tickerScroll 40s linear infinite;font-size:13px;font-weight:500;color:#2563EB">
-    Built by Chartered Surveyors &nbsp;·&nbsp; 12 modules &nbsp;·&nbsp; All 11 mandatory competencies &nbsp;·&nbsp; 50 technical pathway question quiz for all 22 RICS pathways &nbsp;·&nbsp; 2,000+ APC practice questions, answers and quizzes &nbsp;·&nbsp; 60-minute mock interview &nbsp;·&nbsp; Michael — AI Tutor &nbsp;·&nbsp; available 24/7 &nbsp;·&nbsp; Updated for 2026 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Built by Chartered Surveyors &nbsp;·&nbsp; 12 modules &nbsp;·&nbsp; All 11 mandatory competencies &nbsp;·&nbsp; 50 technical pathway question quiz for all 22 RICS pathways &nbsp;·&nbsp; 2,000+ APC practice questions, answers and quizzes &nbsp;·&nbsp; 60-minute mock interview &nbsp;·&nbsp; Michael — AI Tutor &nbsp;·&nbsp; available 24/7 &nbsp;·&nbsp; Updated for 2026 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </div>
-</div>
-
 <!-- STATS -->
-<div class="stats-bar" style="flex-wrap:nowrap;overflow-x:auto">
-  <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">12</span><span class="stat-l" style="font-size:10px">STRUCTURED MODULES</span></div>
-  <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">2,000+</span><span class="stat-l" style="font-size:10px">APC QUESTIONS</span></div>
-  <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">24/7</span><span class="stat-l" style="font-size:10px">TUTOR IN YOUR POCKET</span></div>
-  <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">22</span><span class="stat-l" style="font-size:10px">RICS PATHWAYS</span></div>
-  <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">60</span><span class="stat-l" style="font-size:10px">MINUTE MOCK INTERVIEW</span></div>
+<div class="stats-bar" style="overflow:hidden;flex-wrap:nowrap">
+  <div style="display:flex;width:max-content;animation:statsScroll 90s linear infinite">
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">12</span><span class="stat-l" style="font-size:10px">STRUCTURED MODULES</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">2,000+</span><span class="stat-l" style="font-size:10px">APC QUESTIONS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">24/7</span><span class="stat-l" style="font-size:10px">TUTOR IN YOUR POCKET</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">22</span><span class="stat-l" style="font-size:10px">RICS PATHWAYS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">60</span><span class="stat-l" style="font-size:10px">MINUTE MOCK INTERVIEW</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">50</span><span class="stat-l" style="font-size:10px">TECHNICAL PATHWAY QUESTIONS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">11</span><span class="stat-l" style="font-size:10px">MANDATORY COMPETENCIES</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">12</span><span class="stat-l" style="font-size:10px">STRUCTURED MODULES</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">2,000+</span><span class="stat-l" style="font-size:10px">APC QUESTIONS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">24/7</span><span class="stat-l" style="font-size:10px">TUTOR IN YOUR POCKET</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">22</span><span class="stat-l" style="font-size:10px">RICS PATHWAYS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">60</span><span class="stat-l" style="font-size:10px">MINUTE MOCK INTERVIEW</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">50</span><span class="stat-l" style="font-size:10px">TECHNICAL PATHWAY QUESTIONS</span></div>
+    <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">11</span><span class="stat-l" style="font-size:10px">MANDATORY COMPETENCIES</span></div>
+  </div>
 </div>
 
 <!-- ABOUT — Light section -->

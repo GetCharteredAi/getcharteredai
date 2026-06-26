@@ -1082,50 +1082,37 @@ input.err{border-color:var(--red)}
 </section>
 
 <section class="sec" id="finder-sec" style="background:#0D0F1C;padding:56px 24px 64px">
-  <div style="max-width:640px;margin:0 auto;padding:0 24px">
-  <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;text-align:center;margin-bottom:8px">Find your programme</div>
-  <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(22px,3vw,32px);font-weight:800;color:#fff;text-align:center;margin-bottom:6px;letter-spacing:-.02em">Where are you in your APC journey?</h2>
-  <p style="font-size:14px;color:rgba(248,250,252,.45);text-align:center;margin-bottom:28px">Two questions. One recommendation.</p>
-  <div style="display:flex;gap:6px;justify-content:center;margin-bottom:28px">
-    <div id="pf-dot1" style="width:32px;height:3px;border-radius:2px;background:#2563EB"></div>
-    <div id="pf-dot2" style="width:32px;height:3px;border-radius:2px;background:rgba(255,255,255,.15)"></div>
-  </div>
-  <div id="pf-q1">
-    <div style="font-size:17px;font-weight:600;color:#fff;text-align:center;margin-bottom:20px;line-height:1.5">Which path describes you?</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px" class="pf-grid">
-      <div class="pf-opt-card" data-pf-action="q1:yr1" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;text-align:center">
-        <div style="font-size:18px;margin-bottom:8px">🌱</div>
-        <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">In Year One</div>
-        <div style="font-size:11px;color:rgba(248,250,252,.45);line-height:1.4">Want to know where I stand before Year Two</div>
+  <div style="max-width:960px;margin:0 auto;padding:0 24px">
+  <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;text-align:center;margin-bottom:28px">Find your programme</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px" class="pf-grid">
+    <a href="#prog-12module" style="text-decoration:none;display:flex">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:36px 20px;cursor:pointer;transition:.15s;text-align:center;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;box-sizing:border-box" onmouseover="this.style.background='rgba(255,255,255,.11)';this.style.borderColor='rgba(255,255,255,.28)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.14)';this.style.transform=''">
+        <div style="font-size:36px;margin-bottom:14px">🌱</div>
+        <div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">In Year One</div>
+        <div style="font-size:12px;color:rgba(248,250,252,.5);line-height:1.5">Want to know where I stand before Year Two</div>
       </div>
-      <div class="pf-opt-card" data-pf-action="q1:yr2" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;text-align:center">
-        <div style="font-size:18px;margin-bottom:8px">📚</div>
-        <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">In Year Two</div>
-        <div style="font-size:11px;color:rgba(248,250,252,.45);line-height:1.4">Building towards my final assessment</div>
+    </a>
+    <a href="#prog-yr2review" style="text-decoration:none;display:flex">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:36px 20px;cursor:pointer;transition:.15s;text-align:center;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;box-sizing:border-box" onmouseover="this.style.background='rgba(255,255,255,.11)';this.style.borderColor='rgba(255,255,255,.28)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.14)';this.style.transform=''">
+        <div style="font-size:36px;margin-bottom:14px">📚</div>
+        <div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">In Year Two</div>
+        <div style="font-size:12px;color:rgba(248,250,252,.5);line-height:1.5">Building towards my final assessment</div>
       </div>
-      <div class="pf-opt-card" data-pf-action="q1:soon" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;text-align:center">
-        <div style="font-size:18px;margin-bottom:8px">⏱</div>
-        <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">Sitting soon</div>
-        <div style="font-size:11px;color:rgba(248,250,252,.45);line-height:1.4">Feel prepared — want to reinforce and pressure-test</div>
+    </a>
+    <a href="#prog-sprint" style="text-decoration:none;display:flex">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:36px 20px;cursor:pointer;transition:.15s;text-align:center;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;box-sizing:border-box" onmouseover="this.style.background='rgba(255,255,255,.11)';this.style.borderColor='rgba(255,255,255,.28)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.14)';this.style.transform=''">
+        <div style="font-size:36px;margin-bottom:14px">⏱</div>
+        <div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">Sitting soon</div>
+        <div style="font-size:12px;color:rgba(248,250,252,.5);line-height:1.5">Feel prepared — want to reinforce and pressure-test</div>
       </div>
-      <div class="pf-opt-card" data-pf-action="q1:referred" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;text-align:center">
-        <div style="font-size:18px;margin-bottom:8px">🔁</div>
-        <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">Been referred</div>
-        <div style="font-size:11px;color:rgba(248,250,252,.45);line-height:1.4">Preparing for my resit</div>
+    </a>
+    <a href="#prog-referred" style="text-decoration:none;display:flex">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:36px 20px;cursor:pointer;transition:.15s;text-align:center;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;box-sizing:border-box" onmouseover="this.style.background='rgba(255,255,255,.11)';this.style.borderColor='rgba(255,255,255,.28)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.14)';this.style.transform=''">
+        <div style="font-size:36px;margin-bottom:14px">🔁</div>
+        <div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">Been referred</div>
+        <div style="font-size:12px;color:rgba(248,250,252,.5);line-height:1.5">Preparing for my resit</div>
       </div>
-    </div>
-  </div>
-  <div id="pf-q2" style="display:none">
-    <div id="pf-q2text" style="font-size:17px;font-weight:600;color:#fff;text-align:center;margin-bottom:20px;line-height:1.5"></div>
-    <div id="pf-q2opts" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px" class="pf-grid"></div>
-    <div data-pf-action="back" style="font-size:12px;color:rgba(248,250,252,.35);cursor:pointer;text-align:center;margin-top:8px">← Back</div>
-  </div>
-  <div id="pf-result" style="display:none;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px;text-align:center">
-    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa;margin-bottom:14px">Recommended</div>
-    <div id="pf-r-title" style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:10px;letter-spacing:-.02em"></div>
-    <div id="pf-r-desc" style="font-size:13px;color:rgba(248,250,252,.55);line-height:1.7;margin-bottom:16px;max-width:440px;margin-left:auto;margin-right:auto"></div>
-    <a id="pf-r-link" href="#" style="display:inline-block;background:#2563EB;color:#fff;padding:12px 24px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:14px">See the programme →</a>
-    <div data-pf-action="reset" style="font-size:12px;color:rgba(248,250,252,.3);cursor:pointer">← Start again</div>
+    </a>
   </div>
 </div>
 </section>
@@ -1224,21 +1211,15 @@ document.addEventListener('click', function(e) {
       <div class="info-card">
         <span class="info-card-tag">The Get Chartered AI Difference</span>
         <p class="info-card-h">Structure.<br>Confidence.<br>Results.</p>
-        <div class="info-grid">
-          <div class="info-stat"><span class="info-n">12</span><span class="info-l">Modules</span></div>
-          <div class="info-stat"><span class="info-n">11</span><span class="info-l">Competencies</span></div>
-          <div class="info-stat"><span class="info-n">2,000+</span><span class="info-l">Practice Questions</span></div>
-          <div class="info-stat"><span class="info-n">24/7</span><span class="info-l">Michael — always available</span></div>
-        </div>
         <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>All 11 RICS mandatory competencies covered in full</div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>2,000+ pathway questions across all 22 RICS pathways</div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>60-minute AI-scored mock interview — all 22 pathways</div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>Michael — Tutor Mode and Assessor Mode, in every module</div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>All 11 RICS mandatory competencies covered in full — with model answers, referral warnings, challenge questions and built-in quiz testing throughout</div>
           <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>Level 1, 2 and 3 competency examples throughout</div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>Built and updated by experienced Chartered Surveyors</div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>CPD tracker, submission checklist and competency evidence bank</div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>2,000+ pathway questions across all 22 RICS pathways</div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>50 assessor-led technical pathway questions — with model answers, referral warnings, challenge questions and built-in quiz testing for your RICS pathway</div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>Michael — Tutor Mode and Assessor Mode, in every module</div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>60-minute AI-scored mock interview — all 22 pathways</div>
           <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>Industry Briefing updated every assessment window</div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.8)"><span style="color:#60a5fa;flex-shrink:0;font-weight:700">✓</span>Built and updated by experienced Chartered Surveyors</div>
         </div>
       </div>
     </div>
@@ -1255,7 +1236,7 @@ document.addEventListener('click', function(e) {
     <div style="max-width:900px;display:flex;flex-direction:column;gap:16px">
 
       <!-- FEATURED TOP CARD — Year Two Readiness Review -->
-      <a href="/year-one-review" style="text-decoration:none;display:block">
+      <a href="/year-one-review" id="prog-yr2review" style="text-decoration:none;display:block">
         <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:28px 32px;border-top:3px solid #2563EB;transition:.2s;box-sizing:border-box" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(37,99,235,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
           <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#2563EB;margin-bottom:10px">Ending Year One</div>
           <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:800;color:#0D0F1C;margin-bottom:8px">Are you ready for Year Two?</div>
@@ -1275,7 +1256,7 @@ document.addEventListener('click', function(e) {
       <!-- THREE PROGRAMME CARDS — equal width row -->
       <div class="prog-three-col" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
 
-        <a href="/programme" style="text-decoration:none;display:block">
+        <a href="/programme" id="prog-12module" style="text-decoration:none;display:block">
           <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;border-top:3px solid #7c3aed;transition:.2s;height:100%;box-sizing:border-box" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(124,58,237,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
             <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7c3aed;margin-bottom:10px">Full Programme</div>
             <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:16px;font-weight:800;color:#0D0F1C;margin-bottom:8px">APC Full 12 Module Programme</div>
@@ -1284,7 +1265,7 @@ document.addEventListener('click', function(e) {
           </div>
         </a>
 
-        <a href="/sprint" style="text-decoration:none;display:block">
+        <a href="/sprint" id="prog-sprint" style="text-decoration:none;display:block">
           <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;border-top:3px solid #f59e0b;transition:.2s;height:100%;box-sizing:border-box" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(245,158,11,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
             <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#f59e0b;margin-bottom:10px">Sitting Soon</div>
             <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:16px;font-weight:800;color:#0D0F1C;margin-bottom:8px">APC Sprint</div>
@@ -1293,7 +1274,7 @@ document.addEventListener('click', function(e) {
           </div>
         </a>
 
-        <a href="/referred-programme" style="text-decoration:none;display:block">
+        <a href="/referred-programme" id="prog-referred" style="text-decoration:none;display:block">
           <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;border-top:3px solid #ef4444;transition:.2s;height:100%;box-sizing:border-box" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(239,68,68,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
             <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ef4444;margin-bottom:10px">After Referral</div>
             <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:16px;font-weight:800;color:#0D0F1C;margin-bottom:8px">APC Referred — Confidence Reset</div>
@@ -1304,6 +1285,10 @@ document.addEventListener('click', function(e) {
 
       </div>
 
+    </div>
+
+    <div style="text-align:center;padding:32px 0 8px;border-top:1px solid #e2e8f0;margin-top:28px">
+      <p style="font-size:15px;color:#64748b;margin:0">Still not sure which programme is right for you? <strong style="color:#0D0F1C">Two questions. One recommendation.</strong> <a href="#finder-sec" style="color:#2563EB;font-weight:700;white-space:nowrap">Find your programme →</a></p>
     </div>
 
     <div style="display:flex;flex-wrap:wrap;gap:8px 24px;padding:20px 0 4px;border-top:1px solid #e2e8f0;margin-top:20px">

@@ -68,7 +68,7 @@ h1.hero-title span{color:#93c5fd}
 .hero{
   min-height:100vh;background:#0D0F1C;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:80px 24px 48px;position:relative;overflow:hidden;
+  text-align:center;padding:32px 24px 48px;position:relative;overflow:hidden;
 }
 .hero::after{
   content:'';position:absolute;inset:0;pointer-events:none;
@@ -120,8 +120,8 @@ h1.hero-title span{color:#93c5fd}
 .video-wrap iframe{width:100%;aspect-ratio:16/9;display:block;border:none}
 
 /* STATS */
-.stats-bar{background:#fff;border-bottom:1px solid var(--border);display:flex;justify-content:center;flex-wrap:wrap;overflow-x:auto}
-.stat-item{text-align:center;padding:28px 44px;border-right:1px solid var(--border)}
+.stats-bar{background:#0D0F1C;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:center;flex-wrap:wrap;overflow-x:auto}
+.stat-item{text-align:center;padding:28px 44px;border-right:1px solid rgba(255,255,255,.08)}
 @media(max-width:768px){
   nav{top:0}
   .hero{padding:148px 20px 60px}
@@ -129,7 +129,7 @@ h1.hero-title span{color:#93c5fd}
 .stats-bar{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.stats-bar::-webkit-scrollbar{display:none}.stat-item{padding:16px 20px;flex-shrink:0;min-width:auto}.stat-item .stat-n{font-size:22px!important}.stat-item .stat-l{font-size:9px!important}}
 .stat-item:last-child{border-right:none}
 .stat-n{font-size:36px;font-weight:800;letter-spacing:-.04em;color:var(--blue);display:block;line-height:1;margin-bottom:4px;font-variant-numeric:tabular-nums}
-.stat-l{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.stat-l{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,244,255,0.5)}
 
 /* CHECKLIST */
 .checklist{list-style:none;display:flex;flex-direction:column;gap:12px}
@@ -1055,11 +1055,11 @@ input.err{border-color:var(--red)}
 
 <!-- HERO -->
 <section class="hero" id="hero-sec" style="padding-bottom:24px">
-  <div class="hero-two-col" style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto;padding:40px 0 0">
+  <div class="hero-two-col" style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto;padding:0">
 
     <!-- LEFT COLUMN — copy -->
     <div>
-      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:16px;text-align:center">THE PLATFORM THAT THINKS LIKE AN ASSESSOR</div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:16px;text-align:left">THE PLATFORM THAT THINKS LIKE AN ASSESSOR</div>
       <h1 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(28px,3.5vw,48px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:20px;text-align:left">You've done the work.<br>The assessment is about<br><em style="font-style:normal;color:#93c5fd">proving it under pressure.</em></h1>
       <p style="font-size:15px;color:rgba(248,250,252,.55);margin-bottom:24px;line-height:1.7;max-width:480px;text-align:left">Get Chartered AI helps candidates across the built environment develop the confidence, competency and assessment readiness to become chartered — supported by structured learning and AI-assisted preparation.</p>
     </div>
@@ -1122,7 +1122,7 @@ input.err{border-color:var(--red)}
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">22</span><span class="stat-l" style="font-size:10px">RICS PATHWAYS</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">60</span><span class="stat-l" style="font-size:10px">MINUTE MOCK INTERVIEW</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">50</span><span class="stat-l" style="font-size:10px">TECHNICAL PATHWAY QUESTIONS</span></div>
-    <div class="stat-item" style="padding:18px 24px;border-right:1px solid var(--border)"><span class="stat-n" style="font-size:26px">11</span><span class="stat-l" style="font-size:10px">MANDATORY COMPETENCIES</span></div>
+    <div class="stat-item" style="padding:18px 24px;border-right:1px solid rgba(255,255,255,.08)"><span class="stat-n" style="font-size:26px">11</span><span class="stat-l" style="font-size:10px">MANDATORY COMPETENCIES</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">12</span><span class="stat-l" style="font-size:10px">STRUCTURED MODULES</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">2,000+</span><span class="stat-l" style="font-size:10px">APC QUESTIONS</span></div>
     <div class="stat-item" style="padding:18px 24px"><span class="stat-n" style="font-size:26px">24/7</span><span class="stat-l" style="font-size:10px">TUTOR IN YOUR POCKET</span></div>
@@ -1289,7 +1289,7 @@ document.addEventListener('click', function(e) {
 </script>
 
 <!-- ABOUT — Light section -->
-<section class="sec sec-white" id="about-sec" style="padding-bottom:28px">
+<section class="sec sec-white" id="about-sec" style="padding-top:40px;padding-bottom:28px">
   <div class="sec-inner">
     <div class="about-grid">
       <div>
@@ -1356,30 +1356,6 @@ document.addEventListener('click', function(e) {
         <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1">04</div>
         <h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">Sit confidently</h4>
         <p style="font-size:12.5px;color:rgba(248,250,252,.55);line-height:1.6">Arrive at assessment having already performed under pressure</p>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative" class="how-it-works-grid">
-      <div style="position:absolute;top:26px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),rgba(255,255,255,.12),transparent);pointer-events:none"></div>
-      <div style="text-align:center;padding:24px 16px">
-        <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1">01</div>
-        <h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">Enrol</h4>
-        <p style="font-size:12.5px;color:rgba(248,250,252,.55);line-height:1.6">Choose your programme and complete checkout. Takes two minutes.</p>
-      </div>
-      <div style="text-align:center;padding:24px 16px">
-        <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1">02</div>
-        <h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">Instant access</h4>
-        <p style="font-size:12.5px;color:rgba(248,250,252,.55);line-height:1.6">Your login arrives immediately. No waiting, no setup required.</p>
-      </div>
-      <div style="text-align:center;padding:24px 16px">
-        <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1">03</div>
-        <h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">Start today</h4>
-        <p style="font-size:12.5px;color:rgba(248,250,252,.55);line-height:1.6">Open Module 1, meet Michael, begin your preparation from day one.</p>
-      </div>
-      <div style="text-align:center;padding:24px 16px">
-        <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1">04</div>
-        <h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">Begin preparation</h4>
-        <p style="font-size:12.5px;color:rgba(248,250,252,.55);line-height:1.6">Everything you need is waiting. Start from wherever you are.</p>
       </div>
     </div>
 
@@ -1487,6 +1463,38 @@ document.addEventListener('click', function(e) {
 
 
 <!-- CONTACT — White section -->
+
+<section style="background:#0D0F1C;padding:64px 40px;border-top:1px solid rgba(255,255,255,.06)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:40px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;display:block;margin-bottom:10px">GETTING STARTED</span>
+      <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(20px,2.5vw,28px);font-weight:800;color:#fff;letter-spacing:-.03em;margin-bottom:0">From enrolment to first module in under five minutes.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative" class="how-it-works-grid">
+      <div style="position:absolute;top:26px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),rgba(255,255,255,.12),transparent);pointer-events:none"></div>
+      <div style="text-align:center;padding:24px 16px">
+        <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1">01</div>
+        <h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">Enrol</h4>
+        <p style="font-size:12.5px;color:rgba(248,250,252,.55);line-height:1.6">Choose your programme and complete checkout. Takes two minutes.</p>
+      </div>
+      <div style="text-align:center;padding:24px 16px">
+        <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1">02</div>
+        <h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">Instant access</h4>
+        <p style="font-size:12.5px;color:rgba(248,250,252,.55);line-height:1.6">Your login arrives immediately. No waiting, no setup required.</p>
+      </div>
+      <div style="text-align:center;padding:24px 16px">
+        <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1">03</div>
+        <h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">Start today</h4>
+        <p style="font-size:12.5px;color:rgba(248,250,252,.55);line-height:1.6">Open Module 1, meet Michael, begin your preparation from day one.</p>
+      </div>
+      <div style="text-align:center;padding:24px 16px">
+        <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0 auto 14px;position:relative;z-index:1">04</div>
+        <h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">Begin preparation</h4>
+        <p style="font-size:12.5px;color:rgba(248,250,252,.55);line-height:1.6">Everything you need is waiting. Start from wherever you are.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="sec" id="contact-sec" style="background:#0D0F1C;padding:40px 24px;border-top:1px solid rgba(255,255,255,.06)">
   <div style="max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">

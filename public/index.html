@@ -1011,6 +1011,14 @@ input.err{border-color:var(--red)}
 .db-bottom-card-price{font-size:14px;font-weight:700;color:#eef2ff;margin-bottom:12px}
 .db-bottom-card-btn{display:inline-block;background:#2563EB;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:8px;text-decoration:none;cursor:pointer;border:none;font-family:var(--f);letter-spacing:.01em}
 .db-bottom-card-btn:hover{background:#1d4ed8}
+/* 12-mod strip — smaller dots and labels for 14-node width */
+.ms-strip.ms-twelve .ms-dot{width:32px;height:32px;font-size:10px}
+.ms-strip.ms-twelve .ms-node.done .ms-dot{font-size:13px}
+.ms-strip.ms-twelve .ms-node.active .ms-dot{font-size:8px}
+.ms-strip.ms-twelve .ms-lbl{font-size:9px;max-width:52px}
+.ms-strip.ms-twelve .ms-code{font-size:8px}
+.ms-strip.ms-twelve .ms-track{top:16px}
+@media(max-width:640px){.ms-strip.ms-twelve .ms-dot{width:30px;height:30px}}
 </style>
 </head>
 <body>
@@ -2722,7 +2730,71 @@ async function renderDashboard() {
       bottomGrid.appendChild(csCard);
     }
   }
-  // ── END REFERRED PLAN EXPERIENCE ─────────────────────────────────────────────
+  // ── ANNUAL / MONTHLY — 12-MOD MILESTONE STRIP ───────────────────────────────
+  else if (plan === 'annual' || plan === 'monthly') {
+    const progressWrap2 = document.getElementById('dsProgressWrap');
+    if (progressWrap2) progressWrap2.style.display = 'none';
+
+    const twelveMods = [
+      {id:1,  code:'M01', label:'Introduction & foundations'},
+      {id:2,  code:'M02', label:'Client care'},
+      {id:3,  code:'M03', label:'Communication & negotiation'},
+      {id:4,  code:'M04', label:'Health & safety'},
+      {id:5,  code:'M05', label:'Accounting principles'},
+      {id:6,  code:'M06', label:'Business planning'},
+      {id:7,  code:'M07', label:'Conflict avoidance'},
+      {id:8,  code:'M08', label:'Data management'},
+      {id:9,  code:'M09', label:'Diversity & inclusion'},
+      {id:10, code:'M10', label:'Ethics & professionalism'},
+      {id:11, code:'M11', label:'Sustainability'},
+      {id:12, code:'M12', label:'Mock & final prep'}
+    ];
+    const twDone = twelveMods.filter(m => isComplete(m.id)).length;
+    const allTwDone = twDone === 12;
+    // 14 nodes, 13 gaps — fill up to and including the active node
+    const twFillPct = Math.round(Math.min(twDone + 1, 12) / 13 * 100);
+
+    const mkTwNode = (state, dotHtml, code, label, clickFn) =>
+      `<div class="ms-node ${state}${(state==='done'||state==='active')?' unlocked':''}"${clickFn ? ` onclick="${clickFn}"` : ''}>
+        <div class="ms-dot">${dotHtml}</div>
+        <div class="ms-node-text">${code ? `<span class="ms-code">${code}</span>` : ''}<span class="ms-lbl">${label}</span></div>
+      </div>`;
+
+    let twNodesHtml = mkTwNode('done', '✓', '', 'Enrolled', null);
+    let twActiveSet = false;
+    twelveMods.forEach(m => {
+      const complete = isComplete(m.id);
+      const unlocked = isModuleUnlocked(m.id, plan, activatedAt);
+      if (complete) {
+        twNodesHtml += mkTwNode('done', '✓', m.code, m.label, `openModule(${m.id}); showView('module')`);
+      } else if (!twActiveSet && unlocked) {
+        twNodesHtml += mkTwNode('active', m.code, m.code, m.label, `openModule(${m.id}); showView('module')`);
+        twActiveSet = true;
+      } else {
+        twNodesHtml += mkTwNode('locked', m.code, m.code, m.label, null);
+      }
+    });
+    twNodesHtml += mkTwNode(allTwDone ? 'goalpost-complete' : 'goalpost', '🏆', '', 'Chartered', null);
+
+    const msWrap12 = document.getElementById('msStripWrap');
+    if (msWrap12) msWrap12.innerHTML = `<div class="ms-wrap"><div class="ms-strip ms-twelve">
+      <div class="ms-track"><div class="ms-track-fill" style="width:${twFillPct}%"></div></div>
+      <div class="ms-nodes">${twNodesHtml}</div>
+    </div></div>`;
+  }
+  // ── YEAR-ONE — DIAGNOSTIC INDICATOR ─────────────────────────────────────────
+  else if (plan === 'year-one') {
+    const progressWrap3 = document.getElementById('dsProgressWrap');
+    if (progressWrap3) progressWrap3.style.display = 'none';
+    const msWrapYr = document.getElementById('msStripWrap');
+    if (msWrapYr) {
+      const reviewDone = done > 0 && done >= unlockedCount;
+      msWrapYr.innerHTML = reviewDone
+        ? '<p style="font-size:13px;font-weight:600;color:#16a34a;margin-bottom:16px">Review complete ✓</p>'
+        : '<p style="font-size:13px;color:rgba(255,255,255,.35);margin-bottom:16px">32 questions · 5 areas</p>';
+    }
+  }
+  // ── END DASHBOARD B EXPERIENCE ────────────────────────────────────────────────
 
   // ── END SUMMARY PANEL ────────────────────────────────────────────────────
 

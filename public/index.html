@@ -2661,7 +2661,10 @@ async function renderDashboard() {
         <p style="font-family:var(--fh);font-size:13px;font-weight:700;color:#1d4ed8;margin-bottom:2px">📚 ${12 - unlockedCount} modules still locked</p>
         <p style="font-size:12px;color:#64748b">Upgrade to annual access — unlock all 12 modules right now for £497</p>
       </div>
-      <button onclick="checkout('annual')" style="background:#2563EB;color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.01em;cursor:pointer;white-space:nowrap">Upgrade to Full Access</button>
+      <div style="text-align:right">
+        <button onclick="checkout('annual')" style="background:#2563EB;color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.01em;cursor:pointer;white-space:nowrap">Upgrade to Full Access</button>
+        <p style="font-size:11px;color:rgba(0,0,0,0.4);font-weight:400;margin-top:5px;line-height:1.4">or pay in 3 interest-free instalments with Klarna</p>
+      </div>
     `;
     document.getElementById('dashModGrid').before(banner);
   }

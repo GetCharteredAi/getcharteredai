@@ -800,11 +800,11 @@ input.err{border-color:var(--red)}
 .mod-title{white-space:normal;overflow-wrap:break-word;word-break:break-word}
 .pathway-label,.pathway-name,.mod-card-title{white-space:normal;overflow-wrap:break-word;word-break:break-word}
 
-.cpd-panel{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:20px 24px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.cpd-panel{background:#0d1120;border:0.5px solid #1a2540;border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:20px}
 .cpd-panel-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
 .panel-eyebrow{font-family:var(--fh);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2563EB;margin-bottom:4px;display:block}
 .panel-eyebrow-light{color:#60a5fa}
-.cpd-panel-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:15px;font-weight:700;color:#0f172a;letter-spacing:-.01em}
+.cpd-panel-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:17px;font-weight:700;color:#eef2ff;letter-spacing:-.01em}
 #prepPanel{background:#0f172a;border:1px solid rgba(37,99,235,.25);box-shadow:none}
 #prepPanel .panel-eyebrow{color:#60a5fa}
 #prepPanel .cpd-panel-title{color:#fff}
@@ -817,33 +817,34 @@ input.err{border-color:var(--red)}
 #prepPanel .prep-empty{color:rgba(255,255,255,.4)}
 #prepPanel .prep-viewall{color:#60a5fa}
 .cpd-stats{display:flex;gap:24px;margin-bottom:16px}
-.cpd-stat-num{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;color:#0f172a;letter-spacing:-.03em}
-.cpd-stat-lbl{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
-.cpd-add-btn{background:#2563EB;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.01em;cursor:pointer;transition:.15s}
+.cpd-stat-num{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:22px;font-weight:800;color:#eef2ff;letter-spacing:-.03em}
+.cpd-stat-num.cpd-zero{color:#3a4a68}
+.cpd-stat-lbl{font-size:10px;font-weight:600;color:#6b80a8;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.cpd-add-btn{background:#2563EB;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;transition:.15s}
 .cpd-add-btn:hover{background:#1d4ed8}
-.cpd-view-btn{background:transparent;color:#64748b;border:1.5px solid rgba(0,0,0,.12);padding:7px 14px;border-radius:8px;font-family:var(--f);font-size:12px;font-weight:600;cursor:pointer;transition:.15s}
-.cpd-view-btn:hover{color:#0f172a;border-color:rgba(37,99,235,.4)}
-.cpd-form{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-top:14px;display:none}
+.cpd-view-btn{background:transparent;color:#7ab3f0;border:0.5px solid #1a2540;padding:7px 14px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:600;cursor:pointer;transition:.15s}
+.cpd-view-btn:hover{color:#93c5fd;border-color:rgba(37,99,235,.4)}
+.cpd-form{background:#0a1428;border:0.5px solid #1a2540;border-radius:10px;padding:18px;margin-top:14px;display:none}
 .cpd-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .cpd-form-full{grid-column:1/-1}
-.cpd-form label{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#64748b;margin-bottom:5px}
-.cpd-form input,.cpd-form select,.cpd-form textarea{width:100%;padding:9px 12px;border:1.5px solid #e2e8f0;border-radius:7px;font-family:var(--f);font-size:13px;color:#0f172a;background:#fff;outline:none;transition:.18s;appearance:none}
+.cpd-form label{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6b80a8;margin-bottom:5px}
+.cpd-form input,.cpd-form select,.cpd-form textarea{width:100%;padding:9px 12px;border:1px solid #1a2540;border-radius:7px;font-family:var(--f);font-size:13px;color:#eef2ff;background:#0d1120;outline:none;transition:.18s;appearance:none}
 .cpd-form input:focus,.cpd-form select:focus,.cpd-form textarea:focus{border-color:#2563EB}
-.cpd-form select option{background:#fff;color:#0f172a}
+.cpd-form select option{background:#0d1120;color:#eef2ff}
 .cpd-form textarea{resize:vertical;min-height:72px}
 .cpd-form-actions{display:flex;gap:10px}
 .cpd-save-btn{background:#2563EB;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer}
-.cpd-cancel-btn{background:transparent;color:#64748b;border:1.5px solid rgba(0,0,0,.12);padding:9px 16px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:600;cursor:pointer}
+.cpd-cancel-btn{background:transparent;color:#7ab3f0;border:0.5px solid #1a2540;padding:9px 16px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:600;cursor:pointer}
 .cpd-log-view{display:none;margin-top:14px}
 .cpd-log-table{width:100%;border-collapse:collapse}
-.cpd-log-table th{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;padding:6px 10px;text-align:left;border-bottom:1px solid #f1f5f9}
-.cpd-log-table td{font-size:13px;color:#374151;padding:10px 10px;border-bottom:1px solid #f8fafc;vertical-align:top}
+.cpd-log-table th{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6b80a8;padding:6px 10px;text-align:left;border-bottom:1px solid #1a2540}
+.cpd-log-table td{font-size:13px;color:#eef2ff;padding:10px 10px;border-bottom:1px solid #1a2540;vertical-align:top}
 .cpd-log-table tr:last-child td{border-bottom:none}
 .cpd-type-s{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;background:#eff6ff;color:#2563EB;letter-spacing:.06em}
 .cpd-type-u{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;background:#f0fdf4;color:#16a34a;letter-spacing:.06em}
 .cpd-delete-btn{background:none;border:none;color:#cbd5e1;font-size:12px;cursor:pointer;padding:0}
 .cpd-delete-btn:hover{color:#ef4444}
-.cpd-empty{font-size:13px;color:#94a3b8;text-align:center;padding:20px 0;font-style:italic}
+.cpd-empty{font-size:13px;color:#6b80a8;text-align:center;padding:20px 0;font-style:italic}
 @media(max-width:768px){.cpd-form-grid{grid-template-columns:1fr}.cpd-stats{gap:16px}}
 #bsOverlay .bso-question,#qsOverlay .bso-question,#creOverlay .bso-question,#taOverlay .bso-question,#valOverlay .bso-question,#pdOverlay .bso-question,#pmOverlay .bso-question,#resOverlay .bso-question,#pfiOverlay .bso-question,#fmOverlay .bso-question,#ruralOverlay .bso-question,#lrOverlay .bso-question,#corpOverlay .bso-question,#bcOverlay .bso-question,#mcOverlay .bso-question,#saOverlay .bso-question{color:#ffffff !important;font-size:clamp(16px,2.2vw,20px) !important;font-weight:600 !important}
 #bsOverlay .bso-reveal-btn,#qsOverlay .bso-reveal-btn,#creOverlay .bso-reveal-btn,#taOverlay .bso-reveal-btn,#valOverlay .bso-reveal-btn,#pdOverlay .bso-reveal-btn,#pmOverlay .bso-reveal-btn,#resOverlay .bso-reveal-btn,#pfiOverlay .bso-reveal-btn,#fmOverlay .bso-reveal-btn,#ruralOverlay .bso-reveal-btn,#lrOverlay .bso-reveal-btn,#corpOverlay .bso-reveal-btn,#bcOverlay .bso-reveal-btn,#mcOverlay .bso-reveal-btn,#saOverlay .bso-reveal-btn{color:#ffffff !important}
@@ -1011,6 +1012,10 @@ input.err{border-color:var(--red)}
 .db-bottom-card-price{font-size:14px;font-weight:700;color:#eef2ff;margin-bottom:12px}
 .db-bottom-card-btn{display:inline-block;background:#2563EB;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:8px;text-decoration:none;cursor:pointer;border:none;font-family:var(--f);letter-spacing:.01em}
 .db-bottom-card-btn:hover{background:#1d4ed8}
+/* CPD/Checklist card dark theme extras */
+#cpdPanel .cpd-stats,#checklistPanel .cpd-stats{border-top:0.5px solid #1a2540;padding-top:14px;margin-top:4px}
+#checklistPanel .prep-progress-track{height:5px;background:#1a2540}
+#checklistPanel .prep-progress-fill{background:linear-gradient(90deg,#2563EB,#7ab3f0)}
 /* 12-mod strip — smaller dots and labels for 14-node width */
 .ms-strip.ms-twelve .ms-dot{width:32px;height:32px;font-size:10px}
 .ms-strip.ms-twelve .ms-node.done .ms-dot{font-size:13px}
@@ -1679,7 +1684,7 @@ document.addEventListener('click', function(e) {
             <button class="cpd-add-btn" onclick="cpdToggleForm()">+ Add entry</button>
           </div>
         </div>
-        <div style="font-size:13px;color:rgba(0,0,0,0.5);margin-bottom:14px">Record your continuing professional development hours and activities</div>
+        <div style="font-size:13px;color:#6b80a8;margin-bottom:8px">Record your continuing professional development hours and activities</div>
         <div class="cpd-stats">
           <div>
             <div class="cpd-stat-num" id="cpdTotalHours">0</div>
@@ -1790,12 +1795,13 @@ document.addEventListener('click', function(e) {
           </div>
           <button class="cpd-add-btn" onclick="checklistOpen()">Open Checklist</button>
         </div>
-        <div style="font-size:13px;color:rgba(0,0,0,0.5);margin-bottom:14px">Track your readiness for final submission across documents, sign-offs and platform preparation</div>
-        <div class="cpd-stats">
+        <div style="font-size:13px;color:#6b80a8;margin-bottom:8px">Track your readiness for final submission across documents, sign-offs and platform preparation</div>
+        <div class="cpd-stats" style="display:flex;align-items:flex-start;justify-content:space-between">
           <div>
-            <div class="cpd-stat-num" id="checklistCount">0 / 18</div>
+            <div class="cpd-stat-num"><span id="checklistDoneNum">0</span><span style="font-size:16px;font-weight:600;color:#6b80a8"> / 18</span></div>
             <div class="cpd-stat-lbl">Items complete</div>
           </div>
+          <div id="checklistPct" style="font-size:12px;font-weight:600;color:#7ab3f0;padding-top:4px">0%</div>
         </div>
         <div class="prep-progress-track"><div class="prep-progress-fill" id="checklistProgressFill" style="width:0%"></div></div>
         <div id="checklistCompleteBanner" class="checklist-complete-banner" style="display:none">✅ Your preparation checklist is complete. Good luck with your submission.</div>
@@ -2793,6 +2799,53 @@ async function renderDashboard() {
         ? '<p style="font-size:13px;font-weight:600;color:#16a34a;margin-bottom:16px">Review complete ✓</p>'
         : '<p style="font-size:13px;color:rgba(255,255,255,.35);margin-bottom:16px">32 questions · 5 areas</p>';
     }
+  }
+  // ── SPRINT — 6-NODE MILESTONE STRIP ─────────────────────────────────────────
+  else if (plan === 'sprint') {
+    document.getElementById('dashSub').textContent = '42 days. Everything you need. No time to waste.';
+    const progressWrap4 = document.getElementById('dsProgressWrap');
+    if (progressWrap4) progressWrap4.style.display = 'none';
+
+    const sprintNodes = [
+      {code:'S01', label:'Know the format',         modId:1},
+      {code:'S02', label:'Competency answers',       modId:1},
+      {code:'S03', label:'Technical knowledge',      modId:1},
+      {code:'S04', label:'Mock & pressure practice', modId:12},
+      {code:'S05', label:'Final 48 hours',           modId:12}
+    ];
+    // Active module: first unlocked+incomplete (M01 always unlocked for sprint, then M12)
+    const spActiveModId = !isComplete(1) ? 1 : !isComplete(12) ? 12 : null;
+    // Fill up to active node position (0=Enrolled,1=S01...5=S05; 5 = S05 when all done)
+    let spFillPos = !isComplete(1) ? 1 : !isComplete(12) ? 4 : 5;
+    const spFillPct = Math.round(spFillPos / 6 * 100);
+
+    const mkSpNode = (state, dotHtml, code, label, clickFn) =>
+      `<div class="ms-node ${state}${(state==='done'||state==='active')?' unlocked':''}"${clickFn ? ` onclick="${clickFn}"` : ''}>
+        <div class="ms-dot">${dotHtml}</div>
+        <div class="ms-node-text">${code ? `<span class="ms-code">${code}</span>` : ''}<span class="ms-lbl">${label}</span></div>
+      </div>`;
+
+    let spNodesHtml = mkSpNode('done', '✓', '', 'Enrolled', null);
+    let spActiveSet = false;
+    sprintNodes.forEach(n => {
+      const complete = isComplete(n.modId);
+      if (complete) {
+        spNodesHtml += mkSpNode('done', '✓', n.code, n.label, `openModule(${n.modId}); showView('module')`);
+      } else if (n.modId === spActiveModId && !spActiveSet) {
+        spNodesHtml += mkSpNode('active', n.code, n.code, n.label, `openModule(${n.modId}); showView('module')`);
+        spActiveSet = true;
+      } else {
+        spNodesHtml += mkSpNode('locked', n.code, n.code, n.label, null);
+      }
+    });
+    const spAllDone = isComplete(1) && isComplete(12);
+    spNodesHtml += mkSpNode(spAllDone ? 'goalpost-complete' : 'goalpost', '🏆', '', 'Chartered', null);
+
+    const msWrapSp = document.getElementById('msStripWrap');
+    if (msWrapSp) msWrapSp.innerHTML = `<div class="ms-wrap"><div class="ms-strip">
+      <div class="ms-track"><div class="ms-track-fill" style="width:${spFillPct}%"></div></div>
+      <div class="ms-nodes">${spNodesHtml}</div>
+    </div></div>`;
   }
   // ── END DASHBOARD B EXPERIENCE ────────────────────────────────────────────────
 
@@ -4265,16 +4318,24 @@ async function cpdLoad() {
 function cpdUpdateDisplay() {
   var total = cpdEntries.reduce(function(sum, e) { return sum + parseFloat(e.hours || 0); }, 0);
   var el = document.getElementById('cpdTotalHours');
-  if (el) el.textContent = total % 1 === 0 ? total : total.toFixed(1);
+  if (el) {
+    el.textContent = total % 1 === 0 ? total : total.toFixed(1);
+    el.classList.toggle('cpd-zero', total === 0);
+  }
   var countEl = document.getElementById('cpdEntryCount');
-  if (countEl) countEl.textContent = cpdEntries.length;
+  if (countEl) {
+    countEl.textContent = cpdEntries.length;
+    countEl.classList.toggle('cpd-zero', cpdEntries.length === 0);
+  }
   var lastEl = document.getElementById('cpdLastEntry');
   if (lastEl) {
     if (cpdEntries.length > 0) {
       var d = new Date(cpdEntries[0].date);
       lastEl.textContent = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+      lastEl.classList.remove('cpd-zero');
     } else {
       lastEl.textContent = '—';
+      lastEl.classList.add('cpd-zero');
     }
   }
   cpdRenderLog();
@@ -4664,11 +4725,17 @@ function checklistUpdateDashboard() {
     g.items.forEach(function(item) { if (checklistState[item[0]]) done++; });
   });
 
-  var countEl = document.getElementById('checklistCount');
-  if (countEl) countEl.textContent = done + ' / ' + CHECKLIST_TOTAL;
+  var doneNumEl = document.getElementById('checklistDoneNum');
+  if (doneNumEl) {
+    doneNumEl.textContent = done;
+    doneNumEl.closest('.cpd-stat-num').classList.toggle('cpd-zero', done === 0);
+  }
+  var pctEl = document.getElementById('checklistPct');
+  var pct = Math.round((done / CHECKLIST_TOTAL) * 100);
+  if (pctEl) pctEl.textContent = pct + '%';
 
   var fillEl = document.getElementById('checklistProgressFill');
-  if (fillEl) fillEl.style.width = Math.round((done / CHECKLIST_TOTAL) * 100) + '%';
+  if (fillEl) fillEl.style.width = pct + '%';
 
   var bannerEl = document.getElementById('checklistCompleteBanner');
   if (bannerEl) bannerEl.style.display = (done === CHECKLIST_TOTAL) ? 'block' : 'none';

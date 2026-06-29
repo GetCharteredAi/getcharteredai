@@ -49,6 +49,10 @@ exports.handler = async (event) => {
     params.append('success_url', successUrl || 'https://getcharteredai.com/success.html?session_id={CHECKOUT_SESSION_ID}');
     params.append('cancel_url', 'https://getcharteredai.com/cancel.html');
     params.append('billing_address_collection', 'auto');
+    if (body.plan === 'annual') {
+      params.append('payment_method_types[0]', 'card');
+      params.append('payment_method_types[1]', 'klarna');
+    }
     if (body.email) {
       params.append('customer_email', body.email);
     }

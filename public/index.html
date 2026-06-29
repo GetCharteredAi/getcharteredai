@@ -959,6 +959,58 @@ input.err{border-color:var(--red)}
 .cs-result-section-title{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#2563EB;margin-bottom:10px}
 .cs-result-section-body{font-size:14px;color:rgba(255,255,255,.85);line-height:1.7;white-space:pre-wrap}
 .cs-result-note{font-size:12px;color:rgba(255,255,255,.45);font-style:italic;line-height:1.6;margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
+
+/* ── DASHBOARD B — MILESTONE STRIP ── */
+.ms-wrap{padding-bottom:4px;margin-bottom:20px}
+.ms-strip{position:relative;padding:4px 0}
+.ms-track{position:absolute;top:19px;left:3%;right:3%;height:2px;background:#1a2540;z-index:0}
+.ms-track-fill{position:absolute;top:0;left:0;height:100%;background:#2563EB;transition:width .6s ease}
+.ms-nodes{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1}
+.ms-node{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;cursor:default}
+.ms-node.unlocked{cursor:pointer}
+.ms-node.unlocked:hover .ms-dot{transform:scale(1.1)}
+.ms-dot{width:38px;height:38px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#3a4a68;transition:.2s;flex-shrink:0}
+.ms-node.done .ms-dot{background:#2563EB;border-color:#2563EB;color:#fff;font-size:16px}
+.ms-node.active .ms-dot{background:#0a1428;border-color:#2563EB;color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.18);font-size:10px}
+.ms-node.goalpost-complete .ms-dot{background:#16a34a;border-color:#16a34a;color:#fff}
+.ms-node-text{display:flex;flex-direction:column;align-items:center;gap:2px}
+.ms-code{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#3a4a68;line-height:1}
+.ms-node.done .ms-code{color:#60a5fa}
+.ms-node.active .ms-code{color:#93c5fd}
+.ms-lbl{font-size:10px;color:#3a4a68;text-align:center;line-height:1.3;max-width:64px}
+.ms-node.done .ms-lbl{color:#6b80a8}
+.ms-node.active .ms-lbl{color:#eef2ff}
+@media(max-width:640px){
+  .ms-track{display:none}
+  .ms-strip{padding:0}
+  .ms-nodes{flex-direction:column;gap:0}
+  .ms-node{flex-direction:row;align-items:center;gap:12px;padding:8px 0}
+  .ms-node-text{align-items:flex-start}
+  .ms-dot{width:36px;height:36px;flex-shrink:0}
+  .ms-lbl{max-width:none;text-align:left;font-size:12px}
+}
+/* ── DASHBOARD B — ACTION CARDS ── */
+.db-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+@media(max-width:640px){.db-cards{grid-template-columns:1fr}}
+.db-card{border-radius:12px;padding:18px 20px;border:1px solid #1a2540;background:#080e1c;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:.18s}
+.db-card:hover{border-color:rgba(37,99,235,.45);background:#0a1428}
+.db-card.primary{border-color:rgba(37,99,235,.6);background:rgba(37,99,235,.08)}
+.db-card.primary:hover{background:rgba(37,99,235,.13)}
+.db-card-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6b80a8}
+.db-card.primary .db-card-eyebrow{color:#93c5fd}
+.db-card-title{font-size:14px;font-weight:700;color:#eef2ff;line-height:1.35}
+.db-card-sub{font-size:12px;color:#6b80a8}
+.db-card-right-col{display:flex;flex-direction:column;gap:10px}
+/* ── DASHBOARD B — BOTTOM ROW ── */
+.db-bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:0}
+@media(max-width:640px){.db-bottom-row{grid-template-columns:1fr}}
+.db-bottom-card{border-radius:12px;padding:22px;border:1px solid #1a2540;background:#080e1c}
+.db-bottom-card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6b80a8;margin-bottom:10px}
+.db-bottom-card-title{font-size:15px;font-weight:700;color:#eef2ff;margin-bottom:8px}
+.db-bottom-card-body{font-size:13px;color:#6b80a8;line-height:1.65;margin-bottom:14px}
+.db-bottom-card-price{font-size:14px;font-weight:700;color:#eef2ff;margin-bottom:12px}
+.db-bottom-card-btn{display:inline-block;background:#2563EB;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:8px;text-decoration:none;cursor:pointer;border:none;font-family:var(--f);letter-spacing:.01em}
+.db-bottom-card-btn:hover{background:#1d4ed8}
 </style>
 </head>
 <body>
@@ -1565,7 +1617,6 @@ document.addEventListener('click', function(e) {
         <div class="ds-header">
           <div class="ds-header-row">
             <div>
-              <div class="ds-eyebrow">Your APC Dashboard</div>
               <div class="ds-plan-badge" id="dsPlanBadge">Loading...</div>
               <h2 class="ds-welcome" id="dashWelcome">Welcome back</h2>
               <p class="ds-sub" id="dashSub">Your APC preparation is ready.</p>
@@ -1583,12 +1634,15 @@ document.addEventListener('click', function(e) {
         </div>
 
         <!-- Progress bar -->
-        <div class="ds-progress-wrap">
+        <div class="ds-progress-wrap" id="dsProgressWrap">
           <div class="ds-progress-track">
             <div class="ds-progress-fill" id="dashProgressBar" style="width:0%"></div>
           </div>
           <p class="ds-progress-label" id="dashProgressLabel"></p>
         </div>
+
+        <!-- Milestone strip (referred plan — populated by JS) -->
+        <div id="msStripWrap"></div>
 
         <!-- Continue + Quick links -->
         <div class="ds-actions" id="dsActions">
@@ -1597,11 +1651,13 @@ document.addEventListener('click', function(e) {
 
       </div>
 
-      <div class="bs-qbank" id="industryBriefingCard">
-        <div class="panel-eyebrow panel-eyebrow-light">Stay current</div>
-        <div class="bs-qbank-title" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:18px">📋 Industry Briefing <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.25);letter-spacing:.02em">Updated Summer 2026</span></div>
-        <div class="bs-qbank-sub">The legislation changes and technical developments most likely to come up in your assessment. Updated every window.</div>
-        <a href="https://getcharteredai.com/hot-topics" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Read the Briefing →</a>
+      <div id="dashBottomRowGrid">
+        <div class="bs-qbank" id="industryBriefingCard" style="margin-bottom:0">
+          <div class="panel-eyebrow panel-eyebrow-light">Stay current</div>
+          <div class="bs-qbank-title" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:18px">📋 Industry Briefing <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.25);letter-spacing:.02em">Updated Summer 2026</span></div>
+          <div class="bs-qbank-sub">The legislation changes and technical developments most likely to come up in your assessment. Updated every window.</div>
+          <a href="https://getcharteredai.com/hot-topics" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Read the Briefing →</a>
+        </div>
       </div>
 
       <div class="cpd-panel" id="cpdPanel">
@@ -2572,6 +2628,102 @@ async function renderDashboard() {
   }
 
   actionsEl.innerHTML = actionsHTML;
+
+  // ── REFERRED PLAN — DASHBOARD B EXPERIENCE ──────────────────────────────────
+  if (plan === 'referred') {
+    // Update sub line to referred-specific copy
+    document.getElementById('dashSub').textContent = 'You know this subject. This programme helps you prove it under pressure.';
+    // Hide default progress bar, show milestone strip instead
+    const progressWrap = document.getElementById('dsProgressWrap');
+    if (progressWrap) progressWrap.style.display = 'none';
+
+    // ── Milestone strip ──
+    const CRmods = [
+      {id:13, code:'CR01', label:'Understand your referral'},
+      {id:14, code:'CR02', label:'What assessors score'},
+      {id:15, code:'CR03', label:'Evidence & structure'},
+      {id:16, code:'CR04', label:'Rebuild your answers'},
+      {id:17, code:'CR05', label:'Perform under pressure'},
+      {id:18, code:'CR06', label:'Reflect & resit mindset'}
+    ];
+    const crDone = CRmods.filter(m => isComplete(m.id)).length;
+    const allCRDone = crDone === 6;
+    // Fill % = up to and including the active node (Enrolled=pos0, CR01=pos1...CR06=pos6 of 7 gaps)
+    const fillPct = Math.round(Math.min(crDone + 1, 6) / 7 * 100);
+
+    const mkNode = (state, dotHtml, code, label, clickFn) =>
+      `<div class="ms-node ${state}${(state==='done'||state==='active')?' unlocked':''}"${clickFn ? ` onclick="${clickFn}"` : ''}>
+        <div class="ms-dot">${dotHtml}</div>
+        <div class="ms-node-text">${code ? `<span class="ms-code">${code}</span>` : ''}<span class="ms-lbl">${label}</span></div>
+      </div>`;
+
+    let nodesHtml = mkNode('done', '✓', '', 'Enrolled', null);
+    let activeSet = false;
+    CRmods.forEach(m => {
+      const complete = isComplete(m.id);
+      if (complete) {
+        nodesHtml += mkNode('done', '✓', m.code, m.label, `openModule(${m.id}); showView('module')`);
+      } else if (!activeSet) {
+        nodesHtml += mkNode('active', m.code, m.code, m.label, `openModule(${m.id}); showView('module')`);
+        activeSet = true;
+      } else {
+        nodesHtml += mkNode('locked', m.code, m.code, m.label, null);
+      }
+    });
+    nodesHtml += mkNode(allCRDone ? 'goalpost-complete' : 'goalpost', '🏆', '', 'Chartered', null);
+
+    const msWrap = document.getElementById('msStripWrap');
+    if (msWrap) msWrap.innerHTML = `<div class="ms-wrap"><div class="ms-strip">
+      <div class="ms-track"><div class="ms-track-fill" style="width:${fillPct}%"></div></div>
+      <div class="ms-nodes">${nodesHtml}</div>
+    </div></div>`;
+
+    // ── New 2-column action cards ──
+    const lastRef = getLastInProgressModule(plan, activatedAt);
+    const firstRef = MODULES.find(m => m.id >= 13 && m.id <= 18 && isModuleUnlocked(m.id, plan, activatedAt));
+    const contMod = lastRef || firstRef;
+    const contLabel = lastRef ? 'Continue' : 'Start here';
+    const contName = contMod
+      ? `${contMod.num}: ${contMod.title.substring(0, 32)}${contMod.title.length > 32 ? '…' : ''}`
+      : 'Your first module';
+    const contClick = contMod ? `openModule(${contMod.id}); showView('module')` : '';
+    actionsEl.innerHTML = `
+      <div class="db-cards">
+        <div class="db-card primary" onclick="${contClick}">
+          <div class="db-card-eyebrow">${contLabel}</div>
+          <div class="db-card-title">${contName}</div>
+          <div class="db-card-sub">Tap to open →</div>
+        </div>
+        <div class="db-card-right-col">
+          <div class="db-card" onclick="openAITutorDirect()">
+            <div class="db-card-eyebrow">AI Tutor · 24/7</div>
+            <div class="db-card-title">Ask Michael</div>
+          </div>
+          <div class="db-card" onclick="openMockInterviewDirect()">
+            <div class="db-card-eyebrow">Assessor Mode</div>
+            <div class="db-card-title">Mock Interview</div>
+          </div>
+        </div>
+      </div>`;
+
+    // ── Bottom row: Industry Briefing + Case Study Review ──
+    const bottomGrid = document.getElementById('dashBottomRowGrid');
+    if (bottomGrid && !document.getElementById('csReviewBottomCard')) {
+      bottomGrid.className = 'db-bottom-row';
+      const csCard = document.createElement('div');
+      csCard.id = 'csReviewBottomCard';
+      csCard.className = 'db-bottom-card';
+      csCard.innerHTML = `
+        <div class="db-bottom-card-label">Add-on</div>
+        <div class="db-bottom-card-title">📝 Case Study Review</div>
+        <div class="db-bottom-card-body">Expert written feedback on your case study before your panel. Covers structure, evidence selection, and reflective analysis.</div>
+        <div class="db-bottom-card-price">£29 one-off</div>
+        <button class="db-bottom-card-btn" onclick="checkout('case-study')">Add Case Study Review →</button>`;
+      bottomGrid.appendChild(csCard);
+    }
+  }
+  // ── END REFERRED PLAN EXPERIENCE ─────────────────────────────────────────────
+
   // ── END SUMMARY PANEL ────────────────────────────────────────────────────
 
   // Sprint banner

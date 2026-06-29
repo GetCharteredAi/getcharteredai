@@ -2874,17 +2874,7 @@ async function renderDashboard() {
       sprintBanner.style.display = 'none';
     }
   }
-  // Add cancel link for monthly subscribers
-  const cancelDiv = document.getElementById('dashCancelLink');
-  if (cancelDiv) cancelDiv.remove();
-  if (plan === 'monthly') {
-    const cd = document.createElement('p');
-    cd.id = 'dashCancelLink';
-    cd.style.cssText = 'font-size:12px;color:rgba(255,255,255,.35);margin-top:8px;position:relative;z-index:1';
-    cd.innerHTML = 'To cancel your subscription email <a href="mailto:info@getcharteredai.com" style="color:rgba(255,255,255,.45)">info@getcharteredai.com</a>';
-    document.getElementById('dashWelcome').appendChild(cd);
-  }
-  const dashMods = plan === 'referred' ? MODULES.filter(m => m.id >= 13 && m.id <= 18) : MODULES.filter(m => m.id <= 12);
+const dashMods = plan === 'referred' ? MODULES.filter(m => m.id >= 13 && m.id <= 18) : MODULES.filter(m => m.id <= 12);
   document.getElementById('dashProgressBar').style.width = pct + '%';
   document.getElementById('dashProgressLabel').textContent = plan === 'annual'
     ? `${done} of 12 modules complete (${pct}%)`

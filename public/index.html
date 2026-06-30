@@ -1033,18 +1033,18 @@ input.err{border-color:var(--red)}
 .device-wrap{position:relative;padding-bottom:76px}
 /* Laptop chassis */
 .laptop-outer{filter:drop-shadow(0 24px 64px rgba(0,0,0,.7))}
-.laptop-lid{background:#191c2e;border-radius:12px 12px 3px 3px;padding:0 9px 7px;display:flex;flex-direction:column}
+.laptop-lid{background:#2a2f42;border-radius:12px 12px 3px 3px;padding:0 9px 7px;display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,0.08)}
 .laptop-lid-top{height:18px;display:flex;align-items:center;justify-content:center}
 .laptop-cam{width:5px;height:5px;border-radius:50%;background:#0c0f1e;box-shadow:0 0 0 1px rgba(255,255,255,.08),inset 0 0 0 1px rgba(0,0,0,.4)}
 .laptop-screen-area{background:#080e1c;border-radius:4px;overflow:hidden;aspect-ratio:16/9;position:relative}
 .laptop-lid-bot{height:9px}
-.laptop-hinge{height:3px;background:linear-gradient(180deg,#0b0e1c 0%,#060911 100%);margin:0 4px}
-.laptop-base{background:#14172b;border-radius:0 0 10px 10px;height:18px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;box-shadow:0 8px 20px rgba(0,0,0,.5)}
-.laptop-trackpad{width:28px;height:8px;background:#0f1224;border-radius:3px;border:1px solid rgba(255,255,255,.05)}
+.laptop-hinge{height:3px;background:linear-gradient(180deg,#1a1e2e 0%,#0d1018 100%);margin:0 4px}
+.laptop-base{background:#232840;border-radius:0 0 10px 10px;height:18px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;box-shadow:0 8px 20px rgba(0,0,0,.5)}
+.laptop-trackpad{width:28px;height:8px;background:#1a1e30;border-radius:3px;border:1px solid rgba(255,255,255,.07)}
 /* Phone chassis */
 .phone-outer{position:absolute;right:-20px;bottom:0;z-index:2;width:112px;filter:drop-shadow(0 20px 50px rgba(0,0,0,.65))}
-.phone-body{background:#191c2e;border-radius:28px;padding:10px 7px 12px;position:relative}
-.phone-body::after{content:'';position:absolute;right:-2px;top:52px;width:3px;height:28px;background:#12152a;border-radius:0 3px 3px 0}
+.phone-body{background:#2a2f42;border-radius:28px;padding:10px 7px 12px;position:relative;border-top:1px solid rgba(255,255,255,0.07)}
+.phone-body::after{content:'';position:absolute;right:-2px;top:52px;width:3px;height:28px;background:#1e2235;border-radius:0 3px 3px 0}
 .phone-speaker-row{height:16px;display:flex;align-items:center;justify-content:center;margin-bottom:5px}
 .phone-speaker{width:30px;height:4px;background:#0c0f1e;border-radius:2px}
 .phone-screen-area{background:#080e1c;border-radius:20px;overflow:hidden;aspect-ratio:9/19}
@@ -1058,6 +1058,7 @@ input.err{border-color:var(--red)}
 .michael-check-icon{width:28px;height:28px;border-radius:50%;background:#e3edff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .michael-link{color:#2563EB;font-size:14px;font-weight:600;text-decoration:none;transition:color .15s}
 .michael-link:hover{color:#1d4ed8;text-decoration:underline}
+.michael-sec-card{max-width:1100px;margin-left:auto;margin-right:auto;margin-top:-40px;border-radius:24px;box-shadow:0 -20px 60px rgba(0,0,0,0.15);position:relative;z-index:2}
 /* Finder cards responsive */
 @media(max-width:768px){.pf-grid{grid-template-columns:repeat(2,1fr)!important}}
 @media(max-width:480px){.pf-grid{grid-template-columns:1fr!important}}
@@ -1276,7 +1277,7 @@ input.err{border-color:var(--red)}
   </div>
 </section>
 
-<section id="michael-sec" style="background:radial-gradient(ellipse at 85% 10%,rgba(219,234,254,0.2) 0%,transparent 55%),linear-gradient(180deg,#ffffff 0%,#f5f6fa 100%);padding:80px 40px 72px;border-radius:24px;max-width:1280px;margin:-40px auto 0;box-shadow:0 -20px 60px rgba(0,0,0,0.15);position:relative;z-index:1">
+<section id="michael-sec" class="michael-sec-card" style="background:radial-gradient(ellipse at 85% 10%,rgba(219,234,254,0.2) 0%,transparent 55%),linear-gradient(180deg,#ffffff 0%,#f5f6fa 100%);padding:80px 40px 72px">
   <div style="max-width:1200px;margin:0 auto">
 
     <!-- Michael block: text left, large video right -->

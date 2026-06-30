@@ -792,6 +792,7 @@ input.err{border-color:var(--red)}
 .mod-header::after{content:'﹢';font-size:18px;color:rgba(255,255,255,.3);margin-left:auto;transition:.2s}
 .mod-card.open .mod-header::after{content:'－';color:rgba(255,255,255,.5)}
 @media(max-width:768px){.enrol-steps{grid-template-columns:1fr!important}}
+@media(max-width:768px){.pain-grid{grid-template-columns:1fr!important}}
 @media(max-width:768px){.how-it-works-grid{grid-template-columns:1fr 1fr!important}}
 .pf-opt-card:hover{background:rgba(37,99,235,.12)!important;border-color:rgba(37,99,235,.4)!important}
 @media(max-width:768px){.pf-grid{grid-template-columns:1fr 1fr!important}}
@@ -1453,14 +1454,15 @@ input.err{border-color:var(--red)}
 </script>
 
 <div style="background:#0D0F1C;padding:72px 24px 64px">
-  <div style="max-width:640px;margin:0 auto">
+  <div style="max-width:820px;margin:0 auto">
     <p style="font-size:24px;font-weight:700;color:#f8fafc;text-align:center;line-height:1.3;margin:0 0 40px">Sound familiar?</p>
-    <div>
+    <div class="pain-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0 48px">
       <div style="display:flex;align-items:flex-start;gap:14px;font-size:16px;color:rgba(248,250,252,.7);line-height:1.6;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.07)"><span style="color:#f59e0b;flex-shrink:0;margin-top:3px;font-size:18px">→</span>You know your work, but can't explain it properly under pressure</div>
       <div style="display:flex;align-items:flex-start;gap:14px;font-size:16px;color:rgba(248,250,252,.7);line-height:1.6;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.07)"><span style="color:#f59e0b;flex-shrink:0;margin-top:3px;font-size:18px">→</span>You're worried you'll freeze in the assessment room</div>
       <div style="display:flex;align-items:flex-start;gap:14px;font-size:16px;color:rgba(248,250,252,.7);line-height:1.6;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.07)"><span style="color:#f59e0b;flex-shrink:0;margin-top:3px;font-size:18px">→</span>You feel unsure whether you're genuinely on track</div>
       <div style="display:flex;align-items:flex-start;gap:14px;font-size:16px;color:rgba(248,250,252,.7);line-height:1.6;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.07)"><span style="color:#f59e0b;flex-shrink:0;margin-top:3px;font-size:18px">→</span>Your support at work is inconsistent or hard to access</div>
       <div style="display:flex;align-items:flex-start;gap:14px;font-size:16px;color:rgba(248,250,252,.7);line-height:1.6;padding:18px 0"><span style="color:#f59e0b;flex-shrink:0;margin-top:3px;font-size:18px">→</span>You thought you were prepared — but weren't</div>
+      <div style="display:flex;align-items:flex-start;gap:14px;font-size:16px;color:rgba(248,250,252,.7);line-height:1.6;padding:18px 0"><span style="color:#f59e0b;flex-shrink:0;margin-top:3px;font-size:18px">→</span>You're not sure if your examples are strong enough</div>
     </div>
   </div>
 </div>
@@ -1608,7 +1610,7 @@ document.addEventListener('click', function(e) {
         <p style="margin-bottom:20px;">The platform doesn't just give you content to read. It builds the way you think, speak and evidence your experience — because that's what the APC actually tests. Most candidates who are referred know their subject. What separates those who pass is the ability to demonstrate it clearly, under pressure, in the format assessors score.</p>
 
         <div style="background:#0D0F1C;border:1px solid rgba(37,99,235,0.2);border-radius:12px;padding:20px 24px;margin-bottom:20px;">
-        <p style="color:#fff;font-weight:600;margin-bottom:8px;">Meet Michael — your AI Tutor</p>
+        <p style="color:#fff;font-weight:600;margin-bottom:8px;">About Michael</p>
         <p style="color:rgba(255,255,255,0.7);font-size:14px;line-height:1.7;margin-bottom:0;">Michael is not a chatbox. He is a coaching presence built into every competency module. In <strong style="color:#60a5fa;">Tutor Mode</strong> he meets you where you are — helping you shape real experience into competency evidence and naming the level of every answer. In <strong style="color:#60a5fa;">Assessor Mode</strong> he challenges you exactly as the panel will — directly, without softening, with the follow-up questions you were not expecting.<a href="#michael-sec" style="color:#2563EB;font-weight:600;margin-left:6px;">See Michael in action →</a></p>
         </div>
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:8px;">

@@ -1054,8 +1054,10 @@ input.err{border-color:var(--red)}
 .michael-white-card{background:#f4f6fb;border-radius:20px;padding:2.25rem;max-width:740px;margin:0 auto}
 .michael-inner-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
 @media(max-width:768px){.michael-inner-grid{grid-template-columns:1fr}.michael-video-col{order:2!important}.michael-wide-grid{grid-template-columns:1fr!important}.michael-wide-grid .michael-video-col{order:2}}
-.michael-check-item{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.michael-check-item{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .michael-check-icon{width:28px;height:28px;border-radius:50%;background:#e3edff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.michael-link{color:#2563EB;font-size:14px;font-weight:600;text-decoration:none;transition:color .15s}
+.michael-link:hover{color:#1d4ed8;text-decoration:underline}
 /* Finder cards responsive */
 @media(max-width:768px){.pf-grid{grid-template-columns:repeat(2,1fr)!important}}
 @media(max-width:480px){.pf-grid{grid-template-columns:1fr!important}}
@@ -1274,7 +1276,7 @@ input.err{border-color:var(--red)}
   </div>
 </section>
 
-<section id="michael-sec" style="background:#f4f6fb;padding:64px 40px 56px">
+<section id="michael-sec" style="background:radial-gradient(ellipse at 85% 10%,rgba(219,234,254,0.2) 0%,transparent 55%),linear-gradient(180deg,#ffffff 0%,#f5f6fa 100%);padding:80px 40px 72px">
   <div style="max-width:1200px;margin:0 auto">
 
     <!-- Michael block: text left, large video right -->
@@ -1282,7 +1284,7 @@ input.err{border-color:var(--red)}
       <!-- Left: text -->
       <div>
         <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563EB;margin-bottom:10px">Your AI APC Coach</div>
-        <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:28px;font-weight:700;color:#0D0F1C;margin-bottom:14px;line-height:1.2;letter-spacing:-.02em">Meet Michael</div>
+        <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:28px;font-weight:700;color:#0D0F1C;margin-bottom:18px;line-height:1.2;letter-spacing:-.02em">Meet Michael</div>
         <p style="font-size:15px;color:#5a6478;line-height:1.7;margin-bottom:22px">Most APC candidates revise content but never practise performing under pressure. Michael closes that gap — available 24 hours a day, seven days a week, in two distinct modes.</p>
         <div class="michael-check-item">
           <div class="michael-check-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -1297,65 +1299,82 @@ input.err{border-color:var(--red)}
           <span style="font-size:14px;color:#2a3144">Available 24/7 across every pathway</span>
         </div>
         <div style="margin-top:22px">
-          <a href="/pricing" style="color:#2563EB;font-size:14px;font-weight:600;text-decoration:none">Watch 90-second introduction →</a>
+          <a href="/pricing" class="michael-link">Watch 90-second introduction →</a>
         </div>
       </div>
       <!-- Right: large video -->
       <div class="michael-video-col">
-        <div style="background:#fff;border-radius:14px;box-shadow:0 20px 50px rgba(13,15,28,.18);overflow:hidden;aspect-ratio:16/9;position:relative">
+        <div style="background:#fff;border-radius:20px;overflow:hidden;aspect-ratio:16/9;position:relative;box-shadow:0 25px 60px rgba(13,15,28,0.14),0 8px 20px rgba(13,15,28,0.08);border:1px solid rgba(13,15,28,0.06)">
           <iframe src="https://app.heygen.com/embeds/151f77a48aa7442e8658b0b88da7a83c" title="Michael — your AI APC Coach" frameborder="0" allow="encrypted-media; fullscreen;" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;border:none"></iframe>
         </div>
       </div>
     </div>
 
     <!-- Pathway finder cards -->
-    <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;color:#0D0F1C;text-align:center;margin-bottom:24px;letter-spacing:-.02em">Find the right path for your APC</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px" class="pf-grid">
-      <a href="#pathways-sec" onclick="showProgramme('prog-yr2review');return false;" style="text-decoration:none;display:flex">
-        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.15s" onmouseover="this.style.borderColor='#bfdbfe';this.style.boxShadow='0 4px 16px rgba(37,99,235,.1)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow=''">
-          <div style="width:36px;height:36px;background:#f1f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px">🌱</div>
-          <div style="font-size:14px;font-weight:700;color:#0D0F1C;margin-bottom:8px;line-height:1.3">APC Year Two Readiness Review</div>
-          <div style="display:flex;flex-direction:column;gap:3px">
-            <div style="font-size:11px;color:#64748b">32 diagnostic questions</div>
-            <div style="font-size:11px;color:#64748b">Michael readiness report</div>
-            <div style="font-size:11px;color:#64748b">One-off assessment · £127</div>
-          </div>
-        </div>
-      </a>
-      <a href="#pathways-sec" onclick="showProgramme('prog-12module');return false;" style="text-decoration:none;display:flex">
-        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.15s" onmouseover="this.style.borderColor='#bfdbfe';this.style.boxShadow='0 4px 16px rgba(37,99,235,.1)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow=''">
-          <div style="width:36px;height:36px;background:#f1f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px">📚</div>
-          <div style="font-size:14px;font-weight:700;color:#0D0F1C;margin-bottom:8px;line-height:1.3">APC Full 12 Module Programme</div>
-          <div style="display:flex;flex-direction:column;gap:3px">
-            <div style="font-size:11px;color:#64748b">12 structured modules</div>
-            <div style="font-size:11px;color:#64748b">2,000+ practice questions</div>
-            <div style="font-size:11px;color:#64748b">60-min mock interview included</div>
-          </div>
-        </div>
-      </a>
-      <a href="#pathways-sec" onclick="showProgramme('prog-sprint');return false;" style="text-decoration:none;display:flex">
-        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.15s" onmouseover="this.style.borderColor='#bfdbfe';this.style.boxShadow='0 4px 16px rgba(37,99,235,.1)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow=''">
-          <div style="width:36px;height:36px;background:#f1f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px">⏱</div>
-          <div style="font-size:14px;font-weight:700;color:#0D0F1C;margin-bottom:8px;line-height:1.3">Sprint Programme</div>
-          <div style="display:flex;flex-direction:column;gap:3px">
-            <div style="font-size:11px;color:#64748b">42-day focused programme</div>
-            <div style="font-size:11px;color:#64748b">2,000+ practice questions</div>
-            <div style="font-size:11px;color:#64748b">60-min mock interview included</div>
-          </div>
-        </div>
-      </a>
-      <a href="#pathways-sec" onclick="showProgramme('prog-referred');return false;" style="text-decoration:none;display:flex">
-        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.15s" onmouseover="this.style.borderColor='#bfdbfe';this.style.boxShadow='0 4px 16px rgba(37,99,235,.1)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow=''">
-          <div style="width:36px;height:36px;background:#f1f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px">🔁</div>
-          <div style="font-size:14px;font-weight:700;color:#0D0F1C;margin-bottom:8px;line-height:1.3">Referred Candidate Recovery</div>
-          <div style="display:flex;flex-direction:column;gap:3px">
-            <div style="font-size:11px;color:#64748b">6 targeted modules</div>
-            <div style="font-size:11px;color:#64748b">2,000+ practice questions</div>
-            <div style="font-size:11px;color:#64748b">90-day programme</div>
-          </div>
-        </div>
-      </a>
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563EB;margin-bottom:10px">Choose your programme</div>
+      <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;color:#0D0F1C;letter-spacing:-.02em">Find the right path for your APC</div>
     </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px" class="pf-grid">
+
+      <a href="#pathways-sec" onclick="showProgramme('prog-yr2review');return false;" style="text-decoration:none;display:flex">
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:1.25rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.18s;display:flex;flex-direction:column" onmouseover="this.style.borderColor='#a7f3d0';this.style.boxShadow='0 6px 20px rgba(16,185,129,.1)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow=''">
+          <div style="width:40px;height:40px;background:rgba(16,185,129,.1);border:1.5px solid rgba(16,185,129,.25);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px">🌱</div>
+          <div style="font-size:15px;font-weight:700;color:#0D0F1C;margin-bottom:5px;line-height:1.3">APC Year Two Readiness Review</div>
+          <div style="font-size:12px;color:#94a3b8;margin-bottom:12px;line-height:1.4">Identify gaps before your assessment year begins</div>
+          <div style="display:flex;flex-direction:column;gap:5px;flex:1">
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(16,185,129,.15)"/><path d="M3 6l2 2 4-4" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">32 diagnostic questions</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(16,185,129,.15)"/><path d="M3 6l2 2 4-4" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">Michael readiness report</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(16,185,129,.15)"/><path d="M3 6l2 2 4-4" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">One-off assessment · £127</span></div>
+          </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid #f1f5f9"><span style="font-size:13px;font-weight:600;color:#2563EB">Explore programme →</span></div>
+        </div>
+      </a>
+
+      <a href="#pathways-sec" onclick="showProgramme('prog-12module');return false;" style="text-decoration:none;display:flex">
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:1.25rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.18s;display:flex;flex-direction:column" onmouseover="this.style.borderColor='#bfdbfe';this.style.boxShadow='0 6px 20px rgba(37,99,235,.1)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow=''">
+          <div style="width:40px;height:40px;background:rgba(37,99,235,.1);border:1.5px solid rgba(37,99,235,.22);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px">📚</div>
+          <div style="font-size:15px;font-weight:700;color:#0D0F1C;margin-bottom:5px;line-height:1.3">APC Full 12 Module Programme</div>
+          <div style="font-size:12px;color:#94a3b8;margin-bottom:12px;line-height:1.4">Complete structured preparation across all competencies</div>
+          <div style="display:flex;flex-direction:column;gap:5px;flex:1">
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(37,99,235,.15)"/><path d="M3 6l2 2 4-4" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">12 structured modules</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(37,99,235,.15)"/><path d="M3 6l2 2 4-4" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">2,000+ practice questions</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(37,99,235,.15)"/><path d="M3 6l2 2 4-4" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">60-min mock interview included</span></div>
+          </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid #f1f5f9"><span style="font-size:13px;font-weight:600;color:#2563EB">Explore programme →</span></div>
+        </div>
+      </a>
+
+      <a href="#pathways-sec" onclick="showProgramme('prog-sprint');return false;" style="text-decoration:none;display:flex">
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:1.25rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.18s;display:flex;flex-direction:column" onmouseover="this.style.borderColor='#fde68a';this.style.boxShadow='0 6px 20px rgba(245,158,11,.1)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow=''">
+          <div style="width:40px;height:40px;background:rgba(245,158,11,.1);border:1.5px solid rgba(245,158,11,.25);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px">⏱</div>
+          <div style="font-size:15px;font-weight:700;color:#0D0F1C;margin-bottom:5px;line-height:1.3">Sprint Programme</div>
+          <div style="font-size:12px;color:#94a3b8;margin-bottom:12px;line-height:1.4">Intensive 42-day focus for candidates close to submission</div>
+          <div style="display:flex;flex-direction:column;gap:5px;flex:1">
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(245,158,11,.15)"/><path d="M3 6l2 2 4-4" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">42-day focused programme</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(245,158,11,.15)"/><path d="M3 6l2 2 4-4" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">2,000+ practice questions</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(245,158,11,.15)"/><path d="M3 6l2 2 4-4" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">60-min mock interview included</span></div>
+          </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid #f1f5f9"><span style="font-size:13px;font-weight:600;color:#2563EB">Explore programme →</span></div>
+        </div>
+      </a>
+
+      <a href="#pathways-sec" onclick="showProgramme('prog-referred');return false;" style="text-decoration:none;display:flex">
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:1.25rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.18s;display:flex;flex-direction:column" onmouseover="this.style.borderColor='#ddd6fe';this.style.boxShadow='0 6px 20px rgba(139,92,246,.1)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow=''">
+          <div style="width:40px;height:40px;background:rgba(139,92,246,.1);border:1.5px solid rgba(139,92,246,.22);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px">🔁</div>
+          <div style="font-size:15px;font-weight:700;color:#0D0F1C;margin-bottom:5px;line-height:1.3">Referred Candidate Recovery</div>
+          <div style="font-size:12px;color:#94a3b8;margin-bottom:12px;line-height:1.4">Targeted 90-day recovery for referred candidates</div>
+          <div style="display:flex;flex-direction:column;gap:5px;flex:1">
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(139,92,246,.15)"/><path d="M3 6l2 2 4-4" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">6 targeted modules</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(139,92,246,.15)"/><path d="M3 6l2 2 4-4" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">2,000+ practice questions</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(139,92,246,.15)"/><path d="M3 6l2 2 4-4" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#64748b">90-day programme</span></div>
+          </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid #f1f5f9"><span style="font-size:13px;font-weight:600;color:#2563EB">Explore programme →</span></div>
+        </div>
+      </a>
+
+    </div>
+    <p style="text-align:center;font-size:14px;color:#94a3b8;margin-top:24px;margin-bottom:0">Not sure which pathway is right for you? <a href="#pathways-sec" style="font-weight:700;color:#2563EB;text-decoration:none">Take the 2-minute quiz →</a></p>
 
   </div>
 </section>

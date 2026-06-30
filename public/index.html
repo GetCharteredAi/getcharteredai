@@ -1181,55 +1181,42 @@ input.err{border-color:var(--red)}
                 <div style="font-size:22px;font-weight:800;color:#f8fafc;line-height:1.2;margin-bottom:3px">Welcome back, Sarah</div>
                 <div style="font-size:12px;color:rgba(248,250,252,.3)">Your APC preparation is ready.</div>
               </div>
-              <!-- Milestone strip — 14 nodes -->
-              <div style="position:relative;padding:4px 0;margin-bottom:20px">
-                <div style="position:absolute;top:18px;left:2%;right:2%;height:2px;background:#1a2540;z-index:0">
-                  <div style="position:absolute;top:0;left:0;height:100%;width:22%;background:#2563EB;transition:width .6s ease"></div>
+              <!-- Progress ring + continue card row -->
+              <div style="display:grid;grid-template-columns:160px 1fr;gap:20px;margin-bottom:18px;align-items:center">
+                <!-- Progress ring (72%) -->
+                <div style="text-align:center">
+                  <div style="position:relative;display:inline-block">
+                    <svg width="110" height="110" viewBox="0 0 120 120" style="display:block">
+                      <circle cx="60" cy="60" r="46" fill="none" stroke="#1a2540" stroke-width="9"/>
+                      <!-- 72%: circumference=289, offset=289*(1-0.72)=81 -->
+                      <circle cx="60" cy="60" r="46" fill="none" stroke="#2563EB" stroke-width="9" stroke-dasharray="289" stroke-dashoffset="81" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                    </svg>
+                    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;line-height:1">
+                      <div style="font-size:22px;font-weight:800;color:#f8fafc">72%</div>
+                    </div>
+                  </div>
+                  <div style="font-size:11px;font-weight:600;color:rgba(248,250,252,.4);margin-top:6px">Your progress</div>
                 </div>
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1">
-                  <!-- Enrolled done -->
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
-                    <div style="width:32px;height:32px;border-radius:50%;background:#2563EB;border:2px solid #2563EB;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center">✓</div>
-                    <div style="font-size:8px;color:rgba(248,250,252,.4);white-space:nowrap">Enrolled</div>
-                  </div>
-                  <!-- M01 done -->
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
-                    <div style="width:32px;height:32px;border-radius:50%;background:#2563EB;border:2px solid #2563EB;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center">✓</div>
-                    <div style="font-size:8px;color:rgba(248,250,252,.4)">M01</div>
-                  </div>
-                  <!-- M02 done -->
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
-                    <div style="width:32px;height:32px;border-radius:50%;background:#2563EB;border:2px solid #2563EB;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center">✓</div>
-                    <div style="font-size:8px;color:rgba(248,250,252,.4)">M02</div>
-                  </div>
-                  <!-- M03 active -->
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
-                    <div style="width:32px;height:32px;border-radius:50%;background:#0a1428;border:2px solid #2563EB;color:#93c5fd;font-size:9px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(37,99,235,.18)">M03</div>
-                    <div style="font-size:8px;color:#93c5fd">M03</div>
-                  </div>
-                  <!-- M04–M12 locked -->
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M04</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M04</div></div>
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M05</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M05</div></div>
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M06</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M06</div></div>
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M07</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M07</div></div>
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M08</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M08</div></div>
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M09</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M09</div></div>
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M10</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M10</div></div>
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M11</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M11</div></div>
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M12</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M12</div></div>
-                  <!-- Chartered -->
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
-                    <div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.15);font-size:11px;display:flex;align-items:center;justify-content:center">🏆</div>
-                    <div style="font-size:8px;color:rgba(248,250,252,.2);white-space:nowrap">Chartered</div>
-                  </div>
+                <!-- Continue learning card -->
+                <div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.4);border-radius:12px;padding:18px 20px">
+                  <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa;margin-bottom:6px">Continue learning</div>
+                  <div style="font-size:15px;font-weight:700;color:#f8fafc;line-height:1.3;margin-bottom:5px">Module 6 — Ethics, Rules and Professional Standards</div>
+                  <div style="font-size:11px;color:rgba(248,250,252,.4);margin-bottom:14px">Pick up where you left off</div>
+                  <div style="display:inline-block;background:#2563EB;color:#fff;font-size:11px;font-weight:700;padding:8px 18px;border-radius:7px">Continue module →</div>
                 </div>
               </div>
-              <!-- Action card -->
-              <div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.4);border-radius:12px;padding:16px 20px;display:inline-block;min-width:320px">
-                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa;margin-bottom:4px">Continue learning</div>
-                <div style="font-size:16px;font-weight:700;color:#f8fafc;margin-bottom:4px">M03: Client Care</div>
-                <div style="font-size:11px;color:rgba(248,250,252,.4);margin-bottom:14px">Build client relationships and handle complaints professionally</div>
-                <div style="display:inline-block;background:#2563EB;color:#fff;font-size:11px;font-weight:700;padding:8px 16px;border-radius:7px">Continue →</div>
+              <!-- Recent activity -->
+              <div style="background:#0d1120;border:1px solid #1a2540;border-radius:10px;padding:14px 18px">
+                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,250,252,.28);margin-bottom:12px">Recent activity</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                  <div style="font-size:13px;color:rgba(248,250,252,.65)">Module 5 — Health &amp; Safety</div>
+                  <div style="font-size:12px;font-weight:700;color:#22c55e">100%</div>
+                </div>
+                <div style="height:1px;background:#1a2540;margin-bottom:10px"></div>
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <div style="font-size:13px;color:rgba(248,250,252,.65)">Module 4 — Client Care</div>
+                  <div style="font-size:12px;font-weight:700;color:#22c55e">100%</div>
+                </div>
               </div>
             </div>
           </div>

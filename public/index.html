@@ -711,7 +711,7 @@ input.err{border-color:var(--red)}
 }
 
 @media(max-width:900px){.hero-two-col{grid-template-columns:1fr!important}.hero-two-col .video-col{order:-1}}
-@media(max-width:768px){.video-col{display:none!important}.hero-two-col{gap:0!important}}
+@media(max-width:768px){.video-col{display:none!important}.hero-two-col{gap:0!important}.hero{min-height:auto!important}#pathways-sec{padding-top:0!important;padding-bottom:0!important}}
 @media(max-width:768px){.prog-three-col{grid-template-columns:1fr!important}}
 
 /* HERO PILLS ROW */
@@ -1536,6 +1536,8 @@ function showProgramme(id) {
   });
   var el=document.getElementById(id);
   el.style.display='block';
+  var sec=document.getElementById('pathways-sec');
+  if(sec){sec.style.padding='24px 16px 48px';}
   el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 </script>

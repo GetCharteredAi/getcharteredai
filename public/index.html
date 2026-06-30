@@ -1029,6 +1029,23 @@ input.err{border-color:var(--red)}
 .part-divider-title{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#2563EB;margin-bottom:4px}
 .part-divider-sub{font-size:10px;color:#6b80a8;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 .mod-toc-divider{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#2563EB;padding:12px 16px 4px;margin-top:4px}
+/* Device mockup */
+.device-wrap{position:relative;padding-bottom:70px}
+.laptop-outer{background:#11162a;border-radius:14px 14px 3px 3px;padding:12px 12px 0;box-shadow:0 24px 64px rgba(0,0,0,.62)}
+.laptop-screen-area{background:#080e1c;border-radius:6px;overflow:hidden;aspect-ratio:16/9;position:relative}
+.phone-outer{position:absolute;right:-18px;bottom:0;z-index:2;background:#11162a;border-radius:28px;padding:8px 5px 10px;width:108px;box-shadow:0 20px 50px rgba(0,0,0,.56)}
+.phone-notch-bar{width:28px;height:4px;background:#090e1c;border-radius:2px;margin:0 auto 6px}
+.phone-screen-area{background:#080e1c;border-radius:20px;overflow:hidden;aspect-ratio:9/19}
+.phone-home-btn{width:22px;height:22px;background:#0d1425;border-radius:50%;margin:7px auto 0}
+/* Michael white card */
+.michael-white-card{background:#f4f6fb;border-radius:20px;padding:2.25rem;max-width:740px;margin:0 auto}
+.michael-inner-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+@media(max-width:768px){.michael-inner-grid{grid-template-columns:1fr}.michael-video-col{order:2!important}}
+.michael-check-item{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.michael-check-icon{width:28px;height:28px;border-radius:50%;background:#e3edff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* Finder cards responsive */
+@media(max-width:768px){.pf-grid{grid-template-columns:repeat(2,1fr)!important}}
+@media(max-width:480px){.pf-grid{grid-template-columns:1fr!important}}
 </style>
 </head>
 <body>
@@ -1138,16 +1155,122 @@ input.err{border-color:var(--red)}
     <!-- LEFT COLUMN — copy -->
     <div>
       <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:16px;text-align:left">THE PLATFORM THAT THINKS LIKE AN ASSESSOR</div>
-      <h1 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(28px,3.5vw,48px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:20px;text-align:left">You've done the work.<br>The assessment is about<br><em style="font-style:normal;color:#93c5fd">proving it under pressure.</em></h1>
+      <h1 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:36px;font-weight:400;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px;text-align:left">You've done the work.<br>The assessment is about<br><em style="font-style:normal;color:#93c5fd">proving it under pressure.</em></h1>
       <p style="font-size:15px;color:rgba(248,250,252,.55);margin-bottom:24px;line-height:1.7;max-width:480px;text-align:left">Get Chartered AI helps candidates across the built environment develop the confidence, competency and assessment readiness to become chartered — supported by structured learning and AI-assisted preparation.</p>
     </div>
 
-    <!-- RIGHT COLUMN — pills + video -->
+    <!-- RIGHT COLUMN — device mockup -->
     <div class="video-col">
-<div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 16px 48px rgba(0,0,0,.45);position:relative;transform:scale(1.1);transform-origin:top center">
-        <iframe src="https://app.heygen.com/embeds/151f77a48aa7442e8658b0b88da7a83c" title="Hi there" frameborder="0" allow="encrypted-media; fullscreen;" allowfullscreen style="width:100%;aspect-ratio:16/9;display:block;border:none"></iframe>
+      <div class="device-wrap">
+
+        <!-- Laptop frame -->
+        <div class="laptop-outer">
+          <!-- Traffic-light dots (menu bar feel) -->
+          <div style="display:flex;align-items:center;gap:5px;padding:0 2px 8px">
+            <div style="width:8px;height:8px;border-radius:50%;background:#ef4444;opacity:.65"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:#f59e0b;opacity:.65"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;opacity:.65"></div>
+          </div>
+          <!-- Screen -->
+          <div class="laptop-screen-area">
+            <!-- Dashboard at natural design width; scale(0.55) makes it fit the screen -->
+            <div style="transform:scale(0.55);transform-origin:top left;width:182%;min-height:450px;background:#080e1c;padding:20px;font-family:'Plus Jakarta Sans','Inter',sans-serif;pointer-events:none;user-select:none">
+              <!-- Header -->
+              <div style="margin-bottom:14px">
+                <div style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563EB;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);padding:3px 10px;border-radius:5px;margin-bottom:8px">Annual 12 Module Programme</div>
+                <div style="font-size:22px;font-weight:800;color:#f8fafc;line-height:1.2;margin-bottom:3px">Welcome back, Sarah</div>
+                <div style="font-size:12px;color:rgba(248,250,252,.3)">Your APC preparation is ready.</div>
+              </div>
+              <!-- Milestone strip — 14 nodes -->
+              <div style="position:relative;padding:4px 0;margin-bottom:20px">
+                <div style="position:absolute;top:18px;left:2%;right:2%;height:2px;background:#1a2540;z-index:0">
+                  <div style="position:absolute;top:0;left:0;height:100%;width:22%;background:#2563EB;transition:width .6s ease"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1">
+                  <!-- Enrolled done -->
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+                    <div style="width:32px;height:32px;border-radius:50%;background:#2563EB;border:2px solid #2563EB;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center">✓</div>
+                    <div style="font-size:8px;color:rgba(248,250,252,.4);white-space:nowrap">Enrolled</div>
+                  </div>
+                  <!-- M01 done -->
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+                    <div style="width:32px;height:32px;border-radius:50%;background:#2563EB;border:2px solid #2563EB;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center">✓</div>
+                    <div style="font-size:8px;color:rgba(248,250,252,.4)">M01</div>
+                  </div>
+                  <!-- M02 done -->
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+                    <div style="width:32px;height:32px;border-radius:50%;background:#2563EB;border:2px solid #2563EB;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center">✓</div>
+                    <div style="font-size:8px;color:rgba(248,250,252,.4)">M02</div>
+                  </div>
+                  <!-- M03 active -->
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+                    <div style="width:32px;height:32px;border-radius:50%;background:#0a1428;border:2px solid #2563EB;color:#93c5fd;font-size:9px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(37,99,235,.18)">M03</div>
+                    <div style="font-size:8px;color:#93c5fd">M03</div>
+                  </div>
+                  <!-- M04–M12 locked -->
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M04</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M04</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M05</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M05</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M06</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M06</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M07</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M07</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M08</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M08</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M09</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M09</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M10</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M10</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M11</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M11</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1"><div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:9px;display:flex;align-items:center;justify-content:center">M12</div><div style="font-size:8px;color:rgba(248,250,252,.2)">M12</div></div>
+                  <!-- Chartered -->
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+                    <div style="width:32px;height:32px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.15);font-size:11px;display:flex;align-items:center;justify-content:center">🏆</div>
+                    <div style="font-size:8px;color:rgba(248,250,252,.2);white-space:nowrap">Chartered</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Action card -->
+              <div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.4);border-radius:12px;padding:16px 20px;display:inline-block;min-width:320px">
+                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa;margin-bottom:4px">Continue learning</div>
+                <div style="font-size:16px;font-weight:700;color:#f8fafc;margin-bottom:4px">M03: Client Care</div>
+                <div style="font-size:11px;color:rgba(248,250,252,.4);margin-bottom:14px">Build client relationships and handle complaints professionally</div>
+                <div style="display:inline-block;background:#2563EB;color:#fff;font-size:11px;font-weight:700;padding:8px 16px;border-radius:7px">Continue →</div>
+              </div>
+            </div>
+          </div>
+          <!-- Laptop base -->
+          <div style="height:14px;background:#0d1425;border-radius:0 0 2px 2px;margin:0 -12px"></div>
+          <div style="height:5px;background:#08101e;border-radius:0 0 6px 6px;margin:0 -8px"></div>
+        </div>
+
+        <!-- Phone frame -->
+        <div class="phone-outer">
+          <div class="phone-notch-bar"></div>
+          <div class="phone-screen-area">
+            <div style="transform:scale(0.27);transform-origin:top left;width:370%;min-height:700px;background:#080e1c;padding:18px 16px;font-family:'Plus Jakarta Sans','Inter',sans-serif;pointer-events:none;user-select:none">
+              <!-- Phone header -->
+              <div style="margin-bottom:16px">
+                <div style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2563EB;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.2);padding:2px 8px;border-radius:4px;margin-bottom:6px">Annual Programme</div>
+                <div style="font-size:18px;font-weight:800;color:#f8fafc;line-height:1.2">Welcome back,<br>Sarah</div>
+              </div>
+              <!-- Vertical milestone list -->
+              <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+                <div style="display:flex;align-items:center;gap:12px"><div style="width:28px;height:28px;border-radius:50%;background:#2563EB;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">✓</div><div style="font-size:13px;color:rgba(248,250,252,.5);font-weight:500">Enrolled</div></div>
+                <div style="display:flex;align-items:center;gap:12px"><div style="width:28px;height:28px;border-radius:50%;background:#2563EB;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">✓</div><div style="font-size:13px;color:rgba(248,250,252,.5);font-weight:500">M01 — Introduction</div></div>
+                <div style="display:flex;align-items:center;gap:12px"><div style="width:28px;height:28px;border-radius:50%;background:#2563EB;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">✓</div><div style="font-size:13px;color:rgba(248,250,252,.5);font-weight:500">M02 — Ethics</div></div>
+                <div style="display:flex;align-items:center;gap:12px"><div style="width:28px;height:28px;border-radius:50%;background:#0a1428;border:2px solid #2563EB;color:#93c5fd;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 0 3px rgba(37,99,235,.18)">M03</div><div><div style="font-size:13px;color:#93c5fd;font-weight:700">M03 — Client Care</div><div style="font-size:11px;color:rgba(248,250,252,.35)">In progress</div></div></div>
+                <div style="display:flex;align-items:center;gap:12px"><div style="width:28px;height:28px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.2);font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">M04</div><div style="font-size:13px;color:rgba(248,250,252,.2)">M04 — Communication</div></div>
+                <div style="display:flex;align-items:center;gap:12px"><div style="width:28px;height:28px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.15);font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">M05</div><div style="font-size:13px;color:rgba(248,250,252,.15)">M05–M12 locked</div></div>
+                <div style="height:1px;background:#1a2540;margin:2px 0"></div>
+                <div style="display:flex;align-items:center;gap:12px"><div style="width:28px;height:28px;border-radius:50%;background:#0d1120;border:2px solid #1a2540;color:rgba(255,255,255,.1);font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🏆</div><div style="font-size:13px;color:rgba(248,250,252,.15)">Chartered</div></div>
+              </div>
+              <!-- Phone action card -->
+              <div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.35);border-radius:12px;padding:14px 16px">
+                <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#60a5fa;margin-bottom:4px">Continue</div>
+                <div style="font-size:14px;font-weight:700;color:#f8fafc;margin-bottom:10px">M03: Client Care</div>
+                <div style="display:inline-block;background:#2563EB;color:#fff;font-size:11px;font-weight:700;padding:7px 14px;border-radius:6px">Continue →</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-home-btn"></div>
+        </div>
+
       </div>
-      <p style="font-size:12px;color:rgba(255,255,255,.25);text-align:center;margin-top:10px">Michael — your AI Tutor · Available 24/7</p>
     </div>
 
   </div>
@@ -1155,34 +1278,50 @@ input.err{border-color:var(--red)}
 
 <section class="sec" id="finder-sec" style="background:#0D0F1C;padding:24px 24px 64px">
   <div style="max-width:960px;margin:0 auto;padding:0 24px">
-  <div class="pf-section-label" style="font-size:20px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563EB;text-align:center;margin-bottom:28px">Find your programme</div>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px" class="pf-grid">
+  <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;color:#f8fafc;text-align:center;margin-bottom:28px;letter-spacing:-.02em">Find the right path for your APC</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px" class="pf-grid">
     <a href="#pathways-sec" onclick="showProgramme('prog-yr2review');return false;" style="text-decoration:none;display:flex">
-      <div class="pf-card-inner" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:40px;cursor:pointer;transition:.15s;text-align:center;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;box-sizing:border-box" onmouseover="this.style.background='rgba(255,255,255,.11)';this.style.borderColor='rgba(255,255,255,.28)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.14)';this.style.transform=''">
-        <div style="font-size:36px;margin-bottom:14px">🌱</div>
-        <div class="pf-card-heading" style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">In Year One</div>
-        <div style="font-size:12px;color:rgba(248,250,252,.5);line-height:1.5">Want to know where I stand before Year Two</div>
+      <div style="background:#0d1120;border:0.5px solid #1a2540;border-radius:12px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.15s" onmouseover="this.style.borderColor='rgba(37,99,235,.4)';this.style.background='#0f1428'" onmouseout="this.style.borderColor='#1a2540';this.style.background='#0d1120'">
+        <div style="width:36px;height:36px;background:#1a2540;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px">🌱</div>
+        <div style="font-size:14px;font-weight:700;color:#f8fafc;margin-bottom:8px;line-height:1.3">APC Year Two Readiness Review</div>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <div style="font-size:11px;color:#6b80a8">32 diagnostic questions</div>
+          <div style="font-size:11px;color:#6b80a8">Michael readiness report</div>
+          <div style="font-size:11px;color:#6b80a8">One-off assessment · £127</div>
+        </div>
       </div>
     </a>
     <a href="#pathways-sec" onclick="showProgramme('prog-12module');return false;" style="text-decoration:none;display:flex">
-      <div class="pf-card-inner" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:40px;cursor:pointer;transition:.15s;text-align:center;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;box-sizing:border-box" onmouseover="this.style.background='rgba(255,255,255,.11)';this.style.borderColor='rgba(255,255,255,.28)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.14)';this.style.transform=''">
-        <div style="font-size:36px;margin-bottom:14px">📚</div>
-        <div class="pf-card-heading" style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">Year Two — Full 12 Module Programme</div>
-        <div style="font-size:12px;color:rgba(248,250,252,.5);line-height:1.5">Building towards my final assessment</div>
+      <div style="background:#0d1120;border:0.5px solid #1a2540;border-radius:12px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.15s" onmouseover="this.style.borderColor='rgba(37,99,235,.4)';this.style.background='#0f1428'" onmouseout="this.style.borderColor='#1a2540';this.style.background='#0d1120'">
+        <div style="width:36px;height:36px;background:#1a2540;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px">📚</div>
+        <div style="font-size:14px;font-weight:700;color:#f8fafc;margin-bottom:8px;line-height:1.3">APC Full 12 Module Programme</div>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <div style="font-size:11px;color:#6b80a8">12 structured modules</div>
+          <div style="font-size:11px;color:#6b80a8">2,000+ practice questions</div>
+          <div style="font-size:11px;color:#6b80a8">60-min mock interview included</div>
+        </div>
       </div>
     </a>
     <a href="#pathways-sec" onclick="showProgramme('prog-sprint');return false;" style="text-decoration:none;display:flex">
-      <div class="pf-card-inner" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:40px;cursor:pointer;transition:.15s;text-align:center;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;box-sizing:border-box" onmouseover="this.style.background='rgba(255,255,255,.11)';this.style.borderColor='rgba(255,255,255,.28)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.14)';this.style.transform=''">
-        <div style="font-size:36px;margin-bottom:14px">⏱</div>
-        <div class="pf-card-heading" style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">Sitting soon</div>
-        <div style="font-size:12px;color:rgba(248,250,252,.5);line-height:1.5">Feel prepared — want to reinforce and pressure-test</div>
+      <div style="background:#0d1120;border:0.5px solid #1a2540;border-radius:12px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.15s" onmouseover="this.style.borderColor='rgba(37,99,235,.4)';this.style.background='#0f1428'" onmouseout="this.style.borderColor='#1a2540';this.style.background='#0d1120'">
+        <div style="width:36px;height:36px;background:#1a2540;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px">⏱</div>
+        <div style="font-size:14px;font-weight:700;color:#f8fafc;margin-bottom:8px;line-height:1.3">Sprint Programme</div>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <div style="font-size:11px;color:#6b80a8">42-day focused programme</div>
+          <div style="font-size:11px;color:#6b80a8">2,000+ practice questions</div>
+          <div style="font-size:11px;color:#6b80a8">60-min mock interview included</div>
+        </div>
       </div>
     </a>
     <a href="#pathways-sec" onclick="showProgramme('prog-referred');return false;" style="text-decoration:none;display:flex">
-      <div class="pf-card-inner" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:40px;cursor:pointer;transition:.15s;text-align:center;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;box-sizing:border-box" onmouseover="this.style.background='rgba(255,255,255,.11)';this.style.borderColor='rgba(255,255,255,.28)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.14)';this.style.transform=''">
-        <div style="font-size:36px;margin-bottom:14px">🔁</div>
-        <div class="pf-card-heading" style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">Been referred</div>
-        <div style="font-size:12px;color:rgba(248,250,252,.5);line-height:1.5">Preparing for my resit</div>
+      <div style="background:#0d1120;border:0.5px solid #1a2540;border-radius:12px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.15s" onmouseover="this.style.borderColor='rgba(37,99,235,.4)';this.style.background='#0f1428'" onmouseout="this.style.borderColor='#1a2540';this.style.background='#0d1120'">
+        <div style="width:36px;height:36px;background:#1a2540;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px">🔁</div>
+        <div style="font-size:14px;font-weight:700;color:#f8fafc;margin-bottom:8px;line-height:1.3">Referred Candidate Recovery</div>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <div style="font-size:11px;color:#6b80a8">6 targeted modules</div>
+          <div style="font-size:11px;color:#6b80a8">2,000+ practice questions</div>
+          <div style="font-size:11px;color:#6b80a8">90-day programme</div>
+        </div>
       </div>
     </a>
   </div>
@@ -1440,80 +1579,38 @@ document.addEventListener('click', function(e) {
   </div>
 </section>
 
-<section class="sec sec-dark" id="michael-sec" style="background:#0D0F1C;padding:72px 40px">
+<section class="sec sec-dark" id="michael-sec" style="background:#0D0F1C;padding:64px 40px">
   <div style="max-width:1100px;margin:0 auto">
-    <div style="text-align:center;margin-bottom:48px">
-      <span class="eyebrow">Meet Michael</span>
-      <h2 class="h2 h2-white" style="margin-bottom:14px">Your AI Tutor. Available every time you need him.</h2>
-      <p style="font-size:16px;color:rgba(248,250,252,.55);max-width:580px;margin:0 auto;line-height:1.7">Most APC candidates revise content but never practise performing under pressure. Michael closes that gap — available 24 hours a day, seven days a week, in two distinct modes.</p>
-    </div>
-
-    <div class="michael-two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:860px;margin:0 auto 40px">
-
-      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px;border-top:3px solid #2563EB">
-        <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:14px">Tutor Mode</div>
-        <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.02em">For learning and understanding</div>
-        <p style="font-size:14px;color:rgba(248,250,252,.55);line-height:1.7">Ask questions, explore competencies, get explanations. Michael meets you where you are — patient, thorough, never rushed. Use him alongside every module throughout your preparation.</p>
-      </div>
-
-      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px;border-top:3px solid #f59e0b">
-        <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fcd34d;margin-bottom:14px">Assessor Mode</div>
-        <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.02em">For pressure testing</div>
-        <p style="font-size:14px;color:rgba(248,250,252,.55);line-height:1.7">Michael switches. He asks the questions assessors ask. He follows up. He probes. He will not let a vague answer pass. Use him when you think you are ready — and find out if you really are.</p>
-      </div>
-
-    </div>
-
-    <div style="background:#0D0F1C;border:1px solid rgba(37,99,235,0.2);border-radius:14px;padding:28px 32px;margin-top:32px;max-width:680px;margin-left:auto;margin-right:auto;">
-      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;color:#60a5fa;text-transform:uppercase;margin-bottom:20px;">Michael — Assessor Mode — Live Example</div>
-      <div id="michaelDemoExchange"></div>
-      <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;color:rgba(255,255,255,0.35);">This is how Michael challenges you. Every module. Every competency. Any time. <a href="#michael-sec" style="color:#60a5fa;">Meet Michael →</a></div>
-    </div>
-
-    <script>
-    (function() {
-      const exchanges = [
-        {
-          competency: "Ethics & Conduct",
-          q: "A client asks you to omit a material fact from your report. What do you do?",
-          a: "That's not a grey area — and I want to hear you say that clearly. Walk me through exactly what you'd say to the client in that moment. Then tell me what you'd do if they pushed back."
-        },
-        {
-          competency: "Health & Safety",
-          q: "You arrive on site and identify an unsafe access route being used by contractors. What do you do?",
-          a: "Stop there. Before you tell me what you'd do — tell me what your duty actually is in that moment. What's the legal framework you're working under? And if the contractor's supervisor tells you to mind your own business, what happens next?"
-        },
-        {
-          competency: "Client Care",
-          q: "Your client is unhappy with your advice and threatens to make a formal complaint. What's your first obligation?",
-          a: "Good. Now I want to test whether you understand the difference between a complaint and a dispute — because your obligations differ. Walk me through your complaints procedure step by step. And tell me what you'd do if the client bypassed your procedure entirely and went straight to RICS."
-        },
-        {
-          competency: "Sustainability",
-          q: "You're advising a client on a commercial letting. The property has an EPC E rating. What do you tell them?",
-          a: "Before you answer — do you know what MEES currently requires for commercial lettings and what the trajectory is? Because if you're advising a client today without knowing what's coming, your advice has a shelf life problem. Tell me what you'd say, and then tell me what you'd put in writing."
-        }
-      ];
-
-      const idx = Math.floor(Math.random() * exchanges.length);
-      const ex = exchanges[idx];
-
-      document.getElementById('michaelDemoExchange').innerHTML = `
-        <div style="font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;">${ex.competency}</div>
-        <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">
-          <div style="background:rgba(37,99,235,0.15);border-radius:6px;padding:3px 8px;font-size:11px;color:#60a5fa;font-weight:600;white-space:nowrap;flex-shrink:0;">Assessor</div>
-          <div style="color:rgba(255,255,255,0.9);font-size:14px;line-height:1.7;">${ex.q}</div>
+    <div class="michael-white-card">
+      <div class="michael-inner-grid">
+        <!-- Left: text -->
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563EB;margin-bottom:10px">Your AI APC Coach</div>
+          <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:700;color:#0D0F1C;margin-bottom:12px;line-height:1.2;letter-spacing:-.02em">Meet Michael</div>
+          <p style="font-size:14px;color:#5a6478;line-height:1.7;margin-bottom:20px">Most APC candidates revise content but never practise performing under pressure. Michael closes that gap — available 24 hours a day, seven days a week, in two distinct modes.</p>
+          <div class="michael-check-item">
+            <div class="michael-check-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span style="font-size:14px;color:#2a3144">Tutor Mode for structured learning</span>
+          </div>
+          <div class="michael-check-item">
+            <div class="michael-check-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span style="font-size:14px;color:#2a3144">Assessor Mode for realistic challenge</span>
+          </div>
+          <div class="michael-check-item">
+            <div class="michael-check-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span style="font-size:14px;color:#2a3144">Available 24/7 across every pathway</span>
+          </div>
+          <div style="margin-top:20px">
+            <a href="/pricing" style="color:#2563EB;font-size:14px;font-weight:600;text-decoration:none">Watch 90-second introduction →</a>
+          </div>
         </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <div style="background:rgba(245,158,11,0.15);border-radius:6px;padding:3px 8px;font-size:11px;color:#f59e0b;font-weight:600;white-space:nowrap;flex-shrink:0;">Michael</div>
-          <div style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.7;font-style:italic;">${ex.a}</div>
+        <!-- Right: video -->
+        <div class="michael-video-col">
+          <div style="background:#fff;border-radius:14px;box-shadow:0 20px 50px rgba(13,15,28,.18);overflow:hidden;position:relative;aspect-ratio:4/3">
+            <iframe src="https://app.heygen.com/embeds/151f77a48aa7442e8658b0b88da7a83c" title="Michael — your AI APC Coach" frameborder="0" allow="encrypted-media; fullscreen;" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;border:none"></iframe>
+          </div>
         </div>
-      `;
-    })();
-    </script>
-
-    <div style="text-align:center;margin-top:32px">
-      <a href="/pricing" style="display:inline-block;background:#2563EB;color:#fff;padding:13px 28px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none">Experience Michael when you enrol →</a>
+      </div>
     </div>
   </div>
 </section>

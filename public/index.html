@@ -18,6 +18,7 @@
   --f:'Inter',sans-serif;--fh:'Plus Jakarta Sans','Inter',sans-serif;
 }
 html{scroll-behavior:smooth}
+html,body{overflow-x:hidden}
 body{font-family:var(--f);background:var(--off);color:var(--text);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.6}
 
 /* ── HIDDEN VIEWS ── */
@@ -710,6 +711,7 @@ input.err{border-color:var(--red)}
 }
 
 @media(max-width:900px){.hero-two-col{grid-template-columns:1fr!important}.hero-two-col .video-col{order:-1}}
+@media(max-width:768px){.video-col{display:none!important}.hero-two-col{gap:0!important}}
 @media(max-width:768px){.prog-three-col{grid-template-columns:1fr!important}}
 
 /* HERO PILLS ROW */
@@ -1172,7 +1174,7 @@ input.err{border-color:var(--red)}
     <!-- LEFT COLUMN — copy -->
     <div>
       <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:16px;text-align:left">THE PLATFORM THAT THINKS LIKE AN ASSESSOR</div>
-      <h1 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:36px;font-weight:400;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px;text-align:left">You've done the work.<br>The assessment is about<br><em style="font-style:normal;color:#93c5fd">proving it under pressure.</em></h1>
+      <h1 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(24px,5.5vw,36px);font-weight:400;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px;text-align:left">You've done the work.<br>The assessment is about<br><em style="font-style:normal;color:#93c5fd">proving it under pressure.</em></h1>
       <p style="font-size:15px;color:rgba(248,250,252,.55);margin-bottom:24px;line-height:1.7;max-width:480px;text-align:left">Get Chartered AI helps candidates across the built environment develop the confidence, competency and assessment readiness to become chartered — supported by structured learning and AI-assisted preparation.</p>
     </div>
 

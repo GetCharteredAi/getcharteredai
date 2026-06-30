@@ -1643,6 +1643,14 @@ document.addEventListener('click', function(e) {
 
   </div>
 </section>
+<script>
+(function(){
+  if(window.innerWidth>768)return;
+  var ps=document.getElementById('pathways-sec');
+  var as=document.getElementById('about-sec');
+  if(ps&&as)ps.parentNode.insertBefore(as,ps);
+})();
+</script>
 <section style="background:#0D0F1C;padding:64px 40px" id="how-it-works-sec">
   <div style="max-width:1100px;margin:0 auto">
     <div style="text-align:center;margin-bottom:48px">

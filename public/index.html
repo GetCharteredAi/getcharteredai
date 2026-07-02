@@ -2775,7 +2775,7 @@ async function renderDashboard() {
   }
 
   // Michael link — always available
-  actionsHTML += `<a class="ds-btn" onclick="${plan === 'referred' ? 'openAITutorDirect()' : plan === 'sprint' ? 'openAITutorDirect(true)' : 'openModule(12); showView(\'module\')'}" >
+  actionsHTML += `<a class="ds-btn" onclick="openMichaelPanel(0, 'APC Preparation')" >
     <span class="ds-btn-icon">🎓</span>
     <div class="ds-btn-text">
       <span class="ds-btn-label">Ask Michael</span>
@@ -2880,7 +2880,7 @@ async function renderDashboard() {
           <div class="db-card-sub">Tap to open →</div>
         </div>
         <div class="db-card-right-col">
-          <div class="db-card" onclick="openAITutorDirect()">
+          <div class="db-card" onclick="openMichaelPanel(0, 'APC Preparation')">
             <div class="db-card-eyebrow">AI Tutor · 24/7</div>
             <div class="db-card-title">Ask Michael</div>
           </div>
@@ -4953,7 +4953,7 @@ function csUpdateDashboard(plan) {
   if (!panel || !body) return;
 
   console.log('plan for cs panel:', plan);
-  if (plan !== 'annual' && plan !== 'referred') {
+  if (plan !== 'referred') {
     panel.style.display = 'none';
     return;
   }

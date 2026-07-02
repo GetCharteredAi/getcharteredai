@@ -2754,21 +2754,27 @@ async function renderDashboard() {
   let actionsHTML = '';
 
   if (lastMod) {
+    const contDispVal = plan === 'sprint'
+      ? (lastMod.id === 1 ? 'S01: Know the Format' : 'S04: Mock & Pressure Practice')
+      : `${lastMod.num}: ${lastMod.title}`;
     actionsHTML += `<a class="ds-btn ds-btn-primary" style="min-width:0;flex:1" onclick="openModule(${lastMod.id}); showView('module')">
       <span class="ds-btn-icon">▶️</span>
       <div class="ds-btn-text">
         <span class="ds-btn-label">Continue</span>
-        <span class="ds-btn-val" style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:calc(100% - 20px)">${lastMod.num}: ${lastMod.title}</span>
+        <span class="ds-btn-val" style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:calc(100% - 20px)">${contDispVal}</span>
       </div>
     </a>`;
   } else if (done === 0) {
     const firstMod = MODULES.find(m => isModuleUnlocked(m.id, plan, activatedAt));
     if (firstMod) {
+      const startDispVal = plan === 'sprint'
+        ? (firstMod.id === 1 ? 'S01: Know the Format' : 'S04: Mock & Pressure Practice')
+        : `${firstMod.num}: ${firstMod.title.substring(0,28)}${firstMod.title.length>28?'…':''}`;
       actionsHTML += `<a class="ds-btn ds-btn-primary" onclick="openModule(${firstMod.id}); showView('module')">
         <span class="ds-btn-icon">🚀</span>
         <div class="ds-btn-text">
           <span class="ds-btn-label">Start here</span>
-          <span class="ds-btn-val">${firstMod.num}: ${firstMod.title.substring(0,28)}${firstMod.title.length>28?'…':''}</span>
+          <span class="ds-btn-val">${startDispVal}</span>
         </div>
       </a>`;
     }
@@ -2973,7 +2979,7 @@ async function renderDashboard() {
   }
   // ── SPRINT — 6-NODE MILESTONE STRIP ─────────────────────────────────────────
   else if (plan === 'sprint') {
-    document.getElementById('dashSub').textContent = '42 days. Everything you need. No time to waste.';
+    document.getElementById('dashSub').textContent = 'Everything you need. No time to waste.';
     const progressWrap4 = document.getElementById('dsProgressWrap');
     if (progressWrap4) progressWrap4.style.display = 'none';
 
@@ -3060,16 +3066,47 @@ const dashMods = plan === 'referred' ? MODULES.filter(m => m.id >= 13 && m.id <=
 
   // Sidebar
   const sb = document.getElementById('sidebarModules');
-  sb.innerHTML = dashMods.map(m => {
-    const unlocked = isModuleUnlocked(m.id, plan, activatedAt);
-    return `<div class="sidebar-item ${isComplete(m.id)?'done':''} ${!unlocked?'locked':''}"
-      onclick="requireAccess(${m.id})"
-      style="${!unlocked ? 'opacity:0.4;cursor:not-allowed' : ''}">
-      <div class="tick-dot" style="${!unlocked ? 'background:#ef4444' : ''}"></div>
-      <span class="sidebar-mod-num">${m.num}</span>
-      <span>${m.title} ${!unlocked ? '🔒' : ''}</span>
-    </div>`;
-  }).join('');
+  if (plan === 'sprint') {
+    const spSidebarNodes = [
+      {code:'S01', label:'Know the Format',          modId:1},
+      {code:'S02', label:'Competency Answers',        modId:1},
+      {code:'S03', label:'Technical Knowledge',       modId:1},
+      {code:'S04', label:'Mock & Pressure Practice',  modId:12},
+      {code:'S05', label:'Final 48 Hours',            modId:12}
+    ];
+    const spSbActiveId = !isComplete(1) ? 1 : !isComplete(12) ? 12 : null;
+    let spSbActiveSet = false;
+    sb.innerHTML = spSidebarNodes.map(n => {
+      const done = isComplete(n.modId);
+      let unlocked;
+      if (done) {
+        unlocked = true;
+      } else if (n.modId === spSbActiveId && !spSbActiveSet) {
+        unlocked = true;
+        spSbActiveSet = true;
+      } else {
+        unlocked = false;
+      }
+      return `<div class="sidebar-item ${done?'done':''} ${!unlocked?'locked':''}"
+        onclick="${unlocked ? `openModule(${n.modId}); showView('module')` : ''}"
+        style="${!unlocked ? 'opacity:0.4;cursor:not-allowed' : ''}">
+        <div class="tick-dot" style="${!unlocked ? 'background:#ef4444' : ''}"></div>
+        <span class="sidebar-mod-num">${n.code}</span>
+        <span>${n.label} ${!unlocked ? '🔒' : ''}</span>
+      </div>`;
+    }).join('');
+  } else {
+    sb.innerHTML = dashMods.map(m => {
+      const unlocked = isModuleUnlocked(m.id, plan, activatedAt);
+      return `<div class="sidebar-item ${isComplete(m.id)?'done':''} ${!unlocked?'locked':''}"
+        onclick="requireAccess(${m.id})"
+        style="${!unlocked ? 'opacity:0.4;cursor:not-allowed' : ''}">
+        <div class="tick-dot" style="${!unlocked ? 'background:#ef4444' : ''}"></div>
+        <span class="sidebar-mod-num">${m.num}</span>
+        <span>${m.title} ${!unlocked ? '🔒' : ''}</span>
+      </div>`;
+    }).join('');
+  }
 
   // Main grid
   const grid = document.getElementById('dashModGrid');

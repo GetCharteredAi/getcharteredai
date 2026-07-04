@@ -1241,7 +1241,7 @@ input.err{border-color:var(--red)}
                     <div style="position:relative;display:inline-block">
                       <svg width="100" height="100" viewBox="0 0 120 120" style="display:block">
                         <circle cx="60" cy="60" r="46" fill="none" stroke="#1a2540" stroke-width="9"/>
-                        <circle cx="60" cy="60" r="46" fill="none" stroke="#2563EB" stroke-width="9" stroke-dasharray="289" stroke-dashoffset="81" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                        <circle cx="60" cy="60" r="46" fill="none" stroke="#00c896" stroke-width="9" stroke-dasharray="289" stroke-dashoffset="81" stroke-linecap="round" transform="rotate(-90 60 60)"/>
                       </svg>
                       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;line-height:1">
                         <div style="font-size:22px;font-weight:800;color:#f8fafc">72%</div>
@@ -1252,7 +1252,7 @@ input.err{border-color:var(--red)}
                   <div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.4);border-radius:12px;padding:16px 18px">
                     <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa;margin-bottom:6px">Continue learning</div>
                     <div style="font-size:14px;font-weight:700;color:#f8fafc;line-height:1.3;margin-bottom:5px">Module 6 — Ethics &amp; Professional Standards</div>
-                    <div style="font-size:11px;color:rgba(248,250,252,.4);margin-bottom:12px">Pick up where you left off</div>
+                    <div style="font-size:11px;color:rgba(248,250,252,.4);margin-bottom:12px">6 / 12 lessons completed</div>
                     <div style="display:inline-block;background:#2563EB;color:#fff;font-size:11px;font-weight:700;padding:7px 16px;border-radius:7px">Continue →</div>
                   </div>
                 </div>
@@ -1285,23 +1285,30 @@ input.err{border-color:var(--red)}
           <div class="phone-body">
             <div class="phone-speaker-row"><div class="phone-speaker"></div></div>
             <div class="phone-screen-area">
-            <div style="transform:scale(0.27);transform-origin:top left;width:370%;min-height:700px;background:#080e1c;padding:32px 24px 24px;font-family:'Plus Jakarta Sans','Inter',sans-serif;pointer-events:none;user-select:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px">
-              <!-- Avatar with ring and online dot -->
-              <div style="position:relative;display:inline-block">
-                <div style="width:80px;height:80px;border-radius:50%;border:3px solid #2563EB;overflow:hidden;background:#1a2540">
-                  <img src="/images/michael-avatar.jpg" alt="Michael" style="width:100%;height:100%;object-fit:cover;display:block">
+            <div style="transform:scale(0.27);transform-origin:top left;width:370%;min-height:700px;background:#080e1c;padding:0;font-family:'Plus Jakarta Sans','Inter',sans-serif;pointer-events:none;user-select:none;display:flex;flex-direction:column;align-items:center">
+              <!-- App header bar -->
+              <div style="width:100%;padding:16px 16px 12px;border-bottom:1px solid #1a2540;text-align:center">
+                <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(248,250,252,.35)">Get Chartered AI</div>
+              </div>
+              <!-- Avatar + content centred in remaining space -->
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px">
+                <!-- Avatar with glow ring and online dot -->
+                <div style="position:relative;display:inline-block">
+                  <div style="width:100px;height:100px;border-radius:50%;border:4px solid #2563EB;overflow:hidden;background:#1a2540;box-shadow:0 0 8px rgba(37,99,235,0.6)">
+                    <img src="/images/michael-avatar.jpg" alt="Michael" style="width:100%;height:100%;object-fit:cover;display:block">
+                  </div>
+                  <div style="position:absolute;bottom:3px;right:3px;width:12px;height:12px;background:#4caf7d;border-radius:50%;border:2px solid #0d1120"></div>
                 </div>
-                <div style="position:absolute;bottom:2px;right:2px;width:12px;height:12px;background:#4caf7d;border-radius:50%;border:2px solid #0d1120"></div>
-              </div>
-              <!-- Name and tagline -->
-              <div style="text-align:center">
-                <div style="font-size:13px;font-weight:600;color:#eef2ff;margin-bottom:4px">AI Coach Michael</div>
-                <div style="font-size:11px;color:#8090b8">How can I help you prepare today?</div>
-              </div>
-              <!-- Action pill buttons -->
-              <div style="display:flex;flex-direction:column;gap:10px;width:100%">
-                <div style="font-size:11px;color:#7ab3f0;background:#1a2540;border:0.5px solid #2563EB;border-radius:20px;padding:8px 16px;text-align:center">Ask a question</div>
-                <div style="font-size:11px;color:#7ab3f0;background:#1a2540;border:0.5px solid #2563EB;border-radius:20px;padding:8px 16px;text-align:center">Start mock interview</div>
+                <!-- Name and tagline -->
+                <div style="text-align:center">
+                  <div style="font-size:13px;font-weight:600;color:#eef2ff;margin-bottom:4px">AI Coach Michael</div>
+                  <div style="font-size:11px;color:#8090b8">How can I help you prepare today?</div>
+                </div>
+                <!-- Action pill buttons -->
+                <div style="display:flex;flex-direction:column;gap:10px;width:100%">
+                  <div style="font-size:12px;color:#7ab3f0;background:#1a2540;border:0.5px solid #2563EB;border-radius:20px;padding:10px 16px;text-align:center">Ask a question</div>
+                  <div style="font-size:12px;color:#7ab3f0;background:#1a2540;border:0.5px solid #2563EB;border-radius:20px;padding:10px 16px;text-align:center">Start mock interview</div>
+                </div>
               </div>
             </div>
           </div>

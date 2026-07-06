@@ -2087,10 +2087,9 @@ document.addEventListener('click', function(e) {
         <button id="resStartBtn" onclick="openRESOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
       </div>
       <div class="bs-qbank" id="comingSoonQuestionBank" style="display:none">
-        <div class="panel-eyebrow panel-eyebrow-light">Practice questions</div>
-        <div class="bs-qbank-title">🚧 <span id="comingSoonPathwayName"></span> Question Bank</div>
-        <div class="bs-qbank-sub">Pathway-specific technical banks are being released in phases. If your pathway is not yet live, you can still access the full mandatory competency programme, mock interview simulator, submission checklist and the full Michael AI Tutor.</div>
-        <a id="comingSoonRequestBtn" href="#" style="display:inline-block;background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f);text-decoration:none">Request priority release</a>
+        <div style="background:#0d1120;border:0.5px solid #2563EB;border-radius:12px;padding:1.25rem">
+          <p style="font-size:14px;color:#eef2ff;margin:0;line-height:1.6">Your technical pathway questions for <strong id="comingSoonPathwayName"></strong> will be online within 24 hours of your enrolment. All 12 mandatory competency modules are fully available and ready to start now.</p>
+        </div>
       </div>
 
       <div class="bs-qbank" id="pfiQuestionBank" style="display:none">
@@ -2609,7 +2608,7 @@ function openMockInterviewDirect(skipHeader) {
 
 // ── DASHBOARD ─────────────────────────────────────────────────────────────────
 // ── PATHWAY SELECTION ─────────────────────────────────────────────────────────
-const PATHWAYS = ['Arts and Antiques','Building Control','Building Surveying','Commercial Real Estate','Corporate Real Estate','Environmental Surveying','Facility Management','Geomatics','Land and Resources','Management Consultancy','Mineral and Waste Management','Planning and Development','Project Management','Property Finance and Investment','Quantity Surveying and Construction','Research','Residential','Rural','Taxation Allowances','Valuation'];
+const PATHWAYS = ['Arts and Antiques','Building Control','Building Surveying','Commercial Real Estate','Corporate Real Estate','Environmental Surveying','Facility Management','Geomatics','Land and Resources','Management Consultancy','Mineral and Waste Management','Planning and Development','Project Management','Property Finance and Investment','Quantity Surveying and Construction','Research','Residential','Rural','Taxation Allowances','Valuation','Valuation of Business and Intangible Assets'];
 let _selectedPathway = null;
 
 function showPathwaySelection() {
@@ -2691,7 +2690,7 @@ function renderPathwayBadge() {
   if (mc) mc.style.display = (pathway === 'Management Consultancy') ? 'block' : 'none';
   if (sa) sa.style.display = (pathway === 'Sustainability Advisory') ? 'block' : 'none';
   if (comingSoon) {
-    const NOT_YET_LIVE_PATHWAYS = ['Arts and Antiques','Environmental Surveying','Geomatics','Mineral and Waste Management','Research'];
+    const NOT_YET_LIVE_PATHWAYS = ['Arts and Antiques','Environmental Surveying','Geomatics','Mineral and Waste Management','Research','Valuation of Business and Intangible Assets'];
     if (NOT_YET_LIVE_PATHWAYS.includes(pathway)) {
       comingSoon.style.display = 'block';
       const nameEl = document.getElementById('comingSoonPathwayName');

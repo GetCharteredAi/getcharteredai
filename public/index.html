@@ -2637,6 +2637,114 @@ function confirmPathway() {
   localStorage.setItem('gca_pathway', _selectedPathway);
   document.getElementById('pathwayOverlay').style.display = 'none';
   renderPathwayBadge();
+  maybeShowPathwayWelcome(_selectedPathway);
+}
+
+function maybeShowPathwayWelcome(pathway) {
+  if (!pathway) return;
+  if (currentUser === 'test@getcharteredai.com') return;
+  const flagKey = 'pathwayWelcomeSeen_' + pathway;
+  if (localStorage.getItem(flagKey)) return;
+  localStorage.setItem(flagKey, '1');
+  showPathwayWelcome(pathway);
+}
+
+function showPathwayWelcome(pathway) {
+  const PATHWAY_WELCOME_CONTENT = {
+    'Rural': {
+      stage2: 'Applies every mandatory competency to Rural practice specifically — agricultural H&S, farm accounting, rural data sources, client care and business planning in a rural context.',
+      techQs: 'Your 50 Rural technical questions cover Agriculture, Forestry and Woodland Management, Land Use and Diversification, Compulsory Purchase, Landlord and Tenant, and Management of the Natural Environment. Available throughout your programme.',
+      keyNote: 'If you do not select Agriculture as your core competency, it must appear as an optional competency. Ask Michael if you need guidance on your competency selection.'
+    }
+  };
+  const DEFAULT_STAGE2 = 'Pathway-specific preparation module covering the application of mandatory competencies to your pathway. Coming soon.';
+  const content = PATHWAY_WELCOME_CONTENT[pathway] || {};
+  const stage2Desc = content.stage2 || DEFAULT_STAGE2;
+  const techQsText = content.techQs || '';
+  const keyNoteText = content.keyNote || '';
+
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem';
+
+  const card = document.createElement('div');
+  card.style.cssText = 'background:#0d1120;border:0.5px solid #2563EB;border-radius:16px;padding:2rem;max-width:580px;width:100%;position:relative;max-height:90vh;overflow-y:auto';
+
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = '×';
+  closeBtn.style.cssText = 'position:absolute;top:1rem;right:1rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:24px;cursor:pointer;line-height:1;padding:0';
+  closeBtn.onclick = () => overlay.remove();
+
+  const eyebrow = document.createElement('div');
+  eyebrow.textContent = pathway.toUpperCase() + ' PATHWAY';
+  eyebrow.style.cssText = 'font-size:11px;font-weight:700;color:#2563EB;letter-spacing:0.08em;margin-bottom:0.5rem';
+
+  const heading = document.createElement('h2');
+  heading.textContent = 'Your APC preparation journey';
+  heading.style.cssText = "font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:700;color:#ffffff;margin:0 0 0.35rem";
+
+  const subline = document.createElement('p');
+  subline.textContent = "Here’s what to expect across your programme.";
+  subline.style.cssText = 'font-size:14px;color:rgba(255,255,255,.6);margin:0 0 1.5rem';
+
+  const stagesWrap = document.createElement('div');
+  stagesWrap.style.cssText = 'display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.25rem';
+
+  [
+    {num:'1', title:'Mandatory Competencies (M01–M11)', desc:'All 11 RICS mandatory competencies. The same for every APC candidate regardless of pathway.'},
+    {num:'2', title:'Pathway Preparation (M11B)', desc:stage2Desc},
+    {num:'3', title:'Revision, Mock Tests and APC Simulation (M12)', desc:'Final preparation, mock interview practice and APC simulation.'}
+  ].forEach(s => {
+    const sc = document.createElement('div');
+    sc.style.cssText = 'display:flex;align-items:flex-start;gap:0.875rem;background:rgba(37,99,235,0.06);border:0.5px solid rgba(37,99,235,0.2);border-radius:10px;padding:0.875rem 1rem';
+    const num = document.createElement('div');
+    num.textContent = s.num;
+    num.style.cssText = 'min-width:24px;height:24px;background:#2563EB;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px';
+    const textWrap = document.createElement('div');
+    const stageTitle = document.createElement('div');
+    stageTitle.textContent = s.title;
+    stageTitle.style.cssText = 'font-size:13px;font-weight:700;color:#ffffff;margin-bottom:0.2rem';
+    const stageDesc = document.createElement('div');
+    stageDesc.textContent = s.desc;
+    stageDesc.style.cssText = 'font-size:12px;color:rgba(255,255,255,.6);line-height:1.5';
+    textWrap.appendChild(stageTitle);
+    textWrap.appendChild(stageDesc);
+    sc.appendChild(num);
+    sc.appendChild(textWrap);
+    stagesWrap.appendChild(sc);
+  });
+
+  card.appendChild(closeBtn);
+  card.appendChild(eyebrow);
+  card.appendChild(heading);
+  card.appendChild(subline);
+  card.appendChild(stagesWrap);
+
+  if (techQsText) {
+    const techBlock = document.createElement('div');
+    techBlock.textContent = techQsText;
+    techBlock.style.cssText = 'background:rgba(37,99,235,0.06);border:0.5px solid rgba(37,99,235,0.2);border-radius:10px;padding:0.875rem 1rem;font-size:12px;color:rgba(255,255,255,.7);line-height:1.5;margin-bottom:0.75rem';
+    card.appendChild(techBlock);
+  }
+
+  if (keyNoteText) {
+    const noteBlock = document.createElement('div');
+    noteBlock.style.cssText = 'font-size:12px;color:rgba(255,255,255,.6);line-height:1.5;margin-bottom:1.25rem;padding:0.75rem 1rem;border-left:2px solid #2563EB;background:rgba(37,99,235,0.04)';
+    const noteLabel = document.createElement('span');
+    noteLabel.textContent = 'Key note: ';
+    noteLabel.style.cssText = 'font-weight:700;color:#ffffff';
+    noteBlock.appendChild(noteLabel);
+    noteBlock.appendChild(document.createTextNode(keyNoteText));
+    card.appendChild(noteBlock);
+  }
+
+  const cta = document.createElement('button');
+  cta.textContent = 'Start with M01 →';
+  cta.style.cssText = 'width:100%;background:#2563EB;color:#ffffff;border:none;border-radius:10px;padding:0.875rem 1rem;font-size:15px;font-weight:700;cursor:pointer;margin-top:0.25rem';
+  cta.onclick = () => { overlay.remove(); requireAccess(1); };
+  card.appendChild(cta);
+
+  overlay.appendChild(card);
+  document.body.appendChild(overlay);
 }
 
 function resetPathway() {

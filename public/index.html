@@ -1815,7 +1815,6 @@ document.addEventListener('click', function(e) {
               <p class="ds-sub" id="dashSub">Your APC preparation is ready.</p>
               <div class="pathway-badge-row" id="pathwayBadgeRow" style="display:none">
                 <span class="pathway-badge" id="pathwayBadge"></span>
-                <button class="pathway-change" onclick="resetPathway()">change</button>
               </div>
             </div>
             <div class="cs-panel-compact" id="csPanelCompact" style="display:none">
@@ -2670,6 +2669,19 @@ function renderPathwayBadge() {
   if (pathway && row && badge) {
     badge.textContent = '🗺️ ' + pathway + ' pathway';
     row.style.display = 'flex';
+    let changeBtn = document.getElementById('pathwayChangeBtn');
+    if (currentUser === 'test@getcharteredai.com') {
+      if (!changeBtn) {
+        changeBtn = document.createElement('button');
+        changeBtn.id = 'pathwayChangeBtn';
+        changeBtn.className = 'pathway-change';
+        changeBtn.textContent = 'change';
+        changeBtn.onclick = resetPathway;
+        row.appendChild(changeBtn);
+      }
+    } else if (changeBtn) {
+      changeBtn.remove();
+    }
   } else if (row) {
     row.style.display = 'none';
   }

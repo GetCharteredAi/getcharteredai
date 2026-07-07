@@ -4036,6 +4036,7 @@ CURRENT MODE: ${tutorMode}`,
 }
 
 function renderQuiz(m) {
+  if (!m.quiz) return '';
   const letters = ['A','B','C','D'];
   const pathway = localStorage.getItem('gca_pathway');
   const pathwayQs = (m.pathwayQuestions && pathway && m.pathwayQuestions[pathway]) ? m.pathwayQuestions[pathway] : [];

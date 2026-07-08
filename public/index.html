@@ -3092,10 +3092,12 @@ async function renderDashboard() {
       {id:11, code:'M11', label:'Inclusive practice'},
       {id:12, code:'M12', label:'Mock & final prep'}
     ];
+    if (localStorage.getItem('gca_pathway') === 'Rural' && plan !== 'sprint') {
+      twelveMods.splice(11, 0, {id:20, code:'11B', label:'Rural pathway prep'});
+    }
     const twDone = twelveMods.filter(m => isComplete(m.id)).length;
-    const allTwDone = twDone === 12;
-    // 14 nodes, 13 gaps — fill up to and including the active node
-    const twFillPct = Math.round(Math.min(twDone + 1, 12) / 13 * 100);
+    const allTwDone = twDone === twelveMods.length;
+    const twFillPct = Math.round(Math.min(twDone + 1, twelveMods.length) / (twelveMods.length + 1) * 100);
 
     const mkTwNode = (state, dotHtml, code, label, clickFn) =>
       `<div class="ms-node ${state}${(state==='done'||state==='active')?' unlocked':''}"${clickFn ? ` onclick="${clickFn}"` : ''}>

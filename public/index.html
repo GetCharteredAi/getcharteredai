@@ -2814,8 +2814,26 @@ function renderPathwayBadge() {
         changeBtn.onclick = resetPathway;
         row.appendChild(changeBtn);
       }
-    } else if (changeBtn) {
-      changeBtn.remove();
+      if (!document.getElementById('journeyResetBtn')) {
+        const _sep = document.createElement('span');
+        _sep.textContent = ' · ';
+        _sep.style.cssText = 'font-size:11px;color:rgba(255,255,255,.25)';
+        row.appendChild(_sep);
+        const _resetBtn = document.createElement('button');
+        _resetBtn.id = 'journeyResetBtn';
+        _resetBtn.className = 'pathway-change';
+        _resetBtn.textContent = 'reset journey';
+        _resetBtn.onclick = () => {
+          localStorage.removeItem('gca_pathway');
+          Object.keys(localStorage).filter(k => k.startsWith('pathwayWelcomeSeen_')).forEach(k => localStorage.removeItem(k));
+          showView('dashboard');
+        };
+        row.appendChild(_resetBtn);
+      }
+    } else {
+      if (changeBtn) changeBtn.remove();
+      const _rBtn = document.getElementById('journeyResetBtn');
+      if (_rBtn) { if (_rBtn.previousSibling) _rBtn.previousSibling.remove(); _rBtn.remove(); }
     }
   } else if (row) {
     row.style.display = 'none';

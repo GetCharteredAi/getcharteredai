@@ -2576,6 +2576,10 @@ async function landingCardClick(id) {
 
 
 async function requireAccess(modId) {
+  if (!localStorage.getItem('gca_pathway') && currentUser !== 'test@getcharteredai.com') {
+    showPathwaySelection();
+    return false;
+  }
   console.log('[requireAccess] called with modId:', modId);
   const session = await getSession();
   console.log('[requireAccess] session:', JSON.stringify(session));

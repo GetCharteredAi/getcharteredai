@@ -2646,6 +2646,7 @@ function confirmPathway() {
   localStorage.setItem('gca_pathway', _selectedPathway);
   document.getElementById('pathwayOverlay').style.display = 'none';
   renderPathwayBadge();
+  renderDashboard();
   maybeShowPathwayWelcome(_selectedPathway);
 }
 

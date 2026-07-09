@@ -2341,6 +2341,11 @@ function isModuleUnlocked(modId, plan, activatedAt) {
     if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
+  if (modId === 22) {
+    if (localStorage.getItem('gca_pathway') !== 'Building Surveying') return false;
+    if (plan === 'sprint' || plan === 'referred') return false;
+    return getUnlockedCount(plan, activatedAt) >= 11;
+  }
   if (plan === 'referred') {
     const result = modId === 12 || (modId >= 13 && modId <= 18);
     console.log('[isModuleUnlocked] referred plan — result:', result, '(modId 12-18 allowed)');
@@ -3123,6 +3128,8 @@ async function renderDashboard() {
       twelveMods.splice(11, 0, {id:20, code:'11B', label:'Rural pathway prep'});
     } else if (_stripPathway === 'Taxation Allowances' && plan !== 'sprint') {
       twelveMods.splice(11, 0, {id:21, code:'11B', label:'TA pathway prep'});
+    } else if (_stripPathway === 'Building Surveying' && plan !== 'sprint') {
+      twelveMods.splice(11, 0, {id:22, code:'11B', label:'BS pathway prep'});
     }
     const twDone = twelveMods.filter(m => isComplete(m.id)).length;
     const allTwDone = twDone === twelveMods.length;
@@ -3245,10 +3252,12 @@ async function renderDashboard() {
 const _base = MODULES.filter(m => m.id >= 1 && m.id <= 12);
 const _m11b = MODULES.find(m => m.id === 20);
 const _m11bTA = MODULES.find(m => m.id === 21);
+const _m11bBS = MODULES.find(m => m.id === 22);
 const _dashPathway = localStorage.getItem('gca_pathway');
 const _isRuralDash = _m11b && _dashPathway === 'Rural' && plan !== 'sprint';
 const _isTADash = _m11bTA && _dashPathway === 'Taxation Allowances' && plan !== 'sprint';
-const dashMods = plan === 'referred' ? MODULES.filter(m => m.id >= 13 && m.id <= 18) : _isRuralDash ? [..._base.filter(m => m.id <= 11), _m11b, ..._base.filter(m => m.id >= 12)] : _isTADash ? [..._base.filter(m => m.id <= 11), _m11bTA, ..._base.filter(m => m.id >= 12)] : _base;
+const _isBSDash = _m11bBS && _dashPathway === 'Building Surveying' && plan !== 'sprint';
+const dashMods = plan === 'referred' ? MODULES.filter(m => m.id >= 13 && m.id <= 18) : _isRuralDash ? [..._base.filter(m => m.id <= 11), _m11b, ..._base.filter(m => m.id >= 12)] : _isTADash ? [..._base.filter(m => m.id <= 11), _m11bTA, ..._base.filter(m => m.id >= 12)] : _isBSDash ? [..._base.filter(m => m.id <= 11), _m11bBS, ..._base.filter(m => m.id >= 12)] : _base;
   document.getElementById('dashProgressBar').style.width = pct + '%';
   document.getElementById('dashProgressLabel').textContent = plan === 'annual'
     ? `${done} of 12 modules complete (${pct}%)`
@@ -3317,7 +3326,7 @@ const dashMods = plan === 'referred' ? MODULES.filter(m => m.id >= 13 && m.id <=
         <span class="dmcard-tick">${isComplete(m.id) ? '✅' : (!unlocked ? '🔒' : '')}</span>
       </div>
       <div class="dmcard-title">${m.title}</div>
-      <div class="dmcard-level">${!unlocked ? ((m.id === 20 || m.id === 21) ? 'Unlocks with Module 11' : 'Unlocks month ' + m.id) : m.level}</div>
+      <div class="dmcard-level">${!unlocked ? ((m.id === 20 || m.id === 21 || m.id === 22) ? 'Unlocks with Module 11' : 'Unlocks month ' + m.id) : m.level}</div>
     </div>`;
   }).join('');
 
@@ -3422,6 +3431,7 @@ function openModule(id, plan, activatedAt) {
         var _p = localStorage.getItem('gca_pathway');
         var _isRural = _p === 'Rural' && plan !== 'sprint' && plan !== 'referred';
         var _isTA = _p === 'Taxation Allowances' && plan !== 'sprint' && plan !== 'referred';
+        var _isBS = _p === 'Building Surveying' && plan !== 'sprint' && plan !== 'referred';
         var _np = localStorage.getItem('gca_plan') || 'monthly';
         var _na = parseInt(localStorage.getItem('gca_activated')) || Date.now();
         var prev = '', nxt = '';
@@ -3431,17 +3441,26 @@ function openModule(id, plan, activatedAt) {
         } else if (id === 21) {
           prev = '<button class="btn btn-outline" onclick="openModule(11)">← Previous Module</button>';
           nxt = isModuleUnlocked(12, _np, _na) ? '<button class="btn btn-blue" onclick="openModule(12)">Next Module →</button>' : '<button class="btn btn-outline" onclick="showView(\'dashboard\')">⌂ Home Dashboard</button>';
+        } else if (id === 22) {
+          prev = '<button class="btn btn-outline" onclick="openModule(11)">← Previous Module</button>';
+          nxt = isModuleUnlocked(12, _np, _na) ? '<button class="btn btn-blue" onclick="openModule(12)">Next Module →</button>' : '<button class="btn btn-outline" onclick="showView(\'dashboard\')">⌂ Home Dashboard</button>';
         } else if (id === 11 && _isRural) {
           prev = '<button class="btn btn-outline" onclick="openModule(10)">← Previous Module</button>';
           nxt = isModuleUnlocked(20, _np, _na) ? '<button class="btn btn-blue" onclick="openModule(20)">Next Module →</button>' : '<button class="btn btn-outline" onclick="showView(\'dashboard\')">⌂ Home Dashboard</button>';
         } else if (id === 11 && _isTA) {
           prev = '<button class="btn btn-outline" onclick="openModule(10)">← Previous Module</button>';
           nxt = isModuleUnlocked(21, _np, _na) ? '<button class="btn btn-blue" onclick="openModule(21)">Next Module →</button>' : '<button class="btn btn-outline" onclick="showView(\'dashboard\')">⌂ Home Dashboard</button>';
+        } else if (id === 11 && _isBS) {
+          prev = '<button class="btn btn-outline" onclick="openModule(10)">← Previous Module</button>';
+          nxt = isModuleUnlocked(22, _np, _na) ? '<button class="btn btn-blue" onclick="openModule(22)">Next Module →</button>' : '<button class="btn btn-outline" onclick="showView(\'dashboard\')">⌂ Home Dashboard</button>';
         } else if (id === 12 && _isRural) {
           prev = '<button class="btn btn-outline" onclick="openModule(20)">← Previous Module</button>';
           nxt = '<button class="btn btn-green" onclick="showView(\'dashboard\')">✓ Back to Dashboard</button>';
         } else if (id === 12 && _isTA) {
           prev = '<button class="btn btn-outline" onclick="openModule(21)">← Previous Module</button>';
+          nxt = '<button class="btn btn-green" onclick="showView(\'dashboard\')">✓ Back to Dashboard</button>';
+        } else if (id === 12 && _isBS) {
+          prev = '<button class="btn btn-outline" onclick="openModule(22)">← Previous Module</button>';
           nxt = '<button class="btn btn-green" onclick="showView(\'dashboard\')">✓ Back to Dashboard</button>';
         } else {
           if (id > 1) prev = '<button class="btn btn-outline" onclick="openModule(' + (id-1) + ')">← Previous Module</button>';

@@ -11,7 +11,7 @@
 - Employer Annual Access: £497 (18 months)
 
 ### Question Count
-- 2,000+ (updated June 2026)
+- 4,000+ (updated July 2026 — audit confirmed: 600 primary questions × pass/high/referral answers + 2,003 challenge sub-questions + 175 module quiz questions = 2,778 discrete Q&A items; 4,000+ is conservative and defensible)
 
 ### Programme Structure
 - Module 1: Introduction

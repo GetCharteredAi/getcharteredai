@@ -2351,6 +2351,16 @@ function isModuleUnlocked(modId, plan, activatedAt) {
     if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
+  if (modId === 24) {
+    if (localStorage.getItem('gca_pathway') !== 'Commercial Real Estate') return false;
+    if (plan === 'sprint' || plan === 'referred') return false;
+    return getUnlockedCount(plan, activatedAt) >= 11;
+  }
+  if (modId === 25) {
+    if (localStorage.getItem('gca_pathway') !== 'Valuation') return false;
+    if (plan === 'sprint' || plan === 'referred') return false;
+    return getUnlockedCount(plan, activatedAt) >= 11;
+  }
   if (plan === 'referred') {
     const result = modId === 12 || (modId >= 13 && modId <= 18);
     console.log('[isModuleUnlocked] referred plan — result:', result, '(modId 12-18 allowed)');

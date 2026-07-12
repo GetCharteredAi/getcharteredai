@@ -1,6 +1,6 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 12 July 2026 (Land and Resources added)*
+*Last updated: 12 July 2026 (Building Control added — active queue complete)*
 
 ---
 
@@ -19,7 +19,7 @@
 
 **Concept:** M11B is a pathway-specific bridge module (11 sections) sitting between M11 and M12 in the candidate journey, covering: intro, pathway structure/competency selection, health & safety, accounting, data sources, client care, business planning, conflict avoidance, sustainability, Michael AI guided practice, and a module assessment (10 questions). Each pathway also gets a matching `pathwayOnly`-gated Module 12 section (a realistic APC scenario in the 12.16/JCT format: bold question, italic tests/frequency line, "model answer" framing, 6 key elements, 3 "how to frame this" quotes, "three things assessors tick", closing kicker).
 
-### Live and wired (15 of 16 in active scope)
+### Live and wired (16 of 16 in active scope — COMPLETE)
 
 | Pathway | Module ID | Colour | M11B | M12 section |
 |---|---|---|---|---|
@@ -38,10 +38,11 @@
 | Corporate Real Estate | 32 | #92400e | ✅ | ✅ |
 | Management Consultancy | 33 | #1e3a8a | ✅ | ✅ |
 | Land and Resources | 34 | #a16207 | ✅ | ✅ |
+| Building Control | 35 | #881337 | ✅ | ✅ |
 
-### Remaining active queue (1)
+### Remaining active queue
 
-- Building Control
+None — all 16 pathways in the active scope are complete.
 
 ### Deliberately deprioritised (6 — small candidate numbers; revisit once active queue is complete)
 

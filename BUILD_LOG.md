@@ -97,12 +97,17 @@ Question banks use a prefix/localStorage-key/element-ID system, entirely separat
 
 ---
 
-## Two Outstanding M11B Structural To-Dos (apply across all pathways)
+## M11B Structural To-Dos — COMPLETE (12 July 2026)
 
-1. A general intro section explaining the technical pathway to candidates
-2. A dedicated section for referred candidates
+Both structural to-dos are now done across all 16 pathways:
 
-Both needed for the "inside the platform" page.
+1. **11B.0 "Understanding Your Technical Pathway Module"** — inserted before 11B.1 in all 16 M11B modules. Explains the bridge module concept, confirms pathway-guide verification, and gives four concrete how-to-use-it instructions. Existing 11B.1–11B.11 numbering unchanged; "11B.2 to 11B.9" cross-references in the earlier-built modules (Rural, TA, BS, QS) remain valid.
+
+2. **11B.12 "If You've Been Referred: What This Module Means for You"** — inserted after 11B.11 in all 16 M11B modules. Reframes a referral as targeted feedback, gives four resit-specific instructions (including mapping referral report to sections, and when to revisit mandatory competency modules alongside pathway-specific content).
+
+Both sections also reflected on the **Inside the Platform page** (`platform.html`): two new marketing sections added between the module grid and the Michael section — "Your Technical Pathway Module" and "Support for Referred Candidates" (with a link to the Referred Candidate Recovery Programme).
+
+Committed across 4 batches (b72eba1, fb86b2a, a94d026, d50aebd), all pushed to origin/main.
 
 ---
 

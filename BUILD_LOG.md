@@ -122,6 +122,16 @@ Module 17 (CR05) now has 19 sections: 3 universal (CR5.1–CR5.3) + 16 pathwayOn
 
 **Build process:** 4 batches of 4, each locally committed with `node --check` verification before any push. Final push (5a561d5) covered all 4 batches in one Netlify deploy — a successful application of the batching approach adopted after the 13 July silent-error incident. Pre-push audit confirmed all 16 pathwayOnly strings against confirmed localStorage values (including `'Facility Management'` and `'Quantity Surveying and Construction'`), no duplicates, syntax clean on 2.90M-char script block.
 
+**13 July 2026 — Three follow-up fixes (fc202a4):**
+
+1. **CR5.4 pathwayOnly gating bug** — all 16 digests were rendering for every referred candidate regardless of pathway. Root cause: two separate `m.sections.filter()` calls exist in the codebase. Filter 1 (TOC sidebar) had the `pathwayOnly` check; filter 2 (main content renderer — the `content-section` divs users actually read) did not. The batch-insertion verification confirmed the MODULES data was correct but never tested the render path — a confirmed blind spot. Fix: one line added to filter 2. Verified by simulating the filter for 6 pathway values (Building Surveying, Rural, QS, Facility Management, Corporate RE, and no pathway set) — each returns exactly 3 universal CR05 sections + at most 1 matching digest.
+
+2. **CR05 title** — `'Performing Under Pressure — Mock Practice and Your Final 30 Days'` → `'Performing Under Pressure — Mock Practice and Your Resit Prep'`. Fixed day-count framing implied an artificial ceiling.
+
+3. **CR5.3 phase reframing** — Heading, body opening, and all day-range labels changed from calendar-day structure (Days 1–7, Days 8–14, etc.) to phase labels (Phase 1–5). Closing rule updated to reference Phase 3 instead of Day 21. Substantive guidance unchanged throughout. `20–30 minutes` (session length) and `final week` (pre-assessment reference) kept as-is.
+
+**Standing note on verification scope:** `node --check` and JSON.parse() verify syntax and data structure — they do not verify render-path behaviour. When adding filtered content (pathwayOnly, sprintOnly), also simulate the filter logic in Python to confirm the correct sections are visible for each case.
+
 ---
 
 ## Other Outstanding Items (non-M11B)

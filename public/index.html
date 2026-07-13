@@ -3748,7 +3748,12 @@ function openModule(id, plan, activatedAt) {
     <div class="mod-progress">
       <h3>Module Progress</h3>
       <div class="progress-steps">
-        ${m.sections.map((s,i) => `
+        ${m.sections.filter(s => {
+          if (s.pathwayOnly && s.pathwayOnly !== localStorage.getItem('gca_pathway')) return false;
+          if (s.sprintOnly && plan !== 'sprint') return false;
+          if (s.h.includes('Sprint Learners') && plan !== 'sprint') return false;
+          return true;
+        }).map((s,i) => `
           <div class="progress-step" id="step-${id}-${i}" onclick="scrollToSection('sec-${id}-${i}')">${s.h}</div>
         `).join('')}
         <div class="progress-step" id="step-${id}-quiz">📝 Quiz</div>

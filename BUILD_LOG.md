@@ -145,6 +145,14 @@ All 16 CR5.4 digests expanded from lightweight 4-point summaries to in-depth 6-p
 
 **Standing note on verification scope:** `node --check` and JSON.parse() verify syntax and data structure — they do not verify render-path behaviour. When adding filtered content (pathwayOnly, sprintOnly), also simulate the filter logic in Python to confirm the correct sections are visible for each case.
 
+**13 July 2026 — Third unfiltered render path found and fixed (post-expansion):**
+
+After the CR5.4 expansion was pushed, a third unfiltered render path was discovered: the "MODULE PROGRESS" right-hand panel (built via `m.sections.map(...)` inside `modProgressPanel.innerHTML`). It was listing all 16 pathway-specific CR5.4 digests for every candidate, regardless of pathway — the same root cause as the earlier main-content-renderer bug. Fixed by adding the identical filter (pathwayOnly + sprintOnly + Sprint Learners header) before the `.map()` call. Section indices still align because both the main content renderer and progress panel now iterate the same filtered array, so `sec-${id}-${i}` / `step-${id}-${i}` IDs remain consistent.
+
+Total render paths for `m.sections` confirmed by systematic grep: **3** (TOC sidebar, main content renderer, module progress panel). All three now have the pathwayOnly/sprintOnly filter.
+
+**Stronger standing rule going forward:** For any `pathwayOnly`- or `sprintOnly`-gated content, do a full codebase search for *every* place the parent section array is iterated (grep `m\.sections`, `\.sections\.map`, `\.sections\.filter`, `\.sections\.forEach`) before marking the feature complete. Do not rely on knowing the render paths from a prior incident — a new surface can exist and be invisible to the verification done at insertion time.
+
 ---
 
 ## Other Outstanding Items (non-M11B)

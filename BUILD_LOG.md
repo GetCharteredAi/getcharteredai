@@ -112,15 +112,28 @@ Committed across 4 batches (b72eba1, fb86b2a, a94d026, d50aebd), all pushed to o
 
 ---
 
-## Referred Revision Digest — CR5.4 (COMPLETE, 13 July 2026)
+## Referred Revision Digest — CR5.4 (COMPLETE, 13 July 2026; expanded 13 July 2026)
 
-A pathwayOnly-gated section added to CR05 for all 16 active pathways. Each referred candidate sees exactly one digest — the one matching their `gca_pathway` localStorage value — covering the 4 highest-yield resit traps for their pathway plus a "Practice this now" cue linking back to their M11B Module 12 scenario.
+A pathwayOnly-gated section added to CR05 for all 16 active pathways. Each referred candidate sees exactly one digest — the one matching their `gca_pathway` localStorage value — covering pathway-specific resit traps plus a "Practice this now" cue linking back to their M11B Module 12 scenario.
 
 Module 17 (CR05) now has 19 sections: 3 universal (CR5.1–CR5.3) + 16 pathwayOnly CR5.4 digests.
 
 **Pathways covered:** Rural, Taxation Allowances, Building Surveying, Quantity Surveying and Construction, Commercial Real Estate, Valuation, Infrastructure, Residential, Project Management, Facility Management, Planning and Development, Property Finance and Investment, Corporate Real Estate, Management Consultancy, Land and Resources, Building Control.
 
-**Build process:** 4 batches of 4, each locally committed with `node --check` verification before any push. Final push (5a561d5) covered all 4 batches in one Netlify deploy — a successful application of the batching approach adopted after the 13 July silent-error incident. Pre-push audit confirmed all 16 pathwayOnly strings against confirmed localStorage values (including `'Facility Management'` and `'Quantity Surveying and Construction'`), no duplicates, syntax clean on 2.90M-char script block.
+**Build process (initial insertion):** 4 batches of 4, each locally committed with `node --check` verification before any push. Final push (5a561d5) covered all 4 batches in one Netlify deploy. Pre-push audit confirmed all 16 pathwayOnly strings against confirmed localStorage values (including `'Facility Management'` and `'Quantity Surveying and Construction'`), no duplicates, syntax clean on 2.90M-char script block.
+
+**CR5.4 content expansion — 13 July 2026 (commits 38f2c00, fe50926, 6e9092f, d7f0ca3; pushed d7f0ca3):**
+
+All 16 CR5.4 digests expanded from lightweight 4-point summaries to in-depth 6-point sections with worked examples. Format per section: intro sentence, 6 numbered points each with a bold lead and worked structure or example, "If you have more time" cross-references to M11B sections, "Practice this now" cue. Body lengths range from ~2,400 to ~3,200 chars per pathway. Same 4-batch-of-4 / node --check / single-push discipline used.
+
+**Canonical replacement method for structured MODULES content (established this session):** reconstruct old section JSON via `json.dumps({"h":..., "pathwayOnly":..., "body":...}, ensure_ascii=False)` from parsed MODULES data, verify `html.count(old_json) == 1`, replace with `html.replace(old_json, new_json)`. Do NOT use `raw_decode` against the raw HTML string — it fails at scale (returned 820K-char false match in testing). Always use default `json.dumps` separators (not `separators=(',',':')`) to match the original file's spacing.
+
+**Pre-push audit checklist used for expansion push:**
+1. MODULES JSON parse clean (34 modules, m17 has 19 sections)
+2. All 16 CR5.4 pathwayOnly strings confirmed against localStorage values, body lengths all >1,500 chars
+3. Both filter() calls confirmed to have pathwayOnly check (filter 1 at pos ~1,475,375 / 8-space indent; filter 2 at pos ~1,478,212 / 6-space indent)
+4. `node --check` PASS on 2.919M-char script block
+5. Push confirmed; Netlify deploy confirmed at 3,217,127 bytes live
 
 **13 July 2026 — Three follow-up fixes (fc202a4):**
 

@@ -112,6 +112,18 @@ Committed across 4 batches (b72eba1, fb86b2a, a94d026, d50aebd), all pushed to o
 
 ---
 
+## Referred Revision Digest — CR5.4 (COMPLETE, 13 July 2026)
+
+A pathwayOnly-gated section added to CR05 for all 16 active pathways. Each referred candidate sees exactly one digest — the one matching their `gca_pathway` localStorage value — covering the 4 highest-yield resit traps for their pathway plus a "Practice this now" cue linking back to their M11B Module 12 scenario.
+
+Module 17 (CR05) now has 19 sections: 3 universal (CR5.1–CR5.3) + 16 pathwayOnly CR5.4 digests.
+
+**Pathways covered:** Rural, Taxation Allowances, Building Surveying, Quantity Surveying and Construction, Commercial Real Estate, Valuation, Infrastructure, Residential, Project Management, Facility Management, Planning and Development, Property Finance and Investment, Corporate Real Estate, Management Consultancy, Land and Resources, Building Control.
+
+**Build process:** 4 batches of 4, each locally committed with `node --check` verification before any push. Final push (5a561d5) covered all 4 batches in one Netlify deploy — a successful application of the batching approach adopted after the 13 July silent-error incident. Pre-push audit confirmed all 16 pathwayOnly strings against confirmed localStorage values (including `'Facility Management'` and `'Quantity Surveying and Construction'`), no duplicates, syntax clean on 2.90M-char script block.
+
+---
+
 ## Other Outstanding Items (non-M11B)
 
 - Daily touchpoint microlearning feature (roadmap idea, not yet built) — optional 5-min daily review, scoped to technical question banks only (spaced repetition/microlearning research), NOT for module/competency content

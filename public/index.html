@@ -1065,7 +1065,73 @@ input.err{border-color:var(--red)}
 /* Finder cards responsive */
 @media(max-width:768px){.pf-grid{grid-template-columns:repeat(2,1fr)!important}}
 @media(max-width:480px){.pf-grid{grid-template-columns:1fr!important}}
+
+/* ── Recovery Plan ─────────────────────────────────────────────────────── */
+.rp-entry-banner{background:#111827;border:1px solid rgba(37,99,235,0.35);border-left:4px solid #2563EB;border-radius:12px;padding:18px 20px;margin-bottom:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color .2s}
+.rp-entry-banner:hover{border-color:rgba(37,99,235,0.7)}
+.rp-entry-icon{font-size:26px;flex-shrink:0}
+.rp-entry-body{flex:1;min-width:0}
+.rp-entry-eyebrow{font-size:10px;font-weight:700;letter-spacing:.12em;color:#60a5fa;text-transform:uppercase;margin-bottom:3px}
+.rp-entry-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:3px}
+.rp-entry-sub{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.4}
+.rp-entry-arrow{color:rgba(255,255,255,0.3);font-size:20px;flex-shrink:0}
+#recoveryPlanOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9999;overflow-y:auto;padding:32px 20px}
+.rp-overlay-inner{max-width:720px;margin:0 auto}
+.rp-overlay-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.rp-overlay-close{background:none;border:none;color:rgba(255,255,255,0.45);font-size:22px;cursor:pointer;padding:4px}
+.rp-eyebrow{font-size:10px;font-weight:700;letter-spacing:.12em;color:#60a5fa;text-transform:uppercase;margin-bottom:8px}
+.rp-heading{font-size:26px;font-weight:800;color:#fff;margin-bottom:12px;line-height:1.2}
+.rp-intro-body{color:rgba(255,255,255,0.7);font-size:14px;line-height:1.7;margin-bottom:24px}
+.rp-upload-zone{background:#1e2235;border:1px dashed rgba(37,99,235,0.4);border-radius:10px;padding:20px 24px;margin-bottom:16px;text-align:center}
+.rp-upload-btn{background:#1d3461;color:#93c5fd;border:1px solid rgba(37,99,235,0.5);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px;display:inline-block}
+.rp-upload-btn:hover{background:#1e40af}
+.rp-pdf-status{font-size:12px;color:rgba(255,255,255,0.5);margin-top:6px;min-height:18px}
+.rp-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:rgba(255,255,255,0.3);font-size:12px}
+.rp-divider::before,.rp-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.1)}
+.rp-textarea{width:100%;background:#1e2235;border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#f0f4ff;font-size:13px;line-height:1.6;padding:12px 14px;resize:vertical;font-family:inherit;box-sizing:border-box}
+.rp-textarea:focus{outline:none;border-color:rgba(37,99,235,0.6)}
+.rp-analyse-btn{background:#2563EB;color:#fff;border:none;border-radius:8px;padding:13px 28px;font-size:15px;font-weight:600;cursor:pointer;margin-top:16px;width:100%}
+.rp-analyse-btn:hover{background:#1d4ed8}
+.rp-manual-link{font-size:13px;color:#60a5fa;cursor:pointer;text-align:center;display:block;margin-top:12px;text-decoration:underline}
+.rp-loading{text-align:center;padding:80px 20px}
+.rp-spinner{width:40px;height:40px;border:3px solid rgba(37,99,235,0.2);border-top-color:#2563EB;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rp-loading-text{color:rgba(255,255,255,0.6);font-size:14px}
+.rp-draft-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:gap}
+.rp-draft-count{font-size:13px;color:rgba(255,255,255,0.5)}
+.rp-confirmed-count{font-size:13px;color:#4ade80;font-weight:600}
+.rp-draft-card{background:#1e2235;border:1px solid rgba(37,99,235,0.25);border-radius:10px;padding:18px 20px;margin-bottom:14px}
+.rp-draft-badge{font-size:10px;font-weight:700;letter-spacing:.1em;color:#60a5fa;text-transform:uppercase;margin-bottom:10px}
+.rp-draft-comment{background:#111827;border-left:3px solid #2563EB;padding:10px 14px;border-radius:4px;font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:14px;line-height:1.5;font-style:italic}
+.rp-draft-field{margin-bottom:12px}
+.rp-draft-field label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.rp-draft-field select,.rp-draft-field textarea,.rp-draft-field input[type=text]{width:100%;background:#111827;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#f0f4ff;font-size:13px;padding:8px 10px;font-family:inherit;box-sizing:border-box;line-height:1.5}
+.rp-draft-field textarea{resize:vertical}
+.rp-draft-field select:focus,.rp-draft-field textarea:focus,.rp-draft-field input:focus{outline:none;border-color:rgba(37,99,235,0.5)}
+.rp-draft-actions{display:flex;gap:10px;margin-top:14px}
+.rp-btn-accept{background:#064e3b;color:#4ade80;border:1px solid rgba(74,222,128,0.3);border-radius:6px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;flex:1}
+.rp-btn-accept:hover{background:#065f46}
+.rp-btn-delete{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);border-radius:6px;padding:8px 14px;font-size:13px;cursor:pointer}
+.rp-draft-footer{display:flex;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);flex-wrap:wrap}
+.rp-save-btn{background:#2563EB;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;flex:1}
+.rp-back-btn{background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:12px 20px;font-size:14px;cursor:pointer}
+.rp-plan-stats{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:20px}
+.rp-cat-group{margin-bottom:24px}
+.rp-cat-header{font-size:11px;font-weight:700;letter-spacing:.12em;color:#60a5fa;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(37,99,235,0.2)}
+.rp-plan-row{background:#1e2235;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:16px 18px;margin-bottom:10px}
+.rp-plan-comment{font-size:13px;color:rgba(255,255,255,0.75);font-style:italic;border-left:3px solid #2563EB;padding-left:12px;margin-bottom:12px;line-height:1.5}
+.rp-plan-detail{margin-bottom:8px}
+.rp-plan-label{font-size:10px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:2px}
+.rp-plan-val{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.5}
+.rp-plan-status-row{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06)}
+.rp-status-select{background:#111827;border:1px solid rgba(255,255,255,0.12);border-radius:6px;color:#f0f4ff;font-size:12px;padding:6px 8px;flex:1;font-family:inherit}
+.rp-btn-delete-sm{background:none;color:rgba(239,68,68,0.6);border:none;font-size:12px;cursor:pointer;padding:4px 8px;flex-shrink:0}
+.rp-btn-delete-sm:hover{color:#f87171}
+.rp-plan-footer{display:flex;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);flex-wrap:wrap}
+.rp-add-manual-btn{background:transparent;color:#60a5fa;border:1px solid rgba(37,99,235,0.3);border-radius:8px;padding:10px 20px;font-size:13px;cursor:pointer}
+.rp-empty{text-align:center;padding:48px 20px;color:rgba(255,255,255,0.35);font-size:14px}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
 <!-- BUILD-MARKER-2026-06-02 -->
@@ -3148,6 +3214,15 @@ async function renderDashboard() {
       : 'Your first module';
     const contClick = contMod ? `openModule(${contMod.id}); showView('module')` : '';
     actionsEl.innerHTML = `
+      <div class="rp-entry-banner" onclick="openRecoveryPlan()">
+        <div class="rp-entry-icon">🗂️</div>
+        <div class="rp-entry-body">
+          <div class="rp-entry-eyebrow">Recovery Tool · Free · Between CR01 and CR02</div>
+          <div class="rp-entry-title">Your Referral Recovery Plan</div>
+          <div class="rp-entry-sub">Turn your assessor feedback into a structured action plan before moving into CR02. Upload your referral report or work through it manually.</div>
+        </div>
+        <div class="rp-entry-arrow">›</div>
+      </div>
       <div class="db-cards">
         <div class="db-card primary" onclick="${contClick}">
           <div class="db-card-eyebrow">${contLabel}</div>
@@ -10328,6 +10403,261 @@ async function sendMichaelPanel() {
     michaelPanelAppend('Michael', 'Sorry — I had trouble connecting. Please try again.');
   }
 }
+// ── RECOVERY PLAN ────────────────────────────────────────────────────────
+
+const RP_CATEGORIES = [
+  'Knowledge gap',
+  'Weak or missing experience',
+  'Level 2/3 evidence gap',
+  'Case study or presentation issue',
+  'Communication or questioning weakness',
+  'Requires workplace or counsellor support'
+];
+const RP_STATUSES = ['Not started','In progress','Evidence gathered','Ready to discuss with counsellor','Resolved'];
+
+let _rpDraftRows = [];
+let _rpConfirmedRows = [];
+
+function rpEsc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function openRecoveryPlan() {
+  const overlay = document.getElementById('recoveryPlanOverlay');
+  overlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  // Try loading saved plan
+  const token = localStorage.getItem('gca_token');
+  if (token) {
+    try {
+      const r = await fetch('/.netlify/functions/get-recovery-plan', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({token})
+      });
+      const data = await r.json();
+      if (data.rows && data.rows.length > 0) {
+        _rpConfirmedRows = data.rows;
+        rpShowState('plan');
+        rpRenderPlan();
+        return;
+      }
+    } catch(e) {}
+  }
+  rpShowState('intro');
+  setTimeout(rpSetupPdfUpload, 100);
+}
+
+function closeRecoveryPlan() {
+  document.getElementById('recoveryPlanOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function rpShowState(state) {
+  ['Intro','Loading','Draft','Plan'].forEach(s => {
+    const el = document.getElementById('rpState' + s);
+    if (el) el.style.display = s.toLowerCase() === state ? 'block' : 'none';
+  });
+}
+
+function rpSetupPdfUpload() {
+  const input = document.getElementById('rpPdfInput');
+  if (!input || input._rpReady) return;
+  input._rpReady = true;
+  input.addEventListener('change', async function() {
+    const file = this.files[0];
+    if (!file) return;
+    const statusEl = document.getElementById('rpPdfStatus');
+    statusEl.textContent = 'Extracting text from PDF...';
+    try {
+      if (typeof pdfjsLib === 'undefined') throw new Error('PDF library not loaded');
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+      let text = '';
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        text += content.items.map(item => item.str).join(' ') + '\n';
+      }
+      document.getElementById('rpReferralText').value = text.trim();
+      statusEl.textContent = `Extracted ${pdf.numPages} page${pdf.numPages !== 1 ? 's' : ''} — review the text below before sending to Michael.`;
+    } catch(e) {
+      statusEl.textContent = 'Could not read this PDF automatically. Please paste your report text in the box below.';
+    }
+  });
+}
+
+function rpStartManual() {
+  _rpConfirmedRows = [];
+  rpShowState('plan');
+  rpRenderPlan();
+}
+
+async function rpAnalyseWithMichael() {
+  const text = (document.getElementById('rpReferralText').value || '').trim();
+  if (!text) { alert('Please paste your referral report text or upload a PDF first.'); return; }
+  rpShowState('loading');
+  const systemPrompt = `You are helping a referred RICS APC candidate turn their referral report into a structured recovery plan.
+
+Extract each distinct assessor comment, preserving the original wording exactly — never paraphrase. For each comment propose:
+- category: exactly one of: "Knowledge gap", "Weak or missing experience", "Level 2/3 evidence gap", "Case study or presentation issue", "Communication or questioning weakness", "Requires workplace or counsellor support"
+- mayIndicate: plain-language interpretation framed as "This might indicate..." — never "This means..." or "You must..."
+- action: suggested action framed as "One possible action here is..." — never definitive
+- evidence: specific evidence or practice needed (string, may be empty)
+- support: any support required such as counsellor or line manager (string, may be empty)
+
+Return ONLY a valid JSON array, no surrounding text, no markdown fences:
+[{"assessorComment":"exact wording","category":"...","mayIndicate":"This might indicate...","action":"One possible action here is...","evidence":"...","support":""}]
+
+Critical: never present interpretations as definitive fact. Always frame provisionally. Preserve assessor comment wording exactly.`;
+  try {
+    const r = await fetch('/.netlify/functions/ai-tutor', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({system:systemPrompt, messages:[{role:'user',content:`Here is my RICS APC referral report:\n\n${text}\n\nPlease extract each assessor comment and propose a recovery plan row for each.`}], max_tokens:3000})
+    });
+    const data = await r.json();
+    const raw = (data.content?.[0]?.text || '').replace(/^```json\s*/,'').replace(/^```\s*/,'').replace(/```\s*$/,'').trim();
+    _rpDraftRows = JSON.parse(raw);
+    _rpConfirmedRows = [];
+    rpShowState('draft');
+    rpRenderDraft();
+  } catch(e) {
+    rpShowState('intro');
+    alert('Michael could not parse the report. Please check the text is readable and try again.');
+  }
+}
+
+function rpRenderDraft() {
+  const container = document.getElementById('rpDraftCards');
+  if (!container) return;
+  if (_rpDraftRows.length === 0) {
+    container.innerHTML = '<div class="rp-empty">All suggestions reviewed — click Save plan to continue.</div>';
+    document.getElementById('rpDraftCount').textContent = '';
+    return;
+  }
+  document.getElementById('rpDraftCount').textContent = _rpDraftRows.length + ' suggestion' + (_rpDraftRows.length !== 1 ? 's' : '') + ' to review';
+  document.getElementById('rpConfirmedCount').textContent = _rpConfirmedRows.length > 0 ? _rpConfirmedRows.length + ' added to plan' : '';
+  container.innerHTML = _rpDraftRows.map((row, i) => `
+    <div class="rp-draft-card" id="rpDraftCard${i}">
+      <div class="rp-draft-badge">Suggestion ${i+1} of ${_rpDraftRows.length} — Michael's proposal, not a definitive assessment</div>
+      <div class="rp-draft-comment">${rpEsc(row.assessorComment)}</div>
+      <div class="rp-draft-field"><label>Category</label>
+        <select id="rpDraftCat${i}">${RP_CATEGORIES.map(c => `<option value="${rpEsc(c)}"${c===row.category?' selected':''}>${rpEsc(c)}</option>`).join('')}</select></div>
+      <div class="rp-draft-field"><label>What this may indicate</label>
+        <textarea id="rpDraftMay${i}" rows="2" class="rp-textarea">${rpEsc(row.mayIndicate)}</textarea></div>
+      <div class="rp-draft-field"><label>Suggested action</label>
+        <textarea id="rpDraftAct${i}" rows="2" class="rp-textarea">${rpEsc(row.action)}</textarea></div>
+      <div class="rp-draft-field"><label>Evidence or practice needed</label>
+        <textarea id="rpDraftEvi${i}" rows="2" class="rp-textarea">${rpEsc(row.evidence)}</textarea></div>
+      <div class="rp-draft-field"><label>Support required</label>
+        <input type="text" id="rpDraftSup${i}" value="${rpEsc(row.support)}"></div>
+      <div class="rp-draft-actions">
+        <button class="rp-btn-accept" onclick="rpAcceptRow(${i})">✓ Add to my plan</button>
+        <button class="rp-btn-delete" onclick="rpRemoveDraft(${i})">✕ Remove</button>
+      </div>
+    </div>`).join('');
+}
+
+function rpAcceptRow(i) {
+  const row = {
+    id: Date.now().toString() + '_' + i,
+    assessorComment: _rpDraftRows[i].assessorComment,
+    category: document.getElementById('rpDraftCat'+i).value,
+    mayIndicate: document.getElementById('rpDraftMay'+i).value,
+    action: document.getElementById('rpDraftAct'+i).value,
+    evidence: document.getElementById('rpDraftEvi'+i).value,
+    support: document.getElementById('rpDraftSup'+i).value,
+    status: 'Not started'
+  };
+  _rpConfirmedRows.push(row);
+  _rpDraftRows.splice(i, 1);
+  rpRenderDraft();
+}
+
+function rpRemoveDraft(i) {
+  _rpDraftRows.splice(i, 1);
+  rpRenderDraft();
+}
+
+async function rpSaveAndViewPlan() {
+  if (_rpConfirmedRows.length === 0) { alert('Add at least one row to your plan first.'); return; }
+  await rpPersist();
+  rpShowState('plan');
+  rpRenderPlan();
+}
+
+async function rpPersist() {
+  const token = localStorage.getItem('gca_token');
+  if (!token) return;
+  try {
+    await fetch('/.netlify/functions/save-recovery-plan', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({token, rows:_rpConfirmedRows})
+    });
+  } catch(e) {}
+}
+
+async function rpUpdateStatus(rowId, newStatus) {
+  const row = _rpConfirmedRows.find(r => r.id === rowId);
+  if (row) { row.status = newStatus; await rpPersist(); }
+}
+
+async function rpDeleteRow(rowId) {
+  _rpConfirmedRows = _rpConfirmedRows.filter(r => r.id !== rowId);
+  await rpPersist();
+  rpRenderPlan();
+}
+
+function rpRenderPlan() {
+  const container = document.getElementById('rpPlanTable');
+  if (!container) return;
+  const statsEl = document.getElementById('rpPlanStats');
+  if (_rpConfirmedRows.length === 0) {
+    if (statsEl) statsEl.textContent = '';
+    container.innerHTML = '<div class="rp-empty">No items yet. Go back and accept rows from Michael\'s suggestions, or add rows manually.</div>';
+    return;
+  }
+  const done = _rpConfirmedRows.filter(r => r.status === 'Resolved').length;
+  if (statsEl) statsEl.textContent = _rpConfirmedRows.length + ' item' + (_rpConfirmedRows.length !== 1 ? 's' : '') + ' · ' + done + ' resolved';
+  const byCategory = {};
+  RP_CATEGORIES.forEach(c => { byCategory[c] = []; });
+  _rpConfirmedRows.forEach(r => { (byCategory[r.category] = byCategory[r.category] || []).push(r); });
+  container.innerHTML = RP_CATEGORIES.filter(c => byCategory[c] && byCategory[c].length > 0).map(cat => `
+    <div class="rp-cat-group">
+      <div class="rp-cat-header">${rpEsc(cat)}</div>
+      ${byCategory[cat].map(row => `
+        <div class="rp-plan-row">
+          <div class="rp-plan-comment">${rpEsc(row.assessorComment)}</div>
+          <div class="rp-plan-detail"><div class="rp-plan-label">May indicate</div><div class="rp-plan-val">${rpEsc(row.mayIndicate)}</div></div>
+          <div class="rp-plan-detail"><div class="rp-plan-label">Action</div><div class="rp-plan-val">${rpEsc(row.action)}</div></div>
+          ${row.evidence ? `<div class="rp-plan-detail"><div class="rp-plan-label">Evidence needed</div><div class="rp-plan-val">${rpEsc(row.evidence)}</div></div>` : ''}
+          ${row.support ? `<div class="rp-plan-detail"><div class="rp-plan-label">Support</div><div class="rp-plan-val">${rpEsc(row.support)}</div></div>` : ''}
+          <div class="rp-plan-status-row">
+            <select class="rp-status-select" onchange="rpUpdateStatus('${rpEsc(row.id)}',this.value)">
+              ${RP_STATUSES.map(s => `<option value="${rpEsc(s)}"${s===row.status?' selected':''}>${rpEsc(s)}</option>`).join('')}
+            </select>
+            <button class="rp-btn-delete-sm" onclick="rpDeleteRow('${rpEsc(row.id)}')">Remove</button>
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+function rpAddManualRow() {
+  _rpConfirmedRows.push({
+    id: Date.now().toString(),
+    assessorComment: '',
+    category: 'Knowledge gap',
+    mayIndicate: '',
+    action: '',
+    evidence: '',
+    support: '',
+    status: 'Not started'
+  });
+  rpPersist();
+  rpRenderPlan();
+}
+
 
 </script>
 
@@ -10769,6 +11099,77 @@ async function sendMichaelPanel() {
       </div>
       <button onclick="document.getElementById('csIntroOverlay').style.display='none';checkoutCaseStudy();" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:14px 32px;font-size:16px;font-weight:600;cursor:pointer;">Review My Case Study →</button>
     </div>
+  </div>
+</div>
+
+<div id="recoveryPlanOverlay">
+  <div class="rp-overlay-inner">
+    <div class="rp-overlay-header">
+      <div>
+        <div class="rp-eyebrow">Referral Recovery Plan · Free</div>
+        <div class="rp-heading">Your Referral Recovery Plan</div>
+      </div>
+      <button class="rp-overlay-close" onclick="closeRecoveryPlan()">✕</button>
+    </div>
+
+    <!-- STATE: INTRO ─────────────────────────────────────────────── -->
+    <div id="rpStateIntro">
+      <p class="rp-intro-body">Upload your referral report and Michael will help you turn the assessor feedback into a structured recovery plan. Review each comment, confirm what it means for your preparation, and identify the evidence, practice, or support you need before your resit.</p>
+      <p class="rp-intro-body" style="margin-top:-12px">Michael won't decide what the assessors meant on your behalf — referral reports are often brief or ambiguous, and you know your own situation better than any tool can. Instead, Michael proposes an interpretation for each comment, and you confirm, amend, or reject it before it becomes part of your plan.</p>
+      <div class="rp-upload-zone">
+        <label class="rp-upload-btn" for="rpPdfInput">📎 Upload referral report PDF</label>
+        <input type="file" id="rpPdfInput" accept=".pdf" style="display:none">
+        <div class="rp-pdf-status" id="rpPdfStatus"></div>
+      </div>
+      <div class="rp-divider">or paste text directly</div>
+      <textarea class="rp-textarea" id="rpReferralText" rows="10" placeholder="Paste your referral report text here — you can copy it from a PDF, an email, or your RICS candidate portal..."></textarea>
+      <button class="rp-analyse-btn" onclick="rpAnalyseWithMichael()">Analyse with Michael →</button>
+      <span class="rp-manual-link" onclick="rpStartManual()">Prefer not to upload? Complete the plan manually instead</span>
+    </div>
+
+    <!-- STATE: LOADING ───────────────────────────────────────────── -->
+    <div id="rpStateLoading" style="display:none">
+      <div class="rp-loading">
+        <div class="rp-spinner"></div>
+        <div class="rp-loading-text">Michael is reading your referral report and preparing your recovery plan draft...</div>
+      </div>
+    </div>
+
+    <!-- STATE: DRAFT REVIEW ──────────────────────────────────────── -->
+    <div id="rpStateDraft" style="display:none">
+      <div class="rp-draft-header">
+        <div>
+          <div class="rp-eyebrow">Review Michael's suggestions</div>
+          <p style="color:rgba(255,255,255,0.6);font-size:13px;margin:4px 0 0">Each row is a proposal — accept, edit, or remove it. Nothing goes into your plan without your confirmation.</p>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div class="rp-draft-count" id="rpDraftCount"></div>
+        <div class="rp-confirmed-count" id="rpConfirmedCount"></div>
+      </div>
+      <div id="rpDraftCards"></div>
+      <div class="rp-draft-footer">
+        <button class="rp-back-btn" onclick="rpShowState('intro')">← Back</button>
+        <button class="rp-save-btn" onclick="rpSaveAndViewPlan()">Save plan &amp; view →</button>
+      </div>
+    </div>
+
+    <!-- STATE: CONFIRMED PLAN ────────────────────────────────────── -->
+    <div id="rpStatePlan" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:10px">
+        <div>
+          <div class="rp-eyebrow">Your Recovery Plan</div>
+          <div class="rp-plan-stats" id="rpPlanStats"></div>
+        </div>
+        <button class="rp-add-manual-btn" onclick="rpAddManualRow()">+ Add row manually</button>
+      </div>
+      <p style="color:rgba(255,255,255,0.5);font-size:12px;margin-bottom:20px;line-height:1.5">Update the status of each item as you work through your preparation. Your plan is saved automatically.</p>
+      <div id="rpPlanTable"></div>
+      <div class="rp-plan-footer">
+        <button class="rp-back-btn" onclick="rpShowState('intro')">Start over / re-upload</button>
+      </div>
+    </div>
+
   </div>
 </div>
 </body>

@@ -187,6 +187,26 @@ Three separate changes pushed in one deploy. Live confirmed at 3,241,931 bytes.
 
 ---
 
+## 14 July 2026 — Case Study Review access flow rework (ca87768, live)
+
+Recovery Plan folded inside the £29 Case Study Review purchase. Five touch points changed in one commit:
+
+**A — csIntroOverlay copy:** Eyebrow changed from "Case Study Review" to "ADD-ON" (matching dashboard bottom card pattern). H2 changed from "Strengthen Your Case Study" to "Case Study Review". Single-paragraph body expanded to three paragraphs: (1) case study shapes your questions, (2) Recovery Plan step — upload referral report, Michael proposes rows, candidate confirms, (3) case study coaching step. Price line updated to "Optional Case Study Review — £29 one-time".
+
+**B — Entry banner removed:** The standalone "Recovery Tool · Free · Between CR01 and CR02" card removed from the referred dashboard `actionsEl`. No longer separately accessible as a free dashboard card.
+
+**C — Compact panel unlocked state (return visits):** Previously showed one "📝 Case Study Review — Open" button. Now shows two: "🗂️ Your Referral Recovery Plan" (→ `openRecoveryPlan()`) and "📝 Case Study Review — Open" (→ `csOpenOverlay()`). Both persistent — candidates returning to update plan statuses or jump into case study coaching can do so independently.
+
+**D — Post-payment first-visit auto-sequence:** On `cs_purchase=success` verification, sets `gca_cs_first_visit` flag alongside `gca_cs_access`. On the subsequent dashboard render, detects and clears the flag, then calls `setTimeout(openRecoveryPlan, 600)` — auto-launches Step 1 (Recovery Plan) once only. All return visits skip the auto-launch.
+
+**E — Recovery Plan confirmed-plan footer:** "Continue to Step 2: Case Study Review →" button added alongside the existing "Start over / re-upload" button. Calls `closeRecoveryPlan(); csOpenOverlay()`. Present on every plan-state visit (first-purchase and return) since it's static HTML in `rpStatePlan`.
+
+Recovery Plan overlay internals (four states, Michael behaviour, storage, system prompt) unchanged.
+
+**Note on live verification:** End-to-end UI check (payment → auto-launch → Continue button → return visit dual buttons) requires browser interaction through a test account — not automatable from the terminal. This sequence should be manually tested on the live site before the next related change.
+
+---
+
 ## Other Outstanding Items (non-M11B)
 
 - Daily touchpoint microlearning feature (roadmap idea, not yet built) — optional 5-min daily review, scoped to technical question banks only (spaced repetition/microlearning research), NOT for module/competency content

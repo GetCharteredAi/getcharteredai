@@ -1,6 +1,6 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 12 July 2026 (Building Control added — active queue complete)*
+*Last updated: 14 July 2026 (CS Review card width + markdown rendering)*
 
 ---
 
@@ -204,6 +204,24 @@ Recovery Plan folded inside the £29 Case Study Review purchase. Five touch poin
 Recovery Plan overlay internals (four states, Michael behaviour, storage, system prompt) unchanged.
 
 **Note on live verification:** End-to-end UI check (payment → auto-launch → Continue button → return visit dual buttons) requires browser interaction through a test account — not automatable from the terminal. This sequence should be manually tested on the live site before the next related change.
+
+---
+
+## 14 July 2026 — CS Review card width + markdown rendering (ea3b8a0, live)
+
+Two independent visual/rendering fixes pushed together.
+
+**Card width fix:** `.cs-panel-compact` `max-width` increased from `280px` to `340px`. The class is used on one element only (`id="csPanelCompact"` on the referred dashboard header row). The previous 280px caused the two unlocked-state buttons ("Your Referral Recovery Plan" / "Case Study Review — Open") and the price label to wrap excessively inside the flex row alongside the welcome text/badge.
+
+**Markdown rendering fix:** Michael's Case Study Review feedback was displaying literal `##`, `---`, `**bold**` characters instead of rendered HTML. Root cause: `csRenderResults()` passed section body text through `csEscapeHtml()` (entity-only escape) and the `.cs-result-section-body` CSS used `white-space:pre-wrap`, outputting everything verbatim. Fix:
+- Added `csMarkdownToHtml(str)` — line-by-line parser handling: `---`/`***` → `<hr>`, `##`/`#` headings → bold div, `- `/ `* ` bullet lists → `<ul><li>`, `1. ` numbered lists → `<ol><li>`, blank lines → `<br>`, plain lines → `<p>`. HTML entities escaped first (XSS safe).
+- Added `csInlineMd(str)` — inline handler for `**bold**` → `<strong>` and `*italic*` → `<em>`.
+- `csRenderResults()` now calls `csMarkdownToHtml()` for both section body and closing note.
+- Removed `white-space:pre-wrap` from `.cs-result-section-body` CSS (no longer needed).
+
+The AI tutor chat (pos ~1,550,816) already had its own partial inline formatter (`**bold**` + newlines only) — this fix does not touch that path.
+
+**Pre-push verification:** node --check PASS (2,933,695 chars). Both changes confirmed in place before push.
 
 ---
 

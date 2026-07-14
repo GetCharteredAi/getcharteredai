@@ -166,6 +166,27 @@ Ran the same systematic render-path audit against Module 12 (32 sections: 16 uni
 
 ---
 
+## 14 July 2026 — Referred Programme Updates (d614a46, c967c01, 3e061ef → pushed 3e061ef)
+
+Three separate changes pushed in one deploy. Live confirmed at 3,241,931 bytes.
+
+**Part 1 — CR04 rename (d614a46):** Module title changed from "Rebuilding Your Mandatory Competency Answers" to "Rebuilding Your Competency Evidence and Answers". One occurrence in MODULES data; cascades automatically to module menu, header, breadcrumb, and module progress panel via the shared section renderer.
+
+**Part 3 — Case Study Review copy + button (d614a46):** Card copy updated across all three surfaces (compact panel locked state, csIntroOverlay heading/body, dashboard bottom card body) to "Strengthen Your Case Study" framing. Button text "Unlock for £29" → "Review My Case Study" in both the compact card and the csIntroOverlay payment button. Draft upload confirmed already post-payment only (inside `csOpenOverlay()`, not `csIntroOverlay`) — no sequencing change required.
+
+**Part 2 — Referral Recovery Plan (c967c01 + 3e061ef):** New free tool for referred candidates, bridging CR01 to CR02.
+
+- **3 new Netlify functions:** `save-recovery-plan.js`, `get-recovery-plan.js`, `delete-recovery-plan.js` — Netlify Blobs store `'recovery-plans'`, keyed by email, same pattern as CPD tracker.
+- **Entry point:** Full-width banner card in referred dashboard `actionsEl`, sitting between the milestone strip and the Continue/Quick-links cards. Left-blue-accent border, visually distinct from CR0X module circles. Label: "Recovery Tool · Free · Between CR01 and CR02".
+- **Four-state overlay:** (1) Intro — PDF upload (client-side pdf.js extraction, CDN loaded) or paste textarea, then "Analyse with Michael →"; (2) Loading spinner; (3) Draft review — each Michael-proposed row as an editable card, nothing added to plan without candidate confirmation; (4) Confirmed plan — grouped by category, per-row status dropdowns, auto-saves on change via `save-recovery-plan.js`.
+- **Michael's system prompt:** Enforces provisional framing ("This might indicate...", "One possible action here is...") — never definitive. Returns JSON array only. All candidate/Michael text escaped via `rpEsc()` before innerHTML injection (XSS safe).
+- **Manual fallback:** "Prefer not to upload? Complete the plan manually — you'll get the same structured table either way." skips directly to the empty plan table.
+- **Access gate:** Referred plan only, free — no payment check.
+
+**Pre-push verification:** node --check PASS on 2.93M-char script block; all 3 m.sections render paths confirmed to have pathwayOnly filter (dynamic search — hardcoded positions were stale after CSS/JS additions); MODULES JSON parse clean; all content checks passed.
+
+---
+
 ## Other Outstanding Items (non-M11B)
 
 - Daily touchpoint microlearning feature (roadmap idea, not yet built) — optional 5-min daily review, scoped to technical question banks only (spaced repetition/microlearning research), NOT for module/competency content

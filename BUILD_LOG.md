@@ -153,6 +153,17 @@ Total render paths for `m.sections` confirmed by systematic grep: **3** (TOC sid
 
 **Stronger standing rule going forward:** For any `pathwayOnly`- or `sprintOnly`-gated content, do a full codebase search for *every* place the parent section array is iterated (grep `m\.sections`, `\.sections\.map`, `\.sections\.filter`, `\.sections\.forEach`) before marking the feature complete. Do not rely on knowing the render paths from a prior incident — a new surface can exist and be invisible to the verification done at insertion time.
 
+**14 July 2026 — Module 12 pathwayOnly audit (proactive — no bug reported):**
+
+Ran the same systematic render-path audit against Module 12 (32 sections: 16 universal + 16 pathwayOnly scenario sections, one per pathway). Findings:
+
+- All 3 `m.sections` render paths (TOC sidebar, main content renderer, module progress panel) already have the pathwayOnly filter — no unfiltered paths found.
+- 18 occurrences of `id === 12` in JS confirmed to be: dashboard unlock check, AI tutor widget injection (`renderAITutor()`), quiz rendering, and prev/next nav buttons for each pathway variant. None iterate sections independently.
+- Section heading literals (12.16, 12.17, 12.18, 12.19, 12.20, 12.21) appear exclusively inside MODULES data — zero occurrences in render logic.
+- Filter simulation confirmed for 5 pathway values (Rural, Project Management, Facility Management, Corporate Real Estate, no pathway): each returns exactly 16 sections (15 universal + 1 correct pathway scenario), or 15 (universal only) with no pathway set.
+
+**Result: M12 clean — no fixes required.**
+
 ---
 
 ## Other Outstanding Items (non-M11B)

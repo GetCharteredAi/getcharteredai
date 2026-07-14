@@ -10441,6 +10441,11 @@ async function openRecoveryPlan() {
       }
     } catch(e) {}
   }
+  if (localStorage.getItem('gca_rp_started') === 'true') {
+    rpShowState('plan');
+    rpRenderPlan();
+    return;
+  }
   rpShowState('intro');
   setTimeout(rpSetupPdfUpload, 100);
 }
@@ -10487,6 +10492,7 @@ function rpSetupPdfUpload() {
 
 function rpStartManual() {
   _rpConfirmedRows = [];
+  localStorage.setItem('gca_rp_started', 'true');
   rpShowState('plan');
   rpRenderPlan();
 }
@@ -10580,6 +10586,7 @@ function rpRemoveDraft(i) {
 async function rpSaveAndViewPlan() {
   if (_rpConfirmedRows.length === 0) { alert('Add at least one row to your plan first.'); return; }
   await rpPersist();
+  localStorage.setItem('gca_rp_started', 'true');
   rpShowState('plan');
   rpRenderPlan();
 }
@@ -11103,7 +11110,7 @@ function rpAddManualRow() {
   <div class="rp-overlay-inner">
     <div class="rp-overlay-header">
       <div>
-        <div class="rp-eyebrow">Referral Recovery Plan · Free</div>
+        <div class="rp-eyebrow">Referral Recovery Plan</div>
         <div class="rp-heading">Your Referral Recovery Plan</div>
       </div>
       <button class="rp-overlay-close" onclick="closeRecoveryPlan()">✕</button>

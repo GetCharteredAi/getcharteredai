@@ -1,6 +1,6 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 14 July 2026 (CS Review card width + markdown rendering)*
+*Last updated: 15 July 2026 (Remove orphaned navy CS Review card)*
 
 ---
 
@@ -204,6 +204,14 @@ Recovery Plan folded inside the £29 Case Study Review purchase. Five touch poin
 Recovery Plan overlay internals (four states, Michael behaviour, storage, system prompt) unchanged.
 
 **Note on live verification:** End-to-end UI check (payment → auto-launch → Continue button → return visit dual buttons) requires browser interaction through a test account — not automatable from the terminal. This sequence should be manually tested on the live site before the next related change.
+
+---
+
+## 15 July 2026 — Remove orphaned navy CS Review card (3a16607, live)
+
+`dashBottomRowGrid` was rendering two Case Study Review cards on the referred dashboard: the correct white compact panel (`id="csPanelCompact"`, in the static header row, goes through `csIntroOverlay`) and an orphaned navy card (`id="csReviewBottomCard"`, dynamically appended by JS, had stale copy "£29 one-off" / "Add Case Study Review" and called `checkout('case-study')` directly — bypassing the overlay entirely). The navy card was never updated during the access flow rework and was visible as a duplicate pricing entry next to the Industry Briefing card.
+
+Removed: the entire JS block (comment + `const bottomGrid` + `if (bottomGrid && ...)` guard + `csCard` construction + `bottomGrid.appendChild`). `checkout('case-study')` now has 0 occurrences in the codebase. Industry Briefing card and its `dashBottomRowGrid` container are untouched. All purchase flow now routes through `csIntroOverlay` via the compact panel.
 
 ---
 

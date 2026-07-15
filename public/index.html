@@ -3232,21 +3232,6 @@ async function renderDashboard() {
         </div>
       </div>`;
 
-    // ── Bottom row: Industry Briefing + Case Study Review ──
-    const bottomGrid = document.getElementById('dashBottomRowGrid');
-    if (bottomGrid && !document.getElementById('csReviewBottomCard')) {
-      bottomGrid.className = 'db-bottom-row';
-      const csCard = document.createElement('div');
-      csCard.id = 'csReviewBottomCard';
-      csCard.className = 'db-bottom-card';
-      csCard.innerHTML = `
-        <div class="db-bottom-card-label">Add-on</div>
-        <div class="db-bottom-card-title">📝 Case Study Review</div>
-        <div class="db-bottom-card-body">Your case study is likely to shape many of the questions you face at final assessment. Use Michael to review your draft, identify areas that may attract follow-up questions, and strengthen how clearly you explain your decisions, advice, and professional judgement.</div>
-        <div class="db-bottom-card-price">£29 one-off</div>
-        <button class="db-bottom-card-btn" onclick="checkout('case-study')">Add Case Study Review →</button>`;
-      bottomGrid.appendChild(csCard);
-    }
   }
   // ── ANNUAL / MONTHLY — 12-MOD MILESTONE STRIP ───────────────────────────────
   else if (plan === 'annual' || plan === 'monthly') {

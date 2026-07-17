@@ -41,7 +41,7 @@ exports.handler = async (event) => {
     const expires = activatedAt + (42 * 24 * 60 * 60 * 1000); // 42 days
 
     // Issue sprint JWT token
-    const jwtSecret = process.env.JWT_SECRET || 'gca-secure-platform-2025-apc';
+    const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
     const payload = {
       email: cleanEmail,
       plan: 'sprint',

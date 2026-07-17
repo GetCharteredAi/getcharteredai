@@ -28,7 +28,7 @@ exports.handler = async (event) => {
   }
 
   const cleanEmail = email.toLowerCase().trim();
-  const jwtSecret = process.env.JWT_SECRET || 'gca-secure-platform-2025-apc';
+  const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
   const activatedAt = Date.now();
   const expires = activatedAt + (49 * 24 * 60 * 60 * 1000); // 49 days (6 weeks + 1 week buffer)
 

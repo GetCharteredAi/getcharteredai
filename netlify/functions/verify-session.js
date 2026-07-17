@@ -73,7 +73,7 @@ exports.handler = async (event) => {
       )
     };
 
-    const jwtSecret = process.env.JWT_SECRET || 'gca-secure-platform-2025-apc';
+    const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
     const tokenData = Buffer.from(JSON.stringify(payload)).toString('base64');
     const signature = Buffer.from(`${tokenData}.${jwtSecret}`).toString('base64').slice(0, 32);
     const token = `${tokenData}.${signature}`;

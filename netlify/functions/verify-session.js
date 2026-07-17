@@ -1,5 +1,9 @@
 // netlify/functions/verify-session.js
 // Verifies Stripe payment and issues access token (no npm needed)
+const { getStore } = require('@netlify/blobs');
+
+// Self-paced price IDs — keep in sync with create-checkout.js
+const SELFPACED_PRICE_IDS = new Set(['price_1TuBjJRkzyH1h56Ux4A8v563']);
 
 exports.handler = async (event) => {
   const headers = {
@@ -44,7 +48,7 @@ exports.handler = async (event) => {
     const SPRINT_PRICE_ID = 'price_1SdEf0RkzyH1h56UQZUOtebL';
     const lineItems = session.line_items?.data || [];
     const priceId = lineItems[0]?.price?.id || session.metadata?.priceId || '';
-    
+
     let plan;
     if (session.mode === 'subscription') {
       plan = 'monthly';
@@ -52,6 +56,8 @@ exports.handler = async (event) => {
       plan = 'referred';
     } else if (priceId === SPRINT_PRICE_ID) {
       plan = 'sprint';
+    } else if (SELFPACED_PRICE_IDS.has(priceId)) {
+      plan = 'selfpaced';
     } else {
       plan = 'annual';
     }
@@ -66,12 +72,46 @@ exports.handler = async (event) => {
       sessionId: session_id,
       activatedAt: activatedAt,
       expires: activatedAt + (
-        plan === 'annual' ? 548 * 24 * 60 * 60 * 1000 :
-        plan === 'referred' ? 90 * 24 * 60 * 60 * 1000 :
-        plan === 'sprint' ? 42 * 24 * 60 * 60 * 1000 :
+        plan === 'annual'    ? 548 * 24 * 60 * 60 * 1000 :
+        plan === 'selfpaced' ? 548 * 24 * 60 * 60 * 1000 :
+        plan === 'referred'  ? 90  * 24 * 60 * 60 * 1000 :
+        plan === 'sprint'    ? 42  * 24 * 60 * 60 * 1000 :
         60 * 24 * 60 * 60 * 1000
       )
     };
+
+    // ── Self-paced: write initial progress record to Netlify Blobs ─────────
+    if (plan === 'selfpaced') {
+      try {
+        // Get the PaymentIntent to extract the saved PaymentMethod ID
+        const customerId = session.customer || null;
+        let paymentMethodId = null;
+        if (session.payment_intent) {
+          const piResp = await fetch(`https://api.stripe.com/v1/payment_intents/${session.payment_intent}`, {
+            headers: { 'Authorization': `Bearer ${secretKey}` }
+          });
+          if (piResp.ok) {
+            const pi = await piResp.json();
+            paymentMethodId = pi.payment_method || null;
+          }
+        }
+        const store = getStore({
+          name: 'selfpaced-progress',
+          siteID: process.env.SITE_ID || process.env.NETLIFY_SITE_ID,
+          token: process.env.NETLIFY_TOKEN || process.env.NETLIFY_ACCESS_TOKEN
+        });
+        await store.set(cleanEmail, JSON.stringify({
+          customerId,
+          paymentMethodId,
+          unlockedModules: [1],
+          createdAt: activatedAt
+        }));
+        console.log(`Self-paced progress created: ${cleanEmail} — customer ${customerId}, pm ${paymentMethodId}`);
+      } catch (blobsErr) {
+        // Non-fatal: JWT still issued. Module unlock record can be recovered in Session 2.
+        console.error('Self-paced Blobs write error:', blobsErr.message);
+      }
+    }
 
     const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
     const tokenData = Buffer.from(JSON.stringify(payload)).toString('base64');

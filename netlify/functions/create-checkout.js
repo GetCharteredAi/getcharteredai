@@ -26,6 +26,7 @@ exports.handler = async (event) => {
     'year-one':   { priceId: 'price_1TcsGcRkzyH1h56U7bJWaaBD', mode: 'payment' },
     'sprint':     { priceId: 'price_1TcsLoRkzyH1h56UOSPEAPSq', mode: 'payment' },
     'case-study': { priceId: 'price_1Tgqf1RkzyH1h56UvxEISPgl', mode: 'payment', successUrl: 'https://getcharteredai.com/index.html?cs_purchase=success&session_id={CHECKOUT_SESSION_ID}&view=dashboard' },
+    'selfpaced':  { priceId: 'price_1TuBjJRkzyH1h56Ux4A8v563', mode: 'payment' },
   };
 
   const planConfig = PLANS[body.plan];
@@ -52,6 +53,11 @@ exports.handler = async (event) => {
     if (body.plan === 'annual') {
       params.append('payment_method_types[0]', 'card');
       params.append('payment_method_types[1]', 'klarna');
+    }
+    if (body.plan === 'selfpaced') {
+      // Save card for future off-session charges (subsequent module unlocks).
+      // Stripe will create a Customer and attach the PaymentMethod automatically.
+      params.append('payment_intent_data[setup_future_usage]', 'off_session');
     }
     if (body.email) {
       params.append('customer_email', body.email);

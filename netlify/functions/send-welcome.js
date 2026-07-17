@@ -12,10 +12,14 @@ exports.handler = async (event) => {
   const { email, plan } = body;
   if (!email) return { statusCode: 400, headers, body: JSON.stringify({ error: 'Email required' }) };
 
-  const planText = plan === 'monthly' ? 'Monthly Subscription (£39.90/month)' : 'Full Year Access — All 12 Modules (£383.04)';
+  const planText = plan === 'monthly'   ? 'Structured Monthly — £49/month (subscription)' :
+                   plan === 'selfpaced' ? 'Self-Paced — £49 per module (pay as you go)' :
+                   'Annual One-Off — All 12 Modules (£497)';
   const planNote = plan === 'monthly'
-    ? 'Module 1 is unlocked now. A new module unlocks each month. Your subscription automatically ends after module 12 is delivered.'
-    : 'All 12 modules are unlocked immediately. You have 18 months full access — giving you plenty of time to study right up to your assessment date.';
+    ? 'Module 1 is unlocked now. A new module unlocks automatically each month. Your subscription ends after module 12 is delivered.'
+    : plan === 'selfpaced'
+    ? 'Module 1 is unlocked now. You unlock each additional module yourself — charged at £49 to your saved card whenever you\'re ready. No subscription, no automatic charges.'
+    : 'All 12 modules are unlocked immediately. You have 18 months full access.';
 
   if (!process.env.RESEND_API_KEY) {
     console.log(`Welcome email would send to ${email} — RESEND_API_KEY not set`);

@@ -111,6 +111,8 @@ async function activate() {
       if (subEl) {
         if (data.plan === 'annual') {
           subEl.textContent = 'Your payment was successful. All 12 modules are now unlocked and ready for you.';
+        } else if (data.plan === 'selfpaced') {
+          subEl.textContent = 'Your payment was successful. Module 1 is now unlocked. You can unlock each additional module whenever you\'re ready — charged to your saved card.';
         } else {
           subEl.textContent = 'Your monthly subscription is confirmed. Module 1 is unlocked today. A new module unlocks each month.';
         }

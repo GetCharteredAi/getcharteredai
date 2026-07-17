@@ -1,6 +1,6 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 15 July 2026 (Remove orphaned navy CS Review card)*
+*Last updated: 17 July 2026 (Content security Phase 1 + JWT fix)*
 
 ---
 
@@ -204,6 +204,49 @@ Recovery Plan folded inside the £29 Case Study Review purchase. Five touch poin
 Recovery Plan overlay internals (four states, Michael behaviour, storage, system prompt) unchanged.
 
 **Note on live verification:** End-to-end UI check (payment → auto-launch → Continue button → return visit dual buttons) requires browser interaction through a test account — not automatable from the terminal. This sequence should be manually tested on the live site before the next related change.
+
+---
+
+## Content Security Project — Architecture and Phasing
+
+### Background (identified 15 July 2026)
+`public/index.html` is a static file served to every visitor before authentication. It contains the full `MODULES` array (all 16 pathways, ~1.1 MB), all 17 question banks (~1.4 MB), and the coaching intelligence constants (~52 KB). The `pathwayOnly` JS filters only control rendering — they don't gate data delivery. Any user can view-source and read all pathway content regardless of plan or pathway.
+
+### JWT canonical secret — CANONICAL RULE (established 17 July 2026)
+**Always use `process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z'` in every Netlify function.**
+The shorter fallback `'gca-secure-platform-2025-apc'` existed in 8 older functions and has been eliminated. In production both resolve to the same `JWT_SECRET` env var, but the inconsistent fallback was a silent-breakage risk. Fixed in 2d4151b across: `admin-login.js`, `generate-sprint-token.js`, `get-report.js`, `login.js`, `send-reset.js`, `verify-session.js`, `verify-sprint-session.js`, `save-report.js`.
+
+### Phase 1 — Coaching intelligence server-side (COMPLETE, 2d4151b, 17 July 2026)
+Moved `getMichaelModuleBriefing()` + 7 constants (PATHWAY_RULES ~13 KB, PATHWAY_COMP ~37 KB, PATHWAY_CLARIF, SPA_CONTEXT, RED_BOOK, FORESTRY, VALUER_REG) from `index.html` into `ai-tutor.js`.
+
+Client now sends `{ moduleId, pathway, modTitle, source, messages, max_tokens }`. Server builds full system prompt from constants it owns. Two call sites updated: in-module tutor (`source:'module'`) and Michael Panel (`source:'panel'`). Non-module calls (mock sim, CS review, floating chat) continue using client-provided `system` string unchanged.
+
+`index.html` reduced by ~37 KB. Coaching intelligence no longer in page source or visible in browser Network tab request payload.
+
+### Phase 2 — M11B pathway modules behind `get-modules.js` (NOT YET BUILT)
+Move modules 20–35 (16 M11B pathway modules) out of the static MODULES array. New Netlify Function verifies JWT + accepts client-supplied pathway (from `localStorage.gca_pathway`), returns only the matching M11B module JSON + relevant pathwayOnly sections from M12 and CR05.
+
+**Key constraint:** pathway is NOT in the JWT — it's client-side only (`localStorage.gca_pathway`). The function must trust the client's pathway claim. A paid user could request a different pathway's M11B by changing their localStorage value. This is an accepted limitation for Phase 2; server-side pathway storage (Netlify Blobs + `set-pathway.js`) is a Phase 2B option if needed.
+
+**Sequencing rule:** Build `get-modules.js` first and verify it returns correct JSON for 3–4 pathways via curl. Add a client-side feature flag (`window._useContentAPI`) that switches dashboard to fetch-based loading while keeping static data as fallback. Test all 16 pathways. Only then remove static data from `index.html`. Never remove static data and add the API call in the same commit.
+
+### Phase 3 — Question banks behind `get-questions.js` (NOT YET BUILT)
+`SA_QUESTIONS` array purpose is unconfirmed — **do not build Phase 3 until clarified by Ange.** It may be Sprint plan or Associate-level. The 16 confirmed pathway banks can proceed; SA_QUESTIONS needs separate scoping.
+
+Each of the 17 question banks has entirely bespoke UI functions (not a shared component). Moving server-side requires refactoring the UI layer for each bank, not just data delivery. Recommended: one pathway at a time, independently verified.
+
+### Phase 4 — Universal modules (1–11) and CR programme (lower priority)
+These are common to all paid candidates — can't be gated by pathway, only by auth. Would require a post-login fetch replacing the static MODULES entries. Lowest priority since exposure applies equally to all paid subscribers.
+
+---
+
+## 17 July 2026 — Content security Phase 1 + JWT fix (2d4151b, live)
+
+See "Content Security Project" section above for full detail. Short summary:
+- JWT secret inconsistency fixed across 8 functions
+- `getMichaelModuleBriefing()` + 7 coaching constants removed from `index.html`, now live in `ai-tutor.js` only
+- Two Michael call sites updated to send `moduleId`/`source` instead of full system prompt
+- `index.html` down from 3.07 MB to 3.04 MB
 
 ---
 

@@ -44,7 +44,7 @@ exports.handler = async (event) => {
   const nearTerm = examDate === '3–6 months';
   const product = veryUrgent || urgent ? 'sprint' : 'full';
   const productUrl = veryUrgent || urgent ? 'https://getcharteredai.com/sprint' : 'https://getcharteredai.com/#pricing-sec';
-  const productName = veryUrgent || urgent ? 'APC Sprint (£297)' : 'Full Programme (£39.90/month or £383/year)';
+  const productName = veryUrgent || urgent ? 'APC Sprint (£297)' : 'Full Programme (£49/month or £497)';
 
   // Follow-up dates
   const now = new Date();
@@ -67,7 +67,7 @@ exports.handler = async (event) => {
   // Follow-up email copy — Day 10
   const followUp10 = product === 'sprint'
     ? `Hi ${cleanName},\n\nJust checking in — your assessment must be getting close now.\n\nIf you have not had a chance to look at the APC Sprint yet, it is worth knowing that the mock interview and AI Tutor are available the moment you sign up. No setup, no waiting. Candidates typically get through the mock interview 2-3 times in the days before assessment.\n\n${productUrl}\n\nWishing you the best.\n\n[Your name]\nGet Chartered AI`
-    : `Hi ${cleanName},\n\nJust a quick note — if you are starting to think seriously about APC preparation, the earlier you begin the better. The full Get Chartered AI programme unlocks one module a month, so candidates who start earlier have more time to absorb each competency properly.\n\nFirst month is just £39.90 and you can cancel any time.\n\n${productUrl}\n\n[Your name]\nGet Chartered AI`;
+    : `Hi ${cleanName},\n\nJust a quick note — if you are starting to think seriously about APC preparation, the earlier you begin the better. The full Get Chartered AI programme unlocks one module a month, so candidates who start earlier have more time to absorb each competency properly.\n\nFirst month is just £49 and you can cancel any time.\n\n${productUrl}\n\n[Your name]\nGet Chartered AI`;
 
   if (process.env.RESEND_API_KEY) {
     try {

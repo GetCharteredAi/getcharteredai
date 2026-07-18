@@ -1,6 +1,6 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 17 July 2026 (Content security Phase 1 + JWT fix)*
+*Last updated: 18 July 2026 (Stripe price ID mismatch fix + pricing copy audit)*
 
 ---
 
@@ -67,6 +67,35 @@ Question banks use a prefix/localStorage-key/element-ID system, entirely separat
 
 ---
 
+## 18 July 2026 — Stripe price ID mismatch fix + pricing copy audit
+
+### Bug: Sprint and Referred buyers getting 'annual' plan (live since 30 May 2026)
+
+**Root cause:** Commit `d5e07ea` (30 May 2026) updated Sprint and Referred price IDs in `create-checkout.js` but did NOT update `verify-session.js`. The two files referenced different IDs for the same plans.
+
+**Impact:** Any Sprint (£297) or Referred (£397) buyer who completed checkout from 30 May to 18 July 2026 was granted `plan: 'annual'` — full 12-module access with an 18-month token — instead of their actual plan. Over-privileged, not locked out. 49 days of exposure.
+
+**Fix (`verify-session.js`):** Sprint and Referred single-ID constants replaced with Sets containing both the current ID (matching `create-checkout.js`) and the legacy ID. Current IDs are now primary; legacy IDs kept as fallbacks.
+
+- Referred: current `price_1TcsEeRkzyH1h56UidHDLTKy` (was checking `price_1TaFxDRkzyH1h56URvfFhEbr`)
+- Sprint: current `price_1TcsLoRkzyH1h56UOSPEAPSq` (was checking `price_1SdEf0RkzyH1h56UQZUOtebL`)
+
+**New standing rule (added to Key Lessons Learned below):** Any Stripe price ID must be defined in a single source of truth. `create-checkout.js` is authoritative; `verify-session.js` must always reference the same IDs. Any price ID change in one file is a mandatory change in the other.
+
+### Pricing copy audit — fixes applied
+
+Discovered £39.90/month and £383/year (old pricing, pre-2026 price change) still in two outbound marketing functions never updated when pricing changed:
+
+- `nurture-sequence.js:39` — £39.90/month → £49/month (fixed)
+- `capture-lead.js:47` — £39.90/month or £383/year → £49/month or £497 (fixed)
+- `capture-lead.js:70` — First month is just £39.90 → £49 (fixed)
+
+Also fixed:
+- `employer.html` — "12 months access" → "18 months access" (Employer plan is 18 months per canonical pricing)
+- `terms.html` — Annual Access access window "12 months from your activation date" → "18 months" (consistent with `send-welcome.js`, `which-programme.html`, and confirmed by Ange)
+
+---
+
 ## Key Lessons Learned / Standing Rules
 
 1. **Verify legal/competency facts against the current RICS guide before publishing.** Multiple corrections made this build cycle: CRE's competency list (was using Associate-level structure instead of Chartered), Residential leasehold reform (marriage value abolition not yet in force), various break clause/notice mechanics verified against current case law and statute.
@@ -85,6 +114,7 @@ Question banks use a prefix/localStorage-key/element-ID system, entirely separat
 5. **Confirm exact localStorage pathwayOnly strings before using them** — don't assume they match the pathway's common name. Confirmed exceptions: Facilities Management's stored string is `'Facility Management'` (no "s"), Quantity Surveying's is `'Quantity Surveying and Construction'`.
 6. **Confirm push + Netlify deploy, not just local commit, before marking a pathway "live."** Planning and Development and Property Finance and Investment both sat committed locally but unpushed for a period before this was caught (12 July 2026) — from Corporate Real Estate onward, Claude Code confirms push+deploy before reporting completion.
 7. **Large content blocks should be pasted as chat text, not shared via file/download** — Claude Code (running in the local terminal) has no access to files shared through the chat UI, only the local filesystem. Direct chat-text paste works reliably at ~11-section module length.
+8. **Stripe price IDs: one source of truth, mandatory sync.** `create-checkout.js` is the authoritative file for all plan/price-ID mappings. `verify-session.js` must reference the exact same IDs. Any price ID change in one file is a mandatory change in the other — they are not independent. Discovered 18 July 2026: a 30 May price ID update in `create-checkout.js` was not mirrored in `verify-session.js`, silently granting Sprint/Referred buyers 'annual' access for 49 days.
 
 ### Standard 7-Point Wiring Checklist (per pathway)
 

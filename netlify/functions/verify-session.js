@@ -43,18 +43,26 @@ exports.handler = async (event) => {
       return { statusCode: 402, headers, body: JSON.stringify({ error: 'Payment not confirmed. Please complete payment first.' }) };
     }
 
-    // Detect plan by price ID for one-time payments
-    const REFERRED_PRICE_ID = 'price_1TaFxDRkzyH1h56URvfFhEbr';
-    const SPRINT_PRICE_ID = 'price_1SdEf0RkzyH1h56UQZUOtebL';
+    // Detect plan by price ID for one-time payments.
+    // MUST stay in sync with create-checkout.js — any price ID change there requires a matching change here.
+    // Legacy IDs (pre-30 May 2026) kept as fallbacks; current IDs are the primary ones.
+    const REFERRED_PRICE_IDS = new Set([
+      'price_1TcsEeRkzyH1h56UidHDLTKy', // current (create-checkout.js)
+      'price_1TaFxDRkzyH1h56URvfFhEbr', // legacy
+    ]);
+    const SPRINT_PRICE_IDS = new Set([
+      'price_1TcsLoRkzyH1h56UOSPEAPSq', // current (create-checkout.js)
+      'price_1SdEf0RkzyH1h56UQZUOtebL', // legacy
+    ]);
     const lineItems = session.line_items?.data || [];
     const priceId = lineItems[0]?.price?.id || session.metadata?.priceId || '';
 
     let plan;
     if (session.mode === 'subscription') {
       plan = 'monthly';
-    } else if (priceId === REFERRED_PRICE_ID) {
+    } else if (REFERRED_PRICE_IDS.has(priceId)) {
       plan = 'referred';
-    } else if (priceId === SPRINT_PRICE_ID) {
+    } else if (SPRINT_PRICE_IDS.has(priceId)) {
       plan = 'sprint';
     } else if (SELFPACED_PRICE_IDS.has(priceId)) {
       plan = 'selfpaced';

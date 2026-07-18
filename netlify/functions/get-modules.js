@@ -3,6 +3,10 @@
 // Data is loaded once at module level so warm invocations skip the require() parse.
 const DATA = require('./modules-data.json');
 
+const REVOKED_EMAILS = [
+  'samperry991@gmail.com',
+];
+
 const PATHWAY_TO_MODULE_ID = {
   'Rural':                          20,
   'Taxation Allowances':            21,
@@ -58,6 +62,11 @@ exports.handler = async (event) => {
 
   const payload = verifyToken(token);
   if (!payload) return { statusCode: 401, headers: HEADERS, body: JSON.stringify({ error: 'Unauthorised' }) };
+
+  if (REVOKED_EMAILS.includes(payload.email?.toLowerCase())) {
+    console.log(`Blocked revoked account from get-modules: ${payload.email}`);
+    return { statusCode: 401, headers: HEADERS, body: JSON.stringify({ error: 'Unauthorised' }) };
+  }
 
   const moduleId = PATHWAY_TO_MODULE_ID[pathway];
   if (!moduleId) return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Unknown pathway' }) };

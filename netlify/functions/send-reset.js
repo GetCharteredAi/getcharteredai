@@ -2,6 +2,10 @@
 // Password reset via magic link — looks up Stripe subscription by email
 // then re-issues a JWT token and emails a one-click login link
 
+const REVOKED_EMAILS = [
+  'samperry991@gmail.com',
+];
+
 exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -20,6 +24,12 @@ exports.handler = async (event) => {
   if (!email) return { statusCode: 400, headers, body: JSON.stringify({ error: 'Email required' }) };
 
   const cleanEmail = email.toLowerCase().trim();
+
+  // Block revoked accounts — return the standard success envelope to avoid enumeration
+  if (REVOKED_EMAILS.includes(cleanEmail)) {
+    console.log(`Blocked magic link for revoked account: ${cleanEmail}`);
+    return { statusCode: 200, headers, body: JSON.stringify({ sent: true }) };
+  }
 
   // Always return success to avoid email enumeration
   // Only proceed if we have the required keys

@@ -1,6 +1,11 @@
 // netlify/functions/login.js
 // Validates member token (no npm needed)
 
+// Manually revoked accounts — these emails are blocked regardless of token validity
+const REVOKED_EMAILS = [
+  'samperry991@gmail.com',
+];
+
 exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -30,10 +35,17 @@ exports.handler = async (event) => {
     }
 
     // Verify signature
+    // (denylist check below is intentionally after signature verification)
     const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
     const expectedSig = Buffer.from(`${parts[0]}.${jwtSecret}`).toString('base64').slice(0, 32);
     if (parts[1] !== expectedSig) {
       return { statusCode: 401, headers, body: JSON.stringify({ valid: false, error: 'Invalid token' }) };
+    }
+
+    // Denylist check — after signature verified, so forged tokens can't probe the list
+    if (REVOKED_EMAILS.includes(payload.email?.toLowerCase())) {
+      console.log(`Blocked revoked account: ${payload.email}`);
+      return { statusCode: 401, headers, body: JSON.stringify({ valid: false, error: 'Account suspended.' }) };
     }
 
     return {

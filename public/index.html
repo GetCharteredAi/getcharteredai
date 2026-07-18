@@ -2435,82 +2435,66 @@ function isModuleUnlocked(modId, plan, activatedAt) {
   console.log('[isModuleUnlocked] modId:', modId, 'plan:', plan);
   if (modId === 20) {
     if (localStorage.getItem('gca_pathway') !== 'Rural') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 21) {
     if (localStorage.getItem('gca_pathway') !== 'Taxation Allowances') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 22) {
     if (localStorage.getItem('gca_pathway') !== 'Building Surveying') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 23) {
     if (localStorage.getItem('gca_pathway') !== 'Quantity Surveying and Construction') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 24) {
     if (localStorage.getItem('gca_pathway') !== 'Commercial Real Estate') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 25) {
     if (localStorage.getItem('gca_pathway') !== 'Valuation') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 26) {
     if (localStorage.getItem('gca_pathway') !== 'Infrastructure') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 27) {
     if (localStorage.getItem('gca_pathway') !== 'Residential') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 28) {
     if (localStorage.getItem('gca_pathway') !== 'Project Management') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 29) {
     if (localStorage.getItem('gca_pathway') !== 'Facility Management') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 30) {
     if (localStorage.getItem('gca_pathway') !== 'Planning and Development') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 31) {
     if (localStorage.getItem('gca_pathway') !== 'Property Finance and Investment') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 32) {
     if (localStorage.getItem('gca_pathway') !== 'Corporate Real Estate') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 33) {
     if (localStorage.getItem('gca_pathway') !== 'Management Consultancy') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 34) {
     if (localStorage.getItem('gca_pathway') !== 'Land and Resources') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (modId === 35) {
     if (localStorage.getItem('gca_pathway') !== 'Building Control') return false;
-    if (plan === 'sprint' || plan === 'referred') return false;
     return getUnlockedCount(plan, activatedAt) >= 11;
   }
   if (plan === 'referred') {
@@ -3117,7 +3101,7 @@ async function renderDashboard() {
 
   if (lastMod) {
     const contDispVal = plan === 'sprint'
-      ? (lastMod.id === 1 ? 'S01: Know the Format' : 'S04: Mock & Pressure Practice')
+      ? (lastMod.id === 1 ? 'S01: Know the Format' : (lastMod.id >= 20 && lastMod.id <= 35) ? 'S04: Pathway Prep' : 'S05: Mock & Pressure Practice')
       : `${lastMod.num}: ${lastMod.title}`;
     actionsHTML += `<a class="ds-btn ds-btn-primary" style="min-width:0;flex:1" onclick="openModule(${lastMod.id}); showView('module')">
       <span class="ds-btn-icon">▶️</span>
@@ -3130,7 +3114,7 @@ async function renderDashboard() {
     const firstMod = MODULES.find(m => isModuleUnlocked(m.id, plan, activatedAt));
     if (firstMod) {
       const startDispVal = plan === 'sprint'
-        ? (firstMod.id === 1 ? 'S01: Know the Format' : 'S04: Mock & Pressure Practice')
+        ? (firstMod.id === 1 ? 'S01: Know the Format' : (firstMod.id >= 20 && firstMod.id <= 35) ? 'S04: Pathway Prep' : 'S05: Mock & Pressure Practice')
         : `${firstMod.num}: ${firstMod.title.substring(0,28)}${firstMod.title.length>28?'…':''}`;
       actionsHTML += `<a class="ds-btn ds-btn-primary" onclick="openModule(${firstMod.id}); showView('module')">
         <span class="ds-btn-icon">🚀</span>
@@ -3197,12 +3181,13 @@ async function renderDashboard() {
       {id:15, code:'CR03', label:'Evidence & structure'},
       {id:16, code:'CR04', label:'Rebuild your answers'},
       {id:17, code:'CR05', label:'Perform under pressure'},
-      {id:18, code:'CR06', label:'Reflect & resit mindset'}
+      ...(_m11bId ? [{id:_m11bId, code:'CR06', label:'Your pathway module'}] : []),
+      {id:18, code:_m11bId?'CR07':'CR06', label:'Reflect & resit mindset'}
     ];
     const crDone = CRmods.filter(m => isComplete(m.id)).length;
-    const allCRDone = crDone === 6;
-    // Fill % = up to and including the active node (Enrolled=pos0, CR01=pos1...CR06=pos6 of 7 gaps)
-    const fillPct = Math.round(Math.min(crDone + 1, 6) / 7 * 100);
+    const allCRDone = crDone === CRmods.length;
+    // Fill % = up to and including the active node
+    const fillPct = Math.round(Math.min(crDone + 1, CRmods.length) / (CRmods.length + 1) * 100);
 
     const mkNode = (state, dotHtml, code, label, clickFn) =>
       `<div class="ms-node ${state}${(state==='done'||state==='active')?' unlocked':''}"${clickFn ? ` onclick="${clickFn}"` : ''}>
@@ -3367,14 +3352,15 @@ async function renderDashboard() {
       {code:'S01', label:'Know the format',         modId:1},
       {code:'S02', label:'Competency answers',       modId:1},
       {code:'S03', label:'Technical knowledge',      modId:1},
-      {code:'S04', label:'Mock & pressure practice', modId:12},
-      {code:'S05', label:'Final 48 hours',           modId:12}
+      ...(_m11bId ? [{code:'S04', label:'Pathway prep', modId:_m11bId}] : []),
+      {code:_m11bId?'S05':'S04', label:'Mock & pressure practice', modId:12},
+      {code:_m11bId?'S06':'S05', label:'Final 48 hours',           modId:12}
     ];
-    // Active module: first unlocked+incomplete (M01 always unlocked for sprint, then M12)
-    const spActiveModId = !isComplete(1) ? 1 : !isComplete(12) ? 12 : null;
-    // Fill up to active node position (0=Enrolled,1=S01...5=S05; 5 = S05 when all done)
-    let spFillPos = !isComplete(1) ? 1 : !isComplete(12) ? 4 : 5;
-    const spFillPct = Math.round(spFillPos / 6 * 100);
+    // Active module: M01 → M11B (pathway prep) → M12
+    const spActiveModId = !isComplete(1) ? 1 : (_m11bId && !isComplete(_m11bId)) ? _m11bId : !isComplete(12) ? 12 : null;
+    // Fill (0=Enrolled,1-3=S01-03/M01,4=S04/M11B,5=S05/M12,6=S06; 7 gaps total)
+    let spFillPos = !isComplete(1) ? 1 : (_m11bId && !isComplete(_m11bId)) ? 4 : !isComplete(12) ? (_m11bId?5:4) : (_m11bId?6:5);
+    const spFillPct = Math.round(spFillPos / (_m11bId ? 7 : 6) * 100);
 
     const mkSpNode = (state, dotHtml, code, label, clickFn) =>
       `<div class="ms-node ${state}${(state==='done'||state==='active')?' unlocked':''}"${clickFn ? ` onclick="${clickFn}"` : ''}>
@@ -3432,6 +3418,7 @@ async function renderDashboard() {
     }
   }
 const _base = MODULES.filter(m => m.id >= 1 && m.id <= 12);
+  const _m11bId = {'Rural':20,'Taxation Allowances':21,'Building Surveying':22,'Quantity Surveying and Construction':23,'Commercial Real Estate':24,'Valuation':25,'Infrastructure':26,'Residential':27,'Project Management':28,'Facility Management':29,'Planning and Development':30,'Property Finance and Investment':31,'Corporate Real Estate':32,'Management Consultancy':33,'Land and Resources':34,'Building Control':35}[localStorage.getItem('gca_pathway')] || null;
 const _m11b = MODULES.find(m => m.id === 20);
 const _m11bTA = MODULES.find(m => m.id === 21);
 const _m11bBS = MODULES.find(m => m.id === 22);
@@ -3465,7 +3452,7 @@ const _isCorpREDash = _m11bCorpRE && _dashPathway === 'Corporate Real Estate' &&
 const _isMCDash = _m11bMC && _dashPathway === 'Management Consultancy' && plan !== 'sprint';
 const _isLRDash = _m11bLR && _dashPathway === 'Land and Resources' && plan !== 'sprint';
 const _isBCDash = _m11bBC && _dashPathway === 'Building Control' && plan !== 'sprint';
-const dashMods = plan === 'referred' ? MODULES.filter(m => m.id >= 13 && m.id <= 18) : _isRuralDash ? [..._base.filter(m => m.id <= 11), _m11b, ..._base.filter(m => m.id >= 12)] : _isTADash ? [..._base.filter(m => m.id <= 11), _m11bTA, ..._base.filter(m => m.id >= 12)] : _isBSDash ? [..._base.filter(m => m.id <= 11), _m11bBS, ..._base.filter(m => m.id >= 12)] : _isQSDash ? [..._base.filter(m => m.id <= 11), _m11bQS, ..._base.filter(m => m.id >= 12)] : _isCREDash ? [..._base.filter(m => m.id <= 11), _m11bCRE, ..._base.filter(m => m.id >= 12)] : _isValDash ? [..._base.filter(m => m.id <= 11), _m11bVal, ..._base.filter(m => m.id >= 12)] : _isInfraDash ? [..._base.filter(m => m.id <= 11), _m11bInfra, ..._base.filter(m => m.id >= 12)] : _isResDash ? [..._base.filter(m => m.id <= 11), _m11bRes, ..._base.filter(m => m.id >= 12)] : _isPMDash ? [..._base.filter(m => m.id <= 11), _m11bPM, ..._base.filter(m => m.id >= 12)] : _isFMDash ? [..._base.filter(m => m.id <= 11), _m11bFM, ..._base.filter(m => m.id >= 12)] : _isPDDash ? [..._base.filter(m => m.id <= 11), _m11bPD, ..._base.filter(m => m.id >= 12)] : _isPFIDash ? [..._base.filter(m => m.id <= 11), _m11bPFI, ..._base.filter(m => m.id >= 12)] : _isCorpREDash ? [..._base.filter(m => m.id <= 11), _m11bCorpRE, ..._base.filter(m => m.id >= 12)] : _isMCDash ? [..._base.filter(m => m.id <= 11), _m11bMC, ..._base.filter(m => m.id >= 12)] : _isLRDash ? [..._base.filter(m => m.id <= 11), _m11bLR, ..._base.filter(m => m.id >= 12)] : _isBCDash ? [..._base.filter(m => m.id <= 11), _m11bBC, ..._base.filter(m => m.id >= 12)] : _base;
+const dashMods = plan === 'referred' ? [...MODULES.filter(m => m.id >= 13 && m.id <= 18), ...(_m11bId ? [MODULES.find(m => m.id === _m11bId)].filter(Boolean) : [])] : _isRuralDash ? [..._base.filter(m => m.id <= 11), _m11b, ..._base.filter(m => m.id >= 12)] : _isTADash ? [..._base.filter(m => m.id <= 11), _m11bTA, ..._base.filter(m => m.id >= 12)] : _isBSDash ? [..._base.filter(m => m.id <= 11), _m11bBS, ..._base.filter(m => m.id >= 12)] : _isQSDash ? [..._base.filter(m => m.id <= 11), _m11bQS, ..._base.filter(m => m.id >= 12)] : _isCREDash ? [..._base.filter(m => m.id <= 11), _m11bCRE, ..._base.filter(m => m.id >= 12)] : _isValDash ? [..._base.filter(m => m.id <= 11), _m11bVal, ..._base.filter(m => m.id >= 12)] : _isInfraDash ? [..._base.filter(m => m.id <= 11), _m11bInfra, ..._base.filter(m => m.id >= 12)] : _isResDash ? [..._base.filter(m => m.id <= 11), _m11bRes, ..._base.filter(m => m.id >= 12)] : _isPMDash ? [..._base.filter(m => m.id <= 11), _m11bPM, ..._base.filter(m => m.id >= 12)] : _isFMDash ? [..._base.filter(m => m.id <= 11), _m11bFM, ..._base.filter(m => m.id >= 12)] : _isPDDash ? [..._base.filter(m => m.id <= 11), _m11bPD, ..._base.filter(m => m.id >= 12)] : _isPFIDash ? [..._base.filter(m => m.id <= 11), _m11bPFI, ..._base.filter(m => m.id >= 12)] : _isCorpREDash ? [..._base.filter(m => m.id <= 11), _m11bCorpRE, ..._base.filter(m => m.id >= 12)] : _isMCDash ? [..._base.filter(m => m.id <= 11), _m11bMC, ..._base.filter(m => m.id >= 12)] : _isLRDash ? [..._base.filter(m => m.id <= 11), _m11bLR, ..._base.filter(m => m.id >= 12)] : _isBCDash ? [..._base.filter(m => m.id <= 11), _m11bBC, ..._base.filter(m => m.id >= 12)] : _base;
   document.getElementById('dashProgressBar').style.width = pct + '%';
   document.getElementById('dashProgressLabel').textContent = plan === 'annual'
     ? `${done} of 12 modules complete (${pct}%)`
@@ -3485,10 +3472,11 @@ const dashMods = plan === 'referred' ? MODULES.filter(m => m.id >= 13 && m.id <=
       {code:'S01', label:'Know the Format',          modId:1},
       {code:'S02', label:'Competency Answers',        modId:1},
       {code:'S03', label:'Technical Knowledge',       modId:1},
-      {code:'S04', label:'Mock & Pressure Practice',  modId:12},
-      {code:'S05', label:'Final 48 Hours',            modId:12}
+      ...(_m11bId ? [{code:'S04', label:'Pathway Prep', modId:_m11bId}] : []),
+      {code:_m11bId?'S05':'S04', label:'Mock & Pressure Practice',  modId:12},
+      {code:_m11bId?'S06':'S05', label:'Final 48 Hours',            modId:12}
     ];
-    const spSbActiveId = !isComplete(1) ? 1 : !isComplete(12) ? 12 : null;
+    const spSbActiveId = !isComplete(1) ? 1 : (_m11bId && !isComplete(_m11bId)) ? _m11bId : !isComplete(12) ? 12 : null;
     let spSbActiveSet = false;
     sb.innerHTML = spSidebarNodes.map(n => {
       const done = isComplete(n.modId);

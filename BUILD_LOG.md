@@ -223,12 +223,12 @@ Client now sends `{ moduleId, pathway, modTitle, source, messages, max_tokens }`
 
 `index.html` reduced by ~37 KB. Coaching intelligence no longer in page source or visible in browser Network tab request payload.
 
-### Phase 2 — M11B pathway modules behind `get-modules.js` (NOT YET BUILT)
-Move modules 20–35 (16 M11B pathway modules) out of the static MODULES array. New Netlify Function verifies JWT + accepts client-supplied pathway (from `localStorage.gca_pathway`), returns only the matching M11B module JSON + relevant pathwayOnly sections from M12 and CR05.
+### Phase 2 — M11B pathway modules behind `get-modules.js` (COMPLETE, 28df3b1 + push below, 18 July 2026)
+Modules 20–35 (16 M11B pathway modules) moved out of the static MODULES array and behind `get-modules.js`. Built in three committed steps: (1) `get-modules.js` + `modules-data.json` created and unit tested (9 tests, all pass); (2) client-side wiring added with `window._useContentAPI` feature flag and `prefetchPathwayModule()` — static data kept as fallback, browser-verified by Ange (`[ContentAPI] serving module 21 from secure cache` confirmed); (3) static M11B section content stripped from `index.html` (523 KB / 16% reduction), flag removed, stubs kept for dashboard cards.
 
-**Key constraint:** pathway is NOT in the JWT — it's client-side only (`localStorage.gca_pathway`). The function must trust the client's pathway claim. A paid user could request a different pathway's M11B by changing their localStorage value. This is an accepted limitation for Phase 2; server-side pathway storage (Netlify Blobs + `set-pathway.js`) is a Phase 2B option if needed.
+**Known limitation (accepted for Phase 2):** pathway is NOT in the JWT — it's client-side only (`localStorage.gca_pathway`). The function trusts the client's pathway claim. A paying candidate could request a different pathway's M11B by changing their localStorage value. This is explicitly accepted for Phase 2; server-side pathway storage (Netlify Blobs + `set-pathway.js`) is the Phase 2B fix if needed.
 
-**Sequencing rule:** Build `get-modules.js` first and verify it returns correct JSON for 3–4 pathways via curl. Add a client-side feature flag (`window._useContentAPI`) that switches dashboard to fetch-based loading while keeping static data as fallback. Test all 16 pathways. Only then remove static data from `index.html`. Never remove static data and add the API call in the same commit.
+**Sequencing rule (followed):** `get-modules.js` built and verified first. Feature flag added with static fallback. Browser-tested by Ange. Static data removed only after confirmation. Static data removal and API wiring were never in the same commit.
 
 ### Phase 3 — Question banks behind `get-questions.js` (NOT YET BUILT)
 `SA_QUESTIONS` array purpose is unconfirmed — **do not build Phase 3 until clarified by Ange.** It may be Sprint plan or Associate-level. The 16 confirmed pathway banks can proceed; SA_QUESTIONS needs separate scoping.

@@ -45,6 +45,20 @@ exports.handler = async (event) => {
     // Denylist check — after signature verified, so forged tokens can't probe the list
     if (REVOKED_EMAILS.includes(payload.email?.toLowerCase())) {
       console.log(`Blocked revoked account: ${payload.email}`);
+      const ip = event.headers?.['x-forwarded-for'] || event.headers?.['client-ip'] || 'unknown';
+      const ts = new Date().toUTCString();
+      if (process.env.RESEND_API_KEY) {
+        fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            from: 'Get Chartered AI <info@getcharteredai.com>',
+            to: ['support@mabehq.com'],
+            subject: `Access attempt — blocked account (${payload.email})`,
+            text: `A blocked account tried to access Get Chartered AI.\n\nEmail: ${payload.email}\nTime: ${ts}\nIP: ${ip}\n\nThe login was rejected. No action needed unless this repeats unusually.`
+          })
+        }).catch(e => console.error('Alert email failed:', e.message));
+      }
       return { statusCode: 401, headers, body: JSON.stringify({ valid: false, error: 'Account suspended.' }) };
     }
 

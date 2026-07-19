@@ -1,6 +1,6 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 18 July 2026 (Stripe price ID mismatch fix + pricing copy audit)*
+*Last updated: 19 July 2026 (Sprint programme full redesign — M11B/Referred wiring, S01–S06 stage system, 6-card grid, render-path audit)*
 
 ---
 
@@ -64,6 +64,83 @@ Building Control, Building Surveying, Commercial Real Estate, Corporate Real Est
 ## Question Banks — Separate System from M11B
 
 Question banks use a prefix/localStorage-key/element-ID system, entirely separate from M11B's numeric pathway IDs. As of 11 July 2026, 16 of 22 pathways have a working question bank (the 6 deprioritised pathways above are the ones without one, since Infrastructure's gap was fixed).
+
+---
+
+## 19 July 2026 — Sprint Programme Full Redesign (706f1e4 → 642db59)
+
+### M11B + Referred wiring (835745c, 7919ac9)
+
+M11B pathway modules unlocked for Sprint and Referred plans. Previously excluded by an explicit `if (plan === 'sprint' || plan === 'referred') return false` in all 16 M11B `isModuleUnlocked()` blocks. Removed the exclusion — `getUnlockedCount('sprint') = 12` and `getUnlockedCount('referred') = 18` both satisfy `>= 11`, so M11B now unlocks automatically. Sprint milestone strip and sidebar both updated to show S04 "Pathway Prep" node (M11B) between S03 and the Module 12 stages. Referred milestone strip updated to show CR06 "Your pathway module" (M11B) between CR05 and the renamed CR07 "Reflect & resit mindset". Referred programme module count heading corrected from six to seven. Sprint `dashMods` and Referred `dashMods` both include `_m11bId ? [MODULES.find(m.id === _m11bId)] : []` stub card.
+
+### Module 1 Sprint redesign — S01/S02/S03 (706f1e4, aee804c, 8ef44e6)
+
+Three sprint-specific sections added to Module 1, visible only to Sprint plan (`sprintOnly: true`):
+
+- **S01 — Know the Format:** What the APC interview actually looks like (panel composition, session timing, questions ahead, submission vs interview split, what "Level 3" requires in a live response).
+- **S02 — Competency Answers:** How to build Level 3 answers and defend the case study under pressure (PEEL-under-fire structure, follow-up question patterns, common Level 2 trap phrases).
+- **S03 — Technical Knowledge Check:** Self-check checklist across all 11 mandatory competencies. Interactive — candidates tick off competencies they can answer at Level 3, with progress counted and saved to localStorage.
+
+Hide list applied to Module 1 Sprint view: sections 1.2, 1.3a, 1.3b, 1.4, 1.5, 1.5a, 1.6, 1.7, 1.8, 1.9, 1.10, 1.11, 1.12, 1.13, 1.14, 1.15 suppressed for Sprint users. Section 1.3 "What the APC Really Is" intentionally kept visible.
+
+Pass rate stat in 1.1 corrected: the "UK first-time pass rate 65% in 2025" figure was the female candidate pass rate from the RICS Annual Review gender breakdown, not a UK-wide figure. Replaced with the verified global figure: ~59% consistent across 2023–2025.
+
+Sprint-visible section order (6 of 24): 1.1 Welcome → Your Sprint Plan → S01 Know the Format → S02 Competency Answers → 1.3 What the APC Really Is → S03 Technical Knowledge Check.
+
+### S01–S06 stage wiring (ef69878, 57a559b, 1c994fb, a729206)
+
+All six Sprint stages wired in both the milestone strip and dashboard sidebar, with scroll-to-section targets:
+
+| Stage | Target | Scroll anchor |
+|---|---|---|
+| S01 | Module 1 | `sec-1-2` (S01 section) |
+| S02 | Module 1 | `sec-1-3` (S02 section) |
+| S03 | Module 1 | `sec-1-5` (S03 section) |
+| S04 | `openS04QuestionBank()` | n/a (question bank overlay) |
+| S05 | Module 12 | `sec-12-0` (Sprint Start Here) |
+| S06 | Module 12 | `sec-12-1` (60-Minute Mock) |
+
+S04 "Pathway Prep" opens the question bank overlay as the primary experience (pathway → function dispatch lookup), not M11B directly. An inline banner below the topbar offers M11B as secondary access. Module 12 S05/S06 filtering: S05 hides sections 12.15+ (revision only); S06 shows only 12.0 + 12.15 + the user's pathway scenario.
+
+Scroll targets use `setTimeout(80ms)` after `showView('module')` to fire after the view's `window.scrollTo(0,0)` resets the position. Scroll map keyed on stage CODE (S01–S06), not label text — safe through any label renaming.
+
+### S06 label rename
+
+"Final 48 Hours" → **"Final Review"** across all three locations (milestone strip, sidebar, and new grid). Same reasoning as the earlier Referred "Final 30 Days" rename: a fixed time label creates false anxiety for candidates who reach the stage earlier or later than the implied window. The S06 code and scroll map key are unaffected.
+
+### 6-card Sprint grid (a3c0b24)
+
+Sprint plan's `dashModGrid` replaced from 3 generic module cards to 6 stage-specific cards matching the sidebar exactly. Non-Sprint plans (Annual/Monthly/Referred) continue using the existing `dashMods.map()` path unchanged.
+
+Each card shows: stage code badge, label, and a one-line description of what the stage covers:
+- S01: "What the actual interview looks like, minute by minute."
+- S02: "How to answer at Level 3, and defend your case study under pressure."
+- S03: "A quick self-check across all 11 mandatory competencies."
+- S04: "Test yourself against real pathway-specific questions."
+- S05: "Revise every mandatory competency, then push yourself with real assignment questions."
+- S06: "The 60-minute mock interview and your pathway's assessor scenario."
+
+Card states: done (green border + ✅ when module marked complete), active★ (blue glow — suggested next step based on `_spActiveModId2` sequential progression), available (clickable, no special styling).
+
+### Sprint card lock logic correction (642db59)
+
+**Bug:** Initial grid implementation used `isComplete()` sequentially to compute lock state — S05/S06 went locked once Module 1 was complete but M11B wasn't done, even though `isModuleUnlocked(12, 'sprint') = true` unconditionally.
+
+**Root cause:** `_spActiveModId2` sequential progression was being used as an *access gate* rather than a *suggested-next-step indicator*. `isModuleUnlocked()` for Sprint returns `true` for M01, M11B, and M12 unconditionally — Module 12 was never gated behind Module 1 completion in the original access logic.
+
+**Fix:** Lock condition changed to `!isModuleUnlocked(n.modId, plan, activatedAt)`. For Sprint this is never true, so no Sprint card is ever locked. Active★ highlight is purely cosmetic guidance — it does not prevent clicking any card. A fresh-account Sprint user can click S05 or S06 immediately. Verified by simulation across all four account states (nothing complete, M01 done, M01+M11B done, all done) — S05 and S06 remain clickable in every case.
+
+### Render-path bug audit — three separate fixes
+
+The same three-render-path class of bug (found originally in CR5.4 on 13 July) appeared again across today's Sprint work:
+
+**1. `_spScrollMap` ReferenceError (3ab94ae):** Variable declared with `const` inside the `else if (plan === 'sprint')` milestone strip block (lines ~3347–3402), but referenced in a separate `if (plan === 'sprint')` sidebar block at line ~3501. `const` block scoping made it invisible — crashing the entire Sprint dashboard render for all users. Fix: re-declared `_spScrollMap` at the top of the sidebar block.
+
+**2. Module 1 Sprint hide list missing from MODULE PROGRESS panel (582c862):** The `pp.innerHTML` filter (MODULE PROGRESS right panel) was updated with the Sprint M01 hide list, matching the existing TOC sidebar and content area filters.
+
+**3. Module 12 sprint stage filter missing from MODULE PROGRESS panel (2a11d5f):** `pp.innerHTML` applied the Module 1 hide list but not the Module 12 sprint stage filter. S05 showed all 17 sections instead of 15 (incorrectly including mock interview + pathway scenario); S06 showed all 17 instead of 3 (should show only 12.0 + 12.15 + user's pathway scenario). Also caused `scrollToSection` index misalignment since pp and content rendered different counts. Fix: added identical `if (plan === 'sprint' && id === 12 && window._sprintStage)` block to `pp.innerHTML`, matching TOC sidebar and content area. All three render paths now apply identical filters for both Module 1 and Module 12.
+
+**Running count:** This is the third separate session (CR5.4 / 13 July; Module 12 M14 July audit; Sprint / 19 July) where the three-render-path pattern has produced a real bug. The standing rule from 13 July (grep `m\.sections` render paths before marking filtered content complete) applies equally to any sprint-stage or plan-conditional filter.
 
 ---
 

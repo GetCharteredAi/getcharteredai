@@ -3477,6 +3477,10 @@ const dashMods = plan === 'referred' ? [...MODULES.filter(m => m.id >= 13 && m.i
   // Sidebar
   const sb = document.getElementById('sidebarModules');
   if (plan === 'sprint') {
+    const _spScrollMap = Object.assign(
+      {'S01':'sec-1-2','S02':'sec-1-3','S03':'sec-1-5'},
+      _m11bId ? {'S05':'sec-12-0','S06':'sec-12-1'} : {'S04':'sec-12-0','S05':'sec-12-1'}
+    );
     const spSidebarNodes = [
       {code:'S01', label:'Know the Format',          modId:1},
       {code:'S02', label:'Competency Answers',        modId:1},

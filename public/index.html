@@ -3371,12 +3371,14 @@ async function renderDashboard() {
 
     let spNodesHtml = mkSpNode('done', '✓', '', 'Enrolled', null);
     let spActiveSet = false;
+    const _spScrollMap = {'S01':'sec-1-2','S02':'sec-1-3','S03':'sec-1-5'};
     sprintNodes.forEach(n => {
       const complete = isComplete(n.modId);
       const _isPathwayNode = n.modId >= 20 && n.modId <= 35;
+      const _spScrollTarget = _spScrollMap[n.code] || '';
       const _spClick = _isPathwayNode
         ? `openS04QuestionBank()`
-        : `window._sprintStage='${n.code}';openModule(${n.modId});showView('module')`;
+        : `window._sprintStage='${n.code}';openModule(${n.modId});showView('module')${_spScrollTarget ? `;setTimeout(function(){scrollToSection('${_spScrollTarget}')},80)` : ''}`;
       if (complete) {
         spNodesHtml += mkSpNode('done', '✓', n.code, n.label, _spClick);
       } else if (n.modId === spActiveModId && !spActiveSet) {
@@ -3493,10 +3495,11 @@ const dashMods = plan === 'referred' ? [...MODULES.filter(m => m.id >= 13 && m.i
       } else {
         unlocked = false;
       }
+      const _sbScrollTarget = _spScrollMap[n.code] || '';
       const _sbIsPathway = n.modId >= 20 && n.modId <= 35;
       const _sbClick = _sbIsPathway
         ? `openS04QuestionBank()`
-        : `window._sprintStage='${n.code}';openModule(${n.modId});showView('module')`;
+        : `window._sprintStage='${n.code}';openModule(${n.modId});showView('module')${_sbScrollTarget ? `;setTimeout(function(){scrollToSection('${_sbScrollTarget}')},80)` : ''}`;
       return `<div class="sidebar-item ${done?'done':''} ${!unlocked?'locked':''}"
         onclick="${unlocked ? _sbClick : ''}"
         style="${!unlocked ? 'opacity:0.4;cursor:not-allowed' : ''}">

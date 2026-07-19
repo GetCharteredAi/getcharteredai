@@ -3371,7 +3371,10 @@ async function renderDashboard() {
 
     let spNodesHtml = mkSpNode('done', '✓', '', 'Enrolled', null);
     let spActiveSet = false;
-    const _spScrollMap = {'S01':'sec-1-2','S02':'sec-1-3','S03':'sec-1-5'};
+    const _spScrollMap = Object.assign(
+      {'S01':'sec-1-2','S02':'sec-1-3','S03':'sec-1-5'},
+      _m11bId ? {'S05':'sec-12-0','S06':'sec-12-1'} : {'S04':'sec-12-0','S05':'sec-12-1'}
+    );
     sprintNodes.forEach(n => {
       const complete = isComplete(n.modId);
       const _isPathwayNode = n.modId >= 20 && n.modId <= 35;

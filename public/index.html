@@ -3373,7 +3373,10 @@ async function renderDashboard() {
     let spActiveSet = false;
     sprintNodes.forEach(n => {
       const complete = isComplete(n.modId);
-      const _spClick = `window._sprintStage='${n.code}';openModule(${n.modId});showView('module')`;
+      const _isPathwayNode = n.modId >= 20 && n.modId <= 35;
+      const _spClick = _isPathwayNode
+        ? `openS04QuestionBank()`
+        : `window._sprintStage='${n.code}';openModule(${n.modId});showView('module')`;
       if (complete) {
         spNodesHtml += mkSpNode('done', '✓', n.code, n.label, _spClick);
       } else if (n.modId === spActiveModId && !spActiveSet) {
@@ -3490,8 +3493,12 @@ const dashMods = plan === 'referred' ? [...MODULES.filter(m => m.id >= 13 && m.i
       } else {
         unlocked = false;
       }
+      const _sbIsPathway = n.modId >= 20 && n.modId <= 35;
+      const _sbClick = _sbIsPathway
+        ? `openS04QuestionBank()`
+        : `window._sprintStage='${n.code}';openModule(${n.modId});showView('module')`;
       return `<div class="sidebar-item ${done?'done':''} ${!unlocked?'locked':''}"
-        onclick="${unlocked ? `window._sprintStage='${n.code}';openModule(${n.modId});showView('module')` : ''}"
+        onclick="${unlocked ? _sbClick : ''}"
         style="${!unlocked ? 'opacity:0.4;cursor:not-allowed' : ''}">
         <div class="tick-dot" style="${!unlocked ? 'background:#ef4444' : ''}"></div>
         <span class="sidebar-mod-num">${n.code}</span>
@@ -8418,6 +8425,48 @@ const PFI_QUESTIONS = [
 let _bsoIndex = 0;
 let _bsoRevealed = false;
 let _bsoFiltered = null;
+
+function openS04QuestionBank() {
+  var _pw = localStorage.getItem('gca_pathway');
+  var _qbMap = {
+    'Rural':['openRuralOverlay','ruralOverlay'],
+    'Taxation Allowances':['openTAOverlay','taOverlay'],
+    'Building Surveying':['openBSOverlay','bsOverlay'],
+    'Quantity Surveying and Construction':['openQSOverlay','qsOverlay'],
+    'Commercial Real Estate':['openCREOverlay','creOverlay'],
+    'Valuation':['openVALOverlay','valOverlay'],
+    'Infrastructure':['openInfraOverlay','infraOverlay'],
+    'Residential':['openRESOverlay','resOverlay'],
+    'Project Management':['openPMOverlay','pmOverlay'],
+    'Facility Management':['openFMOverlay','fmOverlay'],
+    'Planning and Development':['openPDOverlay','pdOverlay'],
+    'Property Finance and Investment':['openPFIOverlay','pfiOverlay'],
+    'Corporate Real Estate':['openCorpOverlay','corpOverlay'],
+    'Management Consultancy':['openMCOverlay','mcOverlay'],
+    'Land and Resources':['openLROverlay','lrOverlay'],
+    'Building Control':['openBCOverlay','bcOverlay']
+  };
+  var _m11bIdMap = {'Rural':20,'Taxation Allowances':21,'Building Surveying':22,'Quantity Surveying and Construction':23,'Commercial Real Estate':24,'Valuation':25,'Infrastructure':26,'Residential':27,'Project Management':28,'Facility Management':29,'Planning and Development':30,'Property Finance and Investment':31,'Corporate Real Estate':32,'Management Consultancy':33,'Land and Resources':34,'Building Control':35};
+  var entry = _qbMap[_pw];
+  if (!entry) return;
+  var fnName = entry[0], overlayId = entry[1];
+  var m11bId = _m11bIdMap[_pw] || null;
+  window[fnName]();
+  setTimeout(function() {
+    var overlay = document.getElementById(overlayId);
+    if (!overlay) return;
+    var existing = document.getElementById('s04M11bBanner');
+    if (existing) existing.remove();
+    var body = overlay.querySelector('.bso-body');
+    if (!body) return;
+    var banner = document.createElement('div');
+    banner.id = 's04M11bBanner';
+    banner.style.cssText = 'background:rgba(37,99,235,0.08);border-bottom:1px solid rgba(37,99,235,0.2);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:12px;';
+    banner.innerHTML = '<span style="color:#93c5fd;font-size:13px;line-height:1.4;">S04 — Pathway Prep: use these questions to find the gaps, then go deeper with the full module.</span>'
+      + (m11bId ? '<button onclick="document.getElementById(\'s04M11bBanner\').remove();openModule(' + m11bId + ');showView(\'module\')" style="flex-shrink:0;background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;">Full pathway module →</button>' : '');
+    overlay.insertBefore(banner, body);
+  }, 0);
+}
 
 function openBSOverlay() {
   _bsoFiltered = null;

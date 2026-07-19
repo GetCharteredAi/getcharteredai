@@ -3059,6 +3059,7 @@ async function renderDashboard() {
   const unlockedCount = getUnlockedCount(plan, activatedAt);
   const done = completedCount();
   const pct = Math.round((done/unlockedCount)*100);
+  const _m11bId = {'Rural':20,'Taxation Allowances':21,'Building Surveying':22,'Quantity Surveying and Construction':23,'Commercial Real Estate':24,'Valuation':25,'Infrastructure':26,'Residential':27,'Project Management':28,'Facility Management':29,'Planning and Development':30,'Property Finance and Investment':31,'Corporate Real Estate':32,'Management Consultancy':33,'Land and Resources':34,'Building Control':35}[localStorage.getItem('gca_pathway')] || null;
 
   // ── DASHBOARD SUMMARY PANEL ──────────────────────────────────────────────
   const firstName = currentUser.split('@')[0].split('.')[0];
@@ -3418,7 +3419,6 @@ async function renderDashboard() {
     }
   }
 const _base = MODULES.filter(m => m.id >= 1 && m.id <= 12);
-  const _m11bId = {'Rural':20,'Taxation Allowances':21,'Building Surveying':22,'Quantity Surveying and Construction':23,'Commercial Real Estate':24,'Valuation':25,'Infrastructure':26,'Residential':27,'Project Management':28,'Facility Management':29,'Planning and Development':30,'Property Finance and Investment':31,'Corporate Real Estate':32,'Management Consultancy':33,'Land and Resources':34,'Building Control':35}[localStorage.getItem('gca_pathway')] || null;
 const _m11b = MODULES.find(m => m.id === 20);
 const _m11bTA = MODULES.find(m => m.id === 21);
 const _m11bBS = MODULES.find(m => m.id === 22);

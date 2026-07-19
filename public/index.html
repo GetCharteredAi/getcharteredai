@@ -3355,7 +3355,7 @@ async function renderDashboard() {
       {code:'S03', label:'Technical knowledge',      modId:1},
       ...(_m11bId ? [{code:'S04', label:'Pathway prep', modId:_m11bId}] : []),
       {code:_m11bId?'S05':'S04', label:'Mock & pressure practice', modId:12},
-      {code:_m11bId?'S06':'S05', label:'Final 48 hours',           modId:12}
+      {code:_m11bId?'S06':'S05', label:'Final Review',              modId:12}
     ];
     // Active module: M01 → M11B (pathway prep) → M12
     const spActiveModId = !isComplete(1) ? 1 : (_m11bId && !isComplete(_m11bId)) ? _m11bId : !isComplete(12) ? 12 : null;
@@ -3487,7 +3487,7 @@ const dashMods = plan === 'referred' ? [...MODULES.filter(m => m.id >= 13 && m.i
       {code:'S03', label:'Technical Knowledge',       modId:1},
       ...(_m11bId ? [{code:'S04', label:'Pathway Prep', modId:_m11bId}] : []),
       {code:_m11bId?'S05':'S04', label:'Mock & Pressure Practice',  modId:12},
-      {code:_m11bId?'S06':'S05', label:'Final 48 Hours',            modId:12}
+      {code:_m11bId?'S06':'S05', label:'Final Review',               modId:12}
     ];
     const spSbActiveId = !isComplete(1) ? 1 : (_m11bId && !isComplete(_m11bId)) ? _m11bId : !isComplete(12) ? 12 : null;
     let spSbActiveSet = false;
@@ -3530,19 +3530,54 @@ const dashMods = plan === 'referred' ? [...MODULES.filter(m => m.id >= 13 && m.i
 
   // Main grid
   const grid = document.getElementById('dashModGrid');
-  grid.innerHTML = dashMods.map(m => {
-    const unlocked = isModuleUnlocked(m.id, plan, activatedAt);
-    return `<div class="dash-mod-card ${isComplete(m.id)?'done':''} ${!unlocked?'locked':''}"
-      onclick="requireAccess(${m.id})"
-      style="${!unlocked ? 'opacity:0.5;cursor:not-allowed;border-color:#fecaca' : ''}">
-      <div class="dmcard-top">
-        <span class="dmcard-num">MODULE ${m.num}</span>
-        <span class="dmcard-tick">${isComplete(m.id) ? '✅' : (!unlocked ? '🔒' : '')}</span>
-      </div>
-      <div class="dmcard-title">${m.title}</div>
-      <div class="dmcard-level">${!unlocked ? ((m.id === 20 || m.id === 21 || m.id === 22 || m.id === 23 || m.id === 24 || m.id === 25 || m.id === 26 || m.id === 27 || m.id === 28 || m.id === 29 || m.id === 30 || m.id === 31 || m.id === 32 || m.id === 33 || m.id === 34 || m.id === 35) ? 'Unlocks with Module 11' : 'Unlocks month ' + m.id) : m.level}</div>
-    </div>`;
-  }).join('');
+  if (plan === 'sprint') {
+    const _spActiveModId2 = !isComplete(1) ? 1 : (_m11bId && !isComplete(_m11bId)) ? _m11bId : !isComplete(12) ? 12 : null;
+    const _spCards = [
+      {code:'S01', label:'Know the Format',          modId:1,        desc:'What the actual interview looks like, minute by minute.',                              click:`window._sprintStage='S01';openModule(1);showView('module');setTimeout(function(){scrollToSection('sec-1-2')},80)`},
+      {code:'S02', label:'Competency Answers',        modId:1,        desc:'How to answer at Level 3, and defend your case study under pressure.',                click:`window._sprintStage='S02';openModule(1);showView('module');setTimeout(function(){scrollToSection('sec-1-3')},80)`},
+      {code:'S03', label:'Technical Knowledge',       modId:1,        desc:'A quick self-check across all 11 mandatory competencies.',                            click:`window._sprintStage='S03';openModule(1);showView('module');setTimeout(function(){scrollToSection('sec-1-5')},80)`},
+      ...(_m11bId ? [{code:'S04', label:'Pathway Prep', modId:_m11bId, desc:'Test yourself against real pathway-specific questions.',                             click:'openS04QuestionBank()'}] : []),
+      {code:_m11bId?'S05':'S04', label:'Mock & Pressure Practice', modId:12, desc:'Revise every mandatory competency, then push yourself with real assignment questions.', click:`window._sprintStage='${_m11bId?'S05':'S04'}';openModule(12);showView('module');setTimeout(function(){scrollToSection('sec-12-0')},80)`},
+      {code:_m11bId?'S06':'S05', label:'Final Review',              modId:12, desc:"The 60-minute mock interview and your pathway's assessor scenario.",          click:`window._sprintStage='${_m11bId?'S06':'S05'}';openModule(12);showView('module');setTimeout(function(){scrollToSection('sec-12-1')},80)`},
+    ];
+    let _spCardActiveSet = false;
+    grid.innerHTML = _spCards.map(n => {
+      const done = isComplete(n.modId);
+      let active = false, locked = false;
+      if (!done) {
+        if (n.modId === _spActiveModId2 && !_spCardActiveSet) {
+          active = true;
+          _spCardActiveSet = true;
+        } else {
+          locked = true;
+        }
+      }
+      return `<div class="dash-mod-card ${done?'done':''} ${locked?'locked':''}"
+        onclick="${locked ? '' : n.click}"
+        style="${locked ? 'opacity:0.5;cursor:not-allowed;border-color:#fecaca' : active ? 'border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.07)' : ''}">
+        <div class="dmcard-top">
+          <span class="dmcard-num">${n.code}</span>
+          <span class="dmcard-tick">${done ? '✅' : (locked ? '🔒' : '')}</span>
+        </div>
+        <div class="dmcard-title">${n.label}</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.4;margin-top:4px">${n.desc}</div>
+      </div>`;
+    }).join('');
+  } else {
+    grid.innerHTML = dashMods.map(m => {
+      const unlocked = isModuleUnlocked(m.id, plan, activatedAt);
+      return `<div class="dash-mod-card ${isComplete(m.id)?'done':''} ${!unlocked?'locked':''}"
+        onclick="requireAccess(${m.id})"
+        style="${!unlocked ? 'opacity:0.5;cursor:not-allowed;border-color:#fecaca' : ''}">
+        <div class="dmcard-top">
+          <span class="dmcard-num">MODULE ${m.num}</span>
+          <span class="dmcard-tick">${isComplete(m.id) ? '✅' : (!unlocked ? '🔒' : '')}</span>
+        </div>
+        <div class="dmcard-title">${m.title}</div>
+        <div class="dmcard-level">${!unlocked ? ((m.id === 20 || m.id === 21 || m.id === 22 || m.id === 23 || m.id === 24 || m.id === 25 || m.id === 26 || m.id === 27 || m.id === 28 || m.id === 29 || m.id === 30 || m.id === 31 || m.id === 32 || m.id === 33 || m.id === 34 || m.id === 35) ? 'Unlocks with Module 11' : 'Unlocks month ' + m.id) : m.level}</div>
+      </div>`;
+    }).join('');
+  }
 
   // Show upgrade banner for monthly subscribers
   const existing = document.getElementById('upgradeBanner');

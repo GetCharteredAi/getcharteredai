@@ -3543,13 +3543,14 @@ const dashMods = plan === 'referred' ? [...MODULES.filter(m => m.id >= 13 && m.i
     let _spCardActiveSet = false;
     grid.innerHTML = _spCards.map(n => {
       const done = isComplete(n.modId);
+      const unlocked = isModuleUnlocked(n.modId, plan, activatedAt);
       let active = false, locked = false;
       if (!done) {
-        if (n.modId === _spActiveModId2 && !_spCardActiveSet) {
+        if (!unlocked) {
+          locked = true;
+        } else if (n.modId === _spActiveModId2 && !_spCardActiveSet) {
           active = true;
           _spCardActiveSet = true;
-        } else {
-          locked = true;
         }
       }
       return `<div class="dash-mod-card ${done?'done':''} ${locked?'locked':''}"

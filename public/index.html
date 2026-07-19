@@ -3373,10 +3373,11 @@ async function renderDashboard() {
     let spActiveSet = false;
     sprintNodes.forEach(n => {
       const complete = isComplete(n.modId);
+      const _spClick = `window._sprintStage='${n.code}';openModule(${n.modId});showView('module')`;
       if (complete) {
-        spNodesHtml += mkSpNode('done', '✓', n.code, n.label, `openModule(${n.modId}); showView('module')`);
+        spNodesHtml += mkSpNode('done', '✓', n.code, n.label, _spClick);
       } else if (n.modId === spActiveModId && !spActiveSet) {
-        spNodesHtml += mkSpNode('active', n.code, n.code, n.label, `openModule(${n.modId}); showView('module')`);
+        spNodesHtml += mkSpNode('active', n.code, n.code, n.label, _spClick);
         spActiveSet = true;
       } else {
         spNodesHtml += mkSpNode('locked', n.code, n.code, n.label, null);
@@ -3490,7 +3491,7 @@ const dashMods = plan === 'referred' ? [...MODULES.filter(m => m.id >= 13 && m.i
         unlocked = false;
       }
       return `<div class="sidebar-item ${done?'done':''} ${!unlocked?'locked':''}"
-        onclick="${unlocked ? `openModule(${n.modId}); showView('module')` : ''}"
+        onclick="${unlocked ? `window._sprintStage='${n.code}';openModule(${n.modId});showView('module')` : ''}"
         style="${!unlocked ? 'opacity:0.4;cursor:not-allowed' : ''}">
         <div class="tick-dot" style="${!unlocked ? 'background:#ef4444' : ''}"></div>
         <span class="sidebar-mod-num">${n.code}</span>
@@ -3595,6 +3596,15 @@ function openModule(id, plan, activatedAt) {
           const hide = ['1.2','1.3a','1.3b','1.4','1.5','1.5a','1.6','1.7','1.8','1.9','1.10','1.11','1.12','1.13','1.14','1.15'];
           if (hide.some(p => s.h.startsWith(p))) return false;
         }
+        if (plan === 'sprint' && id === 12 && window._sprintStage) {
+          if (window._sprintStage === 'S05') {
+            const hide = ['12.15','12.16','12.17','12.18','12.19','12.20','12.21'];
+            if (hide.some(p => s.h.startsWith(p))) return false;
+          } else if (window._sprintStage === 'S06') {
+            const show = ['12.0','12.15','12.16','12.17','12.18','12.19','12.20','12.21'];
+            if (!show.some(p => s.h.startsWith(p))) return false;
+          }
+        }
         return true;
       }).map((s,i) => s.isDivider ? `<div class="mod-toc-divider">${s.h}</div>` : `<div class="mod-toc-item" onclick="scrollToSection('sec-${id}-${i}')" id="toc-${id}-${i}">${s.h}</div>`).join('')}
       <div class="mod-toc-item" onclick="scrollToSection('quiz-${id}')">📝 Module Quiz</div>
@@ -3622,6 +3632,15 @@ function openModule(id, plan, activatedAt) {
       if (plan === 'sprint' && id === 1) {
         const hide = ['1.2','1.3a','1.3b','1.4','1.5','1.5a','1.6','1.7','1.8','1.9','1.10','1.11','1.12','1.13','1.14','1.15'];
         if (hide.some(p => s.h.startsWith(p))) return false;
+      }
+      if (plan === 'sprint' && id === 12 && window._sprintStage) {
+        if (window._sprintStage === 'S05') {
+          const hide = ['12.15','12.16','12.17','12.18','12.19','12.20','12.21'];
+          if (hide.some(p => s.h.startsWith(p))) return false;
+        } else if (window._sprintStage === 'S06') {
+          const show = ['12.0','12.15','12.16','12.17','12.18','12.19','12.20','12.21'];
+          if (!show.some(p => s.h.startsWith(p))) return false;
+        }
       }
       return true;
     }).map((s,i) => s.isDivider ? `

@@ -6060,7 +6060,22 @@ function openS04QuestionBank() {
 }
 
 function openBSOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
+  const el = document.getElementById('bsOverlay');
+  el.style.display = 'flex';
+  if (!window._qBankReady) {
+    document.getElementById('bsoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _bsAttempts = 0;
+    var _bsPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_bsAttempts > 100) { clearInterval(_bsPoll); document.getElementById('bsoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeBSOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_bsPoll); _bsoLoadContent();
+    }, 100);
+    return;
+  }
+  _bsoLoadContent();
+}
+
+function _bsoLoadContent() {
+  if (document.getElementById('bsOverlay').style.display !== 'flex') return;
   _bsoFiltered = null;
   _bsoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_bs_progress') || '{}');
@@ -6068,8 +6083,6 @@ function openBSOverlay() {
   console.log('[BSOverlay] gca_bs_progress keys:', Object.keys(saved).length, 'isFirstTime:', isFirstTime);
   const resume = BS_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
   _bsoIndex = resume === -1 ? 0 : resume;
-  const el = document.getElementById('bsOverlay');
-  el.style.display = 'flex';
   const sel = document.getElementById('bsoModuleFilter');
   if (sel) sel.value = '';
   const closeBtn = document.querySelector('#bsOverlay .bso-close');
@@ -6099,6 +6112,7 @@ function bsoJumpToModule(mod) {
 
 function bsoRender() {
   const qs = bsoQuestions();
+  if (!qs.length) { document.getElementById('bsoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const q = qs[_bsoIndex];
   const prog = Math.round((_bsoIndex / qs.length) * 100);
   document.getElementById('bsoCounter').textContent = 'Question ' + (_bsoIndex + 1) + ' of ' + qs.length;
@@ -6175,7 +6189,22 @@ let _qsoRevealed = false;
 let _qsoFiltered = null;
 
 function openQSOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
+  const el = document.getElementById('qsOverlay');
+  el.style.display = 'flex';
+  if (!window._qBankReady) {
+    document.getElementById('qsoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _qsAttempts = 0;
+    var _qsPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_qsAttempts > 100) { clearInterval(_qsPoll); document.getElementById('qsoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeQSOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_qsPoll); _qsoLoadContent();
+    }, 100);
+    return;
+  }
+  _qsoLoadContent();
+}
+
+function _qsoLoadContent() {
+  if (document.getElementById('qsOverlay').style.display !== 'flex') return;
   _qsoFiltered = null;
   _qsoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_qs_progress') || '{}');
@@ -6183,8 +6212,6 @@ function openQSOverlay() {
   console.log('[QSOverlay] gca_qs_progress keys:', Object.keys(saved).length, 'isFirstTime:', isFirstTime);
   const resume = QS_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
   _qsoIndex = resume === -1 ? 0 : resume;
-  const el = document.getElementById('qsOverlay');
-  el.style.display = 'flex';
   const sel = document.getElementById('qsoModuleFilter');
   if (sel) sel.value = '';
   const closeBtn = document.querySelector('#qsOverlay .bso-close');
@@ -6214,6 +6241,7 @@ function qsoJumpToModule(mod) {
 
 function qsoRender() {
   const qs = qsoQuestions();
+  if (!qs.length) { document.getElementById('qsoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const q = qs[_qsoIndex];
   const prog = Math.round((_qsoIndex / qs.length) * 100);
   document.getElementById('qsoCounter').textContent = 'Question ' + (_qsoIndex + 1) + ' of ' + qs.length;
@@ -6290,15 +6318,28 @@ let _creoRevealed = false;
 let _creoFiltered = null;
 
 function openCREOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
+  const el = document.getElementById('creOverlay');
+  el.style.display = 'flex';
+  if (!window._qBankReady) {
+    document.getElementById('creoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _creAttempts = 0;
+    var _crePoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_creAttempts > 100) { clearInterval(_crePoll); document.getElementById('creoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeCREOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_crePoll); _creoLoadContent();
+    }, 100);
+    return;
+  }
+  _creoLoadContent();
+}
+
+function _creoLoadContent() {
+  if (document.getElementById('creOverlay').style.display !== 'flex') return;
   _creoFiltered = null;
   _creoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = CRE_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
   _creoIndex = resume === -1 ? 0 : resume;
-  const el = document.getElementById('creOverlay');
-  el.style.display = 'flex';
   const sel = document.getElementById('creoModuleFilter');
   if (sel) sel.value = '';
   const closeBtn = document.querySelector('#creOverlay .bso-close');
@@ -6328,6 +6369,7 @@ function creoJumpToModule(mod) {
 
 function creoRender() {
   const qs = creoQuestions();
+  if (!qs.length) { document.getElementById('creoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const q = qs[_creoIndex];
   const progress = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
   const globalIdx = CRE_QUESTIONS.indexOf(q);
@@ -6412,15 +6454,28 @@ let _taoRevealed = false;
 let _taoFiltered = null;
 
 function openTAOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
+  const el = document.getElementById('taOverlay');
+  el.style.display = 'flex';
+  if (!window._qBankReady) {
+    document.getElementById('taoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _taAttempts = 0;
+    var _taPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_taAttempts > 100) { clearInterval(_taPoll); document.getElementById('taoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeTAOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_taPoll); _taoLoadContent();
+    }, 100);
+    return;
+  }
+  _taoLoadContent();
+}
+
+function _taoLoadContent() {
+  if (document.getElementById('taOverlay').style.display !== 'flex') return;
   _taoFiltered = null;
   _taoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_ta_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = TA_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
   _taoIndex = resume === -1 ? 0 : resume;
-  const el = document.getElementById('taOverlay');
-  el.style.display = 'flex';
   const sel = document.getElementById('taoModuleFilter');
   if (sel) sel.value = '';
   const closeBtn = document.querySelector('#taOverlay .bso-close');
@@ -6450,6 +6505,7 @@ function taoJumpToModule(mod) {
 
 function taoRender() {
   const qs = taoQuestions();
+  if (!qs.length) { document.getElementById('taoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const q = qs[_taoIndex];
   const prog = Math.round((_taoIndex / qs.length) * 100);
   document.getElementById('taoCounter').textContent = 'Question ' + (_taoIndex + 1) + ' of ' + qs.length;
@@ -6526,15 +6582,28 @@ let _valoRevealed = false;
 let _valoFiltered = null;
 
 function openVALOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
+  const el = document.getElementById('valOverlay');
+  el.style.display = 'flex';
+  if (!window._qBankReady) {
+    document.getElementById('valoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _valAttempts = 0;
+    var _valPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_valAttempts > 100) { clearInterval(_valPoll); document.getElementById('valoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeVALOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_valPoll); _valoLoadContent();
+    }, 100);
+    return;
+  }
+  _valoLoadContent();
+}
+
+function _valoLoadContent() {
+  if (document.getElementById('valOverlay').style.display !== 'flex') return;
   _valoFiltered = null;
   _valoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_val_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = VAL_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
   _valoIndex = resume === -1 ? 0 : resume;
-  const el = document.getElementById('valOverlay');
-  el.style.display = 'flex';
   const sel = document.getElementById('valoModuleFilter');
   if (sel) sel.value = '';
   const closeBtn = document.querySelector('#valOverlay .bso-close');
@@ -6564,6 +6633,7 @@ function valoJumpToModule(mod) {
 
 function valoRender() {
   const qs = valoQuestions();
+  if (!qs.length) { document.getElementById('valoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const q = qs[_valoIndex];
   const progress = JSON.parse(localStorage.getItem('gca_val_progress') || '{}');
   const globalIdx = VAL_QUESTIONS.indexOf(q);
@@ -6648,15 +6718,28 @@ let _pdoRevealed = false;
 let _pdoFiltered = null;
 
 function openPDOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
+  const el = document.getElementById('pdOverlay');
+  el.style.display = 'flex';
+  if (!window._qBankReady) {
+    document.getElementById('pdoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _pdAttempts = 0;
+    var _pdPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_pdAttempts > 100) { clearInterval(_pdPoll); document.getElementById('pdoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closePDOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_pdPoll); _pdoLoadContent();
+    }, 100);
+    return;
+  }
+  _pdoLoadContent();
+}
+
+function _pdoLoadContent() {
+  if (document.getElementById('pdOverlay').style.display !== 'flex') return;
   _pdoFiltered = null;
   _pdoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_pd_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = PD_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
   _pdoIndex = resume === -1 ? 0 : resume;
-  const el = document.getElementById('pdOverlay');
-  el.style.display = 'flex';
   const sel = document.getElementById('pdoModuleFilter');
   if (sel) sel.value = '';
   const closeBtn = document.querySelector('#pdOverlay .bso-close');
@@ -6686,6 +6769,7 @@ function pdoJumpToModule(mod) {
 
 function pdoRender() {
   const qs = pdoQuestions();
+  if (!qs.length) { document.getElementById('pdoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const q = qs[_pdoIndex];
   const progress = JSON.parse(localStorage.getItem('gca_pd_progress') || '{}');
   const globalIdx = PD_QUESTIONS.indexOf(q);
@@ -6770,15 +6854,28 @@ let _pmoRevealed = false;
 let _pmoFiltered = null;
 
 function openPMOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
+  const el = document.getElementById('pmOverlay');
+  el.style.display = 'flex';
+  if (!window._qBankReady) {
+    document.getElementById('pmoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _pmAttempts = 0;
+    var _pmPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_pmAttempts > 100) { clearInterval(_pmPoll); document.getElementById('pmoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closePMOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_pmPoll); _pmoLoadContent();
+    }, 100);
+    return;
+  }
+  _pmoLoadContent();
+}
+
+function _pmoLoadContent() {
+  if (document.getElementById('pmOverlay').style.display !== 'flex') return;
   _pmoFiltered = null;
   _pmoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_pm_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = PM_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
   _pmoIndex = resume === -1 ? 0 : resume;
-  const el = document.getElementById('pmOverlay');
-  el.style.display = 'flex';
   const sel = document.getElementById('pmoModuleFilter');
   if (sel) sel.value = '';
   const closeBtn = document.querySelector('#pmOverlay .bso-close');
@@ -6808,6 +6905,7 @@ function pmoJumpToModule(mod) {
 
 function pmoRender() {
   const qs = pmoQuestions();
+  if (!qs.length) { document.getElementById('pmoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const q = qs[_pmoIndex];
   const progress = JSON.parse(localStorage.getItem('gca_pm_progress') || '{}');
   const globalIdx = PM_QUESTIONS.indexOf(q);
@@ -6890,15 +6988,28 @@ let _resoRevealed = false;
 let _resoFiltered = null;
 
 function openRESOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
+  const el = document.getElementById('resOverlay');
+  el.style.display = 'flex';
+  if (!window._qBankReady) {
+    document.getElementById('resoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _resAttempts = 0;
+    var _resPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_resAttempts > 100) { clearInterval(_resPoll); document.getElementById('resoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeRESOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_resPoll); _resoLoadContent();
+    }, 100);
+    return;
+  }
+  _resoLoadContent();
+}
+
+function _resoLoadContent() {
+  if (document.getElementById('resOverlay').style.display !== 'flex') return;
   _resoFiltered = null;
   _resoRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_res_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = RES_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
   _resoIndex = resume === -1 ? 0 : resume;
-  const el = document.getElementById('resOverlay');
-  el.style.display = 'flex';
   const sel = document.getElementById('resoModuleFilter');
   if (sel) sel.value = '';
   const closeBtn = document.querySelector('#resOverlay .bso-close');
@@ -6928,6 +7039,7 @@ function resoJumpToModule(mod) {
 
 function resoRender() {
   const qs = resoQuestions();
+  if (!qs.length) { document.getElementById('resoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const q = qs[_resoIndex];
   const progress = JSON.parse(localStorage.getItem('gca_res_progress') || '{}');
   const globalIdx = RES_QUESTIONS.indexOf(q);
@@ -7008,11 +7120,23 @@ function resoUpdateDashboardStats() {
 let _pfoIndex = 0;
 let _pfoRevealed = false;
 function openPFIOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
-  _pfoIndex = 0;
-  _pfoRevealed = false;
   document.getElementById('pfiOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  if (!window._qBankReady) {
+    document.getElementById('pfoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _pfiAttempts = 0;
+    var _pfiPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_pfiAttempts > 100) { clearInterval(_pfiPoll); document.getElementById('pfoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closePFIOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_pfiPoll); _pfoLoadContent();
+    }, 100);
+    return;
+  }
+  _pfoLoadContent();
+}
+function _pfoLoadContent() {
+  if (document.getElementById('pfiOverlay').style.display !== 'flex') return;
+  _pfoIndex = 0;
+  _pfoRevealed = false;
   pfoRender();
 }
 function closePFIOverlay() {
@@ -7022,6 +7146,7 @@ function closePFIOverlay() {
 }
 function pfoRender() {
   const q = PFI_QUESTIONS[_pfoIndex];
+  if (!q) { document.getElementById('pfoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const progress = JSON.parse(localStorage.getItem('gca_pfi_progress') || '{}');
   const state = progress[_pfoIndex] || {};
   _pfoRevealed = !!state.revealed;
@@ -7094,11 +7219,23 @@ function pfoUpdateDashboardStats() {
 let _fmoIndex = 0;
 let _fmoRevealed = false;
 function openFMOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
-  _fmoIndex = 0;
-  _fmoRevealed = false;
   document.getElementById('fmOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  if (!window._qBankReady) {
+    document.getElementById('fmoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _fmAttempts = 0;
+    var _fmPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_fmAttempts > 100) { clearInterval(_fmPoll); document.getElementById('fmoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeFMOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_fmPoll); _fmoLoadContent();
+    }, 100);
+    return;
+  }
+  _fmoLoadContent();
+}
+function _fmoLoadContent() {
+  if (document.getElementById('fmOverlay').style.display !== 'flex') return;
+  _fmoIndex = 0;
+  _fmoRevealed = false;
   fmoRender();
 }
 function closeFMOverlay() {
@@ -7108,6 +7245,7 @@ function closeFMOverlay() {
 }
 function fmoRender() {
   const q = FM_QUESTIONS[_fmoIndex];
+  if (!q) { document.getElementById('fmoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const progress = JSON.parse(localStorage.getItem('gca_fm_progress') || '{}');
   const state = progress[_fmoIndex] || {};
   _fmoRevealed = !!state.revealed;
@@ -7173,11 +7311,23 @@ function fmoUpdateDashboardStats() {
 let _ruralIndex = 0;
 let _ruralRevealed = false;
 function openRuralOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
-  _ruralIndex = 0;
-  _ruralRevealed = false;
   document.getElementById('ruralOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  if (!window._qBankReady) {
+    document.getElementById('ruralBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _ruralAttempts = 0;
+    var _ruralPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_ruralAttempts > 100) { clearInterval(_ruralPoll); document.getElementById('ruralBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeRuralOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_ruralPoll); _ruralLoadContent();
+    }, 100);
+    return;
+  }
+  _ruralLoadContent();
+}
+function _ruralLoadContent() {
+  if (document.getElementById('ruralOverlay').style.display !== 'flex') return;
+  _ruralIndex = 0;
+  _ruralRevealed = false;
   ruralRender();
 }
 function closeRuralOverlay() {
@@ -7187,6 +7337,7 @@ function closeRuralOverlay() {
 }
 function ruralRender() {
   const q = RURAL_QUESTIONS[_ruralIndex];
+  if (!q) { document.getElementById('ruralBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const progress = JSON.parse(localStorage.getItem('gca_rural_progress') || '{}');
   const state = progress[_ruralIndex] || {};
   _ruralRevealed = !!state.revealed;
@@ -7306,11 +7457,30 @@ function saUpdateDashboardStats() {
 // ── MANAGEMENT CONSULTANCY QUESTION BANK UI ──────────────────────────────────
 let _mcIndex = 0;
 let _mcRevealed = false;
-function openMCOverlay() {   if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
-_mcIndex=0; _mcRevealed=false; document.getElementById('mcOverlay').style.display='flex'; document.body.style.overflow='hidden'; mcRender(); }
+function openMCOverlay() {
+  document.getElementById('mcOverlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  if (!window._qBankReady) {
+    document.getElementById('mcBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _mcAttempts = 0;
+    var _mcPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_mcAttempts > 100) { clearInterval(_mcPoll); document.getElementById('mcBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeMCOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_mcPoll); _mcLoadContent();
+    }, 100);
+    return;
+  }
+  _mcLoadContent();
+}
+function _mcLoadContent() {
+  if (document.getElementById('mcOverlay').style.display !== 'flex') return;
+  _mcIndex = 0;
+  _mcRevealed = false;
+  mcRender();
+}
 function closeMCOverlay() { document.getElementById('mcOverlay').style.display='none'; document.body.style.overflow=''; mcUpdateDashboardStats(); }
 function mcRender() {
   const q = MC_QUESTIONS[_mcIndex];
+  if (!q) { document.getElementById('mcBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const progress = JSON.parse(localStorage.getItem('gca_mc_progress') || '{}');
   const state = progress[_mcIndex] || {};
   document.getElementById('mcCounter').textContent = 'Question ' + (_mcIndex + 1) + ' of ' + MC_QUESTIONS.length;
@@ -7363,11 +7533,23 @@ function mcUpdateDashboardStats() {
 let _bcIndex = 0;
 let _bcRevealed = false;
 function openBCOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
-  _bcIndex = 0;
-  _bcRevealed = false;
   document.getElementById('bcOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  if (!window._qBankReady) {
+    document.getElementById('bcBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _bcAttempts = 0;
+    var _bcPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_bcAttempts > 100) { clearInterval(_bcPoll); document.getElementById('bcBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeBCOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_bcPoll); _bcLoadContent();
+    }, 100);
+    return;
+  }
+  _bcLoadContent();
+}
+function _bcLoadContent() {
+  if (document.getElementById('bcOverlay').style.display !== 'flex') return;
+  _bcIndex = 0;
+  _bcRevealed = false;
   bcRender();
 }
 function closeBCOverlay() {
@@ -7377,6 +7559,7 @@ function closeBCOverlay() {
 }
 function bcRender() {
   const q = BC_QUESTIONS[_bcIndex];
+  if (!q) { document.getElementById('bcBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const progress = JSON.parse(localStorage.getItem('gca_bc_progress') || '{}');
   const state = progress[_bcIndex] || {};
   _bcRevealed = !!state.revealed;
@@ -7442,11 +7625,23 @@ function bcUpdateDashboardStats() {
 let _corpIndex = 0;
 let _corpRevealed = false;
 function openCorpOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
-  _corpIndex = 0;
-  _corpRevealed = false;
   document.getElementById('corpOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  if (!window._qBankReady) {
+    document.getElementById('corpBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _corpAttempts = 0;
+    var _corpPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_corpAttempts > 100) { clearInterval(_corpPoll); document.getElementById('corpBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeCorpOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_corpPoll); _corpLoadContent();
+    }, 100);
+    return;
+  }
+  _corpLoadContent();
+}
+function _corpLoadContent() {
+  if (document.getElementById('corpOverlay').style.display !== 'flex') return;
+  _corpIndex = 0;
+  _corpRevealed = false;
   corpRender();
 }
 function closeCorpOverlay() {
@@ -7456,6 +7651,7 @@ function closeCorpOverlay() {
 }
 function corpRender() {
   const q = CORP_QUESTIONS[_corpIndex];
+  if (!q) { document.getElementById('corpBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const progress = JSON.parse(localStorage.getItem('gca_corp_progress') || '{}');
   const state = progress[_corpIndex] || {};
   _corpRevealed = !!state.revealed;
@@ -7521,11 +7717,23 @@ function corpUpdateDashboardStats() {
 let _lrIndex = 0;
 let _lrRevealed = false;
 function openLROverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
-  _lrIndex = 0;
-  _lrRevealed = false;
   document.getElementById('lrOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  if (!window._qBankReady) {
+    document.getElementById('lrBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _lrAttempts = 0;
+    var _lrPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_lrAttempts > 100) { clearInterval(_lrPoll); document.getElementById('lrBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeLROverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_lrPoll); _lrLoadContent();
+    }, 100);
+    return;
+  }
+  _lrLoadContent();
+}
+function _lrLoadContent() {
+  if (document.getElementById('lrOverlay').style.display !== 'flex') return;
+  _lrIndex = 0;
+  _lrRevealed = false;
   lrRender();
 }
 function closeLROverlay() {
@@ -7535,6 +7743,7 @@ function closeLROverlay() {
 }
 function lrRender() {
   const q = LR_QUESTIONS[_lrIndex];
+  if (!q) { document.getElementById('lrBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const progress = JSON.parse(localStorage.getItem('gca_lr_progress') || '{}');
   const state = progress[_lrIndex] || {};
   _lrRevealed = !!state.revealed;
@@ -7671,15 +7880,28 @@ let _infraRevealed = false;
 let _infraFiltered = null;
 
 function openInfraOverlay() {
-  if (!window._qBankReady) { console.warn('[QB] bank not ready'); return; }
+  const el = document.getElementById('infraOverlay');
+  el.style.display = 'flex';
+  if (!window._qBankReady) {
+    document.getElementById('infraBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:16px;margin-bottom:8px">Loading your question bank...</p><p style="color:rgba(255,255,255,0.4);font-size:13px">This usually takes a second or two.</p></div>';
+    var _infraAttempts = 0;
+    var _infraPoll = setInterval(function() {
+      if (!window._qBankReady) { if (++_infraAttempts > 100) { clearInterval(_infraPoll); document.getElementById('infraBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#f87171;font-size:16px;margin-bottom:12px">Your question bank is taking longer than expected.</p><p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px">Please wait a moment, then try closing and reopening. If it does not load, refresh the page.</p><button onclick="closeInfraOverlay()" style="background:transparent;color:#60a5fa;border:1px solid rgba(96,165,250,0.4);border-radius:6px;padding:8px 20px;font-size:13px;cursor:pointer">Close</button></div>'; } return; }
+      clearInterval(_infraPoll); _infraLoadContent();
+    }, 100);
+    return;
+  }
+  _infraLoadContent();
+}
+
+function _infraLoadContent() {
+  if (document.getElementById('infraOverlay').style.display !== 'flex') return;
   _infraFiltered = null;
   _infraRevealed = false;
   const saved = JSON.parse(localStorage.getItem('gca_infra_progress') || '{}');
   const isFirstTime = Object.keys(saved).length === 0;
   const resume = INFRA_QUESTIONS.findIndex(function(_, i){ return saved[i] === undefined; });
   _infraIndex = resume === -1 ? 0 : resume;
-  const el = document.getElementById('infraOverlay');
-  el.style.display = 'flex';
   const sel = document.getElementById('infraModuleFilter');
   if (sel) sel.value = '';
   const closeBtn = document.querySelector('#infraOverlay .bso-close');
@@ -7709,6 +7931,7 @@ function infraJumpToModule(mod) {
 
 function infraRender() {
   var qs = infraQuestions();
+  if (!qs.length) { document.getElementById('infraBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   var q = qs[_infraIndex];
   var prog = Math.round((_infraIndex / qs.length) * 100);
   document.getElementById('infraCounter').textContent = 'Question ' + (_infraIndex + 1) + ' of ' + qs.length;

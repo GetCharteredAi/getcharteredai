@@ -3673,6 +3673,15 @@ function openModule(id, plan, activatedAt) {
     m = MODULES.find(x => x.id === id);
   }
   if (!m) return;
+  // Sprint stage header overrides — eyebrow, H1 and (for M12) intro
+  const _spHdr = (plan === 'sprint' && window._sprintStage) ? (
+    window._sprintStage === 'S01' ? {eyebrow:'Sprint — S01', h1:'Understand the Assessment', intro:null} :
+    window._sprintStage === 'S02' ? {eyebrow:'Sprint — S02', h1:'Build Chartered-Level Answers', intro:null} :
+    window._sprintStage === 'S03' ? {eyebrow:'Sprint — S03', h1:'Check Your Readiness', intro:null} :
+    window._sprintStage === 'S05' ? {eyebrow:'S05 — Sprint', h1:'Revise Under Pressure', intro:'The competency revision sheets are in front of you. Work through them actively — don’t just read. Use Michael to test your answers, then move to the timed mock.'} :
+    window._sprintStage === 'S06' ? {eyebrow:'S06 — Sprint', h1:'Prove You’re Ready — Final Review', intro:'This is your final preparation. Complete the 60-minute mock interview, then review your pathway’s assessor scenario. Don’t revise new content — rehearse performing what you already know.'} :
+    null
+  ) : null;
   const _mc = document.getElementById('modContent');
   if (_mc) _mc.classList.remove('sim-direct-mode');
 
@@ -3680,8 +3689,8 @@ function openModule(id, plan, activatedAt) {
   const sb = document.getElementById('modSidebar');
   sb.innerHTML = `
     <div style="padding:16px;border-bottom:1px solid rgba(255,255,255,.04);margin-bottom:8px">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px">Module ${m.num}</div>
-      <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.3">${m.title}</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px">${_spHdr ? _spHdr.eyebrow : 'Module ' + m.num}</div>
+      <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.3">${_spHdr ? _spHdr.h1 : m.title}</div>
     </div>
     <div>
       ${m.sections.filter(s => {
@@ -3714,9 +3723,9 @@ function openModule(id, plan, activatedAt) {
       ⌂ Home Dashboard
     </div>
     <div class="mod-header">
-      <div class="mod-header-num">Module ${m.num} · ${m.level}</div>
-      <h1>${m.title}</h1>
-      <p>${plan === 'sprint' && id === 1 ? 'You have submitted. You have the experience. Now it is time to perform. This module cuts straight to what matters in the final weeks before your interview.' : m.intro}</p>
+      <div class="mod-header-num">${_spHdr ? _spHdr.eyebrow : 'Module ' + m.num + ' · ' + m.level}</div>
+      <h1>${_spHdr ? _spHdr.h1 : m.title}</h1>
+      <p>${_spHdr && _spHdr.intro ? _spHdr.intro : (plan === 'sprint' && id === 1 ? 'You have submitted. You have the experience. Now it is time to perform. This module cuts straight to what matters in the final weeks before your interview.' : m.intro)}</p>
     </div>
     <div style="padding:12px 0 20px 0;"><button onclick="openMichaelPanel(${id}, '${m.title}')" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;">🎓 Ask Michael about this module</button></div>
     <div style="margin:0 0 24px 0;padding:16px 20px;background:rgba(37,99,235,0.06);border:1px solid rgba(37,99,235,0.25);border-radius:10px;font-size:14px;color:#1e3a5f;line-height:1.7;"><strong style="color:#60a5fa;">💬 Michael is here to help</strong><br>If a revision sheet raises a question Michael is there to assist — ask him to explain a concept, challenge your answer, or work through a scenario with you. If an area feels less secure, use Michael to explore it further. He can help you build and sharpen your answers across any competency.</div>

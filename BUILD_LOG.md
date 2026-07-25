@@ -1,6 +1,6 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 19 July 2026 (Sprint programme full redesign — M11B/Referred wiring, S01–S06 stage system, 6-card grid, render-path audit)*
+*Last updated: 25 July 2026 (Site-wide copy audit: module counts, employer.html pricing error, Sprint token expiry alignment, day-count removal from pricing contexts)*
 
 ---
 
@@ -141,6 +141,53 @@ The same three-render-path class of bug (found originally in CR5.4 on 13 July) a
 **3. Module 12 sprint stage filter missing from MODULE PROGRESS panel (2a11d5f):** `pp.innerHTML` applied the Module 1 hide list but not the Module 12 sprint stage filter. S05 showed all 17 sections instead of 15 (incorrectly including mock interview + pathway scenario); S06 showed all 17 instead of 3 (should show only 12.0 + 12.15 + user's pathway scenario). Also caused `scrollToSection` index misalignment since pp and content rendered different counts. Fix: added identical `if (plan === 'sprint' && id === 12 && window._sprintStage)` block to `pp.innerHTML`, matching TOC sidebar and content area. All three render paths now apply identical filters for both Module 1 and Module 12.
 
 **Running count:** This is the third separate session (CR5.4 / 13 July; Module 12 M14 July audit; Sprint / 19 July) where the three-render-path pattern has produced a real bug. The standing rule from 13 July (grep `m\.sections` render paths before marking filtered content complete) applies equally to any sprint-stage or plan-conditional filter.
+
+---
+
+## 25 July 2026 — Site-wide copy audit: module counts, pricing fix, token expiry, day-count removal (f261107)
+
+### Module count corrections — Referred programme (six/seven → nine)
+
+All references to the Referred programme's module count updated from "six" or "seven" to "nine" across every page that mentioned a specific count: `referred-programme.html` (4 locations), `pricing.html`, `employer-guide.html` (2), `employer.html`, `platform.html`, `which-programme.html`, `index.html`. The Referred programme is nine modules (CR01–CR09), with CR07 being the pathway-specific M11B module inserted dynamically between CR06 and CR08.
+
+### Pricing error fix — employer.html
+
+`employer.html` was displaying the Referred Candidate Recovery Programme at **£297** instead of the correct **£397** — a £100 understatement on an employer-facing page. Fixed to £397.
+
+### Sprint token expiry — align paying customers to 49 days
+
+Two separate code paths handle Sprint token issuance:
+
+- **`verify-sprint-session.js`** — called from `sprint-success.html` after Stripe checkout. Was issuing 42-day tokens.
+- **`generate-sprint-token.js`** — admin-only, called manually with an admin key. Already issued 49-day tokens (explicitly labelled "6 weeks + 1 week buffer").
+
+Paying customers were receiving 42 days while admin-issued tokens gave 49 days. Decision: align up — paying customers now also get 49 days.
+
+**Changes made:**
+- `verify-sprint-session.js`: L41 `42 * 24 * 60 * 60 * 1000` → `49 * 24 * 60 * 60 * 1000`; L2 comment updated to match
+- `generate-sprint-token.js`: plain-text email body updated from "42 days" to "49 days" (HTML body was already correct at 49)
+- `terms.html`: "a one-off payment for 42 days access" → "49 days access" (contractual reference updated to match)
+
+`verify-session.js` (handles all other plans including Referred at 90 days) is untouched.
+
+### Day-count removal from pricing/payment contexts
+
+Decision: specific day counts attached directly to a price or in a payment note imply a hard deadline at the point of sale — the opposite of what both programmes are trying to convey. Day counts stripped from all pricing/payment contexts; kept in descriptive copy, FAQ explanations, in-app admin banners (where a paying candidate seeing their own access window is a different context from being sold to), and terms.
+
+**Removed from (10 locations):**
+- `pricing.html` Sprint pnote: `42 days access · Full sprint programme` → `Full sprint programme`
+- `pricing.html` Referred pnote: `90 days access · Nine-module recovery programme` → `Nine-module recovery programme`
+- `which-programme.html` Sprint priceNote: `one-off · 42 days access` → `one-off`
+- `which-programme.html` Referred priceNote: `one-off · 90 days access` → `one-off`
+- `referred-programme.html` price note: `One-off payment · Immediate access · 90 days access` → `One-off payment · Immediate access`
+- `referred-guide.html` payment note: `One-off payment · 90 days access · Updated for 2026` → `One-off payment · Updated for 2026`
+- `employer-guide.html` Sprint sub-line: `one-off · 42 days` → `one-off`
+- `employer-guide.html` Referred sub-line: `one-off · 90 days` → `one-off`
+- `employer-guide.html` Referred feature bullet: `90 days focused access` → `Full access, at your own pace`
+- `programme.html` Sprint also-meta: `£297 · 42 days` → `£297`
+- `programme.html` Referred also-meta: `£397 · 90 days` → `£397`
+
+**Left intact:** in-app admin banners in `index.html` and `platform.html` (`£397 · 90 days` in the Referred-only module gate warning); FAQ copy in `referred-programme.html` ("90 days from purchase — enough time to..."); descriptive paragraph copy in `index.html` and `referred-guide.html`; `terms.html` beyond the 42→49 update.
 
 ---
 

@@ -11,13 +11,13 @@
 - Employer Annual Access: £497 (18 months)
 
 ### Question Count
-- 4,000+ (updated July 2026 — audit confirmed: 600 primary questions × pass/high/referral answers + 2,003 challenge sub-questions + 175 module quiz questions = 2,778 discrete Q&A items; 4,000+ is conservative and defensible)
+- 5,000+ practice questions and answers (updated July 2026 — audit confirmed: 800 primary questions × 3 answer variants (pass/high/referral) = 2,400 answer items + 2,666 challenge sub-questions + 127 module quiz questions (Modules 1–12) = 5,193 discrete Q&A items; 5,000+ is accurate and defensible)
 
 ### Programme Structure
 - Module 1: Introduction
 - Modules 2–11: 10 content modules covering 11 mandatory RICS competencies
 - Module 12: Testing and mock interview
-- Referred programme: 6 modules (CR01–CR06)
+- Referred programme: 9 modules (CR01–CR09, with CR07 being the pathway-specific M11B module inserted between CR06 and CR08)
 
 ## Standards Audit Log
 

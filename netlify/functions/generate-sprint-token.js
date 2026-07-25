@@ -87,7 +87,7 @@ exports.handler = async (event) => {
               </div>
             </div>
           `,
-          text: `Your Get Chartered AI APC Sprint is ready!\n\nClick here to start: ${magicLink}\n\nAccess valid for 42 days.\n\nQuestions? info@getcharteredai.com`
+          text: `Your Get Chartered AI APC Sprint is ready!\n\nClick here to start: ${magicLink}\n\nAccess valid for 49 days.\n\nQuestions? info@getcharteredai.com`
         })
       });
     } catch(err) {

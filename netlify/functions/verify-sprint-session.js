@@ -1,5 +1,5 @@
 // netlify/functions/verify-sprint-session.js
-// Verifies Stripe sprint payment and issues 42-day access token
+// Verifies Stripe sprint payment and issues 49-day access token
 
 exports.handler = async (event) => {
   const headers = {
@@ -38,7 +38,7 @@ exports.handler = async (event) => {
 
     const cleanEmail = email.toLowerCase().trim();
     const activatedAt = Date.now();
-    const expires = activatedAt + (42 * 24 * 60 * 60 * 1000); // 42 days
+    const expires = activatedAt + (49 * 24 * 60 * 60 * 1000); // 49 days
 
     // Issue sprint JWT token
     const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';

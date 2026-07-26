@@ -54,11 +54,7 @@ exports.handler = async (event) => {
   }
 
   // Read Blobs record
-  const store = getStore({
-    name: 'selfpaced-progress',
-    siteID: process.env.SITE_ID || process.env.NETLIFY_SITE_ID,
-    token: process.env.NETLIFY_TOKEN || process.env.NETLIFY_ACCESS_TOKEN
-  });
+  const store = getStore('selfpaced-progress');
 
   let record;
   try {

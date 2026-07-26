@@ -43,11 +43,7 @@ exports.handler = async (event) => {
   const email = payload.email;
 
   try {
-    const store = getStore({
-      name: 'selfpaced-progress',
-      siteID: process.env.SITE_ID || process.env.NETLIFY_SITE_ID,
-      token: process.env.NETLIFY_TOKEN || process.env.NETLIFY_ACCESS_TOKEN
-    });
+    const store = getStore('selfpaced-progress');
 
     const raw = await store.get(email);
     if (!raw) {

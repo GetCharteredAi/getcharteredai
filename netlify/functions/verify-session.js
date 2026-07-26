@@ -3,7 +3,7 @@
 const { getStore } = require('@netlify/blobs');
 
 // Self-paced price IDs — keep in sync with create-checkout.js
-const SELFPACED_PRICE_IDS = new Set(['price_1TuBjJRkzyH1h56Ux4A8v563']);
+const SELFPACED_PRICE_IDS = new Set(['price_1TxOuERkzyH1h56UHzRlbS6i']);
 
 exports.handler = async (event) => {
   const headers = {

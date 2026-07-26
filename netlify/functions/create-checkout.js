@@ -26,7 +26,7 @@ exports.handler = async (event) => {
     'year-one':   { priceId: 'price_1TcsGcRkzyH1h56U7bJWaaBD', mode: 'payment' },
     'sprint':     { priceId: 'price_1TcsLoRkzyH1h56UOSPEAPSq', mode: 'payment' },
     'case-study': { priceId: 'price_1Tgqf1RkzyH1h56UvxEISPgl', mode: 'payment', successUrl: 'https://getcharteredai.com/index.html?cs_purchase=success&session_id={CHECKOUT_SESSION_ID}&view=dashboard' },
-    'selfpaced':  { priceId: 'price_1TuBjJRkzyH1h56Ux4A8v563', mode: 'payment' },
+    'selfpaced':  { priceId: 'price_1TxOuERkzyH1h56UHzRlbS6i', mode: 'payment' },
   };
 
   const planConfig = PLANS[body.plan];

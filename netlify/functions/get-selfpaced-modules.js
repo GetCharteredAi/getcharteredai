@@ -66,6 +66,6 @@ exports.handler = async (event) => {
     };
   } catch (err) {
     console.error('get-selfpaced-modules error:', err.message);
-    return { statusCode: 500, headers, body: JSON.stringify({ error: 'Could not read module access. Contact info@getcharteredai.com' }) };
+    return { statusCode: 500, headers, body: JSON.stringify({ error: 'Could not read module access. Contact info@getcharteredai.com', _debug: err.message }) };
   }
 };

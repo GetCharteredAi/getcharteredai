@@ -58,7 +58,7 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
-  const { token, pathway } = body;
+  const { token, pathway, random } = body;
   if (!token) return { statusCode: 401, headers: HEADERS, body: JSON.stringify({ error: 'Unauthorised' }) };
 
   const payload = verifyToken(token);
@@ -76,6 +76,12 @@ exports.handler = async (event) => {
   const questions = DATA[pathway];
   if (!questions) {
     return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'No question bank for this pathway' }) };
+  }
+
+  if (random) {
+    const question = questions[Math.floor(Math.random() * questions.length)];
+    console.log(`get-questions (random): ${payload.email} — pathway=${pathway}`);
+    return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ question }) };
   }
 
   console.log(`get-questions: ${payload.email} — pathway=${pathway} (${questions.length} questions)`);

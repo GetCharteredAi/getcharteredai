@@ -1130,6 +1130,14 @@ input.err{border-color:var(--red)}
 .rp-plan-footer{display:flex;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);flex-wrap:wrap}
 .rp-add-manual-btn{background:transparent;color:#60a5fa;border:1px solid rgba(37,99,235,0.3);border-radius:8px;padding:10px 20px;font-size:13px;cursor:pointer}
 .rp-empty{text-align:center;padding:48px 20px;color:rgba(255,255,255,0.35);font-size:14px}
+/* Think on Your Feet overlay */
+#tofyOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9999;overflow-y:auto;flex-direction:column}
+.tofy-header{display:flex;align-items:center;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.07);gap:12px;min-height:52px}
+.tofy-title{color:rgba(255,255,255,.9);font-size:15px;font-weight:600;letter-spacing:-.01em}
+.tofy-coach-tag{color:rgba(255,255,255,.35);font-size:12px;background:rgba(255,255,255,.06);border-radius:5px;padding:3px 8px;margin-left:4px}
+.tofy-close{margin-left:auto;background:none;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;padding:4px 8px;line-height:1}
+.tofy-close:hover{color:#fff}
+.tofy-body{flex:1;padding:40px 20px 60px;max-width:640px;margin:0 auto;width:100%;box-sizing:border-box}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
@@ -8340,6 +8348,176 @@ function rpAddManualRow() {
   rpRenderPlan();
 }
 
+// ── THINK ON YOUR FEET ────────────────────────────────────────────────────
+let _tofyQuestion = null;
+let _tofyTimer = null;
+let _tofyCoach = 'michael';
+let _tofyContentSource = 'pathway';
+
+function openThinkOnYourFeet(coachPersona, contentSource) {
+  _tofyCoach = coachPersona || 'michael';
+  _tofyContentSource = contentSource || 'pathway';
+  if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
+  document.getElementById('tofyOverlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  _tofyLoad();
+}
+
+function closeTOFY() {
+  if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
+  document.getElementById('tofyOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+async function _tofyLoad() {
+  const body = document.getElementById('tofyBody');
+  body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.5);font-size:15px">Loading your question...</p></div>';
+  try {
+    const res = await fetch('/.netlify/functions/get-questions', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ token: getToken(), pathway: localStorage.getItem('gca_pathway'), random: true })
+    });
+    const data = await res.json();
+    if (!data.question) throw new Error('no question');
+    _tofyQuestion = data.question;
+    _tofyShowQuestion();
+  } catch(e) {
+    body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:#f87171;font-size:15px;margin-bottom:16px">Could not load a question — please try again.</p><button onclick="closeTOFY()" style="background:transparent;border:1px solid rgba(248,113,113,.3);color:#f87171;border-radius:8px;padding:10px 20px;font-size:13px;cursor:pointer">Close</button></div>';
+  }
+}
+
+function _tofyFmt(s) { const m = Math.floor(s/60); return m+':'+String(s%60).padStart(2,'0'); }
+
+function _tofyShowQuestion() {
+  if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
+  const q = _tofyQuestion;
+  const body = document.getElementById('tofyBody');
+  body.innerHTML = `
+    <div style="margin-bottom:28px">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:10px">${q.module}</div>
+      <div style="color:#fff;font-size:clamp(18px,2.5vw,22px);font-weight:600;line-height:1.45;letter-spacing:-.015em">${q.q}</div>
+    </div>
+    <div style="background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);border-radius:12px;padding:28px 24px;margin-bottom:24px;text-align:center">
+      <div style="color:#fcd34d;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">Speak your answer out loud</div>
+      <div id="tofyTimer" style="font-size:clamp(44px,9vw,72px);font-weight:700;color:#fff;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1">1:15</div>
+      <div style="color:rgba(255,255,255,.35);font-size:12px;margin-top:10px">Nothing is recorded &nbsp;&middot;&nbsp; 75 seconds</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button onclick="_tofyStartRecap()" style="flex:1;min-width:160px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:15px;font-weight:600;cursor:pointer">Done &mdash; type my recap &rarr;</button>
+      <button onclick="openThinkOnYourFeet(_tofyCoach,_tofyContentSource)" style="background:transparent;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.5);border-radius:10px;padding:14px 18px;font-size:14px;cursor:pointer">Skip</button>
+    </div>`;
+  let secsLeft = 75;
+  const tick = () => {
+    secsLeft--;
+    const el = document.getElementById('tofyTimer');
+    if (!el) { clearInterval(_tofyTimer); _tofyTimer = null; return; }
+    el.textContent = _tofyFmt(secsLeft);
+    if (secsLeft <= 10) el.style.color = '#f87171';
+    if (secsLeft <= 0) { clearInterval(_tofyTimer); _tofyTimer = null; _tofyStartRecap(); }
+  };
+  _tofyTimer = setInterval(tick, 1000);
+}
+
+function _tofyStartRecap() {
+  if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
+  const q = _tofyQuestion;
+  const body = document.getElementById('tofyBody');
+  body.innerHTML = `
+    <div style="margin-bottom:20px">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:6px">${q.module}</div>
+      <div style="color:rgba(255,255,255,.65);font-size:15px;font-weight:500;line-height:1.5">${q.q}</div>
+    </div>
+    <div style="margin-bottom:18px">
+      <label style="display:block;color:rgba(255,255,255,.8);font-size:14px;font-weight:600;margin-bottom:10px">Type the key points you just covered &mdash; in the order you said them:</label>
+      <textarea id="tofyRecap" placeholder="Write your key points here. Bullet points are fine." style="width:100%;min-height:140px;background:#1a1e30;border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#f0f4ff;font-size:14px;line-height:1.65;padding:14px;resize:vertical;font-family:inherit;box-sizing:border-box;outline:none"></textarea>
+      <div style="color:rgba(255,255,255,.3);font-size:12px;margin-top:6px">Michael evaluates the content, not the prose.</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button id="tofySubmitBtn" onclick="_tofySubmitRecap()" style="flex:1;min-width:160px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:15px;font-weight:600;cursor:default;opacity:.45;transition:opacity .15s">Get Michael&rsquo;s verdict &rarr;</button>
+      <button onclick="_tofyShowQuestion()" style="background:transparent;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.5);border-radius:10px;padding:14px 18px;font-size:14px;cursor:pointer">Try again</button>
+    </div>`;
+  const ta = document.getElementById('tofyRecap');
+  const btn = document.getElementById('tofySubmitBtn');
+  ta.addEventListener('input', () => {
+    const ok = ta.value.trim().length >= 10;
+    btn.style.opacity = ok ? '1' : '.45';
+    btn.style.cursor = ok ? 'pointer' : 'default';
+  });
+  ta.focus();
+}
+
+async function _tofySubmitRecap() {
+  const ta = document.getElementById('tofyRecap');
+  const recap = ta?.value?.trim();
+  if (!recap || recap.length < 10) return;
+  const q = _tofyQuestion;
+  const body = document.getElementById('tofyBody');
+  body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.55);font-size:15px;margin-bottom:6px">Michael is reviewing your response...</p><p style="color:rgba(255,255,255,.25);font-size:13px">Usually a few seconds</p></div>';
+  try {
+    const res = await fetch('/.netlify/functions/ai-tutor', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        messages: [{ role:'user', content:'Question: '+q.q+'\n\nKey points to cover: '+(q.keyPoints||[]).join('; ')+'\n\nMy recap: '+recap }],
+        source: 'articulation-verdict', persona: _tofyCoach,
+        pathway: localStorage.getItem('gca_pathway'), modTitle: q.module,
+        scoring: true, max_tokens: 1200
+      })
+    });
+    const data = await res.json();
+    const raw = (data.content?.[0]?.text || '').replace(/```json\n?/gi,'').replace(/```\n?/gi,'').trim();
+    let verdict;
+    try { verdict = JSON.parse(raw); } catch(e) { throw new Error('parse failed'); }
+    _tofyShowVerdict(verdict);
+  } catch(e) {
+    body.innerHTML = '<div style="text-align:center;padding:60px 20px"><p style="color:#f87171;font-size:15px;margin-bottom:16px">Could not connect &mdash; please try again.</p><button onclick="_tofyStartRecap()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:14px;cursor:pointer;margin-right:10px">Retry</button><button onclick="closeTOFY()" style="background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);border-radius:8px;padding:12px 20px;font-size:14px;cursor:pointer">Close</button></div>';
+  }
+}
+
+function _tofyShowVerdict(v) {
+  const q = _tofyQuestion;
+  const body = document.getElementById('tofyBody');
+  const lvl = v.level_reached || 1;
+  const lc = {1:'#fca5a5',2:'#93c5fd',3:'#6ee7b7'}[lvl]||'#93c5fd';
+  const lb = {1:'rgba(248,113,113,.08)',2:'rgba(96,165,250,.08)',3:'rgba(110,231,183,.08)'}[lvl]||'rgba(96,165,250,.08)';
+  const lbr = {1:'rgba(248,113,113,.2)',2:'rgba(96,165,250,.2)',3:'rgba(110,231,183,.2)'}[lvl]||'rgba(96,165,250,.2)';
+  body.innerHTML = `
+    <div style="margin-bottom:24px">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:6px">${q.module}</div>
+      <div style="color:rgba(255,255,255,.55);font-size:14px;line-height:1.5">${q.q}</div>
+    </div>
+    <div style="background:${lb};border:1px solid ${lbr};border-radius:10px;padding:16px 20px;margin-bottom:18px;display:flex;align-items:center;gap:14px">
+      <div style="font-size:28px;font-weight:700;color:${lc};line-height:1">${lvl}</div>
+      <div><div style="color:${lc};font-weight:600;font-size:14px">${v.level_label||'Level '+lvl}</div><div style="color:rgba(255,255,255,.35);font-size:12px;margin-top:2px">Competency level reached</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:22px">
+      <div style="background:#1a1e30;border-radius:10px;padding:15px 18px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:6px">Technical accuracy</div><div style="color:#f0f4ff;font-size:14px;line-height:1.65">${v.technical_accuracy}</div></div>
+      <div style="background:#1a1e30;border-radius:10px;padding:15px 18px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:6px">Structure</div><div style="color:#f0f4ff;font-size:14px;line-height:1.65">${v.structure}</div></div>
+      <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:10px;padding:15px 18px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(245,158,11,.7);margin-bottom:6px">Priority improvement</div><div style="color:#fcd34d;font-size:14px;line-height:1.65">${v.priority_improvement}</div></div>
+      <div style="background:#1a1e30;border-radius:10px;padding:15px 18px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:6px">A stronger opening</div><div style="color:#f0f4ff;font-size:14px;line-height:1.65;font-style:italic">&ldquo;${v.better_structure}&rdquo;</div></div>
+      <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.12);border-radius:10px;padding:15px 18px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(248,113,113,.7);margin-bottom:6px">Likely assessor follow-up</div><div style="color:#fca5a5;font-size:14px;line-height:1.65">&ldquo;${v.follow_up_question}&rdquo;</div></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px">
+      <button onclick="openThinkOnYourFeet(_tofyCoach,_tofyContentSource)" style="flex:1;min-width:160px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:15px;font-weight:600;cursor:pointer">Try another question &rarr;</button>
+      <button onclick="_tofyRevealAnswer()" id="tofyRevealBtn" style="background:transparent;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.55);border-radius:10px;padding:14px 18px;font-size:14px;cursor:pointer">Reveal model answer</button>
+    </div>
+    <div id="tofyModelAnswer" style="display:none"></div>`;
+}
+
+function _tofyRevealAnswer() {
+  const q = _tofyQuestion;
+  const el = document.getElementById('tofyModelAnswer');
+  const btn = document.getElementById('tofyRevealBtn');
+  if (!el || !q) return;
+  if (btn) btn.style.display = 'none';
+  el.style.display = 'block';
+  el.innerHTML = `<div style="border-top:1px solid rgba(255,255,255,.07);padding-top:22px">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:14px">Model answers</div>
+    <div style="background:#1a1e30;border-radius:10px;padding:15px 18px;margin-bottom:12px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#93c5fd;margin-bottom:8px">Pass &mdash; Level 2</div><div style="color:#f0f4ff;font-size:14px;line-height:1.7">${q.pass}</div></div>
+    <div style="background:#1a1e30;border-radius:10px;padding:15px 18px;margin-bottom:12px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6ee7b7;margin-bottom:8px">High &mdash; Level 3</div><div style="color:#f0f4ff;font-size:14px;line-height:1.7">${q.high}</div></div>
+    ${q.keyPoints&&q.keyPoints.length?`<div style="background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.12);border-radius:10px;padding:15px 18px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(96,165,250,.7);margin-bottom:8px">Key points</div><ul style="color:#f0f4ff;font-size:14px;line-height:1.85;margin:0;padding-left:20px">${q.keyPoints.map(p=>'<li>'+p+'</li>').join('')}</ul></div>`:''}
+  </div>`;
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+}
 
 </script>
 
@@ -8854,6 +9032,16 @@ function rpAddManualRow() {
     </div>
 
   </div>
+</div>
+
+<!-- THINK ON YOUR FEET OVERLAY -->
+<div id="tofyOverlay">
+  <div class="tofy-header">
+    <span class="tofy-title">Think on Your Feet</span>
+    <span class="tofy-coach-tag">3-min practice &middot; Michael</span>
+    <button class="tofy-close" onclick="closeTOFY()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="tofy-body" id="tofyBody"></div>
 </div>
 </body>
 

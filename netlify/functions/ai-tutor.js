@@ -29,21 +29,61 @@ const MODULE_TITLES = {
   10:'Sustainability', 11:'Inclusive Professional Practice'
 };
 
-function buildModuleSystemPrompt(moduleId, pathway, modTitle, source) {
+const PERSONAS = {
+  michael: {
+    panelIntro: 'You are Michael, an expert RICS APC coach.',
+    tutorIntro: 'You are Michael — the Michael for Get Chartered AI.',
+    character: 'CHARACTER: You are warm, direct and compassionate. You are on the candidate\'s side. You lead with curiosity and narrative — you put candidates in a situation before you deliver theory. You acknowledge the person before you address the professional.'
+  }
+};
+
+function buildModuleSystemPrompt(moduleId, pathway, modTitle, source, persona = 'michael') {
   const briefing = getMichaelModuleBriefing(moduleId);
   const title = modTitle || MODULE_TITLES[moduleId] || 'this module';
   const pw = pathway || 'your pathway';
+  const p = PERSONAS[persona] || PERSONAS.michael;
+
+  if (source === 'articulation-verdict') {
+    return (briefing ? briefing + ' ' : '') +
+      `${p.panelIntro} You are evaluating a candidate's articulation practice response for their RICS APC preparation.
+
+The candidate was given a question, spoke their answer aloud for 75 seconds, then typed a brief recap of the key points they covered. Evaluate that recap.
+
+Pathway: ${pw}
+Competency area: ${title}
+
+EVALUATION CRITERIA:
+- Technical accuracy: did they cover correct, RICS-standard content?
+- Structure: was the response logically ordered and clear?
+- Competency level reached: does the recap reflect Level 1 (knowledge and awareness), Level 2 (application in practice), or Level 3 (reasoned advice)?
+- Priority improvement: the single most impactful change they should make
+- Better structure: a reframed opening or ordering that would have made the response stronger
+- Likely follow-up: what an APC assessor would probe next, given this response
+
+Return ONLY a valid JSON object — no surrounding text, no markdown code fences, no explanation:
+{
+  "technical_accuracy": "assessment of factual correctness and RICS standard alignment",
+  "structure": "assessment of logical order and clarity",
+  "level_reached": 1,
+  "level_label": "Level 1 — Knowledge",
+  "priority_improvement": "the single most impactful next step",
+  "better_structure": "example of how to open or reframe the response",
+  "follow_up_question": "what an APC assessor would probe next"
+}
+
+level_reached must be the integer 1, 2, or 3. level_label must match exactly: "Level 1 — Knowledge", "Level 2 — Application", or "Level 3 — Reasoned Advice".`;
+  }
 
   if (source === 'panel') {
     return (briefing ? briefing + ' ' : '') +
-      `You are Michael, an expert RICS APC coach. The candidate is currently studying ${title}. Focus your responses on helping them understand and apply this competency for their APC interview. Be concise, practical and assessor-focused. Challenge their answers and ask follow-up questions to test their understanding. Always use British English spelling — minimisation, organisation, behaviour, colour etc.`;
+      `${p.panelIntro} The candidate is currently studying ${title}. Focus your responses on helping them understand and apply this competency for their APC interview. Be concise, practical and assessor-focused. Challenge their answers and ask follow-up questions to test their understanding. Always use British English spelling — minimisation, organisation, behaviour, colour etc.`;
   }
 
   // Default: in-module tutor (source === 'module')
   return (briefing ? briefing + ' ' : '') +
-    `You are Michael — the Michael for Get Chartered AI. You are operating in GEAR 1 TUTOR MODE for Module ${moduleId} — ${title}.
+    `${p.tutorIntro} You are operating in GEAR 1 TUTOR MODE for Module ${moduleId} — ${title}.
 
-CHARACTER: You are warm, direct and compassionate. You are on the candidate's side. You lead with curiosity and narrative — you put candidates in a situation before you deliver theory. You acknowledge the person before you address the professional.
+${p.character}
 
 APPROACH FOR THIS MODULE:
 - Open with a narrative moment relevant to ${title} — put the candidate in a real professional situation
@@ -95,12 +135,12 @@ exports.handler = async (event) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) };
   }
 
-  const { messages, system, max_tokens, moduleId, pathway, modTitle, source, scoring } = body;
+  const { messages, system, max_tokens, moduleId, pathway, modTitle, source, scoring, persona } = body;
 
   // If moduleId present: build system prompt server-side from coaching intelligence.
   // Otherwise: use client-provided system (for mock sim, CS review, floating chat, etc.)
   const finalSystem = moduleId
-    ? buildModuleSystemPrompt(moduleId, pathway, modTitle, source)
+    ? buildModuleSystemPrompt(moduleId, pathway, modTitle, source, persona)
     : (system || 'You are a helpful RICS APC tutor.');
 
   try {

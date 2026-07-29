@@ -1,6 +1,51 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 29 July 2026 (Think on Your Feet: 3-min articulation practice feature, live across all four plan types)*
+*Last updated: 29 July 2026 (Logo rollout + platform.html programme gap fixes, live)*
+
+---
+
+## 29 July 2026 — Logo rollout (all 33 pages) + platform.html Sprint/Year Two additions (4a8717f → 9c3f01a)
+
+### Logo rollout — all 33 pages
+
+**Problem:** `logo.png` had a 1600×400 canvas with visible content occupying only 364×84px (22.8%). At 30px height the mark rendered at ~6px — effectively a tiny dot. New file `logo1.png` (1986×373, white wordmark, minimal 24px padding each side, white text on transparent background) was introduced. All 33 pages updated to 44px height, redundant `nav-logo-stack` text spans removed (the wordmark is now inside the image itself).
+
+**Two-logo strategy** (white nav pages can't use white-text logo1.png):
+
+| Variant | File | Used on | Background |
+|---|---|---|---|
+| White wordmark | `logo1.png` | 24 dark-nav pages | `background:#0D0F1C` / `rgba(11,12,28,.97)` |
+| Dark navy wordmark + blue icon | `logo.png` | 9 light-nav/body pages | `nav{background:#fff}` or `body{background:#EFF6FF}` |
+
+**24 dark-background pages (logo1.png) — commit 4a8717f:**
+index.html, index-staging.html, pricing.html, platform.html, employer-guide.html, year-one-review.html, programme.html, apprentice-guide.html, assocrics-guide.html, competency-checker.html, confidence-checklist.html, counsellor-guide.html, free-guide.html, grad-guide-1.html, grad-guide-2.html, grad-guide-bs.html, grad-guide-qs.html, grad-guide.html, guides.html, hot-topics.html, privacy.html, referred-guide.html, referred-programme.html, sprint.html, terms.html
+
+**9 light-background pages (logo.png) — commit 956ee39:**
+employer.html, which-programme.html, why-candidates-are-referred.html (white nav `#fff`); apc-guide.html, apprentice-guide-info.html, grad-assessment-guide.html, grad-bs-guide.html, grad-interview-guide.html, grad-qs-guide.html (body `background:#EFF6FF`)
+
+**CSS pattern applied everywhere:**
+```css
+.nav-logo img { height: 44px }
+.footer-logo img { height: 44px; margin-bottom: 12px; display: block }
+```
+
+### platform.html — Sprint and Year Two Readiness Review sections added (9c3f01a)
+
+Both programmes were entirely absent from `/platform` ("Inside the Platform"). Two new sections inserted between the Referred Candidate section and the Michael section:
+
+**Sprint section:** amber-accented eyebrow, six numbered stage cards (dark subtle background matching page card style), closing note on non-linear access, CTA → `/sprint` (£297 one-off).
+
+Stage cards:
+1. Understand the Assessment
+2. Build Chartered-Level Answers
+3. Check Your Readiness
+4. Strengthen Your Technical Knowledge
+5. Revise Under Pressure
+6. Prove You're Ready — Final Review
+
+**Year Two Readiness Review section:** blue-accented eyebrow, two body paragraphs (problem framing + six-month referral delay stat), five ✓ bullet items covering all deliverables, CTA → `/year-one-review` (£127 one-off).
+
+No existing sections were touched. Confirmed: 54 insertions, 0 deletions relative to prior file.
 
 ---
 

@@ -137,9 +137,9 @@ exports.handler = async (event) => {
 
   const { messages, system, max_tokens, moduleId, pathway, modTitle, source, scoring, persona } = body;
 
-  // If moduleId present: build system prompt server-side from coaching intelligence.
+  // If moduleId present, or articulation-verdict source: build system prompt server-side.
   // Otherwise: use client-provided system (for mock sim, CS review, floating chat, etc.)
-  const finalSystem = moduleId
+  const finalSystem = (moduleId || source === 'articulation-verdict')
     ? buildModuleSystemPrompt(moduleId, pathway, modTitle, source, persona)
     : (system || 'You are a helpful RICS APC tutor.');
 

@@ -3216,6 +3216,14 @@ async function renderDashboard() {
     </div>`;
   }
 
+  actionsHTML += `<a class="ds-btn" onclick="openThinkOnYourFeet()">
+    <span class="ds-btn-icon">⚡</span>
+    <div class="ds-btn-text">
+      <span class="ds-btn-label">Think on Your Feet</span>
+      <span class="ds-btn-val">3-min daily practice</span>
+    </div>
+  </a>`;
+
   actionsEl.innerHTML = actionsHTML;
 
   // ── REFERRED PLAN — DASHBOARD B EXPERIENCE ──────────────────────────────────
@@ -3294,6 +3302,10 @@ async function renderDashboard() {
           <div class="db-card" onclick="openMockInterviewDirect()">
             <div class="db-card-eyebrow">Assessor Mode</div>
             <div class="db-card-title">Mock Interview</div>
+          </div>
+          <div class="db-card" onclick="openThinkOnYourFeet()">
+            <div class="db-card-eyebrow">3-min daily practice</div>
+            <div class="db-card-title">Think on Your Feet</div>
           </div>
         </div>
       </div>`;

@@ -1,6 +1,54 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 25 July 2026 (Site-wide copy audit: module counts, employer.html pricing error, Sprint token expiry alignment, day-count removal from pricing contexts)*
+*Last updated: 29 July 2026 (Think on Your Feet: 3-min articulation practice feature, live across all four plan types)*
+
+---
+
+## 28–29 July 2026 — Think on Your Feet (bc8521b → ca280ab, merged to main)
+
+### What it is
+
+A 3-minute daily articulation practice mechanic. A question appears from the candidate's own pathway question bank without warning → 75-second fixed countdown timer → candidate speaks aloud (nothing recorded) → candidate types a recap of key points → Michael evaluates the recap and returns a structured 6-field JSON verdict → candidate can retry or reveal model answers.
+
+Entry points added to all four plan dashboards:
+
+| Plan | UI element | Position |
+|------|------------|----------|
+| Annual | `ds-btn` (quick-action row) | After Mock Interview |
+| Monthly | `ds-btn` (quick-action row) | After Mock Interview (always unlocked — not gated like Mock Interview) |
+| Sprint | `ds-btn` (quick-action row) | After Mock Interview — standalone tool, NOT a 7th S-stage (Sprint stages represent sequential module sections, TOFY is a standalone practice mechanic) |
+| Referred | `db-card` in right column | Third card stacked below Mock Interview, matching existing `db-card` visual language |
+
+Click handler: `openThinkOnYourFeet()` on all four — no arguments, defaults to `michael`/`pathway` from internal state.
+
+### Architecture decisions
+
+**Coach-agnostic from day one.** Michael's three identity strings extracted into a `PERSONAS` object in `ai-tutor.js`. All existing callers unaffected (default `persona='michael'`). Future coach = add entry to PERSONAS + new content source. `openThinkOnYourFeet(coachPersona, contentSource)` takes both as explicit parameters.
+
+**Question bank reuse.** Extended the existing `get-questions.js` endpoint with a `random: true` parameter — returns one random question for the caller's pathway. 4 lines of new code, no new infrastructure, no new endpoint. All auth checks (JWT verify, revoked emails, pathway validation) run identically to the full question bank path.
+
+**Structured JSON verdict.** New `source: 'articulation-verdict'` value in `buildModuleSystemPrompt()` returns a strict JSON-only prompt instructing Michael to respond with exactly 6 fields: `technical_accuracy`, `structure`, `level_reached` (integer 1/2/3), `level_label`, `priority_improvement`, `better_structure`, `follow_up_question`. No markdown, no prose, no fences. Client-side `JSON.parse()` validates this and renders into distinct verdict panels.
+
+### Bugs found and fixed during build
+
+**Bug 1 — `finalSystem` routing (ee37fae):** `buildModuleSystemPrompt()` was gated on `moduleId` being present. TOFY verdict calls have no `moduleId` (pathway questions have a `module` string, not a numeric module ID) — so the `articulation-verdict` branch never executed; Michael received the generic `'You are a helpful RICS APC tutor.'` fallback and responded in free-flowing prose with markdown headings. `JSON.parse()` then failed and the client showed "Could not connect."
+
+Fix: one-line change to the routing condition:
+```javascript
+// Before
+const finalSystem = moduleId
+// After
+const finalSystem = (moduleId || source === 'articulation-verdict')
+```
+This routes articulation-verdict calls through `buildModuleSystemPrompt()` even without `moduleId`. Inside the function, `getMichaelModuleBriefing(undefined)` returns the full default RICS briefing; `modTitle` (the competency area from the question data) fills in for `title`; the `articulation-verdict` branch at `if (source === 'articulation-verdict')` executes correctly.
+
+**Bug 2 — `ANTHROPIC_API_KEY` not reaching branch deploy:** Diagnosed over two sessions. The key was not set in Netlify at all for the branch — it was later confirmed as a team-level variable on a different account scope. Resolution: key added explicitly to the site's environment variables with all three deploy contexts (Production, Deploy Previews, Branch deploys). Empty commit `9073252` triggered a fresh deploy to confirm. The "AI service not configured" 500 error disappeared once the key was correctly scoped.
+
+### Files changed
+
+- `netlify/functions/ai-tutor.js` — `PERSONAS` object; `buildModuleSystemPrompt()` signature updated with `persona` param and `articulation-verdict` branch; `finalSystem` routing condition fixed
+- `netlify/functions/get-questions.js` — `random: true` param support
+- `public/index.html` — overlay CSS + HTML; `openThinkOnYourFeet()`, `_tofyLoad()`, `_tofyShowQuestion()`, `_tofyStartRecap()`, `_tofySubmitRecap()`, `_tofyShowVerdict()`, `_tofyRevealAnswer()`, `closeTOFY()`; dashboard entry points for all four plans
 
 ---
 

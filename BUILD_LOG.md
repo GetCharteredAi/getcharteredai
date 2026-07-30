@@ -1,6 +1,53 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 29 July 2026 (Logo rollout + platform.html programme gap fixes, live)*
+*Last updated: 30 July 2026 (Referred programme marketing audit — module grid, titles, FAQ, pricing)*
+
+---
+
+## 30 July 2026 — Referred programme marketing page audit and restructure (5863f63 → this commit)
+
+A comprehensive audit found that both `platform.html` and `referred-programme.html` were showing stale, fictional module content that bore no resemblance to the actual in-app CR module structure. Two separate commits fix the full set of issues.
+
+### platform.html — Referred section restructure (5863f63)
+
+**Problem:** The main module grid contained a `referred-divider` and 6 stale CR card placeholders with fictional titles. The standalone Referred section also lacked module cards. Sprint and Year Two CTAs included £ prices.
+
+**Changes:**
+- Removed the 6 stale CR card placeholders (and the `referred-divider`) from the main M01–M12 module grid — that grid now contains exactly Module 01 to Module 12.
+- Added a styled access note callout below the Referred section heading explaining CR modules are only accessible with a Confidence Reset subscription.
+- Added a 9-card CR01–CR09 module grid inside the standalone Referred section using the existing `.mod-grid` CSS class.
+- Stripped £ pricing from Sprint and Year Two CTAs (Sprint: "See the APC Sprint Programme →"; Year Two: "See the Year Two Readiness Review →"). Pricing is on the destination pages; it does not belong on this overview page.
+
+### referred-programme.html — Module grid fix (5863f63)
+
+**Problem:** The marketing page's module grid showed 6 stale cards using fictional "Module 01"–"Module 06" labels and pre-build placeholder titles with no resemblance to actual content.
+
+**Changes:**
+- Replaced all 6 stale cards with 9 accurate CR01–CR09 cards.
+- Module numbers styled `color:#64748b` (consistent with the existing card design system).
+- HTML comment updated to `<!-- NINE MODULES`.
+
+### Title and FAQ consistency pass (this commit)
+
+**Problem:** Marketing page titles for CR01 and CR09 had drifted from the actual in-app MODULES array wording (ground truth). Three FAQ answers still referenced old "Module 2 / Module 4 / Module 6" numbering from the pre-restructure 6-module layout. `which-programme.html` retained `'30-day structured resit countdown'`, contradicting the deliberate decision to strip deadline-pressure framing from Referred copy.
+
+**Changes — both `platform.html` and `referred-programme.html`:**
+
+| Module | Before | After |
+|---|---|---|
+| CR01 | Understand Your Referral | Understanding Your Referral Properly |
+| CR09 | Reflection, Resit Mindset and Practical Next Steps | Reflection, Self-Awareness and Resit Mindset |
+
+Titles now match the in-app MODULES array exactly. The in-app array is canonical — marketing pages follow it, not the other way around.
+
+**Changes — `referred-programme.html` FAQ:**
+- "the Level 2 framework in Module 2 and the mandatory competency reconstruction in Module 4" → "the competency-level framework in CR03 and the competency evidence rebuilding in CR06"
+- "The AI-scored mock interview in Module 6" → "The AI-scored mock interview in CR08"
+
+**Changes — `which-programme.html`:**
+- Feature bullet: `'30-day structured resit countdown'` → `'Structured resit preparation plan'`
+
+**Ground truth confirmed:** CR module titles verified directly against the `MODULES` array in `public/index.html`. CR07 has no static entry — it is dynamically inserted at runtime as `{id:_m11bId, code:'CR07', label:'Your pathway module'}` (the user's own M11B pathway module).
 
 ---
 

@@ -1,6 +1,63 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 30 July 2026 (Referred programme marketing audit — module grid, titles, FAQ, pricing)*
+*Last updated: 30 July 2026 (Landing page audit + employer accuracy fixes, live)*
+
+---
+
+## 30 July 2026 — Landing page audit, employer accuracy fixes, platform restructure (b9e94f6 → 7540416)
+
+A full-session audit pass covering the landing page, platform overview, and employer-facing pages. Multiple instances of stale counts, fabricated product claims, and day-count framing were found and fixed. No new features built — all changes are accuracy corrections or copy restructures.
+
+### False commercial claims removed
+
+Three separate false claims on live pages, removed across this session:
+
+1. **`pricing.html` — "unlimited candidates" (b9e94f6):** The `employer-banner` section (introduced 24 Jun 2026, commit c01bf74) claimed "£497 for 18 months — all programmes, all pathways, unlimited candidates." No such employer/bulk product exists. Entire section removed. Confirmed "unlimited candidates" appeared nowhere else on the site.
+
+2. **`employer-guide.html` — "magic login link" (798ddf7):** Step 03 of the Getting Started sequence claimed "Each candidate receives a magic login link. Full access from day one. No setup from them." No magic link mechanism exists — candidates complete Stripe checkout individually and set their own email/password on `success.html`. Replaced with accurate description.
+
+3. **`employer-guide.html` — "tailored pricing proposal" + "invoice issued" + fabricated testimonial (798ddf7, 002a156):** Step 01 implied custom pricing negotiation ("tailored pricing proposal within one working day"), contradicting the page's own "Standard pricing — no minimums" heading. Step 02 said "invoice issued" — no invoicing system exists; confirmed not offered. A testimonial attributed to "MRICS Counsellor — National surveying practice" was not from a real named person with permission to be cited. All three removed.
+
+### employer-guide.html — additional improvements (fc5f5f1 → bf2fe44)
+
+- Pricing section heading: "Standard pricing — no minimums, no negotiations." → "Standard pricing — no minimums." (removed combative framing)
+- Added fourth pricing card: APC Year Two Readiness Review (£127), with sub-line "one-off · 'Am I on track?' diagnostic with a report to act on afterward"
+- Pricing grid: changed from `repeat(3,1fr)` at `max-width:920px` to `repeat(4,1fr)` at `max-width:1200px` — all four cards in one row at ~288px each
+
+### platform.html — Referred section restructure (5863f63)
+
+- Removed 6 stale CR card placeholders from the main M01–M12 module grid
+- Added a styled access note callout below the Referred section heading
+- Added 9-card CR01–CR09 grid in the standalone Referred section
+- Stripped £ pricing from Sprint and Year Two CTAs
+- CR module cards trimmed to title-only (mod-desc removed from all 9 cards) — 2169321
+- Referred section CTA upgraded from small inline pill to full-width solid red block at 18px/800-weight — 2169321
+
+### referred-programme.html + platform.html — title and FAQ accuracy (0936581)
+
+- CR01 title corrected to "Understanding Your Referral Properly" (was "Understand Your Referral") on both pages
+- CR09 title corrected to "Reflection, Self-Awareness and Resit Mindset" (was "Reflection, Resit Mindset and Practical Next Steps") on both pages
+- Two FAQ answers on referred-programme.html updated: Module 2→CR03, Module 4→CR06, Module 6→CR08
+- which-programme.html: '30-day structured resit countdown' → 'Structured resit preparation plan'
+
+Titles now match the in-app MODULES array exactly (canonical source of truth). CR07 has no static MODULES entry — dynamically inserted at runtime.
+
+### index.html — landing page audit (189f4a8 → 7540416)
+
+**`whats-included-sec` — two-box grid replaced with four title-only boxes (189f4a8):**
+The "Been referred?" / "Moving into Year Two?" boxes (with full paragraphs including a stale "six specialist modules" count) were replaced with four compact title-only boxes in a `repeat(4,1fr)` grid: APC Full 12 Module Programme / Sprint Programme / Referred Recovery / Year Two Readiness Review. No body text, no links — orange `#f59e0b` titles only.
+
+**`programme-finder-sec` — five stale facts corrected (189f4a8):**
+The "Choose your programme / Find the right path for your APC" section (four clickable cards with expandable detail panels) was confirmed as a genuinely separate section from the boxes above. Structure kept as-is; five specific corrections applied:
+- Sprint sub-heading: "Intensive 42-day focus..." → "Intensive, self-paced focus..."
+- Sprint bullet: "42-day focused programme" → "Focused, self-paced programme"
+- Referred sub-heading: "Targeted 90-day recovery..." → "Targeted recovery..."
+- Referred bullet: "6 targeted modules" → "9 targeted modules" (real count correction)
+- Referred bullet: "90-day programme" → "Structured recovery programme"
+- Year Two bullet: "One-off assessment · £127" → "One-off diagnostic assessment" (price removed)
+
+**"When you enrol" paragraph rewrite (7540416):**
+The fragmented sentence-list paragraph ("When you enrol on Get Chartered AI you get immediate access to...") was replaced with three full sentences covering: (1) the complete programme scope for all candidates, (2) the Referred Recovery programme with nine specialist modules, (3) the Year Two Readiness Review. The stale "six specialist modules" reference in the old paragraph is gone. Word-reveal animation class and styles preserved.
 
 ---
 

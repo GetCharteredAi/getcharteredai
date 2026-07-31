@@ -2475,8 +2475,10 @@ function getLastInProgressModule(plan, activatedAt) {
     const found = unlocked.find(m => m.id === lastId && !isComplete(m.id));
     if (found) return found;
   }
-  // Fall back to first in-progress (unlocked but not complete)
-  const inProgress = unlocked.filter(m => !isComplete(m.id));
+  // Fall back to first in-progress (unlocked but not complete).
+  // Referred plan: exclude Module 12 — it's unlocked for mock access but CR01 is the
+  // correct starting point; the caller's firstRef handles that fallback.
+  const inProgress = unlocked.filter(m => !isComplete(m.id) && !(plan === 'referred' && m.id === 12));
   return inProgress[0] || null;
 }
 

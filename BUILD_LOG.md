@@ -1,6 +1,23 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 1 August 2026 (landing page declutter pass — About section trim, Getting Started consolidation, Sprint/quiz fixes)*
+*Last updated: 1 August 2026 (landing page declutter pass complete — Meet Michael rewrite, About section trim, Getting Started consolidation, Sprint/quiz fixes)*
+
+---
+
+## 1 August 2026 — Meet Michael rewrite (2ba297a)
+
+Final piece of the landing page declutter pass. The previous Michael section led with a generic process statement ("Most APC candidates revise content but never practise performing under pressure…") followed by three bullet points and a broken link.
+
+**Copy replaced with three paragraphs centred on the knowing-vs-defending insight:**
+1. "Knowing your competencies isn't the same as being able to defend them under pressure. Michael is where you find the gap — before an assessor does."
+2. "Ask him to explain something you're unsure of. Then switch him into Assessor Mode and let him challenge you the way a real panel would: pushing back, asking follow-ups, testing whether your answer actually holds up."
+3. "Every pathway. Every module. From your very first day."
+
+**Removed:**
+- Three `michael-check-item` bullet points ("Tutor Mode for structured learning" / "Assessor Mode for realistic challenge" / "Available 24/7 across every pathway") — all accurate but generic; the paragraphs now convey the same substance with more force
+- "Watch 90-second introduction →" link — pointed to `/pricing` with no video behind it
+
+Eyebrow ("Your AI APC Coach"), heading ("Meet Michael"), HeyGen video iframe, grid layout and section wrapper all unchanged.
 
 ---
 

@@ -1,6 +1,38 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 1 August 2026 (programme-finder-sec card bullets, Referred Continue card fix, terms.html legal corrections)*
+*Last updated: 1 August 2026 (landing page declutter pass — About section trim, Getting Started consolidation, Sprint/quiz fixes)*
+
+---
+
+## 1 August 2026 — Landing page declutter pass (741c15a → 3efaf5e)
+
+A holistic audit of the full landing page in section order revealed significant repetition and three real errors (stale copy, a dead UI element, orphaned JavaScript). Four commits in this pass.
+
+### "How It Works" + "Getting Started" consolidation (741c15a)
+
+Two sections were doing the same job: a 4-step `how-it-works-sec` and a 4-step `contact-sec` ("Getting Started"). The `how-it-works-sec` was already hidden (`display:none!important` in the 768px media query) but still present in the DOM. Removed it entirely and consolidated into a single revised `contact-sec`, updated to reflect the platform's actual preparation flow rather than a generic onboarding sequence.
+
+Changes:
+- Removed entire `<section id="how-it-works-sec">` (37 lines)
+- Removed orphaned `#how-it-works-sec{display:none!important}` CSS rule from 768px media query
+- Updated `contact-sec` heading: "From enrolment to first module in under five minutes." → "Enrol in minutes. Prepare at your pace. Walk in ready."
+- Steps 03 and 04 rewritten to focus on preparation depth rather than setup mechanics
+
+### "About the Platform" trim + Sprint/quiz fixes (3efaf5e)
+
+Full section-by-section text audit identified three errors and one structural redundancy in About the Platform:
+
+**Error 1 — Stale "six specialist modules" in About opening paragraph**
+The first `about-long` paragraph read: "Get Chartered AI is a structured APC preparation platform... Twelve modules covering every mandatory competency. Sprint-specific coaching for candidates preparing under pressure. Six specialist modules for referred candidates. All 22 RICS pathways supported from day one." The referred programme has nine modules (CR01–CR09), not six. The entire sentence list was also redundant — all these facts appear in dedicated sections lower on the page. Fix: retained the single opening sentence ("built by Chartered Surveyors…"), removed the rest.
+
+**Error 2 — "42 days" in Sprint expanded panel**
+The `prog-sprint` detail panel body still read "Focused, intense preparation over 42 days with real assessor-style questioning." All other Sprint day-count references had been removed from the site in an earlier session pass; this one was missed. Fixed to match: "Focused, intense preparation with real assessor-style questioning."
+
+**Error 3 — Dead "Take the 2-minute quiz" link and orphaned JS**
+A link at the bottom of the `programme-finder-sec` grid labelled "Take the 2-minute quiz →" linked to `#pathways-sec` but triggered no quiz behaviour. The associated JavaScript block (`pfResults`, `pfSelectQ1`, `pfShowResult`, `pfBack`, `pfReset`, `data-pf-action` event listener — 59 lines) referenced HTML element IDs (`pf-q1`, `pf-q2`, `pf-result`, `pf-dot1`, `pf-dot2`) that do not exist anywhere in the file. The quiz was never built; only the JS scaffolding and the link label remained. Both removed entirely. A proper eligibility quiz is a parked future project and will be built from scratch when commissioned.
+
+**Structural fix — "Get Chartered AI Difference" info-card removed**
+The right-hand `info-card` in `About the Platform` ("Structure. Confidence. Results." + 8 bullets) duplicated content already covered in the `why-sec` section eight cards below it. Removed entirely. `<div class="about-grid">` changed to `<div>` so the remaining About content flows full-width rather than sitting at ~60% in the first grid column. The two checklist bullets above the italic quote ("Assessor-led pathway-specific question bank" / "PREP Builder") were also removed as redundant; the italic quote ("Warm when you are learning…") is retained as the section's closing line.
 
 ---
 

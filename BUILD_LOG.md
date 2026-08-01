@@ -1,6 +1,58 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 30 July 2026 (Landing page audit + employer accuracy fixes, live)*
+*Last updated: 1 August 2026 (programme-finder-sec card bullets, Referred Continue card fix, terms.html legal corrections)*
+
+---
+
+## 1 August 2026 — programme-finder-sec bullets, Referred dashboard fix, terms.html legal corrections (431e8d1 → 8164893)
+
+Three separate changes pushed to main in this session. First two are copy/UX; the third is a significant legal/compliance correction.
+
+### programme-finder-sec — card bullets replaced with programme-specific facts (431e8d1)
+
+The second bullet on all four `programme-finder-sec` cards on `index.html` previously read "5,000+ practice questions and answers" — a generic claim repeated identically across all four cards, providing no differentiation. Replaced with facts specific to each programme:
+
+| Card | Old bullet | New bullet |
+|---|---|---|
+| APC Year Two Readiness Review | "One-off diagnostic assessment" (restated the format already implied by the card) | "5 assessment areas covered" |
+| APC Full 12 Module Programme | "5,000+ practice questions and answers" | "18 months access" |
+| Sprint Programme | "5,000+ practice questions and answers" | "Non-sequential — start anywhere" |
+| Referred Candidate Recovery | "5,000+ practice questions and answers" | "Includes your pathway module" |
+
+Each replacement was verified against known-accurate product facts before applying.
+
+### Referred dashboard — Continue card showing wrong module for fresh candidates (b634685)
+
+**Root cause:** `getLastInProgressModule()` filtered `MODULES` to all unlocked entries, then returned `inProgress[0]`. For `plan === 'referred'`, `isModuleUnlocked()` returns `true` for both `modId === 12` (Module 12 — unlocked so Referred candidates can access the mock interview) and `modId >= 13 && modId <= 36` (CR modules). Since MODULES is ordered by id, Module 12 (id=12) precedes CR01 (id=13) in the array, so `inProgress[0]` returned Module 12 for any Referred candidate who had not yet set `gca_last_module` in localStorage.
+
+**Effect:** Fresh Referred candidates saw "12: Revision, Mock Tests & APC Simulation" as their Continue card — the standard revision module for Annual/Monthly/Sprint candidates, not CR01.
+
+**Fix:** `inProgress` filter now excludes `m.id === 12` when `plan === 'referred'`. The existing `firstRef` lookup in the caller already correctly points to CR01 (id=13). Three cases confirmed unaffected:
+- Returning Referred candidate with `gca_last_module` set → resolves via `lastId` path before `inProgress` is evaluated ✓
+- Referred candidate who explicitly visited Module 12 (`gca_last_module === 12`) → still resolves via `lastId` path ✓
+- Annual/Monthly/Sprint → `plan !== 'referred'` guard never fires ✓
+
+Bug only affected first dashboard load for Referred candidates before any module was opened. Real-browser verification on the live site delegated to Ange.
+
+### terms.html — legal corrections (8164893)
+
+**Background:** A factual audit of the checkout flow against the terms document found that Section 5.1 was asserting a consent/waiver mechanic that does not exist in the code. The checkout flow on every product page is: button click → `fetch('/.netlify/functions/create-checkout')` → `window.location.href = data.url` — a direct redirect to Stripe with no interstitial, no checkbox, no acknowledgment step. This is the same category of problem as the "magic login link" found earlier: a document asserting a process that isn't technically implemented.
+
+**Section 5.1 — removed false cancellation-waiver claim:**
+- Old: "No refund policy — digital product with immediate access... By completing a purchase you acknowledge that... the right to cancel under the Consumer Contracts Regulations 2013 does not apply because digital content delivery begins immediately with your agreement."
+- New: Accurate statement of the statutory 14-day cancellation right under the Consumer Contracts (Information, Cancellation and Additional Charges) Regulations 2013. Explicit statement that statutory rights for faulty/misdescribed digital content are unaffected.
+- The previous wording was asserting that a waiver had been obtained (via a consent step) that never actually occurs in the checkout flow.
+
+**Section 5.3 — access period clause updated:**
+- Old: "APC Sprint is a one-off payment for 49 days access. No refunds are issued once access has been granted. If you do not pass your APC assessment, your Sprint payment of £297 will be credited in full against the Full Year Access programme..."
+- New: General clause covering all one-off programmes (Annual, Sprint, Referred, Year Two, Case Study add-on), pointing to access periods stated on the relevant product page.
+- The Sprint-to-Annual credit policy (£297 credited, pay £200 difference) was verified to be clearly and accurately stated in two places on `sprint.html` — a promo bar and a dedicated FAQ answer ("What if I don't pass my APC?") — before being removed from the formal terms. It remains customer-facing and accurate.
+- The old clause also referenced "49 days access" for Sprint; the 42-day / 49-day day-count framing had already been removed from Sprint's product page copy earlier this session to avoid implying a hard deadline.
+
+**Section 8.3 — liability cap tightened:**
+- Old: "shall not exceed the amount you have paid us in the 12 months preceding the claim" — a rolling 12-month payment window unrelated to the specific product purchased.
+- New: Capped to the amount paid for the specific product or service giving rise to the claim, with a 12-month claim window running from original purchase date (not a trailing payment window).
+- Confirmed no cross-contamination with the Annual plan's 18-month access period — both numbers appear in the document and refer to different things (liability claim window vs. product access duration).
 
 ---
 

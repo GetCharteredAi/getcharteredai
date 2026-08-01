@@ -1,6 +1,35 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 1 August 2026 (landing page declutter pass complete — Meet Michael rewrite, About section trim, Getting Started consolidation, Sprint/quiz fixes)*
+*Last updated: 1 August 2026 (nav logo alignment fix; "When you enrol" paragraph restructure with highlights)*
+
+---
+
+## 1 August 2026 — Nav logo alignment + "When you enrol" restructure (a59369c, eb9f064)
+
+### Nav logo alignment with hero content (a59369c)
+
+The nav logo sat at a fixed 40px from the viewport left edge regardless of viewport width. The hero content block is `max-width:1100px` centred within a section with 24px gutters — at 1440px its left edge falls at ~170px, leaving a 130px visual disconnect between the logo and the content below it.
+
+**Fix:**
+- `nav` padding changed from `0 40px` to `0 24px` (matching the hero's horizontal gutter)
+- Nav children (logo, nav-right div, hamburger button) wrapped in `<div style="max-width:1100px;margin:0 auto;width:100%;display:flex;align-items:center;">` — the same centering formula as the hero container
+
+Result: logo left edge tracks `24px + (viewport − 48px − 1100px) / 2` at all widths above 1148px, identical to the hero content. Below 1148px both sit at 24px. All nav links, dropdowns, mobile hamburger and mobile drawer unaffected — `.nav-right{margin-left:auto}` continues to push links flush right within the constrained wrapper.
+
+### "When you enrol" paragraph restructure with highlights (eb9f064)
+
+The section's single opening paragraph ran all three programme descriptions (Full Programme, Referred, Year Two) together as one long unbroken block with no visual hierarchy. Split into three distinct paragraphs and applied `.anim-highlight` (already defined in the section's inline `<style>` block as `color:#2563EB;font-weight:600`) to seven key facts.
+
+**Paragraph 1** (retains `anim-intro-text` class, word-reveal animation, `margin:0 auto 24px`):
+Highlights: `12 structured modules` · `50 pathway-specific technical questions` · `24/7 support from Michael` · `60-minute AI-scored mock interview`
+
+**Paragraph 2** (static, `margin:0 auto 24px`):
+Highlights: `APC Referred — Confidence Reset` · `nine specialist modules`
+
+**Paragraph 3** (static, `margin:0 auto 56px` — preserves spacing before the four amber programme boxes):
+Highlight: `APC Year Two Readiness Review`
+
+**Animation note:** The `wrap()` JS treats `.anim-highlight` spans as element nodes and recurses into them, wrapping their text children in `.anim-word` spans. CSS cascade means highlighted words in P1 animate in already blue and bold. P2 and P3 render with static blue+bold highlights from page load — no animation conflict.
 
 ---
 

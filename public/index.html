@@ -30,7 +30,7 @@ body{font-family:var(--f);background:var(--off);color:var(--text);-webkit-font-s
 nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   background:rgba(11,12,28,0.97);backdrop-filter:blur(16px);
-  height:64px;display:flex;align-items:center;padding:0 40px;
+  height:64px;display:flex;align-items:center;padding:0 24px;
   border-bottom:1px solid rgba(255,255,255,0.06);
 }
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
@@ -1146,6 +1146,7 @@ input.err{border-color:var(--red)}
 
 <!-- NAV -->
 <nav>
+  <div style="max-width:1100px;margin:0 auto;width:100%;display:flex;align-items:center;">
   <a class="nav-logo" onclick="showView('landing')" style="cursor:pointer">
     <img src="/logo1.png" alt="Get Chartered AI">
   </a>
@@ -1202,6 +1203,7 @@ input.err{border-color:var(--red)}
   <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
+  </div>
 </nav>
 
 <!-- MOBILE NAV DRAWER -->

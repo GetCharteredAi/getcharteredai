@@ -1,6 +1,57 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 1 August 2026 (nav logo alignment fix; "When you enrol" paragraph restructure with highlights)*
+*Last updated: 3 August 2026 (Michael PATHWAY_COMP audit — all 10 pathways, COMPLETE)*
+
+---
+
+## 3 August 2026 — Michael coaching audit: PATHWAY_COMP named-list fixes (51be749, dcfa800, 8c9d530, 00b3299)
+
+Full audit of Michael's `PATHWAY_COMP` constant in `ai-tutor.js` against the official RICS pathway guides (December 2025 v1.6) across 10 pathways. All verified against source PDFs before any change was applied.
+
+**Scope:** 10 pathways checked. 8 of 10 now fully verified. 2 remaining flagged for future pass once current PDFs are sourced.
+
+### Results summary
+
+| Pathway | Outcome | Commits |
+|---|---|---|
+| Valuation | Fixed — Machinery and business assets specialisation sub-list named (11 items) | 51be749 |
+| Infrastructure | Fixed — 8-competency "four to Level 3" core selection list named | 51be749 |
+| Residential | Already fully accurate — no changes | — |
+| Project Management | Already fully accurate — no changes | — |
+| Planning and Development | Already fully accurate — no changes | — |
+| Facilities Management | Fixed — 10-competency core list named | dcfa800 |
+| Property Finance and Investment | Fixed — 13-item optional list named | 8c9d530 |
+| Corporate Real Estate | Fixed — 14-item optional list named | 8c9d530 |
+| Management Consultancy | Fixed — 15-item optional list named | 00b3299 |
+| Land and Resources | Fixed — 34-item optional list named | 00b3299 |
+
+### What was fixed
+
+All five fixes followed the same pattern: the structural rule (how many competencies, at what level) was already correct — the only gap was that the list being drawn from was unnamed ("from core list" / "from the optional list"). Each fix names the list explicitly, matching the Infrastructure fix pattern established at the start of the audit.
+
+**Valuation — Machinery and business assets (51be749):**
+- Before: `"must choose two to Level 3 from a specific sub-list (see RICS document)"`
+- After: named 11-item list: Accounting principles and procedures OR Conflict avoidance OR Sustainability (grouped as one); Auctioneering; Capital taxation; Compulsory purchase and compensation; Corporate recovery and insolvency; Insurance; Investment management; Leasing/letting; Legal/regulatory compliance; Local taxation/assessment; Purchase and sale
+
+**Infrastructure — four to Level 3 core list (51be749):**
+- Before: `"plus four to Level 3 from core list"`
+- After: named 8 competencies: Client care, Contract practice, Cost prediction and analysis, Procurement and tendering, Programming and planning, Project controls, Quantification/costing and price analysis, Risk management
+
+**Facilities Management — core list (dcfa800):**
+- Before: `"Two to Level 3 and two to Level 2 from core list (Client care must be taken to Level 3)"`
+- After: named 10 competencies: Asset management, Business alignment, Client care (must be taken to Level 3), Legal/regulatory compliance, Maintenance management, Performance management, Procurement and tendering, Project finance, Supplier management, Workspace strategy
+
+**Property Finance and Investment — optional list (8c9d530):**
+- Before: `"One to Level 3 and one to Level 2"`
+- After: named 13 items: Accounting principles and procedures, Capital taxation, Corporate finance, Development appraisals, Indirect investment vehicles, Landlord and tenant, Leasing/letting, Local taxation/assessment, Property management, Purchase and sale, Research methodologies and techniques, Strategic real estate consultancy, Valuation
+
+**Corporate Real Estate — optional list (8c9d530):**
+- Before: `"Three to Level 3 and one to Level 2"`
+- After: named 14 items: Change management, Inspection, Leasing and letting, Local taxation/assessment, Measurement, Performance management, Procurement and tendering, Programming and planning, Purchase and sale, Strategic real estate consultancy, Supplier management, Sustainability, Valuation, Workspace strategy
+
+### All 10 pathways complete
+
+All optional lists applied against the official RICS "Requirements and Competencies Guide: Chartered framework" (December 2025, amended March 2026) — the master document covering all 22 pathways, which also independently confirmed every fix applied earlier in the session.
 
 ---
 

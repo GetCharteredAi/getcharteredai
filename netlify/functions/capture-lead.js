@@ -44,7 +44,7 @@ exports.handler = async (event) => {
   const nearTerm = examDate === '3–6 months';
   const product = veryUrgent || urgent ? 'sprint' : 'full';
   const productUrl = veryUrgent || urgent ? 'https://getcharteredai.com/sprint' : 'https://getcharteredai.com/#pricing-sec';
-  const productName = veryUrgent || urgent ? 'APC Sprint (£297)' : 'Full Programme (£49/month or £497)';
+  const productName = veryUrgent || urgent ? 'APC Final Sprint (£297)' : 'Full Programme (£49/month or £497)';
 
   // Follow-up dates
   const now = new Date();
@@ -55,18 +55,18 @@ exports.handler = async (event) => {
   const sprintNudge = (veryUrgent || urgent)
     ? `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:16px;margin:20px 0">
         <p style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#d97706;margin:0 0 6px">Your assessment is approaching</p>
-        <p style="font-size:13px;color:#78350f;margin:0;line-height:1.6">With ${examDate.toLowerCase()} until your assessment, the APC Sprint gives you instant access to revision, AI Tutor and a full 60-minute mock interview. <a href="https://getcharteredai.com/sprint" style="color:#d97706;font-weight:600">See the Sprint →</a></p>
+        <p style="font-size:13px;color:#78350f;margin:0;line-height:1.6">With ${examDate.toLowerCase()} until your assessment, the APC Final Sprint gives you instant access to revision, AI Tutor and a full 60-minute mock interview. <a href="https://getcharteredai.com/sprint" style="color:#d97706;font-weight:600">See the APC Final Sprint →</a></p>
       </div>`
     : '';
 
   // Follow-up email copy — Day 3
   const followUp3 = product === 'sprint'
-    ? `Hi ${cleanName},\n\nHope the guide was useful. One thing that catches a lot of candidates out in their ${pathway} assessment — the panel will push hard on your case study decisions, not just your competency knowledge.\n\nIf you want to practise that pressure before the real thing, the APC Sprint includes a full 60-minute mock interview tailored to your pathway. Most candidates who use it say the first run is humbling — and the second is where confidence starts to build.\n\n${productUrl}\n\nGood luck with your preparation.\n\n[Your name]\nGet Chartered AI`
+    ? `Hi ${cleanName},\n\nHope the guide was useful. One thing that catches a lot of candidates out in their ${pathway} assessment — the panel will push hard on your case study decisions, not just your competency knowledge.\n\nIf you want to practise that pressure before the real thing, the APC Final Sprint includes a full 60-minute mock interview tailored to your pathway. Most candidates who use it say the first run is humbling — and the second is where confidence starts to build.\n\n${productUrl}\n\nGood luck with your preparation.\n\n[Your name]\nGet Chartered AI`
     : `Hi ${cleanName},\n\nHope the guide was useful. One thing worth knowing about the ${pathway} pathway — assessors consistently probe the same areas across candidates. For your pathway that usually means [insert pathway-specific tip].\n\nIf you want structured preparation that covers all 11 mandatory competencies plus your specific pathway questions, the Get Chartered AI full programme is built exactly for that.\n\n${productUrl}\n\nAny questions — just reply to this email.\n\n[Your name]\nGet Chartered AI`;
 
   // Follow-up email copy — Day 10
   const followUp10 = product === 'sprint'
-    ? `Hi ${cleanName},\n\nJust checking in — your assessment must be getting close now.\n\nIf you have not had a chance to look at the APC Sprint yet, it is worth knowing that the mock interview and AI Tutor are available the moment you sign up. No setup, no waiting. Candidates typically get through the mock interview 2-3 times in the days before assessment.\n\n${productUrl}\n\nWishing you the best.\n\n[Your name]\nGet Chartered AI`
+    ? `Hi ${cleanName},\n\nJust checking in — your assessment must be getting close now.\n\nIf you have not had a chance to look at the APC Final Sprint yet, it is worth knowing that the mock interview and AI Tutor are available the moment you sign up. No setup, no waiting. Candidates typically get through the mock interview 2-3 times in the days before assessment.\n\n${productUrl}\n\nWishing you the best.\n\n[Your name]\nGet Chartered AI`
     : `Hi ${cleanName},\n\nJust a quick note — if you are starting to think seriously about APC preparation, the earlier you begin the better. The full Get Chartered AI programme unlocks one module a month, so candidates who start earlier have more time to absorb each competency properly.\n\nFirst month is just £49 and you can cancel any time.\n\n${productUrl}\n\n[Your name]\nGet Chartered AI`;
 
   if (process.env.RESEND_API_KEY) {

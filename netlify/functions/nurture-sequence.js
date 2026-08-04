@@ -36,9 +36,9 @@ function getSequence(name, pathway, examDate, guideType) {
   const firstName = name.split(' ')[0];
   const urgent = ['Spring 2026 — sitting soon', 'Autumn 2026'].includes(examDate);
   const productUrl = urgent ? 'https://getcharteredai.com/sprint' : 'https://getcharteredai.com/#pricing-sec';
-  const productName = urgent ? 'APC Sprint — £297' : 'Full Programme — from £49/month';
+  const productName = urgent ? 'APC Final Sprint — £297' : 'Full Programme — from £49/month';
   const productPitch = urgent
-    ? `With your assessment approaching, the APC Sprint gives you immediate access to all 11 mandatory competency revision sheets, a 60-minute AI-scored mock interview and Michael — your AI Tutor — available any time you need it.`
+    ? `With your assessment approaching, the APC Final Sprint gives you immediate access to all 11 mandatory competency revision sheets, a 60-minute AI-scored mock interview and Michael — your AI Tutor — available any time you need it.`
     : `The full Get Chartered AI programme gives you 12 structured modules across all 11 mandatory competencies, 861+ pathway questions and Michael — your AI Tutor — available 24 hours a day as your modules unlock.`;
 
   // Email 2 — Day 3: The insight email

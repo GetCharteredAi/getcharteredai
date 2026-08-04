@@ -1,6 +1,46 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 3 August 2026 (Michael PATHWAY_COMP audit — all 10 pathways, COMPLETE)*
+*Last updated: 4 August 2026 (question bank pilot audit: Valuation + Taxation Allowances + Referred programme)*
+
+---
+
+## 4 August 2026 — Question bank pilot audit: Valuation + Taxation Allowances (6063b57, 9481fcc)
+
+Pilot accuracy audit of `questions-data.json`. Methodology: check against official live sources only — RICS Global Standards, legislation.gov.uk. Two pathways fully audited.
+
+### Referred programme structure — confirmed accurate
+
+CR01–CR09 keys verified in the JSON. CR07 is the pathway-specific M11B module inserted between CR06 and CR08. No issues found.
+
+### Valuation — Q1 PASS tier (6063b57)
+
+**Q1 asks for the RICS definition of Market Value.**
+
+Pilot check of 5 definitional questions (Q1, Q6, Q7, Q14, Q17). One real error found:
+
+- Q1 PASS: `"Market Value is the estimated amount for which a property should exchange..."` — wrong. The RICS Global Standards definition covers assets and liabilities, not just properties.
+- **Fix:** `"a property"` → `"an asset or liability"` to match RICS Global Standards verbatim.
+
+Q4 (Red Book 2025 effective date) verified as correct. Q6, Q7, Q14, Q17 — not flagged.
+
+### Taxation Allowances — Q15 and Q19 HIGH tiers (9481fcc)
+
+Full 50-question audit. Two questions with imprecise pooling-timing language for CAA 2001 s187A (past owner pooling requirement for fixtures):
+
+**Q15 HIGH and Q19 HIGH** both stated: `"the expenditure must be pooled in a chargeable period where they are treated as owning the fixture"`
+
+The actual statutory requirement (CAA 2001 s187A(4)(a)) is: "allocated to a pool in a chargeable period beginning on or before the day on which the past owner ceases to be treated as the owner of the fixture."
+
+The old wording omits the key qualifier — "beginning on or before the day" — which is the operative restriction. A chargeable period that merely overlaps with ownership satisfies the old wording but not the statute.
+
+- **Fix Q15:** `"pooled in a chargeable period where they are treated as owning the fixture"` → `"pooled in a chargeable period beginning on or before the day the past owner ceases to be treated as owning the fixture"`
+- **Fix Q19:** Same correction. The Q15 imprecision was originally flagged from Q21–50 review; Q19 found to contain identical language when both were fixed together.
+
+Q19 was initially missed in the Q1–20 pass because it used the same phrasing — the two-question pattern only surfaced when Q15 was being fixed and Q19 was re-scanned.
+
+### Coverage after this session
+
+Audited: Valuation (pilot, 5 of 50 questions), Taxation Allowances (full 50). 14 pathways remain unchecked: Building Surveying, Quantity Surveying and Construction, Planning and Development, Project Management, Residential, Commercial Real Estate, Property Finance and Investment, Facility Management, Rural, Land and Resources, Building Control, Corporate Real Estate, Management Consultancy, Infrastructure.
 
 ---
 
@@ -52,6 +92,16 @@ All five fixes followed the same pattern: the structural rule (how many competen
 ### All 10 pathways complete
 
 All optional lists applied against the official RICS "Requirements and Competencies Guide: Chartered framework" (December 2025, amended March 2026) — the master document covering all 22 pathways, which also independently confirmed every fix applied earlier in the session.
+
+### M11B module-content cross-check (7d4fa74)
+
+After closing the PATHWAY_COMP audit, the 11B.2 section (competency structure) of the 7 pathways where gaps were found was cross-checked against the same module content candidates actually read. Finding: 6 of 7 already fully accurate with named lists — the module content was written more recently and more carefully than PATHWAY_COMP. One real error found and fixed in Management Consultancy:
+
+**Management Consultancy 11B.2 — optional rule description corrected:**
+- `"you select three, from a broad list including"` → `"one to Level 3 and one to Level 2 from:"` (the rule has two distinct level requirements, not three undifferentiated picks)
+- `"from either the core or optional list"` → `"from the full technical competency list (the cross-pathway master list — not a recycled pick from the core or optional lists above)"` (same category of error as the CRE 11B.2 fix from the 12 July audit: conflating two distinct competency pools)
+
+File: `netlify/functions/modules-data.json`. JSON parse-clean verified post-edit.
 
 ---
 

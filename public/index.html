@@ -327,7 +327,7 @@ footer{background:#0D0F1C;padding:52px 32px 32px}
 .sidebar-mod-num{font-size:10px;font-weight:700;color:rgba(255,255,255,.3);min-width:22px}
 .sidebar-item.active .sidebar-mod-num{color:rgba(255,255,255,.7)}
 
-.dash-main{padding:40px;background:var(--off);min-height:calc(100vh - 60px)}
+.dash-main{padding:40px;background:var(--navy);min-height:calc(100vh - 60px)}
 .dash-welcome{background:var(--blue);border-radius:16px;padding:32px;margin-bottom:28px;color:#fff;position:relative;overflow:hidden}
 .dash-welcome::before{content:'';position:absolute;right:-30px;top:-40px;width:180px;height:180px;background:rgba(255,255,255,.07);border-radius:50%}
 .dash-welcome h2{font-size:22px;font-weight:700;margin-bottom:6px;position:relative}
@@ -2138,8 +2138,8 @@ function showProgramme(id) {
       </div>
 
       <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
-        <h3 style="font-family:var(--fh);font-size:16px;font-weight:700;color:var(--text)">Your Modules</h3>
-        <span style="font-size:12px;color:var(--muted)" id="dashCompletedCount">0 completed</span>
+        <h3 style="font-family:var(--fh);font-size:16px;font-weight:700;color:#eef2ff">Your Modules</h3>
+        <span style="font-size:12px;color:rgba(255,255,255,.45)" id="dashCompletedCount">0 completed</span>
       </div>
       <div class="dash-modules-grid" id="dashModGrid"></div>
     </div>
@@ -3048,6 +3048,16 @@ async function renderDashboard() {
         </div>
       </a>`;
     }
+  } else if (plan === 'monthly') {
+    const _nextTs = activatedAt + unlockedCount * 30 * 24 * 60 * 60 * 1000;
+    const _nextDate = new Date(_nextTs).toLocaleDateString('en-GB', {day: 'numeric', month: 'long'});
+    actionsHTML += `<div class="ds-btn" style="opacity:.45;cursor:default;pointer-events:none">
+      <span class="ds-btn-icon">📅</span>
+      <div class="ds-btn-text">
+        <span class="ds-btn-label">Up next</span>
+        <span class="ds-btn-val">Next module unlocks ${_nextDate}</span>
+      </div>
+    </div>`;
   }
 
   // Michael link — always available

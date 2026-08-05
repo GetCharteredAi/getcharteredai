@@ -4016,7 +4016,7 @@ async function callModuleTutor(modId, msg, isSystem) {
       : moduleTutorHistories[modId];
     const response = await fetch('/.netlify/functions/ai-tutor', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({moduleId: modId, pathway, modTitle, source: 'module', messages, max_tokens:400})
+      body: JSON.stringify({moduleId: modId, pathway, modTitle, source: 'module', messages, max_tokens:400, token: getToken()})
     });
     const data = await response.json();
     const text = data.content?.map(i=>i.text||'').join('') || 'I could not connect right now. Please try again.';
@@ -4425,7 +4425,8 @@ CANDIDATE NAME: ${window._candidateName || 'the candidate'} — use their first 
 CANDIDATE PATHWAY: ${window._candidatePathway || 'not specified'}
 CURRENT MODE: ${tutorMode}`,
         messages: aiHistory,
-        max_tokens: 1000
+        max_tokens: 1000,
+        token: getToken()
       })
     });
 
@@ -4643,7 +4644,8 @@ async function generateQuestions(sectionIdx) {
       body:JSON.stringify({
         system:'You are an RICS APC assessor. Return only valid JSON arrays of question strings. No markdown, no explanation.',
         messages:[{role:'user',content:prompts[sectionIdx]}],
-        max_tokens:1000
+        max_tokens:1000,
+        token: getToken()
       })
     });
     const d = await r.json();
@@ -4725,7 +4727,8 @@ Return ONLY valid JSON in this exact format:
 }
 Scores are 0-100. Be honest and specific.`,
         messages:[{role:'user',content:`Section: ${sec.name}\nQuestion: ${q}\nCandidate answer: ${answer}`}],
-        max_tokens:800
+        max_tokens:800,
+        token: getToken()
       })
     });
     const d = await r.json();
@@ -5394,7 +5397,8 @@ async function prepSaveEntry() {
       body: JSON.stringify({
         system: 'You are Michael, an expert RICS APC coach reviewing a candidate\'s competency evidence entry. The platform uses a four-field PREP structure (Situation, Decision, Action, Outcome) for ALL competency levels including Level 1. Do not penalise candidates for using this structure at Level 1 — it is the platform\'s required format. At Level 1 assess whether the entry demonstrates knowledge and understanding. At Level 2 assess whether it demonstrates practical application. At Level 3 assess whether it demonstrates reasoned advice and professional judgment. Rate the entry as PASS LEVEL, HIGH SCORING, or NEEDS WORK. In 2-3 sentences explain your rating clearly and constructively. Then give one specific actionable suggestion to improve it. Be direct, encouraging and focused on helping the candidate pass their APC.',
         messages: [{ role: 'user', content: promptMsg }],
-        scoring: true
+        scoring: true,
+        token: getToken()
       })
     });
     var fd = await fr.json();
@@ -5856,7 +5860,8 @@ async function submitCaseStudy() {
       body: JSON.stringify({
         system: "You are Michael, an expert RICS APC coach reviewing a candidate's case study draft. Your role is to provide coaching feedback only — not to mark or score the work. Never use pass/fail language. Focus on helping the candidate improve. Structure your response in exactly four sections: 1) WHAT IS WORKING WELL — identify 2-3 specific strengths in the case study. 2) WHAT TO STRENGTHEN BEFORE SUBMISSION — give exactly 3 specific, actionable improvements with examples of how to address them. 3) QUESTIONS YOUR ASSESSOR MAY ASK — list 3 questions an assessor might ask based on what you have read. 4) ONE THING TO DISCUSS WITH YOUR COUNSELLOR — flag one area where your feedback may be limited or where the candidate should seek their counsellor's specific input. Always end with: 'Remember — I am an AI coach, not an assessor. Your counsellor knows your specific pathway and submission history. Share this feedback with them before making final changes.'",
         messages: [{ role: 'user', content: 'Please review this case study for a candidate on the ' + pathway + ' pathway:\n\n' + text }],
-        scoring: true
+        scoring: true,
+        token: getToken()
       })
     });
     const d = await r.json();
@@ -7933,7 +7938,8 @@ async function sendMichaelPanel() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         moduleId: mod.id, modTitle: mod.title, source: 'panel',
-        messages: _michaelPanelHistory
+        messages: _michaelPanelHistory,
+        token: getToken()
       })
     });
     const data = await response.json();
@@ -8065,7 +8071,7 @@ Critical: never present interpretations as definitive fact. Always frame provisi
   try {
     const r = await fetch('/.netlify/functions/ai-tutor', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({system:systemPrompt, messages:[{role:'user',content:`Here is my RICS APC referral report:\n\n${text}\n\nPlease extract each assessor comment and propose a recovery plan row for each.`}], max_tokens:3000})
+      body:JSON.stringify({system:systemPrompt, messages:[{role:'user',content:`Here is my RICS APC referral report:\n\n${text}\n\nPlease extract each assessor comment and propose a recovery plan row for each.`}], max_tokens:3000, token: getToken()})
     });
     const data = await r.json();
     const raw = (data.content?.[0]?.text || '').replace(/^```json\s*/,'').replace(/^```\s*/,'').replace(/```\s*$/,'').trim();
@@ -8322,7 +8328,7 @@ async function _tofySubmitRecap() {
         messages: [{ role:'user', content:'Question: '+q.q+'\n\nKey points to cover: '+(q.keyPoints||[]).join('; ')+'\n\nMy recap: '+recap }],
         source: 'articulation-verdict', persona: _tofyCoach,
         pathway: localStorage.getItem('gca_pathway'), modTitle: q.module,
-        scoring: true, max_tokens: 1200
+        scoring: true, max_tokens: 1200, token: getToken()
       })
     });
     const data = await res.json();

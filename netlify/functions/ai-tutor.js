@@ -137,7 +137,20 @@ exports.handler = async (event) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) };
   }
 
-  const { messages, system, max_tokens, moduleId, pathway, modTitle, source, scoring, persona } = body;
+  const { messages, system, max_tokens, moduleId, pathway, modTitle, source, scoring, persona, token } = body;
+
+  const _jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
+  try {
+    if (!token) throw new Error('missing');
+    const _parts = token.split('.');
+    if (_parts.length !== 2) throw new Error('malformed');
+    const _payload = JSON.parse(Buffer.from(_parts[0], 'base64').toString());
+    if (_payload.expires && Date.now() > _payload.expires) throw new Error('expired');
+    const _sig = Buffer.from(`${_parts[0]}.${_jwtSecret}`).toString('base64').slice(0, 32);
+    if (_parts[1] !== _sig) throw new Error('invalid');
+  } catch (_e) {
+    return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized' }) };
+  }
 
   // If moduleId present, or articulation-verdict source: build system prompt server-side.
   // Otherwise: use client-provided system (for mock sim, CS review, floating chat, etc.)

@@ -1,6 +1,79 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 4 August 2026 (question bank pilot audit: Valuation + Taxation Allowances + Referred programme)*
+*Last updated: 5 August 2026 (security: close ai-tutor.js unauthenticated API exposure; dashboard dark canvas fix; Monthly unlock pill)*
+
+---
+
+## 5 August 2026 — Security: close unauthenticated ai-tutor.js exposure (32fd870, merged 2312a6d)
+
+### Exposure found
+
+`ai-tutor.js` had no server-side authentication check of any kind. It accepted any POST to `/.netlify/functions/ai-tutor` with no token, no credential, no origin restriction. CORS was `Access-Control-Allow-Origin: *`. Anyone who could identify the function URL and request format (readable from deployed page source) could call Claude — Haiku for standard requests, Sonnet for scored requests — at platform cost, indefinitely, with no rate limiting.
+
+This was discovered while scoping the "Try Michael" public demo feature. It was not previously documented. The exposure was live across all four plan types.
+
+### Root cause
+
+All access gating for Michael was client-side only (the dashboard JS wouldn't render Michael's UI without a valid session). Server-side, the function was open. The nine client-side call sites that legitimately use `ai-tutor.js` did not send a token — not because the token was unavailable, but because the server never required one.
+
+### Fix — two parts, deployed together (branch `fix/ai-tutor-auth`)
+
+**Server side — `ai-tutor.js`:** JWT verification added immediately after body parse, before any Anthropic call. Reuses the exact pattern from `get-cpd.js`/`save-cpd.js` (same secret, same base64 decode + signature comparison). Any request with a missing, malformed, expired, or invalid token returns 401 immediately. Claude is never called.
+
+**Client side — `index.html`:** `token: getToken()` added to all nine `ai-tutor.js` call sites:
+1. Module in-tutor chat (`callModuleTutor`)
+2. Floating dashboard chat (Module 12 embedded chat)
+3. Mock interview question generation
+4. Mock interview answer scoring
+5. PREP evidence feedback
+6. Case study review
+7. Michael panel (`sendMichaelPanel`)
+8. Recovery plan parser
+9. Think on Your Feet articulation verdict
+
+`getToken()` (line 2288) returns `localStorage.getItem('gca_token')` — available globally at all nine call sites. No client-side session flow changes required.
+
+### Pre-deploy check
+
+Confirmed zero of nine call sites were sending a token before the fix — critical catch, because deploying the server-side check without the client update would have broken Michael for every paying candidate immediately. Both halves committed together and deployed to a branch (`fix/ai-tutor-auth`) before any merge to `main`.
+
+### Browser verification (preview deploy)
+
+Tested by Ange on `fix/ai-tutor-auth` preview:
+
+| Feature | Result |
+|---|---|
+| Module in-tutor chat | ✅ Working |
+| Mock interview question generation | ✅ Working |
+| Mock interview answer scoring | ✅ Working |
+| PREP evidence feedback | ✅ Working |
+| Case study review | ✅ Working |
+| Michael panel (Ask Michael) | ✅ Working |
+| Think on Your Feet verdict | ✅ Working |
+| Floating chat (Module 12) | Not tested — pre-existing Module-12-only gating confirmed via `git show 01d670d`, unrelated to this fix |
+
+7 of 8 Michael-dependent features explicitly confirmed working. 8th is a Module 12-specific element gated at line 3634 (`id === 12 ? renderAITutor() : ''`), present before any work this session.
+
+### Open items following this fix
+
+- **`ai-tutor.js` still accepts a client-provided `system` prompt** for non-moduleId calls (mock sim, CS review, floating chat, recovery plan). A determined caller with a valid token could still pass an arbitrary system prompt. Medium-term: lock these to server-side prompts the way `moduleId`-based calls already are.
+- **Floating chat (Module 12)** — confirm whether the embedded chat is intentionally Module-12-only or should be surfaced elsewhere on the dashboard.
+
+---
+
+## 5 August 2026 — Dashboard dark canvas + Monthly unlock pill (f54ee76)
+
+### White module card boxes — root cause and fix
+
+`.dash-main` background was `var(--off)` (`#f8fafc`, near-white). Module cards use `background: rgba(255,255,255,.03)` — 3% white opacity, designed for a dark parent. On a near-white canvas this rendered as white boxes. CSS was correctly deployed; the cards were rendering exactly as specified but on the wrong parent.
+
+Fix: `.dash-main` background changed from `var(--off)` to `var(--navy)` (`#0D0F1C`) — matching the nav bar, giving the dashboard a fully dark canvas. Two text elements inside `.dash-main` that used `var(--text)`/`var(--muted)` (near-black, invisible on dark canvas) updated to `#eef2ff` / `rgba(255,255,255,.45)` respectively.
+
+### Monthly "Next module unlocks" pill
+
+Pre-existing gap: when a Monthly subscriber completed all currently-unlocked modules (`lastMod === null`, `done > 0`), neither the Continue nor Start Here branch fired — the action row rendered with no primary action at all.
+
+Fix: new `else if (plan === 'monthly')` branch added to `renderDashboard()`. Computes next unlock date as `activatedAt + unlockedCount * 30 * 24 * 60 * 60 * 1000` (consistent with `getUnlockedCount` formula) and renders a disabled pill: "Next module unlocks [date]". Annual/Sprint/Referred cannot reach this branch.
 
 ---
 

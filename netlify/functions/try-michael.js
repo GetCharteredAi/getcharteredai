@@ -1,13 +1,20 @@
 // netlify/functions/try-michael.js
 // Public "Try Michael" demo — two-stage AI interaction, no JWT required.
+// Stage 'question': server-side random question selection (no AI, no Blobs).
 // Stage 1 (free, ungated): brief level read via Haiku.
 // Stage 2 (email-gated): full assessor breakdown via Sonnet.
-// Fixed question and both system prompts are hardcoded server-side.
+// All questions and system prompts are hardcoded server-side.
 // Visitor answer goes into the user message slot only — never into a system prompt.
 
 const { getStore } = require('@netlify/blobs');
 
-const FIXED_QUESTION = 'Tell me about a time you identified a conflict of interest during your work. What did you do?';
+const QUESTIONS = [
+  'Tell me about a time you identified a conflict of interest during your work. What did you do?',
+  "Describe a situation where you had to decide whether to raise a concern about something you'd seen on a project. What did you do?",
+  'Tell me about a time you had to explain a difficult professional decision to a client. How did you approach it?',
+  "Describe an occasion where you were asked to do something you weren't fully comfortable with professionally. What was your response?",
+  'Tell me about a time you identified a risk that others may have overlooked. What did you do about it?'
+];
 
 const STAGE_1_SYSTEM = `You are Michael, an AI coach for Get Chartered AI, giving a brief initial reaction for a public demo.
 
@@ -46,24 +53,42 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
-  // Accept only these three fields — everything else ignored
-  const { stage, answer, email } = body;
+  const { stage, answer, email, questionIndex, pathway, sittingWindow } = body;
+
+  // Stage 'question': return a randomly selected question — no AI, no Blobs, no auth
+  if (stage === 'question') {
+    const idx = Math.floor(Math.random() * QUESTIONS.length);
+    return { statusCode: 200, headers, body: JSON.stringify({ question: QUESTIONS[idx], questionIndex: idx }) };
+  }
 
   if (stage !== 1 && stage !== 2) {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid stage' }) };
   }
 
+  // Validate questionIndex — client sends the index returned by stage 'question'
+  const qIdx = parseInt(questionIndex, 10);
+  if (isNaN(qIdx) || qIdx < 0 || qIdx >= QUESTIONS.length) {
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid question' }) };
+  }
+
   if (!answer || typeof answer !== 'string') {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Answer required' }) };
   }
-  // Sanitize: strip control characters, cap at 800 chars
   const sanitizedAnswer = answer.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '').slice(0, 800);
   if (sanitizedAnswer.trim().length < 10) {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Answer too short' }) };
   }
 
-  if (stage === 2 && (!email || typeof email !== 'string' || !email.includes('@'))) {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Valid email required for full breakdown' }) };
+  if (stage === 2) {
+    if (!email || typeof email !== 'string' || !email.includes('@')) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Valid email required for full breakdown' }) };
+    }
+    if (!pathway || typeof pathway !== 'string' || pathway.length > 80) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Pathway required' }) };
+    }
+    if (!sittingWindow || typeof sittingWindow !== 'string' || sittingWindow.length > 60) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Sitting window required' }) };
+    }
   }
 
   // IP extraction — x-forwarded-for is set by Netlify CDN
@@ -71,19 +96,16 @@ exports.handler = async (event) => {
   const ip = rawIp || 'unknown';
   const isUnknown = ip === 'unknown';
 
-  // Rate limiting — object-form Blobs, matching get-cpd.js/save-cpd.js pattern
-  // Diagnostic: log env var presence (not values) for branch deploy debugging
-  console.log('try-michael blobs init: siteID present:', !!(process.env.SITE_ID || process.env.NETLIFY_SITE_ID), 'token present:', !!(process.env.NETLIFY_TOKEN || process.env.NETLIFY_ACCESS_TOKEN));
   const store = getStore({
     name: 'try-michael',
     siteID: process.env.SITE_ID || process.env.NETLIFY_SITE_ID,
     token: process.env.NETLIFY_TOKEN || process.env.NETLIFY_ACCESS_TOKEN
   });
 
+  // Rate limiting — fail-open (Blobs outage should not block visitors)
   const rlKey = `rl-s${stage}:${ip}`;
   const limit = stage === 1 ? (isUnknown ? 3 : 15) : (isUnknown ? 2 : 5);
   const windowMs = 60 * 60 * 1000;
-
   try {
     const rlRaw = await store.get(rlKey);
     const rl = rlRaw ? JSON.parse(rlRaw) : { count: 0, windowStart: Date.now() };
@@ -98,23 +120,20 @@ exports.handler = async (event) => {
     await store.set(rlKey, JSON.stringify(rl));
   } catch (e) {
     console.error('Rate limit check failed:', e.message);
-    // Allow through — don't gate visitors on Blobs infrastructure failures
   }
 
-  // Per-email usage gate — Stage 2 only, fail-closed.
-  // Rate limiting fails open (availability over enforcement); this check fails closed
-  // (a Blobs outage returns 503 rather than silently permitting the call).
+  // Per-email usage gate — Stage 2 only, fail-closed
   if (stage === 2) {
     const cleanEmail = email.toLowerCase().trim();
     let emailRecord;
     try {
       emailRecord = await store.get(`em:${cleanEmail}`);
     } catch (e) {
-      console.error('Email usage check failed — name:', e.name, 'message:', e.message, 'status:', e.status, 'cause:', e.cause?.message);
+      console.error('Email usage check failed:', e.message);
       return { statusCode: 503, headers, body: JSON.stringify({ error: 'Please try again shortly.' }) };
     }
     if (emailRecord) {
-      return { statusCode: 429, headers, body: JSON.stringify({ error: 'This email has already received a full breakdown. Try a different email address.' }) };
+      return { statusCode: 429, headers, body: JSON.stringify({ error: 'This email has already received a full breakdown.' }) };
     }
   }
 
@@ -123,9 +142,9 @@ exports.handler = async (event) => {
     return { statusCode: 500, headers, body: JSON.stringify({ error: 'AI service not configured' }) };
   }
 
-  // Message construction — fixed question + candidate answer in user message only.
-  // System prompts are pure constants; no visitor data touches either system prompt.
-  const userMsg = `Question: "${FIXED_QUESTION}"\n\nCandidate's answer:\n${sanitizedAnswer}`;
+  // Question text comes from server-side constant — client only supplies the index
+  const question = QUESTIONS[qIdx];
+  const userMsg = `Question: "${question}"\n\nCandidate's answer:\n${sanitizedAnswer}`;
 
   const model = stage === 1 ? 'claude-haiku-4-5-20251001' : 'claude-sonnet-4-6';
   const maxTokens = stage === 1 ? 120 : 400;
@@ -156,14 +175,15 @@ exports.handler = async (event) => {
 
     const reply = data.content[0].text;
 
-    // Stage 2 only: write email to Blobs AFTER successful AI call
+    // Stage 2: write email record after successful AI call (fail-open — visitor still gets response)
     if (stage === 2) {
+      const cleanEmail = email.toLowerCase().trim();
+      const cleanPathway = pathway.slice(0, 80).replace(/[\x00-\x1F]/g, '');
+      const cleanSittingWindow = sittingWindow.slice(0, 60).replace(/[\x00-\x1F]/g, '');
       try {
-        const cleanEmail = email.toLowerCase().trim();
-        await store.set(`em:${cleanEmail}`, JSON.stringify({ ts: Date.now() }));
+        await store.set(`em:${cleanEmail}`, JSON.stringify({ ts: Date.now(), pathway: cleanPathway, sittingWindow: cleanSittingWindow }));
       } catch (e) {
         console.error('Email write failed:', e.message);
-        // Don't fail — visitor still gets their response
       }
     }
 

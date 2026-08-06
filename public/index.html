@@ -1594,103 +1594,103 @@ input.err{border-color:var(--red)}
 var _tmQIdx = -1;
 
 async function _tmReveal() {
-  var btn = document.getElementById(‘tm-btn-reveal’);
-  btn.textContent = ‘Loading…’;
+  var btn = document.getElementById('tm-btn-reveal');
+  btn.textContent = 'Loading…';
   btn.disabled = true;
-  document.getElementById(‘tm-err’).style.display = ‘none’;
+  document.getElementById('tm-err').style.display = 'none';
   try {
-    var res = await fetch(‘/.netlify/functions/try-michael’, {
-      method: ‘POST’,
-      headers: { ‘Content-Type’: ‘application/json’ },
-      body: JSON.stringify({ stage: ‘question’ })
+    var res = await fetch('/.netlify/functions/try-michael', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ stage: 'question' })
     });
     var data = await res.json();
-    if (!res.ok) throw new Error(data.error || ‘Something went wrong. Please try again.’);
+    if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
     _tmQIdx = data.questionIndex;
-    document.getElementById(‘tm-question-text’).textContent = ‘“’ + data.question + ‘”’;
-    document.getElementById(‘tm-reveal’).style.display = ‘none’;
-    document.getElementById(‘tm-question-wrap’).style.display = ‘block’;
-    document.getElementById(‘tm-input-wrap’).style.display = ‘block’;
+    document.getElementById('tm-question-text').textContent = '"' + data.question + '"';
+    document.getElementById('tm-reveal').style.display = 'none';
+    document.getElementById('tm-question-wrap').style.display = 'block';
+    document.getElementById('tm-input-wrap').style.display = 'block';
   } catch(e) {
-    document.getElementById(‘tm-err-text’).textContent = e.message;
-    document.getElementById(‘tm-err’).style.display = ‘block’;
-    btn.textContent = ‘Try a question — see how Michael would actually assess your answer →’;
+    document.getElementById('tm-err-text').textContent = e.message;
+    document.getElementById('tm-err').style.display = 'block';
+    btn.textContent = 'Try a question — see how Michael would actually assess your answer →';
     btn.disabled = false;
   }
 }
 
 async function _tmStage1() {
-  var answer = document.getElementById(‘tm-answer’).value.trim();
+  var answer = document.getElementById('tm-answer').value.trim();
   if (answer.length < 20) {
-    document.getElementById(‘tm-warn’).style.display = ‘block’;
+    document.getElementById('tm-warn').style.display = 'block';
     return;
   }
-  document.getElementById(‘tm-warn’).style.display = ‘none’;
-  document.getElementById(‘tm-err’).style.display = ‘none’;
-  var btn = document.getElementById(‘tm-btn1’);
-  btn.textContent = ‘Reading your answer…’;
+  document.getElementById('tm-warn').style.display = 'none';
+  document.getElementById('tm-err').style.display = 'none';
+  var btn = document.getElementById('tm-btn1');
+  btn.textContent = 'Reading your answer…';
   btn.disabled = true;
-  document.getElementById(‘tm-answer’).disabled = true;
+  document.getElementById('tm-answer').disabled = true;
   try {
-    var res = await fetch(‘/.netlify/functions/try-michael’, {
-      method: ‘POST’,
-      headers: { ‘Content-Type’: ‘application/json’ },
+    var res = await fetch('/.netlify/functions/try-michael', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ stage: 1, answer: answer, questionIndex: _tmQIdx })
     });
     var data = await res.json();
-    if (!res.ok) throw new Error(data.error || ‘Something went wrong. Please try again.’);
-    document.getElementById(‘tm-s1-text’).textContent = data.reply;
-    document.getElementById(‘tm-s1’).style.display = ‘block’;
-    document.getElementById(‘tm-gate’).style.display = ‘block’;
-    btn.style.display = ‘none’;
-    document.getElementById(‘tm-s1’).scrollIntoView({ behavior: ‘smooth’, block: ‘nearest’ });
+    if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
+    document.getElementById('tm-s1-text').textContent = data.reply;
+    document.getElementById('tm-s1').style.display = 'block';
+    document.getElementById('tm-gate').style.display = 'block';
+    btn.style.display = 'none';
+    document.getElementById('tm-s1').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch(e) {
-    document.getElementById(‘tm-err-text’).textContent = e.message;
-    document.getElementById(‘tm-err’).style.display = ‘block’;
-    btn.textContent = "Get Michael’s read →";
+    document.getElementById('tm-err-text').textContent = e.message;
+    document.getElementById('tm-err').style.display = 'block';
+    btn.textContent = "Get Michael's read →";
     btn.disabled = false;
-    document.getElementById(‘tm-answer’).disabled = false;
+    document.getElementById('tm-answer').disabled = false;
   }
 }
 
 async function _tmStage2() {
-  var email = document.getElementById(‘tm-email’).value.trim();
-  var pathway = document.getElementById(‘tm-pathway’).value;
-  var sitting = document.getElementById(‘tm-sitting’).value;
-  if (!email || !email.includes(‘@’) || !pathway || !sitting) {
-    document.getElementById(‘tm-gate-warn’).style.display = ‘block’;
+  var email = document.getElementById('tm-email').value.trim();
+  var pathway = document.getElementById('tm-pathway').value;
+  var sitting = document.getElementById('tm-sitting').value;
+  if (!email || !email.includes('@') || !pathway || !sitting) {
+    document.getElementById('tm-gate-warn').style.display = 'block';
     return;
   }
-  document.getElementById(‘tm-gate-warn’).style.display = ‘none’;
-  document.getElementById(‘tm-err’).style.display = ‘none’;
-  var answer = document.getElementById(‘tm-answer’).value.trim();
-  var btn = document.getElementById(‘tm-btn2’);
-  btn.textContent = ‘Loading full breakdown…’;
+  document.getElementById('tm-gate-warn').style.display = 'none';
+  document.getElementById('tm-err').style.display = 'none';
+  var answer = document.getElementById('tm-answer').value.trim();
+  var btn = document.getElementById('tm-btn2');
+  btn.textContent = 'Loading full breakdown…';
   btn.disabled = true;
-  document.getElementById(‘tm-email’).disabled = true;
-  document.getElementById(‘tm-pathway’).disabled = true;
-  document.getElementById(‘tm-sitting’).disabled = true;
+  document.getElementById('tm-email').disabled = true;
+  document.getElementById('tm-pathway').disabled = true;
+  document.getElementById('tm-sitting').disabled = true;
   try {
-    var res = await fetch(‘/.netlify/functions/try-michael’, {
-      method: ‘POST’,
-      headers: { ‘Content-Type’: ‘application/json’ },
+    var res = await fetch('/.netlify/functions/try-michael', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ stage: 2, answer: answer, questionIndex: _tmQIdx, email: email, pathway: pathway, sittingWindow: sitting })
     });
     var data = await res.json();
-    if (!res.ok) throw new Error(data.error || ‘Something went wrong. Please try again.’);
-    document.getElementById(‘tm-gate’).style.display = ‘none’;
-    document.getElementById(‘tm-s2-text’).textContent = data.reply;
-    document.getElementById(‘tm-s2’).style.display = ‘block’;
-    document.getElementById(‘tm-cta’).style.display = ‘block’;
-    document.getElementById(‘tm-s2’).scrollIntoView({ behavior: ‘smooth’, block: ‘nearest’ });
+    if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
+    document.getElementById('tm-gate').style.display = 'none';
+    document.getElementById('tm-s2-text').textContent = data.reply;
+    document.getElementById('tm-s2').style.display = 'block';
+    document.getElementById('tm-cta').style.display = 'block';
+    document.getElementById('tm-s2').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch(e) {
-    document.getElementById(‘tm-err-text’).textContent = e.message;
-    document.getElementById(‘tm-err’).style.display = ‘block’;
-    btn.textContent = ‘Get full breakdown →’;
+    document.getElementById('tm-err-text').textContent = e.message;
+    document.getElementById('tm-err').style.display = 'block';
+    btn.textContent = 'Get full breakdown →';
     btn.disabled = false;
-    document.getElementById(‘tm-email’).disabled = false;
-    document.getElementById(‘tm-pathway’).disabled = false;
-    document.getElementById(‘tm-sitting’).disabled = false;
+    document.getElementById('tm-email').disabled = false;
+    document.getElementById('tm-pathway').disabled = false;
+    document.getElementById('tm-sitting').disabled = false;
   }
 }
 </script>

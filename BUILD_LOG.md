@@ -1,6 +1,70 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 5 August 2026 (security: close ai-tutor.js unauthenticated API exposure; dashboard dark canvas fix; Monthly unlock pill)*
+*Last updated: 6 August 2026 (Try Michael interactive demo — two-stage AI, question pool, reveal interaction, three-field lead capture)*
+
+---
+
+## 6 August 2026 — Try Michael interactive demo (feat/try-michael, merged fc6131e)
+
+### What was built
+
+A public two-stage AI interaction section on `index.html`, placed between the "About Michael" and "Programme Finder" sections. No JWT required — fully open to prospective candidates.
+
+**Architecture:**
+
+`netlify/functions/try-michael.js` handles three distinct request types:
+
+- **`stage: 'question'`** — server-side random question selection. No AI, no Blobs, no auth. Picks one of five questions at random, returns `{ question, questionIndex }`. The client never sends question text — only the index returned by this call.
+- **Stage 1** — Haiku (`claude-haiku-4-5-20251001`, 120 tokens). Takes `{ stage: 1, answer, questionIndex }`. Returns a 40–60 word level assessment (Level 1/2/3) with brief reasoning. Rate-limited per IP (fail-open — Blobs outage should not block visitors).
+- **Stage 2** — Sonnet (`claude-sonnet-4-6`, 400 tokens). Takes `{ stage: 2, answer, questionIndex, email, pathway, sittingWindow }`. Returns three-part full assessor breakdown: stronger answer example at next level, full-range example if Level 1, genuine assessor follow-up question. Ends with the fixed line "This is Assessor Mode — every module, every competency, works this way." Email gate is **fail-closed** (Blobs outage returns 503, not allow-through). Pathway and sitting window written to Blobs `em:{email}` record for lead capture alongside the timestamp.
+
+**Injection hardening:**
+- Both system prompts are server-side `const` strings — no visitor data touches either prompt
+- Question text comes from a server-side `QUESTIONS[5]` array — client sends only an integer index (0–4), validated server-side
+- Visitor answer goes into `messages[0].content` user slot only
+
+**Question pool — five questions (all RICS APC ethics framing):**
+1. Conflict of interest identification and action
+2. Whether to raise a concern about something seen on a project
+3. Explaining a difficult professional decision to a client
+4. Being asked to do something professionally uncomfortable
+5. Identifying a risk others overlooked
+
+**UI state machine (6 states):**
+- `idle`: collapsed — only reveal button visible ("Try a question — see how Michael would actually assess your answer →")
+- `loading-q`: button disabled, "Loading…" while question fetches
+- `question-shown`: question card revealed, textarea and Stage 1 button appear
+- `s1-loading`: textarea locked, Stage 1 button loading
+- `s1-done`: Stage 1 response (blue left border), email gate expanded
+- `s2-done`: Stage 2 response (amber left border), pricing CTA
+
+**Email gate — three fields:**
+- Email address
+- Pathway dropdown (all 16 active RICS pathways, alphabetically ordered, matching `VALID_PATHWAYS` in `get-questions.js`)
+- Sitting window dropdown (five time buckets: Under 3 months / 3–6 months / 6–12 months / 12–18 months / More than 18 months)
+- Single combined validation message ("Please complete all fields above.")
+- Gate copy: "Enter your details." (not "Enter your email.")
+- One-per-email gate: error message is "This email has already received a full breakdown." — no "Try a different email address" appended (removing implicit invitation to circumvent)
+
+### Bugs found and fixed
+
+**Bug 1 — Blobs 401 (Netlify access token expiry)**
+
+During initial branch deploy testing, Stage 2 returned 503 ("Please try again shortly.") despite env vars being present. Root cause: `NETLIFY_ACCESS_TOKEN` had expired or been revoked. Diagnosed via diagnostic logging (added temporarily, removed before merge): `siteID present: true, token present: true` combined with `401 status code` on `store.get()`. Fix: Ange generated fresh Netlify PAT, updated env var in dashboard, triggered empty commit redeploy. Token expiry is an ongoing operational risk — the same pattern could silently affect `get-cpd.js`/`save-cpd.js` (see Outstanding Items).
+
+**Bug 2 — Systematic curly/smart quote corruption in JS block**
+
+After all features were confirmed working in isolation, the button click did nothing — no loading state, no question reveal. Browser console showed `SyntaxError: Invalid character '‘'` at line 1597 and `ReferenceError: Can't find variable: _tmReveal`. Root cause: the `Edit` tool had introduced typographic/curly quotes (U+2018/U+2019 single, U+201C/U+201D double) as JavaScript string delimiters throughout the entire 100-line script block — 63 occurrences. The SyntaxError at the first curly quote prevented the entire script block from parsing, so `_tmReveal` was never defined. Fix: Python codepoint replacement (`chr(0x2018)` → `chr(0x27)` etc.) targeted at lines 1593–1696, validated clean with codepoint scan + `node --check` on extracted JS before push.
+
+Note: This is a recurring risk in this codebase — the same category of curly-quote corruption has caused JS breakage before. Any JS written via Edit/Write should be verified with a codepoint scan before pushing.
+
+### Commits
+
+- `d6c3db2` — Add diagnostic logging (temporary, for Blobs 401 diagnosis)
+- `9ef0e7f` — Empty commit to trigger branch redeploy after token refresh
+- `027ccfe` — Add question pool, collapsed reveal, and pathway/sitting gate
+- `03e3831` — Fix curly/smart quote corruption in JS block
+- `fc6131e` — Merge to main
 
 ---
 

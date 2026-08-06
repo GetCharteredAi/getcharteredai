@@ -99,6 +99,23 @@ exports.handler = async (event) => {
     // Allow through — don't gate visitors on Blobs infrastructure failures
   }
 
+  // Per-email usage gate — Stage 2 only, fail-closed.
+  // Rate limiting fails open (availability over enforcement); this check fails closed
+  // (a Blobs outage returns 503 rather than silently permitting the call).
+  if (stage === 2) {
+    const cleanEmail = email.toLowerCase().trim();
+    let emailRecord;
+    try {
+      emailRecord = await store.get(`em:${cleanEmail}`);
+    } catch (e) {
+      console.error('Email usage check failed:', e.message);
+      return { statusCode: 503, headers, body: JSON.stringify({ error: 'Please try again shortly.' }) };
+    }
+    if (emailRecord) {
+      return { statusCode: 429, headers, body: JSON.stringify({ error: 'This email has already received a full breakdown. Try a different email address.' }) };
+    }
+  }
+
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return { statusCode: 500, headers, body: JSON.stringify({ error: 'AI service not configured' }) };

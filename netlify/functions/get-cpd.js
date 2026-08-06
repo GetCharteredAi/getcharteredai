@@ -24,12 +24,16 @@ exports.handler = async (event) => {
     const store = getStore({ name: 'cpd-logs', siteID: process.env.SITE_ID || process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_TOKEN || process.env.NETLIFY_ACCESS_TOKEN });
 
     let entries = [];
+    let readError = false;
     try {
       const existing = await store.get(email);
       if (existing) entries = JSON.parse(existing);
-    } catch(e) {}
+    } catch(e) {
+      console.error('CPD read failed:', e.name, e.message, 'status:', e.status);
+      readError = true;
+    }
 
-    return { statusCode: 200, body: JSON.stringify({ success: true, entries }) };
+    return { statusCode: 200, body: JSON.stringify({ success: true, entries, readError }) };
   } catch(e) {
     return { statusCode: 401, body: JSON.stringify({ success: false, error: e.message }) };
   }

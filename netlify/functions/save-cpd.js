@@ -27,7 +27,9 @@ exports.handler = async (event) => {
     try {
       const existing = await store.get(email);
       if (existing) entries = JSON.parse(existing);
-    } catch(e) {}
+    } catch(e) {
+      console.error('CPD read failed on save:', e.name, e.message, 'status:', e.status);
+    }
 
     const newEntry = {
       id: Date.now().toString(),

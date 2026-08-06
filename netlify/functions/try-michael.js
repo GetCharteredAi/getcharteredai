@@ -72,6 +72,8 @@ exports.handler = async (event) => {
   const isUnknown = ip === 'unknown';
 
   // Rate limiting — object-form Blobs, matching get-cpd.js/save-cpd.js pattern
+  // Diagnostic: log env var presence (not values) for branch deploy debugging
+  console.log('try-michael blobs init: siteID present:', !!(process.env.SITE_ID || process.env.NETLIFY_SITE_ID), 'token present:', !!(process.env.NETLIFY_TOKEN || process.env.NETLIFY_ACCESS_TOKEN));
   const store = getStore({
     name: 'try-michael',
     siteID: process.env.SITE_ID || process.env.NETLIFY_SITE_ID,
@@ -108,7 +110,7 @@ exports.handler = async (event) => {
     try {
       emailRecord = await store.get(`em:${cleanEmail}`);
     } catch (e) {
-      console.error('Email usage check failed:', e.message);
+      console.error('Email usage check failed — name:', e.name, 'message:', e.message, 'status:', e.status, 'cause:', e.cause?.message);
       return { statusCode: 503, headers, body: JSON.stringify({ error: 'Please try again shortly.' }) };
     }
     if (emailRecord) {

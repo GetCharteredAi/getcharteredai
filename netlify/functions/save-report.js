@@ -39,8 +39,23 @@ exports.handler = async (event) => {
 
   try {
     const store = getStore('yr1-reports');
-    await store.setJSON(payload.email, { report, savedAt: Date.now(), email: payload.email });
-    console.log(`Report saved for ${payload.email}`);
+
+    const existing = await store.get(payload.email, { type: 'json' });
+    const retakeCount = (existing?.retakeCount ?? 0) + 1;
+
+    if (retakeCount > 3) {
+      return {
+        statusCode: 403,
+        headers: HEADERS,
+        body: JSON.stringify({
+          success: false,
+          error: "You've used all 3 of your diagnostic attempts for this purchase. Contact support@getcharteredai.com if you need help."
+        })
+      };
+    }
+
+    await store.setJSON(payload.email, { report, savedAt: Date.now(), email: payload.email, retakeCount });
+    console.log(`Report saved for ${payload.email} (attempt ${retakeCount} of 3)`);
     return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ success: true }) };
   } catch (err) {
     console.error('save-report error:', err);

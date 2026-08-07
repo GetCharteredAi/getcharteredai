@@ -2,8 +2,20 @@
 // Verifies Stripe payment and issues access token (no npm needed)
 const { getStore } = require('@netlify/blobs');
 
-// Self-paced price IDs — keep in sync with create-checkout.js
+// Price ID sets — keep in sync with create-checkout.js
+// Any price ID change there requires a matching change here.
 const SELFPACED_PRICE_IDS = new Set(['price_1TxOuERkzyH1h56UHzRlbS6i']);
+const REFERRED_PRICE_IDS  = new Set([
+  'price_1TcsEeRkzyH1h56UidHDLTKy', // current (create-checkout.js)
+  'price_1TaFxDRkzyH1h56URvfFhEbr', // legacy
+]);
+const SPRINT_PRICE_IDS = new Set([
+  'price_1TcsLoRkzyH1h56UOSPEAPSq', // current (create-checkout.js)
+  'price_1SdEf0RkzyH1h56UQZUOtebL', // legacy
+]);
+const YEAR_TWO_PRICE_IDS = new Set([
+  'price_1TcsGcRkzyH1h56U7bJWaaBD', // Year Two Readiness Review (current)
+]);
 
 exports.handler = async (event) => {
   const headers = {
@@ -43,17 +55,7 @@ exports.handler = async (event) => {
       return { statusCode: 402, headers, body: JSON.stringify({ error: 'Payment not confirmed. Please complete payment first.' }) };
     }
 
-    // Detect plan by price ID for one-time payments.
-    // MUST stay in sync with create-checkout.js — any price ID change there requires a matching change here.
-    // Legacy IDs (pre-30 May 2026) kept as fallbacks; current IDs are the primary ones.
-    const REFERRED_PRICE_IDS = new Set([
-      'price_1TcsEeRkzyH1h56UidHDLTKy', // current (create-checkout.js)
-      'price_1TaFxDRkzyH1h56URvfFhEbr', // legacy
-    ]);
-    const SPRINT_PRICE_IDS = new Set([
-      'price_1TcsLoRkzyH1h56UOSPEAPSq', // current (create-checkout.js)
-      'price_1SdEf0RkzyH1h56UQZUOtebL', // legacy
-    ]);
+    // Detect plan by price ID — price ID sets defined at module level above.
     const lineItems = session.line_items?.data || [];
     const priceId = lineItems[0]?.price?.id || session.metadata?.priceId || '';
 
@@ -64,6 +66,8 @@ exports.handler = async (event) => {
       plan = 'referred';
     } else if (SPRINT_PRICE_IDS.has(priceId)) {
       plan = 'sprint';
+    } else if (YEAR_TWO_PRICE_IDS.has(priceId)) {
+      plan = 'year-two';
     } else if (SELFPACED_PRICE_IDS.has(priceId)) {
       plan = 'selfpaced';
     } else {
@@ -82,8 +86,9 @@ exports.handler = async (event) => {
       expires: activatedAt + (
         plan === 'annual'    ? 548 * 24 * 60 * 60 * 1000 :
         plan === 'selfpaced' ? 548 * 24 * 60 * 60 * 1000 :
-        plan === 'referred'  ? 90  * 24 * 60 * 60 * 1000 :
-        plan === 'sprint'    ? 42  * 24 * 60 * 60 * 1000 :
+        plan === 'referred'  ?  90 * 24 * 60 * 60 * 1000 :
+        plan === 'sprint'    ?  42 * 24 * 60 * 60 * 1000 :
+        plan === 'year-two'  ? 183 * 24 * 60 * 60 * 1000 :
         60 * 24 * 60 * 60 * 1000
       )
     };

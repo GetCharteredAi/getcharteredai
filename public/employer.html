@@ -96,7 +96,7 @@ textarea.form-input{resize:vertical;min-height:100px}
 .guide-banner a{background:var(--navy);color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap}
 
 /* PRICING */
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px}
 .price-card{background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:30px;display:flex;flex-direction:column;position:relative}
 .price-card.featured{border-color:var(--blue);box-shadow:0 8px 32px rgba(37,99,235,.12)}
 .price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap}
@@ -331,6 +331,18 @@ textarea.form-input{resize:vertical;min-height:100px}
         </ul>
         <a href="https://getcharteredai.com/#pricing-sec" class="price-cta">Enrol candidates →</a>
       </div>
+      <div class="price-card">
+        <div class="price-tier">APC Year Two Readiness Review</div>
+        <div class="price-amount">&#163;127</div>
+        <div class="price-per">one-off &middot; Am I on track? diagnostic</div>
+        <ul class="price-features">
+          <li>32 diagnostic questions</li>
+          <li>5 assessment areas</li>
+          <li>Personalised readiness report from Michael</li>
+          <li>For candidates starting Year Two</li>
+        </ul>
+        <a href="https://getcharteredai.com/#pricing-sec" class="price-cta">Enrol candidates →</a>
+      </div>
     </div>
   </div>
 </div>
@@ -377,9 +389,10 @@ textarea.form-input{resize:vertical;min-height:100px}
           <select id="empCohort" class="form-input">
             <option value="">Select size</option>
             <option>1–5 candidates</option>
-            <option>6–15 candidates</option>
-            <option>16–30 candidates</option>
-            <option>30+ candidates</option>
+            <option>6–10 candidates</option>
+            <option>11–20 candidates</option>
+            <option>21–50 candidates</option>
+            <option>50+ candidates</option>
           </select>
         </div>
       </div>
@@ -447,5 +460,17 @@ function showAlert(msg, type) {
   el.style.display = 'block';
 }
 </script>
+
+<footer style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
+  <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;color:#0D0F1C">Get Chartered <span style="color:#f59e0b">AI</span></div>
+  <div style="display:flex;gap:18px;flex-wrap:wrap">
+    <a href="https://getcharteredai.com" style="color:#64748b;font-size:12px;text-decoration:none">Platform</a>
+    <a href="/employer-guide" style="color:#64748b;font-size:12px;text-decoration:none">Employer Guide</a>
+    <a href="/employer-guide.pdf" style="color:#64748b;font-size:12px;text-decoration:none">PDF Guide</a>
+    <a href="/counsellor-guide.pdf" style="color:#64748b;font-size:12px;text-decoration:none">Counsellor Guide</a>
+    <a href="mailto:info@getcharteredai.com" style="color:#64748b;font-size:12px;text-decoration:none">info@getcharteredai.com</a>
+  </div>
+  <p style="font-size:11px;color:#94a3b8;width:100%;margin:0">&#169; Get Chartered AI 2026 &middot; Built by Chartered Surveyors &middot; getcharteredai.com</p>
+</footer>
 </body>
 </html>

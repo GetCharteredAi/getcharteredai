@@ -1,6 +1,36 @@
 # Get Chartered AI — Build Log & Project Status
 
-*Last updated: 6 August 2026 (Try Michael interactive demo — two-stage AI, question pool, reveal interaction, three-field lead capture)*
+*Last updated: 7 August 2026 (CPD diagnostic logging; employer.html three fixes)*
+
+---
+
+## 7 August 2026 — CPD diagnostic logging + employer.html fixes (115e4fb, e240197)
+
+### CPD silent-failure diagnostic logging (115e4fb)
+
+Read-only investigation confirmed two failure modes in `get-cpd.js` and `save-cpd.js`:
+
+**`get-cpd.js`:** Inner `catch(e) {}` was completely silent — any Blobs read failure returns `{ success: true, entries: [] }`, indistinguishable from a genuinely empty CPD log. Candidate sees blank log with no error.
+
+**`save-cpd.js`:** Same silent inner catch for the read — but with a compounding risk: if the read fails silently while the write succeeds, `entries.unshift(newEntry)` runs against an empty array and `store.set()` writes `[newEntry]` only, silently overwriting all previous CPD entries. During the confirmed stale-token period, writes would have surfaced as 401 via the outer catch (visible failure), so this compound scenario requires a partial-failure window to cause actual data loss — not confirmed to have occurred, but structurally possible.
+
+**Fix applied (diagnostic-only, no functional behaviour change):**
+- `get-cpd.js`: `catch(e) {}` → `catch(e) { console.error('CPD read failed:', e.name, e.message, 'status:', e.status); readError = true; }` + `readError` flag added to response body so client can distinguish genuine empty from read failure
+- `save-cpd.js`: same `console.error` logging added to inner catch
+
+Both files verified: `node --check` PASS, `catch(e)` count = 2 (inner + outer), `statusCode: 200` count = 1. Blobs key count (number of candidates with CPD data) not accessible locally — check via Netlify dashboard → Storage → Blobs → `cpd-logs`, or `netlify blobs:list --store=cpd-logs` after CLI login.
+
+### employer.html three fixes (e240197)
+
+Three inconsistencies corrected vs `employer-guide.html`:
+
+1. **Cohort-size buckets standardised** — select updated from 1–5/6–15/16–30/30+ to 1–5/6–10/11–20/21–50/50+, matching `employer-guide.html` exactly.
+
+2. **Year Two Readiness Review (£127) added** as fourth pricing card. Pricing grid CSS updated from `repeat(3,1fr)` to `repeat(4,1fr)`. Card uses same `.price-card` / `.price-tier` / `.price-features` / `.price-cta` class pattern as the three existing cards. Mobile grid (`grid-template-columns:1fr`) already in the media query — no mobile change needed.
+
+3. **Light-themed footer added** — `employer.html` had no footer at all (closed `</script></body></html>`). New footer uses light design (`background:#f8fafc`, `border-top:1px solid #e2e8f0`, navy brand name, `#64748b` link colour) matching the page's existing white/grey design system rather than copying `employer-guide.html`'s dark footer. Links: Platform / Employer Guide / PDF Guide (`/employer-guide.pdf`) / Counsellor Guide (`/counsellor-guide.pdf`) / email. PDF paths confirmed against working `employer-guide.html` equivalents before applying.
+
+Note: "22 pathways" language on both employer pages is confirmed intentional marketing copy — not changed.
 
 ---
 

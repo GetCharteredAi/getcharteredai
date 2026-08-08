@@ -5,7 +5,7 @@
 
 ### Pricing (correct as of June 2026)
 - APC Full 12 Module Programme: £497 one-off or £49/month
-- Sprint Programme: £297 one-off (42 days)
+- Sprint Programme: £297 one-off (49 days)
 - Referred Candidate Recovery Programme: £397 one-off (90 days)
 - APC Year Two Readiness Review: £127 one-off
 - Employer Annual Access: £497 (18 months)

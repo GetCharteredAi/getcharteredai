@@ -1,6 +1,12 @@
 // netlify/functions/verify-sprint-session.js
 // Verifies Stripe sprint payment and issues 49-day access token
 
+// Price ID sets — keep in sync with create-checkout.js and verify-session.js
+const SPRINT_PRICE_IDS = new Set([
+  'price_1TcsLoRkzyH1h56UOSPEAPSq', // current
+  'price_1SdEf0RkzyH1h56UQZUOtebL', // legacy
+]);
+
 exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -26,14 +32,22 @@ exports.handler = async (event) => {
   }
 
   try {
-    // Verify Stripe session
-    const r = await fetch(`https://api.stripe.com/v1/checkout/sessions/${session_id}`, {
+    // Verify Stripe session — expand line_items so we can check the price ID
+    const r = await fetch(`https://api.stripe.com/v1/checkout/sessions/${session_id}?expand[]=line_items`, {
       headers: { 'Authorization': `Bearer ${secretKey}` }
     });
     const session = await r.json();
 
     if (!r.ok || (session.payment_status !== 'paid' && session.status !== 'complete')) {
       return { statusCode: 402, headers, body: JSON.stringify({ error: 'Payment not confirmed. Please complete payment first.' }) };
+    }
+
+    // Verify the session is actually for the Sprint product
+    const lineItems = session.line_items?.data || [];
+    const priceId = lineItems[0]?.price?.id || '';
+    if (!SPRINT_PRICE_IDS.has(priceId)) {
+      console.warn(`Sprint verify rejected: session ${session_id} has price ID ${priceId || '(none)'}`);
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Session does not match Sprint product. Please contact info@getcharteredai.com' }) };
     }
 
     const cleanEmail = email.toLowerCase().trim();

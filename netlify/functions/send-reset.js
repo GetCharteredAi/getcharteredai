@@ -114,7 +114,7 @@ exports.handler = async (event) => {
               expires = activatedAt + (90 * 24 * 60 * 60 * 1000);
             } else if (SPRINT_PRICE_IDS.has(priceId)) {
               plan = 'sprint';
-              expires = activatedAt + (42 * 24 * 60 * 60 * 1000);
+              expires = activatedAt + (49 * 24 * 60 * 60 * 1000);
             } else if (YEAR_TWO_PRICE_IDS.has(priceId)) {
               plan = 'year-two';
               // Option C: pre-deploy purchases keep their original 548-day reset window
@@ -161,6 +161,15 @@ exports.handler = async (event) => {
 
     // Build magic link
     const magicLink = `https://getcharteredai.com?token=${encodeURIComponent(token)}`;
+    const linkValidityText = {
+      'monthly':  '60 days',
+      'annual':   '18 months',
+      'referred': '90 days',
+      'sprint':   '49 days',
+      'year-two': '6 months',
+      'selfpaced': '18 months',
+    };
+    const validityText = linkValidityText[plan] || '35 days';
 
     // Send email via Resend
     await fetch('https://api.resend.com/emails', {
@@ -190,13 +199,13 @@ exports.handler = async (event) => {
                 Log In to My Dashboard →
               </a>
               <p style="color:#94a3b8;font-size:12px;margin-top:24px">
-                This link is valid for 35 days. If you did not request this, you can safely ignore this email.<br><br>
+                This link is valid for ${validityText}. If you did not request this, you can safely ignore this email.<br><br>
                 Questions? <a href="mailto:info@getcharteredai.com" style="color:#2563EB">info@getcharteredai.com</a>
               </p>
             </div>
           </div>
         `,
-        text: `Your Get Chartered AI login link\n\nClick here to log in: ${magicLink}\n\nThis link is valid for 35 days.\n\nQuestions? info@getcharteredai.com`
+        text: `Your Get Chartered AI login link\n\nClick here to log in: ${magicLink}\n\nThis link is valid for ${validityText}.\n\nQuestions? info@getcharteredai.com`
       })
     });
 

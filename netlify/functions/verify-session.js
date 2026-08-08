@@ -16,6 +16,9 @@ const SPRINT_PRICE_IDS = new Set([
 const YEAR_TWO_PRICE_IDS = new Set([
   'price_1TcsGcRkzyH1h56U7bJWaaBD', // Year Two Readiness Review (current)
 ]);
+const CASE_STUDY_PRICE_IDS = new Set([
+  'price_1Tgqf1RkzyH1h56UvxEISPgl', // Case Study Review add-on (current)
+]);
 
 exports.handler = async (event) => {
   const headers = {
@@ -70,6 +73,8 @@ exports.handler = async (event) => {
       plan = 'year-two';
     } else if (SELFPACED_PRICE_IDS.has(priceId)) {
       plan = 'selfpaced';
+    } else if (CASE_STUDY_PRICE_IDS.has(priceId)) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Case Study Review is an add-on, not a programme subscription. Please use the dedicated verification link.' }) };
     } else {
       plan = 'annual';
     }
@@ -87,7 +92,7 @@ exports.handler = async (event) => {
         plan === 'annual'    ? 548 * 24 * 60 * 60 * 1000 :
         plan === 'selfpaced' ? 548 * 24 * 60 * 60 * 1000 :
         plan === 'referred'  ?  90 * 24 * 60 * 60 * 1000 :
-        plan === 'sprint'    ?  42 * 24 * 60 * 60 * 1000 :
+        plan === 'sprint'    ?  49 * 24 * 60 * 60 * 1000 :
         plan === 'year-two'  ? 183 * 24 * 60 * 60 * 1000 :
         60 * 24 * 60 * 60 * 1000
       )

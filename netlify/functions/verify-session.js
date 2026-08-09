@@ -70,7 +70,7 @@ exports.handler = async (event) => {
     } else if (SPRINT_PRICE_IDS.has(priceId)) {
       plan = 'sprint';
     } else if (YEAR_TWO_PRICE_IDS.has(priceId)) {
-      plan = 'year-two';
+      plan = 'year-one';
     } else if (SELFPACED_PRICE_IDS.has(priceId)) {
       plan = 'selfpaced';
     } else if (CASE_STUDY_PRICE_IDS.has(priceId)) {
@@ -93,7 +93,7 @@ exports.handler = async (event) => {
         plan === 'selfpaced' ? 548 * 24 * 60 * 60 * 1000 :
         plan === 'referred'  ?  90 * 24 * 60 * 60 * 1000 :
         plan === 'sprint'    ?  49 * 24 * 60 * 60 * 1000 :
-        plan === 'year-two'  ? 183 * 24 * 60 * 60 * 1000 :
+        plan === 'year-one'  ? 183 * 24 * 60 * 60 * 1000 :
         60 * 24 * 60 * 60 * 1000
       )
     };

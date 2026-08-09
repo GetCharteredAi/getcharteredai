@@ -116,7 +116,7 @@ exports.handler = async (event) => {
               plan = 'sprint';
               expires = activatedAt + (49 * 24 * 60 * 60 * 1000);
             } else if (YEAR_TWO_PRICE_IDS.has(priceId)) {
-              plan = 'year-two';
+              plan = 'year-one';
               // Option C: pre-deploy purchases keep their original 548-day reset window
               expires = activatedAt < YEAR_TWO_DEPLOY_TS
                 ? activatedAt + (548 * 24 * 60 * 60 * 1000)
@@ -142,7 +142,7 @@ exports.handler = async (event) => {
       'annual':   'Full Year Access',
       'referred': 'Referred Candidate Recovery Programme',
       'sprint':   'Sprint Programme',
-      'year-two': 'APC Year Two Readiness Review',
+      'year-one': 'APC Year Two Readiness Review',
     };
     const planLabel = planLabels[plan] || 'Full Year Access';
 
@@ -166,7 +166,7 @@ exports.handler = async (event) => {
       'annual':   '18 months',
       'referred': '90 days',
       'sprint':   '49 days',
-      'year-two': '6 months',
+      'year-one': '6 months',
       'selfpaced': '18 months',
     };
     const validityText = linkValidityText[plan] || '35 days';

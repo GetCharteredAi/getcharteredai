@@ -74,6 +74,21 @@ h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(24px,3.5vw,40px);f
 .inc-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
 .inc-body{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin:0}
 
+/* PROGRAMME GRID */
+.prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px}
+.prog-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;border-top:3px solid var(--blue)}
+.prog-card-amber{border-top-color:var(--gold)}
+.prog-label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--navy);margin-bottom:10px}
+.prog-desc{font-size:13px;color:#64748b;line-height:1.65;margin:0}
+.tools-heading{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:700;color:var(--navy);margin:48px 0 20px}
+.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:40px}
+.tool-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:16px}
+.tool-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.tool-desc{font-size:12px;color:#64748b;line-height:1.55}
+.yr2-callout{background:#fffbeb;border:1.5px solid #fcd34d;border-radius:14px;padding:28px 32px}
+.yr2-callout-tag{display:inline-block;background:#fef3c7;border:1px solid #fcd34d;color:#92400e;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 12px;border-radius:4px;margin-bottom:12px}
+.yr2-callout-body{font-size:14px;color:#78350f;line-height:1.7}
+
 /* CONTACT FORM */
 .contact-card{background:#fff;border-radius:20px;padding:48px;max-width:640px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.15)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
@@ -117,7 +132,7 @@ textarea.form-input{resize:vertical;min-height:100px}
 .referred-price{text-align:center;flex-shrink:0}
 .referred-amount{font-size:32px;font-weight:800;color:#d97706;line-height:1}
 .referred-duration{font-size:12px;color:#92400e;margin-bottom:12px}
-@media(max-width:800px){.problem-grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr}.stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid #e2e8f0;min-width:150px}.included-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.hero-btns{flex-direction:column;align-items:center}nav{padding:16px 20px}.pricing-grid{grid-template-columns:1fr}.referred-banner{grid-template-columns:1fr}.referred-price{text-align:left}}
+@media(max-width:800px){.problem-grid{grid-template-columns:1fr}.prog-grid{grid-template-columns:1fr}.tools-grid{grid-template-columns:repeat(2,1fr)}.how-grid{grid-template-columns:1fr}.stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid #e2e8f0;min-width:150px}.included-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.hero-btns{flex-direction:column;align-items:center}nav{padding:16px 20px}.pricing-grid{grid-template-columns:1fr}.referred-banner{grid-template-columns:1fr}.referred-price{text-align:left}}
 </style>
 </head>
 <body>
@@ -223,18 +238,84 @@ textarea.form-input{resize:vertical;min-height:100px}
   </div>
 </div>
 
+<!-- BEYOND THE APC -->
+<div class="section sec-white">
+  <div class="sec-inner">
+    <span class="eyebrow">The platform in full</span>
+    <h2>A programme for every stage of the APC journey</h2>
+    <p class="sec-lead">Each candidate in your cohort gets the programme that matches where they are — not a generic training portal, but structured preparation for their specific situation.</p>
+    <div class="prog-grid">
+      <div class="prog-card">
+        <div class="prog-label">Full APC</div>
+        <p class="prog-desc">For candidates preparing from the start of their structured training. 12 modules covering all 11 mandatory competencies — available monthly or all at once with annual access.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-label">Final Sprint</div>
+        <p class="prog-desc">For candidates in their final weeks before assessment. Targeted revision, competency briefings and mock interview practice in a focused, self-paced programme.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-label">Referred Recovery</div>
+        <p class="prog-desc">For candidates who have been referred. Nine specialist modules rebuilding evidence structure, addressing the root causes of referral and structured recovery preparation for the resit.</p>
+      </div>
+      <div class="prog-card prog-card-amber">
+        <div class="prog-label">Year Two Readiness</div>
+        <p class="prog-desc">A 30-minute benchmark for candidates at the start of Year Two. Not a training programme — a diagnostic. 32 coaching questions across five readiness areas, with a personalised report from Michael.</p>
+      </div>
+    </div>
+    <h3 class="tools-heading">What Full APC, Final Sprint and Referred Recovery candidates get</h3>
+    <div class="tools-grid">
+      <div class="tool-item">
+        <div class="tool-name">Michael — AI Tutor</div>
+        <p class="tool-desc">Available 24/7 in Tutor Mode (competency coaching) and Assessor Mode (interview practice). All 22 RICS pathways.</p>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">60-Minute Mock Interview</div>
+        <p class="tool-desc">Full simulated APC panel interview with structured written feedback. Pathway-specific, updated every assessment window.</p>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">Think on Your Feet</div>
+        <p class="tool-desc">Three-minute daily competency question drill. Builds the verbal fluency assessors test under pressure.</p>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">5,000+ Practice Questions</div>
+        <p class="tool-desc">Pass, high-pass and referral-level answers for every question. Covers all 11 mandatory competencies across all modules.</p>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">Competency Evidence Bank</div>
+        <p class="tool-desc">Structured PREP builder for drafting and refining competency statements before submission.</p>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">CPD Log</div>
+        <p class="tool-desc">Built-in log for recording and categorising CPD entries in the format required for submission.</p>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">Submission Checklist</div>
+        <p class="tool-desc">Structured pre-submission review tool. Candidates confirm each element before they submit.</p>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">Industry Briefing</div>
+        <p class="tool-desc">Current legislation and market context, updated every assessment window. No separate research needed.</p>
+      </div>
+    </div>
+    <div class="yr2-callout">
+      <span class="yr2-callout-tag">Year Two Readiness Review</span>
+      <p class="yr2-callout-body">The Year Two Readiness Review is a standalone diagnostic, not a structured training programme. Candidates answer 32 coaching questions across five areas — APC framework, competency level understanding, diary and evidence practice, articulation and legislation awareness — and receive a personalised readiness report from Michael with scored traffic lights, identified priorities and a Year Two development roadmap. For candidates who want to understand where they stand before they begin preparing in earnest.</p>
+    </div>
+  </div>
+</div>
+
 <!-- WHAT IS INCLUDED -->
 <div class="section sec-navy">
   <div class="sec-inner">
     <span class="eyebrow eyebrow-gold">What a cohort arrangement includes</span>
     <h2>Everything your candidates need.<br>None of the overhead.</h2>
-    <p class="sec-lead">A cohort arrangement gives every candidate in your firm access to the full Get Chartered AI platform — with pricing structured around your cohort size and a direct line to us for any queries.</p>
+    <p class="sec-lead">A cohort arrangement means every candidate is enrolled in the right programme for their stage — with pricing coordinated around your cohort size, and a direct line to us for any queries.</p>
     <div class="included-grid">
       <div class="inc-card">
         <div class="inc-icon">📚</div>
         <div>
-          <div class="inc-title">Full platform access for every candidate</div>
-          <p class="inc-body">12 modules, 5,000+ practice questions and answers, AI Tutor and 60-minute mock interview. All 22 RICS pathways. Updated for 2026.</p>
+          <div class="inc-title">The right programme for every candidate</div>
+          <p class="inc-body">Each candidate gets access to the programme that matches where they are — Full APC, Final Sprint, Referred Recovery or Year Two Readiness Review. Same tools, same content, coordinated through your firm.</p>
         </div>
       </div>
       <div class="inc-card">

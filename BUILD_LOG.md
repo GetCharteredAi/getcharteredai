@@ -1027,6 +1027,7 @@ The AI tutor chat (pos ~1,550,816) already had its own partial inline formatter 
 
 ## Other Outstanding Items (non-M11B)
 
+- **Year Two token grants unintended access to `index.html`** — A candidate with a `year-one` plan token can navigate to `index.html` and land in the main platform dashboard. The plan badge renders as "Monthly Access" (no `year-one` entry in `planLabels`), the module grid shows irrelevant content, and the sub-line copy defaults to the monthly plan fallback. Low priority (no data exposure, no cost). Fix: either add a redirect check detecting `plan === 'year-one'` and redirect to `/year-one-review`, or add a `year-one` entry to `planLabels` and suppress the module grid for that plan.
 - Daily touchpoint microlearning feature (roadmap idea, not yet built) — optional 5-min daily review, scoped to technical question banks only (spaced repetition/microlearning research), NOT for module/competency content
 - Mobile view full review
 - Social proof/testimonials

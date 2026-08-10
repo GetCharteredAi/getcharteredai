@@ -62,15 +62,9 @@ exports.handler = async (event) => {
   const confirmHtml = wrap(`
     <p style="font-size:15px;color:#374151;line-height:1.7">Hi ${firstName},</p>
     <p style="font-size:15px;color:#374151;line-height:1.7">Thank you for getting in touch. I will come back to you directly with details of how cohort access works — what candidates get, how it sits alongside your existing internal support and how pricing is structured for different cohort sizes.</p>
-    <p style="font-size:15px;color:#374151;line-height:1.7">In the meantime, the two documents below may be useful:</p>
+    <p style="font-size:15px;color:#374151;line-height:1.7">In the meantime, the document below may be useful:</p>
 
     <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px;margin:20px 0">
-      <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #e2e8f0">
-        <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#2563EB;margin-bottom:4px">Free Resource</div>
-        <div style="font-size:15px;font-weight:700;color:#0D0F1C;margin-bottom:4px">APC Counsellor &amp; Supervisor Guide 2026</div>
-        <p style="font-size:13px;color:#64748b;margin:0 0 10px;line-height:1.6">Covers your counsellors' formal RICS obligations, the December 2025 rule changes and how to give candidates more structured feedback before submission.</p>
-        <a href="https://getcharteredai.com/counsellor-guide.pdf" style="font-size:13px;font-weight:700;color:#2563EB;text-decoration:none">Download PDF &rarr;</a>
-      </div>
       <div>
         <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#2563EB;margin-bottom:4px">Platform Overview</div>
         <div style="font-size:15px;font-weight:700;color:#0D0F1C;margin-bottom:4px">Employer Guide — Get Chartered AI</div>
@@ -110,8 +104,7 @@ exports.handler = async (event) => {
     <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px 18px">
       <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#166534;margin-bottom:8px">Attachments to include in your reply</div>
       <p style="font-size:13px;color:#166534;margin:0;line-height:1.7">
-        &bull; <a href="https://getcharteredai.com/employer-guide.pdf" style="color:#166534">employer-guide.pdf</a><br>
-        &bull; <a href="https://getcharteredai.com/counsellor-guide.pdf" style="color:#166534">counsellor-guide.pdf</a>
+        &bull; <a href="https://getcharteredai.com/employer-guide.pdf" style="color:#166534">employer-guide.pdf</a>
       </p>
     </div>
   `);
@@ -122,7 +115,7 @@ exports.handler = async (event) => {
       cleanEmail,
       `Thank you for your enquiry — Get Chartered AI`,
       confirmHtml,
-      `Hi ${firstName},\n\nThank you for getting in touch. I will come back to you directly with details of how cohort access works.\n\nIn the meantime:\n- Counsellor Guide: https://getcharteredai.com/counsellor-guide.pdf\n- Employer Guide: https://getcharteredai.com/employer-guide.pdf\n\nAngela\nFounder, Get Chartered AI`
+      `Hi ${firstName},\n\nThank you for getting in touch. I will come back to you directly with details of how cohort access works.\n\nIn the meantime, the Employer Guide may be useful: https://getcharteredai.com/employer-guide.pdf\n\nAngela\nFounder, Get Chartered AI`
     );
 
     // Notify Angela

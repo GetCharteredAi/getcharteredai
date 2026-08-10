@@ -128,7 +128,7 @@ h1 em{font-style:normal;color:var(--gold)}
   <div class="form-card">
     <div class="form-badge">Free — Counsellor Resource</div>
     <div class="form-title">Get the Full Counsellor Guide</div>
-    <div class="form-sub">The complete guide including a counsellor meeting checklist, submission review framework and the full 2026 competency choice rules reference. Free PDF delivered to your inbox.</div>
+    <div class="form-sub">Leave your details and we'll send you a direct link to the full guide, plus follow up about group access options for your firm.</div>
     <div id="alertBox" class="alert"></div>
     <div class="form-group">
       <label class="form-label">Your Name</label>
@@ -172,7 +172,7 @@ async function submitForm() {
   try {
     await fetch('/.netlify/functions/capture-lead', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({name, email, pathway: firm, examDate: candidates, guideType:'counsellor-guide'})
+      body: JSON.stringify({name, email, firm, candidates, guideType:'counsellor-guide'})
     });
     showAlert('✓ Guide on its way — check your inbox.','green');
     btn.textContent = '✓ Guide Sent';

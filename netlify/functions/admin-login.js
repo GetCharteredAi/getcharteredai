@@ -8,7 +8,7 @@ exports.handler = async (event) => {
       return { statusCode: 401, body: JSON.stringify({ success: false, error: 'Unauthorised' }) };
     }
 
-    const validPlans = ['annual', 'monthly', 'sprint', 'referred'];
+    const validPlans = ['annual', 'monthly', 'sprint', 'referred', 'year-one'];
     const resolvedPlan = validPlans.includes(plan) ? plan : 'annual';
 
     const activatedAt = Date.now();

@@ -2688,6 +2688,7 @@ async function doLogin() {
         if (!localStorage.getItem('gca_pathway')) localStorage.setItem('gca_pathway', 'Valuation');
         err.style.display = 'none';
         closeLogin();
+        if (selectedPlan === 'year-one') { window.location.href = '/year-one-review'; return; }
         showView('dashboard');
         renderDashboard();
       } else {
@@ -2716,6 +2717,7 @@ async function doLogin() {
         localStorage.setItem('gca_activated', d.activatedAt ? d.activatedAt.toString() : Date.now().toString());
         err.style.display = 'none';
         closeLogin();
+        if (d.plan === 'year-one') { window.location.href = '/year-one-review'; return; }
         showView('dashboard');
         return;
       }
@@ -5178,6 +5180,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     history.replaceState({}, '', window.location.pathname);
     const session = await getSession();
     if (session.valid) {
+      if (session.plan === 'year-one') { window.location.href = '/year-one-review'; return; }
       showView('dashboard');
       updateNav();
       if (localStorage.getItem('gca_cs_first_visit') === 'true') {
@@ -5200,6 +5203,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       localStorage.setItem('gca_user', payload.email);
       localStorage.setItem('gca_plan', payload.plan);
       localStorage.setItem('gca_activated', payload.activatedAt.toString());
+      if (payload.plan === 'year-one') { window.location.href = '/year-one-review'; return; }
       showView('dashboard');
       updateNav();
       return;

@@ -349,13 +349,11 @@ const PATHWAY_COMPETENCIES = {
   'Other / Not listed': ['Client care','Communication and negotiation','Health and safety','Sustainability','Data management','Business planning','Accounting principles and procedures']
 };
 
-const ROUTE_OPTIONS = ['APC (structured training pathway)','RICS Qualification Test (AQT)','Senior Professional Assessment (SPA)','Academic Assessment','Other'];
-
 // ── QUESTION BANK ──
 const YR2_QUESTIONS = [
   // AREA 1
-  {id:1,area:1,areaName:'Understanding Your APC & Competencies',type:'context-route',question:'Which APC route are you on, and which pathway are you pursuing?',noAssistance:true,lmShape:'none'},
-  {id:2,area:1,areaName:'Understanding Your APC & Competencies',type:'context-stage',question:'Where are you in your APC training at the moment?',noAssistance:true,lmShape:'none',options:[{l:'A',t:'Within my first six months of structured training'},{l:'B',t:'Six months to one year in'},{l:'C',t:'More than one year in — working towards submission'},{l:'D',t:'I have submitted or am very close to submitting'},{l:'E',t:"I'm unsure where I sit in the timeline"}]},
+  {id:1,area:1,areaName:'Understanding Your APC & Competencies',type:'context-pathway',question:'Which RICS pathway are you following?',noAssistance:true,lmShape:'none'},
+  {id:2,area:1,areaName:'Understanding Your APC & Competencies',type:'context-stage',question:'How confident are you that you understand which competencies you need to achieve and the level required for each one on your pathway?',noAssistance:true,lmShape:'none',options:[{l:'A',t:'Very confident — I understand my competency requirements and required levels clearly'},{l:'B',t:'Fairly confident — I understand most of them but there are some areas I would need to check'},{l:'C',t:'Not very confident — I know some of my requirements but I am unclear about others'},{l:'D',t:'Not confident yet — I would need help understanding what I am required to achieve'}]},
   {id:3,area:1,areaName:'Understanding Your APC & Competencies',type:'mcq',question:'The RICS APC uses three competency levels — Level 1, Level 2 and Level 3. Which of the following best describes what Level 2 requires of you?',options:[{l:'A',t:'Demonstrating awareness and knowledge of the competency area'},{l:'B',t:'Applying your competency knowledge in real workplace situations, making decisions or recommendations with personal responsibility and professional accountability'},{l:'C',t:'Demonstrating theoretical understanding across a wide range of scenarios, including those outside your immediate experience'},{l:'D',t:'Showing that you understand the regulatory framework and RICS guidance that governs the competency'},{l:'E',t:"I'm not sure"}],bestAnswer:'B',escapeOption:'E',lmShape:'full-loop'},
   {id:4,area:1,areaName:'Understanding Your APC & Competencies',type:'mcq',question:"A colleague tells you their Level 2 Client Care answer is strong because they spent two years working on client-facing projects and described those projects in detail. What is most likely missing from that answer?",options:[{l:'A',t:'They need to include more technical content about what was done on those projects'},{l:'B',t:'Personal application — they need to show what they specifically did, decided or recommended, and why, rather than describing the project generally'},{l:'C',t:'They need to demonstrate awareness of the RICS guidance relevant to Client Care'},{l:'D',t:'Nothing is missing — project experience at Level 2 is exactly what RICS is looking for'},{l:'E',t:"I'm not sure"}],bestAnswer:'B',escapeOption:'E',lmShape:'full-loop'},
   {id:5,area:1,areaName:'Understanding Your APC & Competencies',type:'free-text',question:"In your own words, what does Level 3 ask you to demonstrate — and how does that differ from Level 2? Maximum 60 words.",escapeOption:"I'm not sure / I don't know yet",lmShape:'full-loop',wordLimit:60},
@@ -589,7 +587,7 @@ function yr2RenderQuestion(index) {
   const p = yr2GetProgress();
   p.currentQuestion = index; yr2SaveProgress(p);
   switch(q.type) {
-    case 'context-route':          return yr2RenderQ1();
+    case 'context-pathway':        return yr2RenderQ1();
     case 'context-stage':          return yr2RenderContextStage(index);
     case 'mcq':                    return yr2RenderMCQ(index);
     case 'mcq-followup':           return yr2RenderMCQFollowup(index);
@@ -607,34 +605,30 @@ function yr2RenderQuestion(index) {
 
 function yr2Advance(index) { yr2RenderQuestion(index + 1); }
 
-// ── Q1 — ROUTE + PATHWAY ──
+// ── Q1 — PATHWAY ──
 function yr2RenderQ1() {
   const pathways = Object.keys(PATHWAY_COMPETENCIES);
   yr2Render(`
     ${yr2ProgressBar(0)}
     <div class="yr2-question-card">${yr2MichaelHeader()}
-      <div class="yr2-question-text">Which APC route are you on, and which pathway are you pursuing?</div>
-    </div>
-    <div class="yr2-form-group"><label>APC route</label>
-      <select id="yr2-q1-route"><option value="">Select your route</option>${ROUTE_OPTIONS.map(r=>`<option value="${escHtml(r)}">${escHtml(r)}</option>`).join('')}</select>
+      <div class="yr2-question-text">Which RICS pathway are you following?</div>
     </div>
     <div class="yr2-form-group"><label>Pathway</label>
       <select id="yr2-q1-pathway"><option value="">Select your pathway</option>${pathways.map(p=>`<option value="${escHtml(p)}">${escHtml(p)}</option>`).join('')}</select>
     </div>
-    <div class="yr2-err" id="yr2-q1-err">Please select both your route and pathway to continue.</div>
+    <div class="yr2-err" id="yr2-q1-err">Please select your pathway to continue.</div>
     <div class="yr2-actions">
       <button class="yr2-btn-primary" onclick="yr2SubmitQ1()">Continue →</button>
     </div>
   `);
 }
 function yr2SubmitQ1() {
-  const route = document.getElementById('yr2-q1-route')?.value;
   const pathway = document.getElementById('yr2-q1-pathway')?.value;
   const err = document.getElementById('yr2-q1-err');
-  if (!route || !pathway) { err.style.display = 'block'; return; }
+  if (!pathway) { err.style.display = 'block'; return; }
   const p = yr2GetProgress();
-  p.q1Context = { route, pathway };
-  p.records[0] = YR2_ENGINE.context({ route, pathway });
+  p.q1Context = { pathway };
+  p.records[0] = YR2_ENGINE.context({ pathway });
   yr2SaveProgress(p);
   yr2Advance(0);
 }

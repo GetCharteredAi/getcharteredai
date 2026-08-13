@@ -472,10 +472,26 @@ async function yr2DoLogin() {
   if (!email || !password) { err.style.display = 'block'; return; }
   err.style.display = 'none';
   try {
-    const r = await fetch('/.netlify/functions/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ email, password }) });
+    if (email === 'test@getcharteredai.com') {
+      const r = await fetch('/.netlify/functions/admin-login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ email, password, plan: 'year-one' }) });
+      const d = await r.json();
+      if (d.token) {
+        localStorage.setItem('gca_token', d.token);
+        localStorage.setItem('gca_plan', d.plan);
+        localStorage.setItem('gca_user', d.email);
+        if (d.activatedAt) localStorage.setItem('gca_activated', d.activatedAt.toString());
+        yr2Init();
+      } else {
+        err.textContent = 'Incorrect password for test account.';
+        err.style.display = 'block';
+      }
+      return;
+    }
+    // Regular users: the password field contains their JWT token
+    const r = await fetch('/.netlify/functions/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ token: password }) });
     const d = await r.json();
     if (d.valid && d.plan === 'year-one') {
-      localStorage.setItem('gca_token', d.token);
+      localStorage.setItem('gca_token', password);
       localStorage.setItem('gca_plan', d.plan);
       localStorage.setItem('gca_user', d.email);
       if (d.activatedAt) localStorage.setItem('gca_activated', d.activatedAt.toString());

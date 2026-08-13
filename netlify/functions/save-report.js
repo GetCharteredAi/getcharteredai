@@ -38,7 +38,7 @@ exports.handler = async (event) => {
   if (!payload) return { statusCode: 401, headers: HEADERS, body: JSON.stringify({ success: false, error: 'Unauthorised' }) };
 
   try {
-    const store = getStore('yr1-reports');
+    const store = getStore('yr2-reports');
 
     const existing = await store.get(payload.email, { type: 'json' });
     const retakeCount = (existing?.retakeCount ?? 0) + 1;
@@ -54,7 +54,7 @@ exports.handler = async (event) => {
       };
     }
 
-    await store.setJSON(payload.email, { report, savedAt: Date.now(), email: payload.email, retakeCount });
+    await store.setJSON(payload.email, { report, schemaVersion: 'yr2-v1', savedAt: Date.now(), email: payload.email, retakeCount });
     console.log(`Report saved for ${payload.email} (attempt ${retakeCount} of 3)`);
     return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ success: true }) };
   } catch (err) {

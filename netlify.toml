@@ -58,7 +58,12 @@
 
 [[redirects]]
   from = "/year-one-review"
-  to = "/year-one-review.html"
+  to = "/year-two-review"
+  status = 301
+
+[[redirects]]
+  from = "/year-two-review"
+  to = "/year-two-review.html"
   status = 200
 
 [[redirects]]

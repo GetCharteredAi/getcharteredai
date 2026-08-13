@@ -38,7 +38,7 @@ exports.handler = async (event) => {
   if (!payload) return { statusCode: 401, headers: HEADERS, body: JSON.stringify({ success: false, error: 'Unauthorised' }) };
 
   try {
-    const store = getStore('yr1-reports');
+    const store = getStore('yr2-reports');
     const entry = await store.get(payload.email, { type: 'json' });
     return {
       statusCode: 200,

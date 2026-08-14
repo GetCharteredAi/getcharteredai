@@ -1000,6 +1000,7 @@ function yr2SubmitQ15() {
   const letter = sel.querySelector('.yr2-option-letter').textContent;
   const text = sel.querySelector('.yr2-option-text').textContent;
   const response = `${letter}: ${text}`;
+  yr2Session.originalResponse = response;
   if (letter === q.haventDoneOption) {
     // Show brief explanation — do NOT re-ask
     yr2Render(`
@@ -1013,7 +1014,7 @@ function yr2SubmitQ15() {
         <p class="yr2-lm-explain">A structured experience review — mapping what you have done against what each competency requires — is one of the most useful things a second-year candidate can do. It reveals gaps early enough to address them, and it makes diary planning much more deliberate. It does not need to be elaborate: a simple competency-by-competency check of "what personal examples do I have at Level 2 and above?" is enough to start. This is worth adding to your development priorities.</p>
       </div>
       <div class="yr2-actions" style="margin-top:16px">
-        <button class="yr2-btn-primary" onclick="yr2SaveAndAdvanceQ15('${escHtml(response)}')">Continue →</button>
+        <button class="yr2-btn-primary" onclick="yr2SaveAndAdvanceQ15()">Continue →</button>
       </div>
     `);
   } else {
@@ -1027,13 +1028,13 @@ function yr2SubmitQ15() {
       <textarea class="yr2-textarea short" id="yr2-q15-followup" placeholder="Maximum ${q.conditionalWordLimit} words..." oninput="yr2UpdateWC('yr2-q15-followup',${q.conditionalWordLimit},'yr2-wc')"></textarea>
       <div class="yr2-wc" id="yr2-wc">0 / ${q.conditionalWordLimit} words</div>
       <div class="yr2-actions" style="margin-top:12px">
-        <button class="yr2-btn-primary" onclick="yr2SaveAndAdvanceQ15('${escHtml(response)}')">Save and continue →</button>
+        <button class="yr2-btn-primary" onclick="yr2SaveAndAdvanceQ15()">Save and continue →</button>
       </div>
     `);
-    yr2Session.originalResponse = response;
   }
 }
-function yr2SaveAndAdvanceQ15(response) {
+function yr2SaveAndAdvanceQ15() {
+  const response = yr2Session.originalResponse;
   const followUp = document.getElementById('yr2-q15-followup')?.value?.trim() || '';
   yr2SaveRecord(14, YR2_ENGINE.untriggered(response), followUp ? { alwaysFollowUp: followUp } : null);
   yr2Advance(14);

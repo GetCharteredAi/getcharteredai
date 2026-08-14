@@ -44,8 +44,11 @@ exports.handler = async (event) => {
   if (!payload) return { statusCode: 401, headers: HEADERS, body: JSON.stringify({ success: false, error: 'Unauthorised' }) };
 
   try {
-    const jobsStore = getStore('yr2-report-jobs');
-    const job = await jobsStore.get(payload.email, { type: 'json' });
+    // Both job status and report data live in yr2-reports.
+    // Job status key: `${email}:job` — avoids creating a new store.
+    const store = getStore('yr2-reports');
+    const jobKey = `${payload.email}:job`;
+    const job = await store.get(jobKey, { type: 'json' });
 
     if (!job || job.runToken !== runToken) {
       return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ status: 'none' }) };
@@ -59,8 +62,7 @@ exports.handler = async (event) => {
     }
 
     if (job.status === 'complete') {
-      const reportsStore = getStore('yr2-reports');
-      const entry = await reportsStore.get(payload.email, { type: 'json' });
+      const entry = await store.get(payload.email, { type: 'json' });
       return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ status: 'complete', report: entry?.report || null }) };
     }
 

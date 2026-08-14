@@ -163,27 +163,29 @@ exports.handler = async (event) => {
   if (!apiKey) return;
 
   const email = payload.email;
-  const jobsStore = getStore('yr2-report-jobs');
-  const reportsStore = getStore('yr2-reports');
+  // Both job status and report data live in yr2-reports (existing store).
+  // Job status key: `${email}:job` — avoids creating a new store that may not exist.
+  const store = getStore('yr2-reports');
+  const jobKey = `${email}:job`;
 
   try {
     // Deduplication: same runToken already pending or complete → no-op
-    const existingJob = await jobsStore.get(email, { type: 'json' });
+    const existingJob = await store.get(jobKey, { type: 'json' });
     if (existingJob?.runToken === runToken &&
         (existingJob.status === 'pending' || existingJob.status === 'complete')) {
       return;
     }
 
     // Retake limit check
-    const existingReport = await reportsStore.get(email, { type: 'json' });
+    const existingReport = await store.get(email, { type: 'json' });
     const currentRetakeCount = existingReport?.retakeCount ?? 0;
     if (currentRetakeCount >= 3) {
-      await jobsStore.setJSON(email, { status: 'failed', runToken, error: 'retake_limit_exceeded', failedAt: Date.now() });
+      await store.setJSON(jobKey, { status: 'failed', runToken, error: 'retake_limit_exceeded', failedAt: Date.now() });
       return;
     }
 
     // Claim the slot
-    await jobsStore.setJSON(email, { status: 'pending', runToken, startedAt: Date.now() });
+    await store.setJSON(jobKey, { status: 'pending', runToken, startedAt: Date.now() });
 
     // Call Anthropic
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -204,7 +206,7 @@ exports.handler = async (event) => {
     const data = await response.json();
     if (!response.ok) {
       console.error('[yr2-report-bg] Anthropic error:', data);
-      await jobsStore.setJSON(email, { status: 'failed', runToken, error: 'ai_error', failedAt: Date.now() });
+      await store.setJSON(jobKey, { status: 'failed', runToken, error: 'ai_error', failedAt: Date.now() });
       return;
     }
 
@@ -215,20 +217,20 @@ exports.handler = async (event) => {
     try { report = JSON.parse(clean); }
     catch (e) {
       console.error('[yr2-report-bg] JSON parse error:', e.message);
-      await jobsStore.setJSON(email, { status: 'failed', runToken, error: 'parse_error', failedAt: Date.now() });
+      await store.setJSON(jobKey, { status: 'failed', runToken, error: 'parse_error', failedAt: Date.now() });
       return;
     }
 
     // Save report (retakeCount is single source of truth here)
     const newRetakeCount = currentRetakeCount + 1;
-    await reportsStore.setJSON(email, { report, schemaVersion: 'yr2-v1', savedAt: Date.now(), email, retakeCount: newRetakeCount });
-    await jobsStore.setJSON(email, { status: 'complete', runToken, completedAt: Date.now() });
+    await store.setJSON(email, { report, schemaVersion: 'yr2-v1', savedAt: Date.now(), email, retakeCount: newRetakeCount });
+    await store.setJSON(jobKey, { status: 'complete', runToken, completedAt: Date.now() });
     console.log(`[yr2-report-bg] Report saved for ${email} (attempt ${newRetakeCount} of 3)`);
 
   } catch (err) {
     console.error('[yr2-report-bg] Unexpected error:', err.message);
     try {
-      await jobsStore.setJSON(email, { status: 'failed', runToken, error: 'unexpected_error', failedAt: Date.now() });
+      await store.setJSON(jobKey, { status: 'failed', runToken, error: 'unexpected_error', failedAt: Date.now() });
     } catch (e2) {
       console.error('[yr2-report-bg] Could not write failure status:', e2.message);
     }

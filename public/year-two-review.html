@@ -509,6 +509,7 @@ async function yr2DoLogin() {
 
 // ── INIT ──
 async function yr2Init() {
+  if (yr2PollTimer) { clearInterval(yr2PollTimer); yr2PollTimer = null; }
   yr2ShowOverlay();
   yr2Render('<div style="text-align:center;padding:80px 24px;color:rgba(255,255,255,.4);font-size:14px">Loading...</div>');
   try {
@@ -526,6 +527,18 @@ async function yr2Init() {
     }
   } catch(e) {}
   const p = yr2GetProgress();
+  if (p.reportGenerating && p.runToken) {
+    const token = yr2Token();
+    if (token) {
+      try {
+        const r = await fetch('/.netlify/functions/yr2-report-status', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ token, runToken: p.runToken }) });
+        const d = await r.json();
+        if (d.status === 'pending') { yr2RenderWaiting(); yr2StartPolling(p.runToken); return; }
+        if (d.status === 'complete' && d.report) { p.completed = true; p.reportRaw = d.report; p.reportGenerating = false; yr2SaveProgress(p); yr2RenderReport(d.report); return; }
+      } catch(e) {}
+    }
+    p.reportGenerating = false; yr2SaveProgress(p);
+  }
   if (p.completed && p.reportRaw) { yr2RenderReport(p.reportRaw); }
   else if (p.started) { yr2RenderReturning(p.currentQuestion); }
   else { yr2RenderWelcome(); }
@@ -578,6 +591,7 @@ function yr2ContinueAssessment() { yr2RenderQuestion(yr2GetProgress().currentQue
 
 // ── SESSION STATE (non-persisted, resets per question) ──
 let yr2Session = { index:-1, originalResponse:'', lmData:null };
+let yr2PollTimer = null;
 
 // ── QUESTION DISPATCH ──
 function yr2RenderQuestion(index) {
@@ -1503,15 +1517,77 @@ function yr2SaveAndAdvance(index, record, extras) {
 }
 
 // ── REPORT GENERATION ──
-async function yr2GenerateReport() {
+function yr2RenderWaiting() {
   yr2Render(`
     <div style="text-align:center;padding:80px 24px">
       <div class="yr2-michael-icon">🎓</div>
-      <div class="yr2-heading" style="margin-bottom:12px">Generating your report</div>
-      <p style="font-size:14px;color:rgba(255,255,255,.45);line-height:1.6;max-width:420px;margin:0 auto 20px">Thank you for being honest throughout. Michael is now generating your Final Professional Readiness Report — this takes about 30-45 seconds.</p>
+      <div class="yr2-heading" style="margin-bottom:12px">Michael is preparing your Professional Readiness Review</div>
+      <p style="font-size:14px;color:rgba(255,255,255,.45);line-height:1.6;max-width:420px;margin:0 auto 20px">He is working through all 30 of your responses now. This usually takes around a minute.</p>
       <div class="yr2-dots"><div class="yr2-dot"></div><div class="yr2-dot"></div><div class="yr2-dot"></div></div>
     </div>
   `);
+}
+
+function yr2RenderGenerationError(msg) {
+  yr2Render(`
+    <div style="text-align:center;padding:60px 24px">
+      <div class="yr2-michael-icon">🎓</div>
+      <p style="color:#f87171;font-size:14px;margin-bottom:16px">${msg || 'Something went wrong generating your report. Your answers are saved.'}</p>
+      <button class="yr2-btn-primary" style="max-width:300px;margin:0 auto" onclick="yr2GenerateReport()">Try again →</button>
+    </div>
+  `);
+}
+
+const POLL_INTERVAL_MS = 8000;
+const POLL_MAX_MS = 5 * 60 * 1000;
+
+function yr2StartPolling(runToken) {
+  if (yr2PollTimer) clearInterval(yr2PollTimer);
+  const startTime = Date.now();
+  let noneCount = 0;
+  yr2PollTimer = setInterval(async () => {
+    if (Date.now() - startTime > POLL_MAX_MS) {
+      clearInterval(yr2PollTimer); yr2PollTimer = null;
+      const p = yr2GetProgress(); p.reportGenerating = false; yr2SaveProgress(p);
+      yr2RenderGenerationError('Taking longer than expected. Your answers are saved — please try again.');
+      return;
+    }
+    try {
+      const token = yr2Token();
+      const r = await fetch('/.netlify/functions/yr2-report-status', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, runToken })
+      });
+      if (!r.ok) return;
+      const d = await r.json();
+      if (d.status === 'complete') {
+        clearInterval(yr2PollTimer); yr2PollTimer = null;
+        const p = yr2GetProgress(); p.completed = true; p.reportRaw = d.report; p.reportGenerating = false; yr2SaveProgress(p);
+        yr2RenderReport(d.report);
+      } else if (d.status === 'failed') {
+        clearInterval(yr2PollTimer); yr2PollTimer = null;
+        const p = yr2GetProgress(); p.reportGenerating = false; yr2SaveProgress(p);
+        if (d.error === 'retake_limit_exceeded') {
+          yr2Render(`<div style="text-align:center;padding:60px 24px"><div class="yr2-michael-icon">🎓</div><p style="color:#f87171;font-size:14px;margin-bottom:8px">You have used all 3 of your diagnostic attempts for this purchase.</p><p style="font-size:13px;color:rgba(255,255,255,.4)">Contact <a href="mailto:support@getcharteredai.com" style="color:#60a5fa">support@getcharteredai.com</a> if you need help.</p></div>`);
+        } else {
+          yr2RenderGenerationError();
+        }
+      } else if (d.status === 'none') {
+        noneCount++;
+        if (noneCount >= 8) {
+          clearInterval(yr2PollTimer); yr2PollTimer = null;
+          const p = yr2GetProgress(); p.reportGenerating = false; yr2SaveProgress(p);
+          yr2RenderGenerationError();
+        }
+      } else {
+        noneCount = 0; // 'pending' — reset none counter, continue
+      }
+    } catch(e) { /* transient network error — continue polling */ }
+  }, POLL_INTERVAL_MS);
+}
+
+async function yr2GenerateReport() {
+  yr2RenderWaiting();
   const p = yr2GetProgress();
   const contextLines = YR2_QUESTIONS.map((q, i) => {
     const record = p.records[i] || null;
@@ -1519,28 +1595,22 @@ async function yr2GenerateReport() {
     const fullRecord = record ? { ...record, extras } : null;
     return YR2_ENGINE.formatForReport(i, q, fullRecord);
   });
-  const reportContext = contextLines.join('\n\n---\n\n');
-  const messages = [{ role: 'user', content: reportContext }];
+  const messages = [{ role: 'user', content: contextLines.join('\n\n---\n\n') }];
+  const runToken = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  p.runToken = runToken; p.reportGenerating = true; yr2SaveProgress(p);
   try {
-    const report = await yr2CallTutor(messages, 'final-report');
-    p.completed = true; p.reportRaw = report;
-    yr2SaveProgress(p);
-    try {
-      const token = yr2Token();
-      if (token) {
-        await fetch('/.netlify/functions/save-report', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ token, report }) });
-      }
-    } catch(e) {}
-    yr2RenderReport(report);
+    const token = yr2Token();
+    const r = await fetch('/.netlify/functions/yr2-generate-report-background', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, messages, runToken })
+    });
+    if (!r.ok && r.status !== 202) throw new Error('Submission failed: ' + r.status);
   } catch(e) {
-    yr2Render(`
-      <div style="text-align:center;padding:60px 24px">
-        <div class="yr2-michael-icon">🎓</div>
-        <p style="color:#f87171;font-size:14px;margin-bottom:16px">Something went wrong generating your report. Your answers are saved — please try again.</p>
-        <button class="yr2-btn-primary" style="max-width:300px;margin:0 auto" onclick="yr2GenerateReport()">Try again →</button>
-      </div>
-    `);
+    const p2 = yr2GetProgress(); p2.reportGenerating = false; yr2SaveProgress(p2);
+    yr2RenderGenerationError();
+    return;
   }
+  yr2StartPolling(runToken);
 }
 
 // ── REPORT RENDERING ──

@@ -74,6 +74,6 @@ exports.handler = async (event) => {
 
   } catch (err) {
     console.error('[yr2-report-status] Error:', err.message);
-    return { statusCode: 500, headers: HEADERS, body: JSON.stringify({ success: false, error: 'Could not check status' }) };
+    return { statusCode: 500, headers: HEADERS, body: JSON.stringify({ success: false, error: 'Could not check status', detail: String(err.message) }) };
   }
 };

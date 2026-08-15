@@ -46,7 +46,9 @@ exports.handler = async (event) => {
   try {
     // Both job status and report data live in yr2-reports.
     // Job status key: `${email}:job` — avoids creating a new store.
-    const store = getStore('yr2-reports');
+    const store = process.env.NETLIFY_BLOBS_CONTEXT
+      ? getStore('yr2-reports')
+      : getStore({ name: 'yr2-reports', siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
     const jobKey = `${payload.email}:job`;
     const job = await store.get(jobKey, { type: 'json' });
 

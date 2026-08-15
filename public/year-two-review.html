@@ -547,19 +547,96 @@ async function yr2Init() {
 // ── WELCOME / RETURNING ──
 function yr2RenderWelcome() {
   yr2Render(`
-    <div style="text-align:center;padding-bottom:8px">
-      <div class="yr2-michael-icon">🎓</div>
-      <div class="yr2-heading">Year Two Professional Readiness Review</div>
-      <div class="yr2-sub">30 questions · 5 areas · approximately 60 minutes</div>
+    <div style="margin-bottom:12px;text-align:center">
+      <div class="yr2-heading" style="margin-bottom:2px">Year Two Professional Readiness Review</div>
     </div>
-    <div class="yr2-message">
-      <span class="yr2-message-label">Michael</span>
-      Welcome. Before we start — a word about how this works.<br><br>
-      I am going to ask you 30 questions across five areas. Some will feel straightforward. Some will feel uncomfortable. Both are useful data.<br><br>
-      Where you select a support option, I will step in briefly — explain the principle, then ask you to apply it in a slightly different situation. That interaction is part of the review, and what happens in it shapes your final report.<br><br>
-      The only answer that won't help you is one that isn't honest. This review is for you — your results are private, and they are only useful if they reflect where you actually are right now.<br><br>
-      When you are ready, click below and we will begin.
+
+    <!-- Panel 1: Stats -->
+    <div style="background:#0f172a;border:1px solid #1a2540;border-radius:10px;padding:20px 24px;margin-bottom:10px">
+      <div style="display:flex;align-items:center;justify-content:space-around">
+        <div style="text-align:center">
+          <div style="font-family:var(--fh);font-size:28px;font-weight:800;color:#fff;line-height:1">30</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:5px;letter-spacing:.04em;text-transform:uppercase">Questions</div>
+        </div>
+        <div style="width:1px;height:40px;background:#1a2540"></div>
+        <div style="text-align:center">
+          <div style="font-family:var(--fh);font-size:28px;font-weight:800;color:#fff;line-height:1">5</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:5px;letter-spacing:.04em;text-transform:uppercase">Areas</div>
+        </div>
+        <div style="width:1px;height:40px;background:#1a2540"></div>
+        <div style="text-align:center">
+          <div style="font-family:var(--fh);font-size:28px;font-weight:800;color:#fff;line-height:1">~60</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:5px;letter-spacing:.04em;text-transform:uppercase">Minutes</div>
+        </div>
+      </div>
     </div>
+
+    <!-- Panel 2: Five areas stepper -->
+    <div style="background:#0f172a;border:1px solid #1a2540;border-radius:10px;padding:20px 24px;margin-bottom:10px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px">Five Areas Covered</div>
+      <div style="display:flex;align-items:flex-start">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+          <div style="display:flex;align-items:center;width:100%">
+            <div style="flex:1"></div>
+            <div style="width:26px;height:26px;border-radius:50%;background:#2563EB;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">1</div>
+            <div style="flex:1;height:1px;background:#1a2540"></div>
+          </div>
+          <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:8px;text-align:center;line-height:1.4;padding:0 4px">APC &amp;<br>Competencies</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+          <div style="display:flex;align-items:center;width:100%">
+            <div style="flex:1;height:1px;background:#1a2540"></div>
+            <div style="width:26px;height:26px;border-radius:50%;background:#2563EB;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">2</div>
+            <div style="flex:1;height:1px;background:#1a2540"></div>
+          </div>
+          <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:8px;text-align:center;line-height:1.4;padding:0 4px">Evidence &amp;<br>Judgement</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+          <div style="display:flex;align-items:center;width:100%">
+            <div style="flex:1;height:1px;background:#1a2540"></div>
+            <div style="width:26px;height:26px;border-radius:50%;background:#2563EB;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">3</div>
+            <div style="flex:1;height:1px;background:#1a2540"></div>
+          </div>
+          <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:8px;text-align:center;line-height:1.4;padding:0 4px">Experience &amp;<br>Progression</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+          <div style="display:flex;align-items:center;width:100%">
+            <div style="flex:1;height:1px;background:#1a2540"></div>
+            <div style="width:26px;height:26px;border-radius:50%;background:#2563EB;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">4</div>
+            <div style="flex:1;height:1px;background:#1a2540"></div>
+          </div>
+          <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:8px;text-align:center;line-height:1.4;padding:0 4px">Communication<br>&amp; Practice</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+          <div style="display:flex;align-items:center;width:100%">
+            <div style="flex:1;height:1px;background:#1a2540"></div>
+            <div style="width:26px;height:26px;border-radius:50%;background:#2563EB;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">5</div>
+            <div style="flex:1"></div>
+          </div>
+          <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:8px;text-align:center;line-height:1.4;padding:0 4px">Self-Development<br>&amp; Readiness</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3: Michael's welcome -->
+    <div style="background:#0f172a;border:1px solid #1a2540;border-radius:10px;padding:20px 24px;margin-bottom:20px">
+      <div style="display:flex;align-items:flex-start;gap:14px">
+        <div style="width:44px;height:44px;border-radius:50%;border:2px solid #2563EB;overflow:hidden;flex-shrink:0;margin-top:2px">
+          <img src="/images/michael-avatar.jpg" alt="Michael" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1">
+          <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f59e0b;display:block;margin-bottom:10px">Michael</span>
+          <div style="font-size:14px;color:rgba(248,250,252,.8);line-height:1.8">
+            Welcome. Before we start — a word about how this works.<br><br>
+            I am going to ask you 30 questions across five areas. Some will feel straightforward. Some will feel uncomfortable. Both are useful data.<br><br>
+            Where you select a support option, I will step in briefly — explain the principle, then ask you to apply it in a slightly different situation. That interaction is part of the review, and what happens in it shapes your final report.<br><br>
+            The only answer that won't help you is one that isn't honest. This review is for you — your results are private, and they are only useful if they reflect where you actually are right now.<br><br>
+            When you are ready, click below and we will begin.
+          </div>
+        </div>
+      </div>
+    </div>
+
     <button class="yr2-btn-primary" onclick="yr2StartAssessment()">Start the Review →</button>
     <button class="yr2-btn-ghost" onclick="yr2HideOverlay()">Back to page</button>
   `);

@@ -57,6 +57,11 @@
   status = 200
 
 [[redirects]]
+  from = "/apprentice-review"
+  to = "/apprentice-review.html"
+  status = 200
+
+[[redirects]]
   from = "/year-one-review"
   to = "/year-two-review"
   status = 301

@@ -129,6 +129,10 @@ async function activate() {
       }).catch(() => {}); // silently ignore if email fails
 
       setTimeout(() => {
+        if (data.plan === 'apprentice') {
+          window.location.href = '/apprentice-review';
+          return;
+        }
         window.location.href = '/index.html?view=dashboard';
       }, 2000);
 

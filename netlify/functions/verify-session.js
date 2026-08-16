@@ -19,6 +19,9 @@ const YEAR_TWO_PRICE_IDS = new Set([
 const CASE_STUDY_PRICE_IDS = new Set([
   'price_1Tgqf1RkzyH1h56UvxEISPgl', // Case Study Review add-on (current)
 ]);
+const APPRENTICE_PRICE_IDS = new Set([
+  'price_1U56XhRkzyH1h56Uo1NRlXcm', // Apprentice Professional Readiness Review (current)
+]);
 
 exports.handler = async (event) => {
   const headers = {
@@ -75,8 +78,11 @@ exports.handler = async (event) => {
       plan = 'selfpaced';
     } else if (CASE_STUDY_PRICE_IDS.has(priceId)) {
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Case Study Review is an add-on, not a programme subscription. Please use the dedicated verification link.' }) };
+    } else if (APPRENTICE_PRICE_IDS.has(priceId)) {
+      plan = 'apprentice';
     } else {
-      plan = 'annual';
+      console.error(`Unrecognised price ID: ${priceId} for session ${session_id}`);
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Unrecognised product. Please contact support@getcharteredai.com.' }) };
     }
     const cleanEmail = email.toLowerCase().trim();
     const activatedAt = Date.now();
@@ -89,11 +95,12 @@ exports.handler = async (event) => {
       sessionId: session_id,
       activatedAt: activatedAt,
       expires: activatedAt + (
-        plan === 'annual'    ? 548 * 24 * 60 * 60 * 1000 :
-        plan === 'selfpaced' ? 548 * 24 * 60 * 60 * 1000 :
-        plan === 'referred'  ?  90 * 24 * 60 * 60 * 1000 :
-        plan === 'sprint'    ?  49 * 24 * 60 * 60 * 1000 :
-        plan === 'year-one'  ? 183 * 24 * 60 * 60 * 1000 :
+        plan === 'annual'      ? 548 * 24 * 60 * 60 * 1000 :
+        plan === 'selfpaced'   ? 548 * 24 * 60 * 60 * 1000 :
+        plan === 'referred'    ?  90 * 24 * 60 * 60 * 1000 :
+        plan === 'sprint'      ?  49 * 24 * 60 * 60 * 1000 :
+        plan === 'year-one'    ? 183 * 24 * 60 * 60 * 1000 :
+        plan === 'apprentice'  ? 365 * 24 * 60 * 60 * 1000 :
         60 * 24 * 60 * 60 * 1000
       )
     };

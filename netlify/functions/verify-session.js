@@ -20,8 +20,7 @@ const CASE_STUDY_PRICE_IDS = new Set([
   'price_1Tgqf1RkzyH1h56UvxEISPgl', // Case Study Review add-on (current)
 ]);
 const APPRENTICE_PRICE_IDS = new Set([
-  'price_1U56XhRkzyH1h56Uo1NRlXcm', // Apprentice Professional Readiness Review (live)
-  'price_1U58YSRkzyH1h56UYh8KUuyU', // Apprentice PRR test-mode counterpart — REMOVE AFTER TEST
+  'price_1U56XhRkzyH1h56Uo1NRlXcm', // Apprentice Professional Readiness Review (current)
 ]);
 
 exports.handler = async (event) => {

@@ -197,7 +197,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
   <div class="nav-right">
     <a href="#areas" class="nav-link">What it covers</a>
     <a href="#pricing" class="nav-link">Pricing</a>
-    <button class="nav-btn" onclick="yr2Launch()">Start the Review →</button>
+    <button class="nav-btn" onclick="yr2RenderLogin()">Already purchased? Sign in →</button>
   </div>
 </nav>
 
@@ -209,6 +209,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
     <button class="btn btn-primary" onclick="yr2Launch()">Start the Review — £127</button>
     <a href="#how" class="btn btn-ghost">How it works ↓</a>
   </div>
+  <p style="margin-top:16px;font-size:13px;color:rgba(248,250,252,0.5);text-align:center">Already purchased? <button onclick="yr2RenderLogin()" style="background:none;border:none;color:rgba(248,250,252,0.7);font-family:var(--f);font-size:13px;cursor:pointer;padding:0;text-decoration:underline">Sign in →</button></p>
   <div class="hero-stats">
     <div><div class="stat-num">30</div><div class="stat-lbl">Diagnostic questions</div></div>
     <div><div class="stat-num">5</div><div class="stat-lbl">Assessment areas</div></div>
@@ -427,7 +428,7 @@ function yr2HideOverlay() { document.getElementById('yr2-overlay').style.display
 function yr2Render(html) { document.getElementById('yr2-overlay-content').innerHTML = html; window.scrollTo(0,0); }
 function yr2Launch() {
   if (yr2Plan() === 'year-one' && yr2Token()) { yr2Init(); }
-  else { yr2RenderLogin(); }
+  else { startYr2Checkout(); }
 }
 
 // ── CHECKOUT ──

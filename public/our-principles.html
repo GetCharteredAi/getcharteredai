@@ -51,6 +51,25 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .commitment-close{font-size:15px;color:rgba(248,250,252,.6);line-height:1.9;margin-top:20px}
 .commitment-close strong{color:#fff}
 
+/* CHARGE FRAMEWORK */
+.charge-block{margin-top:24px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.18);border-radius:12px;padding:24px 28px}
+.charge-intro{font-size:14px;font-weight:700;color:rgba(248,250,252,.75);margin-bottom:16px;letter-spacing:-.01em;line-height:1.5}
+.charge-intro strong{color:#60a5fa}
+.charge-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.charge-list li{display:flex;gap:12px;align-items:flex-start}
+.charge-letter{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:14px;font-weight:900;color:#2563EB;min-width:16px;padding-top:2px;flex-shrink:0}
+.charge-content{font-size:14px;color:rgba(248,250,252,.6);line-height:1.7}
+.charge-content strong{color:rgba(248,250,252,.85);font-weight:600}
+
+/* ADDENDUM */
+.addendum-block{border-top:1px solid rgba(255,255,255,.07);padding-top:40px;text-align:center;margin-bottom:48px}
+.addendum-chain{display:flex;flex-direction:column;align-items:center;gap:8px}
+.addendum-item{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:13px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.02em;line-height:1.5}
+.addendum-item strong{color:rgba(255,255,255,.65)}
+.addendum-arrow{font-size:16px;color:rgba(37,99,235,.4);line-height:1}
+.addendum-note{font-size:13px;color:rgba(248,250,252,.3);margin-top:20px;line-height:1.7;max-width:480px;margin-left:auto;margin-right:auto}
+.addendum-note em{color:rgba(248,250,252,.45);font-style:normal}
+
 /* CLOSING */
 .closing-block{border-top:1px solid rgba(255,255,255,.07);padding-top:40px;text-align:center}
 .closing-line{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(14px,2vw,16px);font-weight:700;color:rgba(255,255,255,.4);letter-spacing:-.01em;line-height:1.7}
@@ -100,7 +119,7 @@ footer{background:#080a16;border-top:1px solid rgba(255,255,255,.06);padding:48p
 <div class="principles-body">
 
   <div class="intro-block">
-    <p>Professional development should do more than help someone pass an assessment. It should help people think clearly, communicate confidently, exercise sound judgement and perform well when it matters. At Get Chartered AI, these principles shape everything we create — from our programmes and learning tools to the way we use technology and support professionals across the built environment.</p>
+    <p>Professional development should do more than build knowledge or help someone achieve a qualification. It should help people think clearly, communicate confidently, exercise sound judgement and perform effectively when it matters. At Get Chartered AI, these principles shape everything we create — from our programmes and learning tools to the way we use technology and support professionals across the built environment.</p>
   </div>
 
   <div class="principle-block">
@@ -139,18 +158,30 @@ footer{background:#080a16;border-top:1px solid rgba(255,255,255,.06);padding:48p
     <p class="principle-body">AI is changing the way people learn, work and prepare. Used well, it can make practice more accessible, feedback more immediate and learning more responsive. But it should never remove the need to think. At Get Chartered AI, we use AI to help professionals practise, reflect, test their understanding and improve how they communicate. It is there to challenge thinking, not replace it.</p>
     <p class="principle-body" style="margin-top:16px">AI can be wrong, incomplete or lacking in context. It cannot take professional responsibility or apply the depth of human experience required in real situations. That is why professionals must continue to question information, verify important points, recognise uncertainty and apply their own judgement. We are also clear that professional information must be handled responsibly. Project examples should be anonymised, and confidential, commercially sensitive or personally identifiable information should not be entered into AI-powered tools without proper authority.</p>
     <p class="principle-body" style="margin-top:16px">We want people to understand when AI is being used, what it can help them do and where its limitations lie. The aim is not greater dependence on technology. It is greater capability in the person using it. AI is the tool. Human capability is the objective.</p>
+    <div class="charge-block">
+      <p class="charge-intro"><strong>CHARGE</strong> — Our approach to AI-powered professional development is guided by six principles:</p>
+      <ul class="charge-list">
+        <li><span class="charge-letter">C</span><span class="charge-content"><strong>Capability over dependency</strong> — AI should leave people more capable, not more dependent upon it.</span></li>
+        <li><span class="charge-letter">H</span><span class="charge-content"><strong>Human judgement and agency</strong> — AI should support professional thinking while keeping judgement, agency and responsibility with the person.</span></li>
+        <li><span class="charge-letter">A</span><span class="charge-content"><strong>Active challenge</strong> — AI should question, probe and challenge thinking — not simply provide answers.</span></li>
+        <li><span class="charge-letter">R</span><span class="charge-content"><strong>Responsible by design</strong> — AI should be used thoughtfully, transparently and appropriately, with its risks and limitations recognised.</span></li>
+        <li><span class="charge-letter">G</span><span class="charge-content"><strong>Grounded in professional evidence</strong> — Professional learning and feedback should be grounded in authoritative standards, reliable evidence and verified professional content.</span></li>
+        <li><span class="charge-letter">E</span><span class="charge-content"><strong>Explainable feedback</strong> — People should understand why their reasoning is strong or weak and what they need to develop next.</span></li>
+      </ul>
+      <p class="principle-body" style="margin-top:16px">Together, these principles help ensure that AI strengthens professional capability rather than substituting for it.</p>
+    </div>
   </div>
 
   <div class="principle-block">
     <span class="principle-num">07</span>
     <h2 class="principle-h">Professional responsibility remains human</h2>
-    <p class="principle-body">Technology can support a decision. It cannot be accountable for it. Professionals remain responsible for the answers they give, the recommendations they make and the information they choose to rely on. That responsibility requires care, curiosity and the confidence to question an output that does not appear right. Our approach is built around human oversight, independent thought and professional responsibility. We want technology to help people become more thoughtful professionals — not less thoughtful ones.</p>
+    <p class="principle-body">Technology can support a decision. It cannot be accountable for it. Professionals remain responsible for the answers they give, the recommendations they make and the information they choose to rely on. That responsibility requires care, curiosity and the confidence to question an output that does not appear right, recognise the limits of your own competence and seek further information or specialist advice when needed. Our approach is built around human oversight, independent thought and professional responsibility. We want technology to help people become more thoughtful professionals — not less thoughtful ones.</p>
   </div>
 
   <div class="principle-block">
     <span class="principle-num">08</span>
     <h2 class="principle-h">Development should continue beyond qualification</h2>
-    <p class="principle-body">Chartership is an important milestone. It is not the end of professional development. As careers progress, the challenges change. Professionals may need to manage others, handle difficult conversations, make commercial decisions, influence senior people and lead with confidence. The skills required to progress are not always the same as those required to qualify. We believe professional development should continue throughout a career. From university, through chartership, into leadership.</p>
+    <p class="principle-body">Chartership is an important milestone. It is not the end of professional development. As careers progress, the challenges change. Professionals may need to manage others, handle difficult conversations, make commercial decisions, influence senior people and lead with confidence. The skills required to progress are not always the same as those required to qualify. We believe professional development should continue throughout a career. From early career, through professional qualification, into greater responsibility, management and leadership.</p>
   </div>
 
   <div class="principle-block">
@@ -171,6 +202,17 @@ footer{background:#080a16;border-top:1px solid rgba(255,255,255,.06);padding:48p
       <li>and perform at their best under pressure.</li>
     </ul>
     <p class="commitment-close">We will continue to use AI thoughtfully. We will continue to put professional capability ahead of convenience. And we will continue to ask one question of every programme, feature, page and piece of content we create: <strong>Does this belong in the Brand Book?</strong> Because consistency matters. And because developing exceptional professionals requires more than good intentions. It requires clear principles.</p>
+  </div>
+
+  <div class="addendum-block">
+    <div class="addendum-chain">
+      <p class="addendum-item"><strong>PROFESSIONAL LEARNING METHOD</strong> — How development happens</p>
+      <span class="addendum-arrow">↓</span>
+      <p class="addendum-item"><strong>CHARGE</strong> — How AI participates responsibly</p>
+      <span class="addendum-arrow">↓</span>
+      <p class="addendum-item"><strong>MICHAEL</strong> — How those ideas become practice</p>
+    </div>
+    <p class="addendum-note">Principle 01 establishes the foundational claim: great professionals are developed. This document — and this framework — answers the question that raises: <em>how</em>.</p>
   </div>
 
   <div class="closing-block">

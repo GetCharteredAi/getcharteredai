@@ -5150,11 +5150,17 @@ async function sendResetEmail() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email })
     });
-    // Always show success to avoid email enumeration
-    alert.textContent = 'If an account exists for that email, a reset link has been sent. Please check your inbox.';
-    alert.className = 'alert alert-green';
-    alert.style.display = 'block';
-    setTimeout(() => closeReset(), 4000);
+    const data = await r.json();
+    if (data.sent === false) {
+      alert.textContent = data.error || 'We could not send a login link. Please contact info@getcharteredai.com for help.';
+      alert.className = 'alert alert-red';
+      alert.style.display = 'block';
+    } else {
+      alert.textContent = 'Login link sent — please check your inbox (including spam).';
+      alert.className = 'alert alert-green';
+      alert.style.display = 'block';
+      setTimeout(() => closeReset(), 4000);
+    }
   } catch {
     alert.textContent = 'Could not send reset email. Please contact info@getcharteredai.com';
     alert.className = 'alert alert-red';

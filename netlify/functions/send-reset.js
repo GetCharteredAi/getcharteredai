@@ -2,7 +2,8 @@
 // Password reset via magic link — looks up Stripe subscription by email
 // then re-issues a JWT token and emails a one-click login link
 
-// Price ID sets for one-time plans — keep in sync with verify-session.js and create-checkout.js
+// Price ID sets — keep in sync with create-checkout.js and verify-sprint-session.js
+// Every known plan must be listed explicitly; unknown price IDs fail rather than fall back.
 const REFERRED_PRICE_IDS  = new Set([
   'price_1TcsEeRkzyH1h56UidHDLTKy', // current
   'price_1TaFxDRkzyH1h56URvfFhEbr', // legacy
@@ -13,6 +14,12 @@ const SPRINT_PRICE_IDS = new Set([
 ]);
 const YEAR_TWO_PRICE_IDS = new Set([
   'price_1TcsGcRkzyH1h56U7bJWaaBD', // Year Two Readiness Review (current)
+]);
+const ANNUAL_PRICE_IDS = new Set([
+  'price_1Tcs9lRkzyH1h56UY5JMcA7M', // Full 12-Module Programme (current)
+]);
+const SELFPACED_PRICE_IDS = new Set([
+  'price_1TxOuERkzyH1h56UHzRlbS6i', // Self-paced (current)
 ]);
 // Option C grandfathering: Year Two customers who purchased before the deploy date (2026-08-07)
 // retain their original 548-day reset window; new purchases get the correct 183-day window.
@@ -68,6 +75,7 @@ exports.handler = async (event) => {
     let plan = null;
     let activatedAt = null;
     let expires = null;
+    let foundPayment = false; // true when a payment is found but plan can't be confirmed
 
     if (custData.data && custData.data.length > 0) {
       // Found customer — check for active subscription (monthly) or payment (annual)
@@ -95,6 +103,7 @@ exports.handler = async (event) => {
           const paid = payData.data.find(p => p.status === 'succeeded');
           if (paid) {
             activatedAt = paid.created * 1000;
+            foundPayment = true;
 
             // Fetch the checkout session to get the price ID for accurate plan detection
             let priceId = '';
@@ -107,7 +116,7 @@ exports.handler = async (event) => {
                 const csData = await csResp.json();
                 priceId = csData.data?.[0]?.line_items?.data?.[0]?.price?.id || '';
               }
-            } catch (_) { /* fall through to annual default */ }
+            } catch (_) { /* price ID stays empty; explicit-match block below will handle it */ }
 
             if (REFERRED_PRICE_IDS.has(priceId)) {
               plan = 'referred';
@@ -121,9 +130,16 @@ exports.handler = async (event) => {
               expires = activatedAt < YEAR_TWO_DEPLOY_TS
                 ? activatedAt + (548 * 24 * 60 * 60 * 1000)
                 : activatedAt + (183 * 24 * 60 * 60 * 1000);
-            } else {
+            } else if (ANNUAL_PRICE_IDS.has(priceId)) {
               plan = 'annual';
               expires = activatedAt + (548 * 24 * 60 * 60 * 1000);
+            } else if (SELFPACED_PRICE_IDS.has(priceId)) {
+              plan = 'selfpaced';
+              expires = activatedAt + (548 * 24 * 60 * 60 * 1000);
+            } else {
+              // Price ID is empty or unrecognised — do not guess the plan.
+              // foundPayment=true will surface a clear error below rather than silent success.
+              console.warn(`[send-reset] unrecognised price ID '${priceId}' for ${cleanEmail}`);
             }
             break;
           }
@@ -132,9 +148,20 @@ exports.handler = async (event) => {
     }
 
     if (!plan) {
-      // No active account found — still return success but don't send
-      console.log(`Reset requested for ${cleanEmail} — no active account found`);
-      return { statusCode: 200, headers, body: JSON.stringify({ sent: true }) };
+      if (foundPayment) {
+        // A payment was found but the price ID wasn't recognised — fail clearly, don't guess.
+        console.log(`[send-reset] payment found but plan unconfirmed for ${cleanEmail}`);
+        return { statusCode: 200, headers, body: JSON.stringify({
+          sent: false,
+          error: 'We found your payment but could not confirm your access level. Please email info@getcharteredai.com and we will issue your login link directly.'
+        }) };
+      }
+      // No Stripe customer found for this email address.
+      console.log(`[send-reset] no active account for ${cleanEmail}`);
+      return { statusCode: 200, headers, body: JSON.stringify({
+        sent: false,
+        error: 'We could not find an account for that email address. Please check you are using the email you purchased with, or contact info@getcharteredai.com for help.'
+      }) };
     }
 
     const planLabels = {

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APC Final Sprint — Sitting Soon? Revision, Mock Interview &amp; AI Tutor</title>
-<meta name="description" content="APC Final Sprint — Confirm your readiness. Close any gaps. Prepare with confidence. Focused preparation for candidates approaching their RICS APC assessment. Revision, AI Tutor and full mock interview. £297.">
+<title>APC Final Sprint — Submission Done. Now Prove You're Ready.</title>
+<meta name="description" content="APC Final Sprint — Identify your gaps, strengthen your answers and practise performing before your RICS APC assessment. Six focused modules, 5,000+ practice questions, Michael 24/7 and a full 60-minute mock. £297.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -32,69 +32,86 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:fl
 .nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:.02em;transition:.18s}
 .nav-cta:hover{background:var(--gold2)}
 
+/* ── CAMPAIGN STRIP ── */
+.campaign-strip{margin-top:60px;background:linear-gradient(135deg,rgba(37,99,235,.15) 0%,rgba(29,78,216,.07) 100%);border-bottom:1px solid rgba(37,99,235,.22);padding:16px 24px;text-align:center}
+.campaign-strip-inner{max-width:760px;margin:0 auto}
+.campaign-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;display:block;margin-bottom:7px}
+.campaign-heading{font-family:var(--f-head);font-size:clamp(15px,2.2vw,19px);font-weight:700;color:var(--white);margin-bottom:5px;line-height:1.3}
+.campaign-sub{font-size:13px;color:rgba(248,250,252,.5);font-style:italic}
+
 /* ── HERO ── */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:120px 24px 80px;text-align:center;overflow:hidden}
+.hero{min-height:85vh;display:flex;align-items:center;justify-content:center;position:relative;padding:60px 24px 80px;text-align:center;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,99,235,.18) 0%, transparent 70%)}
 .hero::after{content:'';position:absolute;pointer-events:none;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(37,99,235,.4),transparent)}
 .hero-inner{position:relative;max-width:760px;margin:0 auto}
 
-.sprint-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:28px;animation:fadeDown .6s ease both}
-.sprint-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+.sprint-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:28px;animation:fadeDown .6s ease both}
+.sprint-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;flex-shrink:0}
 
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
 @keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-.hero h1{font-family:var(--f-head);font-size:clamp(38px,7vw,72px);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:12px;animation:fadeUp .7s .1s ease both}
+.hero h1{font-family:var(--f-head);font-size:clamp(38px,7vw,72px);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:20px;animation:fadeUp .7s .1s ease both}
 .hero h1 em{font-style:normal;color:var(--gold)}
-.hero-sub{font-size:clamp(16px,2.5vw,20px);color:rgba(248,250,252,.7);line-height:1.6;max-width:580px;margin:0 auto 36px;font-weight:300;animation:fadeUp .7s .2s ease both}
-.hero-checks{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 20px;margin-bottom:44px;animation:fadeUp .7s .3s ease both}
-.hero-check{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:rgba(248,250,252,.85)}
-.hero-check::before{content:'✓';width:20px;height:20px;background:rgba(37,99,235,.25);border:1px solid rgba(37,99,235,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#60a5fa;flex-shrink:0}
+.hero-sub{font-size:clamp(16px,2.5vw,20px);color:rgba(248,250,252,.75);line-height:1.6;max-width:600px;margin:0 auto 12px;font-weight:400;animation:fadeUp .7s .2s ease both}
+.hero-rec{font-size:15px;color:rgba(248,250,252,.5);line-height:1.6;max-width:520px;margin:0 auto 36px;font-style:italic;animation:fadeUp .7s .25s ease both}
+.hero-proof{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;margin-bottom:40px;animation:fadeUp .7s .3s ease both}
+.hero-proof-item{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:rgba(248,250,252,.8)}
+.hero-proof-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
 
 .price-block{margin-bottom:32px;animation:fadeUp .7s .35s ease both}
-.price-label{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
 .price-main{display:flex;align-items:baseline;justify-content:center;gap:4px}
 .price-sym{font-size:28px;font-weight:700;color:var(--white);margin-top:6px}
 .price-num{font-family:var(--f-head);font-size:72px;font-weight:900;color:var(--white);line-height:1}
 .price-note{font-size:13px;color:var(--muted);margin-top:4px}
 
-.hero-btns{display:flex;flex-direction:column;align-items:center;gap:12px;animation:fadeUp .7s .4s ease both}
+.hero-btns{display:flex;flex-direction:column;align-items:center;gap:14px;animation:fadeUp .7s .4s ease both}
 .btn-sprint{background:var(--gold);color:var(--navy);padding:18px 48px;border-radius:8px;font-size:17px;font-weight:700;text-decoration:none;letter-spacing:.01em;transition:.2s;display:inline-block;box-shadow:0 8px 32px rgba(245,158,11,.35)}
 .btn-sprint:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 12px 40px rgba(245,158,11,.45)}
-.btn-sub{font-size:12px;color:var(--muted);letter-spacing:.04em}
+.btn-secondary{font-size:14px;color:#60a5fa;text-decoration:none;border-bottom:1px solid rgba(96,165,250,.3);padding-bottom:2px;transition:.18s}
+.btn-secondary:hover{color:#93c5fd;border-color:rgba(147,197,253,.5)}
+.btn-sub{font-size:12px;color:var(--muted);letter-spacing:.03em}
 .urgency{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#fbbf24;font-weight:500;margin-top:4px}
 .urgency::before{content:'⚠';font-size:11px}
 
-/* ── TRUST LINE ── */
-.trust-bar{padding:20px 24px;background:rgba(255,255,255,.03);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center}
-.trust-bar p{font-size:13px;color:var(--muted);max-width:600px;margin:0 auto}
-.trust-bar strong{color:rgba(248,250,252,.8)}
-
 /* ── SECTIONS ── */
 .sec{padding:80px 24px}
-.sec-white{background:#fff}
 .sec-inner{max-width:900px;margin:0 auto}
 .eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
 .sec-h{font-family:var(--f-head);font-size:clamp(28px,4vw,42px);font-weight:800;line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
-.sec-lead{font-size:16px;color:rgba(248,250,252,.65);line-height:1.7;max-width:640px}
+.sec-lead{font-size:16px;color:rgba(248,250,252,.65);line-height:1.7;max-width:620px}
 
-/* ── CARDS ── */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:44px}
-.card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:28px 24px;transition:.2s}
-.card:hover{background:rgba(37,99,235,.08);border-color:rgba(37,99,235,.3);transform:translateY(-3px)}
-.card-icon{font-size:28px;margin-bottom:14px}
-.card-h{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--white)}
-.card-p{font-size:13px;color:var(--muted);line-height:1.6}
+/* ── CANDIDATE RECOGNITION ── */
+.recognition-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:40px}
+.recognition-item{background:rgba(255,255,255,.03);border:1px solid var(--border);border-left:3px solid rgba(37,99,235,.45);border-radius:0 10px 10px 0;padding:22px 24px}
+.recognition-q{font-size:15px;font-weight:600;color:rgba(248,250,252,.9);margin-bottom:8px;font-style:italic}
+.recognition-a{font-size:13px;color:var(--muted);line-height:1.65}
 
-/* ── WHO ── */
-.who-sec{background:rgba(255,255,255,.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.who-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:36px}
-.who-item{display:flex;gap:14px;align-items:flex-start}
-.who-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px}
-.who-text{font-size:15px;color:rgba(248,250,252,.8);line-height:1.5}
+/* ── PHILOSOPHY + TRANSFORMATION ── */
+.philosophy-sec{background:rgba(255,255,255,.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 24px;text-align:center}
+.philosophy-inner{max-width:700px;margin:0 auto}
+.philosophy-q{font-family:var(--f-head);font-size:clamp(22px,3.5vw,36px);font-weight:800;line-height:1.2;letter-spacing:-.02em;margin-bottom:14px}
+.philosophy-q em{font-style:normal;color:var(--gold)}
+.philosophy-sub{font-size:16px;color:rgba(248,250,252,.55);line-height:1.7;margin-bottom:44px}
+.transform-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left}
+.transform-box{border-radius:12px;padding:26px 28px}
+.transform-before{background:rgba(100,116,139,.08);border:1px solid rgba(100,116,139,.2)}
+.transform-after{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2)}
+.transform-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.transform-before .transform-label{color:#94a3b8}
+.transform-after .transform-label{color:#60a5fa}
+.transform-text{font-size:15px;line-height:1.7;color:rgba(248,250,252,.8)}
 
-/* ── INSIDE ── */
+/* ── SIZZLE ── */
+.sizzle-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin-top:40px}
+.sizzle-item{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:26px 24px;transition:.2s}
+.sizzle-item:hover{background:rgba(37,99,235,.06);border-color:rgba(37,99,235,.25);transform:translateY(-2px)}
+.sizzle-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.sizzle-benefit{font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.3}
+.sizzle-why{font-size:13px;color:var(--muted);line-height:1.65}
+
+/* ── INSIDE / 7-ITEM GRID ── */
 .inside-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:36px}
 .inside-item{background:#0f172a;border:1px solid #1a2540;border-radius:10px;padding:20px}
 .inside-num{font-family:var(--f-head);font-size:32px;font-weight:900;color:rgba(37,99,235,.4);line-height:1;margin-bottom:8px}
@@ -105,15 +122,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:fl
 .price-sec{text-align:center}
 .price-card{background:rgba(255,255,255,.04);border:1px solid rgba(245,158,11,.25);border-radius:20px;padding:52px 40px;max-width:500px;margin:44px auto 0;position:relative;overflow:hidden}
 .price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--blue))}
-.price-card-badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:100px;margin-bottom:20px}
 .price-big{font-family:var(--f-head);font-size:80px;font-weight:900;line-height:1;margin-bottom:4px}
 .price-big span{font-size:36px;vertical-align:super}
 .price-period{font-size:14px;color:var(--muted);margin-bottom:28px}
 .price-feats{list-style:none;text-align:left;margin-bottom:32px}
-.price-feats li{padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;color:rgba(248,250,252,.8);display:flex;gap:10px;align-items:center}
+.price-feats li{padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;color:rgba(248,250,252,.8);display:flex;gap:10px;align-items:flex-start}
 .price-feats li:last-child{border-bottom:none}
-.price-feats li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0}
-.price-card .btn-sprint{width:100%;text-align:center;display:block}
+.price-feats li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;margin-top:1px}
+.price-card .btn-sprint{width:100%;text-align:center;display:block;border:none;cursor:pointer;font-family:var(--f-body)}
 .price-guarantee{font-size:12px;color:var(--muted);margin-top:16px}
 
 /* ── UPSELL CALLOUT ── */
@@ -145,11 +161,13 @@ footer a{color:#60a5fa;text-decoration:none}
 
 /* ── MOBILE ── */
 @media(max-width:600px){
-  .hero{padding:100px 20px 60px}
+  .hero{padding:48px 20px 60px}
   .price-card{padding:36px 24px}
   .price-big{font-size:64px}
   .upsell-bar{flex-direction:column;text-align:center}
-  .cards{grid-template-columns:1fr 1fr}
+  .transform-grid{grid-template-columns:1fr}
+  .recognition-grid{grid-template-columns:1fr}
+  .mistake-grid{grid-template-columns:1fr!important}
 }
 </style>
 </head>
@@ -157,25 +175,32 @@ footer a{color:#60a5fa;text-decoration:none}
 
 <nav>
   <a href="/" class="nav-logo"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px"></a>
-  <a href="#enrol" class="nav-cta">Start My Sprint →</a>
+  <a href="#enrol" class="nav-cta">Start Your Final Sprint →</a>
 </nav>
+
+<!-- AUTUMN CAMPAIGN STRIP — above hero -->
+<div class="campaign-strip">
+  <div class="campaign-strip-inner">
+    <span class="campaign-label">Autumn 2026 — Land &amp; Property</span>
+    <div class="campaign-heading">Submission complete. Assessment preparation starts here.</div>
+    <div class="campaign-sub">Assessments begin from 5 October 2026. However much preparation time you have left, Final Sprint helps you focus it where it matters most.</div>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="sprint-badge">Final Preparation — Your Sprint Starts Now</div>
-    <h1>APC Final Sprint —<br><em>Sitting Soon?</em></h1>
-    <p class="hero-sub">Confirm your readiness. Close any gaps. Prepare with confidence.</p>
-    <div class="hero-checks">
-      <span class="hero-check">Final readiness review</span>
-      <span class="hero-check">Mandatory competency revision</span>
-      <span class="hero-check">Quiz to expose weak spots</span>
-      <span class="hero-check">Mock interview preparation</span>
-      <span class="hero-check">Michael — your AI Tutor · available 24/7</span>
-      <span class="hero-check">Full access from day one</span>
+    <div class="sprint-badge">Final Preparation — Sprint to the Finish Line Starts Now</div>
+    <h1>Submission done.<br><em>Now prove you're ready.</em></h1>
+    <p class="hero-sub">Identify your gaps, strengthen your answers and practise performing before your final APC assessment.</p>
+    <p class="hero-rec">If your APC assessment is approaching and you want to know where you stand, you're in the right place.</p>
+    <div class="hero-proof">
+      <span class="hero-proof-item">6 focused modules</span>
+      <span class="hero-proof-item">Pathway-specific practice</span>
+      <span class="hero-proof-item">Michael 24/7</span>
+      <span class="hero-proof-item">Full 60-minute mock</span>
     </div>
     <div class="price-block">
-      <div class="price-label">Founding Price</div>
       <div class="price-main">
         <span class="price-sym">£</span>
         <span class="price-num">297</span>
@@ -183,70 +208,93 @@ footer a{color:#60a5fa;text-decoration:none}
       <div class="price-note">One payment · No subscription · No cancellation required</div>
     </div>
     <div class="hero-btns">
-      <a href="#enrol" class="btn-sprint">Start My Sprint Now</a>
-      <span class="btn-sub">Built by chartered surveyors. Aligned with RICS requirements.</span>
-      <span class="urgency">Assessment windows are year-round — start now</span>
+      <a href="#enrol" class="btn-sprint">Start Your Final Sprint</a>
+      <a href="#included" class="btn-secondary">See What's Included</a>
+      <span class="btn-sub">Built by Chartered Surveyors. Aligned with RICS requirements.</span>
     </div>
   </div>
 </section>
 
-<!-- TRUST -->
-<div class="trust-bar">
-  <p><strong>Built by Chartered Surveyors who know exactly what assessors are looking for.</strong> Not generic revision content — a focused final push built around how the panel thinks and what gets candidates through.</p>
-</div>
-
-<!-- WHAT YOU GET -->
+<!-- CANDIDATE RECOGNITION -->
 <section class="sec">
   <div class="sec-inner">
-    <span class="eyebrow">What You Will Cover</span>
-    <h2 class="sec-h">Everything you need.<br>Nothing you do not.</h2>
-    <p class="sec-lead">Stressed candidates do not need more content. They need the right content, in the right order, fast. The sprint is built around exactly that.</p>
-    <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:14px 20px;margin-bottom:28px;font-size:14px;font-style:italic;color:#f8fafc;line-height:1.6;font-weight:500">"Michael does not just answer questions. He challenges you the way an assessor will — warm when you are learning, exacting when you are ready to be tested."</div>
-    <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:8px;padding:12px 18px;margin:0 0 28px;font-size:13.5px;color:#b45309;line-height:1.6">
-      <strong>The APC Final Sprint is a revision and practice tool — not a teaching programme.</strong> The revision sheets, quiz and mock interview assume you already have working knowledge of your competencies from your professional experience and training. Candidates who need structured learning across all 12 modules from the ground up should consider <a href="/" style="color:#b45309;font-weight:600;text-decoration:underline">Full Year Access</a> instead.
-    </div>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">🎯</div>
-        <div class="card-h">Know What Matters Now</div>
-        <div class="card-p">Stop wasting time on low-value revision. The sprint focuses your energy on the competencies and questions assessors actually probe.</div>
+    <span class="eyebrow">If this sounds familiar</span>
+    <h2 class="sec-h">You've prepared.<br>But how do you know you're ready?</h2>
+    <div class="recognition-grid">
+      <div class="recognition-item">
+        <div class="recognition-q">"I've revised, but I'm not sure what I'm missing."</div>
+        <div class="recognition-a">Final Sprint helps you identify less-secure areas so you can focus your preparation where it matters most.</div>
       </div>
-      <div class="card">
-        <div class="card-icon">📊</div>
-        <div class="card-h">Fix Weak Areas Fast</div>
-        <div class="card-p">The revision quiz exposes your gaps across all 11 mandatory competencies so you know exactly where to focus your remaining time.</div>
+      <div class="recognition-item">
+        <div class="recognition-q">"I know the answer, but can I explain it properly?"</div>
+        <div class="recognition-a">Practise turning knowledge and experience into clear, structured professional answers.</div>
       </div>
-      <div class="card">
-        <div class="card-icon">🎤</div>
-        <div class="card-h">Practise Under Pressure</div>
-        <div class="card-p">A full 60-minute AI-scored mock interview across your chosen RICS pathway. Run it multiple times. Each session builds composure.</div>
+      <div class="recognition-item">
+        <div class="recognition-q">"What if they ask something I haven't prepared?"</div>
+        <div class="recognition-a">Practise reasoning and responding professionally when the question changes.</div>
       </div>
-      <div class="card">
-        <div class="card-icon">✅</div>
-        <div class="card-h">Walk In Ready</div>
-        <div class="card-p">A structured final push built around how assessors actually think. Bingeable, repeatable and designed for the candidate with limited time.</div>
+      <div class="recognition-item">
+        <div class="recognition-q">"I don't want the real interview to be my first proper test."</div>
+        <div class="recognition-a">Experience a complete 60-minute mock before assessment day.</div>
+      </div>
+      <div class="recognition-item">
+        <div class="recognition-q">"I haven't got unlimited time."</div>
+        <div class="recognition-a">Use readiness checks and pathway-specific practice to concentrate on what matters most.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHO IT IS FOR -->
-<section class="sec who-sec">
+<!-- PHILOSOPHY + TRANSFORMATION -->
+<section class="philosophy-sec">
+  <div class="philosophy-inner">
+    <div class="philosophy-q">There comes a point when you need to<br>stop revising and start <em>rehearsing</em>.</div>
+    <p class="philosophy-sub">Don't revise new content — rehearse performing what you already know.</p>
+    <div class="transform-grid">
+      <div class="transform-box transform-before">
+        <div class="transform-label">Before</div>
+        <div class="transform-text">"I've done a lot of preparation, but I'm still not sure where I stand."</div>
+      </div>
+      <div class="transform-box transform-after">
+        <div class="transform-label">After</div>
+        <div class="transform-text">"I know where I'm strong, where I still need to focus, I've practised being challenged and I've experienced the assessment before the real thing."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIZZLE — FEATURE → BENEFIT -->
+<section class="sec">
   <div class="sec-inner">
-    <span class="eyebrow">Who This Is For</span>
-    <h2 class="sec-h">You are ready for this if:</h2>
-    <div class="who-list">
-      <div class="who-item"><div class="who-dot"></div><div class="who-text">Your APC assessment is approaching and you are not as prepared as you want to be</div></div>
-      <div class="who-item"><div class="who-dot"></div><div class="who-text">You know your subject but are not sure how to demonstrate it under interview pressure</div></div>
-      <div class="who-item"><div class="who-dot"></div><div class="who-text">You need structured revision you can do in short focused sessions around full-time work</div></div>
-      <div class="who-item"><div class="who-dot"></div><div class="who-text">You want to know your weak spots before the panel does</div></div>
-      <div class="who-item"><div class="who-dot"></div><div class="who-text">You have done the work and need a final confidence-building push</div></div>
-      <div class="who-item"><div class="who-dot"></div><div class="who-text">You want to replay mock interviews until the answers feel natural under pressure</div></div>
+    <span class="eyebrow">What Final Sprint gives you</span>
+    <h2 class="sec-h">Not more content.<br>A structured way to use what you have.</h2>
+    <p class="sec-lead">Each part of Final Sprint is built around a specific preparation need.</p>
+    <div class="sizzle-grid">
+      <div class="sizzle-item">
+        <div class="sizzle-label">Six modules</div>
+        <div class="sizzle-benefit">A clear structure for what to do next</div>
+        <div class="sizzle-why">Know what to work on, in what order. No guessing where to start or how to use your remaining time.</div>
+      </div>
+      <div class="sizzle-item">
+        <div class="sizzle-label">Michael</div>
+        <div class="sizzle-benefit">A way to explore, practise and challenge an uncertain area whenever you need to</div>
+        <div class="sizzle-why">Available 24/7. Use him to test your reasoning, work through a scenario or explore an area you're less confident about.</div>
+      </div>
+      <div class="sizzle-item">
+        <div class="sizzle-label">Full mock</div>
+        <div class="sizzle-benefit">Experience the complete assessment format before the real thing</div>
+        <div class="sizzle-why">A 60-minute mock interview for your chosen RICS pathway. Run it more than once. Arrive knowing what the experience feels like.</div>
+      </div>
+      <div class="sizzle-item">
+        <div class="sizzle-label">Industry Briefing</div>
+        <div class="sizzle-benefit">Walk into assessment having reviewed the current landscape</div>
+        <div class="sizzle-why">The biggest legislation and technical developments relevant to your assessment window — reviewed and ready.</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- MISTAKE EXPLAINER SECTION -->
+<!-- MISTAKE EXPLAINER — unchanged -->
 <section style="background:#0D0F1C;padding:72px 24px 56px">
 <style>
 @media(max-width:600px){.mistake-grid{grid-template-columns:1fr!important}}
@@ -277,11 +325,11 @@ footer a{color:#60a5fa;text-decoration:none}
   <p style="text-align:center;font-size:15px;color:rgba(248,250,252,.55);line-height:1.75;max-width:600px;margin:40px auto 0">Most people don't notice they're doing this &mdash; until it costs them a <strong style="color:rgba(248,250,252,.8)">referral</strong>. For employers, that's a candidate back to square one, and <strong style="color:rgba(248,250,252,.8)">months of training investment</strong> on hold. See it in action below.</p>
 </section>
 
-<!-- INSIDE THE SPRINT -->
-<section class="sec sec-white">
+<!-- INSIDE THE APC FINAL SPRINT — 7 items, items 01–05 unchanged, 06 rewritten honestly, 07 rewritten to describe section 12.14 -->
+<section class="sec" id="included" style="background:rgba(255,255,255,.015);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
   <div class="sec-inner">
     <span class="eyebrow">Inside the APC Final Sprint</span>
-    <h2 class="sec-h" style="color:#0D0F1C">Focused. Structured.<br>Entirely focused on passing.</h2>
+    <h2 class="sec-h">Focused. Structured.<br>Entirely focused on passing.</h2>
     <div class="inside-grid">
       <div class="inside-item">
         <div class="inside-num">01</div>
@@ -310,11 +358,12 @@ footer a{color:#60a5fa;text-decoration:none}
       <div class="inside-item">
         <div class="inside-num">06</div>
         <div class="inside-h">Industry Briefing</div>
-        <div class="inside-p">The topics most likely to come up in your window.</div>
+        <div class="inside-p">Review the biggest legislation and technical developments relevant to your assessment window.</div>
       </div>
       <div class="inside-item">
         <div class="inside-num">07</div>
-        <div class="inside-h">Know Your Stuff. Test It. Pass It.</div>
+        <div class="inside-h">Final Eight APC Assignment Questions</div>
+        <div class="inside-p">Eight written questions across all mandatory competencies. Write each one in full, time yourself, and review your reasoning before assessment day.</div>
       </div>
     </div>
   </div>
@@ -324,22 +373,23 @@ footer a{color:#60a5fa;text-decoration:none}
 <section class="sec price-sec" id="enrol">
   <div class="sec-inner">
     <span class="eyebrow">Enrol Now</span>
-    <h2 class="sec-h" style="text-align:center">One payment.<br>focused preparation — however much time you have.</h2>
+    <h2 class="sec-h" style="text-align:center">One payment.<br>Focused preparation — however much time you have.</h2>
     <div class="price-card">
-      <div class="price-card-badge">Founding Price</div>
       <div class="price-big"><span>£</span>297</div>
       <div class="price-period">One payment · Instant access · Full sprint access</div>
       <ul class="price-feats">
-        <li>APC Framework Reset — Module 1</li>
-        <li>11 mandatory competency revision sheets — in Module 12</li>
-        <li>127+ module quiz questions + 861+ mock interview pathway questions</li>
-        <li>Michael — coaching sessions throughout your sprint</li>
-        <li>60-minute AI-scored mock interview</li>
-        <li>All 22 RICS technical pathways covered</li>
-        <li>Counts toward your annual RICS CPD requirement</li>
-        <li>Instant access on enrolment · Revise right up to your assessment</li>
+        <li>Six focused modules — Modules 1 and 12</li>
+        <li>11 mandatory competency revision sheets</li>
+        <li>Revision quiz across all competencies</li>
+        <li>50 pathway-specific assessor-led questions</li>
+        <li>5,000+ practice questions and answers</li>
+        <li>Michael — available throughout every module, 24/7</li>
+        <li>60-minute AI-scored mock interview — all 22 RICS pathways</li>
+        <li>Final Eight APC Assignment Questions</li>
+        <li>Industry Briefing — current issues for your assessment window</li>
+        <li>Instant access on enrolment · Counts toward RICS CPD</li>
       </ul>
-      <button class="btn-sprint" onclick="checkout('sprint')">Start My Sprint Now</button>
+      <button class="btn-sprint" onclick="checkout('sprint')">Start Your Final Sprint</button>
       <div class="price-guarantee">One-off payment · No subscription · No cancellation required.<br>Questions? <a href="mailto:info@getcharteredai.com" style="color:#60a5fa">info@getcharteredai.com</a></div>
     </div>
 
@@ -348,7 +398,7 @@ footer a{color:#60a5fa;text-decoration:none}
         <h4>Didn't pass first time? Your £297 counts.</h4>
         <p>Upgrade to the full Get Chartered AI programme — all 12 modules, 18 months access — and your sprint fee is credited. You pay just £200 for everything.</p>
       </div>
-      <a href="/#pricing-sec" class="upsell-btn">See Full Programme →</a>
+      <a href="/programme#pricing" class="upsell-btn">See Full Programme →</a>
     </div>
   </div>
 </section>
@@ -359,40 +409,47 @@ footer a{color:#60a5fa;text-decoration:none}
     <span class="eyebrow">Questions</span>
     <h2 class="sec-h">Frequently asked</h2>
     <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is it too late to start? <span class="arrow">+</span></button>
+        <div class="faq-a">No. However much preparation time you have left, Final Sprint is designed to help you use it well. The readiness check helps you identify where to focus immediately. Work through the modules at your pace — spend more time where you need it and less where you are already secure. Anything you identify now is something you still have time to improve.</div>
+      </div>
+
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Which modules does the APC Final Sprint give access to? <span class="arrow">+</span></button>
-        <div class="faq-a">The APC Final Sprint gives access to two modules: <strong>Module 1</strong> — APC framework, submission guidance and case study preparation — and <strong>Module 12</strong> — which contains the 11 mandatory competency revision sheets, the revision quiz and the 60-minute mock interview simulator.<br><br>Modules 2 to 11 — the full structured teaching content across all 11 mandatory competencies — are not included in the Sprint. The Sprint is a revision and practice tool for candidates who already have their subject knowledge and need to sharpen performance, articulation and mock interview confidence before assessment day.<br><br>If you need the full structured learning programme across all 12 modules, the Monthly Access or Full Year Access is the right product for you.</div>
+        <div class="faq-a">The APC Final Sprint gives access to two modules: <strong>Module 1</strong> — APC framework, submission guidance and case study preparation — and <strong>Module 12</strong> — which contains the 11 mandatory competency revision sheets, the revision quiz and the 60-minute mock interview simulator.<br><br>Modules 2 to 11 — the full structured teaching content across all 11 mandatory competencies — are not included in the Sprint. The Sprint is a revision and practice tool for candidates who already have their subject knowledge and need to sharpen performance, articulation and mock interview confidence before assessment day.<br><br>If you need the full structured learning programme, Monthly Access or Full Year Access is the right product.</div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How quickly can I access the sprint after enrolling? <span class="arrow">+</span></button>
         <div class="faq-a">Same day. Once your payment is confirmed you will receive an email with a direct login link. No waiting, no setup — click and start.</div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How long is access? <span class="arrow">+</span></button>
-        <div class="faq-a">Full access from the day you activate — use every session right up to your assessment.</div>
-      </div>
+
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Can I use this alongside my existing APC preparation? <span class="arrow">+</span></button>
         <div class="faq-a">Yes — it works alongside your workplace experience and existing preparation, not replace it. It gives you the structured revision, gap analysis and interview practice that most candidates are missing in the final weeks.<br><br>The revision sheets inside Module 12 are pre-assessment reference material — they assume you already have knowledge of your competencies from professional experience. They sharpen recall and highlight what assessors probe. They are not teaching modules. If you need structured learning across all 11 mandatory competencies from the ground up, the full 12-module programme is the right product.</div>
       </div>
+
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Which RICS pathways does the mock interview cover? <span class="arrow">+</span></button>
         <div class="faq-a">All 22 RICS technical pathways are covered in the mock interview simulator. You select your pathway and the AI generates questions specific to your field.</div>
       </div>
+
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What if I don't pass my APC? <span class="arrow">+</span></button>
         <div class="faq-a">Your £297 sprint fee is credited against the full Get Chartered AI programme. You pay just £200 to unlock all 12 modules with 18 months access. Contact us after results and we will set this up immediately.</div>
       </div>
+
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Does this count toward my RICS CPD requirement? <span class="arrow">+</span></button>
         <div class="faq-a">Yes. The structured revision sessions, quiz practice and mock interview preparation count as structured CPD activity. Candidates self-certify their own CPD under RICS rules — this platform gives you the evidence to log it.</div>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
+<!-- FINAL CTA — unchanged -->
 <section class="final-cta">
   <div class="sec-inner">
     <h2>Your assessment is approaching.<br>Make the next sprints count.</h2>

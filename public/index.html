@@ -2445,6 +2445,7 @@ async function fetchQuestionBank() {
     else { console.warn('[QB] Unknown pathway:', pathway); return; }
     window._qBankReady = true;
     console.log('[QB] ready:', pathway, '—', qs.length, 'questions');
+    renderPathwayBadge(); // refresh dashboard stats now that question counts are known
   } catch (e) {
     console.warn('[QB] fetch error:', e.message);
   }
@@ -2915,6 +2916,7 @@ function confirmPathway() {
   if (!_selectedPathway) return;
   localStorage.setItem('gca_pathway', _selectedPathway);
   document.getElementById('pathwayOverlay').style.display = 'none';
+  window._qBankReady = false; // force re-fetch for the newly selected pathway
   renderPathwayBadge();
   renderDashboard();
   maybeShowPathwayWelcome(_selectedPathway);

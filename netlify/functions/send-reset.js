@@ -199,7 +199,7 @@ exports.handler = async (event) => {
     const validityText = linkValidityText[plan] || '35 days';
 
     // Send email via Resend
-    await fetch('https://api.resend.com/emails', {
+    const resendResp = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${resendKey}`,
@@ -235,6 +235,15 @@ exports.handler = async (event) => {
         text: `Your Get Chartered AI login link\n\nClick here to log in: ${magicLink}\n\nThis link is valid for ${validityText}.\n\nQuestions? info@getcharteredai.com`
       })
     });
+
+    if (!resendResp.ok) {
+      const resendErr = await resendResp.text().catch(() => '');
+      console.error(`[send-reset] Resend failed for ${cleanEmail}: ${resendResp.status} ${resendErr}`);
+      return { statusCode: 200, headers, body: JSON.stringify({
+        sent: false,
+        error: 'We found your account but were unable to send the login email. Please try again or contact info@getcharteredai.com for help.'
+      }) };
+    }
 
     console.log(`Reset magic link sent to ${cleanEmail}`);
     return { statusCode: 200, headers, body: JSON.stringify({ sent: true }) };

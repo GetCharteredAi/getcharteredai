@@ -369,7 +369,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
         <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>Progress dashboard</li>
         <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>2026 legislation updates</li>
       </ul>
-      <button onclick="checkout('annual')" style="width:100%;padding:13px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.02em;cursor:pointer">Enrol now — £497 →</button>
+      <button onclick="showApcModal('annual')" style="width:100%;padding:13px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.02em;cursor:pointer">Enrol now — £497 →</button>
       <p style="font-size:12px;color:rgba(0,0,0,0.45);font-weight:400;margin-top:8px;text-align:center;line-height:1.4">or pay in 3 interest-free instalments with Klarna</p>
     </div>
 
@@ -385,7 +385,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
         <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>All 22 RICS pathways</li>
         <li style="font-size:13px;color:#475569;display:flex;align-items:flex-start;gap:8px"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>Progress dashboard</li>
       </ul>
-      <button onclick="checkout('monthly')" style="width:100%;padding:13px;background:transparent;color:#0D0F1C;border:1.5px solid #cbd5e1;border-radius:8px;font-size:13px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.02em;cursor:pointer">Start monthly — £49/month →</button>
+      <button onclick="showApcModal('monthly')" style="width:100%;padding:13px;background:transparent;color:#0D0F1C;border:1.5px solid #cbd5e1;border-radius:8px;font-size:13px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.02em;cursor:pointer">Start monthly — £49/month →</button>
     </div>
 
   </div>
@@ -485,12 +485,12 @@ function toggleFaq(btn) {
   answer.style.display = open ? 'none' : 'block';
   arrow.textContent = open ? '+' : '−';
 }
-async function checkout(plan) {
+async function checkout(plan, meta) {
   try {
     const response = await fetch('/.netlify/functions/create-checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan })
+      body: JSON.stringify({ plan, ...(meta || {}) })
     });
     const data = await response.json();
     if (data.url) { window.location.href = data.url; }
@@ -499,10 +499,91 @@ async function checkout(plan) {
     alert('Connection error. Please check your internet and try again.');
   }
 }
+
+// ── APC Pathway Modal ──────────────────────────────────────────────────────
+let _apcModalPlan = '';
+function showApcModal(plan) {
+  _apcModalPlan = plan;
+  document.getElementById('apc-modal-pathway').value = '';
+  document.getElementById('apc-modal-window').value = '';
+  _updateApcModalBtn();
+  const m = document.getElementById('apc-modal');
+  m.style.cssText = 'display:flex;position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,.82);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px';
+}
+function closeApcModal() { document.getElementById('apc-modal').style.display = 'none'; }
+function _updateApcModalBtn() {
+  const ready = document.getElementById('apc-modal-pathway').value && document.getElementById('apc-modal-window').value;
+  const btn = document.getElementById('apc-modal-btn');
+  btn.disabled = !ready;
+  btn.style.opacity = ready ? '1' : '0.4';
+  btn.style.cursor  = ready ? 'pointer' : 'not-allowed';
+}
+async function _submitApcModal() {
+  const pathway = document.getElementById('apc-modal-pathway').value;
+  const window  = document.getElementById('apc-modal-window').value;
+  if (!pathway || !window) return;
+  closeApcModal();
+  await checkout(_apcModalPlan, { rics_pathway: pathway, assessment_window: window });
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeApcModal(); });
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
 }, {threshold:0.07});
 document.querySelectorAll('.fu').forEach(el => obs.observe(el));
 </script>
+
+<!-- APC PATHWAY MODAL -->
+<div id="apc-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="apc-modal-title">
+  <div style="background:#111827;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:36px;max-width:440px;width:100%;position:relative">
+    <button onclick="closeApcModal()" aria-label="Close" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#64748b;font-size:22px;cursor:pointer;line-height:1;padding:4px">×</button>
+    <div id="apc-modal-title" style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px;color:#f8fafc">Almost there</div>
+    <p style="font-size:13px;color:#94a3b8;margin-bottom:24px;line-height:1.6">Two quick questions help us prepare your pathway-specific content and support.</p>
+
+    <div style="margin-bottom:16px">
+      <label for="apc-modal-pathway" style="display:block;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Which RICS pathway are you following?</label>
+      <select id="apc-modal-pathway" onchange="_updateApcModalBtn()" style="width:100%;padding:11px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;appearance:none;-webkit-appearance:none;cursor:pointer">
+        <option value="">Select your pathway...</option>
+        <option>Building Control</option>
+        <option>Building Surveying</option>
+        <option>Commercial Real Estate</option>
+        <option>Corporate Real Estate</option>
+        <option>Environmental Surveying</option>
+        <option>Facilities Management</option>
+        <option>Geomatics</option>
+        <option>Infrastructure</option>
+        <option>Land and Resources</option>
+        <option>Legal Practice</option>
+        <option>Machinery and Business Assets</option>
+        <option>Management Consultancy</option>
+        <option>Minerals and Waste Management</option>
+        <option>Planning and Development</option>
+        <option>Project Management</option>
+        <option>Property Finance and Investment</option>
+        <option>Quantity Surveying and Construction</option>
+        <option>Residential</option>
+        <option>Rural</option>
+        <option>Taxation Allowances on Built Assets</option>
+        <option>Valuation</option>
+        <option>Works and Capital Programmes</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom:28px">
+      <label for="apc-modal-window" style="display:block;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">When are you planning to sit your assessment?</label>
+      <select id="apc-modal-window" onchange="_updateApcModalBtn()" style="width:100%;padding:11px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;appearance:none;-webkit-appearance:none;cursor:pointer">
+        <option value="">Select a window...</option>
+        <option>Autumn 2026</option>
+        <option>Spring 2027</option>
+        <option>Autumn 2027</option>
+        <option>Spring 2028</option>
+        <option>Autumn 2028</option>
+        <option>Not yet confirmed</option>
+      </select>
+    </div>
+
+    <button id="apc-modal-btn" onclick="_submitApcModal()" disabled style="width:100%;padding:14px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;opacity:.4;cursor:not-allowed;transition:opacity .15s,transform .15s">Continue to Payment →</button>
+    <p style="font-size:11px;color:#64748b;text-align:center;margin-top:12px;line-height:1.5">These questions don't affect your access or pricing. They help us prepare your pathway-specific content.</p>
+  </div>
+</div>
 </body>
 </html>

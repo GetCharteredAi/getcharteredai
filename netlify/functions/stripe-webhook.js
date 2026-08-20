@@ -58,6 +58,64 @@ exports.handler = async (event) => {
   const type = stripeEvent.type;
   console.log(`Stripe event: ${type}`);
 
+  // ── New purchase — internal notification ─────────────────────────────────
+  if (type === 'checkout.session.completed') {
+    const session = stripeEvent.data?.object;
+    const email   = session?.customer_email || session?.customer_details?.email || 'unknown';
+    const amount  = typeof session?.amount_total === 'number'
+      ? `£${(session.amount_total / 100).toFixed(2)}`
+      : 'unknown';
+    const meta     = session?.metadata || {};
+    const planKey  = meta.plan_key  || '';
+    const planLabel = meta.plan_label || planKey || 'Unknown product';
+
+    const isApc        = ['annual', 'monthly', 'referred', 'sprint'].includes(planKey);
+    const isApprentice = planKey === 'apprentice';
+
+    let detailRows = '';
+    if (isApc) {
+      detailRows = `
+        <tr><td style="padding:8px 12px;color:#64748b;font-size:13px;white-space:nowrap">RICS Pathway</td><td style="padding:8px 12px;font-size:13px;font-weight:600;color:#0f172a">${meta.rics_pathway || '(not provided)'}</td></tr>
+        <tr style="background:#f8fafc"><td style="padding:8px 12px;color:#64748b;font-size:13px;white-space:nowrap">Assessment Window</td><td style="padding:8px 12px;font-size:13px;font-weight:600;color:#0f172a">${meta.assessment_window || '(not provided)'}</td></tr>`;
+    } else if (isApprentice) {
+      detailRows = `
+        <tr><td style="padding:8px 12px;color:#64748b;font-size:13px;white-space:nowrap">Pathway</td><td style="padding:8px 12px;font-size:13px;font-weight:600;color:#0f172a">${meta.apprenticeship_pathway || '(not provided)'}</td></tr>
+        <tr style="background:#f8fafc"><td style="padding:8px 12px;color:#64748b;font-size:13px;white-space:nowrap">Stage</td><td style="padding:8px 12px;font-size:13px;font-weight:600;color:#0f172a">${meta.apprenticeship_stage || '(not provided)'}</td></tr>
+        <tr><td style="padding:8px 12px;color:#64748b;font-size:13px;white-space:nowrap">Expected EPA / Completion</td><td style="padding:8px 12px;font-size:13px;font-weight:600;color:#0f172a">${meta.epa_window || '(not provided)'}</td></tr>`;
+    }
+
+    const textSummary = isApc
+      ? `Product: ${planLabel}\nCustomer: ${email}\nRICS Pathway: ${meta.rics_pathway || '(not provided)'}\nAssessment Window: ${meta.assessment_window || '(not provided)'}\nAmount: ${amount}`
+      : isApprentice
+      ? `Product: ${planLabel}\nCustomer: ${email}\nPathway: ${meta.apprenticeship_pathway || '(not provided)'}\nStage: ${meta.apprenticeship_stage || '(not provided)'}\nExpected EPA/Completion: ${meta.epa_window || '(not provided)'}\nAmount: ${amount}`
+      : `Product: ${planLabel}\nCustomer: ${email}\nAmount: ${amount}`;
+
+    if (process.env.RESEND_API_KEY) {
+      await sendEmail(
+        'contact@gcaitutor.com',
+        `New purchase — ${planLabel}`,
+        `<div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:0 auto;padding:32px 20px">
+          <div style="background:#2563EB;border-radius:10px 10px 0 0;padding:20px 24px">
+            <h1 style="color:#fff;font-size:16px;margin:0;font-weight:700">Get Chartered AI — New Purchase</h1>
+          </div>
+          <div style="background:#fff;padding:28px 24px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 10px 10px">
+            <table style="width:100%;border-collapse:collapse;margin-bottom:16px">
+              <tr style="background:#f8fafc"><td style="padding:8px 12px;color:#64748b;font-size:13px;white-space:nowrap">Product</td><td style="padding:8px 12px;font-size:13px;font-weight:700;color:#0f172a">${planLabel}</td></tr>
+              <tr><td style="padding:8px 12px;color:#64748b;font-size:13px;white-space:nowrap">Customer</td><td style="padding:8px 12px;font-size:13px;font-weight:600;color:#0f172a">${email}</td></tr>
+              ${detailRows}
+              <tr style="${detailRows ? '' : 'background:#f8fafc'}"><td style="padding:8px 12px;color:#64748b;font-size:13px;white-space:nowrap">Amount</td><td style="padding:8px 12px;font-size:15px;font-weight:800;color:#16a34a">${amount}</td></tr>
+              <tr style="background:#f8fafc"><td style="padding:8px 12px;color:#64748b;font-size:13px;white-space:nowrap">Stripe Session</td><td style="padding:8px 12px;font-size:12px;color:#2563EB;font-family:monospace">${session?.id || '—'}</td></tr>
+            </table>
+            <p style="font-size:12px;color:#94a3b8;margin:0">Pathway and window data are also stored on the Stripe PaymentIntent / Subscription metadata and visible in the Stripe Dashboard.</p>
+          </div>
+        </div>`,
+        textSummary
+      ).catch(err => console.error('[webhook] purchase notification email failed:', err.message));
+    }
+
+    console.log(`[webhook] purchase notification: ${planLabel} / ${email} / ${amount}`);
+  }
+
   // ── Invoice paid — check if month 12, auto-cancel if so ──────────────────
   if (type === 'invoice.paid') {
     const invoice = stripeEvent.data?.object;

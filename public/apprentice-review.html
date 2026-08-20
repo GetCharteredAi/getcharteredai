@@ -644,14 +644,46 @@ function arevLaunch() {
 }
 
 // ── CHECKOUT ──
-async function startArevCheckout() {
+// Called without arguments shows the pathway modal first.
+// Called with a meta object (from modal confirm) proceeds directly to Stripe.
+async function startArevCheckout(meta) {
+  if (!meta) { showApprenticeModal(); return; }
   try {
-    const r = await fetch('/.netlify/functions/create-checkout', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ plan:'apprentice' }) });
+    const r = await fetch('/.netlify/functions/create-checkout', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ plan:'apprentice', ...meta }) });
     const d = await r.json();
     if (d.url) { window.location.href = d.url; }
     else { window.location.href = 'mailto:info@getcharteredai.com?subject=Apprentice Professional Readiness Review — Purchase'; }
   } catch(e) { window.location.href = 'mailto:info@getcharteredai.com?subject=Apprentice Professional Readiness Review — Purchase'; }
 }
+
+// ── APPRENTICESHIP PATHWAY MODAL ──────────────────────────────────────────
+function showApprenticeModal() {
+  document.getElementById('ap-modal-pathway').value = '';
+  document.getElementById('ap-modal-stage').value = '';
+  document.getElementById('ap-modal-epa').value = '';
+  _updateApModalBtn();
+  const m = document.getElementById('ap-modal');
+  m.style.cssText = 'display:flex;position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,.82);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px';
+}
+function closeApprenticeModal() { document.getElementById('ap-modal').style.display = 'none'; }
+function _updateApModalBtn() {
+  const ready = document.getElementById('ap-modal-pathway').value
+             && document.getElementById('ap-modal-stage').value
+             && document.getElementById('ap-modal-epa').value;
+  const btn = document.getElementById('ap-modal-btn');
+  btn.disabled = !ready;
+  btn.style.opacity = ready ? '1' : '0.4';
+  btn.style.cursor  = ready ? 'pointer' : 'not-allowed';
+}
+async function _submitApModal() {
+  const pathway = document.getElementById('ap-modal-pathway').value;
+  const stage   = document.getElementById('ap-modal-stage').value;
+  const epa     = document.getElementById('ap-modal-epa').value;
+  if (!pathway || !stage || !epa) return;
+  closeApprenticeModal();
+  await startArevCheckout({ apprenticeship_pathway: pathway, apprenticeship_stage: stage, epa_window: epa });
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeApprenticeModal(); });
 
 // ── LOGIN ──
 function arevRenderLogin() {
@@ -2013,5 +2045,72 @@ const arevObs = new IntersectionObserver(entries => {
 arevFuEls.forEach(el => arevObs.observe(el));
 
 </script>
+
+<!-- APPRENTICESHIP PATHWAY MODAL -->
+<div id="ap-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="ap-modal-title">
+  <div style="background:#111827;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:36px;max-width:440px;width:100%;position:relative">
+    <button onclick="closeApprenticeModal()" aria-label="Close" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#64748b;font-size:22px;cursor:pointer;line-height:1;padding:4px">×</button>
+    <div id="ap-modal-title" style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px;color:#f8fafc">Almost there</div>
+    <p style="font-size:13px;color:#94a3b8;margin-bottom:24px;line-height:1.6">Three quick questions help us tailor your review and prioritise the right support.</p>
+
+    <div style="margin-bottom:16px">
+      <label for="ap-modal-pathway" style="display:block;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Which pathway are you working towards?</label>
+      <select id="ap-modal-pathway" onchange="_updateApModalBtn()" style="width:100%;padding:11px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;appearance:none;-webkit-appearance:none;cursor:pointer">
+        <option value="">Select your pathway...</option>
+        <option>Building Control</option>
+        <option>Building Surveying</option>
+        <option>Commercial Real Estate</option>
+        <option>Corporate Real Estate</option>
+        <option>Environmental Surveying</option>
+        <option>Facilities Management</option>
+        <option>Geomatics</option>
+        <option>Infrastructure</option>
+        <option>Land and Resources</option>
+        <option>Legal Practice</option>
+        <option>Machinery and Business Assets</option>
+        <option>Management Consultancy</option>
+        <option>Minerals and Waste Management</option>
+        <option>Planning and Development</option>
+        <option>Project Management</option>
+        <option>Property Finance and Investment</option>
+        <option>Quantity Surveying and Construction</option>
+        <option>Residential</option>
+        <option>Rural</option>
+        <option>Taxation Allowances on Built Assets</option>
+        <option>Valuation</option>
+        <option>Works and Capital Programmes</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <label for="ap-modal-stage" style="display:block;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">What stage of your apprenticeship are you at?</label>
+      <select id="ap-modal-stage" onchange="_updateApModalBtn()" style="width:100%;padding:11px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;appearance:none;-webkit-appearance:none;cursor:pointer">
+        <option value="">Select your stage...</option>
+        <option>Year 1</option>
+        <option>Year 2</option>
+        <option>Final year</option>
+        <option>Approaching EPA</option>
+        <option>EPA preparation</option>
+        <option>Not yet confirmed / unsure</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom:28px">
+      <label for="ap-modal-epa" style="display:block;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">When are you expecting to complete your apprenticeship or EPA?</label>
+      <select id="ap-modal-epa" onchange="_updateApModalBtn()" style="width:100%;padding:11px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;appearance:none;-webkit-appearance:none;cursor:pointer">
+        <option value="">Select a window...</option>
+        <option>Autumn 2026</option>
+        <option>Spring 2027</option>
+        <option>Autumn 2027</option>
+        <option>Spring 2028</option>
+        <option>Autumn 2028</option>
+        <option>Not yet confirmed</option>
+      </select>
+    </div>
+
+    <button id="ap-modal-btn" onclick="_submitApModal()" disabled style="width:100%;padding:14px;background:#3d5afe;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;opacity:.4;cursor:not-allowed;transition:opacity .15s">Continue to Payment →</button>
+    <p style="font-size:11px;color:#64748b;text-align:center;margin-top:12px;line-height:1.5">These questions don't affect your access or pricing. They help us prioritise the right support for your stage.</p>
+  </div>
+</div>
 </body>
 </html>

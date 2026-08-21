@@ -1181,8 +1181,15 @@ input.err{border-color:var(--red)}
         </a>
       </div>
     </div>
-    <a href="/#readiness-sec" class="nav-link">Professional Readiness</a>
-    <a href="/#michael-sec" class="nav-link">Michael</a>
+    <div class="nav-dropdown" id="readinessDropdown">
+      <button class="nav-link nav-dropdown-trigger" onclick="toggleReadinessDropdown()">Professional Readiness &#x25BE;</button>
+      <div class="nav-dropdown-menu guides-nav-menu" id="readinessMenu" style="display:none">
+        <a href="#readiness-sec" class="guides-nav-item" onclick="event.preventDefault();closeReadinessDropdown();document.getElementById('readiness-sec').scrollIntoView({behavior:'smooth'})">What is Professional Readiness?</a>
+        <a href="#career-sec" class="guides-nav-item" onclick="event.preventDefault();closeReadinessDropdown();document.getElementById('career-sec').scrollIntoView({behavior:'smooth'})">Career Progression</a>
+        <span class="guides-nav-item" style="opacity:.4;cursor:default">Management &amp; Leadership <em style="font-style:normal;font-size:11px">(Coming Soon)</em></span>
+      </div>
+    </div>
+    <a href="#michael-sec" class="nav-link" onclick="event.preventDefault();document.getElementById('michael-sec').scrollIntoView({behavior:'smooth'})">Michael</a>
     <div class="nav-dropdown" id="guidesDropdown">
       <button class="nav-link nav-dropdown-trigger" onclick="toggleGuidesDropdown()">Resources &#x25BE;</button>
       <div class="nav-dropdown-menu guides-nav-menu" id="guidesMenu" style="display:none">
@@ -1216,8 +1223,10 @@ input.err{border-color:var(--red)}
   <a href="/year-two-review" onclick="closeMobileNav()">Year Two Professional Readiness Review</a>
   <a href="/apprentice-review" onclick="closeMobileNav()">Apprentice Professional Readiness Review</a>
   <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0"></div>
-  <a href="/#readiness-sec" onclick="closeMobileNav()">Professional Readiness</a>
-  <a href="/#michael-sec" onclick="closeMobileNav()">Michael</a>
+  <a href="#readiness-sec" onclick="event.preventDefault();closeMobileNav();document.getElementById('readiness-sec').scrollIntoView({behavior:'smooth'})">What is Professional Readiness?</a>
+  <a href="#career-sec" onclick="event.preventDefault();closeMobileNav();document.getElementById('career-sec').scrollIntoView({behavior:'smooth'})">Career Progression</a>
+  <span style="display:block;padding:10px 0;font-size:14px;opacity:.4;cursor:default">Management &amp; Leadership <em style="font-style:normal;font-size:11px">(Coming Soon)</em></span>
+  <a href="#michael-sec" onclick="event.preventDefault();closeMobileNav();document.getElementById('michael-sec').scrollIntoView({behavior:'smooth'})">Michael</a>
   <a href="/platform" onclick="closeMobileNav()">Inside the Platform</a>
   <a href="/guides" onclick="closeMobileNav()">Resources</a>
   <a href="/employer-guide" onclick="closeMobileNav()">For Employers</a>
@@ -5275,9 +5284,19 @@ function toggleProgrammesDropdown() {
 function closeProgrammesDropdown() {
   document.getElementById('programmesMenu').style.display = 'none';
 }
+function toggleReadinessDropdown() {
+  const menu = document.getElementById('readinessMenu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+function closeReadinessDropdown() {
+  document.getElementById('readinessMenu').style.display = 'none';
+}
 document.addEventListener('click', function(e) {
   if (!e.target.closest('#programmesDropdown')) {
     closeProgrammesDropdown();
+  }
+  if (!e.target.closest('#readinessDropdown')) {
+    closeReadinessDropdown();
   }
   if (!e.target.closest('#guidesDropdown')) {
     closeGuidesDropdown();

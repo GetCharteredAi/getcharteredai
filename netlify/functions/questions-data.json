@@ -14662,7 +14662,7 @@
     {
       "q": "What would you do if non-compliant work was identified on site?",
       "pass": "I would identify the issue, record it, notify the relevant parties and require corrective action before work proceeds further.",
-      "high": "I would assess the nature and seriousness of the non-compliance, record my observations clearly, notify the responsible parties, request revised details or remedial works and follow up to confirm compliance. If the issue created significant risk or was not addressed, escalation or enforcement action may be required depending on the circumstances and statutory powers available.",
+      "high": "I would assess the nature and seriousness of the non-compliance, record my observations clearly and notify the responsible parties, requesting revised details or remedial works. Follow-up is essential to confirm compliance. Where the issue creates significant risk or is not addressed, escalation to formal enforcement is required — and professional judgement is needed to advise on the appropriate form: serving a notice requiring the owner to rectify within a specified period is proportionate for most contraventions; where a building presents immediate danger to public safety, section 78 of the Building Act 1984 allows the local authority to take emergency measures at the owner's expense without waiting for compliance; prosecution or injunction is reserved for the most serious breaches or where other measures have failed.",
       "referral": "I would ignore it if the builder said it would be sorted later.",
       "referralWhy": [
         "Fails to manage compliance risk.",
@@ -14670,14 +14670,14 @@
         "Could allow unsafe or unlawful work to continue."
       ],
       "challenge": [
-        "How would you record non-compliance?",
-        "When might enforcement action be necessary?",
-        "How would you manage disagreement with the contractor?"
+        "How would you record non-compliance to support later enforcement action?",
+        "When would you advise prosecution rather than serving a notice?",
+        "What statutory powers exist to deal with a building presenting immediate danger to the public?"
       ],
       "keyPoints": [
-        "Non-compliance must be recorded and addressed.",
-        "Risk and seriousness should guide response.",
-        "Follow-up is essential."
+        "Non-compliance must be recorded and addressed — proportionality guides the response.",
+        "Notices, emergency powers (Building Act s78), prosecution and injunction are distinct enforcement instruments with different thresholds.",
+        "The form of enforcement action chosen must match the severity and urgency of the risk."
       ],
       "module": "Building Control"
     },
@@ -14706,7 +14706,7 @@
     {
       "q": "Why is fire safety important in building control?",
       "pass": "Fire safety is important because buildings must be designed and constructed to reduce the risk of fire spread and allow people to escape safely.",
-      "high": "Fire safety is central to building control because Building Regulations require buildings to provide adequate means of warning and escape, limit internal and external fire spread, maintain structural stability in fire and provide access and facilities for the fire and rescue service. Building control checks whether the proposed design and construction demonstrate compliance with the relevant functional requirements.",
+      "high": "Fire safety is central to building control because buildings must provide adequate means of warning and escape, limit internal and external fire spread, maintain structural stability in fire and provide access for the fire and rescue service. Understanding combustion is foundational: fire requires fuel, oxygen and heat (the fire triangle); spread occurs by convection (hot gases and smoke rising and spreading through voids), conduction through structural elements, and radiation from hot surfaces igniting adjacent materials. Structural elements behave differently under fire conditions — steel loses significant strength above 550°C, while masonry and concrete retain stability longer. Building control checks whether the proposed design and construction demonstrate compliance with the relevant functional requirements.",
       "referral": "Fire safety is only the responsibility of the fire brigade.",
       "referralWhy": [
         "Misunderstands the role of Building Regulations.",
@@ -14714,21 +14714,21 @@
         "Demonstrates weak life-safety awareness."
       ],
       "challenge": [
-        "What matters are covered by Approved Document B?",
-        "How does means of escape differ from fire containment?",
-        "Why is fire-stopping important?"
+        "What are the three main mechanisms by which fire spreads through a building?",
+        "How does steel behave at high temperature and why does this affect structural fire resistance design?",
+        "What matters are covered by Approved Document B?"
       ],
       "keyPoints": [
-        "Fire safety is a core Building Regulations issue.",
-        "Building control considers escape, spread, structure and fire service access.",
-        "Fire safety must be designed and constructed correctly."
+        "Fire triangle: fuel, oxygen, heat — remove one and fire cannot continue.",
+        "Fire spreads by convection (hot gases), conduction (through elements) and radiation (igniting adjacent surfaces).",
+        "Steel loses significant strength above 550°C — structural fire protection prevents premature failure."
       ],
       "module": "Building Control"
     },
     {
       "q": "What is means of escape?",
       "pass": "Means of escape is the provision that allows people to leave a building safely in the event of fire.",
-      "high": "Means of escape includes the routes, exits, stairs, corridors, doors, travel distances, emergency lighting, signage and fire detection arrangements that allow occupants to reach a place of safety. It should reflect building use, occupancy, layout, travel distances, fire risk and the needs of building users.",
+      "high": "Means of escape includes the routes, exits, stairs, corridors, doors, travel distances, emergency lighting, signage and fire detection arrangements that allow occupants to reach a place of safety. Its design must account for the physiological and psychological effects of fire: smoke causes rapid visual impairment and toxic gases — particularly carbon monoxide — cause incapacitation at concentrations that can occur before heat becomes life-threatening; occupants under fire conditions often experience disorientation, reduced decision-making capacity and, in densely occupied spaces, crowd-crush or panic behaviour that can make escape routes inadequate even when physically sufficient. Means of escape must therefore reflect realistic occupant behaviour under emergency conditions as well as travel distances, exit widths and building use.",
       "referral": "Means of escape simply means having a front door.",
       "referralWhy": [
         "Too simplistic.",
@@ -14736,14 +14736,14 @@
         "Demonstrates poor fire safety understanding."
       ],
       "challenge": [
+        "How do the physiological effects of smoke exposure affect the design of means of escape?",
         "What is a protected escape route?",
-        "How does occupancy affect escape provision?",
-        "Why do travel distances matter?"
+        "Why must travel distance limits reflect occupancy type and likely behaviour, not just geometry?"
       ],
       "keyPoints": [
-        "Means of escape must be planned and protected.",
-        "Escape depends on layout, use and occupancy.",
-        "Doors, stairs, corridors and warning systems all matter."
+        "Toxic smoke incapacitation can occur before heat becomes life-threatening — escape design must account for this.",
+        "Occupants under fire conditions experience disorientation, impaired judgement and potentially panic — escape routes must be robust against these behaviours.",
+        "Means of escape depends on layout, use, occupancy profile and realistic behaviour — not just minimum dimensional compliance."
       ],
       "module": "Building Control"
     },
@@ -14816,7 +14816,7 @@
     {
       "q": "How do Building Regulations address energy efficiency?",
       "pass": "Building Regulations set requirements for the conservation of fuel and power in buildings.",
-      "high": "Energy efficiency requirements address matters such as insulation, air tightness, thermal bridging, building services efficiency, heating systems, lighting, ventilation, glazing and carbon performance. Compliance may be demonstrated through calculations, specifications, product information, commissioning certificates and testing. Energy performance must be considered at design and construction stages.",
+      "high": "Sustainability in construction rests on the triple bottom line: balancing economic, environmental and social objectives. Energy efficiency is its primary regulatory expression in the Building Regulations — but material resource efficiency in the supply chain is an equally named sustainability obligation alongside operational performance. Energy efficiency requirements specifically address insulation, air tightness, thermal bridging, building services efficiency, heating systems, lighting, ventilation, glazing and carbon performance. Compliance may be demonstrated through calculations, specifications, product information, commissioning certificates and testing. Energy performance must be considered at design and construction stages.",
       "referral": "Energy efficiency is only relevant when the building is occupied.",
       "referralWhy": [
         "Ignores design and construction requirements.",
@@ -14824,14 +14824,14 @@
         "Demonstrates limited awareness of sustainability and performance standards."
       ],
       "challenge": [
+        "How does the triple bottom line apply to energy efficiency decisions in building control?",
         "What does Approved Document L cover?",
-        "What evidence may be required at completion?",
-        "How can poor workmanship affect thermal performance?"
+        "How can poor workmanship undermine designed energy performance?"
       ],
       "keyPoints": [
-        "Energy efficiency is regulated through Building Regulations.",
-        "Design, materials and workmanship all affect performance.",
-        "Evidence and testing may be required."
+        "Sustainability: triple bottom line of economic, environmental and social objectives — energy efficiency is its primary regulatory expression.",
+        "Material resource efficiency in the supply chain is a named sustainability obligation alongside operational energy performance.",
+        "Design, materials, workmanship and testing evidence all determine whether energy compliance is actually achieved."
       ],
       "module": "Building Control"
     },
@@ -15124,7 +15124,7 @@
     {
       "q": "What enforcement powers exist where building work does not comply?",
       "pass": "Building control bodies may take enforcement action where work does not comply with Building Regulations.",
-      "high": "Where work is non-compliant, the relevant authority may require remedial action, issue notices or pursue enforcement routes depending on the seriousness, timing and statutory powers available. The preferred approach is often to resolve non-compliance through correction, but serious or unresolved breaches may require formal action. Accurate records, clear communication and proportionate decision-making are essential.",
+      "high": "Where work is non-compliant, the authority may require remedial action or initiate enforcement depending on the nature and seriousness of the breach. Preparing and serving notices is a distinct L3 skill: a valid notice must identify the specific contravention, require a defined remedy, specify a reasonable compliance period and be correctly served on the responsible party — procedural errors can undermine enforcement. For dangerous structures, section 77 of the Building Act 1984 empowers the local authority to apply to the magistrates' court for an order requiring the owner to take action; section 78 provides emergency powers where structural collapse is an immediate risk, allowing the authority to take emergency measures — shoring, cordoning, partial demolition — and recover the cost from the owner. Where collapse is imminent, public safety measures must be implemented immediately, before formal enforcement procedures are resolved. Serious or persistent contraventions may require prosecution or injunction.",
       "referral": "There are no consequences once the work has been built.",
       "referralWhy": [
         "Incorrect.",
@@ -15132,14 +15132,14 @@
         "Demonstrates poor compliance awareness."
       ],
       "challenge": [
-        "When might formal enforcement be appropriate?",
-        "How should non-compliance be recorded?",
-        "Why is proportionality important?"
+        "How would you prepare and serve a notice for a building control contravention?",
+        "When would you use section 77 powers rather than section 78 emergency powers?",
+        "What immediate public safety measures can be taken where structural collapse is a risk?"
       ],
       "keyPoints": [
-        "Non-compliance can lead to enforcement.",
-        "Remedial action may be required.",
-        "Records and communication are essential."
+        "Notices must identify the contravention, specify the remedy and be correctly served — procedural errors can invalidate enforcement.",
+        "Building Act s77 (court order for owner to act) vs s78 (emergency powers, council acts at owner's cost) — different thresholds and procedures.",
+        "Where structural collapse is imminent, public safety measures (shoring, cordoning) precede formal enforcement."
       ],
       "module": "Building Control"
     },
@@ -15344,7 +15344,7 @@
     {
       "q": "How does building control support quality in construction?",
       "pass": "Building control supports quality by checking technical compliance and identifying non-compliant work during inspections.",
-      "high": "Building control supports construction quality by promoting compliance with minimum statutory standards, reviewing technical information, undertaking inspections, identifying non-compliance and requiring corrective action. However, building control is not a clerk of works or quality assurance service. Overall construction quality remains the responsibility of designers, contractors, clients and the wider project team.",
+      "high": "Building control supports construction quality by promoting compliance with minimum statutory standards, reviewing technical information, undertaking inspections, identifying non-compliance and requiring corrective action. Building control is not a clerk of works, quality assurance service or contract administrator. A contract administrator has defined duties under the building contract — issuing instructions, valuing work, certifying payments, assessing and awarding extensions of time, and administering variations and claims — which are separate from and additional to any building control function; a building control surveyor who also reports on progress and quality does so as a progress-reporting role only, with no contractual authority. Overall construction quality and contract administration remain the responsibility of the project team.",
       "referral": "Building control guarantees the quality of all construction work.",
       "referralWhy": [
         "Overstates building control's role.",
@@ -15353,13 +15353,13 @@
       ],
       "challenge": [
         "How does building control differ from a clerk of works?",
-        "What are the limits of inspection?",
+        "What duties does a contract administrator have that a progress-monitoring building control surveyor does not?",
         "Who is responsible for construction quality?"
       ],
       "keyPoints": [
-        "Building control supports compliance and minimum standards.",
-        "It does not replace project quality management.",
-        "Responsibility for workmanship remains with the project team."
+        "Building control supports compliance and minimum standards — it does not replace project quality management.",
+        "Contract administrator duties (instructions, valuations, certifications, extensions of time) are separate from and additional to building control — not a building control function.",
+        "Responsibility for workmanship and contractual administration remains with the project team."
       ],
       "module": "Building Control"
     },
@@ -15580,6 +15580,177 @@
         "APC answers should evidence personal competence.",
         "Focus on judgement, risk and measurable value.",
         "Reflection strengthens credibility."
+      ],
+      "module": "Building Control"
+    },
+    {
+      "q": "What is your role in inspecting a venue or public event space for licensing and safety compliance?",
+      "pass": "I would inspect the venue against relevant fire safety, structural and occupancy standards, consider means of escape and crowd management, and provide an assessment to support the licensing process.",
+      "high": "Venue and event safety inspections under licensing legislation require understanding of crowd behaviour and movement — including ingress, egress, circulation and the potential for crowd surge or crush during emergency evacuation — and assessment of structural stability under the intended occupancy loading. Relevant legislation includes the Licensing Act 2003 (public entertainment and alcohol licensing), the Safety of Sports Grounds Act 1975 and the Fire Safety and Safety of Places of Sport Act 1987 for designated sports grounds. For a venue such as a nightclub or concert hall, I would assess means of escape, fire detection and suppression, compartmentation, emergency lighting, maximum occupancy, crowd management arrangements and any structural elements relevant to safe occupancy at the intended capacity. My assessment informs the licensing authority's decision on licence conditions.",
+      "why": "Inspection for public event/venue safety is a mandatory L3 competency for Building Control candidates — distinct from building site inspection and covering licensing legislation, crowd behaviour and venue-type-specific assessment.",
+      "referral": "I would check that the fire exits are unlocked and leave the rest to the event organiser.",
+      "referralWhy": "Venue safety inspection under licensing legislation requires structured assessment against specific statutory requirements. Identifying fire exits alone does not discharge the inspection function.",
+      "challenge": [
+        "How does crowd behaviour affect your assessment of a venue's escape provision?",
+        "What legislation governs the safety inspection of designated sports grounds?",
+        "How would a fire safety suitability inspection for a nightclub differ from a standard building control site visit?"
+      ],
+      "keyPoints": [
+        "Crowd behaviour — ingress, egress, surge and crush potential — must inform the escape and structural assessment.",
+        "Relevant legislation: Licensing Act 2003; Safety of Sports Grounds Act 1975; Fire Safety and Safety of Places of Sport Act 1987.",
+        "Assessment covers structural stability, fire safety, occupancy capacity, means of escape and crowd management arrangements."
+      ],
+      "module": "Building Control"
+    },
+    {
+      "q": "How would you approach the safety inspection of a temporary structure, such as a stand or seating area, for a public event?",
+      "pass": "I would review the structural calculations for the temporary stand, inspect the erected structure against the approved drawings, and confirm that it is safe for the intended occupancy before the event opens.",
+      "high": "Temporary stand and seating assessments require review of structural calculations — including load analysis under static occupancy loading and dynamic loading from crowd movement (swaying, jumping, stampede) — alongside inspection of the erected structure against approved drawings and specifications. I would assess the temporary event application, verify that the structure is erected by a competent contractor, check materials, connections and bracing details, consider ground conditions and bearing capacity, and verify that crowd management and egress arrangements are consistent with the structural assessment. Post-erection inspection before the event opens is essential. Any divergence from the approved structure — additional tiers, altered connections, substituted materials — requires further engineering assessment before occupancy. Where structural adequacy cannot be confirmed, I would require a reduction in permitted occupancy or exclusion of the affected section.",
+      "why": "Temporary stand and seating structural calculation assessment is a specifically named Building Control Inspection L2 competency item. The dynamic loading and post-erection inspection requirements are distinct from permanent building structural assessment.",
+      "referral": "I would check the structure looks stable and approve it if it appears well-built.",
+      "referralWhy": "Visual adequacy is not a substitute for verified structural calculations and systematic inspection against approved drawings. Dynamic crowd loading creates forces that are not apparent from visual inspection alone.",
+      "challenge": [
+        "What structural loads must be considered for a temporary grandstand at a major outdoor event?",
+        "What would you do if a temporary structure was erected differently from the approved drawings?",
+        "How does dynamic crowd loading differ from static occupancy loading in structural assessment?"
+      ],
+      "keyPoints": [
+        "Structural calculations must cover both static occupancy and dynamic crowd loading — visual inspection alone is insufficient.",
+        "Post-erection inspection against approved drawings is required before the event opens to the public.",
+        "Any divergence from approved construction requires further engineering assessment before occupancy is permitted."
+      ],
+      "module": "Building Control"
+    },
+    {
+      "q": "How would you carry out a safety assessment for the purposes of a General Safety Certificate at a football ground?",
+      "pass": "I would inspect the ground against the relevant safety standards, assess the structural adequacy of stands, review crowd management and means of escape, and advise the licensing authority on compliance.",
+      "high": "A General Safety Certificate assessment under the Safety of Sports Grounds Act 1975 requires comprehensive evaluation covering: structural adequacy of stands (capacity calculations, load analysis and structural condition); means of escape and egress routes under emergency conditions including crowd surge; fire safety arrangements; crowd management and communications systems; CCTV coverage; medical facilities; and operational safety management. The Guide to Safety at Sports Grounds ('Green Guide') sets the standards against which assessment is made. Where deficiencies are identified, I would advise the ground authority on the full range of options — including occupancy restriction on the affected area, phased structural improvement or temporary exclusion of a stand — rather than treating deficiency as automatic grounds for refusal. I would prepare a structured assessment report for the licensing authority and, where the ground authority disputes conditions proposed, represent their technical position in negotiations over licence terms, supporting the client's case with evidence while maintaining independent professional judgement.",
+      "why": "Safety certificate assessment for a football ground is the guide's specific named example of Building Control Inspection L3. It requires not just technical assessment but advisory depth — options analysis where deficiencies exist and client representation in licensing negotiations.",
+      "referral": "I would inspect the ground against the Green Guide and report any failures to the licensing authority.",
+      "referralWhy": "Reporting failures without advising on options or supporting the client's position in negotiations is a pass-level response. L3 requires professional judgement about proportionate remedial options and the ability to represent a client's case before a statutory body.",
+      "challenge": [
+        "What powers does a licensing authority have where a football ground fails to meet the required safety standard?",
+        "How would you advise a client where a stand is found to be structurally inadequate for the licensed capacity?",
+        "What is the 'Green Guide' and how does it relate to the General Safety Certificate assessment?"
+      ],
+      "keyPoints": [
+        "General Safety Certificate assessment: structural adequacy, escape, fire safety, crowd management, communications, medical facilities, operational safety systems.",
+        "Deficiency does not mean automatic refusal — proportionate options include occupancy restrictions, phased improvement or stand exclusion.",
+        "At L3, the practitioner represents the client's technical position in licensing negotiations, not just reports findings to the authority."
+      ],
+      "module": "Building Control"
+    },
+    {
+      "q": "What is your role in advising a client on a fire safety strategy, representing them to statutory bodies and dealing with challenges from fire officers?",
+      "pass": "I would advise on the overall fire safety approach, prepare or review a fire strategy document, liaise with building control and the fire and rescue service, and help resolve concerns raised.",
+      "high": "At L3, the fire safety role extends from compliance checking to fire safety engineering strategy advice and active client representation. This includes advising on the fire engineering approach — prescriptive (following Approved Document B) versus performance-based (fire engineering analysis demonstrating equivalent safety through alternative means) — and commissioning or reviewing Fire Risk Assessments. A Fire Risk Assessment identifies the hazards, those at risk, existing and required control measures, and residual risk, and is distinct from but related to the fire safety strategy which addresses the building design. Where a strategy is reviewed or challenged by the fire and rescue service or building control, I would prepare the technical basis for the design decisions, present this to fire officers in negotiation, and where necessary commission specialist fire engineering analysis to support the strategy. Representing a client in these negotiations requires both technical credibility and the professional judgement to identify where the client's position is defensible and where genuinely it is not.",
+      "why": "Representing clients to statutory bodies in preparing, agreeing and defending a fire safety strategy, conducting Fire Risk Assessments and negotiating with fire officers are all specifically named Fire Safety L3 items in the mandatory-for-all competency.",
+      "referral": "I would refer the client to the fire brigade to agree the fire strategy directly.",
+      "referralWhy": "At L3, the building control surveyor's role is to lead the strategy development, prepare a defensible technical position and represent the client in statutory discussions — not to step aside and leave the client unadvised.",
+      "challenge": [
+        "What is a Fire Risk Assessment and how does it differ from a fire safety strategy?",
+        "How would you prepare to defend a performance-based fire safety strategy to a fire officer who prefers the prescriptive approach?",
+        "What would indicate to you that a client's technical position in a fire strategy dispute was not defensible?"
+      ],
+      "keyPoints": [
+        "A Fire Risk Assessment identifies hazards, those at risk, control measures and residual risk — distinct from but informing the fire safety strategy.",
+        "Performance-based strategies require rigorous technical justification; the client's position must be defensible, not just preferred.",
+        "At L3, the role includes representing the client before fire officers and statutory bodies, not just preparing documentation."
+      ],
+      "module": "Building Control"
+    },
+    {
+      "q": "How would you assess a demolition proposal from a building control perspective?",
+      "pass": "I would review the proposed method of demolition, consider structural stability of the structure and adjacent buildings, and confirm that required notifications and surveys have been carried out.",
+      "high": "A demolition assessment must address: the section 80 notification requirement under the Building Act 1984 (the demolishing party must give the local authority at least six weeks' notice before demolition begins, enabling the authority to attach conditions); structural stability of the structure being demolished and any connected or adjacent buildings — progressive demolition sequences can transfer loads to elements not designed for them; party wall implications and the rights of adjoining owners; pre-demolition surveys for asbestos and hazardous materials (mandatory under the Control of Asbestos Regulations 2012); contamination risks and ground condition implications; services disconnection and protection; and public and worker safety during operations. I would review the demolition method statement, consider whether the proposed approach (progressive machine demolition, top-down, or deliberate collapse) is appropriate for the structure and site context, and advise on any conditions required. Where the demolition creates a dangerous structure risk to adjacent properties, emergency powers under Building Act sections 77 and 78 may also apply.",
+      "why": "Demolition proposal assessment is specifically named at Legal/regulatory compliance L2 for a mandatory competency. No existing question covers demolition — it is a distinct scenario type with specific notification requirements, structural analysis considerations and hazardous material survey obligations.",
+      "referral": "Demolition is a contractor matter — once the section 80 notice is received the work can proceed.",
+      "referralWhy": "Receiving a notification does not discharge the building control function. The authority can attach conditions to demolition; structural, safety and environmental risks must be assessed and conditions imposed where necessary.",
+      "challenge": [
+        "What notice is required before demolition under section 80 of the Building Act 1984, and what can the authority do in response?",
+        "How would you assess the structural risks to an adjoining building from a proposed demolition?",
+        "What surveys would you expect before a demolition can proceed, and why?"
+      ],
+      "keyPoints": [
+        "Section 80 Building Act 1984 requires at least six weeks' notice before demolition — the authority can attach conditions in response.",
+        "Assessment covers structural stability (including adjacent buildings), party walls, services, hazardous materials (asbestos survey mandatory) and public safety.",
+        "The demolition method statement must be reviewed — different methods carry different risks to adjacent structures."
+      ],
+      "module": "Building Control"
+    },
+    {
+      "q": "What are the key principles and requirements relevant to building control work on listed buildings and other heritage assets?",
+      "pass": "Listed buildings have special legal protection and any works affecting their character must have listed building consent in addition to planning permission and Building Regulations approval where required.",
+      "high": "Heritage assets are protected through a layered legislative framework: listed buildings (Grade I, II* and II under the Planning (Listed Buildings and Conservation Areas) Act 1990), scheduled ancient monuments, and conservation areas each carry distinct statutory protections. Listed building consent is required for any works that affect the character of a listed building — it is a separate consent from planning permission and Building Regulations approval, and none substitutes for the others. Key conceptual distinctions apply: conservation maintains the existing character and significance; restoration returns to a known earlier state; preservation protects from change; refurbishment updates for modern use. Material compatibility is critical — the lime cycle underpins breathable building technology: lime mortars and renders are vapour-permeable, allowing traditional masonry to manage moisture through evaporation and carbonation, while cement-based materials trap moisture and can cause accelerated structural decay. A statement of significance records and justifies the heritage value of the building to inform what alterations are acceptable, and must accompany listed building consent applications for significant works.",
+      "why": "Conservation and Restoration is an optional Building Control competency with highly specific named content: the four-way definition distinction, lime cycle, breathable building technology, statements of significance and listed building consent are all named in the guide at L1 and L2.",
+      "referral": "If planning permission is granted for alterations to a listed building, the listed building consent and Building Regulations issues are also covered.",
+      "referralWhy": "Listed building consent, planning permission and Building Regulations approval are three entirely separate consent regimes. None substitutes for the others. This is a commonly misunderstood and specifically tested point.",
+      "challenge": [
+        "What is the difference between conservation, restoration, preservation and refurbishment?",
+        "Why is breathable construction technology important when working on traditional masonry buildings, and what happens when cement-based materials are used instead?",
+        "What is a statement of significance and what purpose does it serve in a listed building consent application?"
+      ],
+      "keyPoints": [
+        "Listed building consent, planning permission and Building Regulations approval are three separate consent regimes — none substitutes for the others.",
+        "Lime cycle: lime mortars are vapour-permeable; cement traps moisture and causes decay in traditional masonry — material compatibility is not cosmetic, it is structural.",
+        "Statement of significance records heritage value and informs what alterations are acceptable — required for significant listed building consent applications."
+      ],
+      "module": "Building Control"
+    },
+    {
+      "q": "What building control considerations arise when dealing with a site that may be contaminated?",
+      "pass": "Contaminated sites require specialist investigation before development. Building control considers whether appropriate surveys have been carried out and the site is suitable to build on.",
+      "high": "The primary legislative framework is Part IIA of the Environmental Protection Act 1990, which establishes the statutory contaminated land regime and underpins the Contaminated Land (England) Regulations 2006. Building Regulations Approved Document C requires that ground preparation is adequate, including addressing contamination where it poses a risk to building users, the structure or services. A phased investigation approach is standard: Stage 1 is a desktop environmental study reviewing historic land uses, regulatory databases, geological and hydrological records to identify potential contamination sources and pathways; intrusive investigation and risk assessment follows where Stage 1 identifies a credible risk. Building control should require satisfactory contamination assessment documentation — and where remediation has been carried out, a verification report — before issuing a completion certificate. PI insurance limitations in contaminated land scenarios should be understood: specialist environmental liability insurance may be required by practitioners advising on contaminated sites.",
+      "why": "Contaminated Land is an optional Building Control competency with specifically named legislation (Part IIA EPA, Contaminated Land Regulations) and a defined assessment methodology (Stage 1 desktop study, phased investigation). No existing question covers this.",
+      "referral": "If the developer confirms the site is clean, building control does not need to require further investigation.",
+      "referralWhy": "Building control cannot rely solely on the developer's assertion. Approved Document C requires adequate ground preparation, which includes satisfactory evidence that contamination risks have been assessed and, where necessary, remediated.",
+      "challenge": [
+        "What is Part IIA of the Environmental Protection Act and what does it establish?",
+        "What is the difference between a Stage 1 desktop study and an intrusive site investigation?",
+        "What should building control require before issuing a completion certificate on a potentially contaminated site?"
+      ],
+      "keyPoints": [
+        "Part IIA Environmental Protection Act 1990 and the Contaminated Land Regulations establish the statutory contaminated land regime.",
+        "Stage 1 is a desktop environmental study; intrusive investigation follows where Stage 1 identifies a credible contamination risk.",
+        "Building control should require satisfactory contamination assessment and, where remediation occurred, a verification report before completion."
+      ],
+      "module": "Building Control"
+    },
+    {
+      "q": "How would you approach diagnosing a building defect, and how do different types of condition and survey reports differ in purpose?",
+      "pass": "I would inspect the building, identify the symptoms of the defect, consider possible causes and recommend further investigation or remedial action as appropriate.",
+      "high": "Building pathology requires a structured diagnostic approach: collecting information through observation, measurement and targeted testing — damp meters, borescopes, thermal imaging, core sampling — while understanding the limitations of each method. A damp meter reading alone is not sufficient to diagnose rising damp: readings are affected by hygroscopic salts left by previous dampness, temperature variation and moisture in porous materials unrelated to rising damp; diagnosis requires multi-source evidence including visual inspection, salt analysis and often laboratory testing. The cause and mechanics of failure — not just the symptom — must be identified, drawing on knowledge of construction period and materials, locality-specific defects and the interaction of building elements. At report level, practitioners must distinguish the purpose of different report types: a schedule of condition records the existing state of a property at a defined date (typically at lease commencement to establish a baseline); a schedule of dilapidations identifies breaches of repairing, decorating and reinstatement covenants under a lease at or approaching lease end; a pre-acquisition report provides due diligence on structural condition and risk for a prospective purchaser. Conflating these report types, or using the wrong format for the client's purpose, is an error in professional judgement.",
+      "why": "Building Pathology is an optional Building Control competency. Testing limitations including damp meters (L1) and distinguishing schedules of condition/dilapidations/pre-acquisition reports (L3) are both specifically named guide items with zero coverage in the existing bank.",
+      "referral": "I would identify the defect, recommend specialist investigation and let the specialist confirm the cause.",
+      "referralWhy": "At L3, practitioners must be able to diagnose defects and produce appropriately structured reports — not simply identify symptoms or defer to specialists for every diagnosis. Distinguishing report types demonstrates understanding of client purpose, not just technical competence.",
+      "challenge": [
+        "Why is a single damp meter reading insufficient to diagnose rising damp, and what additional evidence is required?",
+        "What is the difference between a schedule of condition and a schedule of dilapidations, and when would each be prepared?",
+        "How would you structure a pre-acquisition report differently from a schedule of condition?"
+      ],
+      "keyPoints": [
+        "Damp meters are affected by salts, temperature and porous materials — a single reading is not a diagnosis; multi-source evidence is required.",
+        "Schedule of condition: baseline at lease commencement. Schedule of dilapidations: lease breach at or near end of term. Pre-acquisition report: due diligence for a purchaser.",
+        "Building defect diagnosis requires knowledge of construction period, materials, locality-specific failure patterns and element interaction — not just symptom identification."
+      ],
+      "module": "Building Control"
+    },
+    {
+      "q": "How would you implement a BIM strategy on a building control project, and what standards and data formats are relevant?",
+      "pass": "BIM provides a shared digital model of the building to support collaboration, information management and compliance checking throughout the project.",
+      "high": "A BIM strategy should be structured around a BIM execution plan, which sets out the project's information requirements, exchange protocols, roles and responsibilities, and the standards to be adopted. COBie (Construction Operations Building Information Exchange) is the internationally recognised open data standard for transferring structured asset and space data from the construction phase to building owners and facilities management teams — directly relevant to building control at handover and to the golden thread of information required under the Building Safety Act 2022 for higher-risk buildings. Standard classification systems — principally Uniclass 2015 — enable consistent categorisation of building elements, products, systems and spaces across the project lifecycle, ensuring data can be integrated across disciplines and platforms. For building control, BIM supports plan checking (automated clash detection and code compliance checking), information management through the construction phase, and the creation of the structured digital asset record that underpins the golden thread.",
+      "why": "BIM Management is an optional Building Control competency. COBie, standard classification systems and BIM execution plans are specifically named at L1/L2. Q49 mentions digital information management generally but BIM standards are entirely absent from the bank.",
+      "referral": "BIM is useful for architects and engineers but is not directly relevant to building control work.",
+      "referralWhy": "BIM is directly relevant to building control — supporting plan checking, information management during construction, and the golden thread requirements under the Building Safety Act. Treating BIM as a design tool only reflects an outdated understanding of its role.",
+      "challenge": [
+        "What is COBie and why is it relevant to building control at handover?",
+        "How does a BIM execution plan support the golden thread requirements under the Building Safety Act?",
+        "How does BIM support compliance checking at the plan-check stage?"
+      ],
+      "keyPoints": [
+        "COBie is the internationally recognised open standard for structured asset and space data handover — relevant to golden thread requirements under the Building Safety Act.",
+        "Uniclass 2015 provides standard classification for consistent element, product and space categorisation across the project lifecycle.",
+        "A BIM execution plan sets out information requirements, exchange protocols and standards — the governance document for BIM delivery."
       ],
       "module": "Building Control"
     }

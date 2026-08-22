@@ -11235,7 +11235,7 @@
       "q": "How would you measure facilities management performance?",
       "why": "",
       "pass": "Performance can be measured using KPIs and service-level agreements.",
-      "high": "Performance can be measured through KPIs covering compliance, response times, asset uptime, customer satisfaction, helpdesk performance, contractor performance, energy consumption, sustainability metrics and budget performance. Results should be regularly reviewed and used to drive continuous improvement.",
+      "high": "Performance can be measured through KPIs covering compliance, response times, asset uptime, customer satisfaction, helpdesk performance, contractor performance, energy consumption, sustainability metrics and budget performance. At a strategic level the balanced scorecard provides a structured framework for monitoring performance across financial, customer, internal process and learning and growth dimensions. Results should be regularly reviewed and used to drive continuous improvement.",
       "referral": "I know performance is good if there are no complaints.",
       "referralWhy": [
         "Reactive approach.",
@@ -11244,13 +11244,13 @@
       ],
       "challenge": [
         "Which KPIs are most important?",
-        "How often should performance be reviewed?",
+        "How would you apply the balanced scorecard in an FM context?",
         "How would you address poor performance?"
       ],
       "keyPoints": [
-        "Use objective metrics.",
-        "Monitor trends.",
-        "Drive continuous improvement."
+        "Use objective metrics across multiple performance dimensions.",
+        "The balanced scorecard structures performance across financial, customer, process and growth dimensions.",
+        "Monitor trends and drive continuous improvement."
       ],
       "module": "Facilities Management"
     },
@@ -11258,7 +11258,7 @@
       "q": "What role does sustainability play in facilities management?",
       "why": "",
       "pass": "Facilities management can help reduce environmental impacts through energy and resource management.",
-      "high": "FM plays a critical role in achieving sustainability objectives through energy efficiency, waste reduction, water conservation, carbon reduction initiatives, sustainable procurement and occupier engagement. FM teams often contribute directly to ESG reporting and net-zero strategies while balancing operational performance and cost.",
+      "high": "FM plays a critical role in achieving sustainability objectives through energy efficiency, waste reduction, water conservation, carbon reduction initiatives, sustainable procurement and material resource efficiency in the supply chain. Environmental management commitments may extend to ecosystem and carbon balance evaluation and biodiversity offsetting and mitigation as part of broader environmental obligations. FM teams often contribute directly to ESG reporting and net-zero strategies while balancing operational performance and cost.",
       "referral": "Sustainability is mainly about recycling.",
       "referralWhy": [
         "Oversimplifies sustainability.",
@@ -11267,13 +11267,13 @@
       ],
       "challenge": [
         "How can FM contribute to net zero?",
-        "What sustainability KPIs would you track?",
-        "How do occupiers influence sustainability performance?"
+        "What is meant by material resource efficiency in the supply chain?",
+        "How does biodiversity offsetting apply in an FM context?"
       ],
       "keyPoints": [
-        "Sustainability extends beyond recycling.",
+        "Sustainability extends beyond energy efficiency to supply chain resource use and biodiversity.",
         "FM has significant influence over ESG outcomes.",
-        "Data and engagement are essential."
+        "Ecosystem and carbon balance evaluation form part of wider environmental management obligations."
       ],
       "module": "Facilities Management"
     },
@@ -11304,7 +11304,7 @@
       "q": "How would you procure facilities management services?",
       "why": "",
       "pass": "I would define the service requirements, invite tenders, evaluate submissions and appoint the contractor offering the most suitable solution.",
-      "high": "I would develop a detailed scope of services, identify procurement objectives, prepare tender documentation and establish clear evaluation criteria covering quality, capability, experience, compliance, innovation and cost. Following tender evaluation, I would undertake due diligence, negotiate terms where appropriate and monitor performance through KPIs and SLAs.",
+      "high": "A key early decision is whether to specify services by input or output — output specifications define the required standard or outcome and are generally preferred as they allow contractors flexibility to innovate, while input specifications prescribe the method. I would then develop a detailed scope of services, identify procurement objectives, prepare tender documentation and establish clear evaluation criteria covering quality, capability, experience, compliance, innovation and cost. Following tender evaluation I would undertake due diligence, negotiate terms where appropriate and monitor performance through KPIs and SLAs.",
       "referral": "I would appoint the cheapest contractor.",
       "referralWhy": [
         "Demonstrates poor procurement practice.",
@@ -11313,13 +11313,13 @@
       ],
       "challenge": [
         "How would you evaluate tenders?",
-        "What procurement routes are available?",
+        "When would you use an input rather than an output specification?",
         "What risks arise from poor procurement?"
       ],
       "keyPoints": [
-        "Procurement is not purely cost-driven.",
-        "Quality and risk must be assessed.",
-        "Clearly defined scopes improve outcomes."
+        "Output specifications define required outcomes and allow contractor flexibility.",
+        "Procurement is not purely cost-driven — quality and risk must be assessed.",
+        "Clearly defined scopes and specification types improve outcomes."
       ],
       "module": "Facilities Management"
     },
@@ -11580,7 +11580,7 @@
       "q": "What is mobilisation and why is it important when appointing a new FM contractor?",
       "why": "",
       "pass": "Mobilisation is the process of preparing a contractor to deliver services before the contract starts.",
-      "high": "Mobilisation involves transferring information, establishing reporting structures, confirming staffing arrangements, reviewing compliance requirements, implementing systems and ensuring continuity of service. A structured mobilisation programme reduces operational risk and helps achieve a smooth transition.",
+      "high": "Mobilisation involves transferring information, establishing reporting structures and confirming staffing arrangements — including TUPE (Transfer of Undertakings (Protection of Employment) Regulations 2006) obligations where existing service employees transfer with the outgoing contract. It also covers reviewing compliance requirements, implementing systems and ensuring continuity of service. A structured mobilisation programme reduces operational risk and helps achieve a smooth transition.",
       "referral": "The contractor starts work on the contract commencement date.",
       "referralWhy": [
         "Demonstrates limited contract management understanding.",
@@ -11588,14 +11588,14 @@
         "Increases operational risk."
       ],
       "challenge": [
-        "What information should be transferred?",
-        "How long should mobilisation take?",
+        "What information should be transferred during mobilisation?",
+        "How does TUPE affect mobilisation planning?",
         "What are common mobilisation risks?"
       ],
       "keyPoints": [
         "Mobilisation begins before service delivery.",
-        "Planning reduces disruption.",
-        "Communication is critical."
+        "TUPE obligations apply where existing employees transfer with FM services.",
+        "Planning and communication are critical to reducing transition risk."
       ],
       "module": "Facilities Management"
     },
@@ -11741,7 +11741,7 @@
       "q": "What information should be provided during building handover to facilities management?",
       "why": "",
       "pass": "FM teams should receive building information, manuals, maintenance requirements and compliance documentation.",
-      "high": "Handover information should include operation and maintenance manuals, asset registers, commissioning records, warranties, as-built drawings, fire strategy documentation, statutory certificates, testing records, training information and building performance data. Complete and accurate handover documentation supports safe and efficient operation.",
+      "high": "Handover information should include operation and maintenance manuals, asset registers, commissioning records, warranties, as-built drawings, fire strategy documentation, statutory certificates, testing records, training information and building performance data. Where BIM has been used on the project, data should be delivered in COBie (Construction Operations Building Information Exchange) format, enabling FM teams to populate asset management systems directly. Complete and accurate handover documentation supports safe and efficient operation.",
       "referral": "The building is complete once the keys are handed over.",
       "referralWhy": [
         "Demonstrates poor operational awareness.",
@@ -11749,14 +11749,14 @@
         "Creates operational risk."
       ],
       "challenge": [
-        "What documents are most critical?",
-        "How would you verify handover information?",
-        "What problems arise from incomplete documentation?"
+        "What documents are most critical at handover?",
+        "What is COBie and how does it benefit FM teams?",
+        "What problems arise from incomplete handover documentation?"
       ],
       "keyPoints": [
-        "Handover is a structured process.",
-        "Documentation underpins operations.",
-        "Good handovers reduce future risk."
+        "Handover is a structured process, not simply key exchange.",
+        "COBie is the standard format for delivering BIM data to FM teams at handover.",
+        "Complete documentation underpins safe operation and reduces future risk."
       ],
       "module": "Facilities Management"
     },
@@ -11902,7 +11902,7 @@
       "q": "What is a smart building?",
       "why": "",
       "pass": "A smart building uses technology to monitor and optimise building performance.",
-      "high": "Smart buildings integrate sensors, automation systems and data analytics to improve energy efficiency, operational performance, occupier experience and asset management. Real-time monitoring enables more informed decision-making and proactive maintenance strategies.",
+      "high": "Smart buildings integrate sensors, automation systems and data analytics to improve energy efficiency, operational performance, occupier experience and asset management. Real-time monitoring enables more informed decision-making and proactive maintenance strategies. The connectivity that enables these benefits also introduces cybersecurity risk — a robust technical security architecture is required to protect building management systems, IoT devices and operational data from unauthorised access or interference.",
       "referral": "A smart building is simply a modern building.",
       "referralWhy": [
         "Oversimplifies the concept.",
@@ -11910,14 +11910,14 @@
         "Misses operational benefits."
       ],
       "challenge": [
-        "How can smart systems support FM?",
-        "What data might be collected?",
-        "What risks exist regarding cybersecurity?"
+        "How can smart systems support FM decision-making?",
+        "What data might be collected in a smart building?",
+        "How would you address technical security risks in a smart building?"
       ],
       "keyPoints": [
-        "Smart buildings rely on connected technology.",
-        "Data drives performance improvements.",
-        "Technology should support operational objectives."
+        "Smart buildings rely on connected technology and real-time data.",
+        "Technical security architecture is essential to protect connected building systems and IoT devices.",
+        "Technology should support operational objectives without introducing unacceptable security risk."
       ],
       "module": "Facilities Management"
     },
@@ -12109,7 +12109,7 @@
       "q": "How would you manage a dispute with an FM contractor?",
       "why": "",
       "pass": "I would review the contract, discuss the issue with the contractor and seek an agreed resolution.",
-      "high": "I would establish the facts, review contractual obligations, assess performance evidence and engage with the contractor through appropriate governance procedures. The objective would be to achieve a fair and commercially sensible resolution whilst maintaining service continuity and protecting stakeholder interests.",
+      "high": "I would establish the facts, review contractual obligations and assess performance evidence before engaging with the contractor to seek resolution through discussion and governance procedures. Where informal resolution fails, formal mechanisms include adjudication under the Housing Grants, Construction and Regeneration Act 1996 (where applicable), independent expert determination, mediation or arbitration. Referral to a Dispute Resolution Board (DRB) or Dispute Resolution Adviser (DRA) provides structured third-party support, and the RICS Dispute Resolution Service is available as a formal route. The objective throughout is to achieve a fair resolution whilst maintaining service continuity and protecting stakeholder interests.",
       "referral": "I would immediately terminate the contract.",
       "referralWhy": [
         "Demonstrates poor commercial judgement.",
@@ -12117,14 +12117,14 @@
         "Ignores contractual processes."
       ],
       "challenge": [
-        "What evidence would you review?",
-        "When might formal dispute procedures be required?",
-        "How would you maintain service continuity?"
+        "What evidence would you review before escalating a dispute?",
+        "What is the role of a Dispute Resolution Adviser (DRA)?",
+        "How would you maintain service continuity during a dispute?"
       ],
       "keyPoints": [
-        "Contracts provide the framework for resolution.",
-        "Evidence is essential.",
-        "Relationships should be managed professionally."
+        "Contracts provide the framework — evidence is essential before escalation.",
+        "Named mechanisms include adjudication, DRBs, DRAs and the RICS Dispute Resolution Service.",
+        "Relationships should be managed professionally throughout."
       ],
       "module": "Facilities Management"
     },
@@ -12217,6 +12217,63 @@
         "Focus on outcomes, not activities.",
         "Use measurable evidence.",
         "Demonstrate reflection and professional judgement."
+      ],
+      "module": "Facilities Management"
+    },
+    {
+      "q": "What legislation governs waste management in facilities management, and what are the key obligations on FM teams?",
+      "pass": "FM must comply with waste legislation including the duty of care to ensure waste is disposed of correctly by licensed contractors.",
+      "high": "Key waste management legislation includes the Landfill Directive, the Waste Strategy for England, the Groundwater Protection Act and the Landfill Tax — all of which impose duties on waste producers and those managing waste on their behalf. FM teams must segregate waste correctly, use appropriately licensed waste contractors and maintain waste transfer notes as part of the duty of care, which sits with the waste producer regardless of who carries out physical disposal. Where operations involve significant waste processing, a Pollution Prevention and Control (PPC) permit may be required. Effective waste management reduces regulatory liability and contributes to sustainability and ESG performance.",
+      "why": "Waste management is an optional FM competency with specifically named legislation. The duty of care sitting with the producer, not the contractor, is a frequent area of misunderstanding at APC interviews.",
+      "referral": "The waste contractor is responsible for compliance — it is not the FM team's concern.",
+      "referralWhy": "The duty of care for waste disposal sits with the waste producer. FM managers retain legal responsibility and cannot delegate it to the contractor.",
+      "challenge": [
+        "What is the Landfill Tax and why was it introduced?",
+        "How does the duty of care for waste disposal apply in an FM context?",
+        "What is a PPC permit and when might one be required?"
+      ],
+      "keyPoints": [
+        "The duty of care for waste sits with the waste producer, not just the disposal contractor.",
+        "Key legislation: Landfill Directive, Waste Strategy for England, Groundwater Protection Act, Landfill Tax.",
+        "PPC permits apply where significant waste processing or disposal activities are carried out."
+      ],
+      "module": "Facilities Management"
+    },
+    {
+      "q": "What tools and techniques support effective stakeholder management in facilities management?",
+      "pass": "I would identify stakeholders, understand their needs and communicate with them regularly throughout the project or service.",
+      "high": "Effective stakeholder management begins with identifying stakeholders and analysing their interests using the Iceberg Model — recognising that visible positions represent only the surface, with deeper motivations, concerns and values less apparent below. A structure chart and RACI table (Responsible, Accountable, Consulted, Informed) define roles and accountability across the stakeholder network. Engagement should follow a structured methodology: discover who stakeholders are, understand their interests, plan the engagement approach, engage actively and assess the value delivered. Applied consistently, this approach builds trust, manages expectations and supports effective FM delivery.",
+      "why": "Stakeholder management is an optional FM competency with specifically named tools. The Iceberg Model and RACI table are frequently tested at APC level; reducing stakeholder management to communication alone would be a referral.",
+      "referral": "Stakeholder management means keeping occupiers happy and responding to their complaints.",
+      "referralWhy": "Stakeholder management is a structured discipline with defined analysis tools and engagement methodologies. Reducing it to occupier satisfaction misses the analysis, role-mapping and structured engagement components required at APC level.",
+      "challenge": [
+        "What is the Iceberg Model and how does it apply in stakeholder management?",
+        "How would you construct a RACI table for an FM programme?",
+        "How do you manage stakeholders with conflicting interests?"
+      ],
+      "keyPoints": [
+        "The Iceberg Model reveals that stakeholder positions reflect deeper, less visible motivations and concerns.",
+        "A RACI table defines who is Responsible, Accountable, Consulted and Informed across the stakeholder network.",
+        "Structured engagement methodology: discover, understand, plan, engage, assess value."
+      ],
+      "module": "Facilities Management"
+    },
+    {
+      "q": "What BIM standards and classification systems are relevant to facilities management?",
+      "pass": "BIM provides digital models and data that FM teams can use to support asset management and maintenance planning.",
+      "high": "The BIM information management framework for FM is underpinned by PAS 1192-2, which governs information management during the capital/delivery phase, and PAS 1192-3, which governs information management during the operational phase — or their ISO 19650 successors. COBie (Construction Operations Building Information Exchange) provides the standardised open data format for transferring asset and space data from the construction phase to FM teams at handover. Standard classification systems — principally Uniclass 2015 — enable consistent categorisation of assets, systems and components across the asset lifecycle, ensuring BIM data can be imported directly into CAFM systems to support maintenance planning, compliance management and lifecycle decision-making.",
+      "why": "BIM management is an optional FM competency with specifically named standards. PAS 1192-2/1192-3, COBie and Uniclass 2015 are all named in the RICS FM pathway guide and are likely assessment points for candidates selecting this competency.",
+      "referral": "BIM produces 3D models used during design and construction — it is mainly relevant for architects and contractors.",
+      "referralWhy": "BIM's value to FM extends well beyond design-phase models. PAS 1192-3 and ISO 19650-3 specifically address operational phase information management, and COBie is designed precisely for the FM handover use case.",
+      "challenge": [
+        "What is the difference between PAS 1192-2 and PAS 1192-3?",
+        "How does COBie connect construction BIM data to FM asset management systems?",
+        "Why are standard classification systems such as Uniclass 2015 important in BIM for FM?"
+      ],
+      "keyPoints": [
+        "PAS 1192-2 covers delivery phase information management; PAS 1192-3 covers the operational/FM phase.",
+        "COBie is the standardised open data format linking construction BIM data to FM at handover.",
+        "Uniclass 2015 provides consistent asset classification across the full asset lifecycle."
       ],
       "module": "Facilities Management"
     }

@@ -17861,7 +17861,7 @@
       "q": "How would you advise a client on emerging construction technologies or processes, such as offsite fabrication or smart materials handling, for a specific project?",
       "why": "Tests awareness of current technology trends and the ability to give reasoned, project-specific advice rather than generic enthusiasm for new technology.",
       "pass": "Names one or two relevant emerging technologies or processes and describes what they involve.",
-      "high": "Assesses the specific technology against the project's actual needs — cost, programme, risk, and supply chain maturity — and gives a balanced recommendation, including where the technology might not be appropriate.",
+      "high": "Assesses the specific technology against the project's actual needs — cost, programme, risk, and supply chain maturity — and gives a balanced recommendation, including where the technology might not be appropriate. Relevant emerging technologies include off-site fabrication, lightweight construction (including glass fibre composites), smart materials handling and tagging systems, and configuration management — the formal process of controlling the defined state of a complex engineered system through production, handover and operations, particularly relevant on rail, utilities networks and nuclear infrastructure.",
       "referral": "Recommends new technology enthusiastically without assessing its actual fit or risk for the specific project; cannot explain any downside or limitation.",
       "referralWhy": [
         "Enthusiasm for technology without project-specific assessment",
@@ -17872,9 +17872,10 @@
         "How do you stay current on emerging construction technologies in your own practice?"
       ],
       "keyPoints": [
-        "New technology advice should be project-specific, not generic",
+        "New technology advice should be project-specific: name the technology, assess it against the project's actual needs",
         "Supply chain maturity and risk are as important as technical capability",
-        "Being able to name a limitation demonstrates genuine understanding"
+        "Being able to name a limitation demonstrates genuine understanding",
+        "Configuration management controls the defined design state of complex engineered systems through production and operations"
       ],
       "module": "Engineering Science & Technology"
     },
@@ -18218,20 +18219,21 @@
       "q": "Explain the main procurement routes available for an infrastructure project and how you would advise a client on selecting between them.",
       "why": "Tests breadth of procurement knowledge and the ability to give reasoned, client-specific advice rather than a generic comparison.",
       "pass": "Names common procurement routes (traditional, design and build, management contracting) and states that the choice depends on project characteristics.",
-      "high": "Explains how each route allocates risk and design responsibility differently, and gives a reasoned recommendation based on the client's priorities — for example, recommending design and build where programme certainty is the priority and the client is willing to accept less design control, versus traditional procurement where design certainty and client control are paramount.",
+      "high": "Explains how each route allocates risk and design responsibility differently. Infrastructure procurement includes routes specific to the sector: Private Finance Initiative (PFI), where the private sector finances, designs, builds and operates an asset and the public sector pays a unitary availability charge over the concession period; and Design-Build-Finance-Operate (DBFO), a variant where operational risk is explicitly embedded in the long-term contract alongside construction and financing. Advice on route selection must also address supply chain engineering — how the supply chain is structured, incentivised and managed at tier 2 and below — since this affects cost, risk allocation and programme delivery as significantly as the primary contract form. A reasoned recommendation weighs the client's risk appetite, design control priorities, programme certainty requirements and organisational capability.",
       "referral": "Lists procurement routes with generic pros and cons, without connecting the recommendation to the specific client's priorities or risk appetite.",
       "referralWhy": [
         "Generic pros and cons listed without tailoring to the client's specific priorities",
         "No connection made between procurement route and risk allocation"
       ],
       "challenge": [
+        "What are the key differences between PFI and a conventional design-and-build contract?",
         "How would your recommendation change if the client had never delivered a major infrastructure project before?",
-        "What risk allocation differences exist between design and build and traditional procurement?"
+        "How does supply chain engineering strategy affect the primary procurement route choice?"
       ],
       "keyPoints": [
-        "Procurement route choice is about risk allocation and control, not just a checklist comparison",
-        "Advice should be tailored to the client's specific priorities and experience",
-        "Programme certainty and design control are often the key trade-off"
+        "PFI and DBFO are infrastructure-specific routes transferring finance, construction and/or operational risk to the private sector",
+        "Supply chain engineering structures, incentivises and manages the supply chain — it is a procurement design decision, not just operational management",
+        "Procurement route choice is about risk allocation and control, tailored to the client's specific priorities and capability"
       ],
       "module": "Procurement, Contract & Programme"
     },
@@ -18281,20 +18283,21 @@
       "q": "Explain how you would develop and manage a project programme for an infrastructure scheme, including your approach to critical path analysis.",
       "why": "Tests practical programming and planning skill, including technical understanding of critical path methodology.",
       "pass": "Explains that a programme sequences activities and identifies the critical path — the sequence of activities determining the overall project duration.",
-      "high": "Describes the process in more depth — building the programme from a logical breakdown of activities and dependencies, identifying the critical path and float on non-critical activities, and explains how the programme is used actively for monitoring progress and assessing the time impact of changes, rather than being a static document produced once and filed away.",
+      "high": "Builds the programme from a logical breakdown of activities and dependencies — typically represented as a Gantt chart for timeline visualisation and as a logic-linked network for critical path and float analysis. Where activity durations are uncertain, Program Evaluation and Review Technique (PERT) enables weighted probability-based duration estimates, producing optimistic, most likely and pessimistic scenarios to quantify programme risk. The key outputs are identification of the critical path and float on non-critical activities, and the programme should be maintained as a live management tool for monitoring progress and assessing the time impact of changes — not treated as a static document produced once at project outset.",
       "referral": "Describes programme preparation as a one-off document production exercise, without explaining ongoing use for progress monitoring or change impact assessment.",
       "referralWhy": [
         "Programme treated as a one-off document rather than a live management tool",
         "No mention of ongoing use for monitoring progress or assessing change impacts"
       ],
       "challenge": [
+        "When would you use PERT rather than a standard deterministic critical path analysis?",
         "How would you assess the time impact of a specific delay event using the programme?",
         "What is float, and how would you use it when advising a client on programme risk?"
       ],
       "keyPoints": [
-        "A programme should be a live management tool, not a static document",
-        "Critical path and float understanding are essential to assessing delay impact",
-        "Programmes need updating for actual progress and to reflect the impact of changes"
+        "Gantt charts visualise the programme timeline; logic-linked networks identify critical path and float",
+        "PERT enables probability-weighted duration estimation where activity durations are uncertain",
+        "The programme is a live management tool — it must be updated for actual progress and the impact of changes"
       ],
       "module": "Procurement, Contract & Programme"
     },
@@ -18512,20 +18515,21 @@
       "q": "Explain how you would identify and engage with the relevant stakeholders on a large, complex infrastructure project.",
       "why": "Tests stakeholder management skill, particularly the ability to move beyond identifying stakeholders to genuine engagement strategy.",
       "pass": "States that stakeholders should be identified and a plan developed for engaging with them appropriately.",
-      "high": "Describes a structured approach — mapping stakeholders by their level of interest and influence, tailoring the engagement approach accordingly (e.g. close collaboration with high-influence stakeholders, appropriate but lighter-touch communication with lower-influence ones), and gives a specific example of adjusting an engagement strategy in response to a stakeholder's changing position during a project.",
+      "high": "Begins with the Iceberg Model — recognising that stakeholder positions represent only visible concerns above the waterline, with deeper motivations, values and concerns below that must be actively surfaced. A structure chart and RACI table (Responsible, Accountable, Consulted, Informed) map roles and accountability across the stakeholder network. Engagement then follows the discover/understand/plan/engage/assess-value methodology: discover who the stakeholders are, understand their interests and concerns, plan the engagement approach, engage actively, and assess the value delivered. In practice this means tailoring engagement to influence and interest — close collaboration with high-influence stakeholders, lighter-touch communication where appropriate — and adjusting strategy as positions evolve, demonstrating this with a specific real example.",
       "referral": "Describes stakeholder identification without any structured prioritisation or tailored engagement approach; treats all stakeholders identically.",
       "referralWhy": [
         "All stakeholders treated identically regardless of interest or influence",
         "No tailored engagement strategy developed from the mapping exercise"
       ],
       "challenge": [
-        "How would you handle a stakeholder whose position on the project changed significantly partway through?",
-        "What tools have you used to map and prioritise stakeholders?"
+        "What is the Iceberg Model and how does it change the way you approach a difficult stakeholder?",
+        "How would you construct a RACI table for a large infrastructure project with multiple client bodies?",
+        "How would you handle a stakeholder whose position on the project changed significantly partway through?"
       ],
       "keyPoints": [
-        "Stakeholder engagement should be tailored based on influence and interest, not uniform",
-        "Engagement strategies need to adapt as stakeholder positions evolve",
-        "A specific real example demonstrates genuine practical skill"
+        "The Iceberg Model: visible stakeholder positions mask deeper motivations and concerns that must be actively surfaced",
+        "A RACI table and structure chart define accountability — who is Responsible, Accountable, Consulted and Informed",
+        "Structured engagement: discover/understand/plan/engage/assess-value"
       ],
       "module": "Risk, Project Controls & Stakeholder Management"
     },
@@ -18533,20 +18537,21 @@
       "q": "How would you manage a supplier or group of suppliers on an infrastructure project to ensure service and cost expectations are met?",
       "why": "Tests supplier management skill, particularly the ability to scale the management approach appropriately to risk and scale.",
       "pass": "States that suppliers should be managed through regular performance review and monitoring against agreed service levels.",
-      "high": "Describes an approach scaled to the scale and risk of the service — for example, a critical, high-value supplier warranting close, structured performance review meetings and key performance indicators, versus a lower-risk supplier requiring lighter-touch monitoring — and explains how underperformance would be identified and addressed through a defined escalation process.",
+      "high": "Framework agreements establish the terms under which suppliers operate over a defined period, enabling call-off orders without repeated full procurement and providing cost certainty and supply chain continuity. Pain/gain mechanisms — where efficiency savings or cost overruns against a target cost are shared between client and supplier — align incentives and encourage collaborative risk management. Individual supplier management intensity should then scale with risk and criticality: a high-value, single-source supplier warrants structured performance review meetings and KPI monitoring, while lower-risk suppliers require lighter-touch oversight. Underperformance is addressed through a defined escalation process.",
       "referral": "Describes a single generic supplier management process applied uniformly regardless of the supplier's risk or criticality to the project.",
       "referralWhy": [
         "Single generic process applied uniformly regardless of supplier risk or criticality",
         "No escalation process described for managing underperformance"
       ],
       "challenge": [
-        "How would your approach differ for a critical single-source supplier versus one with readily available alternatives?",
+        "How do pain/gain mechanisms align supplier incentives with overall project objectives?",
+        "What is the purpose of a framework agreement in infrastructure supplier management?",
         "What would you do if a key supplier consistently underperformed against agreed KPIs?"
       ],
       "keyPoints": [
-        "Supplier management intensity should scale with risk and criticality, not be applied uniformly",
-        "Clear KPIs and an escalation process are essential for managing underperformance",
-        "Critical suppliers warrant closer, more structured oversight"
+        "Framework agreements enable call-off procurement without repeated full tendering, providing continuity and cost certainty",
+        "Pain/gain mechanisms share cost savings or overruns between client and supplier against a target cost",
+        "Supplier management intensity should scale with risk and criticality — not applied uniformly"
       ],
       "module": "Risk, Project Controls & Stakeholder Management"
     },
@@ -18701,20 +18706,21 @@
       "q": "Explain how you would identify and manage a dispute arising on an infrastructure project before it escalates to formal proceedings.",
       "why": "Tests conflict avoidance and dispute resolution competency — a mandatory competency tested across all pathways but with infrastructure-specific context.",
       "pass": "States that early identification and negotiation can often resolve disputes before they escalate to formal processes like adjudication or arbitration.",
-      "high": "Describes the dispute resolution ladder in more depth — negotiation, followed by structured options like mediation, dispute resolution boards, or adjudication before litigation as a last resort — and explains how early warning systems and clear contractual communication reduce the likelihood of disputes escalating, with a specific example of a dispute resolved before reaching formal proceedings.",
+      "high": "Before advising on or acting in a dispute, the surveyor must satisfy RICS Conflicts of interest obligations — disclosing any interest that could impair impartiality. The dispute resolution ladder then runs: negotiation, structured options including mediation, Dispute Resolution Boards (DRBs), Dispute Resolution Advisers (DRAs), or adjudication under the Housing Grants, Construction and Regeneration Act 1996 (where applicable), before arbitration or litigation as a last resort. The RICS Dispute Resolution Service is available as a formal referral route throughout. Early warning systems and clear contractual communication reduce the likelihood of escalation, and a real example of a dispute resolved before formal proceedings demonstrates practical skill.",
       "referral": "Jumps straight to describing formal dispute resolution mechanisms without addressing avoidance and early-stage negotiation, or has no real example of dispute avoidance in practice.",
       "referralWhy": [
         "Jumps to formal mechanisms without addressing avoidance and early negotiation",
         "No real example of a dispute resolved before reaching formal proceedings"
       ],
       "challenge": [
-        "What early warning signs would prompt you to escalate your own management attention to a potential dispute?",
+        "What is the role of a Dispute Resolution Adviser (DRA) on an infrastructure project?",
+        "What early warning signs would prompt you to escalate your management attention to a potential dispute?",
         "When would you recommend adjudication over mediation?"
       ],
       "keyPoints": [
-        "Dispute avoidance and early negotiation should always be tried before formal processes",
-        "A structured dispute resolution ladder exists between negotiation and litigation",
-        "A real example of early resolution demonstrates practical skill, not just theoretical knowledge"
+        "RICS Conflicts of interest obligations must be checked before acting in any dispute capacity",
+        "Named formal mechanisms: DRBs, DRAs, RICS Dispute Resolution Service, adjudication, arbitration",
+        "Dispute avoidance through early warning systems and clear communication should always precede formal escalation"
       ],
       "module": "Professional Practice & Client Care"
     },
@@ -18722,7 +18728,7 @@
       "q": "How would you advise a client on the sustainability implications of a major infrastructure decision, such as choosing between refurbishment and new build?",
       "why": "Tests sustainability competency applied to a genuinely infrastructure-relevant decision.",
       "pass": "States that sustainability factors, including carbon impact, should be considered alongside cost and technical factors in the decision.",
-      "high": "Explains the trade-off in more depth — for example, weighing the embodied carbon saved by refurbishment against the potential operational efficiency gains of a new-build solution — and gives a reasoned recommendation that balances sustainability, cost, and technical performance rather than treating sustainability as a separate add-on consideration.",
+      "high": "Sustainability in infrastructure rests on the triple bottom line: balancing economic, environmental and social objectives. The legislative and policy framework — including the Climate Change Act 2008 (net-zero 2050 target), the Environment Act 2021, and international commitments such as the Paris Agreement — sets the compliance baseline and shapes client obligations. Sustainability performance should be measured against recognised criteria such as energy use intensity, carbon emissions (embodied and operational), water consumption and social value indicators, and material resource efficiency in the supply chain should be considered alongside operational performance. At the decision level — for example, weighing refurbishment against new build — the key trade-off is typically embodied carbon (lower in refurbishment) against operational efficiency gains (often stronger in new build). Advice should integrate sustainability across economic, environmental and social dimensions rather than treating it as a separate consideration from cost and technical performance.",
       "referral": "Mentions sustainability as a general consideration without engaging with the specific trade-off between embodied and operational carbon, or without connecting it to a reasoned recommendation.",
       "referralWhy": [
         "Sustainability mentioned generically without engaging with the embodied vs operational carbon trade-off",
@@ -18730,12 +18736,14 @@
       ],
       "challenge": [
         "How would you quantify the embodied carbon difference between refurbishment and new build for a client?",
+        "How does the legislative framework (Climate Change Act, Environment Act) affect a client's sustainability obligations on an infrastructure scheme?",
         "How would you handle a decision where the more sustainable option was also significantly more expensive?"
       ],
       "keyPoints": [
-        "Sustainability decisions on infrastructure often involve a genuine embodied-versus-operational carbon trade-off",
-        "Sustainability should be integrated into the decision, not treated as separate from cost and technical factors",
-        "Being able to quantify sustainability impact strengthens the advice given"
+        "Sustainability: triple bottom line — economic, environmental and social objectives in balance",
+        "Legislative framework: Climate Change Act 2008, Environment Act 2021, Paris Agreement set compliance baseline",
+        "Material resource efficiency in the supply chain is a named Sustainability L1 requirement alongside operational performance",
+        "Embodied vs operational carbon trade-off is the central infrastructure sustainability decision framework"
       ],
       "module": "Professional Practice & Client Care"
     },
@@ -18764,20 +18772,22 @@
       "q": "How would you advise a client on the compulsory purchase process where land needs to be acquired for an infrastructure scheme?",
       "why": "Tests compulsory purchase and compensation knowledge, a technically distinct optional competency relevant to major infrastructure schemes.",
       "pass": "Explains that compulsory purchase allows land to be acquired for schemes in the public interest, with compensation payable to those affected.",
-      "high": "Explains the process and principles in more depth — the stages of making, confirming, and implementing a compulsory purchase order, the basic compensation principles (such as the before-and-after approach), and gives a reasoned view on managing the process efficiently while remaining fair to affected landowners, referencing the role of negotiation before formal proceedings such as a public inquiry.",
+      "high": "The foundational compensation principle is equivalence — the claimant should be left in no better and no worse financial position than before acquisition. Betterment reduces compensation where the scheme increases the value of the claimant's retained land. The before-and-after approach assesses the difference in value of the claimant's interest before and after acquisition, including any injurious affection. Heads of claim categorise what can be recovered: typically land value, severance and injurious affection, disturbance losses, and statutory loss payments. The CPO process runs through confirmation of the order, service of notice to treat and notice of entry, negotiation of settlement, and — where compensation is disputed — determination by the Upper Tribunal (Lands Chamber). Early negotiation with affected landowners remains the most efficient route and can avoid both public inquiry and Tribunal proceedings.",
       "referral": "Describes compulsory purchase in only the vaguest terms, without reference to the process stages, compensation principles, or a balance between efficiency and fairness to affected parties.",
       "referralWhy": [
         "Process stages not described — only the general concept of CPO referenced",
         "Compensation principles not mentioned; balance between efficiency and fairness not considered"
       ],
       "challenge": [
-        "What are the basic principles used to assess compensation in a compulsory purchase claim?",
-        "How would you try to avoid a formal public inquiry through early negotiation with affected landowners?"
+        "What is the difference between betterment and injurious affection in a compulsory purchase claim?",
+        "What are the main heads of claim in a CPO compensation case?",
+        "What is the role of the Upper Tribunal (Lands Chamber) and when is it used?"
       ],
       "keyPoints": [
-        "Compulsory purchase involves defined process stages that must be followed correctly",
-        "Compensation principles need to be understood and correctly applied, not just referenced generally",
-        "Early negotiation with affected parties can avoid the time and cost of a formal public inquiry"
+        "Equivalence is the foundational CPO compensation principle — no better and no worse",
+        "Betterment reduces compensation where retained land benefits from the scheme; severance/injurious affection may add to it",
+        "Heads of claim: land value, severance and injurious affection, disturbance, statutory loss payments",
+        "Disputed compensation is determined by the Upper Tribunal (Lands Chamber), not the public inquiry"
       ],
       "module": "Professional Practice & Client Care"
     },
@@ -18785,20 +18795,21 @@
       "q": "Explain how you would approach the implementation of a Building Information Modelling (BIM) strategy on an infrastructure project.",
       "why": "Tests BIM management knowledge and its practical, collaborative application on an infrastructure scheme.",
       "pass": "Explains that BIM involves creating a shared digital model of the asset to support collaboration and information management across the project team.",
-      "high": "Describes the practical implementation process — preparing a BIM execution plan, agreeing information exchange protocols and responsibilities between the project team, and explains the tangible benefits realised (such as improved design coordination and clash detection) alongside the practical challenges of adoption, such as varying levels of BIM maturity across different team members or organisations.",
+      "high": "Describes the practical implementation process — preparing a BIM execution plan, establishing COBie (Construction Operations Building Information Exchange) as the standardised open data format for asset and space data handover to FM teams, and agreeing standard classification systems (principally Uniclass 2015) to ensure consistent asset categorisation across the project lifecycle. Information exchange protocols and responsibilities between team members are agreed upfront, contractual BIM protocols are embedded in appointments. Tangible benefits include improved design coordination, clash detection and FM-ready structured asset data at handover. Practical challenges include varying levels of BIM maturity across different organisations in the project team.",
       "referral": "Describes BIM only as a general digital design tool without addressing execution planning, information exchange protocols, or the practical challenges of team-wide adoption.",
       "referralWhy": [
         "BIM described only as a general digital tool without execution planning or protocols",
         "Practical challenges of team-wide adoption — including varying BIM maturity — not acknowledged"
       ],
       "challenge": [
+        "What is COBie and why is it important for FM data handover from an infrastructure project?",
         "How would you manage a project where team members had significantly different levels of BIM maturity?",
         "What specific benefits has BIM delivered on a project you have worked on?"
       ],
       "keyPoints": [
-        "BIM implementation requires a structured execution plan and clear information exchange protocols",
-        "Varying BIM maturity across a project team is a common, real practical challenge",
-        "Being able to name specific realised benefits demonstrates genuine practical experience"
+        "COBie is the standardised open data format for delivering structured asset and space data to FM teams at handover",
+        "Uniclass 2015 provides the standard classification system for consistent asset categorisation across the project lifecycle",
+        "BIM implementation requires a structured execution plan, contractual protocols and clear information exchange responsibilities"
       ],
       "module": "Professional Practice & Client Care"
     },
@@ -18843,6 +18854,82 @@
         "Honest reflection, including what might be done differently, demonstrates real professional maturity"
       ],
       "module": "Professional Practice & Client Care"
+    },
+    {
+      "q": "Explain the key contractual mechanisms used to manage commercial risk through the construction phase of an infrastructure project.",
+      "pass": "Key mechanisms include letters of intent to authorise early start, retention to secure defects obligations, and performance bonds as security against contractor default.",
+      "high": "Five named instruments manage commercial risk through construction. Letters of intent authorise a contractor to begin preliminary works or procurement before the main contract is executed, without full contractual commitment — creating significant ambiguity if the contract is not subsequently entered into and exposure to quantum meruit claims. Retention is a percentage withheld from interim payments (typically 3–5%), released in two halves: at practical completion and after the defects liability period. Bonds provide security: a performance bond protects against contractor default during construction; an advance payment bond protects against failure after a mobilisation payment. Liquidated and ascertained damages (LADs) are a pre-agreed daily or weekly rate compensating the client for delay — they must be a genuine pre-estimate of loss, not a penalty, to be enforceable. Practical completion is the point at which the works are sufficiently complete for the client to take possession, triggering the release of the first half of retention, the commencement of the defects liability period, and the end of LAD liability.",
+      "why": "Contract practice is a core competency. These five mechanisms are specifically named at L2 in the guide and are the financial and procedural backbone of contract administration on infrastructure projects.",
+      "referral": "I would rely on the contract to protect the client's commercial position during construction.",
+      "referralWhy": "Each mechanism is a distinct instrument with specific legal and commercial implications. Treating them as generic 'contract provisions' without explaining each individually would be a referral at contract practice L2.",
+      "challenge": [
+        "What risks arise from issuing a letter of intent rather than waiting for the main contract to be executed?",
+        "How would you calculate the appropriate LAD rate for a specific infrastructure project?",
+        "At what point is the first half of retention released, and what obligations does that timing secure?"
+      ],
+      "keyPoints": [
+        "Letters of intent create limited authority but significant ambiguity — risk if the main contract is never executed.",
+        "LADs must be a genuine pre-estimate of loss, not a penalty, to be legally enforceable.",
+        "Practical completion triggers: first retention release, defects liability period commencement, and end of LAD liability."
+      ],
+      "module": "Infrastructure"
+    },
+    {
+      "q": "What is a work breakdown structure and how does it support project controls on an infrastructure scheme?",
+      "pass": "A work breakdown structure breaks the project into manageable elements, making it easier to plan, cost and monitor progress.",
+      "high": "A work breakdown structure (WBS) is a hierarchical decomposition of the total project scope into discrete, manageable deliverables and work packages. It is the foundational structure for project controls: cost accounts are established at WBS levels, enabling earned value management (planned value, earned value and actual cost) to be measured per element; resources are allocated and tracked at work-package level; and schedule activities are linked to WBS elements to identify critical path and float. The 100% rule requires that the WBS accounts for the entire project scope — nothing should fall outside the control framework. A well-structured WBS ensures that cost and programme data can be reported consistently at whatever level of detail the client or project team requires, from summary dashboard to individual work-package detail.",
+      "why": "Project controls is a core competency. WBS is named at L1 alongside earned value management. Q34 covers EVM in detail; this question establishes the foundational structure on which EVM depends.",
+      "referral": "A WBS is a list of tasks in the project plan.",
+      "referralWhy": "A WBS is not a task list — it is a hierarchical scope decomposition that underpins cost accounts, schedule and performance measurement. Candidates who cannot explain its relationship to EVM or cost account structures have not demonstrated L1 project controls knowledge.",
+      "challenge": [
+        "How does a WBS relate to the cost accounts used in earned value management?",
+        "How granular should a WBS be, and how would you decide the appropriate level of breakdown for a major scheme?",
+        "What problems arise when a WBS is incomplete or poorly structured?"
+      ],
+      "keyPoints": [
+        "A WBS is a hierarchical scope decomposition — not a task list.",
+        "Cost accounts are established at WBS levels, enabling EVM reporting per element.",
+        "100% rule: the WBS must account for the entire project scope without gaps or overlaps."
+      ],
+      "module": "Infrastructure"
+    },
+    {
+      "q": "What leadership styles and motivation theories are relevant to leading an infrastructure project team, and how would you apply them in practice?",
+      "pass": "Effective leadership requires adapting your style to the situation and understanding what motivates different team members.",
+      "high": "Leadership styles relevant to infrastructure include transformational leadership (inspiring a shared vision and motivating the team toward long-term objectives — particularly useful in novel or complex project phases), transactional leadership (managing through clear expectations, targets and rewards — suited to structured delivery phases), and servant leadership (prioritising the team's needs to maximise collective performance). Style should be adapted to project phase and team maturity rather than applied uniformly. Motivation theories inform this: Maslow's hierarchy of needs identifies that safety and security needs must be met before higher motivators (recognition, achievement, self-actualisation) can drive performance. Herzberg's two-factor theory distinguishes hygiene factors (salary, working conditions — whose absence demotivates but whose presence does not actively motivate) from true motivators (achievement, recognition, responsibility). McGregor's Theory X/Y challenges assumptions — managers assuming Theory X (workers inherently resist work) risk creating the disengagement they fear, while Theory Y (workers seek responsibility and meaning) produces better outcomes on collaborative infrastructure teams.",
+      "why": "Leading projects, people and teams is an optional competency with leadership styles and motivation theories specifically named at L1. Infrastructure project managers commonly select this competency — the bank needs real material, not generic leadership statements.",
+      "referral": "Good leadership means being clear about what you expect and building a positive team culture.",
+      "referralWhy": "At APC level, candidates must be able to name and apply specific frameworks. Generic statements about clarity and positivity without named leadership theories or motivation models demonstrate awareness, not L1 knowledge.",
+      "challenge": [
+        "How would you adapt your leadership style as a project moves from design development through to construction delivery?",
+        "How does Herzberg's two-factor theory explain why a pay rise alone might not improve team morale or performance?",
+        "What assumptions does McGregor's Theory Y make, and why do those assumptions matter for how you structure a project team?"
+      ],
+      "keyPoints": [
+        "Leadership style should be adapted to project phase and team maturity: transformational, transactional or servant.",
+        "Herzberg: hygiene factors prevent dissatisfaction; motivators drive performance — they are different categories requiring different interventions.",
+        "McGregor Theory X/Y: assumptions about intrinsic motivation directly shape management approach and team outcomes."
+      ],
+      "module": "Infrastructure"
+    },
+    {
+      "q": "What are the key project governance documents used to initiate and manage an infrastructure project, and what is the purpose of each?",
+      "pass": "Projects require formal documentation at the start to confirm objectives, scope and how the project will be managed.",
+      "high": "Three principal governance documents structure a project from initiation through delivery. The Project Initiation Document (PID) establishes the business case, objectives, scope, stakeholder interests, constraints and governance framework at the project's outset — it is the reference document against which all subsequent decisions and changes are measured. The Project Execution Plan (PEP) translates the PID into how the project will be delivered, covering procurement strategy, programme, risk management approach, communication protocols, reporting structure and quality management. The Project Management Plan (PMP) in some frameworks serves as the overarching document incorporating both the strategic context and operational delivery plans. All three are living references — updated through gate reviews and as scope or delivery strategy changes — not one-off outputs produced at project outset and filed away.",
+      "why": "Managing projects is an optional competency with PIDs, PEPs and PMPs specifically named at L1. No existing Infrastructure question covers formal project governance documents; the closest (Q27) addresses document control operationally, not governance structure.",
+      "referral": "Projects start with a brief from the client that sets out what they want built.",
+      "referralWhy": "A client brief is an input — PIDs, PEPs and PMPs are the formal governance outputs that structure how the project is managed and measured. Candidates unable to distinguish their purpose and relationship cannot demonstrate L1 managing projects competency.",
+      "challenge": [
+        "What is the difference in purpose between a Project Initiation Document and a Project Execution Plan?",
+        "At what points in the project lifecycle should the PEP be reviewed and updated?",
+        "How should the PID and PEP respond when a major scope change occurs mid-project?"
+      ],
+      "keyPoints": [
+        "The PID establishes WHY and WHAT — business case, objectives, scope, stakeholder interests, governance.",
+        "The PEP/PMP establishes HOW — procurement, programme, risk, communication, reporting, quality.",
+        "Both are living documents reviewed at gate points, not one-off outputs."
+      ],
+      "module": "Infrastructure"
     }
   ]
 }

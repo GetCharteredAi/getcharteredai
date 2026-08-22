@@ -13714,7 +13714,7 @@
     {
       "q": "What is contamination and why is it relevant to land advice?",
       "pass": "Contamination refers to harmful substances in or on land that may affect health, environment or development.",
-      "high": "Contamination may arise from historic industrial, agricultural, waste, fuel storage or chemical uses. It can affect land value, planning consent, remediation costs, development viability, lender appetite, liability and future use. Surveyors should identify potential contamination risk from inspection, historic use, environmental searches and recommend specialist investigation where needed.",
+      "high": "Contamination may arise from historic industrial, agricultural, waste, fuel storage or chemical uses. The statutory regime for contaminated land is Part IIA of the Environmental Protection Act 1990, supplemented by the Contaminated Land Regulations 2000, which set out the identification and remediation procedures local authorities must follow. Investigation is typically phased: a Stage 1 desktop study (also called a Phase 1 environmental assessment) reviews historical use, environmental searches and site walkovers to identify potential sources, pathways and receptors without intrusive investigation. Where risk is identified, intrusive investigation and risk assessment follow. Contamination can affect land value, planning consent, remediation costs, development viability, lender appetite, liability and future use. Surveyors should identify potential contamination risk and recommend specialist environmental advice where needed.",
       "referral": "Contamination only matters if it is visible during inspection.",
       "referralWhy": [
         "Many contamination risks are not visible.",
@@ -13934,7 +13934,7 @@
     {
       "q": "What is compulsory purchase?",
       "pass": "Compulsory purchase allows authorised bodies to acquire land or rights without the owner's agreement where statutory powers exist.",
-      "high": "Compulsory purchase is a statutory process that enables acquiring authorities to obtain land or rights required for public-interest projects, subject to proper powers, procedures and compensation. Surveyors may advise on land referencing, negotiation, valuation, objections, claims, settlement, possession and claimant engagement.",
+      "high": "Compulsory purchase is a statutory process that enables acquiring authorities to obtain land or rights required for public-interest projects, subject to proper powers, procedures and compensation governed by the Land Compensation Act 1961 (market value and general valuation principles) and the Land Compensation Act 1973 (disturbance, home loss and farm loss payments). The overarching principle is equivalence: the claimant should be put in the same financial position as if the acquisition had not occurred — no more and no less. Betterment, where the scheme enhances the value of retained land, may be set off against compensation. Compensation heads of claim typically include land value, severance, injurious affection, disturbance, professional fees and, where applicable, home loss or farm loss payments. Unresolved disputes are referred to the Upper Tribunal (Lands Chamber). Surveyors may advise on land referencing, negotiation, valuation, objections, claims, settlement, possession and claimant engagement.",
       "referral": "Compulsory purchase means land can be taken without payment.",
       "referralWhy": [
         "Fundamentally incorrect.",
@@ -13956,7 +13956,7 @@
     {
       "q": "How would you approach valuation of development land?",
       "pass": "I would consider comparable evidence, planning status, development potential, constraints and viability.",
-      "high": "Development land valuation may involve comparable evidence, residual valuation or a combination of approaches. I would assess planning status, permitted or potential use, gross development value, build costs, abnormal costs, finance, professional fees, planning obligations, developer's profit, timing, risk and market demand. Assumptions should be clearly stated and sensitivity-tested.",
+      "high": "Development land valuation may involve comparable evidence, residual valuation or a combination of approaches. Where the valuation is formal — for secured lending, financial reporting or dispute — it must comply with the RICS Red Book (RICS Valuation — Global Standards), including requirements on declaration of interest, inspection, basis of value and report format. Automated Valuation Models (AVMs) use algorithms and comparable data feeds to generate rapid value estimates, but their reliability depends on data quality and market comparability; they are not a substitute for a Red Book-compliant valuation where one is required. I would assess planning status, permitted or potential use, gross development value, build costs, abnormal costs, finance, professional fees, planning obligations, developer's profit, timing, risk and market demand. Assumptions should be clearly stated and sensitivity-tested.",
       "referral": "Development land is valued by multiplying acreage by a standard rate.",
       "referralWhy": [
         "Oversimplifies valuation.",
@@ -14022,7 +14022,7 @@
     {
       "q": "What are planning obligations and how can they affect land value?",
       "pass": "Planning obligations are requirements or contributions linked to development, which can affect cost and viability.",
-      "high": "Planning obligations may include affordable housing, infrastructure contributions, highways works, education contributions, open space, biodiversity measures or other mitigation required to make development acceptable in planning terms. These obligations reduce the amount available for land and should be included in development appraisals and viability analysis.",
+      "high": "Planning obligations are negotiated under Section 106 of the Town and Country Planning Act 1990 (S106 agreements) and may include affordable housing, infrastructure contributions, highways works, education contributions, open space, biodiversity measures or other mitigation required to make development acceptable in planning terms. The Community Infrastructure Levy (CIL) is a standard charge levied by some local planning authorities on new development. Both S106 obligations and CIL reduce the amount available for land and must be factored into development appraisals and viability assessments. A formal viability assessment, tested against the benchmark land value and policy requirement, may be required to negotiate a reduced contribution where full compliance would render development unviable. Non-market and qualitative factors — such as design quality, community benefit and place-making — may also influence whether a scheme is considered acceptable in planning terms.",
       "referral": "Planning obligations are paid by the council.",
       "referralWhy": [
         "Incorrect.",
@@ -14088,7 +14088,7 @@
     {
       "q": "What are ecosystem services?",
       "pass": "Ecosystem services are the benefits people receive from the natural environment.",
-      "high": "Ecosystem services include benefits such as carbon storage, flood regulation, water purification, pollination, soil health, biodiversity, recreation and landscape value. Surveyors should understand how these services can influence land management, environmental schemes, development mitigation, valuation and investment decisions.",
+      "high": "Ecosystem services include benefits such as carbon storage, flood regulation, water purification, pollination, soil health, biodiversity, recreation and landscape value. The UN FAO Voluntary Guidelines on the Governance of Tenure (VGGTs) provide an internationally recognised framework for responsible governance of land, fisheries and forests, relevant where land rights and tenure are complex or contested. ISO 14001 is the international standard for environmental management systems, which may be relevant where clients operate formal environmental governance frameworks or where land management must demonstrate regulatory compliance. Surveyors should understand how ecosystem services influence land management, environmental schemes, development mitigation, valuation and investment decisions.",
       "referral": "Ecosystem services are only relevant to conservation charities.",
       "referralWhy": [
         "Demonstrates outdated thinking.",
@@ -14110,7 +14110,7 @@
     {
       "q": "What are carbon credits and how can they affect land use?",
       "pass": "Carbon credits represent verified carbon reductions or removals that may be sold to organisations seeking to offset emissions.",
-      "high": "Carbon credits may be generated through land-based activities such as woodland creation, peatland restoration or soil carbon projects, subject to verification and scheme rules. They can create income opportunities, but may also involve long-term land management commitments, permanence obligations, monitoring, market risk and restrictions on future land use.",
+      "high": "Carbon credits may be generated through land-based activities such as woodland creation, verified under the Woodland Carbon Code, or peatland restoration, verified under the Peatland Code. Both schemes require independent verification, additionality and long-term permanence and monitoring obligations. Biodiversity offsetting is a related mechanism — distinct from Biodiversity Net Gain — that allows developers to compensate for biodiversity loss at one location by funding measurable net gains elsewhere. Carbon credit schemes and biodiversity offsetting can create income opportunities for landowners, but involve long-term land management commitments, permanence obligations, monitoring, market risk and restrictions on future land use.",
       "referral": "Carbon credits are government grants for planting trees.",
       "referralWhy": [
         "Confuses market-based credits with grant funding.",
@@ -14396,7 +14396,7 @@
     {
       "q": "How can waste management uses affect land value and strategy?",
       "pass": "Waste management uses can create income opportunities but may also involve planning, environmental and reputational risks.",
-      "high": "Waste management uses such as recycling, landfill, energy-from-waste, transfer stations or treatment facilities may generate significant value where planning and environmental permits are secured. However, they can involve environmental controls, traffic impact, contamination risk, restoration obligations, community objection, aftercare requirements and long-term liability. Advice should balance commercial opportunity with regulatory and land-use risk.",
+      "high": "Waste management uses such as recycling, landfill, energy-from-waste, transfer stations or treatment facilities may generate significant value where planning and environmental permits are secured. The regulatory framework includes the Waste Strategy, which sets national targets for waste reduction and recovery; the Landfill Directive, which restricts biodegradable waste disposed to landfill and sets progressive diversion targets; Landfill Tax, levied on disposals to incentivise diversion from landfill; and Pollution Prevention and Control permits (PPC permits), which regulate emissions, operations and environmental management at waste facilities. Waste uses can also involve traffic impact, contamination risk, restoration obligations, community objection, aftercare requirements and long-term liability. Advice should balance commercial opportunity with regulatory and land-use risk.",
       "referral": "Waste land has little value because it is unattractive.",
       "referralWhy": [
         "Ignores specialist market demand and permitted-use value.",
@@ -14480,6 +14480,150 @@
         "Reflection strengthens credibility."
       ],
       "module": "Land and Resources"
+    },
+    {
+      "q": "What is cadastre and how are land boundaries determined in England and Wales?",
+      "pass": "Cadastre is the system of official records describing land parcels, ownership, boundaries and interests. In England and Wales, the Land Registry operates a general boundary system.",
+      "high": "Cadastre is the official record of land parcels, their extent, ownership, rights and interests. In England and Wales, the Land Registry operates a general boundary system rather than a fixed boundary system: boundaries shown on the title plan represent the approximate position of the legal boundary and do not conclusively define the exact line. Fixed boundary systems, used in some other jurisdictions, require the legal boundary to be precisely surveyed, agreed and recorded. Moving boundaries may arise where land adjoins natural features — accretion (gradual deposit of land) and erosion (gradual loss) operate at common law and can shift ownership over time. Foreshore boundaries depend on the Crown grant and tidal patterns. First registration of unregistered land is triggered by certain dealing events and must be completed within two months. Adverse possession enables a person in factual possession of land, having dispossessed the registered owner, to apply for ownership after the requisite period under the Land Registration Act 2002, subject to notification and objection procedures.",
+      "referral": "Boundaries are exact because they appear as lines on the title plan.",
+      "referralWhy": "The general boundary rule means the title plan shows approximate boundaries only; it does not conclusively fix the legal boundary.",
+      "challenge": [
+        "What is the difference between a general boundary and a fixed boundary system?",
+        "How might accretion affect land ownership over time?",
+        "What triggers compulsory first registration?"
+      ],
+      "keyPoints": [
+        "England and Wales operates a general boundary system — title plans are approximate.",
+        "Moving boundaries (accretion, erosion, foreshore) can shift ownership at common law.",
+        "Adverse possession and first registration are key cadastral concepts."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "What is the role of an expert witness in a boundary or land dispute?",
+      "pass": "An expert witness provides independent, objective technical opinion to assist the court, not to advocate for the instructing party.",
+      "high": "Expert witnesses in boundary, surveying and land valuation disputes are governed by Civil Procedure Rules Part 35, which imposes an overriding duty to the court. The expert must provide unbiased, objective opinion within their area of expertise, set out their methodology, disclose any conflicts of interest and sign a declaration of truth. The expert's report must state the substance of all material instructions, distinguish between opinion and fact, and summarise the range of opinion where there is a genuine dispute. Where directed by the court, a meeting of experts must take place to narrow the issues in dispute and produce a joint statement identifying points of agreement and disagreement with reasons. A conference with counsel allows the expert to discuss the technical issues and assist in case preparation. The expert must not stray outside their field of expertise or act as an advocate, and must update their report if their opinion changes.",
+      "referral": "An expert witness is hired to argue the strongest possible case for the client.",
+      "referralWhy": "An expert witness owes an overriding duty to the court, not to the party instructing them; partiality is a serious professional failing.",
+      "challenge": [
+        "What does Civil Procedure Rules Part 35 require of an expert?",
+        "What is the purpose of a meeting of experts?",
+        "How should an expert handle a conflict between the client's position and their own opinion?"
+      ],
+      "keyPoints": [
+        "The expert's overriding duty is to the court under CPR Part 35.",
+        "Meeting of experts produces a joint statement narrowing areas of dispute.",
+        "The expert must be independent and must not advocate."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "What is GIS and how is it used in land and resources practice?",
+      "pass": "GIS is a system for capturing, storing, analysing and presenting geographically referenced data, used to support land assessment, planning and management decisions.",
+      "high": "Geographic Information Systems allow land and resources surveyors to overlay, query and analyse spatial datasets, including land use designations, planning allocations, flood zones, utility infrastructure, ownership boundaries, environmental constraints, topography and rights of way. Query languages — similar in structure to database SQL — enable structured searches of geospatial data to extract, filter and analyse information relevant to a specific site or area. Metadata, which describes the content, source, date, scale and accuracy of a dataset, is essential when assessing the reliability and fitness for purpose of GIS outputs before relying on them in professional advice. GIS is used in site identification and selection, land assembly mapping, development appraisal, environmental constraint assessment, utility route identification, rights of way recording and generating mapping outputs for clients, planning authorities and insurers.",
+      "referral": "GIS is only useful for very large rural estates and infrastructure projects.",
+      "referralWhy": "GIS is used across all land and resources work — from small site assessments to large estate management and infrastructure planning.",
+      "challenge": [
+        "What is the importance of metadata when using GIS data?",
+        "How might GIS support a land assembly instruction?",
+        "What limitations should be considered when relying on GIS outputs?"
+      ],
+      "keyPoints": [
+        "GIS overlays spatial datasets to support land analysis and decision-making.",
+        "Query languages enable targeted data extraction; metadata confirms reliability.",
+        "GIS outputs should be verified against primary sources before use in formal advice."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "What surveying and mapping technologies are used in land and resources practice?",
+      "pass": "Modern land surveying uses GNSS, digital mapping and remote sensing technologies to accurately record, measure and present land data.",
+      "high": "Land measurement and mapping may use GNSS (Global Navigation Satellite Systems), including GPS, GLONASS and Galileo, supplemented by CORS (Continuously Operating Reference Station) networks that broadcast correction signals to improve positional accuracy in real time. The distinction between the geoid — the equipotential surface approximating mean sea level — and the ellipsoid — the mathematical reference surface used in satellite positioning — is important when converting ellipsoidal heights to orthometric heights for practical use. Remote sensing technologies include LIDAR (Light Detection and Ranging), which uses laser pulses to generate high-resolution three-dimensional point clouds and Digital Terrain Models (DTMs); and IFSAR (Interferometric Synthetic Aperture Radar), which uses radar to produce elevation data through vegetation cover or cloud. These technologies support topographic survey, land boundary mapping, infrastructure planning, flood modelling, environmental assessment and the production of accurate measured data for development appraisal.",
+      "referral": "Surveying technology is only needed when there is a boundary dispute.",
+      "referralWhy": "Surveying and mapping technologies are used routinely across land and resources work, from topographic surveys to flood modelling and environmental assessment.",
+      "challenge": [
+        "What is the role of CORS networks in GNSS surveying?",
+        "What is the difference between a Digital Terrain Model and a point cloud?",
+        "In what circumstances might IFSAR be preferred over LIDAR?"
+      ],
+      "keyPoints": [
+        "GNSS and CORS networks provide accurate positional data; geoid/ellipsoid distinction matters for height.",
+        "LIDAR produces DTMs and point clouds; IFSAR penetrates vegetation and cloud.",
+        "Remote sensing supports topographic survey, flood modelling and environmental assessment."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "What is a right to light and how is it assessed?",
+      "pass": "A right to light is a legal right to receive natural light through a window or aperture. It can be infringed by a neighbouring development that obstructs light beyond an actionable level.",
+      "high": "Rights to light can be acquired by express grant, implied grant, or 20 years' long use under the Prescription Act 1832 (or at common law). A right to light entitles the dominant owner to receive sufficient natural light for the comfortable use and enjoyment of the building for its purpose — not maximum light. When a proposed development might obstruct light, a daylight and sunlight assessment is typically required, following BRE guidance (Daylight and Sunlight: A Guide to Good Practice). This involves 3D modelling of the development and surrounding buildings. The Vertical Sky Component (VSC) and No-Sky Line analysis are used to assess daylight impact; Annual Probable Sunlight Hours (APSH) assess sunlight. Overshadowing of amenity areas and solar glare effects may also be assessed. Rights of light are a private legal right entirely separate from the planning regime — planning permission does not override them and does not prevent a neighbour from pursuing a legal remedy.",
+      "referral": "Once planning permission is granted, a neighbouring owner cannot raise rights of light concerns.",
+      "referralWhy": "Rights of light are a private legal right independent of the planning system; planning permission has no effect on whether a right of light exists or has been infringed.",
+      "challenge": [
+        "How can a right to light be acquired by prescription?",
+        "What does the Vertical Sky Component measure?",
+        "Why does planning permission not resolve a rights of light dispute?"
+      ],
+      "keyPoints": [
+        "Rights of light are acquired by grant or 20-year prescription under the Prescription Act 1832.",
+        "3D modelling and VSC/No-Sky Line analysis assess daylight impact.",
+        "Rights of light are private law — independent of and not overridden by planning permission."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "How would you advise a client on a rights of light dispute?",
+      "pass": "I would establish whether a right to light exists, assess the degree of interference, and advise on the options available including negotiated settlement or legal remedy.",
+      "high": "First I would establish whether a right to light subsists — by express or implied grant, or through 20-year prescription under the Prescription Act 1832. I would commission or critically review a daylight and sunlight assessment using 3D modelling and VSC/No-Sky Line analysis to quantify the degree of interference. If the interference is actionable, the affected party may seek a financial remedy (agreed payment or damages) or an injunction to prevent, demolish or modify the infringing development. A rights of light valuation, typically using the Waldram diagram to identify the quantum of light lost, and then applying a profit-share or book value method to arrive at a capital sum, would inform negotiation. I would advise on the relative risk of injunction versus settlement, bearing in mind that courts retain discretion to award damages in lieu of an injunction. A developer seeking to prevent a right arising may register a light obstruction notice under the Rights of Light Act 1959. I would represent the client in negotiations with the developer and, where necessary, in proceedings.",
+      "referral": "There is nothing a neighbouring owner can do once the developer has planning permission and has started work.",
+      "referralWhy": "Rights of light are a private legal right; a claimant can seek an injunction or damages even after construction has begun — the risk to a developer only increases once work is underway.",
+      "challenge": [
+        "What is the Waldram diagram and how is it used in rights of light valuation?",
+        "What is a light obstruction notice and when should a developer use one?",
+        "When would you advise a client to accept a financial settlement rather than pursue an injunction?"
+      ],
+      "keyPoints": [
+        "Rights of light valuation uses the Waldram diagram and profit-share or book value approach.",
+        "Remedy may be damages or injunction — courts retain discretion.",
+        "Rights of Light Act 1959 obstruction notices can prevent prescriptive rights from arising."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "What are the main forms of agricultural tenancy and how would you advise a landowner?",
+      "pass": "Agricultural land may be let under the Agricultural Holdings Act 1986 or as a Farm Business Tenancy under the Agricultural Tenancies Act 1995.",
+      "high": "The Agricultural Holdings Act 1986 governs pre-September 1995 tenancies and provides strong statutory security of tenure, succession rights on death or retirement, statutory rent review procedures (typically every three years, referred to arbitration if not agreed), and compensation entitlements on quitting. AHA tenancies are difficult and costly for landowners to recover. The Agricultural Tenancies Act 1995 introduced Farm Business Tenancies (FBTs), which offer considerably greater flexibility: parties may agree any term length, rent review mechanism, repairing obligations and conditions, with far fewer statutory restrictions. An FBT requires a written tenancy notice to be served before the tenancy is granted. Rent disputes under FBTs may be referred to arbitration or a third-party expert as agreed in the tenancy. Landowners should receive specialist advice on agreement structure, rent review basis, repairing obligations, break clauses, end-of-tenancy compensation for tenant's improvements, dilapidations, and long-term strategy for land recovery.",
+      "referral": "A landowner can end any agricultural tenancy whenever the land is needed.",
+      "referralWhy": "AHA 1986 tenancies carry strong security of tenure and succession rights; termination is constrained and often requires statutory grounds.",
+      "challenge": [
+        "What security of tenure does an AHA 1986 tenant have compared with an FBT tenant?",
+        "How is rent reviewed under the Agricultural Holdings Act 1986?",
+        "What must be served before an FBT is granted?"
+      ],
+      "keyPoints": [
+        "AHA 1986 tenancies carry strong security of tenure and statutory succession rights.",
+        "Farm Business Tenancies under ATA 1995 are flexible — parties agree their own terms.",
+        "Rent disputes may go to arbitration; specialist advice is essential on structure and recovery."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "What does the Inspection competency require of a land and resources surveyor?",
+      "pass": "Surveyors must inspect land to the extent reasonably practicable for the purpose of the instruction and record their findings accurately, including the scope and limitations of the inspection.",
+      "high": "The RICS Red Book (RICS Valuation — Global Standards) requires that where a physical inspection is carried out, the surveyor must inspect as much of the property as is reasonably possible, record what has been inspected, note any limitations on access, and identify any matters that could not be inspected. For land instructions, inspection should address: boundaries and apparent encroachments or encumbrances against the title plan, ground conditions and topography, drainage and evidence of flooding, access routes and their legal status, utilities and visible apparatus, ecological features and habitat, indicators of contamination such as distressed vegetation, staining or odour, existing uses and any apparent restrictions, and any other matter that could materially affect value or advice. The scope and limitations of inspection must be disclosed in the report. Where matters observed require specialist investigation — environmental, structural, ecological or legal — this must be recommended. Any assumptions made in the absence of full access must be declared and, where appropriate, confirmed or qualified by the client.",
+      "referral": "Inspection just means walking around the land briefly before writing the report.",
+      "referralWhy": "The RICS Red Book sets out specific inspection obligations including recording limitations, identifying matters requiring specialist advice, and declaring assumptions.",
+      "challenge": [
+        "What limitations on inspection must be recorded in a Red Book-compliant report?",
+        "What site indicators might suggest contamination risk during a land inspection?",
+        "What assumptions might need to be declared where full access is not available?"
+      ],
+      "keyPoints": [
+        "Red Book inspection must record what was seen, any limitations and any matters not inspected.",
+        "Indicators of contamination, flooding, encroachments and ecology should all be noted.",
+        "Scope limitations and assumptions must be disclosed clearly in the report."
+      ],
+      "module": "M11B"
     }
   ],
   "Building Control": [

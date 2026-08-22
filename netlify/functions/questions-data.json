@@ -7241,7 +7241,7 @@
       "q": "How would you value a residential property?",
       "why": "Assessors ask this because residential candidates must understand valuation as a structured professional process, not simply comparing house prices online. They want to hear about instruction, inspection, evidence, analysis, assumptions, market conditions and reporting.",
       "pass": "I would first confirm the purpose of the valuation, the basis of value, the client's requirements and the property interest being valued. I would then inspect the property, record its size, condition, location, accommodation and specification, and research comparable sales evidence. I would analyse the comparables and make adjustments for differences before reaching my valuation opinion.",
-      "high": "I would value a residential property by following a structured valuation process. First, I would confirm the instruction, including the client, purpose, basis of value, valuation date, property interest, scope of inspection, assumptions, limitations and reporting requirements. I would then inspect the property, recording location, accommodation, floor area, layout, condition, age, construction, specification, outside space, parking, tenure, planning matters, defects, environmental factors and any limitations. I would research relevant comparable evidence, giving most weight to recent, completed, verified sales of similar properties in the same or comparable location, analysing the evidence by considering differences in size, condition, layout, tenure, specification, date of sale, market movement and any special purchaser circumstances. My valuation would be a reasoned professional opinion based on the evidence, not simply an average of nearby sales. I would clearly record my assumptions, limitations and reasoning in the valuation file and report.",
+      "high": "I would value a residential property by following a structured valuation process. First, I would confirm the instruction, including the client, purpose, basis of value, valuation date, property interest, scope of inspection, assumptions, limitations and reporting requirements. I would then inspect the property, recording location, accommodation, floor area, layout, condition, age, construction, specification, outside space, parking, tenure, planning matters, defects, environmental factors and any limitations. I would research relevant comparable evidence, giving most weight to recent, completed, verified sales of similar properties in the same or comparable location, analysing the evidence by considering differences in size, condition, layout, tenure, specification, date of sale, market movement and any special purchaser circumstances. My valuation would be a reasoned professional opinion based on the evidence, not simply an average of nearby sales. I would clearly record my assumptions, limitations and reasoning in the valuation file and report. I would also be aware that lenders may use automated valuation models to benchmark residential valuations, particularly for loan security purposes. Where an AVM result is referenced, my role may include commenting on whether the automated output is supported by the comparable evidence and whether the subject property has characteristics — such as significant defects, unusual specification, non-standard construction, a short or complex lease, or limited local comparable data — that may not be adequately reflected in an algorithm-based model.",
       "referral": "I would look at similar houses nearby and use those prices to work out the value.",
       "referralWhy": [
         "Too simplistic — does not explain inspection, evidence verification or adjustments",
@@ -7252,13 +7252,15 @@
         "What comparable evidence would you use?",
         "How would you adjust evidence?",
         "How would condition affect value?",
-        "What would you include in your valuation file?"
+        "What would you include in your valuation file?",
+        "What is your experience with automated valuation models, and when would you question an AVM result?"
       ],
       "keyPoints": [
         "Residential valuation must be structured and evidence-led",
         "Comparable sales need analysis, not copying",
         "Inspection findings should link to value",
-        "The valuation file should support the final opinion"
+        "The valuation file should support the final opinion",
+        "Lenders use AVMs to benchmark loan security valuations — candidates at L2 must be able to comment on AVM outputs and flag property-specific limitations"
       ],
       "module": "Residential Valuation, Agency & Market Advice"
     },
@@ -7266,7 +7268,7 @@
       "q": "What factors influence residential property value?",
       "why": "Assessors ask this because candidates need to demonstrate they understand residential value drivers and can explain them clearly to clients.",
       "pass": "Residential value is influenced by location, size, accommodation, condition, specification, layout, tenure, garden or outside space, parking, schools, transport links, local amenities, market demand and comparable evidence.",
-      "high": "Residential property value is influenced by a combination of property-specific, locational and market factors. Property-specific factors include size, layout, accommodation, condition, age, construction, specification, energy performance, tenure, lease length, defects, planning potential, garden, parking and outlook. Location factors include transport links, schools, amenities, employment centres, neighbourhood quality, noise, environmental risks and local buyer demand. Market factors include supply and demand, mortgage availability, interest rates, buyer sentiment, comparable sales, time of year and wider economic conditions. In practice, I would not treat these factors equally — I would consider which factors matter most to the likely buyer profile for that property. For example, school catchment may be highly material for a family house, while service charge, lease length and transport links may be more important for a flat.",
+      "high": "Residential property value is influenced by a combination of property-specific, locational and market factors. Property-specific factors include size, layout, accommodation, condition, age, construction, specification, energy performance, tenure, lease length, defects, planning potential, garden, parking and outlook. Location factors include transport links, schools, amenities, employment centres, neighbourhood quality, noise, environmental risks and local buyer demand. Market factors include supply and demand, mortgage availability, interest rates, buyer sentiment, comparable sales, time of year and wider economic conditions. In practice, I would not treat these factors equally — I would consider which factors matter most to the likely buyer profile for that property. For example, school catchment may be highly material for a family house, while service charge, lease length and transport links may be more important for a flat. Automated valuation models attempt to weight these factors using comparable data algorithmically, but their reliability reduces where properties have unusual characteristics, significant condition issues, or where recent comparable data is sparse — understanding these limitations is relevant when commenting on an AVM result in a loan security context.",
       "referral": "Location is the main thing that affects house value.",
       "referralWhy": [
         "Too narrow — ignores many other value factors",
@@ -7316,7 +7318,7 @@
       "q": "What residential comparable evidence would you rely on?",
       "why": "Assessors ask this because residential candidates must understand evidence quality. Assessors want to know whether the candidate can distinguish strong sales evidence from weaker market indicators.",
       "pass": "I would rely on recent, completed and verified sales of similar residential properties in the same or comparable area. I would consider location, size, condition, accommodation, tenure, lease length, garden, parking, specification and date of sale.",
-      "high": "I would place most weight on recent, completed and verified transactions involving genuinely comparable properties. I would assess whether the evidence was similar in location, property type, size, layout, condition, specification, tenure, lease length, outside space, parking, outlook, school catchment and date of transaction. I would also consider whether the sale was arm's length and properly exposed to the market — for example, a sale between family members, a distressed sale or a property sold with special purchaser interest may not be reliable evidence of Market Value. Where evidence is limited, I may consider older sales, wider geographic evidence, asking prices, under-offers or agent intelligence, but I would place appropriate weight on each source and explain any uncertainty. I would avoid relying mechanically on online estimates or asking prices without verification.",
+      "high": "I would place most weight on recent, completed and verified transactions involving genuinely comparable properties. I would assess whether the evidence was similar in location, property type, size, layout, condition, specification, tenure, lease length, outside space, parking, outlook, school catchment and date of transaction. I would also consider whether the sale was arm's length and properly exposed to the market — for example, a sale between family members, a distressed sale or a property sold with special purchaser interest may not be reliable evidence of Market Value. Where evidence is limited, I may consider older sales, wider geographic evidence, asking prices, under-offers or agent intelligence, but I would place appropriate weight on each source and explain any uncertainty. I would avoid relying mechanically on online estimates or asking prices without verification. The same principle applies to automated valuation model outputs — AVMs draw on comparable databases algorithmically and may not reflect property-specific factors such as poor condition, a difficult layout, a restrictive lease, non-standard construction or limited local comparable evidence. In a loan security context I may be required to comment on whether an AVM benchmark is consistent with the evidence gathered on inspection.",
       "referral": "I would use sold prices from similar houses nearby.",
       "referralWhy": [
         "Partly correct but too limited — does not explain verification or evidence hierarchy",
@@ -7366,7 +7368,7 @@
       "q": "How would you advise a client selling a residential property?",
       "why": "Assessors ask this because residential agency advice requires more than suggesting an asking price. They want to see whether the candidate understands pricing strategy, marketing, client objectives, legal duties and communication.",
       "pass": "I would advise the client by inspecting the property, researching comparable sales, assessing market conditions and recommending an asking price strategy. I would also advise on marketing, presentation, target buyers, timescale, viewings, offers and the sales process.",
-      "high": "I would start by understanding the client's objectives, including desired timescale, price expectations, motivation for sale and any constraints such as onward purchase, probate, divorce or relocation. I would inspect the property and prepare a market appraisal using comparable sales evidence, competing stock and current buyer demand. I would advise on an asking price strategy, explaining the risks of overpricing, underpricing or using a guide price to generate interest. I would also advise on presentation, photography, floor plans, EPC, marketing channels, target buyer profile, viewings, offer handling and negotiation strategy. Importantly, I would manage expectations — if the client's expected price was not supported by evidence, I would explain this clearly and professionally. Throughout the sale I would keep records of advice, offers, communications and client instructions.",
+      "high": "I would start by understanding the client's objectives, including desired timescale, price expectations, motivation for sale and any constraints such as onward purchase, probate, divorce or relocation. I would inspect the property and prepare a market appraisal using comparable sales evidence, competing stock and current buyer demand. I would advise on an asking price strategy, explaining the risks of overpricing, underpricing or using a guide price to generate interest. I would also advise on presentation, photography, floor plans, EPC, marketing channels, target buyer profile, viewings, offer handling and negotiation strategy. Importantly, I would manage expectations — if the client's expected price was not supported by evidence, I would explain this clearly and professionally. Throughout the sale I would keep records of advice, offers, communications and client instructions. Throughout, I would apply the Real Estate Agency and Brokerage Standards — REABS — the applicable RICS professional standard governing residential estate agency practice, which sets out the obligations to act in the client's best interests, handle all offers correctly, maintain accurate records and communicate clearly at every stage.",
       "referral": "I would tell them what price to put it on the market for and advertise it.",
       "referralWhy": [
         "Too basic — does not explain market appraisal, strategy or compliance",
@@ -7377,7 +7379,8 @@
         "How would you set an asking price?",
         "What if the client wants to overprice?",
         "How would you handle offers?",
-        "How would you comply with agency obligations?"
+        "How would you comply with agency obligations?",
+        "What is REABS and how does it govern the relationship between a residential estate agent and a selling client?"
       ],
       "keyPoints": [
         "Residential sales advice should be evidence-based",
@@ -7391,7 +7394,7 @@
       "q": "How would you deal with multiple offers on a residential property?",
       "why": "Assessors ask this because offer handling raises important issues of fairness, transparency, client care and ethics. They want to see whether the candidate understands that the highest offer is not always the strongest offer.",
       "pass": "I would present all offers to the client and advise them on the amount offered, buyer position, funding, chain, timescale, conditions and likelihood of completion. I would keep clear records and act in the client's best interests.",
-      "high": "I would handle multiple offers by ensuring all offers are recorded and promptly reported to the client in accordance with professional and legal obligations. I would advise the client not only on price but also on strength and deliverability — relevant factors would include mortgage position, cash status, chain, survey risk, timescale, conditions, deposit, solicitor readiness and whether the buyer has a property to sell. If appropriate, I may recommend a best and final offers process, ensuring all parties are treated fairly and the process is clearly communicated. My advice would be to select the offer that best meets the client's objectives — for example, if the client needs speed and certainty, a slightly lower cash offer may be preferable to a higher offer in a long chain.",
+      "high": "I would handle multiple offers by ensuring all offers are recorded and promptly reported to the client in accordance with professional and legal obligations. I would advise the client not only on price but also on strength and deliverability — relevant factors would include mortgage position, cash status, chain, survey risk, timescale, conditions, deposit, solicitor readiness and whether the buyer has a property to sell. If appropriate, I may recommend a best and final offers process, ensuring all parties are treated fairly and the process is clearly communicated. My advice would be to select the offer that best meets the client's objectives — for example, if the client needs speed and certainty, a slightly lower cash offer may be preferable to a higher offer in a long chain. Throughout this process I would comply with the Real Estate Agency and Brokerage Standards — REABS — the applicable RICS professional standard that governs how all offers must be handled, recorded and reported to clients in residential agency practice.",
       "referral": "I would advise the client to accept the highest offer.",
       "referralWhy": [
         "Poor advice — the highest offer may not be the most reliable or best aligned with client needs",
@@ -7402,7 +7405,8 @@
         "Must all offers be reported?",
         "Is the highest offer always best?",
         "What is a best and final offers process?",
-        "How would you assess buyer strength?"
+        "How would you assess buyer strength?",
+        "What obligations does REABS place on agents when handling multiple offers?"
       ],
       "keyPoints": [
         "All offers should be handled fairly and recorded",
@@ -7416,7 +7420,7 @@
       "q": "What should be included in residential marketing particulars?",
       "why": "Assessors ask this because residential marketing must be accurate, clear and not misleading. They want to see whether candidates understand that marketing particulars are professional documents, not just sales material.",
       "pass": "Residential particulars should include the address or location, asking price, description, accommodation, photographs, floor plan, tenure, council tax, EPC rating, key features, outside space, parking, viewing arrangements and any relevant material information. They should be accurate and not misleading.",
-      "high": "Residential marketing particulars should present the property clearly, accurately and fairly. They should include key information such as price, location, description, accommodation, floor areas or room measurements where provided, photographs, floor plan, tenure, lease length where relevant, ground rent, service charge, council tax band, EPC rating, outside space, parking, restrictions, material defects or known issues, viewing arrangements and agent contact details. The information should be verified where possible and not misleading by omission or exaggeration — for example, if a flat has a short lease, high service charge or restricted access, that information may be material to a buyer. I would also ensure photographs and descriptions accurately represent the property and that any assumptions or unverified details are treated carefully.",
+      "high": "Residential marketing particulars should present the property clearly, accurately and fairly. They should include key information such as price, location, description, accommodation, floor areas or room measurements where provided, photographs, floor plan, tenure, lease length where relevant, ground rent, service charge, council tax band, EPC rating, outside space, parking, restrictions, material defects or known issues, viewing arrangements and agent contact details. The information should be verified where possible and not misleading by omission or exaggeration — for example, if a flat has a short lease, high service charge or restricted access, that information may be material to a buyer. I would also ensure photographs and descriptions accurately represent the property and that any assumptions or unverified details are treated carefully. The applicable professional standard governing marketing particulars and material information obligations is the Real Estate Agency and Brokerage Standards — REABS — which requires that marketing is accurate, complete and not misleading by statement or omission, and that consumers have the information they need to make informed decisions.",
       "referral": "Particulars should include photos, price and a description of the property.",
       "referralWhy": [
         "Incomplete — ignores accuracy, material information, tenure and EPC",
@@ -7427,7 +7431,8 @@
         "What is material information?",
         "Why is tenure important?",
         "What leasehold information should be disclosed?",
-        "How would you verify information?"
+        "How would you verify information?",
+        "What does REABS require in terms of material information in residential marketing particulars?"
       ],
       "keyPoints": [
         "Particulars must be accurate and not misleading",
@@ -7466,7 +7471,7 @@
       "q": "How would you explain the difference between asking price, sale price and Market Value?",
       "why": "Assessors ask this because residential clients often confuse asking price, achieved price and professional value. Candidates must be able to explain the distinction clearly.",
       "pass": "Asking price is the price at which a property is marketed. Sale price is the price actually agreed between buyer and seller. Market Value is a professional opinion based on a defined valuation basis, evidence and assumptions at the valuation date.",
-      "high": "Asking price, sale price and Market Value are related but different. The asking price is a marketing figure — it may be set to attract interest, test the market or reflect the seller's expectations, and is not necessarily evidence of value. The sale price is the amount agreed between buyer and seller — it may be above or below Market Value depending on competition, negotiation, buyer motivation, market exposure, chain pressure or special purchaser interest. Market Value is a professional opinion prepared on a defined basis at a specific valuation date — it should be supported by relevant evidence and reflect an arm's-length transaction between willing parties after proper marketing. In practice, I would explain to a client that asking price is strategy, sale price is fact, and Market Value is professional judgement.",
+      "high": "Asking price, sale price and Market Value are related but different. The asking price is a marketing figure — it may be set to attract interest, test the market or reflect the seller's expectations, and is not necessarily evidence of value. The sale price is the amount agreed between buyer and seller — it may be above or below Market Value depending on competition, negotiation, buyer motivation, market exposure, chain pressure or special purchaser interest. Market Value is a professional opinion prepared on a defined basis at a specific valuation date — it should be supported by relevant evidence and reflect an arm's-length transaction between willing parties after proper marketing. In practice, I would explain to a client that asking price is strategy, sale price is fact, and Market Value is professional judgement. A further distinction worth drawing is between Market Value and automated valuation model estimates. An AVM produces an algorithm-based output from comparable data without inspection or professional analysis of the specific property — it is not a Market Value opinion and may not reflect individual property characteristics. Understanding this distinction matters, particularly in a loan security context where lenders may use AVMs alongside or instead of a full valuation.",
       "referral": "Asking price is what the seller wants, sale price is what they get, and Market Value is usually similar.",
       "referralWhy": [
         "Too casual — does not explain professional valuation basis or market behaviour",
@@ -7791,7 +7796,7 @@
       "q": "How would ground rent affect residential value or marketability?",
       "why": "Assessors ask this because ground rent can affect buyer appetite, lender requirements and leasehold value. They want to know whether candidates understand that ground rent is not just a small annual payment.",
       "pass": "Ground rent is an annual payment made by the leaseholder to the freeholder under the lease. It can affect value and marketability if it is high, increases significantly over time, or causes lender or buyer concern.",
-      "high": "Ground rent can affect residential value and marketability depending on its amount, review mechanism and lender perception. A low fixed ground rent may have limited impact — however, a high ground rent, aggressive review pattern or unusual escalation clause can reduce buyer demand and create mortgageability concerns. When advising, I would review the ground rent amount, review frequency, increase mechanism and any relationship with the property value. I would also consider whether the ground rent terms are typical for the market and whether they may concern lenders or future purchasers. I would not provide legal advice on the enforceability of lease terms, but I would flag the issue and advise the client to seek solicitor advice before exchange.",
+      "high": "An important threshold distinction applies between new and existing leases. The Leasehold Reform (Ground Rent) Act 2022 prohibits regulated ground rents on new residential leases entered into from 30 June 2022 — new leases must have a peppercorn ground rent only. Ground rent as a substantive financial consideration therefore applies to existing pre-Act leasehold stock. Ground rent can affect residential value and marketability depending on its amount, review mechanism and lender perception. A low fixed ground rent may have limited impact — however, a high ground rent, aggressive review pattern or unusual escalation clause can reduce buyer demand and create mortgageability concerns. When advising, I would review the ground rent amount, review frequency, increase mechanism and any relationship with the property value. I would also consider whether the ground rent terms are typical for the market and whether they may concern lenders or future purchasers. I would not provide legal advice on the enforceability of lease terms, but I would flag the issue and advise the client to seek solicitor advice before exchange.",
       "referral": "Ground rent is a payment made to the freeholder and it can reduce value if it is high.",
       "referralWhy": [
         "Partly correct but too limited — does not explain review patterns or lender concerns",
@@ -7808,7 +7813,8 @@
         "Ground rent terms can affect marketability",
         "Review mechanisms matter",
         "Lender perception is important",
-        "Legal advice should be recommended where lease terms are material"
+        "Legal advice should be recommended where lease terms are material",
+        "The Leasehold Reform (Ground Rent) Act 2022 prohibits regulated ground rents on new residential leases from 30 June 2022 — the existing analysis of review mechanisms and lender concerns applies to pre-Act stock only"
       ],
       "module": "Leasehold, Lettings & Residential Management"
     },
@@ -7841,7 +7847,7 @@
       "q": "How would you advise a landlord letting a residential property?",
       "why": "Assessors ask this because residential lettings involve market advice, tenant suitability, compliance and risk management. They want to see whether candidates can advise landlords responsibly.",
       "pass": "I would advise the landlord on Market Rent, marketing strategy, tenant demand, property presentation, tenant referencing, tenancy terms, deposit requirements, safety obligations and management responsibilities. I would also ensure the landlord understands their legal obligations before letting.",
-      "high": "I would advise a landlord by first understanding their objectives, whether they want short-term income, long-term tenant stability, full management or let-only service. I would inspect the property and advise on achievable rent, target tenant profile, presentation, repairs, compliance requirements, safety obligations, deposit protection, tenancy documentation, inventory, referencing and management responsibilities. I would also consider risk — for example, a higher rent may attract interest, but overpricing can increase void periods, a weak tenant referencing process can increase arrears or possession risk, and poor property condition can lead to complaints, enforcement or reputational issues. My advice would aim to help the landlord achieve sustainable rental income while complying with legal requirements and protecting both landlord and tenant interests. Where legal requirements were specific or complex, I would recommend appropriate legal or specialist advice.",
+      "high": "I would advise a landlord by first understanding their objectives, whether they want short-term income, long-term tenant stability, full management or let-only service. I would inspect the property and advise on achievable rent, target tenant profile, presentation, repairs, compliance requirements, safety obligations, deposit protection, tenancy documentation, inventory, referencing and management responsibilities. I would also consider risk — for example, a higher rent may attract interest, but overpricing can increase void periods, a weak tenant referencing process can increase arrears or possession risk, and poor property condition can lead to complaints, enforcement or reputational issues. My advice would aim to help the landlord achieve sustainable rental income while complying with legal requirements and protecting both landlord and tenant interests. Where legal requirements were specific or complex, I would recommend appropriate legal or specialist advice. My advice would be framed by the RICS Real estate management standard, the applicable professional standard setting out obligations and best practice for residential property management, including landlord duties, client money handling, service charge management and statutory compliance.",
       "referral": "I would tell the landlord what rent they can get and find a tenant.",
       "referralWhy": [
         "Too basic — ignores compliance, tenant checks and safety obligations",
@@ -7858,7 +7864,8 @@
         "Lettings advice includes rent, compliance and risk",
         "Tenant referencing protects the landlord",
         "Property condition and safety obligations matter",
-        "Sustainable letting is better than simply maximising rent"
+        "Sustainable letting is better than simply maximising rent",
+        "The RICS Real estate management standard is the applicable professional framework for residential property management"
       ],
       "module": "Leasehold, Lettings & Residential Management"
     },
@@ -8486,6 +8493,82 @@
         "Strong candidates show readiness, judgement and public trust"
       ],
       "module": "Case Study, Client Advice & Final Assessment"
+    },
+    {
+      "q": "What fraud risks should you be aware of in residential loan security valuation, and what should you do if you identify concerns?",
+      "why": "Loan security valuation L1 requires fraud and criminal activity awareness; L2 requires the ability to identify and report fraud to the National Crime Agency or equivalent. Residential mortgage fraud is a known risk area and assessors expect candidates selecting this competency to understand both the types of fraud encountered and the correct reporting obligations.",
+      "pass": "I would be aware that residential loan security valuation can be subject to fraud, including inflated valuations, identity fraud, misrepresented property characteristics or fabricated transactions. If I identified concerns, I would not proceed without raising the matter internally with my supervisor and following my firm's reporting procedures.",
+      "high": "Loan security valuation fraud can take various forms. Common examples include inflated valuations to support a larger mortgage loan, misrepresentation of the property's condition, specification, tenure or identity, back-to-back or same-day transactions at prices above market value, straw buyer arrangements where the true purchaser is concealed, and fabricated rental income to support buy-to-let lending decisions. During a valuation I would be alert to red flags such as an agreed price significantly above comparable evidence, pressure from any party to reach a specific figure, an unusually urgent instruction without clear commercial explanation, inconsistencies in property documentation or ownership, or a transaction that does not make commercial sense. If I identified or suspected fraud, I would first escalate internally to my supervisor or the firm's money laundering reporting officer — I would not alert the client or any suspected party, as doing so could constitute tipping off. Where required, the firm's nominated officer may need to submit a suspicious activity report to the National Crime Agency or equivalent authority. Throughout, my valuation opinion would remain independent of any commercial or client pressure to adjust the figure.",
+      "referral": "I would tell my manager if I thought something was wrong.",
+      "referralWhy": [
+        "No awareness of specific fraud types in loan security valuation",
+        "Fails to mention the NCA reporting obligation required at L2",
+        "Does not identify the tipping-off risk or internal escalation process",
+        "Does not demonstrate that valuation opinion must remain independent under pressure"
+      ],
+      "challenge": [
+        "What types of fraud are most commonly encountered in residential mortgage valuation?",
+        "What would you do if a broker or client pressured you to adjust your valuation figure upwards?",
+        "What is the difference between reporting internally to your MLRO and submitting a SAR to the NCA?",
+        "What is tipping off and why does it matter in this context?"
+      ],
+      "keyPoints": [
+        "Loan security valuation L1 requires fraud and criminal activity awareness",
+        "Loan security valuation L2 requires reporting fraud to the National Crime Agency or equivalent",
+        "Internal escalation to the firm's MLRO comes first — never alert the suspected party",
+        "Valuation opinion must remain independent regardless of commercial or client pressure"
+      ],
+      "module": "Regulation, Compliance, Safety & Client Risk"
+    },
+    {
+      "q": "How does sustainability apply to residential property practice, and what is Triple Bottom Line analysis?",
+      "why": "Sustainability L1 requires knowledge of the legal and policy framework and the relationship between property and sustainability. Sustainability L2 requires the ability to apply Triple Bottom Line analysis to residential scenarios — TBL is the specific sustainability framework named by the RICS Residential pathway guide for this competency at L2.",
+      "pass": "Sustainability in residential property relates to energy performance, environmental impact, social wellbeing and long-term economic viability. Triple Bottom Line analysis considers three dimensions — economic, social and environmental — to give a rounded assessment of sustainability. In practice this might include considering running costs and energy bills, occupant and community wellbeing, and carbon and environmental impact.",
+      "high": "The Brundtland Commission defined sustainable development as meeting the needs of the present without compromising the ability of future generations to meet their own needs. In residential property, sustainability encompasses energy performance, carbon impact, resource use, community and social impact, and long-term economic viability. Triple Bottom Line analysis applies three dimensions: economic — covering running costs, energy bills, asset value, lettability and investment return; social — covering occupant health and wellbeing, community benefit, affordability and accessibility; and environmental — covering carbon emissions, energy efficiency, biodiversity, water use and materials. In a residential instruction, I would consider sustainability when advising on energy performance, refurbishment options, lettings compliance, and asset management. For lettings, the Minimum Energy Efficiency Standards require domestic let properties to meet a minimum EPC rating — advising a landlord on compliance, improvement options and cost is a direct sustainability task. At an advisory level, I would apply TBL analysis to evaluate residential decisions in a rounded way, not solely on financial return, and advise on how sustainability improvements affect value, marketability, regulatory risk and long-term running costs.",
+      "referral": "Sustainability means making properties more energy efficient.",
+      "referralWhy": [
+        "Reduces sustainability to EPC alone — no awareness of TBL or the broader framework",
+        "No reference to Triple Bottom Line or its three economic, social and environmental dimensions",
+        "Fails to connect sustainability to professional advice, value impact or regulatory compliance"
+      ],
+      "challenge": [
+        "What is the Brundtland definition of sustainable development?",
+        "How would you apply Triple Bottom Line analysis to a specific residential instruction?",
+        "What are the minimum energy efficiency requirements for residential let properties?",
+        "How would you advise a landlord whose property has a low EPC rating?"
+      ],
+      "keyPoints": [
+        "Triple Bottom Line = economic, social and environmental sustainability dimensions",
+        "Sustainability L2 requires TBL analysis applied to residential scenarios — it is specifically named in the RICS Residential pathway guide",
+        "MEES requires domestic let properties to meet a minimum EPC rating before lawful letting",
+        "Sustainability affects value, lettability, running costs, compliance and professional advice"
+      ],
+      "module": "Regulation, Compliance, Safety & Client Risk"
+    },
+    {
+      "q": "What dispute resolution procedures are available for residential property disputes, and when would you recommend each?",
+      "why": "Conflict avoidance L1 requires knowledge of specific dispute resolution procedures including PACT, the RICS Dispute Resolution Service, the Valuation Tribunal and litigation. L2 requires understanding of how these apply in practice, including Regulation 17 of the Alteration of Lists and Appeals Regulations in the context of Council Tax band appeals. Assessors expect candidates selecting this optional competency to name and distinguish the specific procedures.",
+      "pass": "Dispute resolution options include negotiation, mediation, independent expert determination, arbitration, PACT, the RICS Dispute Resolution Service, the Valuation Tribunal and litigation. I would recommend the least adversarial route first and escalate only where resolution cannot be reached, advising clients on the cost, speed, binding nature and formality of each option.",
+      "high": "The main dispute resolution procedures available for residential property disputes range from informal to highly formal. Negotiation should always be the first approach — it is the least costly and preserves relationships. Where negotiation fails, mediation involves a neutral third party facilitating agreement, without imposing a decision. Independent expert determination provides a binding decision by a specialist appointed by agreement, often used for technical disputes such as valuations or boundary matters. Arbitration is a formal binding procedure governed by the Arbitration Act 1996. PACT — Professional Arbitration on Court Terms — is a specific procedure used for rent review and residential leasehold disputes, providing a faster and less costly route than litigation where parties accept the arbitration framework. The RICS Dispute Resolution Service provides specialist adjudication, expert determination and mediation services administered by RICS for disputes in the built environment, including those involving RICS-regulated professionals. The Valuation Tribunal handles Council Tax banding and non-domestic rating appeals — in a residential context, Regulation 17 of the Alteration of Lists and Appeals Regulations governs how a Council Tax band can be challenged and the process for applying to alter the valuation list. Calderbank offers and Part 36 offers can be used strategically in proceedings to protect a party's costs position if the matter goes to a formal hearing. My advice to a client would consider the nature and value of the dispute, the relationship between parties, speed and cost, and whether a binding outcome is needed — I would recommend the least adversarial route capable of achieving a fair resolution before recommending formal or adversarial proceedings.",
+      "referral": "I would recommend the client go to court.",
+      "referralWhy": [
+        "Litigation is the most adversarial and expensive route — recommending it immediately shows no awareness of alternatives",
+        "No mention of PACT, RICS Dispute Resolution Service, Valuation Tribunal or Regulation 17",
+        "Fails to demonstrate any knowledge of the conflict avoidance principle or the spectrum of dispute resolution options"
+      ],
+      "challenge": [
+        "When would you recommend PACT over independent expert determination?",
+        "What is the RICS Dispute Resolution Service and in what circumstances is it used?",
+        "What is Regulation 17 and when does it apply in a residential context?",
+        "What is the difference between a Calderbank offer and a Part 36 offer, and why does it matter in dispute proceedings?"
+      ],
+      "keyPoints": [
+        "PACT is used for rent review and residential leasehold disputes — a faster and less costly alternative to litigation",
+        "RICS Dispute Resolution Service provides RICS-administered adjudication, expert determination and mediation",
+        "Valuation Tribunal handles Council Tax band appeals — Regulation 17 of the Alteration of Lists and Appeals Regulations governs how the list can be altered",
+        "Always consider least adversarial options first — cost, speed, binding effect and relationship preservation all matter"
+      ],
+      "module": "Regulation, Compliance, Safety & Client Risk"
     }
   ],
   "Commercial Real Estate": [

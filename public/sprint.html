@@ -31,6 +31,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:fl
 .nav-logo span{color:var(--gold)}
 .nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:.02em;transition:.18s}
 .nav-cta:hover{background:var(--gold2)}
+.nav-signin{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(248,250,252,.75);font-family:var(--f-body);font-size:13px;font-weight:500;padding:9px 16px;border-radius:6px;cursor:pointer;transition:.18s;white-space:nowrap}
+.nav-signin:hover{border-color:rgba(255,255,255,.4);color:var(--white)}
 
 /* ── CAMPAIGN STRIP ── */
 .campaign-strip{margin-top:80px;background:linear-gradient(135deg,rgba(37,99,235,.15) 0%,rgba(29,78,216,.07) 100%);border-bottom:1px solid rgba(37,99,235,.22);padding:16px 24px;text-align:center}
@@ -176,7 +178,10 @@ footer a{color:#60a5fa;text-decoration:none}
 
 <nav>
   <a href="/" class="nav-logo"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px"></a>
-  <a href="#enrol" class="nav-cta">Start Your Final Sprint →</a>
+  <div style="display:flex;align-items:center;gap:12px">
+    <button id="sprint-signin-nav" class="nav-signin" onclick="sprintRenderLogin()">Already purchased? Sign in →</button>
+    <a href="#enrol" id="sprint-nav-cta" class="nav-cta">Start Your Final Sprint →</a>
+  </div>
 </nav>
 
 <!-- AUTUMN CAMPAIGN STRIP — above hero -->
@@ -201,6 +206,7 @@ footer a{color:#60a5fa;text-decoration:none}
       <span class="hero-proof-item">Michael 24/7</span>
       <span class="hero-proof-item">Full 60-minute mock</span>
     </div>
+    <p id="sprint-hero-signin" style="margin-top:20px;font-size:13px;color:rgba(248,250,252,0.5);text-align:center">Already purchased? <button onclick="sprintRenderLogin()" style="background:none;border:none;color:rgba(248,250,252,0.7);font-family:var(--f-body);font-size:13px;cursor:pointer;padding:0;text-decoration:underline">Sign in →</button></p>
   </div>
 </section>
 
@@ -378,7 +384,7 @@ footer a{color:#60a5fa;text-decoration:none}
         <li>Industry Briefing — current issues for your assessment window</li>
         <li>Instant access on enrolment · Counts toward RICS CPD</li>
       </ul>
-      <button class="btn-sprint" onclick="showApcModal('sprint')">Start Your Final Sprint</button>
+      <button id="sprint-enrol-btn" class="btn-sprint" onclick="showApcModal('sprint')">Start Your Final Sprint</button>
       <div class="price-guarantee">One-off payment · No subscription · No cancellation required.<br>Questions? <a href="mailto:info@getcharteredai.com" style="color:#60a5fa">info@getcharteredai.com</a></div>
     </div>
 
@@ -505,8 +511,87 @@ async function _submitApcModal() {
   closeApcModal();
   await checkout(_apcModalPlan, { rics_pathway: pathway, assessment_window: win });
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeApcModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeApcModal(); sprintCloseLogin(); } });
+
+// ── SPRINT SESSION / SIGN-IN ─────────────────────────────────────────────
+function sprintCheckSession() {
+  const plan  = localStorage.getItem('gca_plan');
+  const token = localStorage.getItem('gca_token');
+  if (plan === 'sprint' && token) {
+    // Active session — swap all CTAs to Continue
+    const navCta = document.getElementById('sprint-nav-cta');
+    if (navCta) { navCta.textContent = 'Continue Your Final Sprint →'; navCta.href = '/index.html?view=dashboard'; }
+    const signinNav = document.getElementById('sprint-signin-nav');
+    if (signinNav) signinNav.style.display = 'none';
+    const heroSignin = document.getElementById('sprint-hero-signin');
+    if (heroSignin) heroSignin.innerHTML = 'You already have access — <button onclick="window.location.href=\'/index.html?view=dashboard\'" style="background:none;border:none;color:rgba(248,250,252,0.7);font-family:var(--f-body);font-size:13px;cursor:pointer;padding:0;text-decoration:underline">Continue Your Final Sprint →</button>';
+    const enrolBtn = document.getElementById('sprint-enrol-btn');
+    if (enrolBtn) { enrolBtn.textContent = 'Continue Your Final Sprint →'; enrolBtn.onclick = () => window.location.href = '/index.html?view=dashboard'; }
+  }
+}
+
+function sprintRenderLogin() {
+  const m = document.getElementById('sprint-login-modal');
+  m.style.cssText = 'display:flex;position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px';
+  setTimeout(() => { const e = document.getElementById('sprint-login-email'); if (e) e.focus(); }, 50);
+}
+function sprintCloseLogin() {
+  const m = document.getElementById('sprint-login-modal');
+  if (m) m.style.display = 'none';
+}
+async function sprintDoLogin() {
+  const email = (document.getElementById('sprint-login-email')?.value || '').trim().toLowerCase();
+  const token = (document.getElementById('sprint-login-token')?.value || '').trim();
+  const err = document.getElementById('sprint-login-err');
+  err.style.display = 'none';
+  if (!email || !token) { err.textContent = 'Please enter your email and access token.'; err.style.display = 'block'; return; }
+  try {
+    const r = await fetch('/.netlify/functions/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ token }) });
+    const d = await r.json();
+    if (d.valid && d.plan === 'sprint') {
+      localStorage.setItem('gca_token', token);
+      localStorage.setItem('gca_plan', 'sprint');
+      localStorage.setItem('gca_user', d.email);
+      if (d.activatedAt) localStorage.setItem('gca_activated', d.activatedAt.toString());
+      window.location.href = '/index.html?view=dashboard';
+    } else if (d.valid && d.plan !== 'sprint') {
+      err.textContent = 'This token belongs to a different plan. Contact info@getcharteredai.com for help.';
+      err.style.display = 'block';
+    } else {
+      err.textContent = d.error || 'Invalid token. Please check and try again.';
+      err.style.display = 'block';
+    }
+  } catch(e) {
+    err.textContent = 'Connection error. Please try again.';
+    err.style.display = 'block';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  sprintCheckSession();
+});
 </script>
+
+<!-- SPRINT SIGN-IN MODAL -->
+<div id="sprint-login-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="sprint-login-title">
+  <div style="background:#111827;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:36px;max-width:400px;width:100%;position:relative">
+    <button onclick="sprintCloseLogin()" aria-label="Close" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#64748b;font-size:22px;cursor:pointer;line-height:1;padding:4px">×</button>
+    <div id="sprint-login-title" style="font-family:var(--f-head);font-size:20px;font-weight:800;margin-bottom:8px;color:#f8fafc">Sign in to your sprint</div>
+    <p style="font-size:13px;color:#94a3b8;margin-bottom:24px;line-height:1.6">Use the email and access token from your purchase confirmation email.</p>
+    <div style="margin-bottom:16px">
+      <label style="display:block;font-size:12px;font-weight:600;color:#cbd5e1;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase">Email</label>
+      <input id="sprint-login-email" type="email" placeholder="you@email.com" autocomplete="email" style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:var(--f-body);font-size:14px;outline:none">
+    </div>
+    <div style="margin-bottom:20px">
+      <label style="display:block;font-size:12px;font-weight:600;color:#cbd5e1;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase">Access token</label>
+      <input id="sprint-login-token" type="password" placeholder="Paste from your welcome email link" style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:var(--f-body);font-size:14px;outline:none">
+    </div>
+    <div id="sprint-login-err" style="display:none;color:#f87171;font-size:13px;margin-bottom:14px"></div>
+    <button onclick="sprintDoLogin()" style="width:100%;padding:13px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:var(--f-body);cursor:pointer;transition:.15s">Sign in →</button>
+    <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:16px;line-height:1.6">Your token is in the link from your welcome email. Can't find it? <a href="mailto:info@getcharteredai.com" style="color:#2563EB">info@getcharteredai.com</a></p>
+    <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:8px">Don't have access yet? <button onclick="sprintCloseLogin();showApcModal('sprint')" style="background:none;border:none;color:#2563EB;font-family:var(--f-body);font-size:12px;cursor:pointer;text-decoration:underline;padding:0">Enrol now →</button></p>
+  </div>
+</div>
 
 <!-- APC PATHWAY MODAL -->
 <div id="apc-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="apc-modal-title">

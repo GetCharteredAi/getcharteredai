@@ -203,7 +203,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
   <h1>Structured preparation. <em>From wherever you are now — all the way to assessment day.</em></h1>
   <p class="hero-sub">Twelve modules. Eleven mandatory competencies. Michael your AI Tutor. 5,000+ practice questions and answers. A 60-minute mock interview. Everything you need to pass the APC — in one structured programme. Updated for 2026.</p>
   <div class="hero-btns">
-    <a href="#pricing" id="prog-hero-cta" class="btn btn-primary">Enrol now — £497 →</a>
+    <button id="prog-hero-cta" class="btn btn-primary" onclick="showApcModal('annual')">Enrol now — £497 →</button>
     <a href="#what" class="btn btn-ghost">See what's included</a>
   </div>
   <p id="prog-hero-signin" style="margin-top:20px;font-size:13px;color:rgba(255,255,255,.5);text-align:center">Already purchased? <button onclick="progRenderLogin()" style="background:none;border:none;color:rgba(255,255,255,.7);font-family:var(--f);font-size:13px;cursor:pointer;padding:0;text-decoration:underline">Sign in →</button></p>
@@ -538,7 +538,7 @@ function progCheckSession() {
     const signinNav = document.getElementById('prog-signin-nav');
     if (signinNav) signinNav.style.display = 'none';
     const heroBtn = document.getElementById('prog-hero-cta');
-    if (heroBtn) { heroBtn.textContent = 'Continue Your Programme →'; heroBtn.href = '/index.html?view=dashboard'; }
+    if (heroBtn) { heroBtn.textContent = 'Continue Your Programme →'; heroBtn.onclick = () => window.location.href = '/index.html?view=dashboard'; }
     const navCta = document.getElementById('prog-nav-cta');
     if (navCta) { navCta.textContent = 'Continue →'; navCta.href = '/index.html?view=dashboard'; }
     const signinBelow = document.getElementById('prog-hero-signin');

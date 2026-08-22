@@ -193,7 +193,8 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
     <a href="#what" class="nav-link">What's included</a>
     <a href="#how" class="nav-link">How it works</a>
     <a href="#pricing" class="nav-link">Pricing</a>
-    <a href="#pricing" class="nav-btn">Enrol now →</a>
+    <button id="prog-signin-nav" onclick="progRenderLogin()" style="background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);font-family:var(--f);font-size:13px;font-weight:500;padding:7px 14px;border-radius:7px;cursor:pointer;white-space:nowrap">Already purchased? Sign in →</button>
+    <a href="#pricing" id="prog-nav-cta" class="nav-btn">Enrol now →</a>
   </div>
 </nav>
 
@@ -202,9 +203,10 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
   <h1>Structured preparation. <em>From wherever you are now — all the way to assessment day.</em></h1>
   <p class="hero-sub">Twelve modules. Eleven mandatory competencies. Michael your AI Tutor. 5,000+ practice questions and answers. A 60-minute mock interview. Everything you need to pass the APC — in one structured programme. Updated for 2026.</p>
   <div class="hero-btns">
-    <a href="#pricing" class="btn btn-primary">Enrol now — £497 →</a>
+    <a href="#pricing" id="prog-hero-cta" class="btn btn-primary">Enrol now — £497 →</a>
     <a href="#what" class="btn btn-ghost">See what's included</a>
   </div>
+  <p id="prog-hero-signin" style="margin-top:20px;font-size:13px;color:rgba(255,255,255,.5);text-align:center">Already purchased? <button onclick="progRenderLogin()" style="background:none;border:none;color:rgba(255,255,255,.7);font-family:var(--f);font-size:13px;cursor:pointer;padding:0;text-decoration:underline">Sign in →</button></p>
   <div class="hero-stats">
     <div><div class="stat-num">12</div><div class="stat-lbl">Structured modules</div></div>
     <div><div class="stat-num">11</div><div class="stat-lbl">Mandatory competencies</div></div>
@@ -526,12 +528,87 @@ async function _submitApcModal() {
   closeApcModal();
   await checkout(_apcModalPlan, { rics_pathway: pathway, assessment_window: window });
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeApcModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeApcModal(); progCloseLogin(); } });
+
+// ── PROGRAMME SESSION / SIGN-IN ───────────────────────────────────────────
+function progCheckSession() {
+  const plan  = localStorage.getItem('gca_plan');
+  const token = localStorage.getItem('gca_token');
+  if ((plan === 'annual' || plan === 'monthly') && token) {
+    const signinNav = document.getElementById('prog-signin-nav');
+    if (signinNav) signinNav.style.display = 'none';
+    const heroBtn = document.getElementById('prog-hero-cta');
+    if (heroBtn) { heroBtn.textContent = 'Continue Your Programme →'; heroBtn.href = '/index.html?view=dashboard'; }
+    const navCta = document.getElementById('prog-nav-cta');
+    if (navCta) { navCta.textContent = 'Continue →'; navCta.href = '/index.html?view=dashboard'; }
+    const signinBelow = document.getElementById('prog-hero-signin');
+    if (signinBelow) signinBelow.style.display = 'none';
+  }
+}
+function progRenderLogin() {
+  const m = document.getElementById('prog-login-modal');
+  m.style.cssText = 'display:flex;position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px';
+  setTimeout(() => { const e = document.getElementById('prog-login-email'); if (e) e.focus(); }, 50);
+}
+function progCloseLogin() {
+  const m = document.getElementById('prog-login-modal');
+  if (m) m.style.display = 'none';
+}
+async function progDoLogin() {
+  const email = (document.getElementById('prog-login-email')?.value || '').trim().toLowerCase();
+  const token = (document.getElementById('prog-login-token')?.value || '').trim();
+  const err = document.getElementById('prog-login-err');
+  err.style.display = 'none';
+  if (!email || !token) { err.textContent = 'Please enter your email and access token.'; err.style.display = 'block'; return; }
+  try {
+    const r = await fetch('/.netlify/functions/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ token }) });
+    const d = await r.json();
+    if (d.valid && (d.plan === 'annual' || d.plan === 'monthly')) {
+      localStorage.setItem('gca_token', token);
+      localStorage.setItem('gca_plan', d.plan);
+      localStorage.setItem('gca_user', d.email);
+      if (d.activatedAt) localStorage.setItem('gca_activated', d.activatedAt.toString());
+      window.location.href = '/index.html?view=dashboard';
+    } else if (d.valid) {
+      err.textContent = 'This token belongs to a different plan. Contact info@getcharteredai.com for help.';
+      err.style.display = 'block';
+    } else {
+      err.textContent = d.error || 'Invalid token. Please check and try again.';
+      err.style.display = 'block';
+    }
+  } catch(e) {
+    err.textContent = 'Connection error. Please try again.';
+    err.style.display = 'block';
+  }
+}
+document.addEventListener('DOMContentLoaded', () => { progCheckSession(); });
+
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
 }, {threshold:0.07});
 document.querySelectorAll('.fu').forEach(el => obs.observe(el));
 </script>
+
+<!-- PROGRAMME SIGN-IN MODAL -->
+<div id="prog-login-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="prog-login-title">
+  <div style="background:#111827;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:36px;max-width:400px;width:100%;position:relative">
+    <button onclick="progCloseLogin()" aria-label="Close" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#64748b;font-size:22px;cursor:pointer;line-height:1;padding:4px">×</button>
+    <div id="prog-login-title" style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px;color:#f8fafc">Sign in to your programme</div>
+    <p style="font-size:13px;color:#94a3b8;margin-bottom:24px;line-height:1.6">Use the access token from your purchase confirmation email.</p>
+    <div style="margin-bottom:16px">
+      <label style="display:block;font-size:12px;font-weight:600;color:#cbd5e1;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase">Email</label>
+      <input id="prog-login-email" type="email" placeholder="you@email.com" autocomplete="email" style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;outline:none">
+    </div>
+    <div style="margin-bottom:20px">
+      <label style="display:block;font-size:12px;font-weight:600;color:#cbd5e1;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase">Access token</label>
+      <input id="prog-login-token" type="password" placeholder="Paste from your welcome email link" style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;outline:none">
+    </div>
+    <div id="prog-login-err" style="display:none;color:#f87171;font-size:13px;margin-bottom:14px"></div>
+    <button onclick="progDoLogin()" style="width:100%;padding:13px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer">Sign in →</button>
+    <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:16px;line-height:1.6">Your token is in the link from your welcome email. Can't find it? <a href="mailto:info@getcharteredai.com" style="color:#2563EB">info@getcharteredai.com</a></p>
+    <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:8px">Don't have access yet? <button onclick="progCloseLogin();showApcModal('annual')" style="background:none;border:none;color:#2563EB;font-family:'Inter',sans-serif;font-size:12px;cursor:pointer;text-decoration:underline;padding:0">Enrol now →</button></p>
+  </div>
+</div>
 
 <!-- APC PATHWAY MODAL -->
 <div id="apc-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="apc-modal-title">

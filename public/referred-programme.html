@@ -100,7 +100,10 @@ h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,3vw,36px);fon
 
 <nav>
   <a href="/" class="nav-logo"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px"></a>
-  <a href="/" class="nav-back">← Back to platform</a>
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="/" class="nav-back">← Back to platform</a>
+    <button id="ref-signin-nav" onclick="refRenderLogin()" style="background:none;border:1px solid rgba(255,255,255,.2);color:rgba(248,250,252,.75);font-family:'Inter',sans-serif;font-size:13px;font-weight:500;padding:7px 14px;border-radius:6px;cursor:pointer;white-space:nowrap">Already purchased? Sign in →</button>
+  </div>
 </nav>
 
 <!-- HERO — #0D0F1C -->
@@ -237,6 +240,7 @@ h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,3vw,36px);fon
       </ul>
       <button class="btn-red" id="enrollBtn" onclick="showApcModal('referred')">Start the APC Confidence Reset — £397</button>
       <div id="enrollAlert" class="alert"></div>
+      <p id="ref-signin-below" style="margin-top:14px;font-size:13px;color:#64748b;text-align:center">Already purchased? <button onclick="refRenderLogin()" style="background:none;border:none;color:#2563EB;font-family:'Inter',sans-serif;font-size:13px;cursor:pointer;padding:0;text-decoration:underline">Sign in →</button></p>
       <p class="credit-note" style="color:#64748b">Already have the APC Final Sprint? The £297 APC Final Sprint price is credited toward the Referred Programme — pay the £100 difference only. <a href="mailto:info@getcharteredai.com" style="color:#2563EB">Email us to arrange →</a></p>
     </div>
   </div>
@@ -357,7 +361,58 @@ async function _submitApcModal() {
   closeApcModal();
   await enrollReferred({ rics_pathway: pathway, assessment_window: win });
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeApcModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeApcModal(); refCloseLogin(); } });
+
+// ── REFERRED SESSION / SIGN-IN ────────────────────────────────────────────
+function refCheckSession() {
+  const plan  = localStorage.getItem('gca_plan');
+  const token = localStorage.getItem('gca_token');
+  if (plan === 'referred' && token) {
+    const nav = document.getElementById('ref-signin-nav');
+    if (nav) nav.style.display = 'none';
+    const btn = document.getElementById('enrollBtn');
+    if (btn) { btn.textContent = 'Continue Your Programme →'; btn.onclick = () => window.location.href = '/index.html?view=dashboard'; }
+    const below = document.getElementById('ref-signin-below');
+    if (below) below.innerHTML = 'You already have access — <button onclick="window.location.href=\'/index.html?view=dashboard\'" style="background:none;border:none;color:#2563EB;font-family:\'Inter\',sans-serif;font-size:13px;cursor:pointer;padding:0;text-decoration:underline">Continue Your Programme →</button>';
+  }
+}
+function refRenderLogin() {
+  const m = document.getElementById('ref-login-modal');
+  m.style.cssText = 'display:flex;position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px';
+  setTimeout(() => { const e = document.getElementById('ref-login-email'); if (e) e.focus(); }, 50);
+}
+function refCloseLogin() {
+  const m = document.getElementById('ref-login-modal');
+  if (m) m.style.display = 'none';
+}
+async function refDoLogin() {
+  const email = (document.getElementById('ref-login-email')?.value || '').trim().toLowerCase();
+  const token = (document.getElementById('ref-login-token')?.value || '').trim();
+  const err = document.getElementById('ref-login-err');
+  err.style.display = 'none';
+  if (!email || !token) { err.textContent = 'Please enter your email and access token.'; err.style.display = 'block'; return; }
+  try {
+    const r = await fetch('/.netlify/functions/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ token }) });
+    const d = await r.json();
+    if (d.valid && d.plan === 'referred') {
+      localStorage.setItem('gca_token', token);
+      localStorage.setItem('gca_plan', 'referred');
+      localStorage.setItem('gca_user', d.email);
+      if (d.activatedAt) localStorage.setItem('gca_activated', d.activatedAt.toString());
+      window.location.href = '/index.html?view=dashboard';
+    } else if (d.valid && d.plan !== 'referred') {
+      err.textContent = 'This token belongs to a different plan. Contact info@getcharteredai.com for help.';
+      err.style.display = 'block';
+    } else {
+      err.textContent = d.error || 'Invalid token. Please check and try again.';
+      err.style.display = 'block';
+    }
+  } catch(e) {
+    err.textContent = 'Connection error. Please try again.';
+    err.style.display = 'block';
+  }
+}
+document.addEventListener('DOMContentLoaded', () => { refCheckSession(); });
 
 function toggleFaq(btn) {
   const answer = btn.nextElementSibling;
@@ -367,6 +422,27 @@ function toggleFaq(btn) {
   arrow.textContent = open ? '+' : '−';
 }
 </script>
+
+<!-- REFERRED SIGN-IN MODAL -->
+<div id="ref-login-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="ref-login-title">
+  <div style="background:#111827;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:36px;max-width:400px;width:100%;position:relative">
+    <button onclick="refCloseLogin()" aria-label="Close" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#64748b;font-size:22px;cursor:pointer;line-height:1;padding:4px">×</button>
+    <div id="ref-login-title" style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px;color:#f8fafc">Sign in to your programme</div>
+    <p style="font-size:13px;color:#94a3b8;margin-bottom:24px;line-height:1.6">Use the access token from your purchase confirmation email.</p>
+    <div style="margin-bottom:16px">
+      <label style="display:block;font-size:12px;font-weight:600;color:#cbd5e1;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase">Email</label>
+      <input id="ref-login-email" type="email" placeholder="you@email.com" autocomplete="email" style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;outline:none">
+    </div>
+    <div style="margin-bottom:20px">
+      <label style="display:block;font-size:12px;font-weight:600;color:#cbd5e1;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase">Access token</label>
+      <input id="ref-login-token" type="password" placeholder="Paste from your welcome email link" style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;outline:none">
+    </div>
+    <div id="ref-login-err" style="display:none;color:#f87171;font-size:13px;margin-bottom:14px"></div>
+    <button onclick="refDoLogin()" style="width:100%;padding:13px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer">Sign in →</button>
+    <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:16px;line-height:1.6">Your token is in the link from your welcome email. Can't find it? <a href="mailto:info@getcharteredai.com" style="color:#2563EB">info@getcharteredai.com</a></p>
+    <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:8px">Don't have access yet? <button onclick="refCloseLogin();showApcModal('referred')" style="background:none;border:none;color:#2563EB;font-family:'Inter',sans-serif;font-size:12px;cursor:pointer;text-decoration:underline;padding:0">Enrol now →</button></p>
+  </div>
+</div>
 
 <!-- APC PATHWAY MODAL -->
 <div id="apc-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="apc-modal-title">

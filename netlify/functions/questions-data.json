@@ -17028,7 +17028,7 @@
     {
       "q": "How would you approach a client problem that has no obvious solution?",
       "pass": "I would define the problem, gather information, analyse available evidence and identify potential options before developing recommendations.",
-      "high": "I would avoid jumping to solutions. My first objective would be understanding the root cause of the issue through stakeholder engagement, data analysis and structured problem-solving techniques. Only once the problem was properly understood would I evaluate possible solutions.",
+      "high": "I would avoid jumping to solutions. My first objective would be understanding the root cause of the issue through stakeholder engagement, data analysis and structured problem-solving techniques. An issue tree — decomposing the problem into its component parts — or a hypothesis-led approach — forming an initial hypothesis and systematically testing it against evidence — are effective ways to structure ambiguous problems and distinguish symptoms from root causes. Only once the problem was properly understood, and key hypotheses tested, would I evaluate possible solutions and develop recommendations.",
       "referral": "I would recommend the most obvious solution.",
       "referralWhy": [
         "Assumes the cause.",
@@ -17162,7 +17162,7 @@
     {
       "q": "What is benchmarking and how can it support business improvement?",
       "pass": "Benchmarking involves comparing performance against similar organisations, projects or industry standards to identify opportunities for improvement.",
-      "high": "Benchmarking can provide valuable insight into relative performance, but comparisons must be meaningful and based on comparable organisations or activities. I would use benchmarking as one input into decision-making rather than treating it as the sole basis for recommendations.",
+      "high": "Benchmarking can provide valuable insight into relative performance, but comparisons must be meaningful and based on comparable organisations or activities. In a CRE context, relevant benchmarks include cost per workstation, total occupancy cost as a percentage of revenue, space utilisation rates and cost per square metre — metrics that allow organisations to assess real estate efficiency against industry peers. I would use benchmarking as one input into decision-making rather than treating it as the sole basis for recommendations.",
       "referral": "It shows whether an organisation is good or bad.",
       "referralWhy": [
         "Oversimplified.",
@@ -17229,7 +17229,7 @@
     {
       "q": "How would you undertake a strategic review of an organisation and what factors would you consider?",
       "pass": "I would review the organisation's objectives, operating environment, performance data, governance arrangements and stakeholder requirements. The review would identify strengths, weaknesses, opportunities and threats affecting future performance.",
-      "high": "A strategic review should consider both internal and external factors. I would assess organisational capability, market conditions, customer requirements, financial performance, governance, technology, people and operational effectiveness. The objective is to identify the factors most likely to influence future success and develop evidence-based recommendations.",
+      "high": "A strategic review should consider both internal and external factors. I would assess organisational capability, market conditions, customer requirements, financial performance, governance, technology, people and operational effectiveness. Where the organisation has a significant property footprint, the CRE portfolio should be assessed for its contribution to — or drag on — operational performance: whether the estate supports or constrains the business model, and whether the CRE strategy is aligned to the organisation's planning horizon and workforce requirements. The objective is to identify the factors most likely to influence future success and develop evidence-based recommendations.",
       "referral": "I would review how the business is performing.",
       "referralWhy": [
         "Too vague.",
@@ -17274,7 +17274,7 @@
     {
       "q": "How would you assess whether an organisation's operating model remains fit for purpose?",
       "pass": "I would assess whether the operating model supports the organisation's objectives and enables efficient delivery of services.",
-      "high": "I would review governance, organisational structure, processes, technology, people, decision-making and performance measures. The assessment should determine whether the organisation can effectively deliver its strategic objectives both now and in the future.",
+      "high": "I would review governance, organisational structure, processes, technology, people, decision-making and performance measures. For organisations with a significant property footprint, the CRE strategy should be examined as a component of the operating model: whether it enables agility, right-sizes the estate to workforce demand, and supports the organisation's cost structure. The assessment should determine whether the organisation can effectively deliver its strategic objectives both now and in the future.",
       "referral": "If the organisation is profitable, the model works.",
       "referralWhy": [
         "Oversimplified.",
@@ -17296,7 +17296,7 @@
     {
       "q": "How would you assess organisational performance?",
       "pass": "I would review performance indicators, operational data, stakeholder feedback and financial information.",
-      "high": "Performance should be assessed across multiple dimensions including financial performance, customer outcomes, operational efficiency, employee engagement and strategic delivery. The chosen measures should align with organisational objectives.",
+      "high": "Performance should be assessed across multiple dimensions including financial performance, customer outcomes, operational efficiency, employee engagement and strategic delivery. In a CRE consultancy context, performance metrics may include occupancy cost per employee, space utilisation rates, total cost of occupancy as a percentage of revenue and CRE's contribution to revenue per full-time equivalent — measures that connect real estate decisions to business outcomes. The chosen measures should align with organisational objectives.",
       "referral": "I would review profit levels.",
       "referralWhy": [
         "Too narrow.",
@@ -17316,24 +17316,21 @@
       "module": "Management Consultancy"
     },
     {
-      "q": "What is business case development and why is it important?",
-      "pass": "A business case evaluates the rationale for an investment or change initiative and supports informed decision-making.",
-      "high": "A business case should assess options, costs, benefits, risks and strategic alignment. Its purpose is to provide decision-makers with sufficient information to determine whether an initiative should proceed.",
-      "referral": "It justifies spending money.",
-      "referralWhy": [
-        "Too simplistic.",
-        "Ignores wider decision-making role."
-      ],
+      "q": "How would you develop and present a business case for a significant CRE strategic initiative?",
+      "pass": "I would structure the business case around the organisation's strategic objectives, evaluate alternative CRE options with clear financial analysis, and present a recommendation with evidence sufficient to secure approval through the relevant governance process.",
+      "high": "A business case for a CRE strategic initiative must be calibrated to the approval process, governance requirements and audience — whether an investment committee, board, finance function or property committee. I would begin with a financial analysis of each option, including NPV, IRR or payback period as appropriate, and assess the impact on key business indicators such as occupancy cost as a proportion of revenue, cost per seat, space utilisation and operational efficiency. I would develop and evaluate alternative CRE strategic options — for example, lease renewal versus relocation, consolidation versus portfolio rationalisation, or flexible workspace versus conventional lease — presenting each with its relative merits, risks, costs and strategic implications objectively. The business case must conclude with a clear recommendation, not merely a comparison of options; the recommendation should be sensitivity-tested to show which assumptions drive the outcome most. At senior level, the capacity to revise the business case following challenge — incorporating feedback from finance, legal or operational stakeholders constructively — and to return for approval in a revised form is as important as the quality of the original presentation. Once approved, the decision should be formally documented and recorded within the organisation's governance framework.",
+      "referral": "A business case is a document that explains why spending money is a good idea.",
+      "referralWhy": "A referral answer fails to demonstrate understanding of financial analysis, alternative CRE strategic options, the approval process and governance requirements, or the iterative nature of presenting and revising advice at senior level.",
       "challenge": [
-        "What should a business case contain?",
-        "How are benefits assessed?",
-        "What if benefits are difficult to quantify?"
+        "How would you structure the financial analysis section of a business case?",
+        "What CRE strategic options might you evaluate for a large occupier?",
+        "How would you respond if the investment committee challenged your assumptions?"
       ],
       "keyPoints": [
-        "Support decision-making.",
-        "Assess options.",
-        "Evaluate risks and benefits.",
-        "Align with strategy."
+        "Business cases must be calibrated to the approval process and governance requirements.",
+        "Financial analysis should assess impact on key business indicators, not just headline cost.",
+        "A clear recommendation — not just a comparison — is required, supported by sensitivity testing.",
+        "The ability to revise after challenge and obtain formal approval is the L3 skill."
       ],
       "module": "Management Consultancy"
     },
@@ -17361,7 +17358,7 @@
     {
       "q": "How would you assess whether a proposed organisational change is achievable?",
       "pass": "I would assess resources, stakeholder support, organisational capability and implementation requirements.",
-      "high": "I would evaluate leadership commitment, cultural readiness, resource availability, governance and change capacity. A successful strategy requires both a good idea and the ability to deliver it.",
+      "high": "I would evaluate leadership commitment, cultural readiness, resource availability, governance and change capacity. A change plan — setting out the proposed approach, timeline, key milestones, stakeholder engagement activities, risk management arrangements and governance requirements — should be developed before implementation begins; its feasibility is itself a test of whether the change is achievable. A successful strategy requires both a good idea and the ability to deliver it.",
       "referral": "If leadership approves it, it is achievable.",
       "referralWhy": [
         "Oversimplified.",
@@ -17449,7 +17446,7 @@
     {
       "q": "Why do organisational change initiatives often fail?",
       "pass": "Common reasons include lack of stakeholder engagement, poor communication, insufficient leadership support, inadequate planning and resistance to change.",
-      "high": "Most change failures occur because organisations focus on processes and systems rather than people. Successful change requires leadership commitment, stakeholder buy-in, effective communication and a clear understanding of how the change affects those impacted.",
+      "high": "The most common change drivers — regulatory change, technology adoption, market disruption, cost pressure, merger and acquisition activity, and leadership change — share a tendency to create urgency that causes organisations to focus on processes and systems rather than people. Most change failures occur for this reason. Successful change requires leadership commitment, stakeholder buy-in, effective communication and a clear understanding of how the change affects those impacted.",
       "referral": "People don't like change.",
       "referralWhy": [
         "Oversimplified.",
@@ -17537,7 +17534,7 @@
     {
       "q": "How would you assess whether an organisation is ready for change?",
       "pass": "I would assess leadership support, organisational capability, stakeholder attitudes and resource availability.",
-      "high": "I would evaluate culture, governance, previous change experience, capacity, leadership commitment and stakeholder sentiment. The objective is to identify barriers before implementation begins.",
+      "high": "I would evaluate culture, governance, previous change experience, capacity, leadership commitment and stakeholder sentiment. A change impact assessment — systematically mapping the proposed changes to the processes, roles, systems and stakeholders affected — is an essential diagnostic tool, both for identifying readiness gaps and for prioritising engagement effort before implementation begins. The objective is to identify barriers early and address them proactively.",
       "referral": "If management approves it, the organisation is ready.",
       "referralWhy": [
         "Oversimplified.",
@@ -18021,7 +18018,7 @@
     {
       "q": "How do you ensure your recommendations remain objective and evidence-based?",
       "pass": "I would base recommendations on analysis, evidence and stakeholder input rather than personal opinion.",
-      "high": "I would use structured analysis, challenge assumptions, validate findings and ensure recommendations can be supported by evidence.",
+      "high": "I would use structured analysis, challenge assumptions, validate findings and ensure recommendations can be supported by evidence. This includes triangulating conclusions across multiple independent data sources, commissioning sensitivity analysis where key assumptions are uncertain, and documenting the analytical methodology so that the basis for conclusions is transparent and auditable. Where evidence is genuinely ambiguous, I would present the range of defensible conclusions rather than forcing false certainty — a senior client is better served by an honest assessment of uncertainty than by a recommendation that overstates confidence.",
       "referral": "I trust my experience.",
       "referralWhy": [
         "Over-reliance on opinion.",
@@ -18106,6 +18103,158 @@
         "Integrity underpins Chartered status."
       ],
       "module": "Management Consultancy"
+    },
+    {
+      "q": "What are the key components of a business plan and how would you use financial information to assess business performance?",
+      "pass": "A business plan sets out an organisation's objectives, strategy, financial projections and operating model. Assessing business performance requires analysis of key financial ratios, working capital management and benchmarking against comparable organisations.",
+      "high": "Business plans take several forms — strategic plans (long-term direction), departmental plans (functional delivery), operational plans (day-to-day activity) and corporate plans (group-level). All should include a marketing plan element, setting out how the organisation will position itself and generate demand. Financial benchmarking — comparing key ratios such as gross margin, EBITDA margin, return on capital employed (ROCE), current ratio and gearing against sector peers — provides objective context for performance assessment. Working capital management is critical: monitoring debtors (days sales outstanding), creditors (days payable outstanding) and stock levels reveals whether the organisation is generating or consuming cash in its operating cycle. Forecasting techniques including rolling financial forecasts, scenario analysis and trend extrapolation are used to project future performance. Organisational charts — showing reporting lines, spans of control and functional accountability — support analysis of whether the structure enables or constrains delivery of the plan. Financial ratios drawn from company accounts allow a consultant to identify trends, stress points and structural weaknesses before they escalate into a performance or liquidity crisis.",
+      "referral": "A business plan is a document every organisation must produce annually.",
+      "referralWhy": "A referral answer misses the analytical depth required: types of plans, specific financial ratios, working capital mechanics, forecasting techniques and the link between organisational structure and plan delivery.",
+      "challenge": [
+        "What is the difference between a strategic plan and an operational plan?",
+        "How would you interpret a deteriorating current ratio in a client's accounts?",
+        "What forecasting technique would you use for a business facing highly volatile demand?"
+      ],
+      "keyPoints": [
+        "Business plans take multiple forms: strategic, departmental, operational, corporate.",
+        "Financial benchmarking uses ratios such as ROCE, gross margin, current ratio and gearing.",
+        "Working capital — debtors, creditors, stock — indicates cash generation or consumption in the operating cycle.",
+        "Organisational structure should support delivery of the plan."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "How would you develop an option appraisal for a client and measure whether a business plan is delivering against its targets?",
+      "pass": "I would assess each option against agreed financial, strategic and operational criteria, present a clear recommendation with supporting rationale, and establish performance indicators that allow the organisation to monitor delivery against the plan on an ongoing basis.",
+      "high": "An option appraisal at senior level requires more than listing pros and cons. I would define evaluation criteria in advance — financial return, strategic fit, risk profile, deliverability and time to value — then assess each option systematically, so the recommendation reflects the organisation's stated objectives rather than the consultant's preference. The output should present a clear recommendation with its analytical basis, not merely a balanced comparison that leaves the client to decide without guidance. Performance measurement against a business plan requires setting specific, measurable performance indicators aligned to the plan's objectives — financial metrics such as revenue growth, margin improvement and ROCE alongside operational and strategic measures. Progress should be reviewed at agreed intervals; where performance deviates from targets, the review should identify whether the variance reflects execution failure, changed external assumptions or a flaw in the original plan. The review process itself — interpreting results, drawing conclusions and recommending corrective action or plan revision — is the L3 skill, not simply choosing the initial indicators.",
+      "referral": "I would compare the options and let the client decide which they prefer.",
+      "referralWhy": "A referral answer avoids the consultant's primary obligation: to provide a clear recommendation, not merely to organise information.",
+      "challenge": [
+        "How would you handle a situation where your recommended option is rejected by the client?",
+        "What performance indicators would you set for a cost-reduction business plan?",
+        "How would you distinguish between an execution failure and a flawed plan?"
+      ],
+      "keyPoints": [
+        "Option appraisals require pre-defined evaluation criteria, not post-hoc rationalisation.",
+        "A recommendation — not just a comparison — is required from a senior consultant.",
+        "Performance indicators must be specific, measurable and aligned to plan objectives.",
+        "Reviewing performance against targets and recommending corrective action is the L3 output."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "What forms does consultancy procurement take and how do you manage ethical dilemmas in a consultancy engagement?",
+      "pass": "Consultancy may be procured through competitive tender, framework agreements or direct appointment. Ethical dilemmas — conflicts between client instructions, third-party interests, professional obligations and personal integrity — must be identified early and handled transparently, with escalation where necessary.",
+      "high": "Consultancy procurement takes several forms: competitive tender, where multiple firms submit proposals evaluated against defined criteria; framework agreements, where a client pre-selects approved consultants for call-off instructions; and direct appointment, where a consultant is appointed without a competitive process, typically for specialist or time-critical work. Understanding the procurement route affects how the engagement is scoped, contracted and delivered. The contract matters: a clear engagement letter or contract setting out scope, fees, deliverables, confidentiality obligations and termination rights protects both parties and defines the basis for the relationship. Ethical dilemmas in consultancy arise frequently — conflicts of interest (advising competing clients on related matters), confidentiality conflicts (pressure to disclose client information to a third party), inappropriate pressure to alter findings, and situations where following client instructions would breach professional standards. The RICS Professional Statement requires members to act with integrity, disclose conflicts of interest and not allow commercial relationships to compromise independent advice. Managing an ethical dilemma requires identifying it early; seeking guidance where needed; documenting the issue and actions taken; and, where necessary, withdrawing from the instruction. Confidentiality obligations persist after the engagement ends.",
+      "referral": "Consultancy is simply procured through a tender and ethical issues are rare.",
+      "referralWhy": "A referral answer misses the range of procurement routes, the importance of the contract, and the practical reality that ethical dilemmas are common and must be actively managed, not assumed away.",
+      "challenge": [
+        "When would a direct appointment be acceptable rather than competitive tender?",
+        "A client asks you to omit an unfavourable finding from your report. How do you respond?",
+        "What does the RICS Professional Statement require when a conflict of interest is identified?"
+      ],
+      "keyPoints": [
+        "Consultancy procurement: competitive tender, framework agreement, direct appointment.",
+        "The contract defines scope, fees, deliverables, confidentiality and termination rights.",
+        "Ethical dilemmas must be identified early, documented and escalated if necessary.",
+        "Confidentiality obligations under the engagement contract persist beyond its end."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "How would you develop a consultancy service plan and deliver a strategic advice report to a senior client?",
+      "pass": "A consultancy service plan defines the scope, methodology, deliverables, timescales, resources and governance for the engagement. A strategic advice report synthesises the analysis into a clear narrative with actionable recommendations, calibrated to the audience's decision-making needs.",
+      "high": "A consultancy service plan is developed in response to the client brief — which must be interrogated, not just accepted. I would validate the client's stated problem against the evidence, agree the scope of work, methodology, key milestones, reporting requirements and escalation procedures before work begins. Negotiating the contract terms — fee structure, IP ownership, liability limits, confidentiality provisions and change control — is part of establishing the engagement correctly; these terms should not be deferred until after work has started. At the delivery stage, a strategic advice report is not a data dump: it should open with the key finding or recommendation, provide sufficient analytical support for a senior reader to assess the basis for the advice, present the alternative options considered, quantify risks and set out implementation considerations. For a CRE-facing engagement, this may include analysis of real estate options against business strategy, financial modelling of alternatives, stakeholder impact assessment and recommendations calibrated to the organisation's risk appetite and governance requirements. Implementing the consultancy intervention — supporting the client in acting on the recommendations — is the L3 output, not simply producing the report.",
+      "referral": "The strategic advice report should include all of the analysis so the client has everything they need.",
+      "referralWhy": "A referral answer confuses data volume with analytical value; a strategic report should lead with findings and recommendations, not present raw analysis for the client to interpret unaided.",
+      "challenge": [
+        "How would you handle a client brief that misidentifies the real problem?",
+        "What is the difference between a consultancy service plan and a project plan?",
+        "How would you structure the executive summary of a strategic advice report?"
+      ],
+      "keyPoints": [
+        "The client brief must be interrogated — the stated problem is not always the real problem.",
+        "Contract terms — fees, IP, liability, confidentiality, change control — should be agreed before work starts.",
+        "Strategic advice reports lead with findings and recommendations, not methodology.",
+        "Implementing the intervention — not writing the report — is the L3 deliverable."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "How do you select and apply research methodologies in a consultancy engagement, and what legal obligations govern the handling of data?",
+      "pass": "Methodology selection depends on the question being answered, the available data and the engagement's time and resource constraints. Data must be handled in accordance with data legislation — including UK GDPR and the Data Protection Act 2018 — with particular care for sensitive or confidential client information.",
+      "high": "Research methodology selection is a professional judgement, not a default. Quantitative methodologies — statistical analysis, financial modelling, survey data, benchmarking databases — are appropriate where the question requires numerical precision or comparison across large datasets. Qualitative methodologies — structured interviews, focus groups, case studies, document review — are appropriate where context, motivation and nuance matter more than statistical rigour. Mixed-method approaches combine both. Each has limitations: quantitative data can mislead if the dataset is unrepresentative; qualitative findings may not generalise. The consultant must understand and disclose these limitations. Data handling obligations are non-negotiable: UK GDPR and the Data Protection Act 2018 govern how personal data is collected, processed, stored and disclosed. Sensitive client data — financial forecasts, workforce information, commercially confidential strategy — must be protected by explicit confidentiality provisions in the engagement contract and by secure internal data management practice, with access restricted to those who need it. At L3, the consultant evaluates not only the conclusions drawn from the analysis but the methodology itself: was the approach appropriate for the question? Were the limitations disclosed? Would a different methodology have produced a materially different answer? This self-evaluation is what distinguishes senior consultancy work from competent execution.",
+      "referral": "I would use whichever methodology produces the clearest result for the client.",
+      "referralWhy": "A referral answer fails to address methodology selection criteria, the limitations of different approaches, or the legal obligations around data handling — all named L1 items for this competency.",
+      "challenge": [
+        "When would you choose a qualitative methodology over a quantitative one?",
+        "What must a consultancy do to comply with UK GDPR when handling client employee data?",
+        "How would you evaluate whether the methodology used in an engagement was fit for purpose?"
+      ],
+      "keyPoints": [
+        "Methodology selection depends on the question, data available and engagement constraints.",
+        "Quantitative suits precision and scale; qualitative suits context and nuance; mixed-method combines both.",
+        "UK GDPR and Data Protection Act 2018 govern all personal data handling.",
+        "L3 requires evaluating the methodology itself — not just applying it."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "How would you develop and implement a performance management framework for a corporate real estate portfolio?",
+      "pass": "I would identify the CRE data required, develop KPIs and SLAs aligned to organisational objectives, establish benchmarking processes and occupier satisfaction measurement, and implement a performance management plan that translates data into action.",
+      "high": "A CRE performance management framework begins with understanding what the organisation needs its real estate to deliver — cost efficiency, flexibility, employee experience, sustainability compliance or a combination. CRE data types include space utilisation data, occupancy cost data, maintenance cost data, lease data and occupier satisfaction survey results. KPIs should be aligned to each stakeholder's perspective: finance focuses on cost per square metre and total cost of occupancy; HR focuses on employee experience and workplace satisfaction scores; operations focuses on space availability and fit-for-purpose measures. SLAs define the service levels expected from facilities management and property management providers, with clear consequences for underperformance. The balanced scorecard — measuring financial, customer, internal process and learning/growth dimensions — provides a framework for CRE performance management that goes beyond cost metrics alone. CRE benchmarking involves comparing the portfolio against industry databases such as OSCAR or IPD for cost and utilisation data. Occupier satisfaction surveys provide the qualitative counterpart to utilisation and cost data. At L3, the skill is interpreting the combined dataset into a performance action plan: identifying underperformance, establishing root causes, recommending interventions and implementing a continuous performance management cycle rather than a one-off review.",
+      "referral": "I would set KPIs and report against them quarterly.",
+      "referralWhy": "A referral answer describes a reporting process, not a performance management framework; it misses stakeholder alignment, balanced scorecard use, benchmarking methodology and the interpretation-to-action cycle that defines L3.",
+      "challenge": [
+        "How would you align CRE KPIs to the needs of different internal stakeholders?",
+        "What does a balanced scorecard add to a conventional KPI dashboard?",
+        "How would you use occupier satisfaction data to build a case for portfolio change?"
+      ],
+      "keyPoints": [
+        "CRE KPIs should be aligned to each stakeholder's perspective — finance, HR, operations.",
+        "Balanced scorecard frames performance across financial, customer, process and growth dimensions.",
+        "Benchmarking (OSCAR, IPD) provides external context; occupier satisfaction provides qualitative depth.",
+        "L3 output: interpreting combined data into a performance action plan with continuous management."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "How would you advise a corporate client on financing a property acquisition and evaluate a multi-tiered financing arrangement?",
+      "pass": "I would assess the client's financing capacity, identify appropriate senior debt, mezzanine and equity providers, review loan agreements and facility letters, and advise on the total cost of finance and risk profile of different structures.",
+      "high": "Property finance for a corporate acquisition typically begins with senior debt — the primary loan facility provided by a bank or institutional lender, secured against the property. Senior debt capacity depends on the lender's loan-to-value (LTV) ratio limit, debt service coverage requirements and the income profile of the asset. Gearing — the ratio of debt to equity — amplifies both returns and risk; higher gearing reduces the equity required but increases financial risk and sensitivity to income shortfall. Mezzanine finance fills the gap between senior debt and equity where senior debt alone is insufficient; it is priced at a premium to senior debt to reflect its subordinate position and higher risk. In a multi-tiered financing arrangement — senior debt plus mezzanine plus equity — the true cost of finance must be calculated across all tiers, incorporating arrangement fees, interest rates, profit-share arrangements and the timing of drawdown and repayment. Financing documents — loan agreements and facility letters — set out the detailed terms: interest rate, drawdown conditions, financial covenants such as interest cover ratio and LTV covenant, reporting obligations, default events and enforcement rights. I would review these documents with specialist legal advice to identify covenants that could constrain the client's operational flexibility. Taxation impacts — including interest deductibility and stamp duty land tax — must be considered alongside the structure to assess the net return.",
+      "referral": "I would recommend the cheapest available loan.",
+      "referralWhy": "A referral answer ignores LTV constraints, mezzanine and equity structure, financing documents, financial covenants, the true cost of finance calculation and tax implications.",
+      "challenge": [
+        "How does LTV affect the quantum of senior debt available for a commercial acquisition?",
+        "What financial covenants would you expect in a loan agreement and what do they constrain?",
+        "How would you calculate the true cost of finance across a senior debt/mezzanine/equity structure?"
+      ],
+      "keyPoints": [
+        "Senior debt is constrained by LTV, DSCR and income profile; gearing amplifies return and risk.",
+        "Mezzanine finance is subordinate to senior debt and priced at a premium accordingly.",
+        "True cost of finance must be calculated across all tiers, including fees and profit-share.",
+        "Loan agreements and facility letters contain financial covenants that can constrain operational flexibility."
+      ],
+      "module": "M11B"
+    },
+    {
+      "q": "How does corporate real estate strategy contribute to business performance, and how would you develop CRE contingency plans for a major occupier?",
+      "pass": "CRE strategy should be aligned to the organisation's business planning cycle and workforce requirements. Where the portfolio cannot respond quickly to business change, contingency plans must be in place to manage disruption to operational performance.",
+      "high": "Corporate real estate is a significant cost, operational enabler and strategic asset for most large organisations. At the organisational level, CRE strategy contributes to business planning by translating workforce forecasts, location strategy and operational requirements into property decisions — lease commitments, consolidations, relocations and flexible workspace strategies. The choice between centralised and decentralised CRE governance affects how quickly the function can respond to business change: a centralised model provides consistency and cost control; a decentralised model allows faster local response but risks portfolio fragmentation and duplication. CRE's linkages to HR — workforce planning, employee experience, return-to-office strategy — and to IT — technology infrastructure requirements, hybrid working support — must be managed as part of an integrated business alignment approach rather than treated as separate functions. Operational performance implications of CRE strategy are concrete: an over-large or inflexible estate creates cost drag; a poorly located portfolio reduces talent access; a poorly maintained portfolio increases maintenance cost and employee dissatisfaction. CRE contingency plans address scenarios where the estate cannot support business operations — lease expiry without a confirmed alternative, a key facility becoming unusable, or a merger requiring rapid consolidation. These plans should define trigger events, escalation procedures, alternative accommodation options, cost estimates and the governance process for activating the contingency.",
+      "referral": "CRE is mainly about managing the organisation's offices efficiently.",
+      "referralWhy": "A referral answer reduces CRE to facilities management; it misses the strategic alignment to business planning, HR/IT integration, centralised vs. decentralised governance trade-offs and the need for formal contingency planning.",
+      "challenge": [
+        "How does centralised versus decentralised CRE governance affect organisational agility?",
+        "What events would trigger the activation of a CRE contingency plan?",
+        "How would you demonstrate the operational performance impact of a proposed CRE strategy change?"
+      ],
+      "keyPoints": [
+        "CRE strategy should be integrated into the business planning cycle, not treated as property management.",
+        "Centralised governance: cost control and consistency. Decentralised: local agility, fragmentation risk.",
+        "CRE linkages to HR (workforce planning) and IT (infrastructure) must be managed jointly.",
+        "CRE contingency plans define triggers, alternatives, costs and governance for activation."
+      ],
+      "module": "M11B"
     }
   ],
   "Infrastructure": [

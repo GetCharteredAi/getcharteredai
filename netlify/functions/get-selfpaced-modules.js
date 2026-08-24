@@ -26,8 +26,10 @@ exports.handler = async (event) => {
   try {
     const parts = token.split('.');
     if (parts.length !== 2) throw new Error('Malformed token');
-    const expectedSig = Buffer.from(`${parts[0]}.${jwtSecret}`).toString('base64').slice(0, 32);
-    if (parts[1] !== expectedSig) throw new Error('Invalid signature');
+    const crypto = require('crypto');
+    const hmacSig = crypto.createHmac('sha256', jwtSecret).update(parts[0]).digest('base64url');
+    const legacySig = Buffer.from(`${parts[0]}.${jwtSecret}`).toString('base64').slice(0, 32);
+    if (parts[1] !== hmacSig && parts[1] !== legacySig) throw new Error('Invalid signature');
     payload = JSON.parse(Buffer.from(parts[0], 'base64').toString('utf8'));
   } catch {
     return { statusCode: 401, headers, body: JSON.stringify({ error: 'Invalid token' }) };

@@ -136,7 +136,8 @@ exports.handler = async (event) => {
 
     const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
     const tokenData = Buffer.from(JSON.stringify(payload)).toString('base64');
-    const signature = Buffer.from(`${tokenData}.${jwtSecret}`).toString('base64').slice(0, 32);
+    const crypto = require('crypto');
+    const signature = crypto.createHmac('sha256', jwtSecret).update(tokenData).digest('base64url');
     const token = `${tokenData}.${signature}`;
 
     console.log(`Account activated: ${cleanEmail} — ${plan}`);

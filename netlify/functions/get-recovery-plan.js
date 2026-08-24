@@ -6,8 +6,10 @@ function verifyToken(token) {
   const payload = JSON.parse(Buffer.from(parts[0], 'base64').toString());
   if (payload.expires && Date.now() > payload.expires) throw new Error('Token expired');
   const secret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
-  const expectedSig = Buffer.from(`${parts[0]}.${secret}`).toString('base64').slice(0, 32);
-  if (parts[1] !== expectedSig) throw new Error('Invalid token');
+  const crypto = require('crypto');
+  const hmacSig = crypto.createHmac('sha256', secret).update(parts[0]).digest('base64url');
+  const legacySig = Buffer.from(`${parts[0]}.${secret}`).toString('base64').slice(0, 32);
+  if (parts[1] !== hmacSig && parts[1] !== legacySig) throw new Error('Invalid token');
   return payload;
 }
 

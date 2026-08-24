@@ -146,8 +146,10 @@ exports.handler = async (event) => {
     if (_parts.length !== 2) throw new Error('malformed');
     const _payload = JSON.parse(Buffer.from(_parts[0], 'base64').toString());
     if (_payload.expires && Date.now() > _payload.expires) throw new Error('expired');
-    const _sig = Buffer.from(`${_parts[0]}.${_jwtSecret}`).toString('base64').slice(0, 32);
-    if (_parts[1] !== _sig) throw new Error('invalid');
+    const crypto = require('crypto');
+    const _hmacSig = crypto.createHmac('sha256', _jwtSecret).update(_parts[0]).digest('base64url');
+    const _legacySig = Buffer.from(`${_parts[0]}.${_jwtSecret}`).toString('base64').slice(0, 32);
+    if (_parts[1] !== _hmacSig && _parts[1] !== _legacySig) throw new Error('invalid');
   } catch (_e) {
     return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized' }) };
   }

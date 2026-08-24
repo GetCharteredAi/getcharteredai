@@ -37,8 +37,10 @@ exports.handler = async (event) => {
     // Verify signature
     // (denylist check below is intentionally after signature verification)
     const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
-    const expectedSig = Buffer.from(`${parts[0]}.${jwtSecret}`).toString('base64').slice(0, 32);
-    if (parts[1] !== expectedSig) {
+    const crypto = require('crypto');
+    const hmacSig = crypto.createHmac('sha256', jwtSecret).update(parts[0]).digest('base64url');
+    const legacySig = Buffer.from(`${parts[0]}.${jwtSecret}`).toString('base64').slice(0, 32);
+    if (parts[1] !== hmacSig && parts[1] !== legacySig) {
       return { statusCode: 401, headers, body: JSON.stringify({ valid: false, error: 'Invalid token' }) };
     }
 

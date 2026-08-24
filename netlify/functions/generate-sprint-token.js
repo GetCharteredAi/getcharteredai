@@ -42,7 +42,8 @@ exports.handler = async (event) => {
   };
 
   const tokenData = Buffer.from(JSON.stringify(payload)).toString('base64');
-  const signature = Buffer.from(`${tokenData}.${jwtSecret}`).toString('base64').slice(0, 32);
+  const crypto = require('crypto');
+  const signature = crypto.createHmac('sha256', jwtSecret).update(tokenData).digest('base64url');
   const token = `${tokenData}.${signature}`;
 
   const magicLink = `https://getcharteredai.com?token=${encodeURIComponent(token)}`;

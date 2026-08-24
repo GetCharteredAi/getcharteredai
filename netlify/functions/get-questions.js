@@ -39,8 +39,10 @@ function verifyToken(token) {
   if (lastDot === -1) return null;
   const tokenData = token.slice(0, lastDot);
   const sig = token.slice(lastDot + 1);
-  const expected = Buffer.from(`${tokenData}.${jwtSecret}`).toString('base64').slice(0, 32);
-  if (sig !== expected) return null;
+  const crypto = require('crypto');
+  const hmacSig = crypto.createHmac('sha256', jwtSecret).update(tokenData).digest('base64url');
+  const legacySig = Buffer.from(`${tokenData}.${jwtSecret}`).toString('base64').slice(0, 32);
+  if (sig !== hmacSig && sig !== legacySig) return null;
   try {
     const payload = JSON.parse(Buffer.from(tokenData, 'base64').toString('utf8'));
     if (payload.expires && Date.now() > payload.expires) return null;

@@ -3,6 +3,7 @@
 // Tests: real LM responses, real Background Function, real Blobs pending→complete, retake limit.
 
 import { chromium } from 'playwright';
+import { createHmac } from 'crypto';
 
 const DEPLOY = 'https://deploy-preview-2--getcharteredai.netlify.app';
 const PASS = '\x1b[32m✅\x1b[0m';
@@ -22,9 +23,10 @@ const RUN_EMAIL = `infra-test-${Date.now()}@arev.local`;
 note(`Run email: ${RUN_EMAIL}`);
 
 function makeToken(plan = 'apprentice') {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error('JWT_SECRET not configured');
   const payload = Buffer.from(JSON.stringify({ email: RUN_EMAIL, plan, expires: Date.now() + 3600000 })).toString('base64');
-  const secret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
-  const sig = Buffer.from(`${payload}.${secret}`).toString('base64').slice(0, 32);
+  const sig = createHmac('sha256', secret).update(payload).digest('base64url');
   return `${payload}.${sig}`;
 }
 

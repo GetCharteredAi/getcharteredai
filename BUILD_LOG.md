@@ -962,8 +962,8 @@ Recovery Plan overlay internals (four states, Michael behaviour, storage, system
 `public/index.html` is a static file served to every visitor before authentication. It contains the full `MODULES` array (all 16 pathways, ~1.1 MB), all 17 question banks (~1.4 MB), and the coaching intelligence constants (~52 KB). The `pathwayOnly` JS filters only control rendering — they don't gate data delivery. Any user can view-source and read all pathway content regardless of plan or pathway.
 
 ### JWT canonical secret — CANONICAL RULE (established 17 July 2026)
-**Always use `process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z'` in every Netlify function.**
-The shorter fallback `'gca-secure-platform-2025-apc'` existed in 8 older functions and has been eliminated. In production both resolve to the same `JWT_SECRET` env var, but the inconsistent fallback was a silent-breakage risk. Fixed in 2d4151b across: `admin-login.js`, `generate-sprint-token.js`, `get-report.js`, `login.js`, `send-reset.js`, `verify-session.js`, `verify-sprint-session.js`, `save-report.js`.
+**Always use `process.env.JWT_SECRET` in every Netlify function — no hardcoded fallbacks. Throw if the env var is absent.**
+The original rule (July 2026) used a hardcoded fallback string; this was superseded in August 2026 when all 27 functions were updated to throw `'JWT_SECRET not configured'` if the env var is missing. Hardcoded fallbacks are a security risk: if the env var is ever absent the function silently accepts any token signed with the public fallback value.
 
 ### Phase 1 — Coaching intelligence server-side (COMPLETE, 2d4151b, 17 July 2026)
 Moved `getMichaelModuleBriefing()` + 7 constants (PATHWAY_RULES ~13 KB, PATHWAY_COMP ~37 KB, PATHWAY_CLARIF, SPA_CONTEXT, RED_BOOK, FORESTRY, VALUER_REG) from `index.html` into `ai-tutor.js`.

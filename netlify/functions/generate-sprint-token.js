@@ -17,12 +17,16 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
-  const { email, adminKey } = body;
+  const { email, adminKey, validateOnly } = body;
 
   // Validate admin key
   const validAdminKey = process.env.SPRINT_ADMIN_KEY;
   if (!validAdminKey || adminKey !== validAdminKey) {
     return { statusCode: 403, headers, body: JSON.stringify({ error: 'Unauthorised' }) };
+  }
+
+  if (validateOnly) {
+    return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
   }
 
   if (!email || !email.includes('@')) {

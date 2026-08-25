@@ -78,14 +78,41 @@ input:focus{border-color:#2563EB}
 <script>
 let sessionAdminKey = null;
 
-function checkGate() {
+async function checkGate() {
   const pass = document.getElementById('gatePass').value.trim();
+  const gateAlert = document.getElementById('gateAlert');
   if (!pass) {
-    const alert = document.getElementById('gateAlert');
-    alert.textContent = 'Please enter your admin key.';
-    alert.style.display = 'block';
+    gateAlert.textContent = 'Please enter your admin key.';
+    gateAlert.style.display = 'block';
     return;
   }
+
+  const btn = document.querySelector('#gateView .btn');
+  btn.disabled = true;
+  btn.textContent = 'Checking...';
+  gateAlert.style.display = 'none';
+
+  try {
+    const resp = await fetch('/.netlify/functions/generate-sprint-token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ validateOnly: true, adminKey: pass })
+    });
+    if (!resp.ok) {
+      gateAlert.textContent = 'Invalid admin key. Please check and try again.';
+      gateAlert.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Continue';
+      return;
+    }
+  } catch(err) {
+    gateAlert.textContent = 'Connection error. Please try again.';
+    gateAlert.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Continue';
+    return;
+  }
+
   sessionAdminKey = pass;
   document.getElementById('gateView').style.display = 'none';
   document.getElementById('mainView').style.display = 'block';

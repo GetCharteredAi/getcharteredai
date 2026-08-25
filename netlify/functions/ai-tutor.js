@@ -139,7 +139,8 @@ exports.handler = async (event) => {
 
   const { messages, system, max_tokens, moduleId, pathway, modTitle, source, scoring, persona, token } = body;
 
-  const _jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
+  const _jwtSecret = process.env.JWT_SECRET;
+  if (!_jwtSecret) throw new Error('JWT_SECRET not configured');
   try {
     if (!token) throw new Error('missing');
     const _parts = token.split('.');

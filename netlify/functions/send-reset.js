@@ -58,7 +58,8 @@ exports.handler = async (event) => {
   // Only proceed if we have the required keys
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   const resendKey = process.env.RESEND_API_KEY;
-  const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
+  const jwtSecret = process.env.JWT_SECRET;
+  if (!jwtSecret) throw new Error('JWT_SECRET not configured');
 
   if (!stripeKey || !resendKey) {
     console.log(`Reset requested for ${cleanEmail} — missing keys`);

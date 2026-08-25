@@ -4,7 +4,8 @@ exports.handler = async (event) => {
   try {
     const { email, password, plan } = JSON.parse(event.body);
 
-    if (email !== 'test@getcharteredai.com' || password !== 'testing911') {
+    const adminPass = process.env.ADMIN_TEST_KEY;
+    if (!adminPass || email !== 'test@getcharteredai.com' || password !== adminPass) {
       return { statusCode: 401, body: JSON.stringify({ success: false, error: 'Unauthorised' }) };
     }
 
@@ -19,7 +20,8 @@ exports.handler = async (event) => {
       expires: activatedAt + 365 * 24 * 60 * 60 * 1000
     };
 
-    const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) throw new Error('JWT_SECRET not configured');
     const tokenData = Buffer.from(JSON.stringify(payload)).toString('base64');
     const crypto = require('crypto');
     const signature = crypto.createHmac('sha256', jwtSecret).update(tokenData).digest('base64url');

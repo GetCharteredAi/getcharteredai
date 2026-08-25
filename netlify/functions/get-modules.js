@@ -33,7 +33,8 @@ const HEADERS = {
 };
 
 function verifyToken(token) {
-  const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
+  const jwtSecret = process.env.JWT_SECRET;
+  if (!jwtSecret) throw new Error('JWT_SECRET not configured');
   const lastDot = token.lastIndexOf('.');
   if (lastDot === -1) return null;
   const tokenData = token.slice(0, lastDot);

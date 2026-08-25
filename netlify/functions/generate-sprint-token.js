@@ -18,8 +18,8 @@ exports.handler = async (event) => {
   const { email, adminKey } = body;
 
   // Validate admin key
-  const validAdminKey = process.env.SPRINT_ADMIN_KEY || 'gca-sprint-admin-2025';
-  if (adminKey !== validAdminKey) {
+  const validAdminKey = process.env.SPRINT_ADMIN_KEY;
+  if (!validAdminKey || adminKey !== validAdminKey) {
     return { statusCode: 403, headers, body: JSON.stringify({ error: 'Unauthorised' }) };
   }
 
@@ -28,7 +28,8 @@ exports.handler = async (event) => {
   }
 
   const cleanEmail = email.toLowerCase().trim();
-  const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
+  const jwtSecret = process.env.JWT_SECRET;
+  if (!jwtSecret) throw new Error('JWT_SECRET not configured');
   const activatedAt = Date.now();
   const expires = activatedAt + (49 * 24 * 60 * 60 * 1000); // 49 days (6 weeks + 1 week buffer)
 

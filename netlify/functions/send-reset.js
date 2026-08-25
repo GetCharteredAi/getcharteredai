@@ -194,7 +194,7 @@ exports.handler = async (event) => {
       'monthly':  '60 days',
       'annual':   '18 months',
       'referred': '90 days',
-      'sprint':   '49 days',
+      'sprint':   '70 days',
       'year-one': '6 months',
       'selfpaced': '18 months',
     };

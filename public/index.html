@@ -3528,7 +3528,7 @@ async function renderDashboard() {
   const sprintBanner = document.getElementById('sprintBanner');
   if (sprintBanner) {
     if (plan === 'sprint') {
-      const daysLeft = Math.max(0, Math.ceil(((session.activatedAt || activatedAt) + 49*24*60*60*1000 - Date.now()) / (24*60*60*1000)));
+      const daysLeft = Math.max(0, Math.ceil(((session.activatedAt || activatedAt) + 70*24*60*60*1000 - Date.now()) / (24*60*60*1000)));
       sprintBanner.style.display = 'block';
       sprintBanner.innerHTML = `
         <div style="background:#0f172a;border:1px solid #1a2540;border-radius:16px;padding:20px 24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">

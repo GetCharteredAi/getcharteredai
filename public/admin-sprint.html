@@ -38,18 +38,18 @@ input:focus{border-color:#2563EB}
 
   <div id="gateView">
     <h1>Sprint Activation</h1>
-    <p class="sub">Enter admin password to continue.</p>
+    <p class="sub">Enter your Sprint admin key to continue.</p>
     <div id="gateAlert" class="alert alert-red"></div>
     <div class="gate">
-      <label class="label">Admin Password</label>
-      <input type="password" id="gatePass" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkGate()">
+      <label class="label">Sprint Admin Key</label>
+      <input type="password" id="gatePass" placeholder="Enter SPRINT_ADMIN_KEY value" onkeydown="if(event.key==='Enter')checkGate()">
     </div>
     <button class="btn" onclick="checkGate()">Continue</button>
   </div>
 
   <div id="mainView" style="display:none">
     <h1>Activate Sprint Member</h1>
-    <p class="sub">Enter member email to generate a 49-day sprint access link and send it directly to them.</p>
+    <p class="sub">Enter member email to generate a 70-day sprint access link and send it directly to them.</p>
 
     <div id="mainAlert" class="alert"></div>
 
@@ -64,30 +64,31 @@ input:focus{border-color:#2563EB}
       <div class="result-label">Magic Login Link Generated</div>
       <div class="result-link" id="resultLink"></div>
       <button class="copy-btn" onclick="copyLink()">Copy Link</button>
-      <div style="margin-top:10px;font-size:12px;color:#64748b">Link also sent to member email. Valid for 49 days.</div>
+      <div style="margin-top:10px;font-size:12px;color:#64748b">Link also sent to member email. Valid for 70 days.</div>
     </div>
 
     <hr class="divider">
     <div class="note">
-      This tool generates a 49-day sprint JWT token and sends the member a magic login link via email.
+      This tool generates a 70-day sprint JWT token and sends the member a magic login link via email.
       Use after confirming Stripe payment. Each generation creates a fresh token tied to that email address.
     </div>
   </div>
 </div>
 
 <script>
-const ADMIN_PASS = 'gca-sprint-admin-2025';
+let sessionAdminKey = null;
 
 function checkGate() {
-  const pass = document.getElementById('gatePass').value;
-  if (pass === ADMIN_PASS) {
-    document.getElementById('gateView').style.display = 'none';
-    document.getElementById('mainView').style.display = 'block';
-  } else {
+  const pass = document.getElementById('gatePass').value.trim();
+  if (!pass) {
     const alert = document.getElementById('gateAlert');
-    alert.textContent = 'Incorrect password.';
+    alert.textContent = 'Please enter your admin key.';
     alert.style.display = 'block';
+    return;
   }
+  sessionAdminKey = pass;
+  document.getElementById('gateView').style.display = 'none';
+  document.getElementById('mainView').style.display = 'block';
 }
 
 async function activateSprint() {
@@ -113,7 +114,7 @@ async function activateSprint() {
     const resp = await fetch('/.netlify/functions/generate-sprint-token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, adminKey: 'gca-sprint-admin-2025' })
+      body: JSON.stringify({ email, adminKey: sessionAdminKey })
     });
     const data = await resp.json();
 

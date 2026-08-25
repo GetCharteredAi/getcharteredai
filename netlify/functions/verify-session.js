@@ -98,7 +98,7 @@ exports.handler = async (event) => {
         plan === 'annual'      ? 548 * 24 * 60 * 60 * 1000 :
         plan === 'selfpaced'   ? 548 * 24 * 60 * 60 * 1000 :
         plan === 'referred'    ?  90 * 24 * 60 * 60 * 1000 :
-        plan === 'sprint'      ?  49 * 24 * 60 * 60 * 1000 :
+        plan === 'sprint'      ?  70 * 24 * 60 * 60 * 1000 :
         plan === 'year-one'    ? 183 * 24 * 60 * 60 * 1000 :
         plan === 'apprentice'  ? 365 * 24 * 60 * 60 * 1000 :
         60 * 24 * 60 * 60 * 1000

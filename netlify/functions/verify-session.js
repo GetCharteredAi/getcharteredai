@@ -2,8 +2,11 @@
 // Verifies Stripe payment and issues access token (no npm needed)
 const { getStore } = require('@netlify/blobs');
 
-// Price ID sets — keep in sync with create-checkout.js
+// Price ID sets — keep in sync with create-checkout.js and send-reset.js
 // Any price ID change there requires a matching change here.
+const ANNUAL_PRICE_IDS = new Set([
+  'price_1Tcs9lRkzyH1h56UY5JMcA7M', // Full 12-Module Programme — Annual (current)
+]);
 const SELFPACED_PRICE_IDS = new Set(['price_1TxOuERkzyH1h56UHzRlbS6i']);
 const REFERRED_PRICE_IDS  = new Set([
   'price_1TcsEeRkzyH1h56UidHDLTKy', // current (create-checkout.js)
@@ -68,6 +71,8 @@ exports.handler = async (event) => {
     let plan;
     if (session.mode === 'subscription') {
       plan = 'monthly';
+    } else if (ANNUAL_PRICE_IDS.has(priceId)) {
+      plan = 'annual';
     } else if (REFERRED_PRICE_IDS.has(priceId)) {
       plan = 'referred';
     } else if (SPRINT_PRICE_IDS.has(priceId)) {

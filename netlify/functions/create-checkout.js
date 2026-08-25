@@ -102,8 +102,10 @@ exports.handler = async (event) => {
     params.append('mode', mode);
     params.append('line_items[0][price]', priceId);
     params.append('line_items[0][quantity]', '1');
-    params.append('success_url', successUrl || 'https://getcharteredai.com/success.html?session_id={CHECKOUT_SESSION_ID}');
-    params.append('cancel_url', 'https://getcharteredai.com/cancel.html');
+    const host = event.headers['x-forwarded-host'] || event.headers['host'] || 'getcharteredai.com';
+    const siteUrl = `https://${host}`;
+    params.append('success_url', successUrl || `${siteUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`);
+    params.append('cancel_url', `${siteUrl}/cancel.html`);
     params.append('billing_address_collection', 'auto');
     params.append('consent_collection[terms_of_service]', 'required');
     params.append('custom_text[terms_of_service_acceptance][message]', 'I agree to the [[link]] and confirm I am purchasing digital content that will be made available to me immediately.');

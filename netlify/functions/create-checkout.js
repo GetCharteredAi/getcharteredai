@@ -44,6 +44,17 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
+  // TEMP DIAGNOSTIC — remove before merge
+  if (body.diagnostics === true) {
+    return { statusCode: 200, headers, body: JSON.stringify({
+      URL:              process.env.URL              || null,
+      DEPLOY_PRIME_URL: process.env.DEPLOY_PRIME_URL || null,
+      DEPLOY_URL:       process.env.DEPLOY_URL       || null,
+      CONTEXT:          process.env.CONTEXT          || null,
+      derivedSiteUrl:   process.env.DEPLOY_PRIME_URL || process.env.URL || 'https://getcharteredai.com'
+    })};
+  }
+
   const PLANS = {
     'annual':     { priceId: 'price_1U8GtuRkzyH1h56UqdF1bZlJ', mode: 'payment' },
     'monthly':    { priceId: 'price_1TcsBZRkzyH1h56UFH6ESfRe', mode: 'subscription' },

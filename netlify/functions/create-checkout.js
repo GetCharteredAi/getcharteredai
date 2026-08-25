@@ -115,6 +115,13 @@ exports.handler = async (event) => {
     if (body.plan === 'selfpaced') {
       params.append('payment_intent_data[setup_future_usage]', 'off_session');
     }
+    // Ensure a Stripe Customer record is created for one-time payment plans so
+    // that send-reset.js can look them up by email for the "Forgot password?" flow.
+    // selfpaced is excluded — setup_future_usage already forces customer creation.
+    // monthly/subscription always creates a customer automatically.
+    if (['sprint', 'referred', 'annual', 'year-one'].includes(body.plan)) {
+      params.append('customer_creation', 'always');
+    }
     if (body.email) {
       params.append('customer_email', body.email);
     }

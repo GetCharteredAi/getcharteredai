@@ -66,7 +66,8 @@ Where Learning Moments involve current legislation, regulation or professional g
 Professionally challenging + developmental + clear + useful. Challenge unsupported confidence. Recognise capability even where confidence is low. Avoid generic encouragement. Never patronise. Avoid over-coaching — enough support to understand, not enough to manufacture capability.`;
 
 function verifyToken(token) {
-  const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
+  const jwtSecret = process.env.JWT_SECRET;
+  if (!jwtSecret) throw new Error('JWT_SECRET not configured');
   const lastDot = token.lastIndexOf('.');
   if (lastDot === -1) return null;
   const tokenData = token.slice(0, lastDot);

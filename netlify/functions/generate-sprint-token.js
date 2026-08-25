@@ -1,5 +1,7 @@
 // netlify/functions/generate-sprint-token.js
-// Admin-only: generates a 49-day sprint JWT token and emails magic link
+// Admin-only: generates a sprint JWT token and emails magic link
+
+const SPRINT_DAYS = 70;
 
 exports.handler = async (event) => {
   const headers = {
@@ -18,8 +20,8 @@ exports.handler = async (event) => {
   const { email, adminKey } = body;
 
   // Validate admin key
-  const validAdminKey = process.env.SPRINT_ADMIN_KEY || 'gca-sprint-admin-2025';
-  if (adminKey !== validAdminKey) {
+  const validAdminKey = process.env.SPRINT_ADMIN_KEY;
+  if (!validAdminKey || adminKey !== validAdminKey) {
     return { statusCode: 403, headers, body: JSON.stringify({ error: 'Unauthorised' }) };
   }
 
@@ -28,9 +30,10 @@ exports.handler = async (event) => {
   }
 
   const cleanEmail = email.toLowerCase().trim();
-  const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
+  const jwtSecret = process.env.JWT_SECRET;
+  if (!jwtSecret) throw new Error('JWT_SECRET not configured');
   const activatedAt = Date.now();
-  const expires = activatedAt + (49 * 24 * 60 * 60 * 1000); // 49 days (6 weeks + 1 week buffer)
+  const expires = activatedAt + (SPRINT_DAYS * 24 * 60 * 60 * 1000);
 
   // Build sprint JWT token
   const payload = {
@@ -82,13 +85,13 @@ exports.handler = async (event) => {
                   Start My Sprint Now →
                 </a>
                 <p style="font-size:12px;color:#94a3b8;margin:0">
-                  Access valid for 49 days (6-week sprint plus one week revision buffer). If you didn't pass your APC, contact us — your £297 is credited against the full programme.<br><br>
+                  Access valid for ${SPRINT_DAYS} days. If you don't pass your APC, your £297 sprint fee is credited against the full programme — you pay just £200 for all 12 modules with 18 months access. Email us after your results and we'll set it up immediately.<br><br>
                   Questions? <a href="mailto:info@getcharteredai.com" style="color:#2563EB">info@getcharteredai.com</a>
                 </p>
               </div>
             </div>
           `,
-          text: `Your Get Chartered AI APC Sprint is ready!\n\nClick here to start: ${magicLink}\n\nAccess valid for 49 days.\n\nQuestions? info@getcharteredai.com`
+          text: `Your Get Chartered AI APC Sprint is ready!\n\nClick here to start: ${magicLink}\n\nAccess valid for ${SPRINT_DAYS} days.\n\nIf you don't pass your APC, your £297 sprint fee is credited against the full programme — you pay just £200 for all 12 modules with 18 months access. Email us after your results and we'll set it up immediately.\n\nQuestions? info@getcharteredai.com`
         })
       });
     } catch(err) {

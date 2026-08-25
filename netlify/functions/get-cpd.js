@@ -5,7 +5,8 @@ function verifyToken(token) {
   if (parts.length !== 2) throw new Error('Invalid token format');
   const payload = JSON.parse(Buffer.from(parts[0], 'base64').toString());
   if (payload.expires && Date.now() > payload.expires) throw new Error('Token expired');
-  const secret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error('JWT_SECRET not configured');
   const crypto = require('crypto');
   const hmacSig = crypto.createHmac('sha256', secret).update(parts[0]).digest('base64url');
   const legacySig = Buffer.from(`${parts[0]}.${secret}`).toString('base64').slice(0, 32);

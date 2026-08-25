@@ -4,6 +4,7 @@
 // Run with: node scripts/verify-apprentice.mjs
 
 import { chromium } from 'playwright';
+import { createHmac } from 'crypto';
 
 const BASE = 'http://localhost:9111';
 const PASS = '\x1b[32m✅\x1b[0m';
@@ -17,10 +18,13 @@ function check(label, condition, detail) {
 }
 
 // Minimal valid JWT for plan:'apprentice'
+// All API endpoints are mocked via page.route() so the actual signature is never verified —
+// JWT_SECRET must be set in env but the signing scheme doesn't affect test results here.
 function makeToken(plan = 'apprentice') {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error('JWT_SECRET not configured');
   const payload = Buffer.from(JSON.stringify({ email: 'test@arev.local', plan, expires: Date.now() + 86400000 })).toString('base64');
-  const secret = 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
-  const sig = Buffer.from(`${payload}.${secret}`).toString('base64').slice(0, 32);
+  const sig = createHmac('sha256', secret).update(payload).digest('base64url');
   return `${payload}.${sig}`;
 }
 

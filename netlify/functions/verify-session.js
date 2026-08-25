@@ -98,7 +98,7 @@ exports.handler = async (event) => {
         plan === 'annual'      ? 548 * 24 * 60 * 60 * 1000 :
         plan === 'selfpaced'   ? 548 * 24 * 60 * 60 * 1000 :
         plan === 'referred'    ?  90 * 24 * 60 * 60 * 1000 :
-        plan === 'sprint'      ?  49 * 24 * 60 * 60 * 1000 :
+        plan === 'sprint'      ?  70 * 24 * 60 * 60 * 1000 :
         plan === 'year-one'    ? 183 * 24 * 60 * 60 * 1000 :
         plan === 'apprentice'  ? 365 * 24 * 60 * 60 * 1000 :
         60 * 24 * 60 * 60 * 1000
@@ -134,7 +134,8 @@ exports.handler = async (event) => {
       }
     }
 
-    const jwtSecret = process.env.JWT_SECRET || 'gca-jwt-secret-2025-apc-platform-secure-x9k2m8z';
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) throw new Error('JWT_SECRET not configured');
     const tokenData = Buffer.from(JSON.stringify(payload)).toString('base64');
     const crypto = require('crypto');
     const signature = crypto.createHmac('sha256', jwtSecret).update(tokenData).digest('base64url');

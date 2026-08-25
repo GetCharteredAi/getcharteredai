@@ -46,12 +46,11 @@ exports.handler = async (event) => {
 
   // TEMP DIAGNOSTIC — remove before merge
   if (body.diagnostics === true) {
+    const diagHost = event.headers['x-forwarded-host'] || event.headers['host'] || 'getcharteredai.com';
     return { statusCode: 200, headers, body: JSON.stringify({
-      URL:              process.env.URL              || null,
-      DEPLOY_PRIME_URL: process.env.DEPLOY_PRIME_URL || null,
-      DEPLOY_URL:       process.env.DEPLOY_URL       || null,
-      CONTEXT:          process.env.CONTEXT          || null,
-      derivedSiteUrl:   process.env.DEPLOY_PRIME_URL || process.env.URL || 'https://getcharteredai.com'
+      host_header:      event.headers['host']            || null,
+      x_forwarded_host: event.headers['x-forwarded-host'] || null,
+      derivedSiteUrl:   `https://${diagHost}`
     })};
   }
 
@@ -113,7 +112,8 @@ exports.handler = async (event) => {
     params.append('mode', mode);
     params.append('line_items[0][price]', priceId);
     params.append('line_items[0][quantity]', '1');
-    const siteUrl = process.env.DEPLOY_PRIME_URL || process.env.URL || 'https://getcharteredai.com';
+    const host = event.headers['x-forwarded-host'] || event.headers['host'] || 'getcharteredai.com';
+    const siteUrl = `https://${host}`;
     params.append('success_url', successUrl || `${siteUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`);
     params.append('cancel_url', `${siteUrl}/cancel.html`);
     params.append('billing_address_collection', 'auto');

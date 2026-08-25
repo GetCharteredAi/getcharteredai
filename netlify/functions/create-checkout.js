@@ -102,7 +102,7 @@ exports.handler = async (event) => {
     params.append('mode', mode);
     params.append('line_items[0][price]', priceId);
     params.append('line_items[0][quantity]', '1');
-    const siteUrl = process.env.URL || 'https://getcharteredai.com';
+    const siteUrl = process.env.DEPLOY_PRIME_URL || process.env.URL || 'https://getcharteredai.com';
     params.append('success_url', successUrl || `${siteUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`);
     params.append('cancel_url', `${siteUrl}/cancel.html`);
     params.append('billing_address_collection', 'auto');

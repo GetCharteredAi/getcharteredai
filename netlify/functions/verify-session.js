@@ -5,8 +5,7 @@ const { getStore } = require('@netlify/blobs');
 // Price ID sets — keep in sync with create-checkout.js and send-reset.js
 // Any price ID change there requires a matching change here.
 const ANNUAL_PRICE_IDS = new Set([
-  'price_1Tcs9lRkzyH1h56UY5JMcA7M', // Full 12-Module Programme — Annual (live)
-  'price_1U8GtuRkzyH1h56UqdF1bZlJ', // Full 12-Module Programme — Annual (test mode only — remove after verification)
+  'price_1Tcs9lRkzyH1h56UY5JMcA7M', // Full 12-Module Programme — Annual (current)
 ]);
 const SELFPACED_PRICE_IDS = new Set(['price_1TxOuERkzyH1h56UHzRlbS6i']);
 const REFERRED_PRICE_IDS  = new Set([

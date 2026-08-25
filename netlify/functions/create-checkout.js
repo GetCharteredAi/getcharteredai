@@ -45,7 +45,7 @@ exports.handler = async (event) => {
   catch { return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
   const PLANS = {
-    'annual':     { priceId: 'price_1U8GtuRkzyH1h56UqdF1bZlJ', mode: 'payment' },
+    'annual':     { priceId: 'price_1Tcs9lRkzyH1h56UY5JMcA7M', mode: 'payment' },
     'monthly':    { priceId: 'price_1TcsBZRkzyH1h56UFH6ESfRe', mode: 'subscription' },
     'referred':   { priceId: 'price_1TcsEeRkzyH1h56UidHDLTKy', mode: 'payment' },
     'year-one':   { priceId: 'price_1TcsGcRkzyH1h56U7bJWaaBD', mode: 'payment' },

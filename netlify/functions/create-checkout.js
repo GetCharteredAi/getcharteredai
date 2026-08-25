@@ -44,16 +44,6 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
-  // TEMP DIAGNOSTIC — remove before merge
-  if (body.diagnostics === true) {
-    const diagHost = event.headers['x-forwarded-host'] || event.headers['host'] || 'getcharteredai.com';
-    return { statusCode: 200, headers, body: JSON.stringify({
-      host_header:      event.headers['host']            || null,
-      x_forwarded_host: event.headers['x-forwarded-host'] || null,
-      derivedSiteUrl:   `https://${diagHost}`
-    })};
-  }
-
   const PLANS = {
     'annual':     { priceId: 'price_1U8GtuRkzyH1h56UqdF1bZlJ', mode: 'payment' },
     'monthly':    { priceId: 'price_1TcsBZRkzyH1h56UFH6ESfRe', mode: 'subscription' },

@@ -62,17 +62,7 @@ exports.handler = async (event) => {
     const session = await r.json();
 
     if (!r.ok || (session.payment_status !== 'paid' && session.status !== 'complete')) {
-      // TEMP DIAGNOSTIC — remove before merge
-      return { statusCode: 402, headers, body: JSON.stringify({
-        error: 'Payment not confirmed. Please complete payment first.',
-        _debug: {
-          stripeOk: r.ok,
-          stripeStatus: r.status,
-          paymentStatus: session.payment_status,
-          sessionStatus: session.status,
-          stripeError: session.error || null
-        }
-      })};
+      return { statusCode: 402, headers, body: JSON.stringify({ error: 'Payment not confirmed. Please complete payment first.' }) };
     }
 
     // Detect plan by price ID — price ID sets defined at module level above.

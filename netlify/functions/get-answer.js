@@ -1,13 +1,13 @@
-// netlify/functions/get-questions.js
-// Phase 3: serves pathway-specific question bank after JWT verification.
-// Data loaded once at module level so warm invocations skip the require() parse.
+// netlify/functions/get-answer.js
+// Returns protected answer fields for a single question after token verification.
+// The bulk get-questions.js response strips these fields; they are only served here,
+// one question at a time, on explicit reveal.
 const DATA = require('./questions-data.json');
 
 const REVOKED_EMAILS = [
   'samperry991@gmail.com',
 ];
 
-// Valid authenticated pathways — must match PATHWAY_TO_MODULE_ID keys in get-modules.js
 const VALID_PATHWAYS = new Set([
   'Rural',
   'Taxation Allowances',
@@ -61,14 +61,13 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
-  const { token, pathway, random } = body;
+  const { token, pathway, questionIndex } = body;
   if (!token) return { statusCode: 401, headers: HEADERS, body: JSON.stringify({ error: 'Unauthorised' }) };
 
   const payload = verifyToken(token);
   if (!payload) return { statusCode: 401, headers: HEADERS, body: JSON.stringify({ error: 'Unauthorised' }) };
 
   if (REVOKED_EMAILS.includes(payload.email?.toLowerCase())) {
-    console.log(`Blocked revoked account from get-questions: ${payload.email}`);
     return { statusCode: 401, headers: HEADERS, body: JSON.stringify({ error: 'Unauthorised' }) };
   }
 
@@ -81,20 +80,18 @@ exports.handler = async (event) => {
     return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'No question bank for this pathway' }) };
   }
 
-  if (random) {
-    const question = questions[Math.floor(Math.random() * questions.length)];
-    console.log(`get-questions (random): ${payload.email} — pathway=${pathway}`);
-    return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ question }) };
+  const idx = parseInt(questionIndex, 10);
+  if (isNaN(idx) || idx < 0 || idx >= questions.length) {
+    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Invalid question index' }) };
   }
 
-  const stripped = questions.map(function(q) {
-    return { q: q.q, why: q.why, module: q.module };
-  });
+  const q = questions[idx];
+  const { pass, high, referral, referralWhy, challenge, keyPoints } = q;
 
-  console.log(`get-questions: ${payload.email} — pathway=${pathway} (${questions.length} questions)`);
+  console.log(`get-answer: ${payload.email} — pathway=${pathway} idx=${idx}`);
   return {
     statusCode: 200,
     headers: HEADERS,
-    body: JSON.stringify({ questions: stripped })
+    body: JSON.stringify({ pass, high, referral, referralWhy, challenge, keyPoints })
   };
 };

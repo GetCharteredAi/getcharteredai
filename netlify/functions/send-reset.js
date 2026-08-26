@@ -124,7 +124,7 @@ exports.handler = async (event) => {
               expires = activatedAt + (90 * 24 * 60 * 60 * 1000);
             } else if (SPRINT_PRICE_IDS.has(priceId)) {
               plan = 'sprint';
-              expires = activatedAt + (49 * 24 * 60 * 60 * 1000);
+              expires = activatedAt + (70 * 24 * 60 * 60 * 1000);
             } else if (YEAR_TWO_PRICE_IDS.has(priceId)) {
               plan = 'year-one';
               // Option C: pre-deploy purchases keep their original 548-day reset window
@@ -252,6 +252,9 @@ exports.handler = async (event) => {
 
   } catch (err) {
     console.error('Reset error:', err.message);
-    return { statusCode: 200, headers, body: JSON.stringify({ sent: true }) };
+    return { statusCode: 200, headers, body: JSON.stringify({
+      sent: false,
+      error: 'Something went wrong on our end. Please try again or contact info@getcharteredai.com for help.'
+    }) };
   }
 };

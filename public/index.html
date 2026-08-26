@@ -6104,6 +6104,25 @@ async function submitCaseStudy() {
 }
 
 
+// ── QUESTION BANK ANSWER HELPER ──────────────────────────────────────────────
+// Answers are stripped from the bulk get-questions response. They are fetched
+// here, one question at a time, only when the customer clicks Reveal.
+const _answerCache = {};
+async function _getAnswer(pathway, questionIndex) {
+  const cacheKey = pathway + ':' + questionIndex;
+  if (_answerCache[cacheKey]) return _answerCache[cacheKey];
+  const token = localStorage.getItem('gca_token');
+  const resp = await fetch('/.netlify/functions/get-answer', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token, pathway, questionIndex: questionIndex })
+  });
+  if (!resp.ok) throw new Error('Answer fetch failed');
+  const data = await resp.json();
+  _answerCache[cacheKey] = data;
+  return data;
+}
+
 // ── BUILDING SURVEYING QUESTION BANK DATA ────────────────────────────────────
 let BS_QUESTIONS = [];
 
@@ -6257,8 +6276,15 @@ function bsoRender() {
 }
 
 function bsoReveal() {
-  _bsoRevealed = true;
-  bsoRender();
+  const qs = bsoQuestions();
+  const q = qs[_bsoIndex];
+  const globalIdx = BS_QUESTIONS.indexOf(q);
+  const pathway = localStorage.getItem('gca_pathway');
+  _getAnswer(pathway, globalIdx).then(function(answer) {
+    Object.assign(q, answer);
+    _bsoRevealed = true;
+    bsoRender();
+  }).catch(function() {});
 }
 
 function bsoMark(val) {
@@ -6386,8 +6412,15 @@ function qsoRender() {
 }
 
 function qsoReveal() {
-  _qsoRevealed = true;
-  qsoRender();
+  const qs = qsoQuestions();
+  const q = qs[_qsoIndex];
+  const globalIdx = QS_QUESTIONS.indexOf(q);
+  const pathway = localStorage.getItem('gca_pathway');
+  _getAnswer(pathway, globalIdx).then(function(answer) {
+    Object.assign(q, answer);
+    _qsoRevealed = true;
+    qsoRender();
+  }).catch(function() {});
 }
 
 function qsoMark(val) {
@@ -6486,6 +6519,11 @@ function creoRender() {
   const globalIdx = CRE_QUESTIONS.indexOf(q);
   const state = progress[globalIdx] || {};
   _creoRevealed = !!state.revealed;
+  if (_creoRevealed && !q.pass) {
+    document.getElementById('creoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), globalIdx).then(function(a){Object.assign(q,a);creoRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('creoCounter').textContent = 'Question ' + (_creoIndex + 1) + ' of ' + qs.length;
   document.getElementById('creoModule').textContent = q.module;
   document.getElementById('creoProgressFill').style.width = ((_creoIndex + 1) / qs.length * 100) + '%';
@@ -6516,14 +6554,18 @@ function creoRender() {
 }
 
 function creoReveal() {
-  _creoRevealed = true;
   const qs = creoQuestions();
-  const globalIdx = CRE_QUESTIONS.indexOf(qs[_creoIndex]);
+  const q = qs[_creoIndex];
+  const globalIdx = CRE_QUESTIONS.indexOf(q);
   const progress = JSON.parse(localStorage.getItem('gca_cre_progress') || '{}');
   if (!progress[globalIdx]) progress[globalIdx] = {};
   progress[globalIdx].revealed = true;
   localStorage.setItem('gca_cre_progress', JSON.stringify(progress));
-  creoRender();
+  _getAnswer(localStorage.getItem('gca_pathway'), globalIdx).then(function(answer) {
+    Object.assign(q, answer);
+    _creoRevealed = true;
+    creoRender();
+  }).catch(function() {});
 }
 
 function creoMark(val) {
@@ -6650,8 +6692,15 @@ function taoRender() {
 }
 
 function taoReveal() {
-  _taoRevealed = true;
-  taoRender();
+  const qs = taoQuestions();
+  const q = qs[_taoIndex];
+  const globalIdx = TA_QUESTIONS.indexOf(q);
+  const pathway = localStorage.getItem('gca_pathway');
+  _getAnswer(pathway, globalIdx).then(function(answer) {
+    Object.assign(q, answer);
+    _taoRevealed = true;
+    taoRender();
+  }).catch(function() {});
 }
 
 function taoMark(val) {
@@ -6750,6 +6799,11 @@ function valoRender() {
   const globalIdx = VAL_QUESTIONS.indexOf(q);
   const state = progress[globalIdx] || {};
   _valoRevealed = !!state.revealed;
+  if (_valoRevealed && !q.pass) {
+    document.getElementById('valoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), globalIdx).then(function(a){Object.assign(q,a);valoRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('valoCounter').textContent = 'Question ' + (_valoIndex + 1) + ' of ' + qs.length;
   document.getElementById('valoModule').textContent = q.module;
   document.getElementById('valoProgressFill').style.width = ((_valoIndex + 1) / qs.length * 100) + '%';
@@ -6780,14 +6834,18 @@ function valoRender() {
 }
 
 function valoReveal() {
-  _valoRevealed = true;
   const qs = valoQuestions();
-  const globalIdx = VAL_QUESTIONS.indexOf(qs[_valoIndex]);
+  const q = qs[_valoIndex];
+  const globalIdx = VAL_QUESTIONS.indexOf(q);
   const progress = JSON.parse(localStorage.getItem('gca_val_progress') || '{}');
   if (!progress[globalIdx]) progress[globalIdx] = {};
   progress[globalIdx].revealed = true;
   localStorage.setItem('gca_val_progress', JSON.stringify(progress));
-  valoRender();
+  _getAnswer(localStorage.getItem('gca_pathway'), globalIdx).then(function(answer) {
+    Object.assign(q, answer);
+    _valoRevealed = true;
+    valoRender();
+  }).catch(function() {});
 }
 
 function valoMark(val) {
@@ -6886,6 +6944,11 @@ function pdoRender() {
   const globalIdx = PD_QUESTIONS.indexOf(q);
   const state = progress[globalIdx] || {};
   _pdoRevealed = !!state.revealed;
+  if (_pdoRevealed && !q.pass) {
+    document.getElementById('pdoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), globalIdx).then(function(a){Object.assign(q,a);pdoRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('pdoCounter').textContent = 'Question ' + (_pdoIndex + 1) + ' of ' + qs.length;
   document.getElementById('pdoModule').textContent = q.module;
   document.getElementById('pdoProgressFill').style.width = ((_pdoIndex + 1) / qs.length * 100) + '%';
@@ -6916,14 +6979,18 @@ function pdoRender() {
 }
 
 function pdoReveal() {
-  _pdoRevealed = true;
   const qs = pdoQuestions();
-  const globalIdx = PD_QUESTIONS.indexOf(qs[_pdoIndex]);
+  const q = qs[_pdoIndex];
+  const globalIdx = PD_QUESTIONS.indexOf(q);
   const progress = JSON.parse(localStorage.getItem('gca_pd_progress') || '{}');
   if (!progress[globalIdx]) progress[globalIdx] = {};
   progress[globalIdx].revealed = true;
   localStorage.setItem('gca_pd_progress', JSON.stringify(progress));
-  pdoRender();
+  _getAnswer(localStorage.getItem('gca_pathway'), globalIdx).then(function(answer) {
+    Object.assign(q, answer);
+    _pdoRevealed = true;
+    pdoRender();
+  }).catch(function() {});
 }
 
 function pdoMark(val) {
@@ -7022,6 +7089,11 @@ function pmoRender() {
   const globalIdx = PM_QUESTIONS.indexOf(q);
   const state = progress[globalIdx] || {};
   _pmoRevealed = !!state.revealed;
+  if (_pmoRevealed && !q.pass) {
+    document.getElementById('pmoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), globalIdx).then(function(a){Object.assign(q,a);pmoRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('pmoCounter').textContent = 'Question ' + (_pmoIndex + 1) + ' of ' + qs.length;
   document.getElementById('pmoModule').textContent = q.module;
   document.getElementById('pmoProgressFill').style.width = ((_pmoIndex + 1) / qs.length * 100) + '%';
@@ -7052,14 +7124,18 @@ function pmoRender() {
 }
 
 function pmoReveal() {
-  _pmoRevealed = true;
   const qs = pmoQuestions();
-  const globalIdx = PM_QUESTIONS.indexOf(qs[_pmoIndex]);
+  const q = qs[_pmoIndex];
+  const globalIdx = PM_QUESTIONS.indexOf(q);
   const progress = JSON.parse(localStorage.getItem('gca_pm_progress') || '{}');
   if (!progress[globalIdx]) progress[globalIdx] = {};
   progress[globalIdx].revealed = true;
   localStorage.setItem('gca_pm_progress', JSON.stringify(progress));
-  pmoRender();
+  _getAnswer(localStorage.getItem('gca_pathway'), globalIdx).then(function(answer) {
+    Object.assign(q, answer);
+    _pmoRevealed = true;
+    pmoRender();
+  }).catch(function() {});
 }
 
 function pmoMark(val) {
@@ -7156,6 +7232,11 @@ function resoRender() {
   const globalIdx = RES_QUESTIONS.indexOf(q);
   const state = progress[globalIdx] || {};
   _resoRevealed = !!state.revealed;
+  if (_resoRevealed && !q.pass) {
+    document.getElementById('resoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), globalIdx).then(function(a){Object.assign(q,a);resoRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('resoCounter').textContent = 'Question ' + (_resoIndex + 1) + ' of ' + qs.length;
   document.getElementById('resoModule').textContent = q.module;
   document.getElementById('resoProgressFill').style.width = ((_resoIndex + 1) / qs.length * 100) + '%';
@@ -7186,14 +7267,18 @@ function resoRender() {
 }
 
 function resoReveal() {
-  _resoRevealed = true;
   const qs = resoQuestions();
-  const globalIdx = RES_QUESTIONS.indexOf(qs[_resoIndex]);
+  const q = qs[_resoIndex];
+  const globalIdx = RES_QUESTIONS.indexOf(q);
   const progress = JSON.parse(localStorage.getItem('gca_res_progress') || '{}');
   if (!progress[globalIdx]) progress[globalIdx] = {};
   progress[globalIdx].revealed = true;
   localStorage.setItem('gca_res_progress', JSON.stringify(progress));
-  resoRender();
+  _getAnswer(localStorage.getItem('gca_pathway'), globalIdx).then(function(answer) {
+    Object.assign(q, answer);
+    _resoRevealed = true;
+    resoRender();
+  }).catch(function() {});
 }
 
 function resoMark(val) {
@@ -7261,6 +7346,11 @@ function pfoRender() {
   const progress = JSON.parse(localStorage.getItem('gca_pfi_progress') || '{}');
   const state = progress[_pfoIndex] || {};
   _pfoRevealed = !!state.revealed;
+  if (_pfoRevealed && !q.pass) {
+    document.getElementById('pfoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), _pfoIndex).then(function(a){Object.assign(q,a);pfoRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('pfoCounter').textContent = 'Question ' + (_pfoIndex + 1) + ' of ' + PFI_QUESTIONS.length;
   document.getElementById('pfoModule').textContent = q.module;
   document.getElementById('pfoProgressFill').style.width = ((_pfoIndex + 1) / PFI_QUESTIONS.length * 100) + '%';
@@ -7288,12 +7378,16 @@ function pfoRender() {
     '</div>';
 }
 function pfoReveal() {
-  _pfoRevealed = true;
   const progress = JSON.parse(localStorage.getItem('gca_pfi_progress') || '{}');
   if (!progress[_pfoIndex]) progress[_pfoIndex] = {};
   progress[_pfoIndex].revealed = true;
   localStorage.setItem('gca_pfi_progress', JSON.stringify(progress));
-  pfoRender();
+  const q = PFI_QUESTIONS[_pfoIndex];
+  _getAnswer(localStorage.getItem('gca_pathway'), _pfoIndex).then(function(answer) {
+    Object.assign(q, answer);
+    _pfoRevealed = true;
+    pfoRender();
+  }).catch(function() {});
 }
 function pfoMark(val) {
   const progress = JSON.parse(localStorage.getItem('gca_pfi_progress') || '{}');
@@ -7360,6 +7454,11 @@ function fmoRender() {
   const progress = JSON.parse(localStorage.getItem('gca_fm_progress') || '{}');
   const state = progress[_fmoIndex] || {};
   _fmoRevealed = !!state.revealed;
+  if (_fmoRevealed && !q.pass) {
+    document.getElementById('fmoBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), _fmoIndex).then(function(a){Object.assign(q,a);fmoRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('fmoCounter').textContent = 'Question ' + (_fmoIndex + 1) + ' of ' + FM_QUESTIONS.length;
   document.getElementById('fmoModule').textContent = q.module;
   document.getElementById('fmoProgressFill').style.width = ((_fmoIndex + 1) / FM_QUESTIONS.length * 100) + '%';
@@ -7386,12 +7485,16 @@ function fmoRender() {
     '</div>';
 }
 function fmoReveal() {
-  _fmoRevealed = true;
   const progress = JSON.parse(localStorage.getItem('gca_fm_progress') || '{}');
   if (!progress[_fmoIndex]) progress[_fmoIndex] = {};
   progress[_fmoIndex].revealed = true;
   localStorage.setItem('gca_fm_progress', JSON.stringify(progress));
-  fmoRender();
+  const q = FM_QUESTIONS[_fmoIndex];
+  _getAnswer(localStorage.getItem('gca_pathway'), _fmoIndex).then(function(answer) {
+    Object.assign(q, answer);
+    _fmoRevealed = true;
+    fmoRender();
+  }).catch(function() {});
 }
 function fmoMark(val) {
   const progress = JSON.parse(localStorage.getItem('gca_fm_progress') || '{}');
@@ -7452,6 +7555,11 @@ function ruralRender() {
   const progress = JSON.parse(localStorage.getItem('gca_rural_progress') || '{}');
   const state = progress[_ruralIndex] || {};
   _ruralRevealed = !!state.revealed;
+  if (_ruralRevealed && !q.pass) {
+    document.getElementById('ruralBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), _ruralIndex).then(function(a){Object.assign(q,a);ruralRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('ruralCounter').textContent = 'Question ' + (_ruralIndex + 1) + ' of ' + RURAL_QUESTIONS.length;
   document.getElementById('ruralModule').textContent = q.module;
   document.getElementById('ruralProgressFill').style.width = ((_ruralIndex + 1) / RURAL_QUESTIONS.length * 100) + '%';
@@ -7478,12 +7586,16 @@ function ruralRender() {
     '</div>';
 }
 function ruralReveal() {
-  _ruralRevealed = true;
   const progress = JSON.parse(localStorage.getItem('gca_rural_progress') || '{}');
   if (!progress[_ruralIndex]) progress[_ruralIndex] = {};
   progress[_ruralIndex].revealed = true;
   localStorage.setItem('gca_rural_progress', JSON.stringify(progress));
-  ruralRender();
+  const q = RURAL_QUESTIONS[_ruralIndex];
+  _getAnswer(localStorage.getItem('gca_pathway'), _ruralIndex).then(function(answer) {
+    Object.assign(q, answer);
+    _ruralRevealed = true;
+    ruralRender();
+  }).catch(function() {});
 }
 function ruralMark(val) {
   const progress = JSON.parse(localStorage.getItem('gca_rural_progress') || '{}');
@@ -7594,18 +7706,29 @@ function mcRender() {
   if (!q) { document.getElementById('mcBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Your questions are still loading — please wait a moment and try again.</p></div>'; return; }
   const progress = JSON.parse(localStorage.getItem('gca_mc_progress') || '{}');
   const state = progress[_mcIndex] || {};
+  _mcRevealed = !!state.revealed;
+  if (_mcRevealed && !q.pass) {
+    document.getElementById('mcBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), _mcIndex).then(function(a){Object.assign(q,a);mcRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('mcCounter').textContent = 'Question ' + (_mcIndex + 1) + ' of ' + MC_QUESTIONS.length;
   document.getElementById('mcModule').textContent = q.module || 'Management Consultancy';
   document.getElementById('mcProgressFill').style.width = ((_mcIndex + 1) / MC_QUESTIONS.length * 100) + '%';
-  const revealed = state.revealed || false;
-  const mark = state.mark || null;
+  const got = state.mark === 'got';
+  const struggled = state.mark === 'struggled';
   document.getElementById('mcBody').innerHTML =
     '<div class="bso-question">' + q.q + '</div>' +
-    '<button class="bso-reveal-btn' + (revealed ? ' revealed' : '') + '" onclick="mcReveal()">' + (revealed ? '✓ Answer revealed' : 'Reveal answer') + '</button>' +
-    '<div class="bso-reveal-content' + (revealed ? ' show' : '') + '" id="mcContent1"><strong>Pass answer</strong><br>' + q.pass + '</div>' +
-    '<div class="bso-reveal-content' + (revealed ? ' show' : '') + '" id="mcContent2"><strong>High-scoring answer</strong><br>' + q.high + '</div>' +
-    '<div class="bso-reveal-content bso-referral-content' + (revealed ? ' show' : '') + '" id="mcContent3"><strong>Referral answer — avoid this</strong><br>' + q.referral + '<ul>' + q.referralWhy.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>' +
-    (revealed ? '<div class="bso-mark-row"><button class="bso-mark-btn' + (mark==='got'?' active':'') + '" onclick="mcMark(\'got\')">✓ Got it</button><button class="bso-mark-btn bso-mark-struggled' + (mark==='struggled'?' active':'') + '" onclick="mcMark(\'struggled\')">✗ Struggled</button></div>' : '') +
+    (_mcRevealed ?
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">Pass-level answer</strong>' + q.pass + '</div>' +
+      '<div class="bso-reveal-content show"><strong style="color:#93c5fd;display:block;margin-bottom:6px">High-distinction answer</strong>' + q.high + '</div>' +
+      '<div class="bso-reveal-content bso-referral-content show"><strong>Referral answer — avoid this</strong><br>' + q.referral + '<ul>' + q.referralWhy.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-challenge"><strong>🎯 Challenge questions</strong><ul>' + q.challenge.map(function(c){return '<li>'+c+'</li>';}).join('') + '</ul></div>' +
+      '<div class="bso-keypoints"><strong>📌 Key learning points</strong><ol>' + q.keyPoints.map(function(k){return '<li>'+k+'</li>';}).join('') + '</ol></div>' +
+      '<div class="bso-actions"><button class="bso-got" onclick="mcMark(\'got\')" ' + (got?'style="background:#16a34a"':'') + '>✓ Got it</button><button class="bso-practice" onclick="mcMark(\'struggled\')" ' + (struggled?'style="border-color:#f59e0b;color:#fbbf24"':'') + '>✗ Struggled</button></div>'
+    :
+      '<button class="bso-reveal-btn" onclick="mcReveal()">Reveal answer</button>'
+    ) +
     '<div class="bso-nav"><button onclick="mcNav(-1)" ' + (_mcIndex===0?'disabled':'') + '>← Prev</button>' +
     '<button onclick="mcNav(1)" ' + (_mcIndex===MC_QUESTIONS.length-1?'disabled':'') + '>Next →</button></div>';
 }
@@ -7614,7 +7737,12 @@ function mcReveal() {
   if (!progress[_mcIndex]) progress[_mcIndex] = {};
   progress[_mcIndex].revealed = true;
   localStorage.setItem('gca_mc_progress', JSON.stringify(progress));
-  mcRender();
+  const q = MC_QUESTIONS[_mcIndex];
+  _getAnswer(localStorage.getItem('gca_pathway'), _mcIndex).then(function(answer) {
+    Object.assign(q, answer);
+    _mcRevealed = true;
+    mcRender();
+  }).catch(function() {});
 }
 function mcMark(val) {
   const progress = JSON.parse(localStorage.getItem('gca_mc_progress') || '{}');
@@ -7674,6 +7802,11 @@ function bcRender() {
   const progress = JSON.parse(localStorage.getItem('gca_bc_progress') || '{}');
   const state = progress[_bcIndex] || {};
   _bcRevealed = !!state.revealed;
+  if (_bcRevealed && !q.pass) {
+    document.getElementById('bcBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), _bcIndex).then(function(a){Object.assign(q,a);bcRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('bcCounter').textContent = 'Question ' + (_bcIndex + 1) + ' of ' + BC_QUESTIONS.length;
   document.getElementById('bcModule').textContent = q.module;
   document.getElementById('bcProgressFill').style.width = ((_bcIndex + 1) / BC_QUESTIONS.length * 100) + '%';
@@ -7700,12 +7833,16 @@ function bcRender() {
     '</div>';
 }
 function bcReveal() {
-  _bcRevealed = true;
   const progress = JSON.parse(localStorage.getItem('gca_bc_progress') || '{}');
   if (!progress[_bcIndex]) progress[_bcIndex] = {};
   progress[_bcIndex].revealed = true;
   localStorage.setItem('gca_bc_progress', JSON.stringify(progress));
-  bcRender();
+  const q = BC_QUESTIONS[_bcIndex];
+  _getAnswer(localStorage.getItem('gca_pathway'), _bcIndex).then(function(answer) {
+    Object.assign(q, answer);
+    _bcRevealed = true;
+    bcRender();
+  }).catch(function() {});
 }
 function bcMark(val) {
   const progress = JSON.parse(localStorage.getItem('gca_bc_progress') || '{}');
@@ -7766,6 +7903,11 @@ function corpRender() {
   const progress = JSON.parse(localStorage.getItem('gca_corp_progress') || '{}');
   const state = progress[_corpIndex] || {};
   _corpRevealed = !!state.revealed;
+  if (_corpRevealed && !q.pass) {
+    document.getElementById('corpBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), _corpIndex).then(function(a){Object.assign(q,a);corpRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('corpCounter').textContent = 'Question ' + (_corpIndex + 1) + ' of ' + CORP_QUESTIONS.length;
   document.getElementById('corpModule').textContent = q.module;
   document.getElementById('corpProgressFill').style.width = ((_corpIndex + 1) / CORP_QUESTIONS.length * 100) + '%';
@@ -7792,12 +7934,16 @@ function corpRender() {
     '</div>';
 }
 function corpReveal() {
-  _corpRevealed = true;
   const progress = JSON.parse(localStorage.getItem('gca_corp_progress') || '{}');
   if (!progress[_corpIndex]) progress[_corpIndex] = {};
   progress[_corpIndex].revealed = true;
   localStorage.setItem('gca_corp_progress', JSON.stringify(progress));
-  corpRender();
+  const q = CORP_QUESTIONS[_corpIndex];
+  _getAnswer(localStorage.getItem('gca_pathway'), _corpIndex).then(function(answer) {
+    Object.assign(q, answer);
+    _corpRevealed = true;
+    corpRender();
+  }).catch(function() {});
 }
 function corpMark(val) {
   const progress = JSON.parse(localStorage.getItem('gca_corp_progress') || '{}');
@@ -7858,6 +8004,11 @@ function lrRender() {
   const progress = JSON.parse(localStorage.getItem('gca_lr_progress') || '{}');
   const state = progress[_lrIndex] || {};
   _lrRevealed = !!state.revealed;
+  if (_lrRevealed && !q.pass) {
+    document.getElementById('lrBody').innerHTML = '<div style="max-width:960px;margin:80px auto;text-align:center"><p style="color:#93c5fd;font-size:15px">Loading answer…</p></div>';
+    _getAnswer(localStorage.getItem('gca_pathway'), _lrIndex).then(function(a){Object.assign(q,a);lrRender();}).catch(function(){});
+    return;
+  }
   document.getElementById('lrCounter').textContent = 'Question ' + (_lrIndex + 1) + ' of ' + LR_QUESTIONS.length;
   document.getElementById('lrModule').textContent = q.module;
   document.getElementById('lrProgressFill').style.width = ((_lrIndex + 1) / LR_QUESTIONS.length * 100) + '%';
@@ -7884,12 +8035,16 @@ function lrRender() {
     '</div>';
 }
 function lrReveal() {
-  _lrRevealed = true;
   const progress = JSON.parse(localStorage.getItem('gca_lr_progress') || '{}');
   if (!progress[_lrIndex]) progress[_lrIndex] = {};
   progress[_lrIndex].revealed = true;
   localStorage.setItem('gca_lr_progress', JSON.stringify(progress));
-  lrRender();
+  const q = LR_QUESTIONS[_lrIndex];
+  _getAnswer(localStorage.getItem('gca_pathway'), _lrIndex).then(function(answer) {
+    Object.assign(q, answer);
+    _lrRevealed = true;
+    lrRender();
+  }).catch(function() {});
 }
 function lrMark(val) {
   const progress = JSON.parse(localStorage.getItem('gca_lr_progress') || '{}');
@@ -8076,8 +8231,15 @@ function infraRender() {
 }
 
 function infraReveal() {
-  _infraRevealed = true;
-  infraRender();
+  var qs = infraQuestions();
+  var q = qs[_infraIndex];
+  var globalIdx = INFRA_QUESTIONS.indexOf(q);
+  var pathway = localStorage.getItem('gca_pathway');
+  _getAnswer(pathway, globalIdx).then(function(answer) {
+    Object.assign(q, answer);
+    _infraRevealed = true;
+    infraRender();
+  }).catch(function() {});
 }
 
 function infraMark(val) {

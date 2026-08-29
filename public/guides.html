@@ -19,7 +19,8 @@ nav{padding:18px 40px;display:flex;justify-content:space-between;align-items:cen
 h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(30px,5vw,48px);font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:14px;color:#0D0F1C}
 h1 em{font-style:italic;color:var(--gold)}
 .lead{font-size:16px;color:#3b5280;line-height:1.7;margin-bottom:36px;max-width:560px;font-weight:300}
-.guides-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px;overflow:hidden}
+.guides-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;overflow:hidden}
+.section-heading{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#0D0F1C;margin-bottom:16px;padding-top:4px}
 @media(max-width:900px){.guides-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.guides-grid{grid-template-columns:1fr}}
 .guide-card{background:#ffffff;border:1px solid #BFDBFE;border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:12px;transition:.2s;text-decoration:none;color:#1a1a2e;box-shadow:0 2px 8px rgba(37,99,235,.07);cursor:pointer}
@@ -87,105 +88,136 @@ h1 em{font-style:italic;color:var(--gold)}
     <p><strong>All guides unlocked.</strong> Click any guide to open it directly — no further registration needed.</p>
   </div>
 
-  <div class="guides-grid">
+  <section id="apc-section" style="margin-bottom:40px">
+    <h2 class="section-heading">Preparing for the APC</h2>
+    <div class="guides-grid">
 
-    <a class="guide-card" onclick="handleGuideClick(event,'/confidence-checklist')">
-      <div class="guide-icon">✅</div>
-      <span class="guide-tag tag-tool">APC Tool</span>
-      <div class="guide-title">APC Readiness Benchmark</div>
-      <p class="guide-desc">15 questions across 5 preparation areas to benchmark your APC readiness. Identify where you are strong and where gaps exist before the pressure of final year.</p>
-      <span class="guide-cta" id="cta-1">Download guide →</span>
-    </a>
+      <a class="guide-card" onclick="handleGuideClick(event,'/apc-guide')">
+        <div class="guide-icon">📋</div>
+        <span class="guide-tag tag-apc">APC Preparation</span>
+        <div class="guide-title">What Assessors Are Looking For</div>
+        <p class="guide-desc">A breakdown of all 11 mandatory competencies — what assessors test at each level, the most common referral reasons and what separates a pass from a referral.</p>
+        <span class="guide-cta" id="cta-3">Download guide →</span>
+      </a>
 
-    <a class="guide-card" onclick="handleGuideClick(event,'/grad-assessment-guide')">
-      <div class="guide-icon">📝</div>
-      <span class="guide-tag tag-grad">Graduate</span>
-      <div class="guide-title">Graduate Surveyor Assessment Day Prep</div>
-      <p class="guide-desc">Everything you need to know before an assessment centre — the formats firms use, group exercise techniques and how to stand out on the day.</p>
-      <span class="guide-cta" id="cta-2">Download guide →</span>
-    </a>
+    </div>
+  </section>
 
-    <a class="guide-card" onclick="handleGuideClick(event,'/apc-guide')">
-      <div class="guide-icon">📋</div>
-      <span class="guide-tag tag-apc">APC Preparation</span>
-      <div class="guide-title">What Assessors Are Looking For</div>
-      <p class="guide-desc">A breakdown of all 11 mandatory competencies — what assessors test at each level, the most common referral reasons and what separates a pass from a referral.</p>
-      <span class="guide-cta" id="cta-3">Download guide →</span>
-    </a>
+  <section id="referred-section" style="margin-bottom:40px">
+    <h2 class="section-heading">Referred and Preparing to Resit</h2>
+    <div class="guides-grid">
 
-    <a class="guide-card" onclick="handleGuideClick(event,'/grad-interview-guide')">
-      <div class="guide-icon">🎓</div>
-      <span class="guide-tag tag-grad">Graduate</span>
-      <div class="guide-title">Graduate Surveyor First Interview Prep</div>
-      <p class="guide-desc">How to prepare for a graduate surveying interview — what firms look for, common questions and how to present your motivation for chartership confidently.</p>
-      <span class="guide-cta" id="cta-4">Download guide →</span>
-    </a>
+      <a class="guide-card" href="/why-candidates-are-referred" style="border-top:3px solid #ef4444">
+        <div class="guide-icon">🔍</div>
+        <span class="guide-tag tag-referred">Free — No Registration</span>
+        <div class="guide-title">Why Candidates Are Referred</div>
+        <p class="guide-desc">The six most common referral reasons, what the feedback letter does not tell you, and how candidates who pass their resit approach it differently. Fully open — no registration required.</p>
+        <span class="guide-cta unlocked">Read now →</span>
+      </a>
 
-    <a class="guide-card" onclick="handleGuideClick(event,'/grad-bs-guide')">
-      <div class="guide-icon">🏛️</div>
-      <span class="guide-tag tag-grad">Building Surveying</span>
-      <div class="guide-title">Building Surveyor First Interview Prep</div>
-      <p class="guide-desc">A specialist guide for Building Surveying graduate roles — pathway-specific questions, technical knowledge expectations and how to discuss your interest in the built environment.</p>
-      <span class="guide-cta" id="cta-5">Download guide →</span>
-    </a>
+      <a class="guide-card" onclick="handleGuideClick(event,'/referred-guide')">
+        <div class="guide-icon">📖</div>
+        <span class="guide-tag tag-referred">Referred Candidates</span>
+        <div class="guide-title">Referred — What Now</div>
+        <p class="guide-desc">A straight-talking guide for referred APC candidates — what the referral actually means, the most common reasons it happens and how candidates who pass their resit approach it differently.</p>
+        <span class="guide-cta" id="cta-9">Download guide →</span>
+      </a>
 
-    <a class="guide-card" onclick="handleGuideClick(event,'/grad-qs-guide')">
-      <div class="guide-icon">📐</div>
-      <span class="guide-tag tag-grad">Quantity Surveying</span>
-      <div class="guide-title">Quantity Surveyor Interview Prep</div>
-      <p class="guide-desc">A specialist guide for Quantity Surveying graduate roles — what firms look for, how to talk about cost management and the questions most QS candidates get wrong.</p>
-      <span class="guide-cta" id="cta-6">Download guide →</span>
-    </a>
+    </div>
+  </section>
 
-    <a class="guide-card" href="/why-candidates-are-referred" style="border-top:3px solid #ef4444">
-      <div class="guide-icon">🔍</div>
-      <span class="guide-tag tag-referred">Free — No Registration</span>
-      <div class="guide-title">Why Candidates Are Referred</div>
-      <p class="guide-desc">The six most common referral reasons, what the feedback letter does not tell you, and how candidates who pass their resit approach it differently. Fully open — no registration required.</p>
-      <span class="guide-cta unlocked">Read now →</span>
-    </a>
+  <section id="graduates-section" style="margin-bottom:40px">
+    <h2 class="section-heading">Starting Your Surveying Career</h2>
+    <div class="guides-grid">
 
-    <a class="guide-card" onclick="handleGuideClick(event,'/referred-guide')">
-      <div class="guide-icon">📖</div>
-      <span class="guide-tag tag-referred">Referred Candidates</span>
-      <div class="guide-title">Referred — What Now</div>
-      <p class="guide-desc">A straight-talking guide for referred APC candidates — what the referral actually means, the most common reasons it happens and how candidates who pass their resit approach it differently.</p>
-      <span class="guide-cta" id="cta-9">Download guide →</span>
-    </a>
+      <a class="guide-card" onclick="handleGuideClick(event,'/grad-interview-guide')">
+        <div class="guide-icon">🎓</div>
+        <span class="guide-tag tag-grad">Graduate</span>
+        <div class="guide-title">Graduate Surveyor First Interview Prep</div>
+        <p class="guide-desc">How to prepare for a graduate surveying interview — what firms look for, common questions and how to present your motivation for chartership confidently.</p>
+        <span class="guide-cta" id="cta-4">Download guide →</span>
+      </a>
 
-    <a class="guide-card" href="/competency-checker">
-      <div class="guide-icon">✓</div>
-      <span class="guide-tag tag-tool">Free Tool</span>
-      <div class="guide-title">APC Competency Checker</div>
-      <p class="guide-desc">Check your proposed competency choices against the December 2025 RICS rules. Instant results — RICS can reject a submission for invalid choices.</p>
-      <span class="guide-cta unlocked">Check my choices →</span>
-    </a>
+      <a class="guide-card" onclick="handleGuideClick(event,'/grad-assessment-guide')">
+        <div class="guide-icon">📝</div>
+        <span class="guide-tag tag-grad">Graduate</span>
+        <div class="guide-title">Graduate Surveyor Assessment Day Prep</div>
+        <p class="guide-desc">Everything you need to know before an assessment centre — the formats firms use, group exercise techniques and how to stand out on the day.</p>
+        <span class="guide-cta" id="cta-2">Download guide →</span>
+      </a>
 
-    <a class="guide-card" href="/hot-topics">
-      <div class="guide-icon">🔥</div>
-      <span class="guide-tag tag-hot">Summer 2026</span>
-      <div class="guide-title">APC Assessors Briefing — Updated Summer 2026</div>
-      <p class="guide-desc">The 9 topics most likely to come up in your autumn 2026 assessment — with plain-English explanations and what assessors are specifically listening for.</p>
-      <span class="guide-cta unlocked">Read now — free →</span>
-    </a>
+      <a class="guide-card" onclick="handleGuideClick(event,'/grad-bs-guide')">
+        <div class="guide-icon">🏛️</div>
+        <span class="guide-tag tag-grad">Building Surveying</span>
+        <div class="guide-title">Building Surveyor First Interview Prep</div>
+        <p class="guide-desc">A specialist guide for Building Surveying graduate roles — pathway-specific questions, technical knowledge expectations and how to discuss your interest in the built environment.</p>
+        <span class="guide-cta" id="cta-5">Download guide →</span>
+      </a>
 
-    <a class="guide-card" onclick="handleGuideClick(event,'/assocrics-guide')">
-      <div class="guide-icon">🎓</div>
-      <span class="guide-tag tag-assoc">AssocRICS</span>
-      <div class="guide-title">What is AssocRICS</div>
-      <p class="guide-desc">What AssocRICS is, who it is for, how the written assessment works and what preparation looks like — plus a free Level 2 competency statement example.</p>
-      <span class="guide-cta" id="cta-12">Download guide →</span>
-    </a>
+      <a class="guide-card" onclick="handleGuideClick(event,'/grad-qs-guide')">
+        <div class="guide-icon">📐</div>
+        <span class="guide-tag tag-grad">Quantity Surveying</span>
+        <div class="guide-title">Quantity Surveyor Interview Prep</div>
+        <p class="guide-desc">A specialist guide for Quantity Surveying graduate roles — what firms look for, how to talk about cost management and the questions most QS candidates get wrong.</p>
+        <span class="guide-cta" id="cta-6">Download guide →</span>
+      </a>
 
-    <a class="guide-card" onclick="handleGuideClick(event,'/apprentice-guide-info')">
-      <div class="guide-icon">🏗️</div>
-      <span class="guide-tag tag-grad">Apprenticeship</span>
-      <div class="guide-title">The Chartered Surveyor Apprenticeship Route</div>
-      <p class="guide-desc">A complete guide to the degree apprenticeship route into surveying — how it works, who it suits and how it compares to the traditional university route.</p>
-      <span class="guide-cta" id="cta-13">Download guide →</span>
-    </a>
+      <a class="guide-card" onclick="handleGuideClick(event,'/apprentice-guide-info')">
+        <div class="guide-icon">🏗️</div>
+        <span class="guide-tag tag-grad">Apprenticeship</span>
+        <div class="guide-title">The Chartered Surveyor Apprenticeship Route</div>
+        <p class="guide-desc">A complete guide to the degree apprenticeship route into surveying — how it works, who it suits and how it compares to the traditional university route.</p>
+        <span class="guide-cta" id="cta-13">Download guide →</span>
+      </a>
 
-  </div>
+    </div>
+  </section>
+
+  <section id="tools-section" style="margin-bottom:40px">
+    <h2 class="section-heading">Tools &amp; Industry Updates</h2>
+    <div class="guides-grid">
+
+      <a class="guide-card" onclick="handleGuideClick(event,'/confidence-checklist')">
+        <div class="guide-icon">✅</div>
+        <span class="guide-tag tag-tool">APC Tool</span>
+        <div class="guide-title">APC Readiness Benchmark</div>
+        <p class="guide-desc">15 questions across 5 preparation areas to benchmark your APC readiness. Identify where you are strong and where gaps exist before the pressure of final year.</p>
+        <span class="guide-cta" id="cta-1">Download guide →</span>
+      </a>
+
+      <a class="guide-card" href="/competency-checker">
+        <div class="guide-icon">✓</div>
+        <span class="guide-tag tag-tool">Free Tool</span>
+        <div class="guide-title">APC Competency Checker</div>
+        <p class="guide-desc">Check your proposed competency choices against the December 2025 RICS rules. Instant results — RICS can reject a submission for invalid choices.</p>
+        <span class="guide-cta unlocked">Check my choices →</span>
+      </a>
+
+      <a class="guide-card" href="/hot-topics">
+        <div class="guide-icon">🔥</div>
+        <span class="guide-tag tag-hot">Summer 2026</span>
+        <div class="guide-title">APC Assessors Briefing — Updated Summer 2026</div>
+        <p class="guide-desc">The 9 topics most likely to come up in your autumn 2026 assessment — with plain-English explanations and what assessors are specifically listening for.</p>
+        <span class="guide-cta unlocked">Read now — free →</span>
+      </a>
+
+    </div>
+  </section>
+
+  <section style="margin-bottom:48px">
+    <h2 class="section-heading">Exploring Professional Routes</h2>
+    <div class="guides-grid">
+
+      <a class="guide-card" onclick="handleGuideClick(event,'/assocrics-guide')">
+        <div class="guide-icon">🎓</div>
+        <span class="guide-tag tag-assoc">AssocRICS</span>
+        <div class="guide-title">What is AssocRICS</div>
+        <p class="guide-desc">What AssocRICS is, who it is for, how the written assessment works and what preparation looks like — plus a free Level 2 competency statement example.</p>
+        <span class="guide-cta" id="cta-12">Download guide →</span>
+      </a>
+
+    </div>
+  </section>
 </div>
 
 <!-- REGISTRATION MODAL -->

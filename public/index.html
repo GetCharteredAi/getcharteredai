@@ -1151,57 +1151,69 @@ input.err{border-color:var(--red)}
     <img src="/logo1.png" alt="Get Chartered AI">
   </a>
   <div class="nav-right" id="navRight">
-    <div class="nav-dropdown" id="programmesDropdown">
-      <button class="nav-link nav-dropdown-trigger" onclick="toggleProgrammesDropdown()">APC Programmes &#x25BE;</button>
-      <div class="nav-dropdown-menu" id="programmesMenu" style="display:none">
-        <a href="/programme" class="nav-dropdown-item">
-          <span class="nav-dd-icon">&#x1F393;</span>
-          <span class="nav-dd-title">APC Full 12 Module Programme</span>
-          <span class="nav-dd-sub">Full structured preparation</span>
-        </a>
-        <a href="/sprint" class="nav-dropdown-item">
-          <span class="nav-dd-icon">&#x26A1;</span>
-          <span class="nav-dd-title">APC Final Sprint</span>
-          <span class="nav-dd-sub">Know your subject. Test it. Pass it.</span>
-        </a>
-        <a href="/referred-programme" class="nav-dropdown-item">
-          <span class="nav-dd-icon">&#x1F504;</span>
-          <span class="nav-dd-title">APC Referred &#x2014; Confidence Reset</span>
-          <span class="nav-dd-sub">Recovery programme after referral</span>
-        </a>
-        <a href="/year-two-review" class="nav-dropdown-item">
-          <span class="nav-dd-icon">&#x1F331;</span>
-          <span class="nav-dd-title">Year Two Professional Readiness Review</span>
-          <span class="nav-dd-sub">Benchmark your Year One progress</span>
-        </a>
-        <a href="/apprentice-review" class="nav-dropdown-item">
-          <span class="nav-dd-icon">&#x1F3EB;</span>
-          <span class="nav-dd-title">Apprentice Professional Readiness Review</span>
-          <span class="nav-dd-sub">Diagnostic for degree apprentices</span>
-        </a>
+    <div class="nav-dropdown" id="offerDropdown">
+      <button class="nav-link nav-dropdown-trigger" onclick="toggleOfferDropdown()">What We Offer &#x25BE;</button>
+      <div class="nav-dropdown-menu" id="offerMenu" style="display:none;min-width:580px;padding:20px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);padding:0 0 8px 4px">APC Preparation</div>
+            <a href="/programme" class="nav-dropdown-item">
+              <span class="nav-dd-icon">&#x1F393;</span>
+              <span class="nav-dd-title">APC Full 12 Module Programme</span>
+              <span class="nav-dd-sub">Full structured preparation</span>
+            </a>
+            <a href="/sprint" class="nav-dropdown-item" style="margin-top:6px">
+              <span class="nav-dd-icon">&#x26A1;</span>
+              <span class="nav-dd-title">APC Final Sprint</span>
+              <span class="nav-dd-sub">Know your subject. Test it. Pass it.</span>
+            </a>
+            <a href="/referred-programme" class="nav-dropdown-item" style="margin-top:6px">
+              <span class="nav-dd-icon">&#x1F504;</span>
+              <span class="nav-dd-title">APC Referred &#x2014; Confidence Reset</span>
+              <span class="nav-dd-sub">Recovery programme after referral</span>
+            </a>
+          </div>
+          <div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);padding:0 0 8px 4px">Readiness Reviews</div>
+            <a href="/year-two-review" class="nav-dropdown-item">
+              <span class="nav-dd-icon">&#x1F331;</span>
+              <span class="nav-dd-title">Year Two Professional Readiness Review</span>
+              <span class="nav-dd-sub">Benchmark your Year One progress</span>
+            </a>
+            <a href="/apprentice-review" class="nav-dropdown-item" style="margin-top:6px">
+              <span class="nav-dd-icon">&#x1F3EB;</span>
+              <span class="nav-dd-title">Apprentice Professional Readiness Review</span>
+              <span class="nav-dd-sub">Diagnostic for degree apprentices</span>
+            </a>
+          </div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,.08);margin-top:12px;padding-top:12px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);padding:0 0 8px 0">Explore Get Chartered AI</div>
+          <div style="display:flex;gap:8px">
+            <a href="/platform" class="guides-nav-item" style="flex:1">Inside the Platform</a>
+            <a href="/pricing" class="guides-nav-item" style="flex:1">Compare Programmes and Pricing</a>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="nav-dropdown" id="readinessDropdown">
-      <button class="nav-link nav-dropdown-trigger" onclick="toggleReadinessDropdown()">Professional Readiness &#x25BE;</button>
-      <div class="nav-dropdown-menu guides-nav-menu" id="readinessMenu" style="display:none">
-        <a href="#readiness-sec" class="guides-nav-item" onclick="event.preventDefault();closeReadinessDropdown();document.getElementById('readiness-sec').scrollIntoView({behavior:'smooth'})">What is Professional Readiness?</a>
-        <a href="#career-sec" class="guides-nav-item" onclick="event.preventDefault();closeReadinessDropdown();document.getElementById('career-sec').scrollIntoView({behavior:'smooth'})">Career Progression</a>
-        <span class="guides-nav-item" style="opacity:.4;cursor:default">Management &amp; Leadership <em style="font-style:normal;font-size:11px">(Coming Soon)</em></span>
+    <div class="nav-dropdown" id="whoDropdown">
+      <button class="nav-link nav-dropdown-trigger" onclick="toggleWhoDropdown()">Who It&#x2019;s For &#x25BE;</button>
+      <div class="nav-dropdown-menu guides-nav-menu" id="whoMenu" style="display:none">
+        <a href="#programme-finder-sec" class="guides-nav-item" onclick="event.preventDefault();closeWhoDropdown();document.getElementById('programme-finder-sec').scrollIntoView({behavior:'smooth'})">APC Candidates</a>
+        <a href="/sprint" class="guides-nav-item">Candidates Preparing for Final Assessment</a>
+        <a href="/referred-programme" class="guides-nav-item">Referred Candidates</a>
+        <a href="#career-sec" class="guides-nav-item" onclick="event.preventDefault();closeWhoDropdown();document.getElementById('career-sec').scrollIntoView({behavior:'smooth'})">Graduates and Apprentices</a>
+        <a href="/employer-guide" class="guides-nav-item">Employers Supporting Their People</a>
       </div>
     </div>
-    <a href="#michael-sec" class="nav-link" onclick="event.preventDefault();document.getElementById('michael-sec').scrollIntoView({behavior:'smooth'})">Michael</a>
     <div class="nav-dropdown" id="guidesDropdown">
       <button class="nav-link nav-dropdown-trigger" onclick="toggleGuidesDropdown()">Resources &#x25BE;</button>
       <div class="nav-dropdown-menu guides-nav-menu" id="guidesMenu" style="display:none">
-        <a href="/platform" class="guides-nav-item">Inside the Platform</a>
-        <a href="/guides?goto=/confidence-checklist" class="guides-nav-item">APC Readiness Benchmark</a>
-        <a href="/guides?goto=/apc-guide" class="guides-nav-item">What Assessors Are Looking For</a>
-        <a href="/guides?goto=/hot-topics" class="guides-nav-item">APC Assessors Briefing &#x2014; Summer 2026</a>
-        <a href="/guides?goto=/why-candidates-are-referred" class="guides-nav-item">Why Candidates Are Referred</a>
-        <a href="/guides?goto=/competency-checker" class="guides-nav-item">APC Competency Checker</a>
-        <a href="/guides?goto=/referred-guide" class="guides-nav-item">Referred &#x2014; What Now</a>
-        <a href="/guides?goto=/grad-assessment-guide" class="guides-nav-item">Graduate Surveyor Assessment Day Prep</a>
-        <a href="/guides?goto=/apprentice-guide-info" class="guides-nav-item">The Chartered Surveyor Apprenticeship Route</a>
+        <a href="/guides#apc-section" class="guides-nav-item">For APC Candidates</a>
+        <a href="/guides#referred-section" class="guides-nav-item">For Referred Candidates</a>
+        <a href="/guides#graduates-section" class="guides-nav-item">For Graduates &amp; Apprentices</a>
+        <a href="/guides#tools-section" class="guides-nav-item">Tools &amp; Industry Updates</a>
+        <a href="/guides" class="guides-nav-item" style="border-top:1px solid rgba(255,255,255,.08);margin-top:4px;padding-top:12px">View All Resources</a>
       </div>
     </div>
     <a href="/employer-guide" class="nav-link">For Employers</a>
@@ -1216,21 +1228,30 @@ input.err{border-color:var(--red)}
 
 <!-- MOBILE NAV DRAWER -->
 <div class="nav-drawer" id="navDrawer">
-  <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:4px 0 8px">APC Programmes</div>
+  <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:4px 0 8px">What We Offer</div>
   <a href="/programme" onclick="closeMobileNav()">APC Full 12 Module Programme</a>
   <a href="/sprint" onclick="closeMobileNav()">APC Final Sprint</a>
   <a href="/referred-programme" onclick="closeMobileNav()">APC Referred &#x2014; Confidence Reset</a>
   <a href="/year-two-review" onclick="closeMobileNav()">Year Two Professional Readiness Review</a>
   <a href="/apprentice-review" onclick="closeMobileNav()">Apprentice Professional Readiness Review</a>
-  <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0"></div>
-  <a href="#readiness-sec" onclick="event.preventDefault();closeMobileNav();document.getElementById('readiness-sec').scrollIntoView({behavior:'smooth'})">What is Professional Readiness?</a>
-  <a href="#career-sec" onclick="event.preventDefault();closeMobileNav();document.getElementById('career-sec').scrollIntoView({behavior:'smooth'})">Career Progression</a>
-  <span style="display:block;padding:10px 0;font-size:14px;opacity:.4;cursor:default">Management &amp; Leadership <em style="font-style:normal;font-size:11px">(Coming Soon)</em></span>
-  <a href="#michael-sec" onclick="event.preventDefault();closeMobileNav();document.getElementById('michael-sec').scrollIntoView({behavior:'smooth'})">Michael</a>
   <a href="/platform" onclick="closeMobileNav()">Inside the Platform</a>
-  <a href="/guides" onclick="closeMobileNav()">Resources</a>
+  <a href="/pricing" onclick="closeMobileNav()">Compare Programmes and Pricing</a>
+  <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0"></div>
+  <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:4px 0 8px">Who It&#x2019;s For</div>
+  <a href="#programme-finder-sec" onclick="event.preventDefault();closeMobileNav();document.getElementById('programme-finder-sec').scrollIntoView({behavior:'smooth'})">APC Candidates</a>
+  <a href="/sprint" onclick="closeMobileNav()">Candidates Preparing for Final Assessment</a>
+  <a href="/referred-programme" onclick="closeMobileNav()">Referred Candidates</a>
+  <a href="#career-sec" onclick="event.preventDefault();closeMobileNav();document.getElementById('career-sec').scrollIntoView({behavior:'smooth'})">Graduates and Apprentices</a>
+  <a href="/employer-guide" onclick="closeMobileNav()">Employers Supporting Their People</a>
+  <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0"></div>
+  <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:4px 0 8px">Resources</div>
+  <a href="/guides#apc-section" onclick="closeMobileNav()">For APC Candidates</a>
+  <a href="/guides#referred-section" onclick="closeMobileNav()">For Referred Candidates</a>
+  <a href="/guides#graduates-section" onclick="closeMobileNav()">For Graduates &amp; Apprentices</a>
+  <a href="/guides#tools-section" onclick="closeMobileNav()">Tools &amp; Industry Updates</a>
+  <a href="/guides" onclick="closeMobileNav()">View All Resources</a>
+  <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0"></div>
   <a href="/employer-guide" onclick="closeMobileNav()">For Employers</a>
-  <a href="/pricing" onclick="closeMobileNav()">Pricing</a>
   <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0"></div>
   <button onclick="closeMobileNav();openLogin()" id="drawerLoginBtn">Member Login</button>
   <button class="drawer-enrol" onclick="closeMobileNav();window.location.href='/pricing'" id="drawerEnrolBtn">Enrol Now</button>
@@ -5284,30 +5305,24 @@ window.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-function toggleProgrammesDropdown() {
-  const menu = document.getElementById('programmesMenu');
+function toggleOfferDropdown() {
+  const menu = document.getElementById('offerMenu');
   menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
 }
-function closeProgrammesDropdown() {
-  document.getElementById('programmesMenu').style.display = 'none';
+function closeOfferDropdown() {
+  document.getElementById('offerMenu').style.display = 'none';
 }
-function toggleReadinessDropdown() {
-  const menu = document.getElementById('readinessMenu');
+function toggleWhoDropdown() {
+  const menu = document.getElementById('whoMenu');
   menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
 }
-function closeReadinessDropdown() {
-  document.getElementById('readinessMenu').style.display = 'none';
+function closeWhoDropdown() {
+  document.getElementById('whoMenu').style.display = 'none';
 }
 document.addEventListener('click', function(e) {
-  if (!e.target.closest('#programmesDropdown')) {
-    closeProgrammesDropdown();
-  }
-  if (!e.target.closest('#readinessDropdown')) {
-    closeReadinessDropdown();
-  }
-  if (!e.target.closest('#guidesDropdown')) {
-    closeGuidesDropdown();
-  }
+  if (!e.target.closest('#offerDropdown')) closeOfferDropdown();
+  if (!e.target.closest('#whoDropdown')) closeWhoDropdown();
+  if (!e.target.closest('#guidesDropdown')) closeGuidesDropdown();
 });
 function toggleGuidesDropdown() {
   const menu = document.getElementById('guidesMenu');

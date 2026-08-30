@@ -185,7 +185,7 @@ body{font-family:var(--body);background:var(--paper);color:var(--ink);min-height
       <h1 class="masthead-h1">APC Industry<br>Briefing</h1>
       <p class="masthead-deck">The legislation, professional standards and industry developments APC candidates should understand for the autumn 2026 assessment window.</p>
     </div>
-    <p class="masthead-reviewed">Last reviewed: 30 August 2026 · Next full review: January 2027</p>
+    <p class="masthead-reviewed">Last reviewed: 30 August 2026 · Updated as material developments occur · Next full review of all topics: January 2027</p>
   </header>
 
   <!-- ══ HOW TO USE ══ -->
@@ -396,16 +396,16 @@ body{font-family:var(--body);background:var(--paper);color:var(--ink);min-height
     <div id="midAlertBox" class="alert"></div>
     <div class="notif-inner">
       <div>
-        <p class="notif-title">Spring 2027 briefing coming in January</p>
-        <p class="notif-sub">Enter your details and we will send the next APC Industry Briefing directly to you when it is published.</p>
+        <p class="notif-title">Want the next briefing first?</p>
+        <p class="notif-sub">Leave your details and we'll send it directly to you, along with future assessor-relevant resources as they're released.</p>
       </div>
       <div class="notif-form">
         <div class="notif-inputs">
           <input type="text" id="midName" class="notif-input" placeholder="First name" autocomplete="given-name">
           <input type="email" id="midEmail" class="notif-input" placeholder="your@email.com" autocomplete="email">
         </div>
-        <button onclick="submitMidForm()" id="midBtn" class="notif-btn">Notify me for spring 2027 →</button>
-        <p class="notif-note">No spam. Just the briefing update.</p>
+        <button onclick="submitMidForm()" id="midBtn" class="notif-btn">Notify me →</button>
+        <p class="notif-note">No spam. Just what's genuinely useful before your assessment.</p>
       </div>
     </div>
   </div>
@@ -631,17 +631,6 @@ body{font-family:var(--body);background:var(--paper);color:var(--ink);min-height
       <a href="/programme" class="btn-ghost">APC Full 12 Module Programme</a>
       <a href="/sprint" class="btn-ghost">APC Final Sprint</a>
     </div>
-    <div class="bottom-form">
-      <p class="bottom-form-title">Stay updated for spring 2027</p>
-      <p class="bottom-form-sub">Leave your details and we will notify you when the spring 2027 briefing is published.</p>
-      <div id="alertBox" class="alert"></div>
-      <div class="bottom-form-inputs">
-        <input type="text" id="name" class="bottom-form-input" placeholder="First name" autocomplete="given-name">
-        <input type="email" id="email" class="bottom-form-input" placeholder="your@email.com" autocomplete="email">
-      </div>
-      <button onclick="submitForm()" class="bottom-form-btn">Notify me →</button>
-      <p class="bottom-note">No spam. Just the APC Industry Briefing update when it is published.</p>
-    </div>
   </div>
 </section>
 
@@ -661,32 +650,11 @@ async function submitMidForm() {
       method: 'POST', headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({name, email, pathway: 'Not specified', examDate: 'Not yet scheduled', guideType: 'hot-topics'})
     });
-    showMidAlert('Done — we will notify you in January 2027.', 'ok');
+    showMidAlert('Done — we\'ll send updates as they\'re released.', 'ok');
   } catch(e) { showMidAlert('Saved.', 'ok'); }
 }
 function showMidAlert(msg, type) {
   const el = document.getElementById('midAlertBox');
-  el.textContent = msg; el.className = 'alert alert-' + type; el.style.display = 'block';
-}
-
-async function submitForm() {
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim().toLowerCase();
-  const btn = document.querySelector('.bottom-form-btn');
-  const alertEl = document.getElementById('alertBox');
-  alertEl.style.display = 'none';
-  if (!name || !email.includes('@')) { showAlert('Please enter your name and email.', 'err'); return; }
-  btn.disabled = true; btn.textContent = 'Done ✓';
-  try {
-    await fetch('/.netlify/functions/capture-lead', {
-      method: 'POST', headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({name, email, pathway: 'Not specified', examDate: 'Not yet scheduled', guideType: 'hot-topics'})
-    });
-    showAlert('We will notify you when the next APC Industry Briefing is published.', 'ok');
-  } catch(e) { showAlert('Saved.', 'ok'); }
-}
-function showAlert(msg, type) {
-  const el = document.getElementById('alertBox');
   el.textContent = msg; el.className = 'alert alert-' + type; el.style.display = 'block';
 }
 </script>

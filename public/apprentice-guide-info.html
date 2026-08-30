@@ -17,15 +17,15 @@
   .salary-box{background:#eff6ff!important;border-color:#bfdbfe!important}
 }
 body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:100vh}
+.guide-nav{background:#0D0F1C;padding:16px 32px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.06)}
+@media print{.guide-nav{display:none}}
+@media(max-width:700px){.guide-nav{padding:14px 20px}}
 .page{max-width:960px;margin:0 auto;padding:32px 24px}
 /* HEADER */
-.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)}
-.logo{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:700}
-.logo span{color:var(--gold)}
-.header-right{text-align:right}
-.header-right h1{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(17px,3vw,26px);font-weight:900;line-height:1.15;letter-spacing:-.02em;margin-bottom:5px}
-.header-right h1 em{font-style:italic;color:var(--gold)}
-.header-right p{font-size:12px;color:var(--muted);max-width:360px;line-height:1.5;text-align:right}
+.header{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.header h1{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(17px,3vw,26px);font-weight:900;line-height:1.15;letter-spacing:-.02em;margin-bottom:5px}
+.header h1 em{font-style:italic;color:var(--gold)}
+.header p{font-size:12px;color:var(--muted);max-width:580px;line-height:1.5}
 .sec-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .sec-title::after{content:'';flex:1;height:1px;background:rgba(245,158,11,.2)}
 /* WHAT IS IT */
@@ -81,9 +81,6 @@ body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:
 @media(max-width:700px){
   .what-grid,.stages-row,.pathways-grid{grid-template-columns:1fr 1fr}
   .mid-row,.reality-row{grid-template-columns:1fr}
-  .header{flex-direction:column;gap:10px}
-  .header-right{text-align:left}
-  .header-right p{text-align:left}
 }
 </style>
 </head>
@@ -97,6 +94,10 @@ body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:
 })();
 </script>
 
+<nav class="guide-nav">
+  <a href="/"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px;display:block"></a>
+</nav>
+
 <div class="no-print print-bar">
   <button class="print-btn" onclick="window.print()">⬇ Save as PDF</button>
 </div>
@@ -105,11 +106,8 @@ body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:
 
   <!-- HEADER -->
   <div class="header">
-    <div class="logo"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px"></div>
-    <div class="header-right">
-      <h1>The Chartered Surveyor<br><em>Apprenticeship Route</em></h1>
-      <p>Earn a salary, gain real experience and work toward MRICS — all at the same time. Everything you need to know before you apply.</p>
-    </div>
+    <h1>The Chartered Surveyor<br><em>Apprenticeship Route</em></h1>
+    <p>Earn a salary, gain real experience and work toward MRICS — all at the same time. Everything you need to know before you apply.</p>
   </div>
 
   <!-- WHAT IS IT -->

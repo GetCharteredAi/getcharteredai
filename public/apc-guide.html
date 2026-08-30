@@ -36,17 +36,19 @@ body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:
   .comp-level{background:#eff6ff!important;color:#1d4ed8!important;border-color:#bfdbfe!important}
 }
 
+/* ── GUIDE NAV ── */
+.guide-nav{background:#0D0F1C;padding:16px 32px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.06)}
+@media print{.guide-nav{display:none}}
+@media(max-width:700px){.guide-nav{padding:14px 20px}}
+
 /* ── LAYOUT ── */
 .page{max-width:960px;margin:0 auto;padding:40px 32px}
 
 /* ── HEADER ── */
-.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;padding-bottom:28px;border-bottom:1px solid var(--border)}
-.logo-text{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:700;color:var(--white)}
-.logo-text span{color:var(--gold)}
-.header-right{text-align:right}
+.header{margin-bottom:40px;padding-bottom:28px;border-bottom:1px solid var(--border)}
 .header-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:900;line-height:1.1;letter-spacing:-.02em;color:#0D0F1C;margin-bottom:8px}
 .header-title em{font-style:italic;color:var(--gold)}
-.header-sub{font-size:13px;color:var(--muted);max-width:420px;line-height:1.5;text-align:right}
+.header-sub{font-size:13px;color:var(--muted);max-width:580px;line-height:1.5}
 
 /* ── INTRO ROW ── */
 .intro-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px}
@@ -85,8 +87,6 @@ body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:
 
 @media(max-width:700px){
   .comp-grid{grid-template-columns:1fr}
-  .header{flex-direction:column;gap:16px}
-  .header-sub{text-align:left}
   .intro-row{grid-template-columns:1fr}
 }
 </style>
@@ -101,6 +101,10 @@ body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:
 })();
 </script>
 
+<nav class="guide-nav">
+  <a href="/"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px;display:block"></a>
+</nav>
+
 <div class="no-print print-bar">
   <button class="print-btn" onclick="window.print()">⬇ Save as PDF</button>
   <a href="/free-guide" class="save-btn">← Back</a>
@@ -110,11 +114,8 @@ body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:
 
   <!-- HEADER -->
   <div class="header">
-    <div class="logo-text"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px"></div>
-    <div class="header-right">
-      <div class="header-title">The 11 Mandatory Competencies<br><em>What Assessors Are Actually Looking For</em></div>
-      <p class="header-sub">Built by Chartered Surveyors. Every insight drawn from how panels actually assess — not from the RICS website.</p>
-    </div>
+    <div class="header-title">The 11 Mandatory Competencies<br><em>What Assessors Are Actually Looking For</em></div>
+    <p class="header-sub">Built by Chartered Surveyors. Every insight drawn from how panels actually assess — not from the RICS website.</p>
   </div>
 
   <!-- STATS -->

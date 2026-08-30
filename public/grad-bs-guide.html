@@ -10,13 +10,14 @@
 :root{--navy:#0a0f1e;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8;--border:rgba(255,255,255,.1)}
 @media print{body{background:#fff;color:#0a0f1e}.no-print{display:none!important}.page{padding:16px}.q-card,.tech-card,.star-box,.research-box,.watching-box,.commercial-box{background:#f8fafc!important;border-color:#e2e8f0!important}}
 body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:100vh}
+.guide-nav{background:#0D0F1C;padding:16px 32px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.06)}
+@media print{.guide-nav{display:none}}
+@media(max-width:700px){.guide-nav{padding:14px 20px}}
 .page{max-width:960px;margin:0 auto;padding:36px 28px}
-.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
-.logo{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:700}.logo span{color:var(--gold)}
-.header-right{text-align:right}
-.header-right h1{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(18px,3vw,28px);font-weight:900;line-height:1.15;letter-spacing:-.02em;margin-bottom:6px}
-.header-right h1 em{font-style:italic;color:var(--gold)}
-.header-right p{font-size:12px;color:var(--muted);max-width:360px;line-height:1.5;text-align:right}
+.header{margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.header h1{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(18px,3vw,28px);font-weight:900;line-height:1.15;letter-spacing:-.02em;margin-bottom:6px}
+.header h1 em{font-style:italic;color:var(--gold)}
+.header p{font-size:12px;color:var(--muted);max-width:580px;line-height:1.5}
 .pathway-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:100px;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .sec-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .sec-title::after{content:'';flex:1;height:1px;background:rgba(245,158,11,.2)}
@@ -63,7 +64,7 @@ body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:
 .footer-cta{display:inline-block;background:var(--gold);color:var(--navy);padding:7px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;margin-bottom:6px}
 .print-bar{position:fixed;bottom:24px;right:24px;z-index:100}
 .print-btn{background:var(--gold);color:var(--navy);padding:11px 20px;border-radius:8px;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(245,158,11,.4)}
-@media(max-width:700px){.q-grid,.tech-grid,.mid-row,.bottom-row{grid-template-columns:1fr}.header{flex-direction:column;gap:12px}.header-right{text-align:left}.header-right p{text-align:left}}
+@media(max-width:700px){.q-grid,.tech-grid,.mid-row,.bottom-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -75,16 +76,17 @@ body{font-family:'Inter',sans-serif;background:#EFF6FF;color:#1a1a2e;min-height:
   }
 })();
 </script>
+<nav class="guide-nav">
+  <a href="/"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px;display:block"></a>
+</nav>
+
 <div class="no-print print-bar"><button class="print-btn" onclick="window.print()">⬇ Save as PDF</button></div>
 <div class="page">
 
   <div class="header">
-    <div class="logo"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px"></div>
-    <div class="header-right">
-      <div class="pathway-badge">🏗 Building Surveying</div>
-      <h1>Graduate First Interview —<br><em>Building Surveying</em></h1>
-      <p>What BS firms are actually looking for, the technical questions you will face, and the 2026 legislation every candidate must know.</p>
-    </div>
+    <div class="pathway-badge">🏗 Building Surveying</div>
+    <h1>Graduate First Interview —<br><em>Building Surveying</em></h1>
+    <p>What BS firms are actually looking for, the technical questions you will face, and the 2026 legislation every candidate must know.</p>
   </div>
 
   <!-- THE 5 QUESTIONS -->

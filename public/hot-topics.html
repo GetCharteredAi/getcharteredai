@@ -3,322 +3,647 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Industry Briefing — Updated Summer 2026 | Get Chartered AI</title>
-<meta name="description" content="The most likely APC interview topics for the autumn 2026 window. Updated by Chartered Surveyors for every assessment window.">
+<title>APC Industry Briefing — Autumn 2026 | Get Chartered AI</title>
+<meta name="description" content="The legislation, professional standards and industry developments APC candidates should understand for the autumn 2026 assessment window. Last reviewed: 30 August 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0f1f3d;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8;--border:rgba(255,255,255,.08)}
-body{font-family:'Inter',sans-serif;background:#0f1f3d;color:var(--white);min-height:100vh}
-nav{padding:18px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:rgba(11,12,28,.97)}
-.nav-logo{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none}.nav-logo span{color:var(--gold)}
-.nav-back{font-size:13px;color:var(--muted);text-decoration:none}.nav-back:hover{color:var(--white)}
-.hero{max-width:800px;margin:0 auto;padding:60px 24px 40px;text-align:center}
-.window-badge{display:inline-block;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:100px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
-.hero h1{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
-.hero h1 em{font-style:italic;color:var(--gold)}
-.hero-sub{font-size:17px;color:rgba(248,250,252,.6);line-height:1.7;font-weight:300;max-width:600px;margin:0 auto 24px}
-.updated{font-size:12px;color:rgba(248,250,252,.35);margin-bottom:40px}
-.intro-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:20px 24px;max-width:720px;margin:0 auto 48px;font-size:14px;color:rgba(248,250,252,.65);line-height:1.7;text-align:left}
-.intro-box strong{color:var(--white)}
-.topics-wrap{max-width:900px;margin:0 auto;padding:0 24px 80px}
-.topic-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin-bottom:16px;border-left:4px solid var(--gold)}
-.topic-card.high{border-left-color:#ef4444}
-.topic-card.medium{border-left-color:var(--gold)}
-.topic-card.watch{border-left-color:#3b82f6}
-.topic-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
-.topic-num{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);flex-shrink:0;padding-top:3px}
-.topic-title-wrap{flex:1}
-.topic-title{font-size:18px;font-weight:700;color:var(--white);line-height:1.3;margin-bottom:6px}
-.topic-meta{display:flex;gap:8px;flex-wrap:wrap}
-.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:4px}
-.badge-hot{background:rgba(239,68,68,.15);color:#fca5a5}
-.badge-gold{background:rgba(245,158,11,.15);color:#fcd34d}
-.badge-blue{background:rgba(37,99,235,.15);color:#93c5fd}
-.badge-green{background:rgba(16,185,129,.15);color:#6ee7b7}
-.topic-body{font-size:14px;color:rgba(248,250,252,.75);line-height:1.75}
-.topic-body p{margin-bottom:10px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+:root{
+  --paper:#F5F0E8;
+  --paper-mid:#EDE8DF;
+  --navy:#0B0C1C;
+  --ink:#1a1a2e;
+  --ink-mid:#4a4860;
+  --ink-muted:#7a788a;
+  --blue:#2563EB;
+  --rule:#c8bfb0;
+  --rule-light:#ddd8ce;
+  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+  --sans:'Plus Jakarta Sans','Inter',sans-serif;
+  --body:'Inter',sans-serif;
+  --red:#dc2626;
+  --amber:#d97706;
+}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── NAV ── */
+.site-nav{padding:18px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06);background:var(--navy)}
+.nav-logo{text-decoration:none}
+.nav-back{font-size:13px;color:#94a3b8;text-decoration:none;font-family:var(--sans);transition:color .18s}
+.nav-back:hover{color:#f8fafc}
+@media(max-width:600px){.site-nav{padding:16px 20px}}
+
+/* ── LAYOUT ── */
+.content{max-width:1060px;margin:0 auto;padding:0 40px}
+@media(max-width:900px){.content{padding:0 28px}}
+@media(max-width:600px){.content{padding:0 18px}}
+
+/* ── MASTHEAD ── */
+.masthead{padding:28px 0 0}
+.masthead-eyebrow{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-top:1px solid var(--rule);font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted)}
+.masthead-title-area{display:grid;grid-template-columns:1fr 300px;gap:40px;align-items:start;padding:22px 0 18px;border-bottom:4px double var(--rule)}
+.masthead-h1{font-family:var(--serif);font-size:clamp(42px,6.5vw,76px);font-weight:400;line-height:1;color:var(--ink);letter-spacing:-.02em}
+.masthead-deck{font-family:var(--serif);font-size:16px;font-style:italic;color:var(--ink-mid);line-height:1.7;padding-top:6px}
+.masthead-reviewed{font-family:var(--sans);font-size:12px;color:var(--ink-muted);padding:10px 0 26px;border-bottom:1px solid var(--rule-light)}
+@media(max-width:820px){.masthead-title-area{grid-template-columns:1fr}}
+
+/* ── INTRO ── */
+.intro{max-width:720px;padding:30px 0 28px;border-bottom:1px solid var(--rule-light)}
+.intro h2{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--ink);margin-bottom:14px}
+.intro p{font-size:15px;color:var(--ink-mid);line-height:1.75;margin-bottom:10px}
+.intro ul{font-size:15px;color:var(--ink-mid);line-height:1.75;margin:8px 0 10px 22px}
+.intro li{margin-bottom:3px}
+.intro p:last-child{margin-bottom:0}
+
+/* ── CONTENTS INDEX ── */
+.contents-nav{padding:28px 0 32px;border-bottom:1px solid var(--rule)}
+.contents-label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:14px}
+.contents-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+.contents-entry{display:flex;flex-direction:column;gap:3px;padding:11px 14px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);text-decoration:none;color:inherit;transition:background .15s;cursor:pointer}
+.contents-entry:hover{background:rgba(37,99,235,.04)}
+.contents-entry:focus{outline:2px solid var(--blue);outline-offset:-2px}
+.ce-num{font-family:var(--sans);font-size:11px;font-weight:700;color:var(--blue)}
+.ce-high .ce-num{color:var(--red)}
+.ce-well .ce-num{color:var(--amber)}
+.ce-watch .ce-num{color:var(--blue)}
+.ce-title{font-family:var(--serif);font-size:13px;color:var(--ink);line-height:1.3}
+.ce-priority{font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-muted)}
+@media(max-width:820px){.contents-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:420px){.contents-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ── SECTION RULES ── */
+.section-rule{display:flex;align-items:center;gap:12px;margin:48px 0 28px}
+.sr-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sr-red{background:var(--red)}
+.sr-amber{background:var(--amber)}
+.sr-blue{background:var(--blue)}
+.sr-label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-muted);white-space:nowrap}
+.section-rule::after{content:'';flex:1;height:1px;background:var(--rule)}
+
+/* ── TOPIC META ── */
+.topic-num{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:3px}
+.topic-pathways{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:12px}
+.topic-hr{border:none;border-top:1px solid var(--rule-light);margin:40px 0}
+
+/* ── LEAD STORY ── */
+.lead-h2{font-family:var(--serif);font-size:clamp(26px,4vw,44px);font-weight:400;line-height:1.12;color:var(--ink);margin-bottom:22px}
+.lead-grid{display:grid;grid-template-columns:1fr 268px;gap:44px}
+.lead-body{font-size:16px;color:var(--ink);line-height:1.8}
+.lead-body p{margin-bottom:16px}
+.lead-body p:last-child{margin-bottom:0}
+.lead-body em{font-style:italic}
+@media(max-width:820px){.lead-grid{grid-template-columns:1fr}}
+
+/* Pull quote */
+.pull-quote{font-family:var(--serif);font-size:17px;font-style:italic;line-height:1.65;color:var(--ink);border-top:2px solid var(--ink);padding-top:14px;margin-bottom:24px}
+
+/* Sidebar shared */
+.assessor-label,.sources-label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);border-top:1px solid var(--rule-light);padding-top:12px;margin-bottom:8px}
+.assessor-text{font-size:13px;font-style:italic;color:var(--ink-mid);line-height:1.7;margin-bottom:20px}
+.sources-link{display:block;font-size:13px;color:var(--blue);text-decoration:underline;text-underline-offset:2px;line-height:1.55;margin-bottom:5px}
+.sources-link:hover{color:#1d4ed8}
+.sources-link:focus{outline:2px solid var(--blue);outline-offset:2px;border-radius:2px}
+.sources-box{margin-bottom:4px}
+
+/* ── REGULAR TOPIC ── */
+.topic-article{margin-bottom:8px}
+.topic-h2{font-family:var(--serif);font-size:clamp(19px,2.5vw,24px);font-weight:400;line-height:1.25;color:var(--ink);margin-bottom:14px}
+.topic-grid{display:grid;grid-template-columns:1fr 232px;gap:36px;align-items:start}
+.topic-body{font-size:15px;color:var(--ink);line-height:1.78}
+.topic-body p{margin-bottom:12px}
 .topic-body p:last-child{margin-bottom:0}
-.what-assessors{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:8px;padding:12px 16px;margin-top:12px;font-size:13px;color:rgba(248,250,252,.8);line-height:1.6}
-.what-assessors strong{color:#fcd34d}
-.divider-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:32px 0 16px;display:flex;align-items:center;gap:10px}
-.divider-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08)}
-.cta-section{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:32px;text-align:center;max-width:600px;margin:0 auto}
-.cta-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px}
-.cta-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6}
-.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-gold{background:var(--gold);color:var(--navy);padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:.18s}
-.btn-gold:hover{background:#d97706}
-.btn-outline{background:transparent;border:1px solid rgba(255,255,255,.2);color:var(--white);padding:12px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:.18s}
-.btn-outline:hover{border-color:rgba(255,255,255,.4)}
-.capture-form{background:#111827;border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:28px;max-width:500px;margin:32px auto 0}
-.capture-title{font-size:16px;font-weight:700;margin-bottom:6px}
-.capture-sub{font-size:13px;color:var(--muted);margin-bottom:18px}
-.form-row{display:flex;gap:10px;margin-bottom:12px}
-.form-input{flex:1;padding:10px 14px;background:#0f172a;border:1.5px solid rgba(255,255,255,.1);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--white);outline:none}
-.form-input:focus{border-color:var(--gold)}
-.form-btn{padding:10px 20px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap}
-.form-note{font-size:11px;color:#475569;text-align:center}
-.alert{padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none}
-.alert-red{background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);color:#fca5a5}
-.alert-green{background:rgba(22,163,74,.15);border:1px solid rgba(22,163,74,.3);color:#86efac}
-@media(max-width:600px){nav{padding:16px 20px}.topic-card{padding:20px 18px}.form-row{flex-direction:column}[style*="grid-template-columns:1fr auto"]{grid-template-columns:1fr!important}}
+.topic-body ul{margin:8px 0 12px 20px}
+.topic-body li{margin-bottom:3px}
+.topic-body em{font-style:italic}
+.topic-body strong{font-weight:600}
+@media(max-width:820px){.topic-grid{grid-template-columns:1fr}}
+
+/* ── NOTIFICATION STRIP ── */
+.notification-strip{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:34px 0;margin:48px 0}
+.notif-inner{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
+.notif-title{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.notif-sub{font-size:14px;color:var(--ink-muted);line-height:1.5}
+.notif-form{min-width:310px}
+.notif-inputs{display:flex;gap:8px;margin-bottom:8px}
+.notif-input{flex:1;padding:9px 13px;background:#fff;border:1.5px solid var(--rule);border-radius:6px;font-family:var(--body);font-size:14px;color:var(--ink);outline:none;transition:border-color .15s}
+.notif-input:focus{border-color:var(--blue)}
+.notif-btn{padding:9px 18px;background:var(--navy);color:#fff;border:none;border-radius:6px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s;width:100%}
+.notif-btn:hover{background:#1d4ed8}
+.notif-note{font-size:11px;color:var(--ink-muted);margin-top:7px}
+@media(max-width:700px){.notif-inner{grid-template-columns:1fr}.notif-form{min-width:0}}
+
+/* Alerts */
+.alert{font-size:13px;padding:8px 12px;border-radius:6px;margin-bottom:8px;display:none}
+.alert-ok{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
+.alert-err{background:#fee2e2;color:#dc2626;border:1px solid #fca5a5}
+
+/* ── CTA SECTION ── */
+.cta-section{background:var(--navy);color:#f8fafc;padding:72px 40px 64px;margin-top:64px}
+.cta-inner{max-width:1060px;margin:0 auto}
+.cta-eyebrow{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px}
+.cta-h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:400;color:#f8fafc;margin-bottom:18px;line-height:1.15}
+.cta-body{font-size:16px;color:rgba(248,250,252,.7);line-height:1.78;max-width:640px;margin-bottom:14px}
+.cta-tagline{font-family:var(--sans);font-size:16px;font-weight:700;color:#f8fafc;margin:24px 0 28px}
+.cta-buttons{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{padding:13px 26px;background:var(--blue);color:#fff;border-radius:8px;font-family:var(--sans);font-size:14px;font-weight:700;text-decoration:none;transition:background .15s}
+.btn-primary:hover{background:#1d4ed8}
+.btn-ghost{padding:13px 26px;border:1px solid rgba(255,255,255,.28);color:#f8fafc;border-radius:8px;font-family:var(--sans);font-size:14px;font-weight:500;text-decoration:none;transition:border-color .15s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.6)}
+.bottom-form{border-top:1px solid rgba(255,255,255,.08);margin-top:48px;padding-top:40px}
+.bottom-form-title{font-family:var(--sans);font-size:15px;font-weight:700;color:#f8fafc;margin-bottom:5px}
+.bottom-form-sub{font-size:13px;color:rgba(248,250,252,.45);margin-bottom:18px}
+.bottom-form-inputs{display:flex;gap:8px;max-width:480px;margin-bottom:8px}
+.bottom-form-input{flex:1;padding:9px 13px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:6px;font-family:var(--body);font-size:14px;color:#f8fafc;outline:none;transition:border-color .15s}
+.bottom-form-input::placeholder{color:rgba(255,255,255,.35)}
+.bottom-form-input:focus{border-color:var(--blue)}
+.bottom-form-btn{padding:9px 20px;background:#f59e0b;color:var(--navy);border:none;border-radius:6px;font-family:var(--sans);font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s}
+.bottom-form-btn:hover{background:#d97706}
+.bottom-note{font-size:11px;color:rgba(255,255,255,.25);margin-top:8px}
+@media(max-width:600px){.cta-section{padding:48px 20px 48px}.bottom-form-inputs{flex-direction:column;max-width:100%}}
 </style>
 </head>
 <body>
-<nav>
+
+<nav class="site-nav">
   <a href="/" class="nav-logo"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px"></a>
   <a href="/" class="nav-back">← Back to platform</a>
 </nav>
 
-<div class="hero">
-  <div class="window-badge">📋 Updated Summer 2026</div>
-  <h1>Industry Briefing —<br><em>Updated Summer 2026</em></h1>
-  <p class="hero-sub">The legislation changes and technical developments most likely to come up in your autumn 2026 assessment. Updated by Chartered Surveyors for every window.</p>
-  <p class="updated">Updated May 2026 · Next update: August 2026 for autumn window candidates</p>
-</div>
+<main>
+<div class="content">
 
-<div class="topics-wrap">
+  <!-- ══ MASTHEAD ══ -->
+  <header class="masthead">
+    <div class="masthead-eyebrow">
+      <span>Professional Readiness · Industry Intelligence</span>
+      <span>Issue 02 · Autumn 2026</span>
+    </div>
+    <div class="masthead-title-area">
+      <h1 class="masthead-h1">APC Industry<br>Briefing</h1>
+      <p class="masthead-deck">The legislation, professional standards and industry developments APC candidates should understand for the autumn 2026 assessment window.</p>
+    </div>
+    <p class="masthead-reviewed">Last reviewed: 30 August 2026 · Next full review: January 2027</p>
+  </header>
 
-  <div class="intro-box">
-    <strong>How to use this page:</strong> These are not guaranteed questions — they are the topics where assessors are most likely to probe in the autumn 2026 window because they are new, significant or frequently misunderstood. <strong>Know each one at the level your pathway requires.</strong> For every topic listed, the full depth is covered inside the Get Chartered AI platform across the relevant module.
-  </div>
+  <!-- ══ HOW TO USE ══ -->
+  <section class="intro" aria-label="How to use this briefing">
+    <h2>How to use this briefing</h2>
+    <p>These are not guaranteed assessment questions. They are current developments that may be used to test whether you can connect technical knowledge to your own pathway, experience and professional responsibilities.</p>
+    <p>Do not try to memorise every paragraph. For each relevant topic, make sure you can:</p>
+    <ul>
+      <li>explain what has changed and when;</li>
+      <li>identify whether it is already in force, due to commence or still proposed;</li>
+      <li>describe why it matters to your work and clients;</li>
+      <li>apply it to a realistic professional situation; and</li>
+      <li>explain the advice you would give and the judgement behind it.</li>
+    </ul>
+    <p>The priority labels indicate likely relevance across the autumn 2026 window. The depth expected will depend on your pathway, declared competencies and experience.</p>
+  </section>
 
-  <!-- HIGH PRIORITY -->
-  <div class="divider-label">🔴 High Priority — Know These Before You Walk In</div>
+  <!-- ══ CONTENTS INDEX ══ -->
+  <nav class="contents-nav" aria-label="Topic index">
+    <p class="contents-label">Contents — 11 topics</p>
+    <div class="contents-grid">
+      <a href="#topic-03" class="contents-entry ce-high">
+        <span class="ce-num">03</span>
+        <span class="ce-title">Responsible Use of AI</span>
+        <span class="ce-priority">High · Lead</span>
+      </a>
+      <a href="#topic-01" class="contents-entry ce-high">
+        <span class="ce-num">01</span>
+        <span class="ce-title">Building Safety Regulator</span>
+        <span class="ce-priority">High Priority</span>
+      </a>
+      <a href="#topic-02" class="contents-entry ce-high">
+        <span class="ce-num">02</span>
+        <span class="ce-title">Building Safety Levy</span>
+        <span class="ce-priority">High Priority</span>
+      </a>
+      <a href="#topic-04" class="contents-entry ce-high">
+        <span class="ce-num">04</span>
+        <span class="ce-title">Failure to Prevent Fraud</span>
+        <span class="ce-priority">High Priority</span>
+      </a>
+      <a href="#topic-05" class="contents-entry ce-well">
+        <span class="ce-num">05</span>
+        <span class="ce-title">Renters' Rights Act</span>
+        <span class="ce-priority">Know Well</span>
+      </a>
+      <a href="#topic-06" class="contents-entry ce-well">
+        <span class="ce-num">06</span>
+        <span class="ce-title">Capital Allowances</span>
+        <span class="ce-priority">Know Well</span>
+      </a>
+      <a href="#topic-07" class="contents-entry ce-well">
+        <span class="ce-num">07</span>
+        <span class="ce-title">Future Homes Standard</span>
+        <span class="ce-priority">Know Well</span>
+      </a>
+      <a href="#topic-08" class="contents-entry ce-watch">
+        <span class="ce-num">08</span>
+        <span class="ce-title">Second Staircases</span>
+        <span class="ce-priority">Watch</span>
+      </a>
+      <a href="#topic-09" class="contents-entry ce-watch">
+        <span class="ce-num">09</span>
+        <span class="ce-title">Property Measurement</span>
+        <span class="ce-priority">Watch</span>
+      </a>
+      <a href="#topic-10" class="contents-entry ce-watch">
+        <span class="ce-num">10</span>
+        <span class="ce-title">Leasehold Reform</span>
+        <span class="ce-priority">Watch</span>
+      </a>
+      <a href="#topic-11" class="contents-entry ce-watch">
+        <span class="ce-num">11</span>
+        <span class="ce-title">Future Regulation</span>
+        <span class="ce-priority">Watch</span>
+      </a>
+    </div>
+  </nav>
 
-  <div class="topic-card high">
-    <div class="topic-header">
-      <div class="topic-num">Topic 01</div>
-      <div class="topic-title-wrap">
-        <div class="topic-title">Building Safety Regulator — Full Independence January 2026</div>
-        <div class="topic-meta">
-          <span class="badge badge-hot">All pathways</span>
-          <span class="badge badge-gold">Health &amp; Safety</span>
-          <span class="badge badge-blue">Ethics</span>
+  <!-- ══ HIGH PRIORITY SECTION ══ -->
+  <section aria-labelledby="hp-label">
+
+    <!-- Lead story -->
+    <div class="section-rule">
+      <span class="sr-dot sr-red" aria-hidden="true"></span>
+      <span class="sr-label">High Priority · Lead Briefing</span>
+    </div>
+
+    <article id="topic-03">
+      <p class="topic-num">Topic 03</p>
+      <p class="topic-pathways">All Pathways · Ethics · Data Management · Client Care · Professional Judgement</p>
+      <h2 class="lead-h2">Responsible use of AI: professional judgement remains human</h2>
+      <div class="lead-grid">
+        <div class="lead-body">
+          <p>The RICS professional standard <em>Responsible use of artificial intelligence in surveying practice</em> came into effect on 9 March 2026. It applies to RICS members and regulated firms when an AI system has a material impact on the delivery of surveying services.</p>
+          <p>The standard addresses governance and risk management, data and system governance, procurement and due diligence, output reliability, professional oversight, record keeping, and transparency with clients. It does not transfer professional responsibility to the technology. Where an AI-assisted output materially affects surveying services, its reliability must be assessed by, or under the supervision of, an appropriately qualified and identifiable surveyor.</p>
+          <p>RICS's August 2026 AI report found that around two-thirds of construction respondents and more than three-quarters of commercial-property respondents used AI in some part of their work, although embedded use remained much less common. The practical question is therefore no longer simply whether surveyors use AI, but whether they use it with appropriate controls and professional judgement.</p>
+          <p>Candidates should also distinguish professional use of AI from RICS assessment rules. APC submissions must remain the candidate's own work; generative AI must not be used to produce assessment submissions, other than the limited permitted use of tools for spelling, grammar and word count.</p>
         </div>
+        <aside aria-label="Assessor guidance and sources for Topic 03">
+          <blockquote class="pull-quote">"AI can produce an output. A professional turns that output into advice—and accepts responsibility for it."</blockquote>
+          <p class="assessor-label">How assessors may test this</p>
+          <p class="assessor-text">When does the RICS AI standard apply? How would you decide whether an AI tool materially affects a surveying service? What checks would you make before relying on an AI-assisted output? What would you tell the client, and who remains accountable for the advice?</p>
+          <div class="sources-box">
+            <p class="sources-label">Primary sources</p>
+            <a href="https://www.rics.org/profession-standards/rics-standards-and-guidance/conduct-competence/responsible-use-of-ai" class="sources-link">RICS Responsible use of AI standard</a>
+            <a href="https://www.rics.org/news-insights/ai-in-commercial-property-and-construction-report-2026" class="sources-link">RICS AI in commercial property and construction report 2026</a>
+            <a href="https://www.rics.org/candidates/assessment-information/assessment-applications" class="sources-link">RICS assessment applications</a>
+          </div>
+        </aside>
       </div>
-    </div>
-    <div class="topic-body">
-      <p>The Building Safety Regulator became fully independent from HSE in January 2026. It now has standalone powers to oversee higher-risk buildings (18 metres or 7+ storeys, with 2 or more residential units), manage the three-Gateway process for new buildings and take enforcement action against non-compliant dutyholders. Separately, buildings of 11 metres or 5+ storeys ("relevant buildings") carry leaseholder protection and remediation obligations under Part 5 of the Building Safety Act.</p>
-      <p>Candidates on Building Surveying, Project Management, Quantity Surveying, Commercial Real Estate and Infrastructure pathways must know the Gateway 1, 2 and 3 process and the key dutyholder roles — Client, Principal Designer, Principal Contractor.</p>
-    </div>
-    <div class="what-assessors"><strong>What assessors ask:</strong> What is the Building Safety Regulator and what powers does it now have? Describe the Gateway process for a higher-risk building. Who are the dutyholders and what are their obligations?</div>
-  </div>
+    </article>
 
-  <div class="topic-card high">
-    <div class="topic-header">
-      <div class="topic-num">Topic 02</div>
-      <div class="topic-title-wrap">
-        <div class="topic-title">Building Safety Levy — October 2026</div>
-        <div class="topic-meta">
-          <span class="badge badge-hot">Development pathways</span>
-          <span class="badge badge-gold">QS &amp; PM</span>
+    <hr class="topic-hr">
+
+    <!-- Remaining high priority -->
+    <div class="section-rule">
+      <span class="sr-dot sr-red" aria-hidden="true"></span>
+      <span id="hp-label" class="sr-label">High Priority · Know These Before Your Assessment</span>
+    </div>
+
+    <article class="topic-article" id="topic-01">
+      <p class="topic-num">Topic 01</p>
+      <p class="topic-pathways">All Pathways · Health and Safety · Ethics · Building Safety</p>
+      <h2 class="topic-h2">Building Safety Regulator — standalone from January 2026</h2>
+      <div class="topic-grid">
+        <div class="topic-body">
+          <p>On 27 January 2026, the Building Safety Regulator moved out of the Health and Safety Executive and became a standalone arm's-length body sponsored by the Ministry of Housing, Communities and Local Government. This is also an important step towards the Government's proposed Single Construction Regulator.</p>
+          <p>The BSR remains the building control authority for higher-risk building work in England. During design and construction, the higher-risk regime generally covers buildings that are at least 18 metres high or have at least seven storeys and contain at least two residential units, or are hospitals or care homes meeting the same height threshold. The definition for occupied higher-risk buildings is narrower, so candidates should understand which phase of the regime they are discussing.</p>
+          <p>The three statutory gateways are:</p>
+          <ul>
+            <li><strong>Gateway 1:</strong> fire safety considered through the planning process;</li>
+            <li><strong>Gateway 2:</strong> BSR building-control approval before higher-risk building work starts; and</li>
+            <li><strong>Gateway 3:</strong> BSR completion approval before the completed higher-risk building can be occupied and, where required, registered.</li>
+          </ul>
+          <p>The professional issue is not simply knowing the thresholds. Surveyors must understand their role within the dutyholder and competence regime, maintain accurate information, raise safety concerns and avoid allowing programme or commercial pressure to override statutory responsibilities.</p>
         </div>
+        <aside aria-label="Assessor guidance and sources for Topic 01">
+          <p class="assessor-label">How assessors may test this</p>
+          <p class="assessor-text">What changed when the BSR became a standalone body? What are Gateways 1, 2 and 3? What would you do if a client wanted work to begin before Gateway 2 approval? How would you respond if information required for Gateway 3 was incomplete?</p>
+          <div class="sources-box">
+            <p class="sources-label">Primary sources</p>
+            <a href="https://www.gov.uk/government/news/bsr-becomes-standalone-body-in-landmark-step-towards-single-construction-regulator" class="sources-link">BSR becomes a standalone body</a>
+            <a href="https://www.gov.uk/guidance/building-control-approval-for-higher-risk-buildings" class="sources-link">Building control approval for higher-risk buildings</a>
+          </div>
+        </aside>
       </div>
-    </div>
-    <div class="topic-body">
-      <p>The Building Safety Levy applies to most new residential development in England from October 2026 and must be paid before practical completion. It will be charged per square metre of gross internal floor area. Rates vary by region and dwelling type and will be confirmed by secondary legislation.</p>
-      <p>Candidates must be able to explain what the levy is, why it was introduced (to fund building safety remediation), which developments it applies to and how it should be factored into development appraisals and pre-contract cost plans from the outset.</p>
-    </div>
-    <div class="what-assessors"><strong>What assessors ask:</strong> What is the Building Safety Levy and when does it apply? How does it affect the viability of a residential development scheme? At what stage should it appear in a cost plan?</div>
-  </div>
+    </article>
 
-  <div class="topic-card high">
-    <div class="topic-header">
-      <div class="topic-num">Topic 03</div>
-      <div class="topic-title-wrap">
-        <div class="topic-title">RICS AI Standard — Mandatory from March 2026</div>
-        <div class="topic-meta">
-          <span class="badge badge-hot">All pathways</span>
-          <span class="badge badge-blue">Ethics</span>
-          <span class="badge badge-blue">Data Management</span>
+    <hr class="topic-hr">
+
+    <article class="topic-article" id="topic-02">
+      <p class="topic-num">Topic 02</p>
+      <p class="topic-pathways">Quantity Surveying · Project Management · Planning and Development · Development Appraisals</p>
+      <h2 class="topic-h2">Building Safety Levy — commencing 1 October 2026</h2>
+      <div class="topic-grid">
+        <div class="topic-body">
+          <p>The Building Safety Levy comes into operation in England on 1 October 2026. It applies to certain building-control applications and notices submitted on or after that date for work creating new dwellings, purpose-built student accommodation bedspaces or residential floorspace through a change of use.</p>
+          <p>Developments of fewer than 10 new dwellings or 30 new purpose-built student accommodation bedspaces are exempt, alongside specified categories such as affordable housing and certain supported or community accommodation.</p>
+          <p>The levy is calculated per square metre of chargeable floorspace. Rates vary by local-authority area, and a discounted rate applies to qualifying previously developed land. It must be paid before completion of the work or occupation of the building, whichever happens first.</p>
+          <p>For surveyors, the levy is an early cost-planning and viability issue. It should be identified at feasibility stage, tested within the development appraisal and kept under review as the design and chargeable floorspace develop. Candidates should not describe it as a levy that applies only to higher-risk buildings.</p>
         </div>
+        <aside aria-label="Assessor guidance and sources for Topic 02">
+          <p class="assessor-label">How assessors may test this</p>
+          <p class="assessor-text">When does the levy begin? Which developments are potentially within scope? How would you allow for it in an early cost plan or development appraisal? What information would you need before advising the client on the likely amount?</p>
+          <div class="sources-box">
+            <p class="sources-label">Primary source</p>
+            <a href="https://www.gov.uk/guidance/building-safety-levy-guidance/section-1-introduction" class="sources-link">Building Safety Levy guidance</a>
+          </div>
+        </aside>
       </div>
-    </div>
-    <div class="topic-body">
-      <p>The RICS AI Standard became mandatory for all RICS regulated firms and members in March 2026. It sets out requirements for the responsible use of AI in surveying practice — covering transparency, human oversight, data obligations and professional accountability.</p>
-      <p>The key principle: professional responsibility for AI-assisted work remains with the Chartered Surveyor. You cannot delegate professional judgement to an AI tool. If AI is used in producing advice, the output must be checked, validated and owned by the professional.</p>
-    </div>
-    <div class="what-assessors"><strong>What assessors ask:</strong> Are you aware of the RICS AI Standard? What does it require of you in practice? If you used AI to assist with a piece of work, what are your professional obligations? Note: APC submissions must not use AI — this is a separate June 2025 rule, not the AI Standard.</div>
-  </div>
+    </article>
 
-  <div class="topic-card high">
-    <div class="topic-header">
-      <div class="topic-num">Topic 04</div>
-      <div class="topic-title-wrap">
-        <div class="topic-title">ECCTA 2023 — Failure to Prevent Fraud (In Force September 2025)</div>
-        <div class="topic-meta">
-          <span class="badge badge-hot">Ethics — All pathways</span>
-          <span class="badge badge-gold">New legislation</span>
+    <hr class="topic-hr">
+
+    <article class="topic-article" id="topic-04">
+      <p class="topic-num">Topic 04</p>
+      <p class="topic-pathways">All Pathways · Ethics · Business Planning · Accounting Principles · Client Care</p>
+      <h2 class="topic-h2">Failure to Prevent Fraud — in force since September 2025</h2>
+      <div class="topic-grid">
+        <div class="topic-body">
+          <p>The corporate offence of failure to prevent fraud under the Economic Crime and Corporate Transparency Act 2023 came into effect on 1 September 2025.</p>
+          <p>It applies to large incorporated bodies and partnerships that meet at least two of these three criteria:</p>
+          <ul>
+            <li>more than 250 employees;</li>
+            <li>more than £36 million turnover; or</li>
+            <li>more than £18 million in total assets.</li>
+          </ul>
+          <p>An organisation may be liable where an employee, agent, subsidiary undertaking or other associated person commits a specified fraud intending to benefit the organisation or its clients. The prosecution does not need to show that senior management ordered or knew about the fraud.</p>
+          <p>The organisation has a defence if it can demonstrate that it had reasonable fraud-prevention procedures in place, or that it was not reasonable to expect such procedures. Government guidance is structured around six principles: top-level commitment, risk assessment, proportionate risk-based procedures, due diligence, communication and training, and monitoring and review.</p>
+          <p>For surveyors, relevant risks can arise in procurement, valuations, payment applications, tendering, expenses, reporting, data manipulation and representations made to clients or funders.</p>
         </div>
+        <aside aria-label="Assessor guidance and sources for Topic 04">
+          <p class="assessor-label">How assessors may test this</p>
+          <p class="assessor-text">Which organisations are in scope? What is an associated person? What would reasonable prevention procedures look like in a surveying or construction business? What would you do if you suspected that project information was being manipulated to benefit your employer or client?</p>
+          <div class="sources-box">
+            <p class="sources-label">Primary source</p>
+            <a href="https://www.gov.uk/government/publications/offence-of-failure-to-prevent-fraud-introduced-by-eccta/economic-crime-and-corporate-transparency-act-2023-guidance-to-organisations-on-the-offence-of-failure-to-prevent-fraud-accessible-version" class="sources-link">Government guidance on the failure-to-prevent-fraud offence</a>
+          </div>
+        </aside>
       </div>
-    </div>
-    <div class="topic-body">
-      <p>The Failure to Prevent Fraud offence under the Economic Crime and Corporate Transparency Act 2023 came into force on 1 September 2025. Large organisations — those with 250+ employees, £36m+ turnover or £18m+ balance sheet — are criminally liable if an associated person commits fraud for the organisation's benefit and the organisation lacked reasonable prevention procedures.</p>
-      <p>This is brand new, recently in force and directly relevant to Ethics and Professionalism. Assessors are testing it in autumn 2026 windows.</p>
-    </div>
-    <div class="what-assessors"><strong>What assessors ask:</strong> Are you aware of the ECCTA 2023 Failure to Prevent Fraud offence? When did it come into force? What are the six prevention principles? Which organisations does it apply to?</div>
-  </div>
+    </article>
 
-  <!-- MID-PAGE LEAD CAPTURE -->
-  <div style="background:linear-gradient(135deg,rgba(245,158,11,.1) 0%,rgba(37,99,235,.08) 100%);border:1px solid rgba(245,158,11,.25);border-radius:14px;padding:28px 32px;margin:8px 0 8px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center">
-    <div>
-      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fcd34d;margin-bottom:8px">Spring 2027 update</div>
-      <div style="font-size:18px;font-weight:700;color:#f8fafc;margin-bottom:6px;line-height:1.3">More APC Assessors' Briefing are coming for the spring 2027 window</div>
-      <p style="font-size:13px;color:rgba(248,250,252,.6);margin:0;line-height:1.5">Enter your email and we will send them directly to you when they are published in January 2027.</p>
-    </div>
-    <div style="min-width:280px">
-      <div id="midAlertBox" class="alert" style="margin-bottom:8px"></div>
-      <div style="display:flex;gap:8px;margin-bottom:8px">
-        <input type="text" id="midName" class="form-input" placeholder="First name" style="flex:0 0 100px">
-        <input type="email" id="midEmail" class="form-input" placeholder="your@email.com" style="flex:1">
+  </section><!-- /high priority -->
+
+  <!-- ══ NOTIFICATION STRIP ══ -->
+  <div class="notification-strip" role="complementary" aria-label="Briefing update notification">
+    <div id="midAlertBox" class="alert"></div>
+    <div class="notif-inner">
+      <div>
+        <p class="notif-title">Spring 2027 briefing coming in January</p>
+        <p class="notif-sub">Enter your details and we will send the next APC Industry Briefing directly to you when it is published.</p>
       </div>
-      <button onclick="submitMidForm()" id="midBtn" style="width:100%;padding:10px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:.18s">Notify me for spring 2027 →</button>
-    </div>
-  </div>
-
-  <!-- MEDIUM PRIORITY -->
-  <div class="divider-label">🟡 Know Well — Likely to Come Up</div>
-
-  <div class="topic-card medium">
-    <div class="topic-header">
-      <div class="topic-num">Topic 05</div>
-      <div class="topic-title-wrap">
-        <div class="topic-title">Renters' Rights Act 2025 — Abolition of Section 21</div>
-        <div class="topic-meta">
-          <span class="badge badge-gold">Residential</span>
-          <span class="badge badge-gold">Client Care</span>
-          <span class="badge badge-blue">Commercial RE</span>
+      <div class="notif-form">
+        <div class="notif-inputs">
+          <input type="text" id="midName" class="notif-input" placeholder="First name" autocomplete="given-name">
+          <input type="email" id="midEmail" class="notif-input" placeholder="your@email.com" autocomplete="email">
         </div>
+        <button onclick="submitMidForm()" id="midBtn" class="notif-btn">Notify me for spring 2027 →</button>
+        <p class="notif-note">No spam. Just the briefing update.</p>
       </div>
     </div>
-    <div class="topic-body">
-      <p>Section 21 no-fault evictions are abolished under the Renters' Rights Act 2025. Landlords must now rely on specific grounds in Schedule 2 of the Housing Act 1988 to recover possession. All tenancies become periodic — no fixed terms — and rent increases are restricted to once per year with a cap mechanism.</p>
-      <p>The Private Rented Sector Database is also introduced — landlords must register. Failure to register is a criminal offence.</p>
-    </div>
-    <div class="what-assessors"><strong>What assessors ask:</strong> What has the Renters' Rights Act changed for residential landlords? How does the abolition of Section 21 affect possession proceedings? What are the implications for your residential client?</div>
   </div>
 
-  <div class="topic-card medium">
-    <div class="topic-header">
-      <div class="topic-num">Topic 06</div>
-      <div class="topic-title-wrap">
-        <div class="topic-title">Capital Allowances — April 2026 Changes</div>
-        <div class="topic-meta">
-          <span class="badge badge-gold">Taxation Allowances</span>
-          <span class="badge badge-gold">Accounting</span>
-          <span class="badge badge-blue">Business Planning</span>
+  <!-- ══ KNOW WELL SECTION ══ -->
+  <section aria-labelledby="kw-label">
+    <div class="section-rule">
+      <span class="sr-dot sr-amber" aria-hidden="true"></span>
+      <span id="kw-label" class="sr-label">Know Well · Likely to Be Relevant</span>
+    </div>
+
+    <article class="topic-article" id="topic-05">
+      <p class="topic-num">Topic 05</p>
+      <p class="topic-pathways">Residential · Property Management · Commercial Real Estate · Client Care</p>
+      <h2 class="topic-h2">Renters' Rights Act 2025 — first-phase reforms now in force</h2>
+      <div class="topic-grid">
+        <div class="topic-body">
+          <p>The first phase of the Renters' Rights Act 2025 came into force for the private rented sector in England on 1 May 2026.</p>
+          <p>The principal changes include:</p>
+          <ul>
+            <li>abolition of section 21 "no-fault" evictions;</li>
+            <li>conversion of the vast majority of new and existing private-sector tenancies to assured periodic tenancies;</li>
+            <li>revised section 8 possession grounds;</li>
+            <li>rent increases limited to once a year using the revised section 13 procedure and at least two months' notice;</li>
+            <li>a ban on rental bidding and requesting more than one month's rent in advance;</li>
+            <li>protection against discrimination involving children or benefit receipt; and</li>
+            <li>a duty to consider tenants' requests to keep a pet and give a valid reason for refusal.</li>
+          </ul>
+          <p>The Private Rented Sector Database is a later phase. Its regional rollout is planned from late 2026, followed by wider implementation. It should not yet be described as a fully operational national registration requirement for every landlord.</p>
+          <p>Surveyors advising landlords, investors or tenants should explain both the legal change and its operational consequences for tenancy documents, possession strategy, rent review processes, management systems and investment assumptions.</p>
         </div>
+        <aside aria-label="Assessor guidance and sources for Topic 05">
+          <p class="assessor-label">How assessors may test this</p>
+          <p class="assessor-text">What changed on 1 May 2026? How can a landlord now recover possession? How are rent increases managed? What would you advise a landlord whose existing processes still rely on fixed-term assured shorthold tenancies and section 21 notices?</p>
+          <div class="sources-box">
+            <p class="sources-label">Primary source</p>
+            <a href="https://www.gov.uk/government/publications/renters-rights-act-2025-implementation-roadmap/implementing-the-renters-rights-act-2025-our-roadmap-for-reforming-the-private-rented-sector" class="sources-link">Renters' Rights Act implementation roadmap</a>
+          </div>
+        </aside>
       </div>
-    </div>
-    <div class="topic-body">
-      <p>From April 2026 the Written Down Allowance (WDA) for special rate pool assets increases from 6% to 14% — significantly improving the tax efficiency of investment in plant and machinery. The 40% First Year Allowance (FYA) remains available for qualifying energy-efficient and low-emission assets.</p>
-    </div>
-    <div class="what-assessors"><strong>What assessors ask:</strong> What are capital allowances? What changed in April 2026? How do the changes affect a client's investment decision on a qualifying asset?</div>
-  </div>
+    </article>
 
-  <div class="topic-card medium">
-    <div class="topic-header">
-      <div class="topic-num">Topic 07</div>
-      <div class="topic-title-wrap">
-        <div class="topic-title">Net Zero Carbon and the Built Environment</div>
-        <div class="topic-meta">
-          <span class="badge badge-gold">Sustainability — All pathways</span>
-          <span class="badge badge-green">Level 1 mandatory</span>
+    <hr class="topic-hr">
+
+    <article class="topic-article" id="topic-06">
+      <p class="topic-num">Topic 06</p>
+      <p class="topic-pathways">Taxation Allowances · Accounting Principles · Quantity Surveying · Property Investment</p>
+      <h2 class="topic-h2">Capital Allowances — 2026 main-rate changes</h2>
+      <div class="topic-grid">
+        <div class="topic-body">
+          <p>For qualifying expenditure incurred from 1 January 2026, a new 40% first-year allowance is available for qualifying main-rate plant and machinery expenditure where another first-year allowance is not available.</p>
+          <p>The main-pool writing-down allowance reduced from 18% to 14% from 1 April 2026 for Corporation Tax and from 6 April 2026 for Income Tax. The special-rate-pool writing-down allowance remains 6%.</p>
+          <p>Candidates should not confuse the new 40% first-year allowance with the Annual Investment Allowance, full expensing or the separate treatment of special-rate expenditure. The appropriate relief depends on the taxpayer, asset, expenditure date and circumstances.</p>
+          <p>Surveyors should identify potentially qualifying expenditure, maintain appropriate cost information and involve a suitably qualified tax adviser. They should not present themselves as providing specialist tax advice where that is outside their competence.</p>
         </div>
+        <aside aria-label="Assessor guidance and sources for Topic 06">
+          <p class="assessor-label">How assessors may test this</p>
+          <p class="assessor-text">What changed in 2026? Which writing-down rate reduced to 14%? When might the 40% first-year allowance be relevant? How would you identify and report potentially qualifying expenditure while staying within your professional competence?</p>
+          <div class="sources-box">
+            <p class="sources-label">Primary sources</p>
+            <a href="https://www.gov.uk/government/publications/new-first-year-allowance-and-main-rate-of-writing-down-allowances" class="sources-link">HMRC: new first-year allowance and main-rate writing-down allowance</a>
+            <a href="https://www.gov.uk/work-out-capital-allowances/rates-and-pools" class="sources-link">HMRC writing-down allowance rates and pools</a>
+          </div>
+        </aside>
       </div>
-    </div>
-    <div class="topic-body">
-      <p>The UK's 2050 net zero commitment under the Climate Change Act 2008 (amended 2019) is now a live operational reality for the built environment. The Future Homes Standard expected in late 2026 will require all new homes to produce significantly lower carbon emissions. Embodied carbon — from materials and construction — is increasingly in scope as operational carbon reduces.</p>
-    </div>
-    <div class="what-assessors"><strong>What assessors ask:</strong> What does net zero mean for your pathway? Distinguish operational from embodied carbon. What is the Future Homes Standard and when does it apply?</div>
-  </div>
+    </article>
 
-  <!-- WATCH TOPICS -->
-  <div class="divider-label">🔵 Watch — Emerging Topics</div>
+    <hr class="topic-hr">
 
-  <div class="topic-card watch">
-    <div class="topic-header">
-      <div class="topic-num">Topic 08</div>
-      <div class="topic-title-wrap">
-        <div class="topic-title">Two Staircase Rule — September 2026</div>
-        <div class="topic-meta">
-          <span class="badge badge-blue">Building Surveying</span>
-          <span class="badge badge-blue">Project Management</span>
-          <span class="badge badge-blue">QS</span>
+    <article class="topic-article" id="topic-07">
+      <p class="topic-num">Topic 07</p>
+      <p class="topic-pathways">All Pathways · Sustainability · Building Surveying · Planning and Development · Quantity Surveying</p>
+      <h2 class="topic-h2">Future Homes and Buildings Standards — confirmed 2027 commencement</h2>
+      <div class="topic-grid">
+        <div class="topic-body">
+          <p>The Building Regulations etc. (Amendment) (England) Regulations 2026 implement the Future Homes and Buildings Standards.</p>
+          <p>For most work, the regulations come into force on 24 March 2027. Relevant provisions for higher-risk building work and work to existing higher-risk buildings come into force on 24 September 2027, subject to separate transitional arrangements.</p>
+          <p>The standards are intended to ensure that new homes and non-domestic buildings use low-carbon heating and achieve high levels of energy efficiency, avoiding the need for later retrofit to become zero-carbon in use as the electricity grid decarbonises. The changes include a new functional requirement for on-site renewable electricity generation when a dwelling, or a building containing a dwelling, is erected.</p>
+          <p>Candidates should understand the confirmed commencement dates and transitional rules. It is no longer accurate to describe the Future Homes Standard merely as something "expected in late 2026".</p>
         </div>
+        <aside aria-label="Assessor guidance and sources for Topic 07">
+          <p class="assessor-label">How assessors may test this</p>
+          <p class="assessor-text">When do the new standards come into force? What are their principal objectives? What is the new on-site renewable-electricity requirement? How would the standards affect design advice, specifications, cost planning, viability or a client's programme?</p>
+          <div class="sources-box">
+            <p class="sources-label">Primary source</p>
+            <a href="https://www.gov.uk/government/publications/the-future-homes-and-buildings-standards-building-circular-012026/the-future-homes-and-buildings-standards-building-circular-012026-letter" class="sources-link">Future Homes and Buildings Standards: Building Circular 01/2026</a>
+          </div>
+        </aside>
       </div>
-    </div>
-    <div class="topic-body">
-      <p>New residential buildings over 18 metres must have two staircases from September 2026. This affects floor plate design, gross-to-net ratios and cost planning for high-rise residential schemes currently in design or construction. Existing schemes already under construction may be exempt depending on planning approval dates.</p>
-    </div>
-    <div class="what-assessors"><strong>What assessors ask:</strong> Are you aware of the two staircase requirement? How does it affect cost planning for a high-rise residential scheme?</div>
-  </div>
+    </article>
 
-  <div class="topic-card watch">
-    <div class="topic-header">
-      <div class="topic-num">Topic 09</div>
-      <div class="topic-title-wrap">
-        <div class="topic-title">IPMS: All Buildings — Post-June 2025</div>
-        <div class="topic-meta">
-          <span class="badge badge-blue">Valuation</span>
-          <span class="badge badge-blue">Commercial RE</span>
-          <span class="badge badge-blue">Building Surveying</span>
+  </section><!-- /know well -->
+
+  <!-- ══ WATCH SECTION ══ -->
+  <section aria-labelledby="watch-label">
+    <div class="section-rule">
+      <span class="sr-dot sr-blue" aria-hidden="true"></span>
+      <span id="watch-label" class="sr-label">Watch · Emerging or Pathway-Specific Developments</span>
+    </div>
+
+    <article class="topic-article" id="topic-08">
+      <p class="topic-num">Topic 08</p>
+      <p class="topic-pathways">Building Surveying · Building Control · Project Management · Quantity Surveying · Planning and Development</p>
+      <h2 class="topic-h2">Second staircases in new tall residential buildings — from 30 September 2026</h2>
+      <div class="topic-grid">
+        <div class="topic-body">
+          <p>Amendments to Approved Document B provide that new blocks of flats with a top storey 18 metres or more above ground level should have more than one common stair. The updated guidance takes effect on 30 September 2026, subject to transitional arrangements.</p>
+          <p>The requirement can materially affect fire strategy, core design, floorplate efficiency, net-to-gross ratios, structural coordination, cost planning, viability and programme. Surveyors involved in live schemes should check the relevant building-control and transitional position rather than assume that planning permission alone preserves the previous guidance.</p>
+          <p>The change concerns new residential design. It should not be presented as a retrospective requirement that automatically obliges every existing building over 18 metres to install another staircase.</p>
         </div>
+        <aside aria-label="Assessor guidance and sources for Topic 08">
+          <p class="assessor-label">How assessors may test this</p>
+          <p class="assessor-text">Which buildings are affected? When does the guidance take effect? How might an additional staircase affect cost, area efficiency and viability? What would you check before advising whether a live project benefits from transitional arrangements?</p>
+          <div class="sources-box">
+            <p class="sources-label">Primary sources</p>
+            <a href="https://www.gov.uk/government/news/calls-for-second-staircases-in-all-new-tall-residential-buildings" class="sources-link">Government announcement on second staircases</a>
+            <a href="https://www.gov.uk/government/publications/fire-safety-approved-document-b" class="sources-link">Approved Document B updates</a>
+          </div>
+        </aside>
       </div>
-    </div>
-    <div class="topic-body">
-      <p>The RICS archived its Property Measurement 2nd Edition in June 2025. IPMS: All Buildings (January 2023) is now the consolidated standard for all asset classes. Members must document which measurement basis has been used on any instruction. The shift to IPMS has created some confusion in practice — assessors are testing whether candidates know which standard applies and why.</p>
-    </div>
-    <div class="what-assessors"><strong>What assessors ask:</strong> What is IPMS? What changed in June 2025? Which measurement basis would you use for a new office valuation instruction and why?</div>
-  </div>
+    </article>
 
-  <div class="topic-card medium">
-    <div class="topic-header">
-      <div class="topic-num">Topic 10</div>
-      <div class="topic-title-wrap">
-        <div class="topic-title">Leasehold Reform — What Surveyors Need to Know Now</div>
-        <div class="topic-meta">
-          <span class="badge badge-gold">Residential</span>
-          <span class="badge badge-gold">Client Care</span>
-          <span class="badge badge-blue">Valuation</span>
+    <hr class="topic-hr">
+
+    <article class="topic-article" id="topic-09">
+      <p class="topic-num">Topic 09</p>
+      <p class="topic-pathways">Commercial Real Estate · Valuation · Building Surveying · Property Management</p>
+      <h2 class="topic-h2">Property measurement — choosing and documenting the correct basis</h2>
+      <div class="topic-grid">
+        <div class="topic-body">
+          <p>RICS Property Measurement, 2nd edition has been archived and should now be used only as a reference.</p>
+          <p>RICS members and regulated firms should select the appropriate measurement basis from <em>IPMS: All Buildings</em> or the RICS <em>Code of Measuring Practice</em> to satisfy the purpose and requirements of the instruction. The basis used must be documented.</p>
+          <p>This does not mean that one measurement basis automatically applies to every instruction. The surveyor should understand the client's purpose, advise on the appropriate basis, record what has been used and explain any departure from IPMS where relevant. Consistency, transparency and comparability are the professional issues.</p>
         </div>
+        <aside aria-label="Assessor guidance and sources for Topic 09">
+          <p class="assessor-label">How assessors may test this</p>
+          <p class="assessor-text">Which measurement standards are currently available? How would you decide which basis to use? What would you record in your terms of engagement and report? How would you explain a departure from IPMS to the client?</p>
+          <div class="sources-box">
+            <p class="sources-label">Primary source</p>
+            <a href="https://www.rics.org/profession-standards/rics-standards-and-guidance/sector-standards/real-estate-standards/rics-property-measurement-2nd-edition" class="sources-link">RICS Property Measurement, 2nd edition — archived status and current alternatives</a>
+          </div>
+        </aside>
       </div>
-    </div>
-    <div class="topic-body">
-      <p>The leasehold system is being reformed through a combination of legislation already in force and further reforms making their way through Parliament. The Leasehold Reform (Ground Rent) Act 2022 set ground rent to a peppercorn (£0) on new residential leases granted from 30 June 2022, extended to retirement properties from 1 April 2023. The Leasehold and Freehold Reform Act 2024 — enacted May 2024 — removed the two-year ownership requirement from February 2025, so leaseholders can now extend their lease or buy their freehold immediately on purchase. The Right to Manage threshold increased from 25% to 50% non-residential floor area from March 2025, extending access for leaseholders in mixed-use buildings. In October 2025 the High Court dismissed the freeholders' judicial review challenge to the 2024 Act, clearing the way for key reforms including abolition of marriage value.</p>
-      <p>Not yet law: a ground rent cap of £250 per year for existing leaseholders is proposed for England and Wales, likely late 2027. The draft Commonhold and Leasehold Reform Bill — published January 2026 and confirmed in the King's Speech in May 2026 — proposes to ban new leasehold flats and make commonhold the default tenure for new flats, though timing remains uncertain. Marriage value abolition is confirmed in direction under the 2024 Act and will make lease extensions cheaper for properties with under 80 years remaining, but it requires secondary legislation to take effect.</p>
-    </div>
-    <div class="what-assessors"><strong>What to say if asked:</strong> The Leasehold and Freehold Reform Act 2024 is enacted but largely not yet implemented — key reforms require secondary legislation. Ground rent on new residential leases is already peppercorn under the 2022 Act. Marriage value abolition and cheaper lease extensions are confirmed in direction but not yet in force. The Commonhold and Leasehold Reform Bill is progressing through Parliament and proposes to ban new leasehold flats and cap existing ground rents.</div>
-  </div>
+    </article>
 
-  <!-- CTA -->
-  <div style="margin-top:48px">
-    <div class="cta-section">
-      <div class="cta-title">Want the full depth on every topic?</div>
-      <p class="cta-sub">All topics are covered in depth inside the platform — with revision sheets, assessor insights, mock interview questions and Michael available 24 hours a day.</p>
-      <div class="cta-buttons">
-        <a href="https://getcharteredai.com/#finder-sec" class="btn-gold">Find your programme →</a>
-        <a href="https://getcharteredai.com/programme" class="btn-outline">View Full Programme →</a>
+    <hr class="topic-hr">
+
+    <article class="topic-article" id="topic-10">
+      <p class="topic-num">Topic 10</p>
+      <p class="topic-pathways">Residential · Valuation · Property Management · Client Care</p>
+      <h2 class="topic-h2">Leasehold and commonhold reform — distinguish law from proposals</h2>
+      <div class="topic-grid">
+        <div class="topic-body">
+          <p>Leasehold reform is progressing through several different pieces of legislation, but not every announced reform is in force.</p>
+          <p>The Leasehold Reform (Ground Rent) Act 2022 generally restricts ground rent to a peppercorn on qualifying new long residential leases. The Leasehold and Freehold Reform Act 2024 is enacted and some provisions have commenced, but important valuation reforms—including the new calculation method intended to remove marriage value—still require further legislation and implementation work.</p>
+          <p>A draft Commonhold and Leasehold Reform Bill was published in January 2026. The Government intends to introduce a final bill during the 2026–27 parliamentary session. Current proposals include making commonhold the default tenure for most new flats, capping existing ground rents at £250 a year before they eventually reduce to a peppercorn, and replacing forfeiture with a more proportionate enforcement regime.</p>
+          <p>These proposals are not yet law. Current parliamentary information indicates that the proposed ground-rent cap is likely to commence in late 2028, subject to the final legislation and parliamentary approval.</p>
+          <p>The professional discipline is to distinguish clearly between:</p>
+          <ul>
+            <li>legislation already in force;</li>
+            <li>an enacted provision that has not yet commenced; and</li>
+            <li>a consultation, draft bill or policy proposal.</li>
+          </ul>
+        </div>
+        <aside aria-label="Assessor guidance and sources for Topic 10">
+          <p class="assessor-label">How assessors may test this</p>
+          <p class="assessor-text">Which leasehold reforms are already in force? Has marriage value already been abolished in practice? Is the £250 cap currently law? How would you advise a client where a proposed reform could materially affect value but its timing and final form remain uncertain?</p>
+          <div class="sources-box">
+            <p class="sources-label">Primary sources</p>
+            <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10653/" class="sources-link">House of Commons Library: leasehold reform — what is happening and when</a>
+            <a href="https://questions-statements.parliament.uk/written-statements/detail/2026-07-15/hlws274" class="sources-link">Implementation of the Leasehold and Freehold Reform Act 2024</a>
+            <a href="https://www.gov.uk/government/publications/leasehold-toolkit/leasehold-toolkit-england" class="sources-link">Leasehold toolkit</a>
+          </div>
+        </aside>
       </div>
-    </div>
+    </article>
 
-    <div class="capture-form">
-      <div class="capture-title">Still want the update by email?</div>
-      <div class="capture-sub">Leave your details below and we will notify you when the spring 2027 briefing is published.</div>
+    <hr class="topic-hr">
+
+    <article class="topic-article" id="topic-11" style="margin-bottom:64px">
+      <p class="topic-num">Topic 11</p>
+      <p class="topic-pathways">All Pathways · Ethics · Client Care · Professional Judgement · Leadership and Responsibility</p>
+      <h2 class="topic-h2">Future regulation of built-environment professionals — strategy due in 2027</h2>
+      <div class="topic-grid">
+        <div class="topic-body">
+          <p>The UK Government is developing a Strategy for the Built Environment Professions, Trades and Occupations, due in 2027.</p>
+          <p>In August 2026, RICS responded to the Government's call for evidence, advocating for a proportionate, outcomes-focused regulatory framework that strengthens public confidence, improves safety and ensures the sector has the skills and capability needed for future challenges.</p>
+          <p>The RICS response focuses on:</p>
+          <ul>
+            <li>skills and workforce development;</li>
+            <li>regulation and oversight; and</li>
+            <li>consumer protection and market integrity.</li>
+          </ul>
+          <p>It also stresses that AI should enhance rather than replace professional competence, judgement and accountability. The wider direction is important: professional competence is increasingly understood as more than technical knowledge. It includes appropriate skills and behaviours, responsible decision-making, the ability to explain and defend professional judgement, and clear human accountability.</p>
+          <p>A surveyor may encounter an approach that technically satisfies a minimum requirement but still creates foreseeable safety, quality or consumer risk. In that situation, professional responsibility requires more than confirming basic compliance. The surveyor must consider the public interest, explain the risks, provide reasoned advice and remain accountable for their judgement.</p>
+        </div>
+        <aside aria-label="Assessor guidance and sources for Topic 11">
+          <p class="assessor-label">How assessors may test this</p>
+          <p class="assessor-text">What does professional competence mean beyond technical knowledge? How would you advise a client whose proposed approach meets a minimum requirement but creates foreseeable safety or quality concerns? How do public interest, accountability and professional judgement affect your advice?</p>
+          <div class="sources-box">
+            <p class="sources-label">Primary source</p>
+            <a href="https://www.rics.org/news-insights/rics-response-to-the-strategy-for-built-environment-professions-trades-and-occupations" class="sources-link">RICS response to the Strategy for the Built Environment Professions, Trades and Occupations</a>
+          </div>
+        </aside>
+      </div>
+    </article>
+
+  </section><!-- /watch -->
+
+</div><!-- /content -->
+</main>
+
+<!-- ══ CTA — full-width dark ══ -->
+<section class="cta-section" aria-label="Find your programme">
+  <div class="cta-inner">
+    <p class="cta-eyebrow">Get Chartered AI</p>
+    <h2 class="cta-h2">Want to go deeper?</h2>
+    <p class="cta-body">These developments are covered inside Get Chartered AI through structured learning, pathway-specific technical preparation, current industry briefings, assessor-style questioning and practice with Michael.</p>
+    <p class="cta-body">The aim is not simply to remember what changed. It is to understand what it means for your work, apply it to a professional situation and explain the judgement behind your advice.</p>
+    <p class="cta-tagline">Find the programme that fits where you are now.</p>
+    <div class="cta-buttons">
+      <a href="/pricing" class="btn-primary">Explore programmes →</a>
+      <a href="/programme" class="btn-ghost">APC Full 12 Module Programme</a>
+      <a href="/sprint" class="btn-ghost">APC Final Sprint</a>
+    </div>
+    <div class="bottom-form">
+      <p class="bottom-form-title">Stay updated for spring 2027</p>
+      <p class="bottom-form-sub">Leave your details and we will notify you when the spring 2027 briefing is published.</p>
       <div id="alertBox" class="alert"></div>
-      <div class="form-row">
-        <input type="text" id="name" class="form-input" placeholder="First name">
-        <input type="email" id="email" class="form-input" placeholder="your@email.com">
-        <button class="form-btn" onclick="submitForm()">Notify me</button>
+      <div class="bottom-form-inputs">
+        <input type="text" id="name" class="bottom-form-input" placeholder="First name" autocomplete="given-name">
+        <input type="email" id="email" class="bottom-form-input" placeholder="your@email.com" autocomplete="email">
       </div>
-      <p class="form-note">No spam. Just the APC Assessors' Briefing update when it is published.</p>
+      <button onclick="submitForm()" class="bottom-form-btn">Notify me →</button>
+      <p class="bottom-note">No spam. Just the APC Industry Briefing update when it is published.</p>
     </div>
   </div>
-
-</div>
+</section>
 
 <script>
 async function submitMidForm() {
@@ -327,8 +652,8 @@ async function submitMidForm() {
   const btn = document.getElementById('midBtn');
   const alertEl = document.getElementById('midAlertBox');
   alertEl.style.display = 'none';
-  if (!name) { showMidAlert('Please enter your name.', 'red'); return; }
-  if (!email || !email.includes('@')) { showMidAlert('Please enter a valid email.', 'red'); return; }
+  if (!name) { showMidAlert('Please enter your name.', 'err'); return; }
+  if (!email || !email.includes('@')) { showMidAlert('Please enter a valid email.', 'err'); return; }
   btn.disabled = true; btn.textContent = '✓ You are on the list';
   btn.style.background = '#10b981'; btn.style.color = '#fff';
   try {
@@ -336,33 +661,33 @@ async function submitMidForm() {
       method: 'POST', headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({name, email, pathway: 'Not specified', examDate: 'Not yet scheduled', guideType: 'hot-topics'})
     });
-    showMidAlert('✓ Done — we will notify you in January 2027.', 'green');
-  } catch(e) { showMidAlert('✓ Saved.', 'green'); }
+    showMidAlert('Done — we will notify you in January 2027.', 'ok');
+  } catch(e) { showMidAlert('Saved.', 'ok'); }
 }
 function showMidAlert(msg, type) {
   const el = document.getElementById('midAlertBox');
-  el.textContent = msg; el.className = 'alert alert-'+type; el.style.display = 'block';
+  el.textContent = msg; el.className = 'alert alert-' + type; el.style.display = 'block';
 }
 
 async function submitForm() {
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim().toLowerCase();
-  if (!name || !email.includes('@')) {
-    showAlert('Please enter your name and email.', 'red'); return;
-  }
-  document.querySelector('.form-btn').disabled = true;
-  document.querySelector('.form-btn').textContent = 'Done ✓';
+  const btn = document.querySelector('.bottom-form-btn');
+  const alertEl = document.getElementById('alertBox');
+  alertEl.style.display = 'none';
+  if (!name || !email.includes('@')) { showAlert('Please enter your name and email.', 'err'); return; }
+  btn.disabled = true; btn.textContent = 'Done ✓';
   try {
     await fetch('/.netlify/functions/capture-lead', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({name, email, pathway:'Not specified', examDate:'Not yet scheduled', guideType:'hot-topics'})
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({name, email, pathway: 'Not specified', examDate: 'Not yet scheduled', guideType: 'hot-topics'})
     });
-    showAlert("✓ We will notify you when the next APC Assessors' Briefing update is published.", 'green');
-  } catch(e) { showAlert('✓ Saved.', 'green'); }
+    showAlert('We will notify you when the next APC Industry Briefing is published.', 'ok');
+  } catch(e) { showAlert('Saved.', 'ok'); }
 }
 function showAlert(msg, type) {
   const el = document.getElementById('alertBox');
-  el.textContent = msg; el.className = 'alert alert-'+type; el.style.display = 'block';
+  el.textContent = msg; el.className = 'alert alert-' + type; el.style.display = 'block';
 }
 </script>
 </body>

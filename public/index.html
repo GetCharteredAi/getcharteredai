@@ -1344,46 +1344,51 @@ input.err{border-color:var(--red)}
 </section>
 
 <!-- TRUST SIGNAL ROW -->
-<section id="trust-sec" style="background:#f8fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;padding:32px 40px">
+<section id="trust-sec" style="background:#0D0F1C;background-image:radial-gradient(ellipse 900px 400px at 15% -20%,rgba(37,99,235,.16),transparent 60%);padding:64px 40px 68px">
 <style>
-@media(max-width:768px){.gcai-trust-grid{grid-template-columns:1fr!important;gap:20px!important}}
-@media(max-width:768px){.gcai-trust-divider{border-left:none!important;padding-left:0!important}}
-@media(max-width:768px){#trust-sec{padding:24px 24px!important}}
+.gcai-trust-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;max-width:1120px;margin:0 auto}
+.gcai-trust-stat{padding:0 40px;position:relative}
+.gcai-trust-stat+.gcai-trust-stat{border-left:1px solid rgba(255,255,255,.08)}
+.gcai-trust-icon{width:20px;height:20px;display:inline-block;margin-bottom:14px}
+.gcai-trust-num{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:56px;font-weight:700;line-height:1;color:#fff;letter-spacing:-.02em;display:flex;align-items:baseline;gap:6px;margin-bottom:14px}
+.gcai-trust-num .unit{font-size:18px;font-weight:500;color:var(--blue);letter-spacing:0}
+.gcai-trust-num.accent{color:var(--blue)}
+.gcai-trust-stat h3{margin:0 0 8px;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:16px;font-weight:600;color:#f4f6fb;letter-spacing:-.01em}
+.gcai-trust-stat p{margin:0;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.55);max-width:30ch}
+@media(max-width:768px){
+  #trust-sec{padding:48px 24px 52px!important}
+  .gcai-trust-grid{grid-template-columns:1fr!important}
+  .gcai-trust-stat+.gcai-trust-stat{border-left:none!important;border-top:1px solid rgba(255,255,255,.08)!important;padding-top:32px!important;margin-top:32px!important}
+  .gcai-trust-stat{padding:0!important}
+  .gcai-trust-num{font-size:44px!important}
+}
 </style>
-  <div class="gcai-trust-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px">
+  <div class="gcai-trust-grid">
 
-    <div style="display:flex;align-items:flex-start;gap:14px">
-      <div style="width:38px;height:38px;background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div>
-        <div style="font-size:14px;font-weight:700;color:#0D0F1C;margin-bottom:4px;line-height:1.3">Content aligned with RICS APC competency requirements</div>
-        <div style="font-size:13px;color:#64748b;line-height:1.5">Structured around all 11 mandatory RICS competencies, so nothing gets missed in your preparation.</div>
-      </div>
+    <div class="gcai-trust-stat">
+      <svg class="gcai-trust-icon" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      <div class="gcai-trust-num">11<span class="unit">of 11</span></div>
+      <h3>Mandatory competencies covered</h3>
+      <p>Structured around every RICS mandatory competency, so nothing gets missed in preparation.</p>
     </div>
 
-    <div class="gcai-trust-divider" style="display:flex;align-items:flex-start;gap:14px;border-left:1px solid #e2e8f0;padding-left:40px">
-      <div style="width:38px;height:38px;background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="#2563EB" stroke-width="1.75"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="#2563EB" stroke-width="1.75" stroke-linecap="round"/></svg>
-      </div>
-      <div>
-        <div style="font-size:14px;font-weight:700;color:#0D0F1C;margin-bottom:4px;line-height:1.3">Professional readiness, not just exam prep</div>
-        <div style="font-size:13px;color:#64748b;line-height:1.5">Builds the communication, judgement and professional confidence assessors are looking for.</div>
-      </div>
+    <div class="gcai-trust-stat">
+      <svg class="gcai-trust-icon" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+      <div class="gcai-trust-num accent">Beyond<span class="unit">exam prep</span></div>
+      <h3>Professional readiness, not just exam prep</h3>
+      <p>Builds the communication, judgement and professional confidence assessors are looking for.</p>
     </div>
 
-    <div class="gcai-trust-divider" style="display:flex;align-items:flex-start;gap:14px;border-left:1px solid #e2e8f0;padding-left:40px">
-      <div style="width:38px;height:38px;background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" stroke="#2563EB" stroke-width="1.75"/><rect x="9" y="2" width="5" height="5" rx="1" stroke="#2563EB" stroke-width="1.75"/><rect x="2" y="9" width="5" height="5" rx="1" stroke="#2563EB" stroke-width="1.75"/><rect x="9" y="9" width="5" height="5" rx="1" stroke="#2563EB" stroke-width="1.75"/></svg>
-      </div>
-      <div>
-        <div style="font-size:14px;font-weight:700;color:#0D0F1C;margin-bottom:4px;line-height:1.3">Every APC pathway covered</div>
-        <div style="font-size:13px;color:#64748b;line-height:1.5">Supports all 22 RICS APC pathways, from Commercial Real Estate to Building Surveying.</div>
-      </div>
+    <div class="gcai-trust-stat">
+      <svg class="gcai-trust-icon" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <div class="gcai-trust-num">22<span class="unit">pathways</span></div>
+      <h3>All 22 APC pathways covered</h3>
+      <p>Supports all 22 RICS APC pathways, from Commercial Real Estate to Building Surveying.</p>
     </div>
 
   </div>
 </section>
+<div style="height:1px;background:rgba(255,255,255,0.14)"></div>
 
 <!-- PROFESSIONAL READINESS STATEMENT -->
 <section id="readiness-sec" style="background:#0D0F1C;padding:96px 40px 88px;text-align:center">

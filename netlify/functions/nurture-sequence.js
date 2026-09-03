@@ -66,8 +66,8 @@ function getSequence(name, pathway, examDate, guideType) {
       <p style="font-size:19px;font-weight:700;color:#0D0F1C;background:#eff6ff;border-radius:10px;padding:20px 24px;margin:24px 0;line-height:1.4">If your assessor asked you right now to evidence your Level 2 for Client Care — could you give a specific situation, name the RICS principle engaged, describe the judgement you made, the action you took and the outcome?</p>
       <p style="font-size:15px;color:#374151;line-height:1.7">Not a general description of your approach. A specific, real, documented professional situation.</p>
       <p style="font-size:15px;color:#374151;line-height:1.7">Most candidates — when they answer honestly — realise they have work to do on at least three of the eleven mandatory competencies. That is not a failure of ability. It is a preparation gap. And preparation gaps are fixable.</p>
-      <p style="font-size:15px;color:#374151;line-height:1.7">The Get Chartered AI APC Assessors' Briefing covers the nine topics most likely to be probed in the autumn 2026 window — free to read, no registration required.</p>
-      <a href="https://getcharteredai.com/hot-topics" style="display:inline-block;background:#0D0F1C;color:#fff;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;margin-top:8px">Read the APC Assessors' Briefing →</a>
+      <p style="font-size:15px;color:#374151;line-height:1.7">The Get Chartered AI APC Industry Briefing covers the topics most likely to be probed in the autumn 2026 window — free to read, no registration required.</p>
+      <a href="https://getcharteredai.com/hot-topics" style="display:inline-block;background:#0D0F1C;color:#fff;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;margin-top:8px">Read the APC Industry Briefing →</a>
       <p style="font-size:13px;color:#94a3b8;margin-top:24px">Angela<br>Get Chartered AI</p>
     `)
   };

@@ -3,27 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free APC Guides — Get Chartered AI</title>
-<meta name="description" content="Practical APC guides, checklists and preparation tools designed to support candidates throughout the chartership journey.">
+<title>Resources — Get Chartered AI</title>
+<meta name="description" content="Practical guides, tools and briefings for surveyors at every stage — from getting your first role through APC preparation and into greater professional responsibility.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--navy:#0D0F1C;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8}
 body{font-family:'Inter',sans-serif;background:#DBEAFE;color:#1a1a2e;min-height:100vh}
+html{scroll-behavior:smooth}
 nav{padding:18px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06);background:#0D0F1C}
 .nav-logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:700;color:#f8fafc;text-decoration:none}.nav-logo span{color:var(--gold)}
 .nav-back{font-size:13px;color:#94a3b8;text-decoration:none;transition:.18s}.nav-back:hover{color:#f8fafc}
-.wrap{max-width:1120px;margin:0 auto;padding:56px 24px 80px;overflow:hidden}
+
+/* ── Hero ── */
+.hero{max-width:1120px;margin:0 auto;padding:56px 24px 48px}
 .eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1d4ed8;margin-bottom:14px}
 h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(30px,5vw,48px);font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:14px;color:#0D0F1C}
 h1 em{font-style:italic;color:var(--gold)}
-.lead{font-size:16px;color:#3b5280;line-height:1.7;margin-bottom:36px;max-width:560px;font-weight:300}
-.guides-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;overflow:hidden}
-.section-heading{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#0D0F1C;margin-bottom:16px;padding-top:4px}
-@media(max-width:900px){.guides-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){.guides-grid{grid-template-columns:1fr}}
-.guide-card{background:#ffffff;border:1px solid #BFDBFE;border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:12px;transition:.2s;text-decoration:none;color:#1a1a2e;box-shadow:0 2px 8px rgba(37,99,235,.07);cursor:pointer}
+.lead{font-size:16px;color:#3b5280;line-height:1.7;max-width:560px;font-weight:300}
+
+/* ── Audience cards ── */
+.audience-wrap{background:#0D0F1C;padding:52px 24px}
+.audience-inner{max-width:1120px;margin:0 auto}
+.audience-hd{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:24px}
+.audience-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.audience-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px 22px 24px;display:flex;flex-direction:column;gap:10px;text-decoration:none;transition:.2s}
+.audience-card:hover{background:rgba(37,99,235,.14);border-color:rgba(37,99,235,.5);transform:translateY(-2px)}
+.audience-icon{font-size:26px;line-height:1;margin-bottom:2px}
+.audience-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:#f8fafc;line-height:1.25}
+.audience-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.65;flex:1}
+.audience-cta{font-size:13px;font-weight:700;color:#60a5fa;margin-top:6px}
+.audience-cta::after{content:" →"}
+@media(max-width:860px){.audience-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.audience-grid{grid-template-columns:1fr}}
+
+/* ── Unlocked banner ── */
+.unlocked-banner{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 20px;margin-bottom:32px;display:none;align-items:center;gap:12px}
+.unlocked-banner.show{display:flex}
+.unlocked-banner p{font-size:14px;color:#166534;line-height:1.5}
+
+/* ── Latest Resources ── */
+.section-wrap{max-width:1120px;margin:0 auto;padding:56px 24px 12px}
+.section-eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1d4ed8;margin-bottom:10px}
+.section-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;color:#0D0F1C;margin-bottom:24px}
+.latest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:860px){.latest-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.latest-grid{grid-template-columns:1fr}}
+.view-all{display:inline-block;margin-top:22px;font-size:13px;font-weight:700;color:#1d4ed8;text-decoration:none}
+.view-all:hover{color:#1e40af}
+
+/* ── Resource cards (guide cards) ── */
+.guide-card{background:#ffffff;border:1px solid #BFDBFE;border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:10px;transition:.2s;text-decoration:none;color:#1a1a2e;box-shadow:0 2px 8px rgba(37,99,235,.07);cursor:pointer}
 .guide-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(37,99,235,.13);border-color:#93C5FD}
 .guide-icon{font-size:28px;line-height:1}
 .guide-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:4px}
@@ -31,16 +62,26 @@ h1 em{font-style:italic;color:var(--gold)}
 .tag-grad{background:rgba(16,185,129,.1);color:#065f46;border:1px solid rgba(16,185,129,.25)}
 .tag-tool{background:rgba(245,158,11,.1);color:#92400e;border:1px solid rgba(245,158,11,.2)}
 .tag-hot{background:rgba(239,68,68,.1);color:#991b1b;border:1px solid rgba(239,68,68,.2)}
-.tag-assoc{background:rgba(16,185,129,.1);color:#065f46;border:1px solid rgba(16,185,129,.2)}
 .tag-referred{background:rgba(239,68,68,.1);color:#991b1b;border:1px solid rgba(239,68,68,.2)}
-.tag-counsellor{background:rgba(124,58,237,.1);color:#6d28d9;border:1px solid rgba(124,58,237,.2)}
-.guide-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;line-height:1.2;color:#0D0F1C}
+.tag-professional{background:rgba(124,58,237,.1);color:#6d28d9;border:1px solid rgba(124,58,237,.2)}
+.guide-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:800;line-height:1.2;color:#0D0F1C}
 .guide-desc{font-size:13px;color:#4a5568;line-height:1.65}
 .guide-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#d97706;margin-top:auto}
 .guide-cta.unlocked{color:#059669}
 .guide-cta.unlocked::before{content:"✓ ";font-size:11px}
 
-/* MODAL */
+/* ── All Resources section ── */
+.all-resources{max-width:1120px;margin:0 auto;padding:44px 24px 80px}
+.all-resources-hd{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;color:#0D0F1C;margin-bottom:8px}
+.all-resources-sub{font-size:14px;color:#3b5280;margin-bottom:36px}
+.resource-group{margin-bottom:48px}
+.group-anchor{display:block;position:relative;top:-80px;visibility:hidden}
+.group-heading{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#0D0F1C;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #BFDBFE}
+.guides-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.guides-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.guides-grid{grid-template-columns:1fr}}
+
+/* ── Modal ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(13,15,28,.6);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:.2s}
 .modal-overlay.active{opacity:1;pointer-events:all}
 .modal{background:#fff;border-radius:20px;padding:36px;max-width:520px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,.2);transform:translateY(8px);transition:.2s;position:relative}
@@ -61,15 +102,14 @@ h1 em{font-style:italic;color:var(--gold)}
 .alert-box{padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none}
 .alert-err{background:#fee2e2;color:#dc2626;border:1px solid #fca5a5}
 .alert-ok{background:#dcfce7;color:#16a34a;border:1px solid #86efac}
-.unlocked-banner{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 20px;margin-bottom:32px;display:none;align-items:center;gap:12px}
-.unlocked-banner.show{display:flex}
-.unlocked-banner p{font-size:14px;color:#166534;line-height:1.5}
-@media(max-width:500px){.form-row{grid-template-columns:1fr}.modal{padding:24px}}
+
+/* ── Mobile overrides ── */
 @media(max-width:768px){
   body{overflow-x:hidden}
-  .guides-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;overflow:hidden}
+  .guides-grid,.latest-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;overflow:hidden}
   *{max-width:100%;box-sizing:border-box}
 }
+@media(max-width:500px){.form-row{grid-template-columns:1fr}.modal{padding:24px}}
 </style>
 </head>
 <body>
@@ -78,69 +118,125 @@ h1 em{font-style:italic;color:var(--gold)}
   <a href="/" class="nav-back">← Back to platform</a>
 </nav>
 
-<div class="wrap">
-  <span class="eyebrow">APC Guides &amp; Downloads</span>
-  <h1>Guides for every stage<br>of your <em>surveying journey</em></h1>
-  <p class="lead">Access practical APC guides, checklists and preparation tools designed to support candidates throughout the chartership journey.</p>
+<!-- ── HERO ── -->
+<div class="hero">
+  <span class="eyebrow">Resources</span>
+  <h1>Practical guidance for your<br><em>professional journey.</em></h1>
+  <p class="lead">From getting your first role and developing at work, through APC preparation and into greater professional responsibility.</p>
+</div>
 
+<!-- ── WHERE ARE YOU RIGHT NOW? ── -->
+<div class="audience-wrap">
+  <div class="audience-inner">
+    <p class="audience-hd">Where are you right now?</p>
+    <div class="audience-grid">
+
+      <a href="#audience-early-career" class="audience-card">
+        <div class="audience-icon">🎓</div>
+        <div class="audience-title">Trying to get my first surveying job</div>
+        <p class="audience-desc">Interviews, applications, assessment centres and starting your surveying career.</p>
+        <span class="audience-cta">View early-career resources</span>
+      </a>
+
+      <a href="#audience-apc" class="audience-card">
+        <div class="audience-icon">📋</div>
+        <div class="audience-title">Preparing for my APC</div>
+        <p class="audience-desc">Strengthen your evidence, judgement and assessment readiness.</p>
+        <span class="audience-cta">View APC resources</span>
+      </a>
+
+      <a href="#audience-referred" class="audience-card">
+        <div class="audience-icon">🔄</div>
+        <div class="audience-title">I've been referred</div>
+        <p class="audience-desc">Understand what happened and prepare differently for your next assessment.</p>
+        <span class="audience-cta">View referred resources</span>
+      </a>
+
+      <a href="#audience-professional" class="audience-card">
+        <div class="audience-icon">🏛️</div>
+        <div class="audience-title">Developing professionally</div>
+        <p class="audience-desc">Build the communication, judgement and professional behaviours that help you progress.</p>
+        <span class="audience-cta">View professional resources</span>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── UNLOCKED BANNER ── -->
+<div style="max-width:1120px;margin:32px auto 0;padding:0 24px">
   <div class="unlocked-banner" id="unlockedBanner">
     <span style="font-size:20px">✓</span>
     <p><strong>All guides unlocked.</strong> Click any guide to open it directly — no further registration needed.</p>
   </div>
+</div>
 
-  <section id="apc-section" style="margin-bottom:40px">
-    <h2 class="section-heading">Preparing for the APC</h2>
-    <div class="guides-grid">
+<!-- ── LATEST RESOURCES ── -->
+<div class="section-wrap">
+  <span class="section-eyebrow">Featured</span>
+  <h2 class="section-title">Latest Resources</h2>
+  <div class="latest-grid">
 
-      <a class="guide-card" onclick="handleGuideClick(event,'/apc-guide')">
-        <div class="guide-icon">📋</div>
-        <span class="guide-tag tag-apc">APC Preparation</span>
-        <div class="guide-title">What Assessors Are Looking For</div>
-        <p class="guide-desc">A breakdown of all 11 mandatory competencies — what assessors test at each level, the most common referral reasons and what separates a pass from a referral.</p>
-        <span class="guide-cta" id="cta-3">Download guide →</span>
-      </a>
+    <a class="guide-card" href="/hot-topics">
+      <div class="guide-icon">🔥</div>
+      <span class="guide-tag tag-hot">Industry Briefing</span>
+      <div class="guide-title">APC Industry Briefing — Autumn 2026</div>
+      <p class="guide-desc">The topics most likely to come up in your autumn 2026 assessment — with plain-English explanations and what assessors are specifically listening for.</p>
+      <span class="guide-cta unlocked">Read now — free →</span>
+    </a>
 
-      <a class="guide-card" onclick="handleGuideClick(event,'/case-study-checklist')">
-        <div class="guide-icon">📝</div>
-        <span class="guide-tag tag-apc">APC Preparation</span>
-        <div class="guide-title">10 Checks Before You Finalise Your RICS APC Case Study</div>
-        <p class="guide-desc">A ten-check pre-submission review covering project selection, personal contribution, professional challenge, reflection and presentation readiness.</p>
-        <span class="guide-cta">Open guide →</span>
-      </a>
+    <a class="guide-card" href="/why-candidates-are-referred">
+      <div class="guide-icon">🔍</div>
+      <span class="guide-tag tag-referred">Referred Candidates</span>
+      <div class="guide-title">Why Candidates Are Referred</div>
+      <p class="guide-desc">The six most common referral reasons, what the feedback letter does not tell you, and how candidates who pass their resit approach it differently.</p>
+      <span class="guide-cta unlocked">Read now — free →</span>
+    </a>
 
-    </div>
-  </section>
+    <a class="guide-card" onclick="handleGuideClick(event,'/case-study-checklist')">
+      <div class="guide-icon">📝</div>
+      <span class="guide-tag tag-apc">APC Resource</span>
+      <div class="guide-title">10 Checks Before You Finalise Your RICS APC Case Study</div>
+      <p class="guide-desc">A ten-check pre-submission review covering project selection, personal contribution, professional challenge, reflection and presentation readiness.</p>
+      <span class="guide-cta" id="latest-cta-cs">Open guide →</span>
+    </a>
 
-  <section id="referred-section" style="margin-bottom:40px">
-    <h2 class="section-heading">Referred and Preparing to Resit</h2>
-    <div class="guides-grid">
+    <a class="guide-card" onclick="handleGuideClick(event,'/confidence-checklist')">
+      <div class="guide-icon">✅</div>
+      <span class="guide-tag tag-tool">APC Tool</span>
+      <div class="guide-title">APC Readiness Benchmark</div>
+      <p class="guide-desc">15 questions across 5 preparation areas to benchmark your APC readiness and identify gaps before the pressure of final year.</p>
+      <span class="guide-cta" id="latest-cta-rb">Download guide →</span>
+    </a>
 
-      <a class="guide-card" href="/why-candidates-are-referred" style="border-top:3px solid #ef4444">
-        <div class="guide-icon">🔍</div>
-        <span class="guide-tag tag-referred">Free — No Registration</span>
-        <div class="guide-title">Why Candidates Are Referred</div>
-        <p class="guide-desc">The six most common referral reasons, what the feedback letter does not tell you, and how candidates who pass their resit approach it differently. Fully open — no registration required.</p>
-        <span class="guide-cta unlocked">Read now →</span>
-      </a>
+    <a class="guide-card" onclick="handleGuideClick(event,'/grad-interview-guide')">
+      <div class="guide-icon">🎓</div>
+      <span class="guide-tag tag-grad">Early Career</span>
+      <div class="guide-title">Graduate Surveyor First Interview Prep</div>
+      <p class="guide-desc">How to prepare for a graduate surveying interview — what firms look for, common questions and how to present your motivation for chartership confidently.</p>
+      <span class="guide-cta" id="latest-cta-gi">Download guide →</span>
+    </a>
 
-      <a class="guide-card" onclick="handleGuideClick(event,'/referred-guide')">
-        <div class="guide-icon">📖</div>
-        <span class="guide-tag tag-referred">Referred Candidates</span>
-        <div class="guide-title">Referred — What Now</div>
-        <p class="guide-desc">A straight-talking guide for referred APC candidates — what the referral actually means, the most common reasons it happens and how candidates who pass their resit approach it differently.</p>
-        <span class="guide-cta" id="cta-9">Download guide →</span>
-      </a>
+  </div>
+  <a href="#all-resources" class="view-all">View all resources →</a>
+</div>
 
-    </div>
-  </section>
+<!-- ── ALL RESOURCES ── -->
+<div class="all-resources" id="all-resources">
+  <h2 class="all-resources-hd">All Resources</h2>
+  <p class="all-resources-sub">Every resource, grouped by who it is for. One registration unlocks all gated guides instantly.</p>
 
-  <section id="graduates-section" style="margin-bottom:40px">
-    <h2 class="section-heading">Starting Your Surveying Career</h2>
+  <!-- Early Career -->
+  <div class="resource-group">
+    <span class="group-anchor" id="audience-early-career" aria-hidden="true"></span>
+    <!-- preserve legacy anchor -->
+    <span style="display:block;position:relative;top:-80px;visibility:hidden" id="graduates-section" aria-hidden="true"></span>
+    <h3 class="group-heading">Trying to get your first surveying job</h3>
     <div class="guides-grid">
 
       <a class="guide-card" onclick="handleGuideClick(event,'/grad-interview-guide')">
         <div class="guide-icon">🎓</div>
-        <span class="guide-tag tag-grad">Graduate</span>
+        <span class="guide-tag tag-grad">Early Career</span>
         <div class="guide-title">Graduate Surveyor First Interview Prep</div>
         <p class="guide-desc">How to prepare for a graduate surveying interview — what firms look for, common questions and how to present your motivation for chartership confidently.</p>
         <span class="guide-cta" id="cta-4">Download guide →</span>
@@ -148,7 +244,7 @@ h1 em{font-style:italic;color:var(--gold)}
 
       <a class="guide-card" onclick="handleGuideClick(event,'/grad-assessment-guide')">
         <div class="guide-icon">📝</div>
-        <span class="guide-tag tag-grad">Graduate</span>
+        <span class="guide-tag tag-grad">Early Career</span>
         <div class="guide-title">Graduate Surveyor Assessment Day Prep</div>
         <p class="guide-desc">Everything you need to know before an assessment centre — the formats firms use, group exercise techniques and how to stand out on the day.</p>
         <span class="guide-cta" id="cta-2">Download guide →</span>
@@ -179,11 +275,40 @@ h1 em{font-style:italic;color:var(--gold)}
       </a>
 
     </div>
-  </section>
+  </div>
 
-  <section id="tools-section" style="margin-bottom:40px">
-    <h2 class="section-heading">Tools &amp; Industry Updates</h2>
+  <!-- APC Prep -->
+  <div class="resource-group">
+    <span class="group-anchor" id="audience-apc" aria-hidden="true"></span>
+    <!-- preserve legacy anchors -->
+    <span style="display:block;position:relative;top:-80px;visibility:hidden" id="apc-section" aria-hidden="true"></span>
+    <span style="display:block;position:relative;top:-80px;visibility:hidden" id="tools-section" aria-hidden="true"></span>
+    <h3 class="group-heading">Preparing for my APC</h3>
     <div class="guides-grid">
+
+      <a class="guide-card" href="/hot-topics">
+        <div class="guide-icon">🔥</div>
+        <span class="guide-tag tag-hot">Industry Briefing</span>
+        <div class="guide-title">APC Industry Briefing — Autumn 2026</div>
+        <p class="guide-desc">The 11 topics most likely to come up in your autumn 2026 assessment — with plain-English explanations and what assessors are specifically listening for.</p>
+        <span class="guide-cta unlocked">Read now — free →</span>
+      </a>
+
+      <a class="guide-card" onclick="handleGuideClick(event,'/apc-guide')">
+        <div class="guide-icon">📋</div>
+        <span class="guide-tag tag-apc">APC Resource</span>
+        <div class="guide-title">What Assessors Are Looking For</div>
+        <p class="guide-desc">A breakdown of all 11 mandatory competencies — what assessors test at each level, the most common referral reasons and what separates a pass from a referral.</p>
+        <span class="guide-cta" id="cta-3">Download guide →</span>
+      </a>
+
+      <a class="guide-card" onclick="handleGuideClick(event,'/case-study-checklist')">
+        <div class="guide-icon">📝</div>
+        <span class="guide-tag tag-apc">APC Resource</span>
+        <div class="guide-title">10 Checks Before You Finalise Your RICS APC Case Study</div>
+        <p class="guide-desc">A ten-check pre-submission review covering project selection, personal contribution, professional challenge, reflection and presentation readiness.</p>
+        <span class="guide-cta" id="cta-cs-2">Open guide →</span>
+      </a>
 
       <a class="guide-card" onclick="handleGuideClick(event,'/confidence-checklist')">
         <div class="guide-icon">✅</div>
@@ -196,39 +321,61 @@ h1 em{font-style:italic;color:var(--gold)}
       <a class="guide-card" href="/competency-checker">
         <div class="guide-icon">✓</div>
         <span class="guide-tag tag-tool">Free Tool</span>
-        <div class="guide-title">APC Competency Checker</div>
+        <div class="guide-title">APC Competency Choice Checker</div>
         <p class="guide-desc">Check your proposed competency choices against the December 2025 RICS rules. Instant results — RICS can reject a submission for invalid choices.</p>
         <span class="guide-cta unlocked">Check my choices →</span>
       </a>
 
-      <a class="guide-card" href="/hot-topics">
-        <div class="guide-icon">🔥</div>
-        <span class="guide-tag tag-hot">Autumn 2026</span>
-        <div class="guide-title">APC Industry Briefing — Updated August 2026</div>
-        <p class="guide-desc">The 11 topics most likely to come up in your autumn 2026 assessment — with plain-English explanations and what assessors are specifically listening for.</p>
-        <span class="guide-cta unlocked">Read now — free →</span>
+    </div>
+  </div>
+
+  <!-- Referred -->
+  <div class="resource-group">
+    <span class="group-anchor" id="audience-referred" aria-hidden="true"></span>
+    <!-- preserve legacy anchor -->
+    <span style="display:block;position:relative;top:-80px;visibility:hidden" id="referred-section" aria-hidden="true"></span>
+    <h3 class="group-heading">I've been referred</h3>
+    <div class="guides-grid">
+
+      <a class="guide-card" href="/why-candidates-are-referred" style="border-top:3px solid #ef4444">
+        <div class="guide-icon">🔍</div>
+        <span class="guide-tag tag-referred">Free — No Registration</span>
+        <div class="guide-title">Why Candidates Are Referred</div>
+        <p class="guide-desc">The six most common referral reasons, what the feedback letter does not tell you, and how candidates who pass their resit approach it differently. Fully open — no registration required.</p>
+        <span class="guide-cta unlocked">Read now →</span>
+      </a>
+
+      <a class="guide-card" onclick="handleGuideClick(event,'/referred-guide')">
+        <div class="guide-icon">📖</div>
+        <span class="guide-tag tag-referred">Referred Candidates</span>
+        <div class="guide-title">Referred — What Now</div>
+        <p class="guide-desc">A straight-talking guide for referred APC candidates — what the referral actually means, the most common reasons it happens and how candidates who pass their resit approach it differently.</p>
+        <span class="guide-cta" id="cta-9">Download guide →</span>
       </a>
 
     </div>
-  </section>
+  </div>
 
-  <section style="margin-bottom:48px">
-    <h2 class="section-heading">Exploring Professional Routes</h2>
+  <!-- Developing Professionally -->
+  <div class="resource-group">
+    <span class="group-anchor" id="audience-professional" aria-hidden="true"></span>
+    <h3 class="group-heading">Developing professionally</h3>
     <div class="guides-grid">
 
       <a class="guide-card" onclick="handleGuideClick(event,'/assocrics-guide')">
         <div class="guide-icon">🎓</div>
-        <span class="guide-tag tag-assoc">AssocRICS</span>
+        <span class="guide-tag tag-professional">Professional Routes</span>
         <div class="guide-title">What is AssocRICS</div>
         <p class="guide-desc">What AssocRICS is, who it is for, how the written assessment works and what preparation looks like — plus a free Level 2 competency statement example.</p>
         <span class="guide-cta" id="cta-12">Download guide →</span>
       </a>
 
     </div>
-  </section>
+  </div>
+
 </div>
 
-<!-- REGISTRATION MODAL -->
+<!-- ── REGISTRATION MODAL ── -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal">
     <button class="modal-close" onclick="closeModalBtn()">✕</button>

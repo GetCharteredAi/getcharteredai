@@ -1,5 +1,5 @@
 // yr2-engine.js — GCAi Learning Moment Engine (shared module, v1)
-// Activation boundary: Year Two Professional Readiness Review only for this release.
+// Activation boundary: Apprenticeship Mid-Programme Professional Readiness Review only for this release.
 // Intent: validate here, extend to other products as a separate, deliberate decision.
 // Turning it on elsewhere = update ACTIVE_PRODUCTS and supply a product-specific question bank.
 

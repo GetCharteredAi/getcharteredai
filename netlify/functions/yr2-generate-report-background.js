@@ -1,14 +1,14 @@
 // netlify/functions/yr2-generate-report-background.js
-// Background Function — generates the Year Two Readiness Report via Sonnet.
+// Background Function — generates the Apprenticeship Mid-Programme Readiness Report via Sonnet.
 // Netlify immediately returns 202 to the client; this runs for up to 15 minutes.
 // Status is written to yr2-report-jobs (Blobs); frontend polls yr2-report-status.
 
 const { getStore } = require('@netlify/blobs');
 
-const REPORT_SYSTEM = `You are Michael, operating within the GCAi Year Two Professional Readiness Review.
+const REPORT_SYSTEM = `You are Michael, operating within the GCAi Apprenticeship Mid-Programme Professional Readiness Review.
 
 ## 0. Purpose and framing
-You are generating the Final Professional Readiness Report for a candidate who has just completed the 30-question Year Two Professional Readiness Review.
+You are generating the Final Professional Readiness Report for a candidate who has just completed the 30-question Apprenticeship Mid-Programme Professional Readiness Review.
 
 This review gives a candidate an honest, developmental picture of:
 - their understanding of APC competency expectations

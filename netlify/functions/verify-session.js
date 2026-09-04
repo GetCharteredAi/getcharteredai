@@ -17,7 +17,7 @@ const SPRINT_PRICE_IDS = new Set([
   'price_1SdEf0RkzyH1h56UQZUOtebL', // legacy
 ]);
 const YEAR_TWO_PRICE_IDS = new Set([
-  'price_1TcsGcRkzyH1h56U7bJWaaBD', // Year Two Readiness Review (current)
+  'price_1TcsGcRkzyH1h56U7bJWaaBD', // Apprenticeship Mid-Programme Professional Readiness Review (current)
 ]);
 const CASE_STUDY_PRICE_IDS = new Set([
   'price_1Tgqf1RkzyH1h56UvxEISPgl', // Case Study Review add-on (current)

@@ -11,7 +11,7 @@ const PLAN_LABELS = {
   'monthly':    '12-Module Programme — Monthly (£49/mo)',
   'referred':   'Referred Candidate Recovery Programme (£397)',
   'sprint':     'APC Final Sprint (£297)',
-  'year-one':   'APC Year Two Readiness Review (£127)',
+  'year-one':   'APC Apprenticeship Mid-Programme Professional Readiness Review (£127)',
   'apprentice': 'Apprenticeship Readiness Review',
   'selfpaced':  'Self-Paced Programme',
   'case-study': 'Case Study Review (£29)',

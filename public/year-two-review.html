@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://getcharteredai.com/year-two-review">
-<title>APC Year Two Professional Readiness Review — Get Chartered AI</title>
+<title>APC Apprenticeship Mid-Programme Professional Readiness Review — Get Chartered AI</title>
 <meta name="description" content="A 30-question diagnostic benchmark for APC candidates in their second year. Michael analyses your evidence, experience, professional judgement and development readiness — then gives you an honest, structured readiness report.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -203,7 +203,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 </nav>
 
 <section class="hero">
-  <div class="hero-eyebrow">Year Two Professional Readiness Review</div>
+  <div class="hero-eyebrow">Apprenticeship Mid-Programme Professional Readiness Review</div>
   <h1>Am I <em>ready</em> for my APC?</h1>
   <p class="hero-sub">A 30-question diagnostic for candidates in their second year. Michael analyses your evidence, professional judgement, experience progression and development readiness — then gives you a structured, honest picture of exactly where you stand.</p>
   <div class="hero-btns">
@@ -292,7 +292,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
     <h2 class="h2" style="color:#0D0F1C">One price. Everything included.</h2>
     <div class="pricing-wrap">
       <div class="price-card-single">
-        <div class="price-card-badge">Year Two Professional Readiness Review</div>
+        <div class="price-card-badge">Apprenticeship Mid-Programme Professional Readiness Review</div>
         <div class="price-card-name" style="margin-top:16px">Diagnostic Benchmark</div>
         <div class="price-card-title">Know exactly where you stand — before Year Two pressure intensifies.</div>
         <div class="price-amount-row"><span class="price-sym">£</span><span class="price-num">127</span></div>
@@ -438,8 +438,8 @@ async function startYr2Checkout() {
     const r = await fetch('/.netlify/functions/create-checkout', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ plan:'year-one' }) });
     const d = await r.json();
     if (d.url) { window.location.href = d.url; }
-    else { window.location.href = 'mailto:info@getcharteredai.com?subject=Year Two Professional Readiness Review — Purchase'; }
-  } catch(e) { window.location.href = 'mailto:info@getcharteredai.com?subject=Year Two Professional Readiness Review — Purchase'; }
+    else { window.location.href = 'mailto:info@getcharteredai.com?subject=Apprenticeship Mid-Programme Professional Readiness Review — Purchase'; }
+  } catch(e) { window.location.href = 'mailto:info@getcharteredai.com?subject=Apprenticeship Mid-Programme Professional Readiness Review — Purchase'; }
 }
 
 // ── LOGIN ──
@@ -497,7 +497,7 @@ async function yr2DoLogin() {
       if (d.activatedAt) localStorage.setItem('gca_activated', d.activatedAt.toString());
       yr2Init();
     } else if (d.valid && d.plan !== 'year-one') {
-      err.textContent = 'This account does not have access to the Year Two Professional Readiness Review.';
+      err.textContent = 'This account does not have access to the Apprenticeship Mid-Programme Professional Readiness Review.';
       err.style.display = 'block';
     } else {
       err.textContent = 'Incorrect email or password. Please try again.';
@@ -550,7 +550,7 @@ async function yr2Init() {
 function yr2RenderWelcome() {
   yr2Render(`
     <div style="margin-bottom:12px;text-align:center">
-      <div class="yr2-heading" style="margin-bottom:2px">Year Two Professional Readiness Review</div>
+      <div class="yr2-heading" style="margin-bottom:2px">Apprenticeship Mid-Programme Professional Readiness Review</div>
     </div>
 
     <!-- Panel 1: Stats -->
@@ -650,7 +650,7 @@ function yr2RenderReturning(currentQ) {
     <div style="text-align:center;padding-bottom:8px">
       <div class="yr2-michael-icon">🎓</div>
       <div class="yr2-heading">Welcome back</div>
-      <div class="yr2-sub">Year Two Professional Readiness Review</div>
+      <div class="yr2-sub">Apprenticeship Mid-Programme Professional Readiness Review</div>
     </div>
     <div class="yr2-message">
       <span class="yr2-message-label">Michael</span>

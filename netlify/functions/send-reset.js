@@ -13,7 +13,7 @@ const SPRINT_PRICE_IDS = new Set([
   'price_1SdEf0RkzyH1h56UQZUOtebL', // legacy
 ]);
 const YEAR_TWO_PRICE_IDS = new Set([
-  'price_1TcsGcRkzyH1h56U7bJWaaBD', // Year Two Readiness Review (current)
+  'price_1TcsGcRkzyH1h56U7bJWaaBD', // Apprenticeship Mid-Programme Professional Readiness Review (current)
 ]);
 const ANNUAL_PRICE_IDS = new Set([
   'price_1Tcs9lRkzyH1h56UY5JMcA7M', // Full 12-Module Programme (current)
@@ -170,7 +170,7 @@ exports.handler = async (event) => {
       'annual':   'Full Year Access',
       'referred': 'Referred Candidate Recovery Programme',
       'sprint':   'Sprint Programme',
-      'year-one': 'APC Year Two Readiness Review',
+      'year-one': 'APC Apprenticeship Mid-Programme Professional Readiness Review',
     };
     const planLabel = planLabels[plan] || 'Full Year Access';
 

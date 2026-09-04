@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://getcharteredai.com/year-two-review">
-<title>APC Year Two Professional Readiness Review — Get Chartered AI</title>
-<meta name="description" content="A 30-question diagnostic benchmark for APC candidates in their second year. Michael analyses your evidence, experience, professional judgement and development readiness — then gives you an honest, structured readiness report.">
+<title>APC Apprenticeship Mid-Programme Professional Readiness Review — Get Chartered AI</title>
+<meta name="description" content="A 30-question diagnostic benchmark for apprentices and structured-training candidates at the midpoint of their route. Michael analyses your evidence, experience, professional judgement and development readiness — then gives you an honest, structured readiness report.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -203,9 +203,9 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 </nav>
 
 <section class="hero">
-  <div class="hero-eyebrow">Year Two Professional Readiness Review</div>
+  <div class="hero-eyebrow">Apprenticeship Mid-Programme Professional Readiness Review</div>
   <h1>Am I <em>ready</em> for my APC?</h1>
-  <p class="hero-sub">A 30-question diagnostic for candidates in their second year. Michael analyses your evidence, professional judgement, experience progression and development readiness — then gives you a structured, honest picture of exactly where you stand.</p>
+  <p class="hero-sub">A 30-question diagnostic for apprentices and structured-training candidates at the midpoint of their route. Michael analyses your evidence, professional judgement, experience progression and development readiness — then gives you a structured, honest picture of exactly where you stand.</p>
   <div class="hero-btns">
     <button class="btn btn-primary" onclick="yr2Launch()">Start the Review — £127</button>
     <a href="#how" class="btn btn-ghost">How it works ↓</a>
@@ -224,7 +224,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
     <div class="why-grid">
       <div>
         <div class="lbl">Why this review exists</div>
-        <h2 class="h2">Most second-year candidates don't know if they're on track</h2>
+        <h2 class="h2">Most candidates at this stage don't know if they're on track</h2>
         <p class="sub" style="margin-bottom:0">Not because they aren't working hard — but because nobody has asked them the right questions. This review does. Thirty questions that probe your competency understanding, the quality of your evidence, the breadth of your experience, and how well you can articulate what you know and have done.</p>
         <div class="why-points">
           <div class="why-point"><div class="why-icon">📋</div><div><h4>Evidence quality, not just coverage</h4><p>Do your examples show personal decision-making and professional reasoning — or do they describe the project?</p></div></div>
@@ -292,9 +292,9 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
     <h2 class="h2" style="color:#0D0F1C">One price. Everything included.</h2>
     <div class="pricing-wrap">
       <div class="price-card-single">
-        <div class="price-card-badge">Year Two Professional Readiness Review</div>
+        <div class="price-card-badge">Apprenticeship Mid-Programme Professional Readiness Review</div>
         <div class="price-card-name" style="margin-top:16px">Diagnostic Benchmark</div>
-        <div class="price-card-title">Know exactly where you stand — before Year Two pressure intensifies.</div>
+        <div class="price-card-title">Know exactly where you stand — before the pressure intensifies.</div>
         <div class="price-amount-row"><span class="price-sym">£</span><span class="price-num">127</span></div>
         <p class="price-period">One-off payment · Instant access · Up to 3 diagnostic attempts</p>
         <ul class="price-feats">
@@ -319,7 +319,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
     <a href="https://getcharteredai.com">Platform</a>
     <a href="/sprint">APC Final Sprint</a>
     <a href="/referred-programme">Referred Programme</a>
-    <a href="/year-two-review">Year Two Review</a>
+    <a href="/year-two-review">Mid-Programme Review</a>
     <a href="mailto:info@getcharteredai.com">info@getcharteredai.com</a>
   </div>
   <p class="foot-copy">© Get Chartered AI 2026 · Built by Chartered Surveyors · getcharteredai.com</p>
@@ -438,8 +438,8 @@ async function startYr2Checkout() {
     const r = await fetch('/.netlify/functions/create-checkout', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ plan:'year-one' }) });
     const d = await r.json();
     if (d.url) { window.location.href = d.url; }
-    else { window.location.href = 'mailto:info@getcharteredai.com?subject=Year Two Professional Readiness Review — Purchase'; }
-  } catch(e) { window.location.href = 'mailto:info@getcharteredai.com?subject=Year Two Professional Readiness Review — Purchase'; }
+    else { window.location.href = 'mailto:info@getcharteredai.com?subject=Apprenticeship Mid-Programme Professional Readiness Review — Purchase'; }
+  } catch(e) { window.location.href = 'mailto:info@getcharteredai.com?subject=Apprenticeship Mid-Programme Professional Readiness Review — Purchase'; }
 }
 
 // ── LOGIN ──
@@ -497,7 +497,7 @@ async function yr2DoLogin() {
       if (d.activatedAt) localStorage.setItem('gca_activated', d.activatedAt.toString());
       yr2Init();
     } else if (d.valid && d.plan !== 'year-one') {
-      err.textContent = 'This account does not have access to the Year Two Professional Readiness Review.';
+      err.textContent = 'This account does not have access to the Apprenticeship Mid-Programme Professional Readiness Review.';
       err.style.display = 'block';
     } else {
       err.textContent = 'Incorrect email or password. Please try again.';
@@ -550,7 +550,7 @@ async function yr2Init() {
 function yr2RenderWelcome() {
   yr2Render(`
     <div style="margin-bottom:12px;text-align:center">
-      <div class="yr2-heading" style="margin-bottom:2px">Year Two Professional Readiness Review</div>
+      <div class="yr2-heading" style="margin-bottom:2px">Apprenticeship Mid-Programme Professional Readiness Review</div>
     </div>
 
     <!-- Panel 1: Stats -->
@@ -650,7 +650,7 @@ function yr2RenderReturning(currentQ) {
     <div style="text-align:center;padding-bottom:8px">
       <div class="yr2-michael-icon">🎓</div>
       <div class="yr2-heading">Welcome back</div>
-      <div class="yr2-sub">Year Two Professional Readiness Review</div>
+      <div class="yr2-sub">Apprenticeship Mid-Programme Professional Readiness Review</div>
     </div>
     <div class="yr2-message">
       <span class="yr2-message-label">Michael</span>
@@ -1104,7 +1104,7 @@ function yr2SubmitQ15() {
       </div>
       <div class="yr2-lm-card">
         <div class="yr2-lm-header"><div class="yr2-lm-icon">🎓</div><span class="yr2-lm-title">Michael</span></div>
-        <p class="yr2-lm-explain">A structured experience review — mapping what you have done against what each competency requires — is one of the most useful things a second-year candidate can do. It reveals gaps early enough to address them, and it makes diary planning much more deliberate. It does not need to be elaborate: a simple competency-by-competency check of "what personal examples do I have at Level 2 and above?" is enough to start. This is worth adding to your development priorities.</p>
+        <p class="yr2-lm-explain">A structured experience review — mapping what you have done against what each competency requires — is one of the most useful things a candidate at this stage can do. It reveals gaps early enough to address them, and it makes diary planning much more deliberate. It does not need to be elaborate: a simple competency-by-competency check of "what personal examples do I have at Level 2 and above?" is enough to start. This is worth adding to your development priorities.</p>
       </div>
       <div class="yr2-actions" style="margin-top:16px">
         <button class="yr2-btn-primary" onclick="yr2SaveAndAdvanceQ15()">Continue →</button>

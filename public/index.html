@@ -2873,12 +2873,13 @@ async function doLogin() {
 }
 
 // ── STRIPE CHECKOUT ────────────────────────────────────────────────────────────
-async function checkout(plan) {
+async function checkout(plan, meta) {
   try {
+    const email = localStorage.getItem('gca_user') || undefined;
     const response = await fetch('/.netlify/functions/create-checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan })
+      body: JSON.stringify({ plan, ...(meta || {}), ...(email ? { email } : {}) })
     });
 
     const data = await response.json();
@@ -2894,6 +2895,35 @@ async function checkout(plan) {
     alert('Connection error. Please check your internet and try again.');
     console.error('Checkout error:', err);
   }
+}
+
+// ── ANNUAL UPGRADE CAPTURE MODAL ──────────────────────────────────────────────
+// Captures rics_pathway + assessment_window before sending 'annual' to Stripe.
+// Pathway is pre-filled from localStorage if already set during onboarding.
+function openUpgradeModal() {
+  const storedPathway = localStorage.getItem('gca_pathway') || '';
+  const sel = document.getElementById('upgrade-modal-pathway');
+  if (storedPathway) sel.value = storedPathway;
+  _updateUpgradeBtn();
+  const m = document.getElementById('upgrade-capture-modal');
+  m.style.cssText = 'display:flex;position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,.85);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px';
+}
+function closeUpgradeModal() {
+  document.getElementById('upgrade-capture-modal').style.display = 'none';
+}
+function _updateUpgradeBtn() {
+  const ready = document.getElementById('upgrade-modal-pathway').value && document.getElementById('upgrade-modal-window').value;
+  const btn = document.getElementById('upgrade-modal-btn');
+  btn.disabled = !ready;
+  btn.style.opacity = ready ? '1' : '0.4';
+  btn.style.cursor  = ready ? 'pointer' : 'not-allowed';
+}
+async function _submitUpgradeModal() {
+  const pathway = document.getElementById('upgrade-modal-pathway').value;
+  const window_ = document.getElementById('upgrade-modal-window').value;
+  if (!pathway || !window_) return;
+  closeUpgradeModal();
+  await checkout('annual', { rics_pathway: pathway, assessment_window: window_ });
 }
 
 
@@ -3818,7 +3848,7 @@ const dashMods = plan === 'referred' ? (()=>{const _crb=MODULES.filter(m=>(m.id>
         <p style="font-size:12px;color:rgba(255,255,255,.55)">Upgrade to annual access — unlock all 12 modules right now for £497</p>
       </div>
       <div style="text-align:right">
-        <button onclick="checkout('annual')" style="background:#2563EB;color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.01em;cursor:pointer;white-space:nowrap">Upgrade to Full Access</button>
+        <button onclick="openUpgradeModal()" style="background:#2563EB;color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.01em;cursor:pointer;white-space:nowrap">Upgrade to Full Access</button>
         <p style="font-size:11px;color:rgba(255,255,255,.35);font-weight:400;margin-top:5px;line-height:1.4">or pay in 3 interest-free instalments with Klarna</p>
       </div>
     `;
@@ -5382,7 +5412,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   updateNav();
 
   // Keyboard close modal
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLogin(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLogin(); closeUpgradeModal(); } });
   // Click outside modal
   document.getElementById('loginModal').addEventListener('click', e => {
     if (e.target === document.getElementById('loginModal')) closeLogin();
@@ -9383,6 +9413,54 @@ function _tofyRevealAnswer() {
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- ANNUAL UPGRADE CAPTURE MODAL -->
+<div id="upgrade-capture-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="upgrade-modal-title">
+  <div style="background:#111827;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:36px;max-width:440px;width:100%;position:relative">
+    <button onclick="closeUpgradeModal()" aria-label="Close" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#64748b;font-size:22px;cursor:pointer;line-height:1;padding:4px">×</button>
+    <div id="upgrade-modal-title" style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px;color:#f8fafc">Almost there</div>
+    <p style="font-size:13px;color:#94a3b8;margin-bottom:24px;line-height:1.6">Two quick questions help us prepare your pathway-specific content and confirm your access.</p>
+
+    <div style="margin-bottom:16px">
+      <label for="upgrade-modal-pathway" style="display:block;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Which RICS pathway are you following?</label>
+      <select id="upgrade-modal-pathway" onchange="_updateUpgradeBtn()" style="width:100%;padding:11px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;appearance:none;-webkit-appearance:none;cursor:pointer">
+        <option value="">Select your pathway...</option>
+        <option>Building Control</option>
+        <option>Building Surveying</option>
+        <option>Commercial Real Estate</option>
+        <option>Corporate Real Estate</option>
+        <option>Facilities Management</option>
+        <option>Infrastructure</option>
+        <option>Land and Resources</option>
+        <option>Management Consultancy</option>
+        <option>Planning and Development</option>
+        <option>Project Management</option>
+        <option>Property Finance and Investment</option>
+        <option>Quantity Surveying and Construction</option>
+        <option>Residential</option>
+        <option>Rural</option>
+        <option>Taxation Allowances on Built Assets</option>
+        <option>Valuation</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom:28px">
+      <label for="upgrade-modal-window" style="display:block;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">When are you planning to sit your assessment?</label>
+      <select id="upgrade-modal-window" onchange="_updateUpgradeBtn()" style="width:100%;padding:11px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;appearance:none;-webkit-appearance:none;cursor:pointer">
+        <option value="">Select a window...</option>
+        <option>Autumn 2026</option>
+        <option>Spring 2027</option>
+        <option>Autumn 2027</option>
+        <option>Spring 2028</option>
+        <option>Autumn 2028</option>
+        <option>Not yet confirmed</option>
+      </select>
+    </div>
+
+    <button id="upgrade-modal-btn" onclick="_submitUpgradeModal()" disabled style="width:100%;padding:14px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;opacity:.4;cursor:not-allowed;transition:opacity .15s,transform .15s">Continue to Payment →</button>
+    <p style="font-size:11px;color:#64748b;text-align:center;margin-top:12px;line-height:1.5">These questions don't affect your access or pricing. They help us prepare your pathway-specific content.</p>
   </div>
 </div>
 

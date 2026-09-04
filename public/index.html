@@ -3815,12 +3815,9 @@ const dashMods = plan === 'referred' ? (()=>{const _crb=MODULES.filter(m=>(m.id>
     banner.innerHTML = `
       <div>
         <p style="font-family:var(--fh);font-size:13px;font-weight:700;color:#93c5fd;margin-bottom:2px">📚 ${12 - unlockedCount} modules still locked</p>
-        <p style="font-size:12px;color:rgba(255,255,255,.55)">Upgrade to annual access — unlock all 12 modules right now for £497</p>
+        <p style="font-size:12px;color:rgba(255,255,255,.55)">Want everything unlocked now? Email us and we'll set up annual access for you.</p>
       </div>
-      <div style="text-align:right">
-        <button onclick="checkout('annual')" style="background:#2563EB;color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.01em;cursor:pointer;white-space:nowrap">Upgrade to Full Access</button>
-        <p style="font-size:11px;color:rgba(255,255,255,.35);font-weight:400;margin-top:5px;line-height:1.4">or pay in 3 interest-free instalments with Klarna</p>
-      </div>
+      <a href="mailto:info@getcharteredai.com?subject=${encodeURIComponent('Annual access — unlock all modules')}" style="display:inline-block;background:#2563EB;color:#fff;text-decoration:none;padding:9px 18px;border-radius:8px;font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.01em;white-space:nowrap">Email us to upgrade</a>
     `;
     document.getElementById('dashModGrid').before(banner);
   }

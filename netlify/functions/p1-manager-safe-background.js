@@ -5,6 +5,7 @@
 
 const { getStore } = require('@netlify/blobs');
 const crypto = require('crypto');
+const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
 
 const FROM = 'Get Chartered AI <info@getcharteredai.com>';
 const MANAGER_TOKEN_TTL_MS = 14 * 24 * 60 * 60 * 1000;
@@ -57,14 +58,14 @@ Return ONLY valid JSON. No markdown. No preamble. No trailing text.`;
 
 function getSessionStore() {
   return process.env.NETLIFY_BLOBS_CONTEXT
-    ? getStore('p1-sessions')
-    : getStore({ name: 'p1-sessions', siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
+    ? getStore(`${PREFIX}p1-sessions`)
+    : getStore({ name: `${PREFIX}p1-sessions`, siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
 }
 
 function getInviteStore() {
   return process.env.NETLIFY_BLOBS_CONTEXT
-    ? getStore('p1-invites')
-    : getStore({ name: 'p1-invites', siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
+    ? getStore(`${PREFIX}p1-invites`)
+    : getStore({ name: `${PREFIX}p1-invites`, siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
 }
 
 function generateToken(payload) {
@@ -194,23 +195,9 @@ exports.handler = async (event) => {
 
     await sessionStore.setJSON(jobKey, { status: 'complete', completedAt: now });
 
-    const siteUrl = process.env.URL || 'https://getcharteredai.com';
-    const managerLink = `${siteUrl}/professional-readiness-benchmark?token=${managerToken}`;
-    await sendEmail(
-      meta.managerEmail,
-      `A team member has completed their Benchmark — your input is invited`,
-      wrap(`
-        <p style="font-size:15px;color:#374151;line-height:1.7">A member of your team has completed their Professional Readiness Benchmark and has requested your perspective as part of their development review.</p>
-        <p style="font-size:15px;color:#374151;line-height:1.7">Your input takes approximately 10–15 minutes and helps create a shared development picture.</p>
-        <div style="margin:24px 0;text-align:center">
-          <a href="${managerLink}" style="display:inline-block;background:#3d5afe;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:700;font-size:14px">Share your perspective →</a>
-        </div>
-        <p style="font-size:13px;color:#94a3b8;line-height:1.6">This link is personal to you and expires in 14 days.</p>
-      `),
-      `A team member has completed their Benchmark. Your input is invited here: ${managerLink}\n\nThis link expires in 14 days.`
-    );
-
-    console.log(`[p1-manager-safe-bg] Manager-safe complete, manager invited for session ${sessionId}`);
+    // Email #3 suppressed — Phase 1 correction to brief v5 §13.
+    // Manager-safe is generated and stored; email enabled in Phase 2 when the manager flow exists.
+    console.log(`[p1-manager-safe-bg] Manager-safe complete for session ${sessionId}. Email #3 suppressed until Phase 2.`);
 
   } catch (err) {
     console.error('[p1-manager-safe-bg] Unexpected error:', err.message);

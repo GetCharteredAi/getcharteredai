@@ -4,6 +4,7 @@
 // POST { token }
 
 const { getStore } = require('@netlify/blobs');
+const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
 
 const HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -31,14 +32,14 @@ function verifyToken(token) {
 
 function getSessionStore() {
   return process.env.NETLIFY_BLOBS_CONTEXT
-    ? getStore('p1-sessions')
-    : getStore({ name: 'p1-sessions', siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
+    ? getStore(`${PREFIX}p1-sessions`)
+    : getStore({ name: `${PREFIX}p1-sessions`, siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
 }
 
 function getCohortStore() {
   return process.env.NETLIFY_BLOBS_CONTEXT
-    ? getStore('p1-cohorts')
-    : getStore({ name: 'p1-cohorts', siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
+    ? getStore(`${PREFIX}p1-cohorts`)
+    : getStore({ name: `${PREFIX}p1-cohorts`, siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
 }
 
 exports.handler = async (event) => {

@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://getcharteredai.com/professional-readiness-benchmark">
+<title>Professional Readiness Benchmark — Get Chartered AI</title>
+<meta name="description" content="A structured, employer-sponsored professional development review for graduates and apprentices in their first two years. Michael analyses five key areas of professional practice and produces a candid development report.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#2563EB;--blue-dark:#1d4ed8;--cta:#3d5afe;--navy:#0f1729;--amber:#f59e0b;--green:#10b981;--rose:#f43f5e;--f:'Inter',sans-serif;--fh:'Plus Jakarta Sans','Inter',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);background:#0D0F1C;color:#f8fafc;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+nav{position:sticky;top:0;z-index:1000;background:rgba(11,12,28,0.97);backdrop-filter:blur(16px);height:64px;display:flex;align-items:center;padding:0 40px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-name{font-size:14px;font-weight:600;color:#fff;letter-spacing:-.01em;line-height:1.3}
+.nav-right{margin-left:auto}
+.nav-btn{font-size:13px;font-weight:600;color:#fff;background:var(--cta);padding:7px 16px;border-radius:7px;border:none;cursor:pointer;text-decoration:none;transition:.15s}
+.nav-btn:hover{background:#536dfe}
+.hero{padding:96px 40px 80px;background:linear-gradient(160deg,#0D0F1C 0%,#111527 60%,#0a1020 100%);text-align:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:24px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);padding:6px 14px;border-radius:20px}
+.hero h1{font-family:var(--fh);font-size:clamp(32px,5vw,56px);font-weight:800;line-height:1.08;letter-spacing:-.03em;color:#fff;margin-bottom:20px;max-width:780px;margin-left:auto;margin-right:auto}
+.hero h1 em{font-style:normal;color:#93c5fd}
+.hero-sub{font-size:16px;color:rgba(248,250,252,.6);max-width:580px;margin:0 auto 36px;line-height:1.7}
+.btn{font-family:var(--f);font-size:13px;font-weight:700;letter-spacing:.02em;padding:13px 26px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:.18s;text-align:center}
+.btn-primary{background:var(--cta);color:#fff}
+.btn-primary:hover{background:#536dfe}
+.sec{padding:80px 40px;max-width:1100px;margin:0 auto}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:10px}
+.h2{font-family:var(--fh);font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:14px}
+.sub{font-size:15px;color:rgba(248,250,252,.55);max-width:560px;line-height:1.7}
+.areas-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:36px}
+.area-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:20px 16px;text-align:center}
+.area-num{width:40px;height:40px;border-radius:50%;background:#161a2e;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:.95rem;font-weight:700;color:#fff;margin:0 auto 12px}
+.area-card h4{font-size:13px;font-weight:600;color:#fff;margin-bottom:6px;line-height:1.35}
+.area-card p{font-size:12px;color:rgba(248,250,252,.4);line-height:1.5}
+.cta-band{background:#111527;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:60px 40px;text-align:center}
+footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;border-top:1px solid rgba(255,255,255,.05)}
+.foot-brand{font-size:14px;font-weight:600;color:#fff}
+.foot-brand span{color:var(--amber)}
+.foot-links{display:flex;gap:18px}
+.foot-links a{color:rgba(248,250,252,.3);font-size:12px;text-decoration:none}
+.foot-copy{font-size:11px;color:rgba(248,250,252,.2);width:100%}
+
+/* ── Overlay ── */
+#p1-overlay{display:none;position:fixed;inset:0;background:#fff;z-index:10000;overflow-y:auto}
+#p1-overlay-content{max-width:680px;margin:0 auto;padding:40px 24px;min-height:100vh}
+
+/* Shared overlay components (arev-* compatible) */
+.arev-michael-icon{width:48px;height:48px;background:linear-gradient(135deg,#3d5afe,#7c3aed);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;margin:0 auto 20px}
+.arev-heading{font-family:var(--fh);font-size:26px;font-weight:800;color:#0D0F1C;letter-spacing:-.02em;margin-bottom:4px;text-align:center}
+.arev-sub{font-size:14px;color:#64748b;text-align:center;margin-bottom:24px}
+.arev-panel{background:#0f1729;border-radius:12px;padding:20px 24px;margin-bottom:14px}
+.arev-michael-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f0a94e;display:block;margin-bottom:10px}
+.arev-q-text{font-size:15px;color:#f5f6fa;line-height:1.75}
+.arev-q-muted{font-size:13px;color:#9aa3b8;line-height:1.6}
+.arev-progress-bar{height:4px;background:#e2e8f0;border-radius:2px;margin-bottom:8px;overflow:hidden}
+.arev-progress-fill{height:4px;background:linear-gradient(90deg,#3d5afe,#7c3aed);border-radius:2px;transition:width .4s ease}
+.arev-progress-labels{display:flex;justify-content:space-between;font-size:12px;color:#94a3b8;margin-bottom:14px}
+.arev-area-pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:#f0f4ff;border:1px solid #c7d7fc;color:#2563EB;margin-bottom:16px}
+.arev-textarea{width:100%;background:#fff;border:1.5px solid #d1d5db;border-radius:10px;color:#0D0F1C;font-family:var(--f);font-size:14px;padding:14px 16px;outline:none;transition:.18s;resize:vertical;min-height:130px;line-height:1.7;box-sizing:border-box}
+.arev-textarea:focus{border-color:#3d5afe}
+.arev-textarea::placeholder{color:#94a3b8}
+.arev-wc{font-size:11px;color:#94a3b8;margin-top:5px;text-align:right}
+.arev-btn-primary{background:var(--cta);color:#fff;border:none;padding:13px 24px;border-radius:9px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;transition:.18s;width:100%}
+.arev-btn-primary:hover{background:#536dfe}
+.arev-btn-primary:disabled{background:#94a3b8;cursor:not-allowed}
+.arev-btn-secondary{background:transparent;color:#64748b;border:1px solid #d1d5db;padding:12px 18px;border-radius:9px;font-family:var(--f);font-size:13px;cursor:pointer;transition:.18s;width:100%;margin-top:8px}
+.arev-btn-secondary:hover{border-color:#94a3b8;color:#374155}
+.arev-actions{display:flex;flex-direction:column;gap:0;margin-top:14px}
+.arev-err{font-size:13px;color:#dc2626;margin-top:8px;display:none}
+.arev-form-group{margin-bottom:14px}
+.arev-form-group label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b;margin-bottom:6px}
+.arev-form-group input,.arev-form-group select{width:100%;padding:10px 13px;border:1.5px solid #d1d5db;border-radius:8px;font-family:var(--f);font-size:14px;color:#0D0F1C;background:#fff;outline:none;transition:.18s;box-sizing:border-box}
+.arev-form-group input:focus,.arev-form-group select:focus{border-color:#3d5afe}
+.arev-lm-card{background:#0f1729;border:1.5px solid rgba(91,115,245,.35);border-radius:14px;padding:22px 24px;margin-top:16px}
+.arev-lm-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.arev-lm-icon{width:28px;height:28px;background:linear-gradient(135deg,#3d5afe,#7c3aed);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.arev-lm-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5b73f5}
+.arev-lm-explain{font-size:14px;color:#f5f6fa;line-height:1.8;margin-bottom:16px;white-space:pre-line}
+.arev-lm-check-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f0a94e;margin-bottom:8px;display:block}
+.arev-lm-check-q{font-size:14px;color:#f5f6fa;line-height:1.65;margin-bottom:12px;font-weight:500}
+.arev-recognition-card{background:#0f1729;border:1.5px solid rgba(16,185,129,.25);border-radius:14px;padding:22px 24px;margin-top:16px}
+.arev-recognition-text{font-size:14px;color:#f5f6fa;line-height:1.8;margin-bottom:16px}
+.arev-recognition-btns{display:flex;gap:10px}
+.arev-recognition-yes{background:#10b981;color:#fff;border:none;padding:10px 22px;border-radius:8px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;flex:1;transition:.15s}
+.arev-recognition-yes:hover{background:#059669}
+.arev-recognition-no{background:transparent;color:#64748b;border:1px solid #d1d5db;padding:10px 22px;border-radius:8px;font-family:var(--f);font-size:13px;cursor:pointer;flex:1;transition:.15s}
+.arev-dots{display:flex;justify-content:center;gap:6px;margin-top:16px}
+.arev-dot{width:8px;height:8px;background:#3d5afe;border-radius:50%;animation:arevpulse 1.4s infinite}
+.arev-dot:nth-child(2){animation-delay:.2s}
+.arev-dot:nth-child(3){animation-delay:.4s}
+@keyframes arevpulse{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+.arev-response-echo{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:14px}
+.arev-response-echo-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;display:block;margin-bottom:4px}
+.arev-response-echo-text{font-size:14px;color:#475569;line-height:1.55}
+
+/* Report */
+.p1-outcome-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 12px;border-radius:20px;white-space:nowrap}
+.p1-on-track{background:#0f172a;color:#34d399;border:1px solid rgba(52,211,153,.25)}
+.p1-developing{background:#0f172a;color:#fbbf24;border:1px solid rgba(251,191,36,.25)}
+.p1-support{background:#0f172a;color:#fb7185;border:1px solid rgba(251,113,133,.25)}
+.p1-exposure{background:#0f172a;color:#94a3b8;border:1px solid rgba(148,163,184,.25)}
+.p1-report-area{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:22px 24px;margin-bottom:14px}
+.p1-report-area-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.p1-report-area-name{font-family:var(--fh);font-size:14px;font-weight:700;color:#0d0f1c}
+.p1-report-area-body p{font-size:13px;color:#475569;line-height:1.65;margin-bottom:8px}
+.p1-report-area-body p:last-child{margin-bottom:0}
+.p1-section-title{font-family:var(--fh);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b;margin-bottom:12px;display:block}
+.p1-priority-item{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid #e2e8f0}
+.p1-priority-item:last-child{border-bottom:none}
+.p1-priority-rank{font-family:var(--fh);font-size:18px;font-weight:800;color:#3d5afe;flex-shrink:0;min-width:24px}
+.p1-priority-body{flex:1}
+.p1-priority-title{font-family:var(--fh);font-size:14px;font-weight:700;color:#0d0f1c;margin-bottom:4px}
+.p1-priority-action{font-size:13px;color:#334155;line-height:1.55;margin-bottom:4px}
+.p1-priority-why{font-size:12px;color:#64748b;line-height:1.5}
+.p1-list-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;font-size:13px;color:#334155;line-height:1.5}
+.p1-report-disclaimer{margin-top:32px;padding:16px 20px;background:#f1f5f9;border-radius:10px;font-size:12px;color:#64748b;line-height:1.6;text-align:center}
+.p1-report-section{margin-bottom:28px}
+
+/* Employer status */
+.p1-status-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}
+.p1-status-table th{text-align:left;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b;padding:8px 10px;border-bottom:2px solid #e2e8f0}
+.p1-status-table td{padding:10px 10px;border-bottom:1px solid #f1f5f9;color:#334155}
+.p1-status-badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.05em;padding:3px 10px;border-radius:20px}
+.p1-sb-invited{background:#f1f5f9;color:#64748b}
+.p1-sb-in-progress{background:#eff6ff;color:#2563EB}
+.p1-sb-candidate-complete{background:#ecfdf5;color:#059669}
+.p1-sb-awaiting-manager{background:#fff7ed;color:#c2410c}
+.p1-sb-manager-lapsed{background:#fff1f2;color:#be123c}
+.p1-sb-manager-complete{background:#ecfdf5;color:#059669}
+.p1-sb-synthesising{background:#f0f9ff;color:#0369a1}
+.p1-sb-summary-ready{background:#ecfdf5;color:#059669}
+
+@media(max-width:900px){nav{padding:0 20px}.sec{padding:60px 20px}.hero{padding:72px 20px 60px}.areas-grid{grid-template-columns:repeat(3,1fr)}footer{padding:32px 20px 24px}}
+@media(max-width:600px){.areas-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <span class="nav-logo-name">Get Chartered <span style="color:var(--amber)">AI</span></span>
+  </a>
+  <div class="nav-right">
+    <a href="/employer" class="nav-btn">For employers</a>
+  </div>
+</nav>
+
+<!-- Marketing page -->
+<div id="marketing-page">
+  <div class="hero">
+    <div class="hero-eyebrow">Employer-sponsored</div>
+    <h1>Professional Readiness<br><em>Benchmark</em></h1>
+    <p class="hero-sub">A structured development review for graduates and apprentices in their first two years — giving candidates a candid picture of where they are, and giving managers the insight to support them effectively.</p>
+    <a href="#discuss" class="btn btn-primary">Discuss a cohort</a>
+  </div>
+
+  <div class="sec" style="max-width:900px;text-align:center">
+    <div class="lbl">Five areas of professional practice</div>
+    <div class="h2" style="margin:0 auto 14px">What the Benchmark assesses</div>
+    <p class="sub" style="margin:0 auto 0">Michael, our AI coach, works through 15 questions across the five areas below — probing for genuine understanding, flagging gaps, and producing a calibrated development report.</p>
+    <div class="areas-grid">
+      <div class="area-card">
+        <div class="area-num">1</div>
+        <h4>Professional Behaviour &amp; Responsibility</h4>
+        <p>Ownership, quality and professional conduct</p>
+      </div>
+      <div class="area-card">
+        <div class="area-num">2</div>
+        <h4>Communication &amp; Working With Others</h4>
+        <p>Clarity, initiative and team contribution</p>
+      </div>
+      <div class="area-card">
+        <div class="area-num">3</div>
+        <h4>Learning &amp; Applying Knowledge</h4>
+        <p>Connecting formal learning to practice</p>
+      </div>
+      <div class="area-card">
+        <div class="area-num">4</div>
+        <h4>Judgement, Help &amp; Escalation</h4>
+        <p>Knowing when to proceed and when to ask</p>
+      </div>
+      <div class="area-card">
+        <div class="area-num">5</div>
+        <h4>Feedback, Reflection &amp; Development</h4>
+        <p>Acting on feedback and driving own growth</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band" id="discuss">
+    <div class="lbl">For employers</div>
+    <div class="h2" style="max-width:500px;margin:0 auto 12px">Ready to discuss a cohort?</div>
+    <p class="sub" style="margin:0 auto 28px">The Benchmark is available exclusively through employer cohort access. Get in touch to discuss how it fits your team.</p>
+    <a href="/employer" class="btn btn-primary">Talk to us about your cohort</a>
+  </div>
+
+  <footer>
+    <div class="foot-brand">Get Chartered <span>AI</span></div>
+    <div class="foot-links">
+      <a href="/">Home</a>
+      <a href="/employer">Employers</a>
+      <a href="/apprentice-review">Apprentice Review</a>
+    </div>
+    <div class="foot-copy">© 2026 Get Chartered AI. Professional Readiness Benchmark is part of the GCAi product family.</div>
+  </footer>
+</div><!-- /marketing-page -->
+
+<!-- Benchmark overlay -->
+<div id="p1-overlay">
+  <div id="p1-overlay-content">
+
+    <!-- Loading -->
+    <div id="state-loading">
+      <div style="text-align:center;padding:60px 0">
+        <div class="arev-michael-icon">⚡</div>
+        <div class="arev-heading">Loading your Benchmark</div>
+        <div class="arev-dots" style="margin-top:24px"><div class="arev-dot"></div><div class="arev-dot"></div><div class="arev-dot"></div></div>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div id="state-error" style="display:none">
+      <div style="text-align:center;padding:60px 0">
+        <div class="arev-michael-icon">⚠️</div>
+        <div class="arev-heading">Unable to load</div>
+        <p class="arev-sub" id="error-message">This link may have expired or is invalid. Please check your invitation email or contact info@getcharteredai.com.</p>
+      </div>
+    </div>
+
+    <!-- Privacy -->
+    <div id="state-privacy" style="display:none">
+      <div class="arev-michael-icon">🔒</div>
+      <div class="arev-heading">Before you begin</div>
+      <p class="arev-sub">How your responses are used</p>
+      <div class="arev-panel">
+        <span class="arev-michael-label">Privacy notice</span>
+        <div class="arev-q-text" style="font-size:14px">
+          <p style="margin-bottom:12px">Your reflection is a <strong style="color:#fff">private conversation with Michael</strong>. Your specific answers, reasoning and examples are for your development report only.</p>
+          <p style="margin-bottom:12px">Your manager will receive a <strong style="color:#fff">development summary</strong> — themes, conversation prompts and suggested priorities — without seeing your individual responses.</p>
+          <p style="margin-bottom:12px">Your employer can see that you have completed the Benchmark and your overall progress status. They cannot see your individual responses or development report.</p>
+          <p>There is no pass or fail outcome. The Benchmark is a development tool, not a performance assessment.</p>
+        </div>
+      </div>
+      <div class="arev-actions" style="margin-top:20px">
+        <button class="arev-btn-primary" onclick="goToContext()">I understand — begin my Benchmark →</button>
+      </div>
+    </div>
+
+    <!-- Context -->
+    <div id="state-context" style="display:none">
+      <div class="arev-michael-icon">📋</div>
+      <div class="arev-heading">A little context first</div>
+      <p class="arev-sub">This helps Michael calibrate the conversation to your stage</p>
+      <div class="arev-form-group">
+        <label for="ctx-discipline">Your discipline / area of work</label>
+        <input type="text" id="ctx-discipline" placeholder="e.g. Building Surveying, Quantity Surveying, Property Management…">
+      </div>
+      <div class="arev-form-group">
+        <label for="ctx-typical-work">Briefly describe your typical day-to-day work</label>
+        <textarea id="ctx-typical-work" class="arev-textarea" style="min-height:100px" placeholder="What kinds of tasks, projects or responsibilities do you typically work on?"></textarea>
+      </div>
+      <div id="ctx-band-info" class="arev-panel" style="margin-top:4px;padding:14px 18px"></div>
+      <p id="ctx-err" class="arev-err">Please complete both fields before continuing.</p>
+      <div class="arev-actions" style="margin-top:16px">
+        <button class="arev-btn-primary" onclick="startReflection()">Start my reflection →</button>
+      </div>
+    </div>
+
+    <!-- Reflection -->
+    <div id="state-reflection" style="display:none">
+      <div style="margin-bottom:20px">
+        <div class="arev-progress-bar"><div class="arev-progress-fill" id="reflection-progress"></div></div>
+        <div class="arev-progress-labels">
+          <span id="reflection-q-label">Question 1 of 15</span>
+          <span id="reflection-area-label"></span>
+        </div>
+      </div>
+      <div id="reflection-area-pill-wrap"></div>
+
+      <div class="arev-panel" id="reflection-question-panel">
+        <span class="arev-michael-label">Michael</span>
+        <div class="arev-q-text" id="reflection-question-text"></div>
+      </div>
+
+      <div id="reflection-lm-area"></div>
+
+      <div id="reflection-response-area">
+        <textarea class="arev-textarea" id="reflection-response" placeholder="Your response…" oninput="updateWC()"></textarea>
+        <div class="arev-wc" id="reflection-wc"></div>
+        <p id="reflection-err" class="arev-err">Please write a response before continuing.</p>
+        <div class="arev-actions" style="margin-top:12px">
+          <button class="arev-btn-primary" id="reflection-next-btn" onclick="submitReflectionResponse()">Continue →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generating -->
+    <div id="state-generating" style="display:none">
+      <div style="text-align:center;padding:40px 0">
+        <div class="arev-michael-icon">📊</div>
+        <div class="arev-heading">Generating your report</div>
+        <p class="arev-sub">Michael is reviewing your responses across the five areas. This usually takes 30–60 seconds.</p>
+        <div class="arev-dots" style="margin-top:24px"><div class="arev-dot"></div><div class="arev-dot"></div><div class="arev-dot"></div></div>
+        <p style="font-size:12px;color:#94a3b8;margin-top:20px" id="generating-status-text">Analysing your reflection…</p>
+      </div>
+    </div>
+
+    <!-- Report -->
+    <div id="state-report" style="display:none">
+      <div style="margin-bottom:28px;text-align:center">
+        <div class="arev-michael-icon">📋</div>
+        <div class="arev-heading" id="report-heading">Your Development Report</div>
+        <p class="arev-sub" id="report-subheading">Professional Readiness Benchmark</p>
+      </div>
+      <div id="report-content"></div>
+    </div>
+
+    <!-- Employer status -->
+    <div id="state-employer-status" style="display:none">
+      <div class="arev-heading" id="employer-firm-name">Cohort Status</div>
+      <p class="arev-sub" id="employer-cohort-sub"></p>
+      <div id="employer-status-table-wrap"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const QUESTIONS = [
+  // Area 1: Professional Behaviour & Responsibility
+  { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Thinking about your time at work so far, what do you think being professional means in your role? Give me an example of how you have tried to demonstrate that.' },
+  { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Tell me about a recent piece of work you were trusted to complete. What did you do to make sure it was accurate, completed when needed and that the right person knew where it had got to?' },
+  { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Tell me about a recent task you completed. What did you do once it was finished, and how did you decide what to focus on next?' },
+  { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Tell me about a time you realised something in your work was wrong, unclear or not going as expected. What did you do?' },
+  // Area 2: Communication & Working With Others
+  { area: 2, areaName: 'Communication & Working With Others', text: 'Give me an example of something you needed to explain or update someone about at work. How did you make sure they understood what they needed to know?' },
+  { area: 2, areaName: 'Communication & Working With Others', text: 'Tell me about a time an instruction or expectation was not completely clear. How did you clarify what was required?' },
+  { area: 2, areaName: 'Communication & Working With Others', text: 'Think about the last time you asked someone for help. What had you already considered or tried before you approached them?' },
+  { area: 2, areaName: 'Communication & Working With Others', text: 'Tell me about a recent occasion when you worked with someone more experienced than you. What did you contribute, and what did you learn from them?' },
+  // Area 3: Learning & Applying Knowledge
+  { area: 3, areaName: 'Learning & Applying Knowledge', text: 'Give me one example of something you learned through university, college or training that you have now seen or used in your work. How did understanding it help you?' },
+  { area: 3, areaName: 'Learning & Applying Knowledge', text: 'What is something the workplace has taught you that you would probably not have learned from study alone? Give me a particular example.' },
+  { area: 3, areaName: 'Learning & Applying Knowledge', text: 'Tell me about a task you were given that you had not done before. How did you work out what you needed to know and how to approach it?' },
+  // Area 4: Judgement, Help & Escalation
+  { area: 4, areaName: 'Judgement, Help & Escalation', text: 'Tell me about a situation where you had to decide whether you could continue yourself or whether you should check something with somebody else. What influenced your decision?' },
+  { area: 4, areaName: 'Judgement, Help & Escalation', text: 'Have you had to raise or escalate something because you thought it could affect the work, a client, a project or the organisation? What made you decide it needed raising?' },
+  // Area 5: Feedback, Reflection & Development
+  { area: 5, areaName: 'Feedback, Reflection & Development', text: 'What is the most useful feedback you have received since starting, and what have you changed as a result?' },
+  { area: 5, areaName: 'Feedback, Reflection & Development', text: 'Looking back over your time at work so far, what is one thing you think you are doing well and one thing you want to improve? What would improvement look like over the next few months?' }
+];
+
+// ── State ─────────────────────────────────────────────────────────────────────
+
+let appToken = null;
+let sessionData = null;
+let messages = [];
+let currentQ = 0;
+let contextAnswers = { discipline: '', monthsInRole: 0, typicalWork: '' };
+let inLearningMoment = false;
+let lmPhase = null; // 'check' | 'recognition'
+let runToken = null;
+let pollInterval = null;
+
+// ── Utilities ─────────────────────────────────────────────────────────────────
+
+function show(stateId) {
+  ['loading','error','privacy','context','reflection','generating','report','employer-status']
+    .forEach(s => { const el = document.getElementById('state-' + s); if (el) el.style.display = 'none'; });
+  const target = document.getElementById('state-' + stateId);
+  if (target) target.style.display = '';
+}
+
+function showOverlay() {
+  document.getElementById('marketing-page').style.display = 'none';
+  document.getElementById('p1-overlay').style.display = '';
+}
+
+function outcomeBadge(outcome) {
+  const map = {
+    'ON TRACK': 'p1-on-track',
+    'DEVELOPING': 'p1-developing',
+    'SUPPORT WOULD HELP': 'p1-support',
+    'NOT YET ENOUGH EXPOSURE': 'p1-exposure'
+  };
+  const cls = map[outcome] || 'p1-developing';
+  return `<span class="p1-outcome-badge ${cls}">${outcome}</span>`;
+}
+
+function bandLabel(months) {
+  if (months < 2) return 'Earlier than 8 weeks — review may be premature';
+  if (months < 4) return '8–16 weeks band';
+  if (months <= 8) return '4–8 months band';
+  if (months <= 12) return '9–12 months band';
+  if (months <= 24) return '13–24 months band';
+  return 'Over 24 months — outside standard calibration range';
+}
+
+function statusBadge(status) {
+  const labels = {
+    invited: 'Invited', 'in-progress': 'In progress', 'candidate-complete': 'Candidate done',
+    'awaiting-manager': 'Awaiting manager', 'manager-lapsed': 'Manager lapsed',
+    'manager-complete': 'Manager done', synthesising: 'Synthesising', 'summary-ready': 'Summary ready'
+  };
+  const cls = 'p1-sb-' + status;
+  return `<span class="p1-status-badge ${cls}">${labels[status] || status}</span>`;
+}
+
+async function apiPost(endpoint, body) {
+  const r = await fetch(`/.netlify/functions/${endpoint}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  return r.json();
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+
+async function init() {
+  const params = new URLSearchParams(window.location.search);
+  appToken = params.get('token');
+
+  if (!appToken) return; // No token — show marketing page
+
+  showOverlay();
+  show('loading');
+
+  try {
+    const data = await apiPost('p1-session-load', { token: appToken });
+
+    if (data.error) {
+      document.getElementById('error-message').textContent = data.error === 'Invalid or expired token'
+        ? 'This link has expired or is invalid. Please check your invitation email or contact info@getcharteredai.com.'
+        : data.error;
+      show('error');
+      return;
+    }
+
+    sessionData = data;
+
+    if (data.role === 'employer') {
+      renderEmployerStatus(data);
+      show('employer-status');
+      return;
+    }
+
+    if (data.role === 'candidate') {
+      // Pre-fill context
+      contextAnswers.discipline = data.discipline || '';
+      contextAnswers.monthsInRole = data.monthsInRole || 0;
+
+      // If report already exists, show it
+      if (data.report) {
+        renderReport(data.report);
+        show('report');
+        return;
+      }
+
+      // Otherwise start the flow
+      show('privacy');
+    }
+
+  } catch (e) {
+    document.getElementById('error-message').textContent = 'Could not connect. Please try again.';
+    show('error');
+  }
+}
+
+// ── Privacy → Context ─────────────────────────────────────────────────────────
+
+function goToContext() {
+  document.getElementById('ctx-discipline').value = contextAnswers.discipline || '';
+  const bandInfo = document.getElementById('ctx-band-info');
+  bandInfo.innerHTML = `<span class="arev-michael-label" style="margin-bottom:4px">Your calibration stage</span>
+    <div class="arev-q-text" style="font-size:14px">${bandLabel(contextAnswers.monthsInRole)} — Michael will calibrate expectations to this point in your career.</div>`;
+  show('context');
+}
+
+function startReflection() {
+  const disc = document.getElementById('ctx-discipline').value.trim();
+  const typical = document.getElementById('ctx-typical-work').value.trim();
+  const err = document.getElementById('ctx-err');
+
+  if (!disc || !typical) { err.style.display = ''; return; }
+  err.style.display = 'none';
+
+  contextAnswers.discipline = disc;
+  contextAnswers.typicalWork = typical;
+
+  // Seed the conversation with context
+  messages = [{
+    role: 'user',
+    content: `I am beginning the Professional Readiness Benchmark. My discipline is ${disc}. I have been in my current role for approximately ${contextAnswers.monthsInRole} months. My typical work involves: ${typical}. I am ready to begin.`
+  }, {
+    role: 'assistant',
+    content: 'Thank you. I have everything I need to calibrate our conversation. Let us begin with the first question.'
+  }];
+
+  currentQ = 0;
+  inLearningMoment = false;
+  showQuestion(0);
+  show('reflection');
+}
+
+// ── Reflection ────────────────────────────────────────────────────────────────
+
+function showQuestion(idx) {
+  const q = QUESTIONS[idx];
+  document.getElementById('reflection-progress').style.width = `${((idx) / 15) * 100}%`;
+  document.getElementById('reflection-q-label').textContent = `Question ${idx + 1} of 15`;
+  document.getElementById('reflection-area-label').textContent = q.areaName;
+
+  const pillWrap = document.getElementById('reflection-area-pill-wrap');
+  pillWrap.innerHTML = `<span class="arev-area-pill">Area ${q.area} — ${q.areaName}</span>`;
+
+  document.getElementById('reflection-question-text').textContent = q.text;
+  document.getElementById('reflection-lm-area').innerHTML = '';
+  document.getElementById('reflection-response').value = '';
+  updateWC();
+  document.getElementById('reflection-response-area').style.display = '';
+  document.getElementById('reflection-next-btn').textContent = idx < 14 ? 'Continue →' : 'Complete my reflection →';
+  inLearningMoment = false;
+  lmPhase = null;
+}
+
+function updateWC() {
+  const ta = document.getElementById('reflection-response');
+  const wc = document.getElementById('reflection-wc');
+  const words = ta.value.trim().split(/\s+/).filter(Boolean).length;
+  wc.textContent = `${words} word${words !== 1 ? 's' : ''}`;
+  wc.className = 'arev-wc' + (words > 600 ? ' over' : '');
+}
+
+async function submitReflectionResponse() {
+  const responseText = document.getElementById('reflection-response').value.trim();
+  const err = document.getElementById('reflection-err');
+
+  if (!responseText) { err.style.display = ''; return; }
+  err.style.display = 'none';
+
+  const btn = document.getElementById('reflection-next-btn');
+  btn.disabled = true;
+  btn.textContent = 'Michael is thinking…';
+
+  const q = QUESTIONS[currentQ];
+
+  if (!inLearningMoment) {
+    // First response to a question — ask Michael for a Learning Moment
+    messages.push({ role: 'user', content: `Q${currentQ + 1}: ${q.text}\n\nMy response: ${responseText}` });
+
+    try {
+      const data = await apiPost('p1-tutor', {
+        token: appToken,
+        messages,
+        discipline: contextAnswers.discipline,
+        monthsInRole: contextAnswers.monthsInRole
+      });
+
+      const raw = (data.content || []).map(b => b.text || '').join('');
+      let lm;
+      try { lm = JSON.parse(raw.replace(/```json|```/g, '').trim()); } catch { lm = null; }
+
+      if (lm && (lm.explain || lm.reprompt || lm.recognitionPrompt)) {
+        // Show Learning Moment
+        messages.push({ role: 'assistant', content: raw });
+        inLearningMoment = true;
+        renderLearningMoment(lm);
+      } else {
+        // No Learning Moment — move on
+        if (lm) messages.push({ role: 'assistant', content: raw });
+        advanceQuestion();
+      }
+    } catch {
+      // On error, advance anyway
+      advanceQuestion();
+    }
+
+  } else if (lmPhase === 'check') {
+    // Response to the check question
+    messages.push({ role: 'user', content: responseText });
+    messages.push({ role: 'assistant', content: 'Thank you.' });
+    advanceQuestion();
+
+  } else if (lmPhase === 'recognition') {
+    // Handled by recognition buttons
+  }
+
+  btn.disabled = false;
+}
+
+function renderLearningMoment(lm) {
+  const area = document.getElementById('reflection-lm-area');
+  const responseArea = document.getElementById('reflection-response-area');
+
+  if (lm.reprompt) {
+    area.innerHTML = `
+      <div class="arev-lm-card">
+        <div class="arev-lm-header">
+          <div class="arev-lm-icon">💡</div>
+          <span class="arev-lm-title">Michael</span>
+        </div>
+        <div class="arev-lm-explain">${lm.reprompt}</div>
+      </div>`;
+    document.getElementById('reflection-response').value = '';
+    document.getElementById('reflection-next-btn').textContent = 'Send my response →';
+    document.getElementById('reflection-next-btn').disabled = false;
+    lmPhase = 'check';
+
+  } else if (lm.recognitionPrompt) {
+    area.innerHTML = `
+      <div class="arev-recognition-card">
+        <div class="arev-recognition-text">${lm.recognitionPrompt}</div>
+        <div class="arev-recognition-btns">
+          <button class="arev-recognition-yes" onclick="recognitionYes()">Yes, I have experience like that</button>
+          <button class="arev-recognition-no" onclick="recognitionNo()">No, I genuinely haven't had that opportunity</button>
+        </div>
+      </div>`;
+    responseArea.style.display = 'none';
+    lmPhase = 'recognition';
+
+  } else if (lm.explain && lm.checkQuestion) {
+    area.innerHTML = `
+      <div class="arev-lm-card">
+        <div class="arev-lm-header">
+          <div class="arev-lm-icon">💡</div>
+          <span class="arev-lm-title">Learning moment</span>
+        </div>
+        <div class="arev-lm-explain">${lm.explain}</div>
+        <span class="arev-lm-check-lbl">Now try this</span>
+        <div class="arev-lm-check-q">${lm.checkQuestion}</div>
+      </div>`;
+    document.getElementById('reflection-response').value = '';
+    document.getElementById('reflection-response').placeholder = 'Your response to the check question…';
+    document.getElementById('reflection-next-btn').textContent = 'Send my response →';
+    document.getElementById('reflection-next-btn').disabled = false;
+    lmPhase = 'check';
+  }
+}
+
+function recognitionYes() {
+  messages.push({ role: 'user', content: 'Yes, thinking about it more carefully, I do have relevant experience.' });
+  messages.push({ role: 'assistant', content: 'Thank you — that context is helpful.' });
+  document.getElementById('reflection-response-area').style.display = '';
+  document.getElementById('reflection-response').value = '';
+  document.getElementById('reflection-response').placeholder = 'Tell me more about that experience…';
+  document.getElementById('reflection-lm-area').innerHTML = '';
+  document.getElementById('reflection-next-btn').textContent = 'Continue →';
+  document.getElementById('reflection-next-btn').disabled = false;
+  lmPhase = 'check';
+}
+
+function recognitionNo() {
+  messages.push({ role: 'user', content: 'No — I genuinely have not had that opportunity in my role yet.' });
+  messages.push({ role: 'assistant', content: 'Understood. That is useful context.' });
+  advanceQuestion();
+}
+
+function advanceQuestion() {
+  inLearningMoment = false;
+  lmPhase = null;
+  currentQ++;
+
+  if (currentQ >= 15) {
+    // All questions done — generate report
+    generateReport();
+  } else {
+    showQuestion(currentQ);
+    document.getElementById('reflection-next-btn').disabled = false;
+    document.getElementById('reflection-next-btn').textContent = currentQ < 14 ? 'Continue →' : 'Complete my reflection →';
+  }
+}
+
+// ── Report generation ─────────────────────────────────────────────────────────
+
+async function generateReport() {
+  show('generating');
+  runToken = crypto.randomUUID();
+
+  // Submit to background function
+  try {
+    await fetch('/.netlify/functions/p1-generate-report-background', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: appToken, messages, runToken, contextAnswers })
+    });
+  } catch { /* background function returns 202 or error, doesn't matter */ }
+
+  // Poll for status
+  let attempts = 0;
+  const statusTexts = [
+    'Analysing your reflection…',
+    'Reviewing your responses across the five areas…',
+    'Identifying development themes…',
+    'Writing your development report…',
+    'Almost there…'
+  ];
+
+  pollInterval = setInterval(async () => {
+    attempts++;
+    const idx = Math.min(Math.floor(attempts / 5), statusTexts.length - 1);
+    document.getElementById('generating-status-text').textContent = statusTexts[idx];
+
+    try {
+      const status = await apiPost('p1-report-status', { token: appToken, runToken });
+
+      if (status.status === 'complete' && status.report) {
+        clearInterval(pollInterval);
+        renderReport(status.report);
+        show('report');
+      } else if (status.status === 'failed') {
+        clearInterval(pollInterval);
+        document.getElementById('generating-status-text').textContent = 'Report generation failed. Please contact info@getcharteredai.com.';
+      }
+    } catch { /* retry */ }
+
+    if (attempts > 80) { // ~10 minutes
+      clearInterval(pollInterval);
+      document.getElementById('generating-status-text').textContent = 'This is taking longer than expected. Please refresh the page.';
+    }
+  }, 8000);
+}
+
+// ── Report rendering ──────────────────────────────────────────────────────────
+
+function renderReport(report) {
+  const el = document.getElementById('report-content');
+
+  // Overall summary
+  let html = `
+    <div class="p1-report-section">
+      <div class="arev-panel">
+        <span class="arev-michael-label">Overall summary</span>
+        <div class="arev-q-text" style="font-size:14px">${report.overallSummary || ''}</div>
+      </div>
+    </div>`;
+
+  // Five areas
+  html += `<div class="p1-report-section"><span class="p1-section-title">Five areas</span>`;
+  (report.areas || []).forEach(area => {
+    html += `
+      <div class="p1-report-area">
+        <div class="p1-report-area-header">
+          <span class="p1-report-area-name">${area.name}</span>
+          ${outcomeBadge(area.outcome)}
+        </div>
+        <div class="p1-report-area-body">
+          <p><strong>Evidence:</strong> ${area.evidence}</p>
+          ${area.developmentNeed ? `<p><strong>Development need:</strong> ${area.developmentNeed}</p>` : ''}
+          <p style="font-style:italic;color:#64748b">${area.conclusion}</p>
+        </div>
+      </div>`;
+  });
+  html += `</div>`;
+
+  // Development priorities
+  if (report.developmentPriorities?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Development priorities</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:6px 24px">`;
+    report.developmentPriorities.forEach(p => {
+      html += `<div class="p1-priority-item">
+        <div class="p1-priority-rank">${p.rank}</div>
+        <div class="p1-priority-body">
+          <div class="p1-priority-title">${p.priority}</div>
+          <div class="p1-priority-action">${p.developmentAction}</div>
+          <div class="p1-priority-why">${p.why}</div>
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Strengths
+  if (report.demonstratedStrengths?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Demonstrated strengths</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px 24px">`;
+    report.demonstratedStrengths.forEach(s => {
+      html += `<div class="p1-list-item"><span style="color:#10b981;font-weight:700">✓</span> ${s}</div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Actions
+  if (report.candidateActions?.length || report.workplaceOpportunities?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Next steps</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px 24px">`;
+    if (report.candidateActions?.length) {
+      html += `<div style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Actions you can take</div>`;
+      report.candidateActions.forEach(a => {
+        html += `<div class="p1-list-item"><span style="color:#3d5afe;font-weight:700">→</span> ${a}</div>`;
+      });
+    }
+    if (report.workplaceOpportunities?.length) {
+      html += `<div style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-top:14px;margin-bottom:8px">Workplace opportunities</div>`;
+      report.workplaceOpportunities.forEach(o => {
+        html += `<div class="p1-list-item"><span style="color:#f59e0b;font-weight:700">◆</span> ${o}</div>`;
+      });
+    }
+    html += `</div></div>`;
+  }
+
+  html += `<div class="p1-report-disclaimer">This is a professional development diagnostic, not a formal assessment or certification. It provides a structured, evidence-based picture of your current professional practice.</div>`;
+
+  el.innerHTML = html;
+}
+
+// ── Employer status ───────────────────────────────────────────────────────────
+
+function renderEmployerStatus(data) {
+  document.getElementById('employer-firm-name').textContent = `${data.firmName} — Cohort Status`;
+  document.getElementById('employer-cohort-sub').textContent = `${data.sessions.length} candidate${data.sessions.length !== 1 ? 's' : ''}`;
+
+  const wrap = document.getElementById('employer-status-table-wrap');
+  if (!data.sessions.length) {
+    wrap.innerHTML = '<p style="color:#64748b;margin-top:16px">No sessions found.</p>';
+    return;
+  }
+
+  let html = `<table class="p1-status-table">
+    <thead><tr>
+      <th>Candidate</th>
+      <th>Status</th>
+      <th>Started</th>
+      <th>Completed</th>
+    </tr></thead><tbody>`;
+
+  data.sessions.forEach(s => {
+    const started = s.candidateStartedAt ? new Date(s.candidateStartedAt).toLocaleDateString('en-GB') : '—';
+    const completed = s.candidateCompletedAt ? new Date(s.candidateCompletedAt).toLocaleDateString('en-GB') : '—';
+    html += `<tr>
+      <td>${s.candidateEmail}</td>
+      <td>${statusBadge(s.status)}</td>
+      <td>${started}</td>
+      <td>${completed}</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table>
+    <p style="font-size:12px;color:#94a3b8;margin-top:12px">Status updates automatically. Refresh this page to see the latest.</p>`;
+  wrap.innerHTML = html;
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>

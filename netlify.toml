@@ -96,6 +96,14 @@
   to = "/programme.html"
   status = 200
 
+[[redirects]]
+  from = "/professional-readiness-benchmark"
+  to = "/professional-readiness-benchmark.html"
+  status = 200
+
+[functions."p1-scheduled"]
+  schedule = "@daily"
+
 [[headers]]
   for = "/*.pdf"
   [headers.values]

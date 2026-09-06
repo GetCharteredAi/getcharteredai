@@ -114,6 +114,36 @@ exports.handler = async (event) => {
       };
     }
 
+    if (payload.role === 'manager') {
+      const sessionStore = getSessionStore();
+      const meta = await sessionStore.get(`${payload.sessionId}/metadata`, { type: 'json' });
+      if (!meta) return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'Session not found' }) };
+
+      if (meta.currentManagerInviteKey !== token) {
+        return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'This invitation link has been superseded. Please use your most recent invitation email.' }) };
+      }
+
+      const response = {
+        role: 'manager',
+        sessionId: payload.sessionId,
+        status: meta.status,
+        firmName: meta.firmName,
+        discipline: meta.discipline,
+        monthsInRole: meta.monthsInRole,
+        candidateLabel: 'the individual'
+      };
+
+      // Include area outcomes for D-4: manager sees five area outcome labels
+      if (meta.status === 'awaiting-manager') {
+        const managerSafeData = await sessionStore.get(`${payload.sessionId}/manager-safe`, { type: 'json' });
+        if (managerSafeData?.managerSafe?.areaStatuses) {
+          response.areaStatuses = managerSafeData.managerSafe.areaStatuses;
+        }
+      }
+
+      return { statusCode: 200, headers: HEADERS, body: JSON.stringify(response) };
+    }
+
     return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Unsupported role for session load' }) };
 
   } catch (err) {

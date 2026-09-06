@@ -327,6 +327,46 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       <div id="employer-status-table-wrap"></div>
     </div>
 
+    <!-- Manager privacy -->
+    <div id="state-manager-privacy" style="display:none">
+      <div style="margin-bottom:28px;text-align:center">
+        <div class="arev-heading">Before you begin</div>
+        <p class="arev-sub">A team member has completed their Professional Readiness Benchmark. Your perspective takes around 5 minutes.</p>
+      </div>
+      <div style="background:#f8fafc;border-radius:10px;padding:20px;margin-bottom:24px">
+        <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 10px"><strong>You will see:</strong></p>
+        <ul style="font-size:14px;color:#374151;line-height:1.8;margin:0 0 14px;padding-left:20px">
+          <li>An outcome across five professional development areas</li>
+        </ul>
+        <p style="font-size:14px;color:#374151;line-height:1.7;margin:0">You will not see the individual's specific answers or private reflections. Your responses are used to produce a combined development summary and are treated in confidence.</p>
+      </div>
+      <div class="arev-actions">
+        <button class="arev-btn-primary" onclick="goToManagerReflection()">Continue →</button>
+      </div>
+    </div>
+
+    <!-- Manager reflection -->
+    <div id="state-manager-reflection" style="display:none">
+      <div style="margin-bottom:20px;text-align:center">
+        <div class="arev-heading">Your perspective</div>
+        <p class="arev-sub">Seven questions — approximately 5 minutes. Examples are helpful but not required.</p>
+      </div>
+      <div id="manager-area-summary" style="margin-bottom:24px"></div>
+      <div id="manager-questions-form"></div>
+      <div class="arev-actions" style="margin-top:24px">
+        <button class="arev-btn-primary" id="manager-submit-btn" onclick="submitManagerForm()">Submit your responses →</button>
+      </div>
+    </div>
+
+    <!-- Manager complete -->
+    <div id="state-manager-complete" style="display:none">
+      <div style="text-align:center;padding:40px 0">
+        <div class="arev-heading">Thank you</div>
+        <p class="arev-sub" style="margin-bottom:8px">Your responses have been submitted.</p>
+        <p style="font-size:14px;color:#64748b;line-height:1.7">We'll combine your perspective with the individual's self-assessment to produce a development summary. You don't need to do anything further.</p>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -371,7 +411,7 @@ let pollInterval = null;
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
 function show(stateId) {
-  ['loading','error','privacy','context','reflection','generating','report','employer-status']
+  ['loading','error','privacy','context','reflection','generating','report','employer-status','manager-privacy','manager-reflection','manager-complete']
     .forEach(s => { const el = document.getElementById('state-' + s); if (el) el.style.display = 'none'; });
   const target = document.getElementById('state-' + stateId);
   if (target) target.style.display = '';
@@ -448,6 +488,20 @@ async function init() {
     if (data.role === 'employer') {
       renderEmployerStatus(data);
       show('employer-status');
+      return;
+    }
+
+    if (data.role === 'manager') {
+      if (data.status === 'awaiting-manager') {
+        show('manager-privacy');
+        return;
+      }
+      if (['manager-complete', 'synthesising', 'summary-ready'].includes(data.status)) {
+        show('manager-complete');
+        return;
+      }
+      document.getElementById('error-message').textContent = 'This Benchmark has already closed for manager input. Please contact info@getcharteredai.com if you have a query.';
+      show('error');
       return;
     }
 
@@ -844,6 +898,88 @@ function renderEmployerStatus(data) {
   html += `</tbody></table>
     <p style="font-size:12px;color:#94a3b8;margin-top:12px">Status updates automatically. Refresh this page to see the latest.</p>`;
   wrap.innerHTML = html;
+}
+
+// ── Manager flow ─────────────────────────────────────────────────────────────
+
+const MANAGER_QUESTIONS = [
+  { id: 'M1', text: 'What is [Name] currently doing particularly well? Please give an example where possible.' },
+  { id: 'M2', text: 'How reliably do they take ownership of work appropriate to their stage? Is there an example that illustrates this?' },
+  { id: 'M3', text: 'How effectively do they communicate and work with colleagues, clients or others they deal with? What have you observed?' },
+  { id: 'M4', text: 'Are they applying what they are learning to real work, including situations that are less familiar to them? Please give an example where possible.' },
+  { id: 'M5', text: 'Do they recognise when to continue independently and when to ask for help, check something or escalate an issue? Is there an example that illustrates this?' },
+  { id: 'M6', text: 'How do they respond to feedback? Have you seen them change or improve something as a result?' },
+  { id: 'M7', text: 'What support, experience, exposure or additional responsibility would be most useful for their development next?' }
+];
+
+const OUTCOME_COLOURS = {
+  'ON TRACK': '#16a34a',
+  'DEVELOPING': '#2563eb',
+  'SUPPORT WOULD HELP': '#d97706',
+  'NOT YET ENOUGH EXPOSURE': '#64748b'
+};
+
+function goToManagerReflection() {
+  const label = sessionData.candidateLabel || 'the individual';
+
+  // Render area outcomes
+  const areaSummaryEl = document.getElementById('manager-area-summary');
+  if (sessionData.areaStatuses && sessionData.areaStatuses.length) {
+    let html = `<p style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em">Development area outcomes</p>`;
+    html += `<div style="display:flex;flex-direction:column;gap:6px">`;
+    sessionData.areaStatuses.forEach(a => {
+      const colour = OUTCOME_COLOURS[a.outcome] || '#64748b';
+      html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#f8fafc;border-radius:7px">
+        <span style="font-size:13px;color:#374151">${a.name}</span>
+        <span style="font-size:11px;font-weight:700;color:${colour};white-space:nowrap;margin-left:8px">${a.outcome}</span>
+      </div>`;
+    });
+    html += `</div>`;
+    areaSummaryEl.innerHTML = html;
+  } else {
+    areaSummaryEl.innerHTML = '';
+  }
+
+  // Render question form
+  const formEl = document.getElementById('manager-questions-form');
+  let formHtml = '';
+  MANAGER_QUESTIONS.forEach((q, i) => {
+    const questionText = q.text.replace(/\[Name\]/g, label);
+    formHtml += `<div style="margin-bottom:20px">
+      <label style="display:block;font-size:14px;color:#0D0F1C;font-weight:600;margin-bottom:6px;line-height:1.5">${i + 1}. ${questionText}</label>
+      <textarea id="mq-${q.id}" rows="3" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-family:inherit;font-size:13px;color:#374151;resize:vertical;line-height:1.6" placeholder="Your response (optional)"></textarea>
+    </div>`;
+  });
+  formEl.innerHTML = formHtml;
+
+  show('manager-reflection');
+}
+
+async function submitManagerForm() {
+  const btn = document.getElementById('manager-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+
+  const responses = {};
+  MANAGER_QUESTIONS.forEach(q => {
+    const el = document.getElementById('mq-' + q.id);
+    responses[q.id] = el ? el.value.trim() : '';
+  });
+
+  try {
+    const data = await apiPost('p1-manager-submit', { token: appToken, responses });
+    if (data.success) {
+      show('manager-complete');
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Submit your responses →';
+      alert(data.error || 'Could not submit. Please try again.');
+    }
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = 'Submit your responses →';
+    alert('Could not connect. Please try again.');
+  }
 }
 
 // ── Boot ──────────────────────────────────────────────────────────────────────

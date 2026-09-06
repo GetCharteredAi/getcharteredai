@@ -195,9 +195,22 @@ exports.handler = async (event) => {
 
     await sessionStore.setJSON(jobKey, { status: 'complete', completedAt: now });
 
-    // Email #3 suppressed — Phase 1 correction to brief v5 §13.
-    // Manager-safe is generated and stored; email enabled in Phase 2 when the manager flow exists.
-    console.log(`[p1-manager-safe-bg] Manager-safe complete for session ${sessionId}. Email #3 suppressed until Phase 2.`);
+    const siteUrl = process.env.URL || 'https://getcharteredai.com';
+    const managerLink = `${siteUrl}/professional-readiness-benchmark?token=${managerToken}`;
+    await sendEmail(
+      meta.managerEmail,
+      `A team member has completed their Benchmark — your input is invited`,
+      wrap(`
+        <p style="font-size:15px;color:#374151;line-height:1.7">A member of your team has completed their Professional Readiness Benchmark and your input has been invited.</p>
+        <p style="font-size:15px;color:#374151;line-height:1.7">Your perspective takes approximately 5 minutes and helps produce a more complete picture of their professional development.</p>
+        <div style="margin:24px 0;text-align:center">
+          <a href="${managerLink}" style="display:inline-block;background:#3d5afe;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:700;font-size:14px">Share your perspective →</a>
+        </div>
+        <p style="font-size:13px;color:#94a3b8;line-height:1.6">This link expires in 14 days. If you have any questions, contact info@getcharteredai.com.</p>
+      `),
+      `A team member has completed their Professional Readiness Benchmark. Your input is invited here: ${managerLink}`
+    );
+    console.log(`[p1-manager-safe-bg] Email #3 sent to ${meta.managerEmail} for session ${sessionId}`);
 
   } catch (err) {
     console.error('[p1-manager-safe-bg] Unexpected error:', err.message);

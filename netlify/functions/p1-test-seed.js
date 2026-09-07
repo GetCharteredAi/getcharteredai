@@ -548,8 +548,9 @@ exports.handler = async (event) => {
         P1_INTERNAL_SECRET_present: !!envInternal,
         P1_INTERNAL_SECRET_length:  envInternal.length,
         submittedLength:            submitted.length,
-        matchesAdmin:    submitted === envAdmin.trim(),
-        matchesInternal: submitted === envInternal.trim()
+        matchesAdmin:        submitted === envAdmin.trim(),
+        matchesInternal:     submitted === envInternal.trim(),
+        adminEqualsInternal: envAdmin.trim() === envInternal.trim()
       })
     };
   }

@@ -536,16 +536,20 @@ exports.handler = async (event) => {
 
   // Diagnostic — branch only, remove before merge
   if (action === 'diag-secret') {
-    const envSecret = process.env.P1_ADMIN_SECRET || '';
+    const envAdmin    = process.env.P1_ADMIN_SECRET    || '';
+    const envInternal = process.env.P1_INTERNAL_SECRET || '';
+    const submitted   = (adminSecret || '').trim();
     return {
       statusCode: 200,
       headers: HEADERS,
       body: JSON.stringify({
-        envSecretPresent: !!envSecret,
-        envSecretLength: envSecret.length,
-        submittedSecretLength: (adminSecret || '').length,
-        exactMatch: adminSecret === envSecret,
-        trimMatch: (adminSecret || '').trim() === envSecret.trim()
+        P1_ADMIN_SECRET_present:    !!envAdmin,
+        P1_ADMIN_SECRET_length:     envAdmin.length,
+        P1_INTERNAL_SECRET_present: !!envInternal,
+        P1_INTERNAL_SECRET_length:  envInternal.length,
+        submittedLength:            submitted.length,
+        matchesAdmin:    submitted === envAdmin.trim(),
+        matchesInternal: submitted === envInternal.trim()
       })
     };
   }

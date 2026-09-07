@@ -534,7 +534,23 @@ exports.handler = async (event) => {
 
   const { adminSecret, action, sessionId } = body;
 
-  if (!adminSecret || adminSecret !== process.env.P1_ADMIN_SECRET) {
+  // Diagnostic — branch only, remove before merge
+  if (action === 'diag-secret') {
+    const envSecret = process.env.P1_ADMIN_SECRET || '';
+    return {
+      statusCode: 200,
+      headers: HEADERS,
+      body: JSON.stringify({
+        envSecretPresent: !!envSecret,
+        envSecretLength: envSecret.length,
+        submittedSecretLength: (adminSecret || '').length,
+        exactMatch: adminSecret === envSecret,
+        trimMatch: (adminSecret || '').trim() === envSecret.trim()
+      })
+    };
+  }
+
+  if (!adminSecret || adminSecret.trim() !== (process.env.P1_ADMIN_SECRET || '').trim()) {
     return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'Forbidden' }) };
   }
 

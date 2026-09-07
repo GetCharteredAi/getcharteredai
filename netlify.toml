@@ -3,6 +3,15 @@
   publish = "public"
   functions = "netlify/functions"
 
+# TEST SCAFFOLD — DELETE BEFORE MERGE TO MAIN
+# Forces test prefix on all non-production deploys so Phase 4 test sessions
+# cannot write to production Blobs stores.
+[context.deploy-preview.environment]
+  P1_STORE_PREFIX = "test"
+
+[context.branch-deploy.environment]
+  P1_STORE_PREFIX = "test"
+
 [build.environment]
   NODE_VERSION = "18"
 

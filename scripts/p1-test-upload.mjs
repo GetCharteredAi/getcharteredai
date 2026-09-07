@@ -57,6 +57,13 @@ async function main() {
 
   if (res.ok) {
     console.log('SUCCESS', res.status);
+    // Rewrite production domain to branch deploy in session links
+    if (parsed?.sessions) {
+      parsed.sessions = parsed.sessions.map(s => ({
+        ...s,
+        candidateLink: s.candidateLink?.replace('https://getcharteredai.com', BRANCH_URL)
+      }));
+    }
     console.log(JSON.stringify(parsed ?? text, null, 2));
   } else {
     console.log('FAILED', res.status);

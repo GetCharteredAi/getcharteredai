@@ -179,6 +179,7 @@ exports.handler = async (event) => {
   const siteUrl      = process.env.URL || 'https://getcharteredai.com';
 
   const sessionIds = [];
+  const sessionDetails = [];
 
   // Write each session
   for (const row of validRows) {
@@ -237,6 +238,7 @@ exports.handler = async (event) => {
 
     // Email #2 — candidate invitation
     const candidateLink = `${siteUrl}/professional-readiness-benchmark?token=${candidateToken}`;
+    sessionDetails.push({ sessionId, candidateLink });
     await sendEmail(
       row.candidateemail,
       `Your Professional Readiness Benchmark invitation — ${row.firmname}`,
@@ -299,7 +301,8 @@ exports.handler = async (event) => {
       success: true,
       cohortId,
       firmName,
-      sessionsCreated: sessionIds.length
+      sessionsCreated: sessionIds.length,
+      sessions: sessionDetails
     })
   };
 };

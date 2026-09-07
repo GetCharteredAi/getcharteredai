@@ -51,15 +51,18 @@ exports.handler = async (event) => {
   if (probe === 'seed-lapsed' && sessionId) {
     const SOURCE = '90d1a789-2dab-4974-a27c-6d9cb799fc2d';
     const store = getSessionStore();
-    const [sourceMeta, sourceManagerSafe, targetMeta] = await Promise.all([
+    const [sourceMeta, sourceManagerSafe, sourceCandidatePrivate, targetMeta] = await Promise.all([
       store.get(`${SOURCE}/metadata`, { type: 'json' }),
       store.get(`${SOURCE}/manager-safe`, { type: 'json' }),
+      store.get(`${SOURCE}/candidate-private`, { type: 'json' }),
       store.get(`${sessionId}/metadata`, { type: 'json' })
     ]);
     if (!sourceManagerSafe) return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'Source manager-safe not found' }) };
+    if (!sourceCandidatePrivate) return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'Source candidate-private not found' }) };
     if (!targetMeta) return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'Target session not found' }) };
     const now = Date.now();
     await store.setJSON(`${sessionId}/manager-safe`, sourceManagerSafe);
+    await store.setJSON(`${sessionId}/candidate-private`, sourceCandidatePrivate);
     await store.setJSON(`${sessionId}/metadata`, {
       ...targetMeta,
       status: 'manager-lapsed',

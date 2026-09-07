@@ -168,6 +168,14 @@ exports.handler = async (event) => {
       savedAt: Date.now()
     });
 
+    // If manager has already submitted, preserve session state — no new token or email.
+    const postSubmitStatuses = ['manager-complete', 'synthesising', 'summary-ready', 'reflection-ready'];
+    if (postSubmitStatuses.includes(meta.status)) {
+      await sessionStore.setJSON(jobKey, { status: 'complete', completedAt: Date.now() });
+      console.log(`[p1-manager-safe-bg] Manager-safe generated for session ${sessionId} — status preserved as ${meta.status}`);
+      return;
+    }
+
     // Issue new manager invitation
     const now = Date.now();
     const managerPayload = {

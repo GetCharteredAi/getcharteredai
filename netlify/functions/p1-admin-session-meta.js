@@ -46,6 +46,16 @@ exports.handler = async (event) => {
     }) };
   }
 
+  // Job-read probe: return a named job blob for a session without exposing private data.
+  if (probe === 'read-job' && body.jobName && sessionId) {
+    const allowed = ['synthesis', 'manager-safe', 'candidate-report', 'candidate-synthesis'];
+    if (!allowed.includes(body.jobName)) {
+      return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Unknown job name' }) };
+    }
+    const job = await getSessionStore().get(`${sessionId}/jobs/${body.jobName}`, { type: 'json' });
+    return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ job }) };
+  }
+
   if (!sessionId) return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'sessionId required' }) };
   try {
     const meta = await getSessionStore().get(`${sessionId}/metadata`, { type: 'json' });

@@ -362,12 +362,14 @@ exports.handler = async (event) => {
     await sessionStore.setJSON(`${sessionId}/candidate-private`, privateData);
 
     // Update metadata to candidate-complete
+    const candidateCompletedAt = Date.now();
     await sessionStore.setJSON(`${sessionId}/metadata`, {
       ...meta,
       status: 'candidate-complete',
       discipline,
       monthsInRole,
-      candidateCompletedAt: Date.now()
+      candidateCompletedAt,
+      candidateSelectedPriority: contextAnswers?.candidateSelectedPriority || null
     });
 
     // Mark job complete — frontend can now show the report

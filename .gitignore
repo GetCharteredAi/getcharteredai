@@ -33,3 +33,7 @@ logs/
 # Alternate runtimes (not used — Node 18 on Netlify only)
 bun.lock
 deno.lock
+
+# Test files
+test-upload.csv
+.p1-admin-secret

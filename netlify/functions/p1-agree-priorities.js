@@ -1,18 +1,18 @@
-// netlify/functions/p1-manager-submit.js
-// Receives manager's M1–M7 responses, saves them, advances status to synthesising,
-// and triggers p1-synthesis-background.
-// POST { token, responses: { M1, M2, M3, M4, M5, M6, M7 } }
+// netlify/functions/p1-agree-priorities.js
+// POST { token, agreedPriorities: string[], reviewDate: 'YYYY-MM-DD' }
+// Manager token only (normal route). Requires status === 'summary-ready'.
+// Rejects if agreed priorities already recorded (no-overwrite).
+// Accepts exactly 2–3 non-empty priorities; >3 rejected before sanitisation.
 
 const { getStore } = require('@netlify/blobs');
 const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
+const crypto = require('crypto');
 
 const HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
   'Content-Type': 'application/json'
 };
-
-const crypto = require('crypto');
 
 function verifyToken(token) {
   const jwtSecret = process.env.JWT_SECRET;
@@ -45,15 +45,31 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
-  const { token, responses } = body;
+  const { token, agreedPriorities, reviewDate } = body;
   if (!token) return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Missing token' }) };
-  if (!responses || typeof responses !== 'object') {
-    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Missing responses' }) };
-  }
 
   const payload = verifyToken(token);
   if (!payload || payload.role !== 'manager') {
     return { statusCode: 401, headers: HEADERS, body: JSON.stringify({ error: 'Unauthorized' }) };
+  }
+
+  if (!Array.isArray(agreedPriorities)) {
+    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'agreedPriorities must be an array' }) };
+  }
+  if (agreedPriorities.length > 3) {
+    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'A maximum of 3 agreed priorities may be submitted' }) };
+  }
+
+  const sanitised = agreedPriorities
+    .map(p => (typeof p === 'string' ? p.trim() : ''))
+    .filter(Boolean);
+
+  if (sanitised.length < 2) {
+    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Between 2 and 3 agreed priorities are required' }) };
+  }
+
+  if (!reviewDate || !/^\d{4}-\d{2}-\d{2}$/.test(reviewDate)) {
+    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'A valid review date is required (YYYY-MM-DD)' }) };
   }
 
   const { sessionId } = payload;
@@ -63,57 +79,37 @@ exports.handler = async (event) => {
     const meta = await sessionStore.get(`${sessionId}/metadata`, { type: 'json' });
     if (!meta) return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'Session not found' }) };
 
-    if (meta.currentManagerInviteKey !== token) {
-      return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'This invitation link has been superseded.' }) };
+    if (meta.status !== 'summary-ready') {
+      return { statusCode: 409, headers: HEADERS, body: JSON.stringify({ error: 'Session is not in the right state to record agreed priorities.' }) };
     }
 
-    if (meta.status !== 'awaiting-manager') {
-      return { statusCode: 409, headers: HEADERS, body: JSON.stringify({ error: 'Manager input already received or session not ready.' }) };
+    const existing = await sessionStore.get(`${sessionId}/agreed-priorities`, { type: 'json' });
+    if (existing) {
+      return { statusCode: 409, headers: HEADERS, body: JSON.stringify({ error: 'Agreed priorities have already been recorded for this session.' }) };
     }
 
     const now = Date.now();
 
-    // Save manager responses
-    await sessionStore.setJSON(`${sessionId}/manager-responses`, {
+    await sessionStore.setJSON(`${sessionId}/agreed-priorities`, {
       schemaVersion: 'benchmark-v1',
-      responses: {
-        M1: responses.M1 || '',
-        M2: responses.M2 || '',
-        M3: responses.M3 || '',
-        M4: responses.M4 || '',
-        M5: responses.M5 || '',
-        M6: responses.M6 || '',
-        M7: responses.M7 || ''
-      },
-      submittedAt: now
+      agreedPriorities: sanitised,
+      reviewDate,
+      agreedBy: 'manager-candidate',
+      recordedAt: now
     });
 
-    // Advance status
     await sessionStore.setJSON(`${sessionId}/metadata`, {
       ...meta,
-      status: 'manager-complete',
-      managerCompletedAt: now
+      status: 'reflection-ready',
+      agreedPrioritiesSetAt: now,
+      agreedReviewDate: reviewDate
     });
 
-    // Fire-and-forget synthesis
-    const siteUrl = process.env.URL || 'https://getcharteredai.com';
-    const internalSecret = process.env.P1_INTERNAL_SECRET;
-    const runToken = crypto.randomUUID();
-    if (internalSecret) {
-      fetch(`${siteUrl}/.netlify/functions/p1-synthesis-background`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId, internalSecret, runToken })
-      }).catch(e => console.error('[p1-manager-submit] Synthesis trigger failed:', e.message));
-    } else {
-      console.warn('[p1-manager-submit] P1_INTERNAL_SECRET not set — synthesis not triggered');
-    }
-
-    console.log(`[p1-manager-submit] Manager responses saved for session ${sessionId}`);
+    console.log(`[p1-agree-priorities] Priorities recorded for session ${sessionId}`);
     return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ success: true }) };
 
   } catch (err) {
-    console.error('[p1-manager-submit] Error:', err.message);
-    return { statusCode: 500, headers: HEADERS, body: JSON.stringify({ error: 'Could not save responses' }) };
+    console.error('[p1-agree-priorities] Error:', err.message);
+    return { statusCode: 500, headers: HEADERS, body: JSON.stringify({ error: 'Could not save agreed priorities' }) };
   }
 };

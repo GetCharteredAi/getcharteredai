@@ -129,9 +129,15 @@ exports.handler = async (event) => {
 
   const { adminSecret, csvContent } = body;
 
-  console.log('[p1-upload] P1_ADMIN_SECRET env present:', !!process.env.P1_ADMIN_SECRET, '| env length:', (process.env.P1_ADMIN_SECRET || '').length, '| submitted length:', (adminSecret || '').trim().length);
   if (!adminSecret || adminSecret.trim() !== (process.env.P1_ADMIN_SECRET || '').trim()) {
-    return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'Forbidden' }) };
+    return { statusCode: 403, headers: HEADERS, body: JSON.stringify({
+      error: 'Forbidden',
+      diag: {
+        envPresent: !!process.env.P1_ADMIN_SECRET,
+        envLength: (process.env.P1_ADMIN_SECRET || '').length,
+        submittedLength: (adminSecret || '').trim().length
+      }
+    }) };
   }
 
   if (!csvContent || typeof csvContent !== 'string') {

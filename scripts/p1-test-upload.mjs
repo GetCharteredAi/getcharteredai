@@ -60,7 +60,15 @@ async function main() {
     console.log(JSON.stringify(parsed ?? text, null, 2));
   } else {
     console.log('FAILED', res.status);
-    console.log(JSON.stringify(parsed ?? text, null, 2));
+    if (parsed?.diag) {
+      console.log('--- runtime diagnostic ---');
+      console.log('P1_ADMIN_SECRET present in runtime:', parsed.diag.envPresent);
+      console.log('Runtime secret length:             ', parsed.diag.envLength);
+      console.log('Submitted secret length:           ', parsed.diag.submittedLength);
+      console.log('--------------------------');
+    } else {
+      console.log(JSON.stringify(parsed ?? text, null, 2));
+    }
     process.exit(1);
   }
 }

@@ -43,6 +43,10 @@ For each of the five Benchmark areas, assign exactly one relationship type:
 
 Only genuine-divergence produces a conversation prompt. For aligned, manager-no-evidence and exposure-alignment, return conversationPrompt: null.
 
+## Absent or thin manager evidence
+managerPerspectiveThemes: If manager evidence is absent across all questions, return an empty array. If manager evidence is very thin, include only themes directly supported by what the manager actually provided. Do not infer or fabricate a manager perspective from silence.
+alignmentSummary: If manager evidence is absent, state clearly that no meaningful candidate–manager comparison can be made yet — do not describe the perspectives as aligned, inconsistent, shared or divergent. If manager evidence is thin, limit the summary to the areas where comparison is genuinely supported by what the manager provided.
+
 ## Privacy boundary
 Do not include direct or paraphrased quotes from either source, specific anecdotes in identifiable form, or either party's own words. You may include thematic observations, relationship classifications, development priorities, and conversation prompts drawn from both sources.
 

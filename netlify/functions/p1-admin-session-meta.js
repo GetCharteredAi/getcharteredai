@@ -32,6 +32,20 @@ exports.handler = async (event) => {
     }) };
   }
 
+  // Comparison probe: test whether submitted value matches runtime secret, without exposing either.
+  if (probe === 'check-internal-secret') {
+    const { candidateSecret } = body;
+    const env = process.env.P1_INTERNAL_SECRET || '';
+    const exactMatch = candidateSecret === env;
+    const trimMatch = (candidateSecret || '').trim() === env.trim();
+    return { statusCode: 200, headers: HEADERS, body: JSON.stringify({
+      exactMatch,
+      trimMatch,
+      sentLength: (candidateSecret || '').length,
+      runtimeLength: env.length
+    }) };
+  }
+
   if (!sessionId) return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'sessionId required' }) };
   try {
     const meta = await getSessionStore().get(`${sessionId}/metadata`, { type: 'json' });

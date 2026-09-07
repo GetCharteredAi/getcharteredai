@@ -130,14 +130,7 @@ exports.handler = async (event) => {
   const { adminSecret, csvContent } = body;
 
   if (!adminSecret || adminSecret.trim() !== (process.env.P1_ADMIN_SECRET || '').trim()) {
-    return { statusCode: 403, headers: HEADERS, body: JSON.stringify({
-      error: 'Forbidden',
-      diag: {
-        envPresent: !!process.env.P1_ADMIN_SECRET,
-        envLength: (process.env.P1_ADMIN_SECRET || '').length,
-        submittedLength: (adminSecret || '').trim().length
-      }
-    }) };
+    return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'Forbidden' }) };
   }
 
   if (!csvContent || typeof csvContent !== 'string') {
@@ -186,7 +179,6 @@ exports.handler = async (event) => {
   const siteUrl      = process.env.URL || 'https://getcharteredai.com';
 
   const sessionIds = [];
-  const sessionDetails = [];
 
   // Write each session
   for (const row of validRows) {
@@ -245,7 +237,6 @@ exports.handler = async (event) => {
 
     // Email #2 — candidate invitation
     const candidateLink = `${siteUrl}/professional-readiness-benchmark?token=${candidateToken}`;
-    sessionDetails.push({ sessionId, candidateLink });
     await sendEmail(
       row.candidateemail,
       `Your Professional Readiness Benchmark invitation — ${row.firmname}`,
@@ -308,8 +299,7 @@ exports.handler = async (event) => {
       success: true,
       cohortId,
       firmName,
-      sessionsCreated: sessionIds.length,
-      sessions: sessionDetails
+      sessionsCreated: sessionIds.length
     })
   };
 };

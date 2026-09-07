@@ -35,7 +35,6 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`Secret read: ${secret.length} characters`);
   console.log(`Posting to: ${ENDPOINT}`);
 
   let res, text;
@@ -57,25 +56,10 @@ async function main() {
 
   if (res.ok) {
     console.log('SUCCESS', res.status);
-    // Rewrite production domain to branch deploy in session links
-    if (parsed?.sessions) {
-      parsed.sessions = parsed.sessions.map(s => ({
-        ...s,
-        candidateLink: s.candidateLink?.replace('https://getcharteredai.com', BRANCH_URL)
-      }));
-    }
     console.log(JSON.stringify(parsed ?? text, null, 2));
   } else {
     console.log('FAILED', res.status);
-    if (parsed?.diag) {
-      console.log('--- runtime diagnostic ---');
-      console.log('P1_ADMIN_SECRET present in runtime:', parsed.diag.envPresent);
-      console.log('Runtime secret length:             ', parsed.diag.envLength);
-      console.log('Submitted secret length:           ', parsed.diag.submittedLength);
-      console.log('--------------------------');
-    } else {
-      console.log(JSON.stringify(parsed ?? text, null, 2));
-    }
+    console.log(JSON.stringify(parsed ?? text, null, 2));
     process.exit(1);
   }
 }

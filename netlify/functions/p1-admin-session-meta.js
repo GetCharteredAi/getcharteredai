@@ -75,13 +75,16 @@ exports.handler = async (event) => {
 
   // Blob-check probe: verify whether named blob exists and its top-level keys.
   if (probe === 'check-blob' && sessionId && body.blobName) {
-    const allowed = ['candidate-private', 'manager-safe', 'synthesis', 'manager-responses'];
+    const allowed = ['candidate-private', 'manager-safe', 'synthesis', 'manager-responses', 'agreed-priorities'];
     if (!allowed.includes(body.blobName)) return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Unknown blob' }) };
     const blob = await getSessionStore().get(`${sessionId}/${body.blobName}`, { type: 'json' });
-    return { statusCode: 200, headers: HEADERS, body: JSON.stringify({
-      exists: blob !== null,
-      topLevelKeys: blob ? Object.keys(blob) : []
-    }) };
+    const result = { exists: blob !== null, topLevelKeys: blob ? Object.keys(blob) : [] };
+    if (body.blobName === 'agreed-priorities' && blob) {
+      result.agreedBy = blob.agreedBy;
+      result.priorityCount = (blob.agreedPriorities || []).length;
+      result.reviewDate = blob.reviewDate;
+    }
+    return { statusCode: 200, headers: HEADERS, body: JSON.stringify(result) };
   }
 
   // Job-read probe: return a named job blob for a session without exposing private data.

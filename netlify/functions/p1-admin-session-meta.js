@@ -46,6 +46,30 @@ exports.handler = async (event) => {
     }) };
   }
 
+  // Seed probe: copy manager-safe from a completed session into a target session and
+  // advance the target metadata to manager-lapsed. Used for lapsed-route testing only.
+  if (probe === 'seed-lapsed' && sessionId) {
+    const SOURCE = '90d1a789-2dab-4974-a27c-6d9cb799fc2d';
+    const store = getSessionStore();
+    const [sourceMeta, sourceManagerSafe, targetMeta] = await Promise.all([
+      store.get(`${SOURCE}/metadata`, { type: 'json' }),
+      store.get(`${SOURCE}/manager-safe`, { type: 'json' }),
+      store.get(`${sessionId}/metadata`, { type: 'json' })
+    ]);
+    if (!sourceManagerSafe) return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'Source manager-safe not found' }) };
+    if (!targetMeta) return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'Target session not found' }) };
+    const now = Date.now();
+    await store.setJSON(`${sessionId}/manager-safe`, sourceManagerSafe);
+    await store.setJSON(`${sessionId}/metadata`, {
+      ...targetMeta,
+      status: 'manager-lapsed',
+      candidateCompletedAt: now,
+      candidateSelectedPriority: sourceMeta?.candidateSelectedPriority || 'Feedback, Reflection & Development',
+      managerInvitedAt: now - 28 * 24 * 60 * 60 * 1000
+    });
+    return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ success: true, status: 'manager-lapsed' }) };
+  }
+
   // Job-read probe: return a named job blob for a session without exposing private data.
   if (probe === 'read-job' && body.jobName && sessionId) {
     const allowed = ['synthesis', 'manager-safe', 'candidate-report', 'candidate-synthesis'];

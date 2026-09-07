@@ -60,9 +60,19 @@ function wrap(content) {
 }
 
 async function triggerCandidateOnlySynthesis(sessionId) {
-  // Phase 3: candidate-only synthesis for lapsed sessions.
-  // Stub for Phase 1 — logs intent; actual synthesis implemented in Phase 3.
-  console.log(`[p1-scheduled] Candidate-only synthesis stub triggered for session ${sessionId}`);
+  const internalSecret = process.env.P1_INTERNAL_SECRET;
+  const siteUrl = process.env.URL || 'https://getcharteredai.com';
+  const crypto = require('crypto');
+  const runToken = crypto.randomUUID();
+  if (internalSecret) {
+    fetch(`${siteUrl}/.netlify/functions/p1-candidate-synthesis-background`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId, internalSecret, runToken })
+    }).catch(e => console.error('[p1-scheduled] Candidate synthesis trigger failed:', e.message));
+  } else {
+    console.warn('[p1-scheduled] P1_INTERNAL_SECRET not set — candidate synthesis not triggered');
+  }
 }
 
 exports.handler = async (event) => {
@@ -193,8 +203,12 @@ exports.handler = async (event) => {
         }
       }
 
-      // ── Progress reflection trigger (Phase 4 stub) ────────────────────────
-      // D-new-8 unresolved. Not implemented in Phase 1.
+      // ── Progress reflection trigger (Phase 4) ─────────────────────────────
+      // Covers both routes via the same {sessionId}/agreed-priorities blob:
+      //   reflection-ready + agreedBy: 'manager-candidate' (normal route)
+      //   manager-lapsed  + agreedBy: 'candidate'          (lapsed route)
+      // Trigger condition: status is eligible AND progressReflectionDueAt has passed.
+      // D-new-8: email and logic implementation deferred to Phase 4.
     }
   }
 

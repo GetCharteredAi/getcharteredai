@@ -264,7 +264,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
         <label for="ctx-typical-work">Briefly describe your typical day-to-day work</label>
         <textarea id="ctx-typical-work" class="arev-textarea" style="min-height:100px" placeholder="What kinds of tasks, projects or responsibilities do you typically work on?"></textarea>
       </div>
-      <div id="ctx-band-info" class="arev-panel" style="margin-top:4px;padding:14px 18px"></div>
+      <p style="margin-top:12px;font-size:14px;color:#64748b">Michael will tailor the reflection to your stage and experience.</p>
       <p id="ctx-err" class="arev-err">Please complete both fields before continuing.</p>
       <div class="arev-actions" style="margin-top:16px">
         <button class="arev-btn-primary" onclick="startReflection()">Start my reflection →</button>
@@ -327,6 +327,165 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       <div id="employer-status-table-wrap"></div>
     </div>
 
+    <!-- Candidate priority selection -->
+    <div id="state-priority-select" style="display:none">
+      <div style="margin-bottom:24px;text-align:center">
+        <div class="arev-heading">One final question</div>
+        <p class="arev-sub">Looking across the five areas, which would you most like to improve over the next few months?</p>
+      </div>
+      <div id="priority-select-options" style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
+          <input type="radio" name="candidatePriority" value="Professional Behaviour &amp; Responsibility" style="flex-shrink:0">
+          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Professional Behaviour &amp; Responsibility</span>
+        </label>
+        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
+          <input type="radio" name="candidatePriority" value="Communication &amp; Working With Others" style="flex-shrink:0">
+          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Communication &amp; Working With Others</span>
+        </label>
+        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
+          <input type="radio" name="candidatePriority" value="Learning &amp; Applying Knowledge" style="flex-shrink:0">
+          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Learning &amp; Applying Knowledge</span>
+        </label>
+        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
+          <input type="radio" name="candidatePriority" value="Judgement, Help &amp; Escalation" style="flex-shrink:0">
+          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Judgement, Help &amp; Escalation</span>
+        </label>
+        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
+          <input type="radio" name="candidatePriority" value="Feedback, Reflection &amp; Development" style="flex-shrink:0">
+          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Feedback, Reflection &amp; Development</span>
+        </label>
+      </div>
+      <p id="priority-select-err" style="display:none;font-size:13px;color:#ef4444;margin-bottom:12px">Please select an area to continue.</p>
+      <div class="arev-actions">
+        <button class="arev-btn-primary" onclick="confirmPrioritySelection()">Continue to report →</button>
+      </div>
+    </div>
+
+    <!-- Manager privacy -->
+    <div id="state-manager-privacy" style="display:none">
+      <div style="margin-bottom:28px;text-align:center">
+        <div class="arev-heading">Before you begin</div>
+        <p class="arev-sub">A team member has completed their Professional Readiness Benchmark. Your perspective takes around 5 minutes.</p>
+      </div>
+      <div style="background:#f8fafc;border-radius:10px;padding:20px;margin-bottom:24px">
+        <p style="font-size:14px;color:#374151;line-height:1.7;margin:0 0 10px"><strong>You will see:</strong></p>
+        <ul style="font-size:14px;color:#374151;line-height:1.8;margin:0 0 14px;padding-left:20px">
+          <li>An outcome across five professional development areas</li>
+        </ul>
+        <p style="font-size:14px;color:#374151;line-height:1.7;margin:0">You will not see the individual's specific answers or private reflections. Your responses are used to produce a combined development summary and are treated in confidence.</p>
+      </div>
+      <div class="arev-actions">
+        <button class="arev-btn-primary" onclick="goToManagerReflection()">Continue →</button>
+      </div>
+    </div>
+
+    <!-- Manager reflection -->
+    <div id="state-manager-reflection" style="display:none">
+      <div style="margin-bottom:20px;text-align:center">
+        <div class="arev-heading">Your perspective</div>
+        <p class="arev-sub">Seven questions — approximately 5 minutes. Examples are helpful but not required.</p>
+      </div>
+      <div id="manager-area-summary" style="margin-bottom:24px"></div>
+      <div id="manager-questions-form"></div>
+      <div class="arev-actions" style="margin-top:24px">
+        <button class="arev-btn-primary" id="manager-submit-btn" onclick="submitManagerForm()">Submit your responses →</button>
+      </div>
+    </div>
+
+    <!-- Manager complete -->
+    <div id="state-manager-complete" style="display:none">
+      <div style="text-align:center;padding:40px 0">
+        <div class="arev-heading">Thank you</div>
+        <p class="arev-sub" style="margin-bottom:8px">Your responses have been submitted.</p>
+        <p style="font-size:14px;color:#64748b;line-height:1.7">We'll combine your perspective with the individual's self-assessment to produce a development summary. You don't need to do anything further.</p>
+      </div>
+    </div>
+
+    <!-- Synthesising pending -->
+    <div id="state-synthesising-pending" style="display:none">
+      <div style="text-align:center;padding:40px 0">
+        <div class="arev-michael-icon">⏳</div>
+        <div class="arev-heading">Preparing your development summary</div>
+        <p class="arev-sub">Michael is combining both perspectives. This usually takes 30–60 seconds.</p>
+        <div class="arev-dots" style="margin-top:24px"><div class="arev-dot"></div><div class="arev-dot"></div><div class="arev-dot"></div></div>
+        <p style="font-size:13px;color:#94a3b8;margin-top:20px">Refresh this page to check if your summary is ready.</p>
+      </div>
+    </div>
+
+    <!-- Candidate development view -->
+    <div id="state-candidate-development" style="display:none">
+      <div id="candidate-development-content"></div>
+    </div>
+
+    <!-- Manager development view -->
+    <div id="state-manager-development" style="display:none">
+      <div id="manager-development-content"></div>
+    </div>
+
+    <!-- Lapsed candidate self-plan -->
+    <div id="state-lapsed-self-plan" style="display:none">
+      <div style="text-align:center;margin-bottom:28px">
+        <div class="arev-michael-icon">📝</div>
+        <div class="arev-heading">Set your development priorities</div>
+        <p class="arev-sub">Choose 2–3 priorities from your development summary and set a date to review your progress.</p>
+      </div>
+      <div id="lapsed-self-plan-form">
+        <div class="arev-form-group">
+          <label>Development priority 1</label>
+          <input type="text" id="sp-priority-1" placeholder="e.g. Build confidence presenting to clients">
+        </div>
+        <div class="arev-form-group">
+          <label>Development priority 2</label>
+          <input type="text" id="sp-priority-2" placeholder="">
+        </div>
+        <div class="arev-form-group">
+          <label>Development priority 3 (optional)</label>
+          <input type="text" id="sp-priority-3" placeholder="">
+        </div>
+        <div class="arev-form-group">
+          <label>Review date</label>
+          <input type="date" id="sp-review-date">
+        </div>
+        <p id="sp-err" class="arev-err" style="display:none">Please enter at least two priorities and a review date.</p>
+        <div class="arev-actions" style="margin-top:16px">
+          <button class="arev-btn-primary" onclick="submitSelfPlan()">Save my priorities →</button>
+          <button class="arev-btn-secondary" onclick="show('candidate-development')">Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agree priorities -->
+    <div id="state-agree-priorities" style="display:none">
+      <div style="text-align:center;margin-bottom:28px">
+        <div class="arev-michael-icon">✅</div>
+        <div class="arev-heading">Record agreed priorities</div>
+        <p class="arev-sub">Enter the priorities you and the individual agreed during your development conversation.</p>
+      </div>
+      <div id="agree-priorities-form">
+        <div class="arev-form-group">
+          <label>Agreed priority 1</label>
+          <input type="text" id="ap-priority-1" placeholder="e.g. Build confidence presenting to clients">
+        </div>
+        <div class="arev-form-group">
+          <label>Agreed priority 2</label>
+          <input type="text" id="ap-priority-2" placeholder="">
+        </div>
+        <div class="arev-form-group">
+          <label>Agreed priority 3 (optional)</label>
+          <input type="text" id="ap-priority-3" placeholder="">
+        </div>
+        <div class="arev-form-group">
+          <label>Review date</label>
+          <input type="date" id="ap-review-date">
+        </div>
+        <p id="ap-err" class="arev-err">Please enter at least one priority and a review date.</p>
+        <div class="arev-actions" style="margin-top:16px">
+          <button class="arev-btn-primary" onclick="submitAgreedPriorities()">Save agreed priorities →</button>
+          <button class="arev-btn-secondary" onclick="show('manager-development')">Back</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -371,7 +530,7 @@ let pollInterval = null;
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
 function show(stateId) {
-  ['loading','error','privacy','context','reflection','generating','report','employer-status']
+  ['loading','error','privacy','context','reflection','priority-select','generating','report','employer-status','manager-privacy','manager-reflection','manager-complete','candidate-development','manager-development','synthesising-pending','agree-priorities','lapsed-self-plan']
     .forEach(s => { const el = document.getElementById('state-' + s); if (el) el.style.display = 'none'; });
   const target = document.getElementById('state-' + stateId);
   if (target) target.style.display = '';
@@ -379,7 +538,7 @@ function show(stateId) {
 
 function showOverlay() {
   document.getElementById('marketing-page').style.display = 'none';
-  document.getElementById('p1-overlay').style.display = '';
+  document.getElementById('p1-overlay').style.display = 'block';
 }
 
 function outcomeBadge(outcome) {
@@ -451,15 +610,60 @@ async function init() {
       return;
     }
 
+    if (data.role === 'manager') {
+      if (data.status === 'awaiting-manager') {
+        show('manager-privacy');
+        return;
+      }
+      if (data.status === 'summary-ready') {
+        if (data.synthesis) {
+          renderManagerDevelopment(data);
+          show('manager-development');
+        } else {
+          console.warn('[p1] summary-ready but synthesis absent (manager)', data.sessionId);
+          show('synthesising-pending');
+        }
+        return;
+      }
+      if (data.status === 'reflection-ready') {
+        if (data.synthesis) { renderManagerDevelopment(data); show('manager-development'); }
+        else { console.warn('[p1] reflection-ready but synthesis absent (manager)', data.sessionId); show('synthesising-pending'); }
+        return;
+      }
+      if (['manager-complete', 'synthesising'].includes(data.status)) {
+        show('synthesising-pending');
+        return;
+      }
+      document.getElementById('error-message').textContent = 'This Benchmark has already closed for manager input. Please contact info@getcharteredai.com if you have a query.';
+      show('error');
+      return;
+    }
+
     if (data.role === 'candidate') {
       // Pre-fill context
       contextAnswers.discipline = data.discipline || '';
       contextAnswers.monthsInRole = data.monthsInRole || 0;
 
-      // If report already exists, show it
+      // Route by status once report exists
       if (data.report) {
         renderReport(data.report);
-        show('report');
+        if (data.status === 'summary-ready' && data.synthesis) {
+          renderCandidateDevelopment(data);
+          show('candidate-development');
+        } else if (data.status === 'summary-ready') {
+          console.warn('[p1] summary-ready but synthesis absent (candidate)', data.sessionId);
+          show('synthesising-pending');
+        } else if (data.status === 'reflection-ready') {
+          if (data.synthesis) { renderCandidateDevelopment(data); show('candidate-development'); }
+          else { console.warn('[p1] reflection-ready but synthesis absent (candidate)', data.sessionId); show('synthesising-pending'); }
+        } else if (data.status === 'manager-complete' || data.status === 'synthesising') {
+          show('synthesising-pending');
+        } else if (data.status === 'manager-lapsed') {
+          if (data.synthesis) { renderCandidateDevelopment(data); show('candidate-development'); }
+          else { show('synthesising-pending'); }
+        } else {
+          show('report'); // awaiting-manager, candidate-complete
+        }
         return;
       }
 
@@ -477,9 +681,6 @@ async function init() {
 
 function goToContext() {
   document.getElementById('ctx-discipline').value = contextAnswers.discipline || '';
-  const bandInfo = document.getElementById('ctx-band-info');
-  bandInfo.innerHTML = `<span class="arev-michael-label" style="margin-bottom:4px">Your calibration stage</span>
-    <div class="arev-q-text" style="font-size:14px">${bandLabel(contextAnswers.monthsInRole)} — Michael will calibrate expectations to this point in your career.</div>`;
   show('context');
 }
 
@@ -668,13 +869,24 @@ function advanceQuestion() {
   currentQ++;
 
   if (currentQ >= 15) {
-    // All questions done — generate report
-    generateReport();
+    // All questions done — ask candidate to select priority area before generating report
+    show('priority-select');
   } else {
     showQuestion(currentQ);
     document.getElementById('reflection-next-btn').disabled = false;
     document.getElementById('reflection-next-btn').textContent = currentQ < 14 ? 'Continue →' : 'Complete my reflection →';
   }
+}
+
+// ── Priority selection → report ───────────────────────────────────────────────
+
+function confirmPrioritySelection() {
+  const selected = document.querySelector('input[name="candidatePriority"]:checked');
+  const err = document.getElementById('priority-select-err');
+  if (!selected) { err.style.display = ''; return; }
+  err.style.display = 'none';
+  contextAnswers.candidateSelectedPriority = selected.value;
+  generateReport();
 }
 
 // ── Report generation ─────────────────────────────────────────────────────────
@@ -844,6 +1056,383 @@ function renderEmployerStatus(data) {
   html += `</tbody></table>
     <p style="font-size:12px;color:#94a3b8;margin-top:12px">Status updates automatically. Refresh this page to see the latest.</p>`;
   wrap.innerHTML = html;
+}
+
+// ── Manager flow ─────────────────────────────────────────────────────────────
+
+const MANAGER_QUESTIONS = [
+  { id: 'M1', text: 'What is [Name] currently doing particularly well? Please give an example where possible.' },
+  { id: 'M2', text: 'How reliably do they take ownership of work appropriate to their stage? Is there an example that illustrates this?' },
+  { id: 'M3', text: 'How effectively do they communicate and work with colleagues, clients or others they deal with? What have you observed?' },
+  { id: 'M4', text: 'Are they applying what they are learning to real work, including situations that are less familiar to them? Please give an example where possible.' },
+  { id: 'M5', text: 'Do they recognise when to continue independently and when to ask for help, check something or escalate an issue? Is there an example that illustrates this?' },
+  { id: 'M6', text: 'How do they respond to feedback? Have you seen them change or improve something as a result?' },
+  { id: 'M7', text: 'What support, experience, exposure or additional responsibility would be most useful for their development next?' }
+];
+
+const OUTCOME_COLOURS = {
+  'ON TRACK': '#16a34a',
+  'DEVELOPING': '#2563eb',
+  'SUPPORT WOULD HELP': '#d97706',
+  'NOT YET ENOUGH EXPOSURE': '#64748b'
+};
+
+function goToManagerReflection() {
+  const label = sessionData.candidateLabel || 'the individual';
+
+  // Render area outcomes
+  const areaSummaryEl = document.getElementById('manager-area-summary');
+  if (sessionData.areaStatuses && sessionData.areaStatuses.length) {
+    let html = `<p style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em">Development area outcomes</p>`;
+    html += `<div style="display:flex;flex-direction:column;gap:6px">`;
+    sessionData.areaStatuses.forEach(a => {
+      const colour = OUTCOME_COLOURS[a.outcome] || '#64748b';
+      html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#f8fafc;border-radius:7px">
+        <span style="font-size:13px;color:#374151">${a.name}</span>
+        <span style="font-size:11px;font-weight:700;color:${colour};white-space:nowrap;margin-left:8px">${a.outcome}</span>
+      </div>`;
+    });
+    html += `</div>`;
+    areaSummaryEl.innerHTML = html;
+  } else {
+    areaSummaryEl.innerHTML = '';
+  }
+
+  // Render question form
+  const formEl = document.getElementById('manager-questions-form');
+  let formHtml = '';
+  MANAGER_QUESTIONS.forEach((q, i) => {
+    const questionText = q.text.replace(/\[Name\]/g, label);
+    formHtml += `<div style="margin-bottom:20px">
+      <label style="display:block;font-size:14px;color:#0D0F1C;font-weight:600;margin-bottom:6px;line-height:1.5">${i + 1}. ${questionText}</label>
+      <textarea id="mq-${q.id}" rows="3" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-family:inherit;font-size:13px;color:#374151;resize:vertical;line-height:1.6" placeholder="Your response (optional)"></textarea>
+    </div>`;
+  });
+  formEl.innerHTML = formHtml;
+
+  show('manager-reflection');
+}
+
+async function submitManagerForm() {
+  const btn = document.getElementById('manager-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+
+  const responses = {};
+  MANAGER_QUESTIONS.forEach(q => {
+    const el = document.getElementById('mq-' + q.id);
+    responses[q.id] = el ? el.value.trim() : '';
+  });
+
+  try {
+    const data = await apiPost('p1-manager-submit', { token: appToken, responses });
+    if (data.success) {
+      show('manager-complete');
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Submit your responses →';
+      alert(data.error || 'Could not submit. Please try again.');
+    }
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = 'Submit your responses →';
+    alert('Could not connect. Please try again.');
+  }
+}
+
+// ── HTML escaping ─────────────────────────────────────────────────────────────
+
+function esc(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ── Candidate development view ────────────────────────────────────────────────
+
+function renderCandidateDevelopment(data) {
+  const s = data.synthesis || {};
+  const el = document.getElementById('candidate-development-content');
+  let html = `
+    <div style="text-align:center;margin-bottom:28px">
+      <div class="arev-michael-icon">📋</div>
+      <div class="arev-heading">Your Development Summary</div>
+      <p class="arev-sub">Ready for your development conversation</p>
+    </div>`;
+
+  if (data.agreedPriorities?.length) {
+    html += `<div class="p1-report-section">
+      <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:12px;padding:18px 20px">
+        <span class="p1-section-title" style="color:#065f46">Agreed priorities</span>
+        ${data.agreedPriorities.map((p, i) => `<div class="p1-list-item"><span style="color:#059669;font-weight:700">${i + 1}</span>&nbsp;${esc(p)}</div>`).join('')}
+        ${data.reviewDate ? `<p style="font-size:12px;color:#065f46;margin-top:10px">Review date: <strong>${esc(data.reviewDate)}</strong></p>` : ''}
+      </div>
+    </div>`;
+  }
+
+  if (s.alignmentSummary) {
+    html += `<div class="p1-report-section">
+      <div class="arev-panel">
+        <span class="arev-michael-label">Michael&#39;s synthesis</span>
+        <div class="arev-q-text" style="font-size:14px">${esc(s.alignmentSummary)}</div>
+      </div>
+    </div>`;
+  }
+
+  if (s.candidateSelectedPriority) {
+    html += `<div class="p1-report-section">
+      <span class="p1-section-title">Your chosen focus area</span>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 18px">
+        <span style="font-size:14px;font-weight:600;color:#1d4ed8">${esc(s.candidateSelectedPriority)}</span>
+      </div>
+    </div>`;
+  }
+
+  if (s.michaelDiagnosedPriorities?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Michael&#39;s development findings</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:6px 24px">`;
+    s.michaelDiagnosedPriorities.forEach(p => {
+      html += `<div class="p1-priority-item">
+        <div class="p1-priority-rank">${esc(String(p.rank))}</div>
+        <div class="p1-priority-body">
+          <div class="p1-priority-title">${esc(p.priority)}</div>
+          ${p.why ? `<div class="p1-priority-why">${esc(p.why)}</div>` : ''}
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (s.developmentPrioritiesForDiscussion?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Development priorities for discussion</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:6px 24px">`;
+    s.developmentPrioritiesForDiscussion.forEach(p => {
+      html += `<div class="p1-priority-item">
+        <div class="p1-priority-rank">${esc(String(p.rank))}</div>
+        <div class="p1-priority-body">
+          <div class="p1-priority-title">${esc(p.priority)}</div>
+          ${p.whatProgressMightLookLike ? `<div class="p1-priority-action">${esc(p.whatProgressMightLookLike)}</div>` : ''}
+          ${p.rationale ? `<div class="p1-priority-why">${esc(p.rationale)}</div>` : ''}
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (s.developmentPrioritiesForConsideration?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Development priorities to consider</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:6px 24px">`;
+    s.developmentPrioritiesForConsideration.forEach(p => {
+      html += `<div class="p1-priority-item">
+        <div class="p1-priority-rank">${esc(String(p.rank))}</div>
+        <div class="p1-priority-body">
+          <div class="p1-priority-title">${esc(p.priority)}</div>
+          ${p.whatProgressMightLookLike ? `<div class="p1-priority-action">${esc(p.whatProgressMightLookLike)}</div>` : ''}
+          ${p.rationale ? `<div class="p1-priority-why">${esc(p.rationale)}</div>` : ''}
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (s.conversationTopics?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Conversation topics</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px 24px">`;
+    s.conversationTopics.forEach(t => {
+      html += `<div class="p1-list-item"><span style="color:#3d5afe;font-weight:700">&#8594;</span>&nbsp;${esc(t)}</div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (s.selfReflectionPrompts?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Reflection questions</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px 24px">`;
+    s.selfReflectionPrompts.forEach(t => {
+      html += `<div class="p1-list-item"><span style="color:#3d5afe;font-weight:700">&#8594;</span>&nbsp;${esc(t)}</div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  const isLapsed = data.status === 'manager-lapsed';
+  const hasPlan = data.agreedPriorities?.length > 0;
+
+  html += `<div class="arev-actions" style="margin-top:8px">
+    ${isLapsed && !hasPlan ? `<button class="arev-btn-primary" onclick="show(&#39;lapsed-self-plan&#39;)">Set my development priorities &#8594;</button>` : ''}
+    <button class="arev-btn-secondary" onclick="show(&#39;report&#39;)">View your full Benchmark report</button>
+  </div>`;
+
+  el.innerHTML = html;
+}
+
+// ── Manager development view ──────────────────────────────────────────────────
+
+function renderManagerDevelopment(data) {
+  const s = data.synthesis || {};
+  const el = document.getElementById('manager-development-content');
+
+  const typeLabel = {
+    'aligned': 'Aligned',
+    'genuine-divergence': 'Worth discussing',
+    'manager-no-evidence': 'No evidence provided',
+    'exposure-alignment': 'Exposure confirmed'
+  };
+  const typeColour = {
+    'aligned': '#16a34a',
+    'genuine-divergence': '#d97706',
+    'manager-no-evidence': '#64748b',
+    'exposure-alignment': '#2563eb'
+  };
+
+  let html = `
+    <div style="text-align:center;margin-bottom:28px">
+      <div class="arev-michael-icon">📋</div>
+      <div class="arev-heading">Development Summary</div>
+      <p class="arev-sub">For your development conversation</p>
+    </div>`;
+
+  if (data.agreedPriorities?.length) {
+    html += `<div class="p1-report-section">
+      <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:12px;padding:18px 20px">
+        <span class="p1-section-title" style="color:#065f46">Agreed priorities</span>
+        ${data.agreedPriorities.map((p, i) => `<div class="p1-list-item"><span style="color:#059669;font-weight:700">${i + 1}</span>&nbsp;${esc(p)}</div>`).join('')}
+        ${data.reviewDate ? `<p style="font-size:12px;color:#065f46;margin-top:10px">Review date: <strong>${esc(data.reviewDate)}</strong></p>` : ''}
+      </div>
+    </div>`;
+  }
+
+  if (s.alignmentSummary) {
+    html += `<div class="p1-report-section">
+      <div class="arev-panel">
+        <span class="arev-michael-label">Michael&#39;s synthesis</span>
+        <div class="arev-q-text" style="font-size:14px">${esc(s.alignmentSummary)}</div>
+      </div>
+    </div>`;
+  }
+
+  if (s.candidateSelectedPriority) {
+    html += `<div class="p1-report-section">
+      <span class="p1-section-title">Individual&#39;s chosen focus area</span>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 18px">
+        <span style="font-size:14px;font-weight:600;color:#1d4ed8">${esc(s.candidateSelectedPriority)}</span>
+      </div>
+    </div>`;
+  }
+
+  if (s.areaRelationships?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Area perspectives</span>
+      <div style="display:flex;flex-direction:column;gap:8px">`;
+    s.areaRelationships.forEach(r => {
+      const colour = typeColour[r.relationshipType] || '#64748b';
+      const label = esc(typeLabel[r.relationshipType] || r.relationshipType);
+      html += `<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 18px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:700;color:#0d0f1c">${esc(r.area)}</span>
+          <span style="font-size:11px;font-weight:700;color:${colour};white-space:nowrap;margin-left:8px">${label}</span>
+        </div>
+        <div style="font-size:13px;color:#475569;line-height:1.55">${esc(r.observation || '')}</div>
+        ${r.conversationPrompt ? `<div style="margin-top:8px;padding:8px 12px;background:#fff7ed;border-radius:7px;font-size:12px;color:#92400e;font-style:italic">&#8220;${esc(r.conversationPrompt)}&#8221;</div>` : ''}
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (s.developmentPrioritiesForDiscussion?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Development priorities for discussion</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:6px 24px">`;
+    s.developmentPrioritiesForDiscussion.forEach(p => {
+      html += `<div class="p1-priority-item">
+        <div class="p1-priority-rank">${esc(String(p.rank))}</div>
+        <div class="p1-priority-body">
+          <div class="p1-priority-title">${esc(p.priority)}</div>
+          ${p.whatProgressMightLookLike ? `<div class="p1-priority-action">${esc(p.whatProgressMightLookLike)}</div>` : ''}
+          ${p.managerAction ? `<div style="font-size:12px;color:#0369a1;margin-top:4px;line-height:1.45"><strong>Manager action:</strong> ${esc(p.managerAction)}</div>` : ''}
+          ${p.rationale ? `<div class="p1-priority-why">${esc(p.rationale)}</div>` : ''}
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (s.conversationTopics?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Conversation topics</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px 24px">`;
+    s.conversationTopics.forEach(t => {
+      html += `<div class="p1-list-item"><span style="color:#3d5afe;font-weight:700">&#8594;</span>&nbsp;${esc(t)}</div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (!data.agreedPriorities?.length) {
+    html += `<div class="arev-actions" style="margin-top:8px">
+      <button class="arev-btn-primary" onclick="show('agree-priorities')">Record agreed priorities &#8594;</button>
+    </div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+// ── Agree priorities ──────────────────────────────────────────────────────────
+
+async function submitAgreedPriorities() {
+  const p1 = document.getElementById('ap-priority-1').value.trim();
+  const p2 = document.getElementById('ap-priority-2').value.trim();
+  const p3 = document.getElementById('ap-priority-3').value.trim();
+  const reviewDate = document.getElementById('ap-review-date').value;
+  const err = document.getElementById('ap-err');
+
+  if (!p1 || !p2 || !reviewDate) { err.style.display = ''; return; }
+  err.style.display = 'none';
+
+  const agreedPriorities = [p1, p2, p3].filter(Boolean);
+
+  try {
+    const data = await apiPost('p1-agree-priorities', { token: appToken, agreedPriorities, reviewDate });
+    if (data.success) {
+      document.getElementById('agree-priorities-form').innerHTML = `
+        <div style="text-align:center;padding:20px 0">
+          <div style="font-size:28px;margin-bottom:12px">&#10003;</div>
+          <p style="font-size:15px;color:#16a34a;font-weight:600;margin-bottom:8px">Agreed priorities saved</p>
+          <p style="font-size:14px;color:#64748b;line-height:1.7">These priorities will be visible to both you and the individual when they next open their development summary.</p>
+        </div>`;
+    } else {
+      err.textContent = data.error || 'Could not save. Please try again.';
+      err.style.display = '';
+    }
+  } catch {
+    err.textContent = 'Could not connect. Please try again.';
+    err.style.display = '';
+  }
+}
+
+// ── Candidate self-plan (lapsed route) ───────────────────────────────────────
+
+async function submitSelfPlan() {
+  const p1 = document.getElementById('sp-priority-1').value.trim();
+  const p2 = document.getElementById('sp-priority-2').value.trim();
+  const p3 = document.getElementById('sp-priority-3').value.trim();
+  const reviewDate = document.getElementById('sp-review-date').value;
+  const err = document.getElementById('sp-err');
+
+  if (!p1 || !p2 || !reviewDate) { err.style.display = ''; return; }
+  err.style.display = 'none';
+
+  const agreedPriorities = [p1, p2, p3].filter(Boolean);
+
+  try {
+    const data = await apiPost('p1-candidate-self-plan', { token: appToken, agreedPriorities, reviewDate });
+    if (data.success) {
+      document.getElementById('lapsed-self-plan-form').innerHTML = `
+        <div style="text-align:center;padding:20px 0">
+          <div style="font-size:28px;margin-bottom:12px">&#10003;</div>
+          <p style="font-size:15px;color:#16a34a;font-weight:600;margin-bottom:8px">Development priorities saved</p>
+          <p style="font-size:14px;color:#64748b;line-height:1.7">Your priorities are saved. Come back to your development summary to review your progress.</p>
+        </div>`;
+    } else {
+      err.textContent = data.error || 'Could not save. Please try again.';
+      err.style.display = '';
+    }
+  } catch {
+    err.textContent = 'Could not connect. Please try again.';
+    err.style.display = '';
+  }
 }
 
 // ── Boot ──────────────────────────────────────────────────────────────────────

@@ -74,11 +74,25 @@ exports.handler = async (event) => {
       // If candidate has a completed report, include it
       if (meta.status === 'candidate-complete' || meta.status === 'awaiting-manager' ||
           meta.status === 'manager-complete' || meta.status === 'synthesising' ||
-          meta.status === 'summary-ready' || meta.status === 'manager-lapsed') {
+          meta.status === 'summary-ready' || meta.status === 'manager-lapsed' ||
+          meta.status === 'reflection-ready') {
         const privateData = await sessionStore.get(`${payload.sessionId}/candidate-private`, { type: 'json' });
         if (privateData?.report) {
           response.report = privateData.report;
           response.contextAnswers = privateData.contextAnswers;
+        }
+      }
+
+      if (meta.status === 'summary-ready' || meta.status === 'reflection-ready' || meta.status === 'manager-lapsed') {
+        const synthData = await sessionStore.get(`${payload.sessionId}/synthesis`, { type: 'json' });
+        if (synthData?.synthesis) response.synthesis = synthData.synthesis;
+      }
+
+      if (meta.status === 'reflection-ready' || meta.status === 'manager-lapsed') {
+        const apData = await sessionStore.get(`${payload.sessionId}/agreed-priorities`, { type: 'json' });
+        if (apData) {
+          response.agreedPriorities = apData.agreedPriorities;
+          response.reviewDate = apData.reviewDate;
         }
       }
 
@@ -112,6 +126,42 @@ exports.handler = async (event) => {
           sessions: sessions.filter(Boolean)
         })
       };
+    }
+
+    if (payload.role === 'manager') {
+      const sessionStore = getSessionStore();
+      const meta = await sessionStore.get(`${payload.sessionId}/metadata`, { type: 'json' });
+      if (!meta) return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'Session not found' }) };
+
+      if (meta.currentManagerInviteKey !== token) {
+        return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'This invitation link has been superseded. Please use your most recent invitation email.' }) };
+      }
+
+      const response = {
+        role: 'manager',
+        sessionId: payload.sessionId,
+        status: meta.status,
+        firmName: meta.firmName,
+        discipline: meta.discipline,
+        monthsInRole: meta.monthsInRole,
+        candidateLabel: 'the individual'
+      };
+
+      // Include synthesis and agreed priorities for development views
+      if (meta.status === 'summary-ready' || meta.status === 'reflection-ready') {
+        const synthData = await sessionStore.get(`${payload.sessionId}/synthesis`, { type: 'json' });
+        if (synthData?.synthesis) response.synthesis = synthData.synthesis;
+      }
+
+      if (meta.status === 'reflection-ready') {
+        const apData = await sessionStore.get(`${payload.sessionId}/agreed-priorities`, { type: 'json' });
+        if (apData) {
+          response.agreedPriorities = apData.agreedPriorities;
+          response.reviewDate = apData.reviewDate;
+        }
+      }
+
+      return { statusCode: 200, headers: HEADERS, body: JSON.stringify(response) };
     }
 
     return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Unsupported role for session load' }) };

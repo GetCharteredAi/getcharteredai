@@ -129,7 +129,7 @@ exports.handler = async (event) => {
 
   const { adminSecret, csvContent } = body;
 
-  if (!adminSecret || adminSecret !== process.env.P1_ADMIN_SECRET) {
+  if (!adminSecret || adminSecret.trim() !== (process.env.P1_ADMIN_SECRET || '').trim()) {
     return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'Forbidden' }) };
   }
 

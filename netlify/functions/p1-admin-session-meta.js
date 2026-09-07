@@ -73,6 +73,17 @@ exports.handler = async (event) => {
     return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ success: true, status: 'manager-lapsed' }) };
   }
 
+  // Blob-check probe: verify whether named blob exists and its top-level keys.
+  if (probe === 'check-blob' && sessionId && body.blobName) {
+    const allowed = ['candidate-private', 'manager-safe', 'synthesis', 'manager-responses'];
+    if (!allowed.includes(body.blobName)) return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Unknown blob' }) };
+    const blob = await getSessionStore().get(`${sessionId}/${body.blobName}`, { type: 'json' });
+    return { statusCode: 200, headers: HEADERS, body: JSON.stringify({
+      exists: blob !== null,
+      topLevelKeys: blob ? Object.keys(blob) : []
+    }) };
+  }
+
   // Job-read probe: return a named job blob for a session without exposing private data.
   if (probe === 'read-job' && body.jobName && sessionId) {
     const allowed = ['synthesis', 'manager-safe', 'candidate-report', 'candidate-synthesis'];

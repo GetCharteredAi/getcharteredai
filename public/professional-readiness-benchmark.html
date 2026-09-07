@@ -1726,7 +1726,7 @@ function renderProgressReview(data) {
           <input type="text" class="arev-textarea" id="cpp-p3" style="height:auto;padding:10px 14px" value="${esc(pp[2]?.priority || '')}" maxlength="200" />
         </div>
         <div class="arev-form-group">
-          <label>Next review date</label>
+          <label>Development review date</label>
           <input type="date" class="arev-textarea" id="cpp-review-date" style="height:auto;padding:10px 14px" />
         </div>
         <p id="cpp-err" class="arev-err" style="display:none">Please enter at least two priorities and a review date.</p>
@@ -1762,7 +1762,7 @@ async function submitConfirmProgress() {
           <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:12px;padding:18px 20px">
             <span class="p1-section-title" style="color:#065f46">Your refreshed priorities</span>
             ${confirmedPriorities.map((p, i) => `<div class="p1-list-item"><span style="color:#059669;font-weight:700">${i + 1}</span>&nbsp;${esc(p)}</div>`).join('')}
-            <p style="font-size:12px;color:#065f46;margin-top:10px">Next review: <strong>${esc(reviewDate)}</strong></p>
+            <p style="font-size:12px;color:#065f46;margin-top:10px">Development review date: <strong>${esc(reviewDate)}</strong></p>
           </div>
         </div>
         <div class="arev-actions">
@@ -1793,7 +1793,7 @@ function renderProgressComplete(data) {
       <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:12px;padding:18px 20px">
         <span class="p1-section-title" style="color:#065f46">Your refreshed priorities</span>
         ${data.agreedPriorities.map((p, i) => `<div class="p1-list-item"><span style="color:#059669;font-weight:700">${i + 1}</span>&nbsp;${esc(p)}</div>`).join('')}
-        ${data.reviewDate ? `<p style="font-size:12px;color:#065f46;margin-top:10px">Next review: <strong>${esc(data.reviewDate)}</strong></p>` : ''}
+        ${data.reviewDate ? `<p style="font-size:12px;color:#065f46;margin-top:10px">Development review date: <strong>${esc(data.reviewDate)}</strong></p>` : ''}
       </div>
     </div>`;
   }

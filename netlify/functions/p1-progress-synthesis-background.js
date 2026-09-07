@@ -1,6 +1,6 @@
 // netlify/functions/p1-progress-synthesis-background.js
 // Background function. Internal secret gate.
-// Reads priorities-history[0] for prior agreed priorities (written at candidate submission).
+// Reads the most recent priorities-history entry for prior agreed priorities (written at candidate submission).
 // Reads progress-responses (P1–P5) and progress-manager-responses (PM1–PM3, if present).
 // Produces Professional Readiness Progress Review at {sessionId}/progress-review.
 // Status: progress-synthesising | progress-manager-lapsed → progress-ready.
@@ -118,8 +118,10 @@ exports.handler = async (event) => {
       return;
     }
 
-    // Prior priorities must come from priorities-history (written at candidate submission)
-    const priorPlan = (prioritiesHistory || [])[0];
+    // Prior priorities must come from priorities-history (written at candidate submission).
+    // Read the last entry — most recently archived plan — so this is correct across multiple future cycles.
+    const history = prioritiesHistory || [];
+    const priorPlan = history[history.length - 1];
     if (!priorPlan?.agreedPriorities?.length) {
       await sessionStore.setJSON(jobKey, { status: 'failed', runToken, error: 'missing_prior_priorities', failedAt: Date.now() });
       return;
@@ -138,7 +140,7 @@ exports.handler = async (event) => {
     const prioritiesText = priorPlan.agreedPriorities.map((p, i) => `${i + 1}. ${p}`).join('\n');
     const agreedByLabel = priorPlan.agreedBy === 'manager-candidate'
       ? 'agreed jointly by manager and individual'
-      : 'set by the individual (manager-lapsed route)';
+      : 'agreed by the individual';
 
     const managerSection = candidateOnly
       ? `(Manager did not respond. Set candidateOnly: true. Set managerPerspective to null for all items. Do not infer any manager view from silence.)`

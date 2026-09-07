@@ -264,7 +264,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
         <label for="ctx-typical-work">Briefly describe your typical day-to-day work</label>
         <textarea id="ctx-typical-work" class="arev-textarea" style="min-height:100px" placeholder="What kinds of tasks, projects or responsibilities do you typically work on?"></textarea>
       </div>
-      <div id="ctx-band-info" class="arev-panel" style="margin-top:4px;padding:14px 18px"></div>
+      <p style="margin-top:12px;font-size:14px;color:#64748b">Michael will tailor the reflection to your stage and experience.</p>
       <p id="ctx-err" class="arev-err">Please complete both fields before continuing.</p>
       <div class="arev-actions" style="margin-top:16px">
         <button class="arev-btn-primary" onclick="startReflection()">Start my reflection →</button>
@@ -681,9 +681,6 @@ async function init() {
 
 function goToContext() {
   document.getElementById('ctx-discipline').value = contextAnswers.discipline || '';
-  const bandInfo = document.getElementById('ctx-band-info');
-  bandInfo.innerHTML = `<span class="arev-michael-label" style="margin-bottom:4px">Your calibration stage</span>
-    <div class="arev-q-text" style="font-size:14px">${bandLabel(contextAnswers.monthsInRole)} — Michael will calibrate expectations to this point in your career.</div>`;
   show('context');
 }
 

@@ -212,7 +212,7 @@ ${responses.M7 || '(no response provided)'}`;
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
-        max_tokens: 2000,
+        max_tokens: 4096,
         system: SYNTHESIS_SYSTEM,
         messages: [{ role: 'user', content: userPrompt }]
       })

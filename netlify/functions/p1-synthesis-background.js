@@ -45,7 +45,7 @@ Only genuine-divergence produces a conversation prompt. For aligned, manager-no-
 
 ## Absent or thin manager evidence
 managerPerspectiveThemes: If manager evidence is absent across all questions, return an empty array. If manager evidence is very thin, include only themes directly supported by what the manager actually provided. Do not infer or fabricate a manager perspective from silence.
-alignmentSummary: If manager evidence is absent, state clearly that no meaningful candidate–manager comparison can be made yet — do not describe the perspectives as aligned, inconsistent, shared or divergent. If manager evidence is thin, limit the summary to the areas where comparison is genuinely supported by what the manager provided.
+alignmentSummary: If manager evidence is absent, write a neutral, developmental opening that explains the summary is based on the individual's benchmark self-assessment and Michael's diagnostic analysis, that manager input was not provided in this reflection so no direct comparison between perspectives can be made at this stage, and that the summary therefore focuses on the evidence available from the individual's responses while manager input can add useful workplace context to the development conversation. Do not frame the absence of manager input as a problem, a gap, or a failure. If manager evidence is thin, limit the summary to the areas where comparison is genuinely supported by what the manager provided.
 
 ## Privacy boundary
 Do not include direct or paraphrased quotes from either source, specific anecdotes in identifiable form, or either party's own words. You may include thematic observations, relationship classifications, development priorities, and conversation prompts drawn from both sources.

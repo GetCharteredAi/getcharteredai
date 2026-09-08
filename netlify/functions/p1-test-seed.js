@@ -562,6 +562,22 @@ exports.handler = async (event) => {
 
   const { action, sessionId } = body;
 
+  // URL diagnostic — branch only, remove before merge
+  if (action === 'diag-url') {
+    return {
+      statusCode: 200,
+      headers: HEADERS,
+      body: JSON.stringify({
+        DEPLOY_URL: process.env.DEPLOY_URL || '(unset)',
+        URL: process.env.URL || '(unset)',
+        DEPLOY_PRIME_URL: process.env.DEPLOY_PRIME_URL || '(unset)',
+        P1_STORE_PREFIX: process.env.P1_STORE_PREFIX || '(unset)',
+        P1_INTERNAL_SECRET_present: !!process.env.P1_INTERNAL_SECRET,
+        P1_INTERNAL_SECRET_length: (process.env.P1_INTERNAL_SECRET || '').length
+      })
+    };
+  }
+
   try {
     assertTestPrefix();
   } catch (e) {

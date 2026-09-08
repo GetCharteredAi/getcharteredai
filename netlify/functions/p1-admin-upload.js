@@ -195,6 +195,8 @@ exports.handler = async (event) => {
       employerEmail: row.employeremail,
       candidateName: row.candidatename?.trim() || null,
       managerName: row.managername?.trim() || null,
+      team: row.team?.trim() || null,
+      office: row.office?.trim() || null,
       employmentType: row.employmenttype,
       discipline: row.discipline,
       employmentStartDate: row.employmentstartdate,

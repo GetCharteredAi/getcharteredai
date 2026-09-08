@@ -45,10 +45,24 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
-  const { token, responses } = body;
+  const VALID_FOCUS_AREAS = [
+    'Professional Behaviour & Responsibility',
+    'Communication & Working With Others',
+    'Learning & Applying Knowledge',
+    'Judgement, Help & Escalation',
+    'Feedback, Reflection & Development'
+  ];
+
+  const { token, responses, managerSelectedFocusAreas } = body;
   if (!token) return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Missing token' }) };
   if (!responses || typeof responses !== 'object') {
     return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Missing responses' }) };
+  }
+  if (!Array.isArray(managerSelectedFocusAreas) ||
+      managerSelectedFocusAreas.length < 1 ||
+      managerSelectedFocusAreas.length > 3 ||
+      !managerSelectedFocusAreas.every(a => VALID_FOCUS_AREAS.includes(a))) {
+    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'managerSelectedFocusAreas must be 1–3 valid focus areas' }) };
   }
 
   const payload = verifyToken(token);
@@ -85,6 +99,7 @@ exports.handler = async (event) => {
         M6: responses.M6 || '',
         M7: responses.M7 || ''
       },
+      managerSelectedFocusAreas,
       submittedAt: now
     });
 

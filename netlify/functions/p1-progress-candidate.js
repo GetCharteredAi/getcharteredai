@@ -147,7 +147,7 @@ exports.handler = async (event) => {
     });
 
     // Issue manager-progress token (14-day TTL) for optional manager reflection
-    const siteUrl = process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
+    const siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
     const managerProgressPayload = {
       sessionId,
       role: 'manager-progress',

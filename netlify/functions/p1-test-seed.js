@@ -405,7 +405,7 @@ async function retrigerSynthesis(sessionStore, sessionId) {
   }
 
   const internalSecret = process.env.P1_INTERNAL_SECRET;
-  const siteUrl = process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
+  const siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
   const runToken = crypto.randomUUID();
 
   if (internalSecret) {
@@ -418,7 +418,7 @@ async function retrigerSynthesis(sessionStore, sessionId) {
     throw new Error('P1_INTERNAL_SECRET not set — cannot retrigger synthesis');
   }
 
-  return { sessionId, retriggered: true, jobKey: `${sessionId}/jobs/progress-synthesis`, runToken };
+  return { sessionId, retriggered: true, siteUrl, jobKey: `${sessionId}/jobs/progress-synthesis`, runToken };
 }
 
 async function resetForSecondCycle(sessionStore, sessionId) {
@@ -568,9 +568,8 @@ exports.handler = async (event) => {
       statusCode: 200,
       headers: HEADERS,
       body: JSON.stringify({
-        DEPLOY_URL: process.env.DEPLOY_URL || '(unset)',
+        P1_SITE_URL: process.env.P1_SITE_URL || '(unset)',
         URL: process.env.URL || '(unset)',
-        DEPLOY_PRIME_URL: process.env.DEPLOY_PRIME_URL || '(unset)',
         P1_STORE_PREFIX: process.env.P1_STORE_PREFIX || '(unset)',
         P1_INTERNAL_SECRET_present: !!process.env.P1_INTERNAL_SECRET,
         P1_INTERNAL_SECRET_length: (process.env.P1_INTERNAL_SECRET || '').length

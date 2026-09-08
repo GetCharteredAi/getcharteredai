@@ -176,7 +176,7 @@ exports.handler = async (event) => {
   const sessionStore = getSessionStore();
   const cohortStore  = getCohortStore();
   const inviteStore  = getInviteStore();
-  const siteUrl      = process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
+  const siteUrl      = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
 
   const sessionIds = [];
 

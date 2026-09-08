@@ -547,6 +547,8 @@ exports.handler = async (event) => {
         P1_ADMIN_SECRET_length:     envAdmin.length,
         P1_INTERNAL_SECRET_present: !!envInternal,
         P1_INTERNAL_SECRET_length:  envInternal.length,
+        P1_STORE_PREFIX:            process.env.P1_STORE_PREFIX || '(unset)',
+        CONTEXT:                    process.env.CONTEXT || process.env.NETLIFY_CONTEXT || '(unset)',
         submittedLength:            submitted.length,
         matchesAdmin:        submitted === envAdmin.trim(),
         matchesInternal:     submitted === envInternal.trim(),

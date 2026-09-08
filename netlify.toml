@@ -3,17 +3,6 @@
   publish = "public"
   functions = "netlify/functions"
 
-# TEST SCAFFOLD — DELETE BEFORE MERGE TO MAIN
-# Forces test prefix on all non-production deploys so Phase 4 test sessions
-# cannot write to production Blobs stores.
-# P1_SITE_URL overrides the production URL so background function calls
-# self-reference the branch deploy (Netlify does not inject DEPLOY_URL at runtime).
-[context.deploy-preview.environment]
-  P1_STORE_PREFIX = "test"
-
-[context.branch-deploy.environment]
-  P1_STORE_PREFIX = "test"
-  P1_SITE_URL = "https://feature-p1-phase4-progress-reflection--getcharteredai.netlify.app"
 
 [build.environment]
   NODE_VERSION = "18"

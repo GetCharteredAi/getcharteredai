@@ -54,6 +54,7 @@ Return ONLY valid JSON. No markdown. No preamble. No trailing text.
     {
       "rank": 1,
       "priority": "<original priority — pass through unchanged>",
+      "area": "<the Benchmark area this priority most directly addresses — infer from the priority text and session context; use the exact area name>",
       "evidenceOfChange": "<thematic summary of what the evidence shows — no direct quotes>",
       "progressJudgement": "Progress evident | Some progress | Limited evidence of progress | Priority should be reconsidered",
       "managerPerspective": null,
@@ -67,6 +68,7 @@ Return ONLY valid JSON. No markdown. No preamble. No trailing text.
     {
       "rank": 1,
       "priority": "<proposed priority text>",
+      "area": "<the Benchmark area this proposed priority most directly addresses — use the exact area name>",
       "why": "<rationale grounded in evidence — specific to this individual>",
       "continuedFrom": "<original priority text if kept or refined — null if wholly new>",
       "graduatedFrom": "<original priority text if this slot was freed by graduation — null otherwise>"
@@ -239,6 +241,25 @@ ${managerSection}`;
       ...meta,
       status: 'progress-ready',
       progressSynthesisCompletedAt: now
+    });
+
+    // Update cohort-safe with Phase 4 analytics projection — Phase 5 reads this; never opens progress-review
+    const existingSafe4 = await sessionStore.get(`${sessionId}/cohort-safe`, { type: 'json' }) || {};
+    await sessionStore.setJSON(`${sessionId}/cohort-safe`, {
+      ...existingSafe4,
+      schemaVersion: 'cohort-safe-v1',
+      lastUpdatedAt: now,
+      phase4: {
+        progressManagerParticipated: !candidateOnly,
+        progressJudgements: (review.progressAgainstPriorities || []).map(p => ({
+          rank: p.rank,
+          progressJudgement: p.progressJudgement,
+          graduated: !!p.graduated,
+          area: p.area || null
+        })),
+        proposedPriorityAreas: (review.proposedPriorities || [])
+          .map(p => p.area).filter(Boolean)
+      }
     });
 
     await sessionStore.setJSON(jobKey, { status: 'complete', runToken, completedAt: now });

@@ -185,6 +185,7 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
       "rank": 1,
       "priority": "<string>",
       "gapType": "<knowledge|practice|experience|exposure|evidence-recognition|articulation>",
+      "area": "<the one Benchmark area this priority most directly addresses — use the exact area name from the five assessment areas>",
       "developmentAction": "<specific plain-language action — do not use raw taxonomy labels>",
       "why": "<why this ranks here>"
     }
@@ -417,6 +418,23 @@ exports.handler = async (event) => {
       savedAt: Date.now()
     };
     await sessionStore.setJSON(`${sessionId}/candidate-private`, privateData);
+
+    // Write cohort-safe analytics projection — Phase 5 reads this; never opens candidate-private
+    await sessionStore.setJSON(`${sessionId}/cohort-safe`, {
+      schemaVersion: 'cohort-safe-v1',
+      lastUpdatedAt: Date.now(),
+      benchmark: {
+        areas: (report.areas || []).map(a => ({
+          id: a.id,
+          name: a.name,
+          outcome: a.outcome,
+          exposureConfirmation: a.exposureConfirmation || 'unavailable'
+        })),
+        candidateSelectedPriority: contextAnswers?.candidateSelectedPriority || null,
+        priorityGapTypes: (report.developmentPriorities || []).map(p => p.gapType).filter(Boolean),
+        priorityAreas: (report.developmentPriorities || []).map(p => p.area).filter(Boolean)
+      }
+    });
 
     // Update metadata to candidate-complete
     const candidateCompletedAt = Date.now();

@@ -66,7 +66,8 @@ Return ONLY valid JSON matching this structure exactly. No markdown, no preamble
       "rank": 1,
       "priority": "<string>",
       "why": "<string>",
-      "managerRole": "<what the manager can do to support this>"
+      "managerRole": "<what the manager can do to support this>",
+      "area": "<the one Benchmark area this priority most directly addresses — use the exact area name>"
     }
   ],
   "managerPerspectiveThemes": [
@@ -86,6 +87,7 @@ Return ONLY valid JSON matching this structure exactly. No markdown, no preamble
       "priority": "<specific, stage-appropriate development priority>",
       "rationale": "<grounded in evidence from both sources>",
       "gapType": "<knowledge|practice|experience|exposure|evidence-recognition|articulation>",
+      "area": "<the one Benchmark area this priority most directly addresses — use the exact area name>",
       "whatProgressMightLookLike": "<one sentence — observable, developmental, stage-appropriate; not a KPI or appraisal target>",
       "managerAction": "<concrete action the manager can take to support this priority>"
     }
@@ -254,6 +256,24 @@ ${managerResponsesData.managerSelectedFocusAreas?.length
       ...meta,
       status: 'summary-ready',
       synthesisCompletedAt: now
+    });
+
+    // Update cohort-safe with Phase 3 analytics projection — Phase 5 reads this; never opens synthesis
+    const existingSafe3 = await sessionStore.get(`${sessionId}/cohort-safe`, { type: 'json' }) || {};
+    await sessionStore.setJSON(`${sessionId}/cohort-safe`, {
+      ...existingSafe3,
+      schemaVersion: 'cohort-safe-v1',
+      lastUpdatedAt: now,
+      phase3: {
+        managerParticipated: !!managerResponsesData?.responses,
+        managerSelectedFocusAreas: managerResponsesData.managerSelectedFocusAreas || [],
+        areaRelationships: (synthesis.areaRelationships || []).map(r => ({
+          area: r.area,
+          relationshipType: r.relationshipType
+        })),
+        developmentFocusAreas: (synthesis.developmentPrioritiesForDiscussion || [])
+          .map(p => p.area).filter(Boolean)
+      }
     });
 
     await sessionStore.setJSON(jobKey, { status: 'complete', runToken, completedAt: now });

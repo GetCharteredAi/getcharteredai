@@ -71,7 +71,8 @@ const TEST_PRIORITIES = [
   'Deepen understanding of RICS Rules of Conduct and ethical decision-making in everyday practice'
 ];
 
-const TEST_REVIEW_DATE = '2027-03-01';
+// ~90 days after a benchmark that was 90 days ago → approximately today + 7 days
+const TEST_REVIEW_DATE = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 const TEST_FIRM = 'GCAi Test Ltd';
 const TEST_DISCIPLINE = 'Quantity Surveying';
 const TEST_CANDIDATE_EMAIL = 'test-candidate@gcai.test';
@@ -469,7 +470,7 @@ async function verify(sessionStore, sessionId) {
       progressSynthesisCompletedAt: meta.progressSynthesisCompletedAt,
       progressRefreshedAt: meta.progressRefreshedAt,
       progressReviewDate: meta.progressReviewDate,
-      currentProgressManagerInviteKey: meta.currentProgressManagerInviteKey ? '[set]' : null
+      currentProgressManagerInviteKey: meta.currentProgressManagerInviteKey || null
     } : null,
     hasCandidatePrivate: !!candidatePrivate?.report,
     agreedPriorities: agreedPriorities || null,

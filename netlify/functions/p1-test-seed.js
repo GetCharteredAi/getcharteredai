@@ -2,9 +2,10 @@
 // TEST SCAFFOLD ONLY — DELETE BEFORE MERGE TO MAIN
 //
 // Phase 4 seeding, triggering, and state verification.
-// Refuses to operate unless P1_STORE_PREFIX === 'test'.
+// Gated solely on P1_STORE_PREFIX === 'test' (set via netlify.toml branch-deploy context).
+// Cannot touch production blobs — assertTestPrefix() throws before any store access.
 //
-// POST { adminSecret, action, sessionId? }
+// POST { action, sessionId? }
 //
 // Actions:
 //   seed-normal            seed a reflection-ready session with 3 test priorities
@@ -532,34 +533,7 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
-  const { adminSecret, action, sessionId } = body;
-
-  // Diagnostic — branch only, remove before merge
-  if (action === 'diag-secret') {
-    const envAdmin    = process.env.P1_ADMIN_SECRET    || '';
-    const envInternal = process.env.P1_INTERNAL_SECRET || '';
-    const submitted   = (adminSecret || '').trim();
-    return {
-      statusCode: 200,
-      headers: HEADERS,
-      body: JSON.stringify({
-        P1_ADMIN_SECRET_present:    !!envAdmin,
-        P1_ADMIN_SECRET_length:     envAdmin.length,
-        P1_INTERNAL_SECRET_present: !!envInternal,
-        P1_INTERNAL_SECRET_length:  envInternal.length,
-        P1_STORE_PREFIX:            process.env.P1_STORE_PREFIX || '(unset)',
-        CONTEXT:                    process.env.CONTEXT || process.env.NETLIFY_CONTEXT || '(unset)',
-        submittedLength:            submitted.length,
-        matchesAdmin:        submitted === envAdmin.trim(),
-        matchesInternal:     submitted === envInternal.trim(),
-        adminEqualsInternal: envAdmin.trim() === envInternal.trim()
-      })
-    };
-  }
-
-  if (!adminSecret || adminSecret.trim() !== (process.env.P1_ADMIN_SECRET || '').trim()) {
-    return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'Forbidden' }) };
-  }
+  const { action, sessionId } = body;
 
   try {
     assertTestPrefix();

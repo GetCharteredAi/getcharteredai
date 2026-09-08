@@ -203,7 +203,7 @@ exports.handler = async (event) => {
 
     await sessionStore.setJSON(jobKey, { status: 'complete', completedAt: now });
 
-    const siteUrl = process.env.URL || 'https://getcharteredai.com';
+    const siteUrl = process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
     const managerLink = `${siteUrl}/professional-readiness-benchmark?token=${managerToken}`;
     await sendEmail(
       meta.managerEmail,

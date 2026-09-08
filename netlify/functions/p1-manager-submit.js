@@ -96,7 +96,7 @@ exports.handler = async (event) => {
     });
 
     // Fire-and-forget synthesis
-    const siteUrl = process.env.URL || 'https://getcharteredai.com';
+    const siteUrl = process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
     const internalSecret = process.env.P1_INTERNAL_SECRET;
     const runToken = crypto.randomUUID();
     if (internalSecret) {

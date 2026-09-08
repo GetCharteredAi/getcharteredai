@@ -76,7 +76,7 @@ function wrap(content) {
 
 async function triggerCandidateOnlySynthesis(sessionId) {
   const internalSecret = process.env.P1_INTERNAL_SECRET;
-  const siteUrl = process.env.URL || 'https://getcharteredai.com';
+  const siteUrl = process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
   const runToken = crypto.randomUUID();
   if (internalSecret) {
     fetch(`${siteUrl}/.netlify/functions/p1-candidate-synthesis-background`, {
@@ -91,7 +91,7 @@ async function triggerCandidateOnlySynthesis(sessionId) {
 
 async function triggerProgressSynthesis(sessionId) {
   const internalSecret = process.env.P1_INTERNAL_SECRET;
-  const siteUrl = process.env.URL || 'https://getcharteredai.com';
+  const siteUrl = process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
   const runToken = crypto.randomUUID();
   if (internalSecret) {
     fetch(`${siteUrl}/.netlify/functions/p1-progress-synthesis-background`, {
@@ -116,7 +116,7 @@ exports.handler = async (event) => {
   const sessionStore = getSessionStore();
   const cohortStore  = getCohortStore();
   const inviteStore  = getInviteStore();
-  const siteUrl      = process.env.URL || 'https://getcharteredai.com';
+  const siteUrl      = process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
 
   let cohorts;
   try {

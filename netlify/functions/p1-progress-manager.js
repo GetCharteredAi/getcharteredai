@@ -94,7 +94,7 @@ exports.handler = async (event) => {
     });
 
     const internalSecret = process.env.P1_INTERNAL_SECRET;
-    const siteUrl = process.env.URL || 'https://getcharteredai.com';
+    const siteUrl = process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
     if (internalSecret) {
       fetch(`${siteUrl}/.netlify/functions/p1-progress-synthesis-background`, {
         method: 'POST',

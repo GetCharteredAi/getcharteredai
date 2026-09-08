@@ -68,7 +68,9 @@ exports.handler = async (event) => {
         firmName: meta.firmName,
         discipline: meta.discipline,
         monthsInRole: meta.monthsInRole,
-        employmentStartDate: meta.employmentStartDate
+        employmentStartDate: meta.employmentStartDate,
+        candidateName: meta.candidateName || null,
+        managerName: meta.managerName || null
       };
 
       const PHASE_4_STATUSES = ['progress-reflection-open', 'progress-manager-invited',

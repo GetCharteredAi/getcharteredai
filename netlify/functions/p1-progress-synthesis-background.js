@@ -35,6 +35,9 @@ A priority may "graduate out" — if evidence shows it has progressed sufficient
 - Lack of exposure is not lack of capability.
 - Do not invent manager observations from silence.
 
+## Candidate name
+If "Candidate name:" in the session context is provided (not "(not provided)"), use it naturally in sinceBenchmark (e.g. "Since Angela's priorities were agreed…"). If not provided, write in second person ("Since your priorities were agreed…"). Do not use the name elsewhere in the output.
+
 ## Absent or thin manager evidence
 If no manager evidence is present or all manager responses are blank, set candidateOnly: true.
 managerPerspective for each progressAgainstPriorities item must be null.
@@ -133,6 +136,11 @@ exports.handler = async (event) => {
       progressSynthesisStartedAt: meta.progressSynthesisStartedAt || Date.now()
     });
 
+    function firstWord(name) {
+  const t = (name || '').trim();
+  return t ? t.split(/\s+/)[0] : null;
+}
+
     const { responses: cr } = candidateResponses;
     const mr = managerResponses?.responses;
     const candidateOnly = !mr || Object.values(mr).every(v => !v?.trim());
@@ -153,9 +161,12 @@ ${mr.PM2 || '(no response provided)'}
 PM3. Should the current priorities continue, change or be replaced?
 ${mr.PM3 || '(no response provided)'}`;
 
+    const candidateFirstName = firstWord(meta.candidateName);
+
     const userPrompt = `Generate the Professional Readiness Progress Review from the following inputs.
 
 ## Session context
+Candidate name: ${candidateFirstName || '(not provided)'}
 Discipline: ${meta.discipline || '(not recorded)'}
 Months in role: ${meta.monthsInRole ?? '(not recorded)'}
 Priorities review date: ${priorPlan.reviewDate || '(not recorded)'}

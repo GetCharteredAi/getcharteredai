@@ -1641,9 +1641,15 @@ function renderProgressReview(data) {
     'Priority should be reconsidered': 'p1-pj-reconsider'
   };
 
+  function fw(name) { const t = (name || '').trim(); return t ? t.split(/\s+/)[0] : null; }
+  const candidateFirst = fw(data.candidateName);
+  const managerFirst = fw(data.managerName);
+  const heading = candidateFirst ? `${esc(candidateFirst)}’s Progress Review` : 'Your Progress Review';
+  const managerLabel = managerFirst ? `${esc(managerFirst)} observed:` : 'Your manager observed:';
+
   let html = `<div style="text-align:center;margin-bottom:28px">
     <div class="arev-michael-icon">&#128202;</div>
-    <div class="arev-heading">Your Progress Review</div>
+    <div class="arev-heading">${heading}</div>
     ${r.candidateOnly
       ? `<p class="arev-sub" style="color:#94a3b8">Based on your reflection — manager perspective was not available</p>`
       : `<p class="arev-sub">Michael has reviewed your progress against your agreed priorities.</p>`}
@@ -1668,7 +1674,7 @@ function renderProgressReview(data) {
         <div class="p1-priority-body">
           <div class="p1-priority-title">${esc(p.priority)}<span class="p1-pj-badge ${cls}">${esc(p.progressJudgement)}</span>${p.graduated ? `<span class="p1-pj-badge p1-pj-evident">Graduated</span>` : ''}</div>
           ${p.evidenceOfChange ? `<div class="p1-priority-action">${esc(p.evidenceOfChange)}</div>` : ''}
-          ${p.managerPerspective ? `<div class="p1-priority-why">Manager: ${esc(p.managerPerspective)}</div>` : ''}
+          ${p.managerPerspective ? `<div class="p1-priority-why">${managerLabel} ${esc(p.managerPerspective)}</div>` : ''}
           ${p.nextStep ? `<div class="p1-priority-action" style="color:#3d5afe">Next: ${esc(p.nextStep)}</div>` : ''}
         </div>
       </div>`;

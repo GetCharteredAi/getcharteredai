@@ -9,11 +9,13 @@
 // Schedule: daily (configured in netlify.toml under [functions."p1-scheduled"])
 
 const { getStore } = require('@netlify/blobs');
+const crypto = require('crypto');
 const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
 
-const CANDIDATE_REMINDER_DAYS = 5;
-const MANAGER_REMINDER_DAYS   = 5;
-const LAPSE_THRESHOLD_DAYS    = 14;
+const CANDIDATE_REMINDER_DAYS        = 5;
+const MANAGER_REMINDER_DAYS          = 5;
+const LAPSE_THRESHOLD_DAYS           = 14;
+const PROGRESS_CANDIDATE_TOKEN_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 
 const FROM = 'Get Chartered AI <info@getcharteredai.com>';
 
@@ -27,6 +29,19 @@ function getCohortStore() {
   return process.env.NETLIFY_BLOBS_CONTEXT
     ? getStore(`${PREFIX}p1-cohorts`)
     : getStore({ name: `${PREFIX}p1-cohorts`, siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
+}
+
+function getInviteStore() {
+  return process.env.NETLIFY_BLOBS_CONTEXT
+    ? getStore(`${PREFIX}p1-invites`)
+    : getStore({ name: `${PREFIX}p1-invites`, siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
+}
+
+function generateToken(payload) {
+  const jwtSecret = process.env.JWT_SECRET;
+  const tokenData = Buffer.from(JSON.stringify(payload)).toString('base64');
+  const sig = crypto.createHmac('sha256', jwtSecret).update(tokenData).digest('base64url');
+  return `${tokenData}.${sig}`;
 }
 
 function daysSince(timestamp) {
@@ -61,8 +76,7 @@ function wrap(content) {
 
 async function triggerCandidateOnlySynthesis(sessionId) {
   const internalSecret = process.env.P1_INTERNAL_SECRET;
-  const siteUrl = process.env.URL || 'https://getcharteredai.com';
-  const crypto = require('crypto');
+  const siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
   const runToken = crypto.randomUUID();
   if (internalSecret) {
     fetch(`${siteUrl}/.netlify/functions/p1-candidate-synthesis-background`, {
@@ -72,6 +86,21 @@ async function triggerCandidateOnlySynthesis(sessionId) {
     }).catch(e => console.error('[p1-scheduled] Candidate synthesis trigger failed:', e.message));
   } else {
     console.warn('[p1-scheduled] P1_INTERNAL_SECRET not set — candidate synthesis not triggered');
+  }
+}
+
+async function triggerProgressSynthesis(sessionId) {
+  const internalSecret = process.env.P1_INTERNAL_SECRET;
+  const siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
+  const runToken = crypto.randomUUID();
+  if (internalSecret) {
+    fetch(`${siteUrl}/.netlify/functions/p1-progress-synthesis-background`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId, internalSecret, runToken })
+    }).catch(e => console.error('[p1-scheduled] Progress synthesis trigger failed:', e.message));
+  } else {
+    console.warn('[p1-scheduled] P1_INTERNAL_SECRET not set — progress synthesis not triggered');
   }
 }
 
@@ -86,7 +115,8 @@ exports.handler = async (event) => {
 
   const sessionStore = getSessionStore();
   const cohortStore  = getCohortStore();
-  const siteUrl      = process.env.URL || 'https://getcharteredai.com';
+  const inviteStore  = getInviteStore();
+  const siteUrl      = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
 
   let cohorts;
   try {
@@ -203,12 +233,73 @@ exports.handler = async (event) => {
         }
       }
 
-      // ── Progress reflection trigger (Phase 4) ─────────────────────────────
-      // Covers both routes via the same {sessionId}/agreed-priorities blob:
-      //   reflection-ready + agreedBy: 'manager-candidate' (normal route)
-      //   manager-lapsed  + agreedBy: 'candidate'          (lapsed route)
-      // Trigger condition: status is eligible AND progressReflectionDueAt has passed.
-      // D-new-8: email and logic implementation deferred to Phase 4.
+      // ── Phase 4: Progress reflection trigger ──────────────────────────────
+      // Eligible statuses: reflection-ready (normal route) or manager-lapsed (lapsed route).
+      // effectiveDue: use progressReflectionDueAt if set (both routes after Phase 4 fix);
+      //   fall back to agreedReviewDate / selfPlanReviewDate for pre-Phase-4 sessions.
+      const PHASE3_TERMINAL = ['reflection-ready', 'manager-lapsed'];
+      if (PHASE3_TERMINAL.includes(meta.status) && !meta.progressReflectionOpenedAt) {
+        const effectiveDue = meta.progressReflectionDueAt
+          || (meta.agreedReviewDate ? new Date(meta.agreedReviewDate + 'T00:00:00Z').getTime() : null)
+          || (meta.selfPlanReviewDate ? new Date(meta.selfPlanReviewDate + 'T00:00:00Z').getTime() : null);
+        if (effectiveDue && Date.now() >= effectiveDue) {
+          try {
+            const now = Date.now();
+            // Issue fresh candidate token (30-day TTL): original may have expired at 56+ days
+            const progressCandidatePayload = {
+              sessionId, role: 'candidate', email: meta.candidateEmail,
+              expires: now + PROGRESS_CANDIDATE_TOKEN_TTL_MS
+            };
+            const progressCandidateToken = generateToken(progressCandidatePayload);
+            await inviteStore.setJSON(progressCandidateToken, {
+              sessionId, role: 'candidate',
+              expiresAt: now + PROGRESS_CANDIDATE_TOKEN_TTL_MS, issuedAt: now
+            });
+
+            const candidateProgressLink = `${siteUrl}/professional-readiness-benchmark?token=${progressCandidateToken}`;
+
+            await sessionStore.setJSON(`${sessionId}/metadata`, {
+              ...meta,
+              status: 'progress-reflection-open',
+              progressReflectionOpenedAt: now,
+              progressCandidateInviteKey: progressCandidateToken
+            });
+
+            await sendEmail(
+              meta.candidateEmail,
+              `Your Progress Reflection is ready — how is your development going?`,
+              wrap(`
+                <p style="font-size:15px;color:#374151;line-height:1.7">It is time to reflect on your progress since your Professional Readiness Benchmark.</p>
+                <p style="font-size:15px;color:#374151;line-height:1.7">This is a short five-question check-in — it takes around five minutes and helps Michael produce a personalised Progress Review against your agreed development priorities.</p>
+                <div style="margin:24px 0;text-align:center">
+                  <a href="${candidateProgressLink}" style="display:inline-block;background:#3d5afe;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:700;font-size:14px">Begin your Progress Reflection →</a>
+                </div>
+                <p style="font-size:13px;color:#94a3b8;line-height:1.6">This link expires in 30 days. Contact info@getcharteredai.com if you have any questions.</p>
+              `),
+              `It is time to reflect on your progress since your Professional Readiness Benchmark.\n\nBegin your Progress Reflection here: ${candidateProgressLink}\n\nThis link expires in 30 days.`
+            );
+
+            console.log(`[p1-scheduled] Progress reflection opened for session ${sessionId}`);
+          } catch (e) { console.error(`[p1-scheduled] Progress trigger error for ${sessionId}:`, e.message); }
+        }
+      }
+
+      // ── Phase 4: Progress manager lapse (14 days after candidate submission) ──
+      if (meta.status === 'progress-manager-invited'
+          && !meta.progressManagerCompletedAt
+          && !meta.progressManagerLapsedAt
+          && daysSince(meta.progressManagerInvitedAt) >= LAPSE_THRESHOLD_DAYS) {
+        try {
+          const now = Date.now();
+          await sessionStore.setJSON(`${sessionId}/metadata`, {
+            ...meta,
+            status: 'progress-manager-lapsed',
+            progressManagerLapsedAt: now
+          });
+          await triggerProgressSynthesis(sessionId);
+          console.log(`[p1-scheduled] Progress manager lapse triggered for session ${sessionId}`);
+        } catch (e) { console.error(`[p1-scheduled] Progress lapse error for ${sessionId}:`, e.message); }
+      }
     }
   }
 

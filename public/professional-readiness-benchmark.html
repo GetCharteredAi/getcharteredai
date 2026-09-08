@@ -135,6 +135,20 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 .p1-sb-synthesising{background:#f0f9ff;color:#0369a1}
 .p1-sb-summary-ready{background:#ecfdf5;color:#059669}
 
+/* Phase 4 progress judgement badges */
+.p1-pj-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 9px;border-radius:20px;vertical-align:middle;margin-left:6px}
+.p1-pj-evident{background:#ecfdf5;color:#065f46}
+.p1-pj-some{background:#eff6ff;color:#1e40af}
+.p1-pj-limited{background:#fff7ed;color:#c2410c}
+.p1-pj-reconsider{background:#fff1f2;color:#be123c}
+/* Phase 4 employer status badge colours */
+.p1-sb-reflection-ready{background:#ecfdf5;color:#065f46}
+.p1-sb-progress-reflection-open{background:#eff6ff;color:#1e40af}
+.p1-sb-progress-manager-invited{background:#fff7ed;color:#c2410c}
+.p1-sb-progress-manager-lapsed{background:#fff1f2;color:#be123c}
+.p1-sb-progress-synthesising{background:#f0f9ff;color:#0369a1}
+.p1-sb-progress-ready{background:#ecfdf5;color:#059669}
+.p1-sb-progress-complete{background:#ecfdf5;color:#065f46}
 @media(max-width:900px){nav{padding:0 20px}.sec{padding:60px 20px}.hero{padding:72px 20px 60px}.areas-grid{grid-template-columns:repeat(3,1fr)}footer{padding:32px 20px 24px}}
 @media(max-width:600px){.areas-grid{grid-template-columns:1fr 1fr}}
 </style>
@@ -486,6 +500,118 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       </div>
     </div>
 
+    <!-- Phase 4: Candidate progress reflection questions -->
+    <div id="state-progress-reflection" style="display:none">
+      <div style="text-align:center;margin-bottom:28px">
+        <div class="arev-michael-icon">📈</div>
+        <div class="arev-heading">Progress Reflection</div>
+        <p class="arev-sub">Five short questions — takes around five minutes.</p>
+      </div>
+      <div id="progress-reflection-context" style="margin-bottom:20px"></div>
+      <div id="progress-reflection-form">
+        <div class="arev-form-group">
+          <label>Which agreed priority have you made the most progress on?</label>
+          <textarea class="arev-textarea" id="pr-p1" rows="3" placeholder=""></textarea>
+        </div>
+        <div class="arev-form-group">
+          <label>What have you done differently since the last review?</label>
+          <textarea class="arev-textarea" id="pr-p2" rows="3" placeholder=""></textarea>
+        </div>
+        <div class="arev-form-group">
+          <label>Give one recent example that shows that progress.</label>
+          <textarea class="arev-textarea" id="pr-p3" rows="3" placeholder=""></textarea>
+        </div>
+        <div class="arev-form-group">
+          <label>Which priority still feels hardest or least developed?</label>
+          <textarea class="arev-textarea" id="pr-p4" rows="3" placeholder=""></textarea>
+        </div>
+        <div class="arev-form-group">
+          <label>What support, experience or exposure would help you move forward?</label>
+          <textarea class="arev-textarea" id="pr-p5" rows="3" placeholder=""></textarea>
+        </div>
+        <p id="pr-err" class="arev-err" style="display:none">Please answer all five questions before submitting.</p>
+        <div class="arev-actions" style="margin-top:16px">
+          <button class="arev-btn-primary" onclick="submitProgressReflection()">Submit my reflection →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4: Candidate — awaiting manager (after reflection submitted) -->
+    <div id="state-progress-manager-invited" style="display:none">
+      <div style="text-align:center;padding:40px 0">
+        <div class="arev-michael-icon">✅</div>
+        <div class="arev-heading">Reflection submitted</div>
+        <p class="arev-sub" style="margin-bottom:8px">Your manager has been invited to contribute their perspective — this is optional and takes around five minutes.</p>
+        <p style="font-size:14px;color:#64748b;line-height:1.7">Once the manager window closes (or your manager responds), Michael will prepare your Progress Review. Check back in a few days.</p>
+      </div>
+    </div>
+
+    <!-- Phase 4: Progress review synthesising -->
+    <div id="state-progress-synthesising" style="display:none">
+      <div style="text-align:center;padding:40px 0">
+        <div class="arev-michael-icon">⏳</div>
+        <div class="arev-heading">Preparing your Progress Review</div>
+        <p class="arev-sub">Michael is reviewing your progress against your agreed priorities. This usually takes 30–60 seconds.</p>
+        <div class="arev-dots" style="margin-top:24px"><div class="arev-dot"></div><div class="arev-dot"></div><div class="arev-dot"></div></div>
+        <p style="font-size:13px;color:#94a3b8;margin-top:20px">Refresh this page to check if your Progress Review is ready.</p>
+      </div>
+    </div>
+
+    <!-- Phase 4: Progress review ready + priority confirmation -->
+    <div id="state-progress-ready" style="display:none">
+      <div id="progress-ready-content"></div>
+    </div>
+
+    <!-- Phase 4: Progress complete -->
+    <div id="state-progress-complete" style="display:none">
+      <div id="progress-complete-content"></div>
+    </div>
+
+    <!-- Phase 4: Manager progress reflection (manager-progress role) -->
+    <div id="state-progress-manager-reflection" style="display:none">
+      <div style="text-align:center;margin-bottom:28px">
+        <div class="arev-michael-icon">📝</div>
+        <div class="arev-heading">Progress Reflection — Manager Perspective</div>
+        <p class="arev-sub">Three short optional questions. Your input helps produce a more complete Progress Review.</p>
+      </div>
+      <div id="progress-manager-reflection-form">
+        <div class="arev-form-group">
+          <label>What progress have you noticed since the last review?</label>
+          <textarea class="arev-textarea" id="pmr-pm1" rows="3" placeholder=""></textarea>
+        </div>
+        <div class="arev-form-group">
+          <label>Where does the individual still need support, exposure or experience?</label>
+          <textarea class="arev-textarea" id="pmr-pm2" rows="3" placeholder=""></textarea>
+        </div>
+        <div class="arev-form-group">
+          <label>Should the current priorities continue, change or be replaced?</label>
+          <textarea class="arev-textarea" id="pmr-pm3" rows="3" placeholder=""></textarea>
+        </div>
+        <p id="pmr-err" class="arev-err" style="display:none">Could not submit. Please try again.</p>
+        <div class="arev-actions" style="margin-top:16px">
+          <button class="arev-btn-primary" onclick="submitProgressManagerReflection()">Submit my perspective →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4: Manager progress submitted thank you -->
+    <div id="state-progress-manager-complete" style="display:none">
+      <div style="text-align:center;padding:40px 0">
+        <div class="arev-heading">Thank you</div>
+        <p class="arev-sub" style="margin-bottom:8px">Your perspective has been submitted.</p>
+        <p style="font-size:14px;color:#64748b;line-height:1.7">Michael will combine this with the individual's reflection to produce their Progress Review. You don't need to do anything further.</p>
+      </div>
+    </div>
+
+    <!-- Phase 4: Phase 3 manager token visiting a Phase 4 session -->
+    <div id="state-manager-phase4" style="display:none">
+      <div style="text-align:center;padding:40px 0">
+        <div class="arev-heading">Development has progressed</div>
+        <p class="arev-sub" style="margin-bottom:8px">This individual's development has moved to the next stage.</p>
+        <p style="font-size:14px;color:#64748b;line-height:1.7">Their agreed priorities have been refreshed. You may have received a separate invitation if your perspective was invited for the Progress Reflection.</p>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -530,7 +656,7 @@ let pollInterval = null;
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
 function show(stateId) {
-  ['loading','error','privacy','context','reflection','priority-select','generating','report','employer-status','manager-privacy','manager-reflection','manager-complete','candidate-development','manager-development','synthesising-pending','agree-priorities','lapsed-self-plan']
+  ['loading','error','privacy','context','reflection','priority-select','generating','report','employer-status','manager-privacy','manager-reflection','manager-complete','candidate-development','manager-development','synthesising-pending','agree-priorities','lapsed-self-plan','progress-reflection','progress-manager-invited','progress-synthesising','progress-ready','progress-complete','progress-manager-reflection','progress-manager-complete','manager-phase4']
     .forEach(s => { const el = document.getElementById('state-' + s); if (el) el.style.display = 'none'; });
   const target = document.getElementById('state-' + stateId);
   if (target) target.style.display = '';
@@ -565,7 +691,14 @@ function statusBadge(status) {
   const labels = {
     invited: 'Invited', 'in-progress': 'In progress', 'candidate-complete': 'Candidate done',
     'awaiting-manager': 'Awaiting manager', 'manager-lapsed': 'Manager lapsed',
-    'manager-complete': 'Manager done', synthesising: 'Synthesising', 'summary-ready': 'Summary ready'
+    'manager-complete': 'Manager done', synthesising: 'Synthesising', 'summary-ready': 'Summary ready',
+    'reflection-ready': 'Priorities agreed',
+    'progress-reflection-open': 'Progress reflection open',
+    'progress-manager-invited': 'Awaiting manager (progress)',
+    'progress-manager-lapsed': 'Progress: manager lapsed',
+    'progress-synthesising': 'Progress review generating',
+    'progress-ready': 'Progress review ready',
+    'progress-complete': 'Progress complete'
   };
   const cls = 'p1-sb-' + status;
   return `<span class="p1-status-badge ${cls}">${labels[status] || status}</span>`;
@@ -610,7 +743,17 @@ async function init() {
       return;
     }
 
+    if (data.role === 'manager-progress') {
+      if (data.progressManagerSubmitted || data.status !== 'progress-manager-invited') {
+        show('progress-manager-complete');
+      } else {
+        show('progress-manager-reflection');
+      }
+      return;
+    }
+
     if (data.role === 'manager') {
+      if (data.phase4) { show('manager-phase4'); return; }
       if (data.status === 'awaiting-manager') {
         show('manager-privacy');
         return;
@@ -661,6 +804,19 @@ async function init() {
         } else if (data.status === 'manager-lapsed') {
           if (data.synthesis) { renderCandidateDevelopment(data); show('candidate-development'); }
           else { show('synthesising-pending'); }
+        } else if (data.status === 'progress-reflection-open') {
+          renderProgressReflectionContext(data);
+          show('progress-reflection');
+        } else if (data.status === 'progress-manager-invited') {
+          show('progress-manager-invited');
+        } else if (data.status === 'progress-manager-lapsed' || data.status === 'progress-synthesising') {
+          show('progress-synthesising');
+        } else if (data.status === 'progress-ready') {
+          if (data.progressReview) { renderProgressReview(data); show('progress-ready'); }
+          else { show('progress-synthesising'); }
+        } else if (data.status === 'progress-complete') {
+          renderProgressComplete(data);
+          show('progress-complete');
         } else {
           show('report'); // awaiting-manager, candidate-complete
         }
@@ -1108,6 +1264,25 @@ function goToManagerReflection() {
       <textarea id="mq-${q.id}" rows="3" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-family:inherit;font-size:13px;color:#374151;resize:vertical;line-height:1.6" placeholder="Your response (optional)"></textarea>
     </div>`;
   });
+
+  const FOCUS_AREAS = [
+    'Professional Behaviour & Responsibility',
+    'Communication & Working With Others',
+    'Learning & Applying Knowledge',
+    'Judgement, Help & Escalation',
+    'Feedback, Reflection & Development'
+  ];
+  formHtml += `<div id="manager-focus-wrap" style="margin-top:28px;padding-top:24px;border-top:1px solid #e2e8f0">
+    <p style="font-size:14px;font-weight:600;color:#0D0F1C;margin:0 0 4px">Which of these areas do you think would most benefit this individual&#39;s development? Select 1 to 3.</p>
+    <p id="manager-focus-err" style="font-size:13px;color:#dc2626;display:none;margin:4px 0 8px">Please select between 1 and 3 areas.</p>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+      ${FOCUS_AREAS.map(a => `<label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:#374151;padding:8px 12px;background:#f8fafc;border-radius:7px">
+        <input type="checkbox" name="managerFocus" value="${esc(a)}" style="width:16px;height:16px;flex-shrink:0">
+        ${esc(a)}
+      </label>`).join('')}
+    </div>
+  </div>`;
+
   formEl.innerHTML = formHtml;
 
   show('manager-reflection');
@@ -1115,6 +1290,17 @@ function goToManagerReflection() {
 
 async function submitManagerForm() {
   const btn = document.getElementById('manager-submit-btn');
+
+  const managerSelectedFocusAreas = Array.from(
+    document.querySelectorAll('input[name="managerFocus"]:checked')
+  ).map(el => el.value);
+  const focusErr = document.getElementById('manager-focus-err');
+  if (managerSelectedFocusAreas.length < 1 || managerSelectedFocusAreas.length > 3) {
+    if (focusErr) focusErr.style.display = '';
+    return;
+  }
+  if (focusErr) focusErr.style.display = 'none';
+
   btn.disabled = true;
   btn.textContent = 'Submitting…';
 
@@ -1125,7 +1311,7 @@ async function submitManagerForm() {
   });
 
   try {
-    const data = await apiPost('p1-manager-submit', { token: appToken, responses });
+    const data = await apiPost('p1-manager-submit', { token: appToken, responses, managerSelectedFocusAreas });
     if (data.success) {
       show('manager-complete');
     } else {
@@ -1427,6 +1613,248 @@ async function submitSelfPlan() {
         </div>`;
     } else {
       err.textContent = data.error || 'Could not save. Please try again.';
+      err.style.display = '';
+    }
+  } catch {
+    err.textContent = 'Could not connect. Please try again.';
+    err.style.display = '';
+  }
+}
+
+// ── Phase 4: Progress reflection context ──────────────────────────────────────
+
+function renderProgressReflectionContext(data) {
+  const el = document.getElementById('progress-reflection-context');
+  if (!data.priorAgreedPriorities?.length) { el.innerHTML = ''; return; }
+  let html = `<div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:12px;padding:16px 20px">
+    <span style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#065f46">Your agreed priorities</span>
+    ${data.priorAgreedPriorities.map((p, i) => `<div class="p1-list-item" style="margin-top:8px"><span style="color:#059669;font-weight:700">${i + 1}</span>&nbsp;${esc(p)}</div>`).join('')}
+    ${data.priorReviewDate ? `<p style="font-size:12px;color:#065f46;margin-top:10px;margin-bottom:0">Review date: <strong>${esc(data.priorReviewDate)}</strong></p>` : ''}
+  </div>`;
+  el.innerHTML = html;
+}
+
+async function submitProgressReflection() {
+  const ids = ['pr-p1', 'pr-p2', 'pr-p3', 'pr-p4', 'pr-p5'];
+  const keys = ['P1', 'P2', 'P3', 'P4', 'P5'];
+  const err = document.getElementById('pr-err');
+  const responses = {};
+  for (let i = 0; i < 5; i++) {
+    const val = document.getElementById(ids[i]).value.trim();
+    if (!val) { err.style.display = ''; return; }
+    responses[keys[i]] = val;
+  }
+  err.style.display = 'none';
+  try {
+    const data = await apiPost('p1-progress-candidate', { token: appToken, responses });
+    if (data.success) {
+      show('progress-manager-invited');
+    } else {
+      err.textContent = data.error || 'Could not submit. Please try again.';
+      err.style.display = '';
+    }
+  } catch {
+    err.textContent = 'Could not connect. Please try again.';
+    err.style.display = '';
+  }
+}
+
+// ── Phase 4: Progress review ───────────────────────────────────────────────────
+
+function renderProgressReview(data) {
+  const r = data.progressReview || {};
+  const el = document.getElementById('progress-ready-content');
+  const judgementClass = {
+    'Progress evident': 'p1-pj-evident',
+    'Some progress': 'p1-pj-some',
+    'Limited evidence of progress': 'p1-pj-limited',
+    'Priority should be reconsidered': 'p1-pj-reconsider'
+  };
+
+  function fw(name) { const t = (name || '').trim(); return t ? t.split(/\s+/)[0] : null; }
+  const candidateFirst = fw(data.candidateName);
+  const managerFirst = fw(data.managerName);
+  const heading = candidateFirst ? `${esc(candidateFirst)}’s Progress Review` : 'Your Progress Review';
+  const managerLabel = managerFirst ? `${esc(managerFirst)} observed:` : 'Your manager observed:';
+
+  let html = `<div style="text-align:center;margin-bottom:28px">
+    <div class="arev-michael-icon">&#128202;</div>
+    <div class="arev-heading">${heading}</div>
+    ${r.candidateOnly
+      ? `<p class="arev-sub" style="color:#94a3b8">Based on your reflection — manager perspective was not available</p>`
+      : `<p class="arev-sub">Michael has reviewed your progress against your agreed priorities.</p>`}
+  </div>`;
+
+  if (r.sinceBenchmark) {
+    html += `<div class="p1-report-section">
+      <div class="arev-panel">
+        <span class="arev-michael-label">Michael&#39;s overview</span>
+        <div class="arev-q-text" style="font-size:14px">${esc(r.sinceBenchmark)}</div>
+      </div>
+    </div>`;
+  }
+
+  if (r.progressAgainstPriorities?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Progress against your priorities</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:6px 24px">`;
+    r.progressAgainstPriorities.forEach(p => {
+      const cls = judgementClass[p.progressJudgement] || 'p1-pj-limited';
+      html += `<div class="p1-priority-item">
+        <div class="p1-priority-rank">${p.rank}</div>
+        <div class="p1-priority-body">
+          <div class="p1-priority-title">${esc(p.priority)}<span class="p1-pj-badge ${cls}">${esc(p.progressJudgement)}</span>${p.graduated ? `<span class="p1-pj-badge p1-pj-evident">Graduated</span>` : ''}</div>
+          ${p.evidenceOfChange ? `<div class="p1-priority-action">${esc(p.evidenceOfChange)}</div>` : ''}
+          ${p.managerPerspective ? `<div class="p1-priority-why">${managerLabel} ${esc(p.managerPerspective)}</div>` : ''}
+          ${p.nextStep ? `<div class="p1-priority-action" style="color:#3d5afe">Next: ${esc(p.nextStep)}</div>` : ''}
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (r.whatIsWorking?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">What is working</span>
+      <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:14px;padding:16px 24px">`;
+    r.whatIsWorking.forEach(t => {
+      html += `<div class="p1-list-item"><span style="color:#059669;font-weight:700">&#10003;</span>&nbsp;${esc(t)}</div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (r.whatStillNeedsAttention?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">What still needs attention</span>
+      <div style="background:#fff7ed;border:1px solid #fcd34d;border-radius:14px;padding:16px 24px">`;
+    r.whatStillNeedsAttention.forEach(t => {
+      html += `<div class="p1-list-item"><span style="color:#d97706;font-weight:700">&#8594;</span>&nbsp;${esc(t)}</div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (r.proposedPriorities?.length) {
+    const pp = r.proposedPriorities;
+    html += `<div class="p1-report-section">
+      <span class="p1-section-title">Proposed priorities</span>
+      <p style="font-size:13px;color:#64748b;line-height:1.6;margin-bottom:16px">Michael has proposed the following priorities. You can edit them before confirming.</p>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:6px 24px;margin-bottom:20px">`;
+    pp.forEach(p => {
+      html += `<div class="p1-priority-item">
+        <div class="p1-priority-rank">${p.rank}</div>
+        <div class="p1-priority-body">
+          <div class="p1-priority-title">${esc(p.priority)}</div>
+          ${p.why ? `<div class="p1-priority-why">${esc(p.why)}</div>` : ''}
+          ${p.graduatedFrom ? `<div class="p1-priority-why" style="color:#059669">Graduated from a previous priority</div>` : ''}
+        </div>
+      </div>`;
+    });
+    html += `</div>
+      <div id="confirm-progress-form">
+        <span class="p1-section-title" style="display:block;margin-bottom:16px">Confirm your priorities</span>
+        <div class="arev-form-group">
+          <label>Priority 1 (required)</label>
+          <input type="text" class="arev-textarea" id="cpp-p1" style="height:auto;padding:10px 14px" value="${esc(pp[0]?.priority || '')}" maxlength="200" />
+        </div>
+        <div class="arev-form-group">
+          <label>Priority 2 (required)</label>
+          <input type="text" class="arev-textarea" id="cpp-p2" style="height:auto;padding:10px 14px" value="${esc(pp[1]?.priority || '')}" maxlength="200" />
+        </div>
+        <div class="arev-form-group">
+          <label>Priority 3 (optional)</label>
+          <input type="text" class="arev-textarea" id="cpp-p3" style="height:auto;padding:10px 14px" value="${esc(pp[2]?.priority || '')}" maxlength="200" />
+        </div>
+        <div class="arev-form-group">
+          <label>Development review date</label>
+          <input type="date" class="arev-textarea" id="cpp-review-date" style="height:auto;padding:10px 14px" />
+        </div>
+        <p id="cpp-err" class="arev-err" style="display:none">Please enter at least two priorities and a review date.</p>
+        <div class="arev-actions" style="margin-top:16px">
+          <button class="arev-btn-primary" onclick="submitConfirmProgress()">Confirm my priorities &#8594;</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+async function submitConfirmProgress() {
+  const p1 = document.getElementById('cpp-p1').value.trim();
+  const p2 = document.getElementById('cpp-p2').value.trim();
+  const p3 = document.getElementById('cpp-p3').value.trim();
+  const reviewDate = document.getElementById('cpp-review-date').value;
+  const err = document.getElementById('cpp-err');
+  if (!p1 || !p2 || !reviewDate) { err.style.display = ''; return; }
+  err.style.display = 'none';
+  const confirmedPriorities = [p1, p2, p3].filter(Boolean);
+  try {
+    const res = await apiPost('p1-confirm-progress-priorities', { token: appToken, confirmedPriorities, reviewDate });
+    if (res.success) {
+      document.getElementById('progress-complete-content').innerHTML = `
+        <div style="text-align:center;margin-bottom:24px">
+          <div class="arev-michael-icon">&#10003;</div>
+          <div class="arev-heading">Progress Reflection complete</div>
+          <p class="arev-sub">Your refreshed priorities are saved.</p>
+        </div>
+        <div class="p1-report-section">
+          <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:12px;padding:18px 20px">
+            <span class="p1-section-title" style="color:#065f46">Your refreshed priorities</span>
+            ${confirmedPriorities.map((p, i) => `<div class="p1-list-item"><span style="color:#059669;font-weight:700">${i + 1}</span>&nbsp;${esc(p)}</div>`).join('')}
+            <p style="font-size:12px;color:#065f46;margin-top:10px">Development review date: <strong>${esc(reviewDate)}</strong></p>
+          </div>
+        </div>
+        <div class="arev-actions">
+          <button class="arev-btn-secondary" onclick="show('report')">View your full Benchmark report</button>
+        </div>`;
+      show('progress-complete');
+    } else {
+      err.textContent = res.error || 'Could not save. Please try again.';
+      err.style.display = '';
+    }
+  } catch {
+    err.textContent = 'Could not connect. Please try again.';
+    err.style.display = '';
+  }
+}
+
+// ── Phase 4: Progress complete (page load) ────────────────────────────────────
+
+function renderProgressComplete(data) {
+  const el = document.getElementById('progress-complete-content');
+  let html = `<div style="text-align:center;margin-bottom:24px">
+    <div class="arev-michael-icon">&#10003;</div>
+    <div class="arev-heading">Progress Reflection complete</div>
+    <p class="arev-sub">Your refreshed priorities are saved.</p>
+  </div>`;
+  if (data.agreedPriorities?.length) {
+    html += `<div class="p1-report-section">
+      <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:12px;padding:18px 20px">
+        <span class="p1-section-title" style="color:#065f46">Your refreshed priorities</span>
+        ${data.agreedPriorities.map((p, i) => `<div class="p1-list-item"><span style="color:#059669;font-weight:700">${i + 1}</span>&nbsp;${esc(p)}</div>`).join('')}
+        ${data.reviewDate ? `<p style="font-size:12px;color:#065f46;margin-top:10px">Development review date: <strong>${esc(data.reviewDate)}</strong></p>` : ''}
+      </div>
+    </div>`;
+  }
+  html += `<div class="arev-actions">
+    <button class="arev-btn-secondary" onclick="show('report')">View your full Benchmark report</button>
+  </div>`;
+  el.innerHTML = html;
+}
+
+// ── Phase 4: Manager progress reflection ──────────────────────────────────────
+
+async function submitProgressManagerReflection() {
+  const responses = {
+    PM1: document.getElementById('pmr-pm1').value.trim(),
+    PM2: document.getElementById('pmr-pm2').value.trim(),
+    PM3: document.getElementById('pmr-pm3').value.trim()
+  };
+  const err = document.getElementById('pmr-err');
+  err.style.display = 'none';
+  try {
+    const data = await apiPost('p1-progress-manager', { token: appToken, responses });
+    if (data.success) {
+      show('progress-manager-complete');
+    } else {
+      err.textContent = data.error || 'Could not submit. Please try again.';
       err.style.display = '';
     }
   } catch {

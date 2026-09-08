@@ -81,7 +81,7 @@ exports.handler = async (event) => {
     });
 
     // Trigger manager-safe generation (which also issues the new manager invite)
-    const siteUrl = process.env.URL || 'https://getcharteredai.com';
+    const siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
     const internalSecret = process.env.P1_INTERNAL_SECRET;
 
     if (internalSecret) {

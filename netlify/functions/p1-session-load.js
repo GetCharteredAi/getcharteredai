@@ -68,14 +68,19 @@ exports.handler = async (event) => {
         firmName: meta.firmName,
         discipline: meta.discipline,
         monthsInRole: meta.monthsInRole,
-        employmentStartDate: meta.employmentStartDate
+        employmentStartDate: meta.employmentStartDate,
+        candidateName: meta.candidateName || null,
+        managerName: meta.managerName || null
       };
 
-      // If candidate has a completed report, include it
+      const PHASE_4_STATUSES = ['progress-reflection-open', 'progress-manager-invited',
+        'progress-manager-lapsed', 'progress-synthesising', 'progress-ready', 'progress-complete'];
+
+      // Include Benchmark report for all post-completion statuses (Phase 3 and Phase 4)
       if (meta.status === 'candidate-complete' || meta.status === 'awaiting-manager' ||
           meta.status === 'manager-complete' || meta.status === 'synthesising' ||
           meta.status === 'summary-ready' || meta.status === 'manager-lapsed' ||
-          meta.status === 'reflection-ready') {
+          meta.status === 'reflection-ready' || PHASE_4_STATUSES.includes(meta.status)) {
         const privateData = await sessionStore.get(`${payload.sessionId}/candidate-private`, { type: 'json' });
         if (privateData?.report) {
           response.report = privateData.report;
@@ -89,6 +94,30 @@ exports.handler = async (event) => {
       }
 
       if (meta.status === 'reflection-ready' || meta.status === 'manager-lapsed') {
+        const apData = await sessionStore.get(`${payload.sessionId}/agreed-priorities`, { type: 'json' });
+        if (apData) {
+          response.agreedPriorities = apData.agreedPriorities;
+          response.reviewDate = apData.reviewDate;
+        }
+      }
+
+      // Phase 4: prior priorities shown as context during reflection form
+      if (meta.status === 'progress-reflection-open') {
+        const apData = await sessionStore.get(`${payload.sessionId}/agreed-priorities`, { type: 'json' });
+        if (apData) {
+          response.priorAgreedPriorities = apData.agreedPriorities;
+          response.priorReviewDate = apData.reviewDate;
+        }
+      }
+
+      // Phase 4: progress review (proposed priorities included — not canonical until confirmed)
+      if (meta.status === 'progress-ready') {
+        const prData = await sessionStore.get(`${payload.sessionId}/progress-review`, { type: 'json' });
+        if (prData?.review) response.progressReview = prData.review;
+      }
+
+      // Phase 4: confirmed canonical priorities after completion
+      if (meta.status === 'progress-complete') {
         const apData = await sessionStore.get(`${payload.sessionId}/agreed-priorities`, { type: 'json' });
         if (apData) {
           response.agreedPriorities = apData.agreedPriorities;
@@ -137,6 +166,15 @@ exports.handler = async (event) => {
         return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'This invitation link has been superseded. Please use your most recent invitation email.' }) };
       }
 
+      // Session has advanced to Phase 4 — Phase 3 manager link no longer active
+      const PHASE_4_STATUSES = ['progress-reflection-open', 'progress-manager-invited',
+        'progress-manager-lapsed', 'progress-synthesising', 'progress-ready', 'progress-complete'];
+      if (PHASE_4_STATUSES.includes(meta.status)) {
+        return { statusCode: 200, headers: HEADERS, body: JSON.stringify({
+          role: 'manager', status: meta.status, firmName: meta.firmName, phase4: true
+        }) };
+      }
+
       const response = {
         role: 'manager',
         sessionId: payload.sessionId,
@@ -147,7 +185,6 @@ exports.handler = async (event) => {
         candidateLabel: 'the individual'
       };
 
-      // Include synthesis and agreed priorities for development views
       if (meta.status === 'summary-ready' || meta.status === 'reflection-ready') {
         const synthData = await sessionStore.get(`${payload.sessionId}/synthesis`, { type: 'json' });
         if (synthData?.synthesis) response.synthesis = synthData.synthesis;
@@ -162,6 +199,27 @@ exports.handler = async (event) => {
       }
 
       return { statusCode: 200, headers: HEADERS, body: JSON.stringify(response) };
+    }
+
+    // Phase 4: manager-progress token (optional progress reflection)
+    if (payload.role === 'manager-progress') {
+      const sessionStore = getSessionStore();
+      const meta = await sessionStore.get(`${payload.sessionId}/metadata`, { type: 'json' });
+      if (!meta) return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'Session not found' }) };
+
+      if (meta.currentProgressManagerInviteKey !== token) {
+        return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'This invitation link has been superseded. Please use your most recent invitation email.' }) };
+      }
+
+      return { statusCode: 200, headers: HEADERS, body: JSON.stringify({
+        role: 'manager-progress',
+        sessionId: payload.sessionId,
+        status: meta.status,
+        firmName: meta.firmName,
+        discipline: meta.discipline,
+        monthsInRole: meta.monthsInRole,
+        progressManagerSubmitted: !!meta.progressManagerCompletedAt
+      }) };
     }
 
     return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Unsupported role for session load' }) };

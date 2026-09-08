@@ -11,8 +11,6 @@ const { getStore } = require('@netlify/blobs');
 const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
 const crypto = require('crypto');
 
-const REFLECTION_DAYS = 90;
-
 const HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
@@ -94,7 +92,7 @@ exports.handler = async (event) => {
     }
 
     const now = Date.now();
-    const progressReflectionDueAt = now + REFLECTION_DAYS * 24 * 60 * 60 * 1000;
+    const progressReflectionDueAt = new Date(reviewDate + 'T00:00:00Z').getTime();
 
     await sessionStore.setJSON(`${sessionId}/agreed-priorities`, {
       schemaVersion: 'benchmark-v1',

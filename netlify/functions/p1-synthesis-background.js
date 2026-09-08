@@ -201,7 +201,13 @@ M6. How do they respond to feedback?
 ${responses.M6 || '(no response provided)'}
 
 M7. What support, experience, exposure or additional responsibility would be most useful for their development next?
-${responses.M7 || '(no response provided)'}`;
+${responses.M7 || '(no response provided)'}
+
+## Manager's selected development-focus areas
+The manager identified the following as the areas they believe would most benefit this individual's development. This is a separate signal from the individual's own selected priority. Do not treat overlap as confirmation of agreement, and do not treat non-overlap as divergence. Do not describe it as agreed priorities.
+${managerResponsesData.managerSelectedFocusAreas?.length
+  ? managerResponsesData.managerSelectedFocusAreas.map(a => `- ${a}`).join('\n')
+  : '(not provided)'}`;
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',

@@ -1,18 +1,16 @@
-// netlify/functions/p1-agree-priorities.js
-// POST { token, agreedPriorities: string[], reviewDate: 'YYYY-MM-DD' }
-// Manager token only (normal route). Requires status === 'summary-ready'.
-// Rejects if agreed priorities already recorded (no-overwrite).
-// Accepts exactly 2–3 non-empty priorities; >3 rejected before sanitisation.
+// netlify/functions/p1-confirm-progress-priorities.js
+// POST { token, confirmedPriorities: string[], reviewDate: 'YYYY-MM-DD' }
+// Candidate token only. Requires status === 'progress-ready'.
+// Candidate confirms or adjusts Michael's proposed priorities.
+// Overwrites {sessionId}/agreed-priorities with new canonical active plan.
+// priorities-history already holds the prior plan (written at reflection submission).
+// Status → progress-complete. V1 terminal state.
 
 const { getStore } = require('@netlify/blobs');
-const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
 const crypto = require('crypto');
+const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
 
-const HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Content-Type': 'application/json'
-};
+const HEADERS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type', 'Content-Type': 'application/json' };
 
 function verifyToken(token) {
   const jwtSecret = process.env.JWT_SECRET;
@@ -45,27 +43,24 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Invalid request' }) }; }
 
-  const { token, agreedPriorities, reviewDate } = body;
+  const { token, confirmedPriorities, reviewDate } = body;
   if (!token) return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Missing token' }) };
 
   const payload = verifyToken(token);
-  if (!payload || payload.role !== 'manager') {
+  if (!payload || payload.role !== 'candidate') {
     return { statusCode: 401, headers: HEADERS, body: JSON.stringify({ error: 'Unauthorized' }) };
   }
 
-  if (!Array.isArray(agreedPriorities)) {
-    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'agreedPriorities must be an array' }) };
-  }
-  if (agreedPriorities.length > 3) {
-    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'A maximum of 3 agreed priorities may be submitted' }) };
+  if (!Array.isArray(confirmedPriorities) || confirmedPriorities.length > 3) {
+    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'confirmedPriorities must be an array of up to 3 items' }) };
   }
 
-  const sanitised = agreedPriorities
+  const sanitised = confirmedPriorities
     .map(p => (typeof p === 'string' ? p.trim() : ''))
     .filter(Boolean);
 
   if (sanitised.length < 2) {
-    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Between 2 and 3 agreed priorities are required' }) };
+    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Between 2 and 3 priorities are required' }) };
   }
 
   if (!reviewDate || !/^\d{4}-\d{2}-\d{2}$/.test(reviewDate)) {
@@ -79,13 +74,8 @@ exports.handler = async (event) => {
     const meta = await sessionStore.get(`${sessionId}/metadata`, { type: 'json' });
     if (!meta) return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'Session not found' }) };
 
-    if (meta.status !== 'summary-ready') {
-      return { statusCode: 409, headers: HEADERS, body: JSON.stringify({ error: 'Session is not in the right state to record agreed priorities.' }) };
-    }
-
-    const existing = await sessionStore.get(`${sessionId}/agreed-priorities`, { type: 'json' });
-    if (existing) {
-      return { statusCode: 409, headers: HEADERS, body: JSON.stringify({ error: 'Agreed priorities have already been recorded for this session.' }) };
+    if (meta.status !== 'progress-ready') {
+      return { statusCode: 409, headers: HEADERS, body: JSON.stringify({ error: 'Session is not ready for priority confirmation.' }) };
     }
 
     const now = Date.now();
@@ -94,23 +84,22 @@ exports.handler = async (event) => {
       schemaVersion: 'benchmark-v1',
       agreedPriorities: sanitised,
       reviewDate,
-      agreedBy: 'manager-candidate',
+      agreedBy: 'candidate',
       recordedAt: now
     });
 
     await sessionStore.setJSON(`${sessionId}/metadata`, {
       ...meta,
-      status: 'reflection-ready',
-      agreedPrioritiesSetAt: now,
-      agreedReviewDate: reviewDate,
-      progressReflectionDueAt: new Date(reviewDate + 'T00:00:00Z').getTime()
+      status: 'progress-complete',
+      progressRefreshedAt: now,
+      progressReviewDate: reviewDate
     });
 
-    console.log(`[p1-agree-priorities] Priorities recorded for session ${sessionId}`);
+    console.log(`[p1-confirm-progress-priorities] Priorities confirmed for session ${sessionId}`);
     return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ success: true }) };
 
   } catch (err) {
-    console.error('[p1-agree-priorities] Error:', err.message);
-    return { statusCode: 500, headers: HEADERS, body: JSON.stringify({ error: 'Could not save agreed priorities' }) };
+    console.error('[p1-confirm-progress-priorities] Error:', err.message);
+    return { statusCode: 500, headers: HEADERS, body: JSON.stringify({ error: 'Could not confirm priorities' }) };
   }
 };

@@ -176,7 +176,7 @@ exports.handler = async (event) => {
   const sessionStore = getSessionStore();
   const cohortStore  = getCohortStore();
   const inviteStore  = getInviteStore();
-  const siteUrl      = process.env.URL || 'https://getcharteredai.com';
+  const siteUrl      = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
 
   const sessionIds = [];
 
@@ -193,6 +193,8 @@ exports.handler = async (event) => {
       candidateEmail: row.candidateemail,
       managerEmail: row.manageremail,
       employerEmail: row.employeremail,
+      candidateName: row.candidatename?.trim() || null,
+      managerName: row.managername?.trim() || null,
       employmentType: row.employmenttype,
       discipline: row.discipline,
       employmentStartDate: row.employmentstartdate,

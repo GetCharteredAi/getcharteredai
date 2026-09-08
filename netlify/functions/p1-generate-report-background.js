@@ -423,7 +423,7 @@ exports.handler = async (event) => {
       currentManagerInviteKey: managerToken
     });
 
-    const siteUrl = process.env.URL || 'https://getcharteredai.com';
+    const siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
     const managerLink = `${siteUrl}/professional-readiness-benchmark?token=${managerToken}`;
     await sendEmail(
       meta.managerEmail,

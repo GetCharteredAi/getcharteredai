@@ -63,7 +63,16 @@ const GOVERNING_RULES = `## Governing calibration rules
 7. "Proactive" must be interpreted relative to stage, authority and opportunity.
 8. Months in role calibrates expectation; it does not replace professional judgement.`;
 
-function buildReportSystem(discipline, monthsInRole) {
+function buildReportSystem(discipline, monthsInRole, recognitionResults) {
+  const rr = recognitionResults || {};
+  const exposureLines = [
+    [1, 'Professional Behaviour & Responsibility'],
+    [2, 'Communication & Working With Others'],
+    [3, 'Learning & Applying Knowledge'],
+    [4, 'Judgement, Help & Escalation'],
+    [5, 'Feedback, Reflection & Development']
+  ].map(([id, name]) => `Area ${id} – ${name}: ${rr[id] || 'not-assessed'}`).join('\n');
+
   return `You are Michael, generating a Professional Readiness Report for the GCAi Professional Readiness Benchmark.
 
 ## Purpose
@@ -85,6 +94,19 @@ ${STAGE_RUBRICS}
 
 ${GOVERNING_RULES}
 
+## Candidate exposure confirmation
+The following table records the outcome of recognition-prompt interactions during the candidate's reflection. It is authoritative — do not contradict it.
+
+${exposureLines}
+
+confirmed-lack-of-exposure — candidate explicitly stated the relevant opportunity has not occurred in their role
+relevant-exposure-identified — candidate confirmed relevant experience or opportunity exists; assess capability from the evidence provided
+not-assessed — no recognition interaction occurred for this area; make no exposure inference
+
+Hard rule: NOT YET ENOUGH EXPOSURE may only be assigned where exposureConfirmation is confirmed-lack-of-exposure. For relevant-exposure-identified or not-assessed, any of ON TRACK, DEVELOPING, or SUPPORT WOULD HELP is valid — only NOT YET ENOUGH EXPOSURE is prohibited.
+
+Set exposureConfirmation on every area object to its value from the table above. Do not alter these values.
+
 ## Five assessment areas
 1. Professional Behaviour & Responsibility (Q1–Q4)
 2. Communication & Working With Others (Q5–Q8)
@@ -98,10 +120,10 @@ Interpret patterns holistically across each area. Do NOT calculate readiness by 
 ON TRACK — evidence indicates appropriate progress for this stage
 DEVELOPING — capability is emerging; further practice, experience or development is needed
 SUPPORT WOULD HELP — a meaningful gap requires action; proactive support recommended
-NOT YET ENOUGH EXPOSURE — the candidate has not had sufficient opportunity; capability cannot be assessed
+NOT YET ENOUGH EXPOSURE — the candidate has not had sufficient opportunity; capability cannot be assessed. Only valid where exposureConfirmation is confirmed-lack-of-exposure.
 
 Every outcome must be supported by specific evidence from the candidate's actual responses.
-NOT YET ENOUGH EXPOSURE is not a default fallback — it requires a positive finding that opportunity was genuinely absent.
+NOT YET ENOUGH EXPOSURE requires confirmed-lack-of-exposure. It must never be used for relevant-exposure-identified or not-assessed areas.
 
 ## Sensitive disclosure
 If any response suggests a safeguarding concern, serious workplace harm, or personal crisis, set sensitiveDisclosureFlag to true. Do not elaborate in the report body.
@@ -117,7 +139,8 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
       "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE",
       "evidence": "<what the candidate demonstrated, with specific reference to their responses>",
       "developmentNeed": "<what is missing or needs further work>",
-      "conclusion": "<one sentence reason for this outcome>"
+      "conclusion": "<one sentence reason for this outcome>",
+      "exposureConfirmation": "<echo the value for area 1 from the Candidate exposure confirmation table>"
     },
     {
       "id": 2,
@@ -125,7 +148,8 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
       "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE",
       "evidence": "<string>",
       "developmentNeed": "<string>",
-      "conclusion": "<string>"
+      "conclusion": "<string>",
+      "exposureConfirmation": "<echo the value for area 2 from the Candidate exposure confirmation table>"
     },
     {
       "id": 3,
@@ -133,7 +157,8 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
       "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE",
       "evidence": "<string>",
       "developmentNeed": "<string>",
-      "conclusion": "<string>"
+      "conclusion": "<string>",
+      "exposureConfirmation": "<echo the value for area 3 from the Candidate exposure confirmation table>"
     },
     {
       "id": 4,
@@ -141,7 +166,8 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
       "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE",
       "evidence": "<string>",
       "developmentNeed": "<string>",
-      "conclusion": "<string>"
+      "conclusion": "<string>",
+      "exposureConfirmation": "<echo the value for area 4 from the Candidate exposure confirmation table>"
     },
     {
       "id": 5,
@@ -149,7 +175,8 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
       "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE",
       "evidence": "<string>",
       "developmentNeed": "<string>",
-      "conclusion": "<string>"
+      "conclusion": "<string>",
+      "exposureConfirmation": "<echo the value for area 5 from the Candidate exposure confirmation table>"
     }
   ],
   "demonstratedStrengths": ["<string>", "<string>"],
@@ -341,15 +368,45 @@ exports.handler = async (event) => {
 
     const discipline   = contextAnswers?.discipline || meta.discipline || 'Not specified';
     const monthsInRole = contextAnswers?.monthsInRole ?? meta.monthsInRole ?? 0;
+    const recognitionResults = contextAnswers?.recognitionResults ||
+      { 1: 'not-assessed', 2: 'not-assessed', 3: 'not-assessed', 4: 'not-assessed', 5: 'not-assessed' };
 
     // ── Step 1: Generate candidate report ────────────────────────────────────
     let report;
     try {
-      report = await callAnthropic(apiKey, buildReportSystem(discipline, monthsInRole), messages, 4000);
+      report = await callAnthropic(apiKey, buildReportSystem(discipline, monthsInRole, recognitionResults), messages, 4000);
     } catch (e) {
       console.error('[p1-report-bg] Report generation failed:', e.message);
       await sessionStore.setJSON(jobKey, { status: 'failed', runToken, error: 'ai_error', failedAt: Date.now() });
       return;
+    }
+
+    // Validate exposure outcomes — repair any invalid NOT YET ENOUGH EXPOSURE before storing
+    const EXPOSURE_AREA_NAMES = {
+      1: 'Professional Behaviour & Responsibility',
+      2: 'Communication & Working With Others',
+      3: 'Learning & Applying Knowledge',
+      4: 'Judgement, Help & Escalation',
+      5: 'Feedback, Reflection & Development'
+    };
+    for (let i = 0; i < (report.areas || []).length; i++) {
+      const area = report.areas[i];
+      if (area.outcome === 'NOT YET ENOUGH EXPOSURE' && recognitionResults[area.id] !== 'confirmed-lack-of-exposure') {
+        console.warn(`[p1-report-bg] Invalid NOT YET ENOUGH EXPOSURE for area ${area.id} (${area.name}) — exposure: ${recognitionResults[area.id]}. Running repair.`);
+        try {
+          const repairMessages = [
+            ...messages,
+            { role: 'user', content: `The outcome assigned for area ${area.id} (${EXPOSURE_AREA_NAMES[area.id]}) is NOT YET ENOUGH EXPOSURE, but the exposure confirmation for this area is "${recognitionResults[area.id]}", not "confirmed-lack-of-exposure". NOT YET ENOUGH EXPOSURE is not permitted here.\n\nRegenerate this area's outcome and ALL its narrative fields (evidence, developmentNeed, conclusion) using only DEVELOPING or SUPPORT WOULD HELP as appropriate, based on the candidate's actual responses. Return ONLY valid JSON for this single area with no other text:\n{"id":${area.id},"name":"${EXPOSURE_AREA_NAMES[area.id]}","outcome":"DEVELOPING or SUPPORT WOULD HELP","evidence":"...","developmentNeed":"...","conclusion":"...","exposureConfirmation":"${recognitionResults[area.id] || 'not-assessed'}"}` }
+          ];
+          const repairedArea = await callAnthropic(apiKey, buildReportSystem(discipline, monthsInRole, recognitionResults), repairMessages, 600);
+          report.areas[i] = repairedArea;
+          console.log(`[p1-report-bg] Area ${area.id} repaired — new outcome: ${repairedArea.outcome}`);
+        } catch (repairErr) {
+          console.error(`[p1-report-bg] Repair failed for area ${area.id}:`, repairErr.message);
+          await sessionStore.setJSON(jobKey, { status: 'failed', runToken, error: 'exposure_repair_failed', failedAt: Date.now() });
+          return;
+        }
+      }
     }
 
     // Write candidate-private

@@ -647,7 +647,12 @@ let appToken = null;
 let sessionData = null;
 let messages = [];
 let currentQ = 0;
-let contextAnswers = { discipline: '', monthsInRole: 0, typicalWork: '' };
+let contextAnswers = {
+  discipline: '',
+  monthsInRole: 0,
+  typicalWork: '',
+  recognitionResults: { 1: 'not-assessed', 2: 'not-assessed', 3: 'not-assessed', 4: 'not-assessed', 5: 'not-assessed' }
+};
 let inLearningMoment = false;
 let lmPhase = null; // 'check' | 'recognition'
 let runToken = null;
@@ -1002,6 +1007,7 @@ function renderLearningMoment(lm) {
 }
 
 function recognitionYes() {
+  contextAnswers.recognitionResults[QUESTIONS[currentQ].area] = 'relevant-exposure-identified';
   messages.push({ role: 'user', content: 'Yes, thinking about it more carefully, I do have relevant experience.' });
   messages.push({ role: 'assistant', content: 'Thank you — that context is helpful.' });
   document.getElementById('reflection-response-area').style.display = '';
@@ -1014,6 +1020,10 @@ function recognitionYes() {
 }
 
 function recognitionNo() {
+  const areaId = QUESTIONS[currentQ].area;
+  if (contextAnswers.recognitionResults[areaId] !== 'relevant-exposure-identified') {
+    contextAnswers.recognitionResults[areaId] = 'confirmed-lack-of-exposure';
+  }
   messages.push({ role: 'user', content: 'No — I genuinely have not had that opportunity in my role yet.' });
   messages.push({ role: 'assistant', content: 'Understood. That is useful context.' });
   advanceQuestion();

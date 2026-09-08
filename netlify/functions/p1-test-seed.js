@@ -283,7 +283,7 @@ async function triggerPhase4(sessionStore, inviteStore, sessionId) {
     progressCandidateInviteKey: progressCandidateToken
   });
 
-  const siteUrl = process.env.URL || 'https://getcharteredai.com';
+  const siteUrl = 'https://feature-p1-phase4-progress-reflection--getcharteredai.netlify.app'; // TEST SCAFFOLD — hardcoded branch URL
   return {
     sessionId,
     candidateProgressToken: progressCandidateToken,
@@ -307,7 +307,7 @@ async function forceManagerLapse(sessionStore, sessionId) {
   });
 
   const internalSecret = process.env.P1_INTERNAL_SECRET;
-  const siteUrl = process.env.URL || 'https://getcharteredai.com';
+  const siteUrl = 'https://feature-p1-phase4-progress-reflection--getcharteredai.netlify.app'; // TEST SCAFFOLD — hardcoded branch URL
   const runToken = crypto.randomUUID();
 
   if (internalSecret) {
@@ -375,7 +375,7 @@ async function seedGraduationPath(sessionStore, sessionId) {
   });
 
   const internalSecret = process.env.P1_INTERNAL_SECRET;
-  const siteUrl = process.env.URL || 'https://getcharteredai.com';
+  const siteUrl = 'https://feature-p1-phase4-progress-reflection--getcharteredai.netlify.app'; // TEST SCAFFOLD — hardcoded branch URL
   if (internalSecret) {
     fetch(`${siteUrl}/.netlify/functions/p1-progress-synthesis-background`, {
       method: 'POST',
@@ -405,7 +405,10 @@ async function retrigerSynthesis(sessionStore, sessionId) {
   }
 
   const internalSecret = process.env.P1_INTERNAL_SECRET;
-  const siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
+  // P1_SITE_URL and DEPLOY_URL are not reliably injected at function runtime on branch deploys.
+  // Hardcode the branch deploy URL here — this action is test scaffolding and is deleted before merge.
+  const BRANCH_DEPLOY_URL = 'https://feature-p1-phase4-progress-reflection--getcharteredai.netlify.app';
+  const siteUrl = BRANCH_DEPLOY_URL;
   const runToken = crypto.randomUUID();
 
   if (internalSecret) {

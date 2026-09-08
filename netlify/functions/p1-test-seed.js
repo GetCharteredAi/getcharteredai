@@ -395,6 +395,32 @@ async function seedGraduationPath(sessionStore, sessionId) {
   };
 }
 
+async function retrigerSynthesis(sessionStore, sessionId) {
+  const meta = await sessionStore.get(`${sessionId}/metadata`, { type: 'json' });
+  if (!meta) throw new Error('Session not found');
+
+  const VALID = ['progress-synthesising', 'progress-manager-lapsed'];
+  if (!VALID.includes(meta.status)) {
+    throw new Error(`Status is '${meta.status}'; expected progress-synthesising or progress-manager-lapsed`);
+  }
+
+  const internalSecret = process.env.P1_INTERNAL_SECRET;
+  const siteUrl = process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
+  const runToken = crypto.randomUUID();
+
+  if (internalSecret) {
+    fetch(`${siteUrl}/.netlify/functions/p1-progress-synthesis-background`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId, internalSecret, runToken })
+    }).catch(e => console.error('[p1-test-seed] Retrigger synthesis error:', e.message));
+  } else {
+    throw new Error('P1_INTERNAL_SECRET not set — cannot retrigger synthesis');
+  }
+
+  return { sessionId, retriggered: true, jobKey: `${sessionId}/jobs/progress-synthesis`, runToken };
+}
+
 async function resetForSecondCycle(sessionStore, sessionId) {
   const meta = await sessionStore.get(`${sessionId}/metadata`, { type: 'json' });
   if (!meta) throw new Error('Session not found');
@@ -559,6 +585,10 @@ exports.handler = async (event) => {
     if (action === 'force-manager-lapse') {
       if (!sessionId) return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'sessionId required' }) };
       return { statusCode: 200, headers: HEADERS, body: JSON.stringify(await forceManagerLapse(sessionStore, sessionId)) };
+    }
+    if (action === 'retrigger-synthesis') {
+      if (!sessionId) return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'sessionId required' }) };
+      return { statusCode: 200, headers: HEADERS, body: JSON.stringify(await retrigerSynthesis(sessionStore, sessionId)) };
     }
     if (action === 'seed-graduation-path') {
       if (!sessionId) return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'sessionId required' }) };

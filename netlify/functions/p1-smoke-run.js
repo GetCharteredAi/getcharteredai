@@ -6,7 +6,7 @@
 // Analytics is fired directly at DEPLOY_PRIME_URL to bypass snapshot-load's siteUrl
 // (which resolves to the production domain even on branch deploys).
 //
-// POST {} → { passed, failed, total, cleanedUp, cohortId, results }
+// POST {} -> { passed, failed, total, cleanedUp, cohortId, results }
 
 'use strict';
 
@@ -29,7 +29,7 @@ const FIVE_AREAS = [
 const EMPLOYER_EMAIL = 'smoke-employer@example.com';
 const STALE_MS = 60 * 60 * 1000;
 
-// ── Fixture builders ──────────────────────────────────────────────────────────
+// -- Fixture builders ---------------------------------------------------------
 
 function makeGroupACohortSafe(i) {
   const OUTCOMES  = ['ON TRACK', 'DEVELOPING', 'SUPPORT WOULD HELP', 'ON TRACK', 'DEVELOPING'];
@@ -93,7 +93,7 @@ function makeGroupBCohortSafe() {
       candidateSelectedPriority: FIVE_AREAS[0],
       developmentPriorities: [{ area: FIVE_AREAS[0], gapType: 'practice' }]
     }
-    // No phase3 or phase4 — awaiting manager
+    // No phase3 or phase4 -- awaiting manager
   };
 }
 
@@ -113,7 +113,7 @@ function makeGroupBMetadata(sessionId, cohortId) {
   };
 }
 
-// ── Handler ───────────────────────────────────────────────────────────────────
+// -- Handler ------------------------------------------------------------------
 
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers: HEADERS, body: '' };
@@ -139,9 +139,8 @@ exports.handler = async (event) => {
       body: JSON.stringify({ error: 'Missing P1_INTERNAL_SECRET or JWT_SECRET in branch-deploy env' }) };
   }
 
-  // Derive the branch URL from the incoming request host — this is the exact URL the caller
-  // used, so function-to-function calls on the same deploy will stay on the branch.
-  // Env var fallbacks kept for local testing; DEPLOY_PRIME_URL not reliably set by Netlify.
+  // Derive branch URL from the incoming request host header — the exact URL the caller used,
+  // so function-to-function calls on the same deploy stay on the branch.
   const requestHost = event.headers['host'] || event.headers['Host'] || '';
   const BRANCH_URL  = requestHost
     ? `https://${requestHost}`
@@ -167,6 +166,10 @@ exports.handler = async (event) => {
     cohortId, role: 'employer', email: EMPLOYER_EMAIL, expires: Date.now() + 3600000
   });
 
+  // Pre-sign tokens that don't depend on the snapshot
+  const candidateToken = signJwt({ role: 'candidate', email: EMPLOYER_EMAIL, expires: Date.now() + 3600000 });
+  const badToken = signJwt({ cohortId: 'nonexistent-xyz', role: 'employer', email: EMPLOYER_EMAIL, expires: Date.now() + 3600000 });
+
   // HTTP POST to branch functions
   async function post(path, body) {
     const res = await fetch(`${BRANCH_URL}${path}`, {
@@ -179,19 +182,18 @@ exports.handler = async (event) => {
     return { status: res.status, json };
   }
 
-  // Fire analytics directly at branch URL — snapshot-load's siteUrl resolves to production
-  // so we bypass its internal fire and call the background function explicitly here.
-  function fireAnalyticsDirect(cohortId) {
+  // Fire analytics directly at branch URL (snapshot-load's siteUrl resolves to production).
+  function fireAnalyticsDirect(id) {
     const runToken = crypto.randomUUID();
     fetch(`${BRANCH_URL}/.netlify/functions/p1-cohort-analytics-background`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cohortId, internalSecret: INTERNAL_SECRET, runToken })
+      body: JSON.stringify({ cohortId: id, internalSecret: INTERNAL_SECRET, runToken })
     }).catch(() => {});
   }
 
-  // Poll via snapshot-load API — exercises the same path the dashboard uses, no direct blob access.
-  async function waitForSnapshot(testFn, maxMs = 18000) {
+  // Poll via snapshot-load API — no direct blob access; exercises the same path the dashboard uses.
+  async function waitForSnapshot(testFn, maxMs = 10000) {
     const deadline = Date.now() + maxMs;
     while (Date.now() < deadline) {
       const r = await post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken });
@@ -211,64 +213,82 @@ exports.handler = async (event) => {
 
   try {
 
-    // ── 1. Auth boundaries (parallel) ────────────────────────────────────────
+    // -- 1. Seed + auth boundary checks in parallel ----------------------------
+    // Auth checks are seed-independent; running them concurrently saves ~2 RTTs.
 
-    const [r_missing, r_bad, r_secret] = await Promise.all([
+    const [seedResult, r_missing, r_bad, r_secret] = await Promise.all([
+      post('/.netlify/functions/p1-smoke-seed', {
+        action: 'seed', internalSecret: INTERNAL_SECRET, cohortId,
+        firmName: 'Smoke Test Firm', employerEmail: EMPLOYER_EMAIL,
+        sessions: [
+          ...groupASessions.map((id, i) => ({
+            sessionId: id,
+            metadata: makeGroupAMetadata(id, cohortId, i),
+            cohortSafe: makeGroupACohortSafe(i)
+          })),
+          { sessionId: groupBSession, metadata: makeGroupBMetadata(groupBSession, cohortId), cohortSafe: makeGroupBCohortSafe() }
+        ]
+      }),
       post('/.netlify/functions/p1-cohort-snapshot-load', {}),
       post('/.netlify/functions/p1-cohort-snapshot-load', { token: 'bad.token.xyz' }),
       post('/.netlify/functions/p1-cohort-snapshot-trigger', { sessionId: 'test', internalSecret: 'wrongsecret' })
     ]);
-    check('snapshot-load: missing token → 400', r_missing.status === 400, `got ${r_missing.status}`);
-    check('snapshot-load: invalid token → 401', r_bad.status === 401, `got ${r_bad.status}`);
-    check('snapshot-trigger: wrong internal secret → 403', r_secret.status === 403, `got ${r_secret.status}`);
 
-    // ── 2. Seed ───────────────────────────────────────────────────────────────
+    check('seed: 6 sessions via p1-smoke-seed -> 200', seedResult.status === 200, `got ${seedResult.status}`);
+    if (seedResult.status !== 200) throw new Error('Seed failed -- cannot proceed');
+    check('snapshot-load: missing token -> 400', r_missing.status === 400, `got ${r_missing.status}`);
+    check('snapshot-load: invalid token -> 401', r_bad.status === 401, `got ${r_bad.status}`);
+    check('snapshot-trigger: wrong internal secret -> 403', r_secret.status === 403, `got ${r_secret.status}`);
 
-    const seedResult = await post('/.netlify/functions/p1-smoke-seed', {
-      action: 'seed',
-      internalSecret: INTERNAL_SECRET,
-      cohortId,
-      firmName: 'Smoke Test Firm',
-      employerEmail: EMPLOYER_EMAIL,
-      sessions: [
-        ...groupASessions.map((id, i) => ({
-          sessionId: id,
-          metadata: makeGroupAMetadata(id, cohortId, i),
-          cohortSafe: makeGroupACohortSafe(i)
-        })),
-        {
-          sessionId: groupBSession,
-          metadata: makeGroupBMetadata(groupBSession, cohortId),
-          cohortSafe: makeGroupBCohortSafe()
-        }
-      ]
-    });
-    check('seed: 6 sessions via p1-smoke-seed → 200', seedResult.status === 200, `got ${seedResult.status}`);
-    if (seedResult.status !== 200) throw new Error('Seed failed — cannot proceed');
+    // Fire analytics immediately after seed so it runs during steps 2+3 below.
+    fireAnalyticsDirect(cohortId);
 
-    // ── 3. snapshot-load: verify API response (cohort found, no snapshot yet) ──
+    // -- 2. Non-snapshot checks in parallel while analytics runs ---------------
+    // First snapshot-load call, auth edge cases, and debounce reset are all independent.
 
-    const r_load1 = await post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken });
-    check('snapshot-load: valid employer token → 200', r_load1.status === 200, `got ${r_load1.status}`);
+    const [r_load1, r_role, r_404, resetResult] = await Promise.all([
+      post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken }),
+      post('/.netlify/functions/p1-cohort-snapshot-load', { token: candidateToken }),
+      post('/.netlify/functions/p1-cohort-snapshot-load', { token: badToken }),
+      post('/.netlify/functions/p1-smoke-seed', { action: 'reset_debounce', internalSecret: INTERNAL_SECRET, cohortId })
+    ]);
+
+    check('snapshot-load: valid employer token -> 200', r_load1.status === 200, `got ${r_load1.status}`);
     check('snapshot-load: computing = true (no snapshot yet)', r_load1.json?.computing === true, `computing=${r_load1.json?.computing}`);
     check('snapshot-load: snapshot field is null', r_load1.json?.snapshot === null, `snapshot=${r_load1.json?.snapshot}`);
+    check('candidate-role token -> 401', r_role.status === 401, `got ${r_role.status}`);
+    check('nonexistent cohortId -> 404', r_404.status === 404, `got ${r_404.status}`);
 
-    // ── 4. Analytics — fire directly at branch, poll blob store ──────────────
+    // -- 3. Debounce triggers (sequential, analytics still running in background) --
 
-    fireAnalyticsDirect(cohortId);
+    if (resetResult.status === 200) {
+      const r_t1 = await post('/.netlify/functions/p1-cohort-snapshot-trigger',
+        { sessionId: groupASessions[0], internalSecret: INTERNAL_SECRET });
+      check('trigger: first call -> 202', r_t1.status === 202, `got ${r_t1.status}`);
+      check('trigger: triggered = true', r_t1.json?.triggered === true, `body=${JSON.stringify(r_t1.json)}`);
+
+      const r_t2 = await post('/.netlify/functions/p1-cohort-snapshot-trigger',
+        { sessionId: groupASessions[0], internalSecret: INTERNAL_SECRET });
+      check('trigger: second call debounced -> 200', r_t2.status === 200, `got ${r_t2.status}`);
+      check('trigger: skipped = debounced', r_t2.json?.skipped === 'debounced', `body=${JSON.stringify(r_t2.json)}`);
+    }
+
+    // -- 4. Wait for analytics snapshot ---------------------------------------
+    // By now analytics has had a head start (steps 2+3 took ~3-8s while it ran).
+
     const snapshot1 = await waitForSnapshot(s => s.schemaVersion === 'cohort-snapshot-v1');
-    check('analytics: snapshot written within 18s', snapshot1 !== null);
+    check('analytics: snapshot written', snapshot1 !== null);
 
     if (snapshot1) {
 
-      // ── 5. Snapshot contract ────────────────────────────────────────────────
+      // -- 5. Snapshot contract -----------------------------------------------
 
       check('schemaVersion: cohort-snapshot-v1', snapshot1.schemaVersion === 'cohort-snapshot-v1');
       check('coverage.analyticsEligible: 6', snapshot1.coverage?.analyticsEligible === 6,
         `got ${snapshot1.coverage?.analyticsEligible}`);
       check('coverage.phase4Complete: 5', snapshot1.coverage?.phase4Complete === 5,
         `got ${snapshot1.coverage?.phase4Complete}`);
-      check('stateA.available: true (6 eligible ≥ 5)', snapshot1.stateA?.available === true);
+      check('stateA.available: true (6 eligible >= 5)', snapshot1.stateA?.available === true);
       check('stateA.areaOutcomes present', typeof snapshot1.stateA?.areaOutcomes === 'object');
       check('stateA.exposureIntelligence present', typeof snapshot1.stateA?.exposureIntelligence === 'object');
       check('stateA.interventionTypes present', typeof snapshot1.stateA?.interventionTypes === 'object');
@@ -280,12 +300,12 @@ exports.handler = async (event) => {
         typeof snapshot1.stateA?.perspectives?.michaelBenchmarkPriorities === 'object');
       check('stateA.perspectives.michaelSynthesisPriorities present',
         typeof snapshot1.stateA?.perspectives?.michaelSynthesisPriorities === 'object');
-      check('stateB.available: true (5 phase4-complete ≥ 5)', snapshot1.stateB?.available === true);
+      check('stateB.available: true (5 phase4-complete >= 5)', snapshot1.stateB?.available === true);
       check('stateB.progressJudgements present', typeof snapshot1.stateB?.progressJudgements === 'object');
       check('no individual session IDs in snapshot payload',
         !allSessions.some(id => JSON.stringify(snapshot1).includes(id)));
 
-      // ── 6. Subgroup suppression ─────────────────────────────────────────────
+      // -- 6. Subgroup suppression --------------------------------------------
 
       const byDisc = snapshot1.stateA?.subgroups?.byDiscipline || {};
       const cre    = byDisc['Commercial Real Estate'];
@@ -298,60 +318,27 @@ exports.handler = async (event) => {
         val ? `analyticsEligible=${val.analyticsEligible}` : 'group absent');
       check('Valuation: no areaOutcomes when suppressed', !val?.areaOutcomes);
 
-      // ── 7. Employer auth (parallel) ─────────────────────────────────────────
+      // -- 7. Employer auth (valid token, needs snapshot to verify) -----------
 
-      const candidateToken = signJwt({ role: 'candidate', email: EMPLOYER_EMAIL, expires: Date.now() + 3600000 });
-      const badToken = signJwt({ cohortId: 'nonexistent-xyz', role: 'employer', email: EMPLOYER_EMAIL, expires: Date.now() + 3600000 });
-
-      const [r_valid, r_role, r_404] = await Promise.all([
-        post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken }),
-        post('/.netlify/functions/p1-cohort-snapshot-load', { token: candidateToken }),
-        post('/.netlify/functions/p1-cohort-snapshot-load', { token: badToken })
-      ]);
-      check('valid employer token → 200 + snapshot returned',
+      const r_valid = await post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken });
+      check('valid employer token -> 200 + snapshot returned',
         r_valid.status === 200 && r_valid.json?.snapshot?.schemaVersion === 'cohort-snapshot-v1',
         `status=${r_valid.status}`);
       check('firmName = Smoke Test Firm', r_valid.json?.firmName === 'Smoke Test Firm', r_valid.json?.firmName);
-      check('candidate-role token → 401', r_role.status === 401, `got ${r_role.status}`);
-      check('nonexistent cohortId → 404', r_404.status === 404, `got ${r_404.status}`);
 
-      // ── 8. Stale snapshot detection ─────────────────────────────────────────
-      // Marks snapshot as stale; verifies snapshot-load detects it and reports computing=true.
-      // Does not wait for recompute to complete — stale detection is the testable property here.
+      // -- 8. Stale snapshot detection ----------------------------------------
 
       const staleResult = await post('/.netlify/functions/p1-smoke-seed', {
-        action: 'set_stale',
-        internalSecret: INTERNAL_SECRET,
-        cohortId,
-        staleMs: 2 * STALE_MS
+        action: 'set_stale', internalSecret: INTERNAL_SECRET, cohortId, staleMs: 2 * STALE_MS
       });
-      check('set_stale → 200', staleResult.status === 200, `got ${staleResult.status}`);
+      check('set_stale -> 200', staleResult.status === 200, `got ${staleResult.status}`);
 
       if (staleResult.status === 200) {
         const r_stale = await post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken });
-        check('stale: snapshot-load → 200', r_stale.status === 200, `got ${r_stale.status}`);
+        check('stale: snapshot-load -> 200', r_stale.status === 200, `got ${r_stale.status}`);
         check('stale: computing = true', r_stale.json?.computing === true, `computing=${r_stale.json?.computing}`);
         check('stale: stale snapshot returned while recomputing', r_stale.json?.snapshot != null);
       }
-    }
-
-    // ── 9. Trigger debounce ───────────────────────────────────────────────────
-
-    const resetResult = await post('/.netlify/functions/p1-smoke-seed', {
-      action: 'reset_debounce',
-      internalSecret: INTERNAL_SECRET,
-      cohortId
-    });
-    if (resetResult.status === 200) {
-      const r_t1 = await post('/.netlify/functions/p1-cohort-snapshot-trigger',
-        { sessionId: groupASessions[0], internalSecret: INTERNAL_SECRET });
-      check('trigger: first call → 202', r_t1.status === 202, `got ${r_t1.status}`);
-      check('trigger: triggered = true', r_t1.json?.triggered === true, `body=${JSON.stringify(r_t1.json)}`);
-
-      const r_t2 = await post('/.netlify/functions/p1-cohort-snapshot-trigger',
-        { sessionId: groupASessions[0], internalSecret: INTERNAL_SECRET });
-      check('trigger: second call debounced → 200', r_t2.status === 200, `got ${r_t2.status}`);
-      check('trigger: skipped = debounced', r_t2.json?.skipped === 'debounced', `body=${JSON.stringify(r_t2.json)}`);
     }
 
   } finally {

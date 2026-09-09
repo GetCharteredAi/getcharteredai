@@ -265,6 +265,16 @@ ${managerSection}`;
     await sessionStore.setJSON(jobKey, { status: 'complete', runToken, completedAt: now });
     console.log(`[p1-progress-synthesis-bg] Progress review complete for session ${sessionId}`);
 
+    // Fire cohort snapshot trigger — fire-and-forget; never allowed to fail this function
+    try {
+      const _siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
+      fetch(`${_siteUrl}/.netlify/functions/p1-cohort-snapshot-trigger`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, internalSecret: process.env.P1_INTERNAL_SECRET })
+      }).catch(() => {});
+    } catch (_) {}
+
   } catch (err) {
     console.error('[p1-progress-synthesis-bg] Unexpected error:', err.message);
     try {

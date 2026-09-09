@@ -431,8 +431,10 @@ exports.handler = async (event) => {
           exposureConfirmation: a.exposureConfirmation || 'unavailable'
         })),
         candidateSelectedPriority: contextAnswers?.candidateSelectedPriority || null,
-        priorityGapTypes: (report.developmentPriorities || []).map(p => p.gapType).filter(Boolean),
-        priorityAreas: (report.developmentPriorities || []).map(p => p.area).filter(Boolean)
+        developmentPriorities: (report.developmentPriorities || []).map(p => ({
+          area: p.area || null,
+          gapType: p.gapType || null
+        }))
       }
     });
 
@@ -450,6 +452,16 @@ exports.handler = async (event) => {
     // Mark job complete — frontend can now show the report
     await sessionStore.setJSON(jobKey, { status: 'complete', runToken, completedAt: Date.now() });
     console.log(`[p1-report-bg] Candidate report complete for session ${sessionId}`);
+
+    // Fire cohort snapshot trigger — fire-and-forget; never allowed to fail this function
+    try {
+      const _siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
+      fetch(`${_siteUrl}/.netlify/functions/p1-cohort-snapshot-trigger`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, internalSecret: process.env.P1_INTERNAL_SECRET })
+      }).catch(() => {});
+    } catch (_) {}
 
     // ── Step 2: Generate manager-safe (inline, same bg window) ───────────────
     let managerSafe;

@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Readiness — Cohort Overview | Get Chartered AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D0F1C;--blue:#2563EB;--gold:#f59e0b;--green:#10b981;--white:#f8fafc;--muted:#94a3b8;
+  --outcome-on-track:#10b981;--outcome-developing:#3b82f6;--outcome-support:#f59e0b;--outcome-no-exp:#94a3b8;
+  --prog-evident:#10b981;--prog-some:#3b82f6;--prog-limited:#f59e0b;--prog-reconsider:#ef4444;
+}
+body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1a1a2e;min-height:100vh}
+a{color:inherit}
+
+/* Nav */
+nav{padding:16px 40px;display:flex;justify-content:space-between;align-items:center;background:#0D0F1C;border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:0;z-index:100}
+.nav-brand{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:700;color:#fff;text-decoration:none}
+.nav-brand span{color:var(--gold)}
+.nav-label{font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.04em}
+
+/* Loading / error */
+.state-wrap{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;gap:16px}
+.spinner{width:36px;height:36px;border:3px solid #e2e8f0;border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.state-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;color:var(--navy)}
+.state-body{font-size:14px;color:#64748b;max-width:440px;line-height:1.65}
+.state-link{font-size:13px;color:var(--blue);text-decoration:underline;margin-top:4px}
+
+/* Page header */
+.page-header{background:var(--navy);padding:40px 40px 36px;color:#fff}
+.page-header-inner{max-width:1100px;margin:0 auto}
+.page-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.page-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,3vw,32px);font-weight:800;margin-bottom:6px}
+.page-firm{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:20px}
+.privacy-note{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:12px 16px;font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;max-width:680px}
+.privacy-note strong{color:rgba(255,255,255,.85)}
+
+/* Refresh banner */
+.refresh-banner{background:#fffbeb;border-bottom:1.5px solid #fcd34d;padding:10px 40px;display:flex;align-items:center;gap:10px;font-size:13px;color:#92400e}
+.refresh-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* Sections */
+.section{padding:48px 40px}
+.section-inner{max-width:1100px;margin:0 auto}
+.sec-light{background:#fff}
+.sec-lighter{background:#f8fafc}
+.sec-divider{border-top:1px solid #e2e8f0}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:12px}
+.eyebrow-gold{color:var(--gold)}
+.section-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.section-sub{font-size:13px;color:#64748b;line-height:1.65;margin-bottom:28px;max-width:640px}
+.coverage-note{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* Stat cards */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:0}
+.stat-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 24px}
+.stat-n{font-family:'Plus Jakarta Sans',sans-serif;font-size:34px;font-weight:800;color:var(--navy);line-height:1;display:block}
+.stat-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);display:block;margin-top:6px}
+.stat-sub{font-size:12px;color:#94a3b8;margin-top:4px}
+.stat-card.highlight{border-color:var(--blue);border-top:3px solid var(--blue)}
+
+/* Under-threshold */
+.threshold-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:32px;text-align:center;max-width:560px;margin:0 auto}
+.threshold-card h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.threshold-card p{font-size:14px;color:#64748b;line-height:1.65}
+.threshold-progress{margin:20px 0;background:#f1f5f9;border-radius:8px;height:8px;overflow:hidden}
+.threshold-bar{height:100%;background:var(--blue);border-radius:8px;transition:width .6s}
+
+/* Outcome bars */
+.area-table{width:100%;border-collapse:separate;border-spacing:0 10px}
+.area-row td{vertical-align:middle;padding:4px 0}
+.area-name{font-size:13px;font-weight:600;color:var(--navy);width:220px;padding-right:16px;line-height:1.35}
+.bar-cell{width:100%}
+.bar-track{display:flex;height:28px;border-radius:6px;overflow:hidden;gap:1px}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;min-width:0;transition:width .4s;white-space:nowrap;overflow:hidden;padding:0 4px}
+.bar-seg.zero{display:none}
+.bar-labels{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}
+.bar-lbl{font-size:11px;color:#64748b;display:flex;align-items:center;gap:4px}
+.lbl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.area-total{font-size:11px;color:var(--muted);width:80px;text-align:right;padding-left:12px;white-space:nowrap}
+
+/* Legend */
+.outcome-legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#475569}
+.leg-swatch{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+/* Exposure grid */
+.exposure-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.exp-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px}
+.exp-card-name{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:12px;line-height:1.35}
+.exp-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:8px}
+.exp-row:last-child{margin-bottom:0}
+.exp-label{font-size:11px;color:#64748b;line-height:1.3;flex:1}
+.exp-val{font-size:13px;font-weight:700;color:var(--navy);white-space:nowrap}
+.exp-pct{font-size:11px;color:var(--muted)}
+.exp-unavail{font-size:11px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid #f1f5f9}
+
+/* Intervention types */
+.interv-table{width:100%}
+.interv-table th{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:0 10px 12px;text-align:right}
+.interv-table th:first-child{text-align:left;padding-left:0}
+.interv-table td{padding:8px 10px;border-bottom:1px solid #f1f5f9;font-size:13px;text-align:right;vertical-align:middle}
+.interv-table td:first-child{text-align:left;font-weight:600;color:var(--navy);padding-left:0;font-size:13px}
+.interv-table tr:last-child td{border-bottom:none}
+.interv-n{font-weight:700;color:var(--navy)}
+.interv-pct{font-size:11px;color:var(--muted);display:block}
+.col-learn{color:#2563eb}
+.col-exp{color:#10b981}
+.col-align{color:#f59e0b}
+.col-insuf{color:#94a3b8}
+.interv-label-wrap{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.interv-legend{font-size:12px;color:#475569;display:flex;align-items:center;gap:5px}
+.interv-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+/* Perspective grid */
+.persp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.persp-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px}
+.persp-source{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--blue);margin-bottom:6px}
+.persp-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;line-height:1.35}
+.persp-cov{font-size:11px;color:var(--muted);margin-bottom:14px}
+.persp-area-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid #f8fafc}
+.persp-area-row:last-child{border-bottom:none}
+.persp-area-name{font-size:12px;color:#475569;line-height:1.35;flex:1}
+.persp-area-n{font-size:13px;font-weight:700;color:var(--navy);white-space:nowrap}
+.persp-area-pct{font-size:10px;color:var(--muted)}
+.persp-none{font-size:12px;color:var(--muted);padding:8px 0}
+
+/* Manager participation */
+.mgr-row{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.mgr-stat{display:flex;flex-direction:column;gap:3px}
+.mgr-n{font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800;color:var(--navy);line-height:1}
+.mgr-label{font-size:12px;color:#64748b}
+.mgr-bar-wrap{flex:1;min-width:200px}
+.mgr-bar-track{background:#f1f5f9;border-radius:8px;height:10px;overflow:hidden}
+.mgr-bar-fill{height:100%;border-radius:8px;background:var(--blue)}
+.mgr-bar-label{font-size:11px;color:var(--muted);margin-top:5px}
+
+/* Employer actions */
+.actions-list{display:flex;flex-direction:column;gap:14px}
+.action-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 24px;border-left:4px solid var(--blue)}
+.action-text{font-size:15px;font-weight:600;color:var(--navy);line-height:1.5;margin-bottom:10px}
+.action-basis-label{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.action-basis{font-size:13px;color:#64748b;line-height:1.6}
+.actions-generating{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:24px;text-align:center;font-size:13px;color:var(--muted)}
+
+/* Progress section */
+.prog-table{width:100%;border-collapse:separate;border-spacing:0 10px}
+.prog-bar-track{display:flex;height:22px;border-radius:5px;overflow:hidden;gap:1px}
+.prog-seg{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;min-width:0;overflow:hidden;padding:0 3px;white-space:nowrap}
+.prog-seg.zero{display:none}
+.graduation-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.grad-big{font-family:'Plus Jakarta Sans',sans-serif;font-size:36px;font-weight:800;color:var(--green);line-height:1}
+.grad-label{font-size:13px;color:#64748b;max-width:260px;line-height:1.55}
+.proposed-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.proposed-pill{background:#eff6ff;border:1px solid #bfdbfe;border-radius:20px;padding:5px 12px;font-size:12px;color:#1d4ed8;font-weight:600}
+.proposed-pill span{font-weight:400;color:#3b82f6;margin-left:4px}
+
+/* Threshold state inside section */
+.section-threshold{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:24px;text-align:center}
+.section-threshold p{font-size:14px;color:#64748b;line-height:1.65}
+.section-threshold strong{color:var(--navy)}
+
+/* Subgroup filter */
+.subgroup-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:24px}
+.filter-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.filter-select{padding:8px 12px;background:#fff;border:1.5px solid #e2e8f0;border-radius:7px;font-family:'Inter',sans-serif;font-size:13px;color:var(--navy);outline:none;cursor:pointer;min-width:160px}
+.filter-select:focus{border-color:var(--blue)}
+#subgroup-result{margin-top:4px}
+.subgroup-suppressed{background:#fafafa;border:1px solid #e2e8f0;border-radius:10px;padding:18px;font-size:13px;color:#64748b}
+
+/* No data states */
+.no-data{font-size:13px;color:var(--muted);font-style:italic}
+
+/* Footer */
+footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.footer-brand{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;color:var(--navy)}
+.footer-brand span{color:var(--gold)}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{color:#64748b;font-size:12px;text-decoration:none}
+.footer-copy{font-size:11px;color:#94a3b8;width:100%;margin:0}
+
+/* Responsive */
+@media(max-width:900px){
+  nav{padding:14px 20px}
+  .page-header{padding:28px 20px}
+  .section{padding:36px 20px}
+  .stat-row{grid-template-columns:1fr 1fr}
+  .persp-grid{grid-template-columns:1fr 1fr}
+  .area-name{width:140px;font-size:12px}
+  .interv-table th,.interv-table td{padding:6px 6px}
+  footer{padding:22px 20px}
+}
+@media(max-width:580px){
+  .stat-row{grid-template-columns:1fr}
+  .persp-grid{grid-template-columns:1fr}
+  .area-name{width:110px}
+  .mgr-row{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">Get Chartered <span>AI</span></a>
+  <span class="nav-label">Employer Dashboard</span>
+</nav>
+
+<div id="app">
+  <div class="state-wrap">
+    <div class="spinner"></div>
+    <p class="state-title">Loading cohort overview&hellip;</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">Get Chartered <span>AI</span></div>
+  <div class="footer-links">
+    <a href="/employer">Employer</a>
+    <a href="/employer-guide">Guide</a>
+    <a href="mailto:support@getcharteredai.com">support@getcharteredai.com</a>
+  </div>
+  <p class="footer-copy">&copy; Get Chartered AI 2026 &middot; Professional Readiness Dashboard</p>
+</footer>
+
+<script>
+'use strict';
+
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const FIVE_AREAS = [
+  'Professional Behaviour & Responsibility',
+  'Communication & Working With Others',
+  'Learning & Applying Knowledge',
+  'Judgement, Help & Escalation',
+  'Feedback, Reflection & Development'
+];
+
+const OUTCOME_KEYS = ['ON TRACK','DEVELOPING','SUPPORT WOULD HELP','NOT YET ENOUGH EXPOSURE'];
+const OUTCOME_COLORS = {
+  'ON TRACK': '#10b981',
+  'DEVELOPING': '#3b82f6',
+  'SUPPORT WOULD HELP': '#f59e0b',
+  'NOT YET ENOUGH EXPOSURE': '#94a3b8'
+};
+const OUTCOME_LABELS_SHORT = {
+  'ON TRACK': 'On track',
+  'DEVELOPING': 'Developing',
+  'SUPPORT WOULD HELP': 'Support would help',
+  'NOT YET ENOUGH EXPOSURE': 'Not yet enough exposure'
+};
+
+const PROGRESS_LABELS = ['Progress evident','Some progress','Limited evidence of progress','Priority should be reconsidered'];
+const PROGRESS_COLORS = {
+  'Progress evident': '#10b981',
+  'Some progress': '#3b82f6',
+  'Limited evidence of progress': '#f59e0b',
+  'Priority should be reconsidered': '#ef4444'
+};
+
+const INTERV_LABEL = {
+  learningPracticeNeed: 'Learning / practice need',
+  experienceExposureNeed: 'Experience / exposure need',
+  priorityAlignmentConversation: 'Priority alignment conversation may help',
+  insufficientEvidence: 'Insufficient evidence to classify'
+};
+const INTERV_COLOR = {
+  learningPracticeNeed: '#2563eb',
+  experienceExposureNeed: '#10b981',
+  priorityAlignmentConversation: '#f59e0b',
+  insufficientEvidence: '#94a3b8'
+};
+const INTERV_KEYS = ['learningPracticeNeed','experienceExposureNeed','priorityAlignmentConversation','insufficientEvidence'];
+
+// ── Polling state ────────────────────────────────────────────────────────���────
+// Bounded backoff: 15s → 30s → 60s then stop and show manual refresh.
+
+const POLL_DELAYS = [15000, 30000, 60000];
+let _pollAttempt = 0;
+
+function scheduleNextPoll() {
+  if (_pollAttempt >= POLL_DELAYS.length) {
+    // All polls exhausted — update banner to show manual refresh action
+    const banner = document.getElementById('refresh-banner');
+    if (banner) {
+      banner.innerHTML = `<span>The overview is still being prepared.</span>
+        <button onclick="manualRefresh()" style="margin-left:10px;background:none;border:1px solid #92400e;border-radius:5px;padding:3px 10px;font-size:12px;color:#92400e;cursor:pointer;font-family:inherit">Check again</button>`;
+    }
+    return;
+  }
+  const delay = POLL_DELAYS[_pollAttempt];
+  _pollAttempt++;
+  setTimeout(() => loadDashboard(true), delay);
+}
+
+function manualRefresh() {
+  _pollAttempt = 0;
+  loadDashboard(true);
+}
+
+// ── Token helpers ─────────────────────────────────────────────────────────────
+
+function readToken() {
+  const params = new URLSearchParams(window.location.search);
+  const urlToken = params.get('token');
+  if (urlToken) {
+    localStorage.setItem('gca_employer_token', urlToken);
+    const url = new URL(window.location);
+    url.searchParams.delete('token');
+    window.history.replaceState({}, '', url.toString());
+    return urlToken;
+  }
+  return localStorage.getItem('gca_employer_token');
+}
+
+// ── Formatting helpers ────────────────────────────────────────────────────────
+
+function pct(n, d) { return d > 0 ? Math.round(n / d * 100) : 0; }
+function pctStr(n, d) { return d > 0 ? pct(n,d) + '%' : '—'; }
+function e(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+function shortArea(name) {
+  const map = {
+    'Professional Behaviour & Responsibility': 'Professional Behaviour',
+    'Communication & Working With Others': 'Communication',
+    'Learning & Applying Knowledge': 'Learning',
+    'Judgement, Help & Escalation': 'Judgement',
+    'Feedback, Reflection & Development': 'Feedback & Reflection'
+  };
+  return map[name] || name;
+}
+
+// ── Section renderers ─────────────────────────────────────────────────────────
+
+function renderOutcomeLegend() {
+  return `<div class="outcome-legend">
+    ${OUTCOME_KEYS.map(k => `
+      <div class="leg-item">
+        <span class="leg-swatch" style="background:${OUTCOME_COLORS[k]}"></span>
+        ${e(OUTCOME_LABELS_SHORT[k])}
+      </div>`).join('')}
+  </div>`;
+}
+
+function renderOutcomeBar(byArea) {
+  if (!byArea) return '<p class="no-data">No outcome data available.</p>';
+  return `
+    ${renderOutcomeLegend()}
+    <table class="area-table" role="presentation">
+      ${FIVE_AREAS.map(area => {
+        const c = byArea[area];
+        if (!c) return '';
+        const total = c.total || 0;
+        return `<tr class="area-row">
+          <td class="area-name">${e(shortArea(area))}</td>
+          <td class="bar-cell">
+            <div class="bar-track">
+              ${OUTCOME_KEYS.map(k => {
+                const n = c[k] || 0;
+                const w = total > 0 ? Math.round(n/total*100) : 0;
+                return `<div class="bar-seg${n===0?' zero':''}"
+                  style="width:${w}%;background:${OUTCOME_COLORS[k]}"
+                  title="${OUTCOME_LABELS_SHORT[k]}: ${n} (${pctStr(n,total)})">${w >= 14 ? pctStr(n,total) : ''}</div>`;
+              }).join('')}
+            </div>
+          </td>
+          <td class="area-total">${total} session${total !== 1 ? 's' : ''}</td>
+        </tr>`;
+      }).join('')}
+    </table>`;
+}
+
+function renderCoverageSection(coverage) {
+  const { total, analyticsEligible, phase4Complete } = coverage;
+  return `
+  <div class="section sec-lighter sec-divider">
+    <div class="section-inner">
+      <div class="stat-row">
+        <div class="stat-card">
+          <span class="stat-n">${total}</span>
+          <span class="stat-label">Total participants</span>
+          <p class="stat-sub">All sessions in cohort</p>
+        </div>
+        <div class="stat-card highlight">
+          <span class="stat-n">${analyticsEligible}</span>
+          <span class="stat-label">Analytics eligible</span>
+          <p class="stat-sub">Benchmark complete or beyond</p>
+        </div>
+        <div class="stat-card">
+          <span class="stat-n">${phase4Complete}</span>
+          <span class="stat-label">Progress review complete</span>
+          <p class="stat-sub">Phase 4 reached</p>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderUnderThresholdBody(analyticsEligible) {
+  const needed = Math.max(0, 5 - analyticsEligible);
+  const barW = Math.min(100, Math.round(analyticsEligible / 5 * 100));
+  return `
+  <div class="section sec-light sec-divider">
+    <div class="section-inner">
+      <div class="threshold-card">
+        <h3>Cohort insights will appear soon</h3>
+        <p>Aggregated readiness insights are available once at least 5 participants reach the Benchmark stage. This protects the privacy of individual responses.</p>
+        <div class="threshold-progress"><div class="threshold-bar" style="width:${barW}%"></div></div>
+        <p style="font-size:13px;color:#94a3b8;margin-top:8px">${analyticsEligible} of 5 needed${needed > 0 ? ` — ${needed} more to unlock` : ''}</p>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderAreaOutcomesSection(stateA) {
+  const { areaOutcomes } = stateA;
+  const basedOn = areaOutcomes.coverage.basedOn;
+  const total = areaOutcomes.coverage.total;
+  return `
+  <div class="section sec-light sec-divider">
+    <div class="section-inner">
+      <span class="eyebrow">Professional Readiness Pattern</span>
+      <h2 class="section-title">Readiness by area</h2>
+      <p class="section-sub">Outcome distribution across the five Professional Readiness areas. Based on ${basedOn} of ${total} analytics-eligible sessions with Benchmark data.</p>
+      ${renderOutcomeBar(areaOutcomes.byArea)}
+    </div>
+  </div>`;
+}
+
+function renderExposureSection(stateA) {
+  const { exposureIntelligence } = stateA;
+  const { coverage, byArea } = exposureIntelligence;
+  return `
+  <div class="section sec-lighter sec-divider">
+    <div class="section-inner">
+      <span class="eyebrow">Exposure Intelligence</span>
+      <h2 class="section-title">Development opportunity</h2>
+      <p class="section-sub">Whether participants are getting the relevant opportunities to develop in each area. Exposure confirmation available for ${coverage.coveredSessions} of ${coverage.total} sessions.</p>
+      <div class="exposure-grid">
+        ${FIVE_AREAS.map(area => {
+          const e2 = byArea[area];
+          if (!e2 || e2.denominator === 0) {
+            return `<div class="exp-card">
+              <div class="exp-card-name">${e(shortArea(area))}</div>
+              <p class="no-data">No exposure data</p>
+            </div>`;
+          }
+          const d = e2.denominator;
+          return `<div class="exp-card">
+            <div class="exp-card-name">${e(shortArea(area))}</div>
+            <div class="exp-row">
+              <span class="exp-label">Relevant exposure identified</span>
+              <span class="exp-val" style="color:#10b981">${e2.relevantExposure} <span class="exp-pct">${pctStr(e2.relevantExposure,d)}</span></span>
+            </div>
+            <div class="exp-row">
+              <span class="exp-label">Confirmed lack of exposure</span>
+              <span class="exp-val" style="color:#ef4444">${e2.confirmedLack} <span class="exp-pct">${pctStr(e2.confirmedLack,d)}</span></span>
+            </div>
+            <div class="exp-row">
+              <span class="exp-label">Not assessed</span>
+              <span class="exp-val">${e2.notAssessed} <span class="exp-pct">${pctStr(e2.notAssessed,d)}</span></span>
+            </div>
+            ${e2.unavailable > 0 ? `<p class="exp-unavail">${e2.unavailable} session${e2.unavailable!==1?'s':''} without exposure data (not included above)</p>` : ''}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderInterventionSection(stateA) {
+  const { interventionTypes } = stateA;
+  const { coverage, byArea } = interventionTypes;
+  return `
+  <div class="section sec-light sec-divider">
+    <div class="section-inner">
+      <span class="eyebrow">Development Needs</span>
+      <h2 class="section-title">How development need is classified by area</h2>
+      <p class="section-sub">Per-area classification of the most likely development intervention for each participant. Based on ${coverage.basedOn} of ${coverage.total} sessions.</p>
+      <div class="interv-label-wrap">
+        ${INTERV_KEYS.map(k => `
+          <div class="interv-legend">
+            <span class="interv-dot" style="background:${INTERV_COLOR[k]}"></span>
+            ${e(INTERV_LABEL[k])}
+          </div>`).join('')}
+      </div>
+      <table class="interv-table">
+        <thead>
+          <tr>
+            <th style="text-align:left">Area</th>
+            ${INTERV_KEYS.map(k => `<th class="${colClass(k)}">${e(INTERV_LABEL[k])}</th>`).join('')}
+            <th>Sessions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${FIVE_AREAS.map(area => {
+            const t = byArea[area];
+            if (!t) return '';
+            return `<tr>
+              <td>${e(shortArea(area))}</td>
+              ${INTERV_KEYS.map(k => {
+                const n = t[k] || 0;
+                return `<td class="${colClass(k)}"><span class="interv-n">${n}</span><span class="interv-pct">${pctStr(n,t.total)}</span></td>`;
+              }).join('')}
+              <td style="color:var(--muted)">${t.total}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function colClass(k) {
+  return {
+    learningPracticeNeed:'col-learn',
+    experienceExposureNeed:'col-exp',
+    priorityAlignmentConversation:'col-align',
+    insufficientEvidence:'col-insuf'
+  }[k] || '';
+}
+
+function renderPerspectivesSection(stateA) {
+  const { perspectives } = stateA;
+  const sources = [
+    { key: 'candidateSelectedPriority', source: 'Candidate', title: 'What candidates want to develop', note: 'Area selected as personal development priority' },
+    { key: 'managerSelectedFocusAreas',  source: 'Manager',   title: 'What managers identify',          note: 'Areas selected as development focus' },
+    { key: 'michaelBenchmarkPriorities', source: 'Michael — Benchmark', title: 'Michael at Benchmark', note: 'Areas diagnosed as development priorities at Phase 1' },
+    { key: 'michaelSynthesisPriorities', source: 'Michael — Synthesis', title: 'Michael after synthesis', note: 'Areas recommended after Phase 3 synthesis' }
+  ];
+  return `
+  <div class="section sec-lighter sec-divider">
+    <div class="section-inner">
+      <span class="eyebrow">Perspective Patterns</span>
+      <h2 class="section-title">Where different perspectives point</h2>
+      <p class="section-sub">How four independent sources prioritise the five areas. These perspectives may align or differ — neither alignment nor difference is inherently correct.</p>
+      <div class="persp-grid">
+        ${sources.map(({ key, source, title, note }) => {
+          const src = perspectives[key];
+          const basedOn = src.coverage.basedOn;
+          const total2 = src.coverage.total;
+          const byArea2 = src.byArea || {};
+          const sorted = FIVE_AREAS
+            .map(a => ({ area: a, count: byArea2[a] || 0 }))
+            .filter(x => x.count > 0)
+            .sort((a, b) => b.count - a.count);
+          return `<div class="persp-card">
+            <div class="persp-source">${e(source)}</div>
+            <div class="persp-title">${e(title)}</div>
+            <div class="persp-cov">${basedOn} of ${total2} sessions</div>
+            ${sorted.length === 0
+              ? `<p class="persp-none">No data yet</p>`
+              : sorted.map(({ area, count }) => `
+                <div class="persp-area-row">
+                  <span class="persp-area-name">${e(shortArea(area))}</span>
+                  <span class="persp-area-n">${count} <span class="persp-area-pct">${pctStr(count, basedOn)}</span></span>
+                </div>`).join('')
+            }
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderManagerSection(stateA) {
+  const { managerParticipation } = stateA;
+  const { coverage, participated } = managerParticipation;
+  const basedOn = coverage.basedOn;
+  const fillPct = pct(participated, basedOn);
+  const div2 = stateA.areaRelationships?.genuineDivergence;
+  return `
+  <div class="section sec-light sec-divider">
+    <div class="section-inner">
+      <span class="eyebrow">Manager Participation</span>
+      <h2 class="section-title">Manager engagement in development conversations</h2>
+      <p class="section-sub" style="margin-bottom:20px">Managers are invited to provide structured reflections before the Phase 3 synthesis. This shows how many participated.</p>
+      <div class="mgr-row">
+        <div class="mgr-stat">
+          <span class="mgr-n">${participated}</span>
+          <span class="mgr-label">of ${basedOn} sessions with manager synthesis</span>
+        </div>
+        <div class="mgr-bar-wrap">
+          <div class="mgr-bar-track"><div class="mgr-bar-fill" style="width:${fillPct}%"></div></div>
+          <div class="mgr-bar-label">${fillPct}% manager participation rate</div>
+        </div>
+        ${div2 ? `<div class="mgr-stat">
+          <span class="mgr-n" style="color:var(--gold)">${div2.count}</span>
+          <span class="mgr-label">area-instances of genuine divergence</span>
+        </div>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderActionsSection(stateA) {
+  const actions = stateA.employerActions;
+  return `
+  <div class="section sec-lighter sec-divider">
+    <div class="section-inner">
+      <span class="eyebrow eyebrow-gold">Development Insights</span>
+      <h2 class="section-title">Development insights</h2>
+      <p style="font-size:13px;color:#64748b;margin-bottom:24px">Generated by Michael from aggregated Professional Readiness evidence.</p>
+      ${!actions
+        ? `<div class="actions-generating"><span style="display:block;margin-bottom:6px">Development conditions are being generated.</span><span style="font-size:12px">They will appear here once cohort analytics complete.</span></div>`
+        : `<div class="actions-list">
+            ${(actions.actions || []).map(a => `
+              <div class="action-card">
+                <p class="action-text">${e(a.action)}</p>
+                <div class="action-basis-label">Evidence basis</div>
+                <p class="action-basis">${e(a.basis)}</p>
+              </div>`).join('')}
+          </div>`
+      }
+    </div>
+  </div>`;
+}
+
+function renderProgressBarRow(area, byArea) {
+  const p = byArea[area];
+  if (!p) return '';
+  const total = p.total || 0;
+  return `<tr>
+    <td class="area-name">${e(shortArea(area))}</td>
+    <td class="bar-cell">
+      <div class="prog-bar-track">
+        ${PROGRESS_LABELS.map(lbl => {
+          const n = p[lbl] || 0;
+          const w = total > 0 ? Math.round(n/total*100) : 0;
+          return `<div class="prog-seg${n===0?' zero':''}"
+            style="width:${w}%;background:${PROGRESS_COLORS[lbl]}"
+            title="${lbl}: ${n} (${pctStr(n,total)})">${w >= 16 ? pctStr(n,total) : ''}</div>`;
+        }).join('')}
+      </div>
+    </td>
+    <td class="area-total">${total}</td>
+  </tr>`;
+}
+
+function renderProgressSection(stateB) {
+  if (!stateB.available) {
+    return `
+    <div class="section sec-light sec-divider">
+      <div class="section-inner">
+        <span class="eyebrow">Progress Movement</span>
+        <h2 class="section-title">Progress review</h2>
+        <div class="section-threshold">
+          <p>Cohort progress insight will appear once at least 5 participants have completed their Progress Reflection.</p>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  const { progressJudgements, graduationRate, progressManagerParticipation, proposedPriorityAreas, basedOn } = stateB;
+
+  const progLegend = PROGRESS_LABELS.map(lbl => `
+    <div class="leg-item">
+      <span class="leg-swatch" style="background:${PROGRESS_COLORS[lbl]}"></span>
+      ${e(lbl)}
+    </div>`).join('');
+
+  const proposed = proposedPriorityAreas || [];
+  const gradPct = pct(graduationRate.graduated, graduationRate.total);
+  const mgrPct = pct(progressManagerParticipation.participated, progressManagerParticipation.total);
+
+  return `
+  <div class="section sec-light sec-divider">
+    <div class="section-inner">
+      <span class="eyebrow">Progress Movement</span>
+      <h2 class="section-title">Progress review outcomes</h2>
+      <p class="section-sub">Based on ${basedOn} participants who completed the Phase 4 progress review.</p>
+
+      <div class="outcome-legend" style="margin-bottom:20px">${progLegend}</div>
+      <table class="area-table prog-table" role="presentation" style="margin-bottom:32px">
+        ${FIVE_AREAS.map(area => renderProgressBarRow(area, progressJudgements.byArea)).join('')}
+      </table>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:28px">
+        <div class="graduation-card">
+          <span class="grad-big">${gradPct}%</span>
+          <div class="grad-label">of priority slots graduated — ${graduationRate.graduated} of ${graduationRate.total} priorities resolved</div>
+        </div>
+        <div class="graduation-card">
+          <span class="grad-big" style="color:var(--blue)">${mgrPct}%</span>
+          <div class="grad-label">manager participation in progress review — ${progressManagerParticipation.participated} of ${progressManagerParticipation.total} sessions</div>
+        </div>
+      </div>
+
+      ${proposed.length > 0 ? `
+        <div style="margin-bottom:0">
+          <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px">Proposed next priority areas</div>
+          <p style="font-size:12px;color:#64748b;margin-bottom:10px">Areas cohort members are carrying forward as new development priorities after Phase 4.</p>
+          <div class="proposed-list">
+            ${proposed.map(p2 => `<span class="proposed-pill">${e(shortArea(p2.label))}<span>&times;${p2.count}</span></span>`).join('')}
+          </div>
+        </div>` : ''}
+    </div>
+  </div>`;
+}
+
+function buildSubgroupOptions(stateA, stateB) {
+  const options = [];
+  const addFrom = (obj, type, label) => {
+    const keys = Object.keys(obj || {});
+    if (keys.length > 0) options.push({ type, label, keys });
+  };
+  addFrom(stateA.subgroups?.byDiscipline, 'byDiscipline', 'Discipline');
+  addFrom(stateA.subgroups?.byTeam, 'byTeam', 'Team');
+  addFrom(stateA.subgroups?.byOffice, 'byOffice', 'Office');
+  return options;
+}
+
+function renderSubgroupSection(stateA, stateB) {
+  const options = buildSubgroupOptions(stateA, stateB);
+  if (options.length === 0) {
+    return `
+    <div class="section sec-lighter sec-divider">
+      <div class="section-inner">
+        <span class="eyebrow">Subgroup View</span>
+        <h2 class="section-title">Breakdown by group</h2>
+        <p class="section-sub">No group data (discipline, team, or office) has been recorded for this cohort yet.</p>
+      </div>
+    </div>`;
+  }
+
+  const typeOpts = options.map(o =>
+    `<option value="${e(o.type)}">${e(o.label)}</option>`
+  ).join('');
+
+  return `
+  <div class="section sec-lighter sec-divider">
+    <div class="section-inner">
+      <span class="eyebrow">Subgroup View</span>
+      <h2 class="section-title">Breakdown by group</h2>
+      <p class="section-sub">View readiness patterns for a specific discipline, team, or office. Groups with fewer than 5 participants are not shown to protect anonymity.</p>
+      <div class="subgroup-controls">
+        <span class="filter-label">Filter by</span>
+        <select class="filter-select" id="sub-type-select" onchange="onSubTypeChange()">
+          ${typeOpts}
+        </select>
+        <select class="filter-select" id="sub-value-select" onchange="onSubValueChange()">
+          <option value="">Select group</option>
+        </select>
+      </div>
+      <div id="subgroup-result"></div>
+    </div>
+  </div>`;
+}
+
+function renderSubgroupContent(groupData, type) {
+  if (!groupData) return '<p class="no-data">No data for this group.</p>';
+  if (groupData.suppressed) {
+    return `<div class="subgroup-suppressed">Not enough data to show this subgroup safely.</div>`;
+  }
+
+  let html = '';
+
+  // State A for subgroup
+  if (groupData.areaOutcomes) {
+    const { coverage, byArea } = groupData.areaOutcomes;
+    html += `<div style="margin-bottom:24px">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px">Readiness by area — ${coverage.basedOn} sessions</div>
+      ${renderOutcomeBar(byArea)}
+    </div>`;
+  }
+
+  // Manager participation for subgroup
+  if (groupData.managerParticipation) {
+    const { participated, basedOn } = groupData.managerParticipation;
+    html += `<p style="font-size:13px;color:#64748b;margin-bottom:16px">Manager participation: <strong>${participated} of ${basedOn}</strong> sessions (${pctStr(participated, basedOn)})</p>`;
+  }
+
+  // Progress for subgroup (if available from stateB subgroups)
+  if (groupData.progressJudgements) {
+    const { coverage, byArea } = groupData.progressJudgements;
+    const progLegend = PROGRESS_LABELS.map(lbl => `
+      <div class="leg-item">
+        <span class="leg-swatch" style="background:${PROGRESS_COLORS[lbl]}"></span>
+        ${e(lbl)}
+      </div>`).join('');
+    html += `<div style="margin-top:8px">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px">Progress review — ${coverage.basedOn} sessions</div>
+      <div class="outcome-legend" style="margin-bottom:14px">${progLegend}</div>
+      <table class="area-table prog-table" role="presentation">
+        ${FIVE_AREAS.map(area => renderProgressBarRow(area, byArea)).join('')}
+      </table>
+    </div>`;
+  }
+
+  return html || '<p class="no-data">No data available for this group.</p>';
+}
+
+// ── Subgroup filter state ─────────────────────────────────────────────────────
+
+let _subgroupData = null;
+
+function wireSubgroupFilter(stateA, stateB) {
+  const options = buildSubgroupOptions(stateA, stateB);
+  if (options.length === 0) return;
+
+  // Combine stateA and stateB subgroups
+  _subgroupData = {
+    stateA: stateA.subgroups,
+    stateB: stateB?.available ? stateB.subgroups : null,
+    options
+  };
+
+  onSubTypeChange();
+}
+
+function onSubTypeChange() {
+  if (!_subgroupData) return;
+  const typeSelect = document.getElementById('sub-type-select');
+  const valueSelect = document.getElementById('sub-value-select');
+  if (!typeSelect || !valueSelect) return;
+
+  const type = typeSelect.value;
+  const option = _subgroupData.options.find(o => o.type === type);
+  if (!option) return;
+
+  valueSelect.innerHTML = '<option value="">Select group</option>' +
+    option.keys.map(k => `<option value="${e(k)}">${e(k)}</option>`).join('');
+
+  document.getElementById('subgroup-result').innerHTML = '';
+}
+
+function onSubValueChange() {
+  if (!_subgroupData) return;
+  const typeSelect = document.getElementById('sub-type-select');
+  const valueSelect = document.getElementById('sub-value-select');
+  const result = document.getElementById('subgroup-result');
+  if (!typeSelect || !valueSelect || !result) return;
+
+  const type = typeSelect.value;
+  const value = valueSelect.value;
+  if (!value) { result.innerHTML = ''; return; }
+
+  const saGroup = _subgroupData.stateA?.[type]?.[value];
+  const sbGroup = _subgroupData.stateB?.[type]?.[value];
+
+  // Merge: use stateA group for outcomes, stateB group for progress
+  const merged = Object.assign({}, saGroup || {});
+  if (sbGroup && !sbGroup.suppressed && sbGroup.progressJudgements) {
+    merged.progressJudgements = sbGroup.progressJudgements;
+  }
+
+  result.innerHTML = renderSubgroupContent(merged, type);
+}
+
+// ── Main render ───────────────────────────────────────────────────────────────
+
+function renderError(msg) {
+  document.getElementById('app').innerHTML = `
+    <div class="state-wrap">
+      <p class="state-title">Unable to load dashboard</p>
+      <p class="state-body">${e(msg)}</p>
+      <a class="state-link" href="mailto:support@getcharteredai.com">Contact support</a>
+    </div>`;
+}
+
+function renderNoToken() {
+  document.getElementById('app').innerHTML = `
+    <div class="state-wrap">
+      <p class="state-title">Access link required</p>
+      <p class="state-body">Please use the access link sent to your email address to view your cohort dashboard.</p>
+      <a class="state-link" href="mailto:support@getcharteredai.com">Request a new access link</a>
+    </div>`;
+}
+
+function renderComputingOnly(firmName) {
+  document.getElementById('app').innerHTML = `
+    <div class="state-wrap">
+      <div class="spinner"></div>
+      <p class="state-title">Preparing your cohort overview</p>
+      <p class="state-body">Michael is analysing the Professional Readiness data for ${e(firmName || 'your cohort')}. This usually takes under a minute. The page will refresh automatically.</p>
+    </div>`;
+}
+
+function renderDashboard(apiResponse) {
+  const { snapshot, computing, firmName } = apiResponse;
+  const app = document.getElementById('app');
+
+  if (!snapshot && computing) {
+    renderComputingOnly(firmName);
+    scheduleNextPoll();
+    return;
+  }
+  if (!snapshot) {
+    renderError('No cohort data is available yet. Please check back once participants have begun.');
+    return;
+  }
+
+  const { coverage, stateA, stateB } = snapshot;
+  const computedAt = snapshot.computedAt ? new Date(snapshot.computedAt).toLocaleString('en-GB', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' }) : null;
+
+  let html = '';
+
+  // Page header
+  html += `
+  <div class="page-header">
+    <div class="page-header-inner">
+      <p class="page-eyebrow">Employer Dashboard</p>
+      <h1 class="page-title">Professional Readiness — Cohort Overview</h1>
+      <p class="page-firm">${e(firmName || 'Your cohort')}</p>
+      <div class="privacy-note">
+        <strong>Patterns, not people.</strong> All insights are aggregated from cohort-level data. No individual participant is identified or ranked. Individual readiness reports remain private to each participant and their manager.
+      </div>
+    </div>
+  </div>
+  ${computing ? `<div id="refresh-banner" class="refresh-banner"><span class="refresh-dot"></span> Refreshing cohort data — existing overview shown below.</div>` : ''}`;
+
+  // Coverage
+  html += renderCoverageSection(coverage);
+
+  if (!stateA.available) {
+    html += renderUnderThresholdBody(coverage.analyticsEligible);
+    html += renderTimestamp(computedAt);
+    app.innerHTML = html;
+    return;
+  }
+
+  // All main sections
+  html += renderAreaOutcomesSection(stateA);
+  html += renderExposureSection(stateA);
+  html += renderInterventionSection(stateA);
+  html += renderPerspectivesSection(stateA);
+  html += renderManagerSection(stateA);
+  html += renderActionsSection(stateA);
+  html += renderProgressSection(stateB || { available: false, basedOn: 0 });
+  html += renderSubgroupSection(stateA, stateB || { available: false });
+  html += renderTimestamp(computedAt);
+
+  app.innerHTML = html;
+
+  // Wire interactive subgroup filter
+  wireSubgroupFilter(stateA, stateB || { available: false });
+
+  // Schedule next poll if still computing
+  if (computing) scheduleNextPoll();
+}
+
+function renderTimestamp(computedAt) {
+  if (!computedAt) return '';
+  return `<div style="padding:16px 40px;text-align:right;max-width:1180px;margin:0 auto"><p style="font-size:11px;color:#94a3b8">Last updated: ${e(computedAt)}</p></div>`;
+}
+
+// ── Load ──────────────────────────────────────────────────────────────────────
+
+async function loadDashboard(silent) {
+  const token = readToken();
+  if (!token) { renderNoToken(); return; }
+
+  if (!silent) _pollAttempt = 0;
+
+  if (!silent) {
+    document.getElementById('app').innerHTML = `
+      <div class="state-wrap">
+        <div class="spinner"></div>
+        <p class="state-title">Loading cohort overview&hellip;</p>
+      </div>`;
+  }
+
+  try {
+    const res = await fetch('/.netlify/functions/p1-cohort-snapshot-load', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token })
+    });
+
+    if (res.status === 401 || res.status === 403) {
+      localStorage.removeItem('gca_employer_token');
+      renderError('This access link has expired or is not valid. Please contact support@getcharteredai.com to request a new one.');
+      return;
+    }
+    if (res.status === 404) {
+      renderError('Cohort not found. Please contact support@getcharteredai.com.');
+      return;
+    }
+    if (!res.ok) {
+      renderError('Could not load the cohort overview. Please try again in a few minutes.');
+      return;
+    }
+
+    const data = await res.json();
+    renderDashboard(data);
+
+  } catch {
+    renderError('Could not connect. Please check your connection and try again.');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => loadDashboard(false));
+</script>
+</body>
+</html>

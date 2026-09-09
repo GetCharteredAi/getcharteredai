@@ -265,19 +265,31 @@ ${managerResponsesData.managerSelectedFocusAreas?.length
       schemaVersion: 'cohort-safe-v1',
       lastUpdatedAt: now,
       phase3: {
-        managerParticipated: !!managerResponsesData?.responses,
+        managerParticipated: !synthesis.candidateOnly,
         managerSelectedFocusAreas: managerResponsesData.managerSelectedFocusAreas || [],
         areaRelationships: (synthesis.areaRelationships || []).map(r => ({
           area: r.area,
           relationshipType: r.relationshipType
         })),
-        developmentFocusAreas: (synthesis.developmentPrioritiesForDiscussion || [])
-          .map(p => p.area).filter(Boolean)
+        michaelSynthesisPriorities: (synthesis.developmentPrioritiesForDiscussion || []).map(p => ({
+          area: p.area || null,
+          gapType: p.gapType || null
+        }))
       }
     });
 
     await sessionStore.setJSON(jobKey, { status: 'complete', runToken, completedAt: now });
     console.log(`[p1-synthesis-bg] Synthesis complete for session ${sessionId}`);
+
+    // Fire cohort snapshot trigger — fire-and-forget; never allowed to fail this function
+    try {
+      const _siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
+      fetch(`${_siteUrl}/.netlify/functions/p1-cohort-snapshot-trigger`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, internalSecret: process.env.P1_INTERNAL_SECRET })
+      }).catch(() => {});
+    } catch (_) {}
 
   } catch (err) {
     console.error('[p1-synthesis-bg] Unexpected error:', err.message);

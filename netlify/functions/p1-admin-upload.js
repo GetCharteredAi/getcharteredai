@@ -279,19 +279,19 @@ exports.handler = async (event) => {
   });
 
   // Email #1 — employer confirmation
-  const employerLink = `${siteUrl}/professional-readiness-benchmark?token=${employerToken}`;
+  const employerLink = `${siteUrl}/cohort-dashboard?token=${employerToken}`;
   await sendEmail(
     employerContactEmail,
     `Your Professional Readiness Benchmark cohort is ready — ${firmName}`,
     wrap(`
       <p style="font-size:15px;color:#374151;line-height:1.7">Your cohort of <strong>${sessionIds.length} candidate${sessionIds.length !== 1 ? 's' : ''}</strong> has been created and invitation emails have been sent.</p>
-      <p style="font-size:15px;color:#374151;line-height:1.7">You can track progress using the link below:</p>
+      <p style="font-size:15px;color:#374151;line-height:1.7">Your cohort overview will be available from the link below once participants begin. Aggregated readiness insights appear once at least 5 participants reach the Benchmark stage.</p>
       <div style="margin:24px 0;text-align:center">
-        <a href="${employerLink}" style="display:inline-block;background:#3d5afe;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:700;font-size:14px">View cohort status →</a>
+        <a href="${employerLink}" style="display:inline-block;background:#3d5afe;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:700;font-size:14px">View cohort overview →</a>
       </div>
-      <p style="font-size:13px;color:#94a3b8;line-height:1.6">This link shows real-time status for all candidates in this cohort. Bookmark it — it expires in 365 days.</p>
+      <p style="font-size:13px;color:#94a3b8;line-height:1.6">Bookmark this link — it expires in 365 days.</p>
     `),
-    `Your cohort of ${sessionIds.length} candidate(s) has been created. Track progress here: ${employerLink}`
+    `Your cohort of ${sessionIds.length} candidate(s) has been created. View the cohort overview here: ${employerLink}`
   );
 
   console.log(`[p1-upload] Cohort ${cohortId} created: ${sessionIds.length} sessions for ${firmName}`);

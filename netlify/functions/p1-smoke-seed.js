@@ -45,9 +45,12 @@ exports.handler = async (event) => {
     return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'Forbidden: not a smoke environment' }) };
   }
 
-  // Guard 2: refuse on production — use DEPLOY_PRIME_URL (branch-specific) before URL (always main site)
-  const context    = process.env.CONTEXT || '';
-  const deployUrl  = (process.env.P1_SITE_URL || process.env.DEPLOY_PRIME_URL || process.env.URL || '').toLowerCase();
+  // Guard 2: refuse on production.
+  // Do NOT use P1_SITE_URL or URL here — both may be set to the main site domain even on branch deploys.
+  // CONTEXT is the only reliable Netlify signal: 'production' | 'branch-deploy' | 'deploy-preview'.
+  // DEPLOY_PRIME_URL is a branch-specific URL (*.netlify.app) used as defence-in-depth.
+  const context   = process.env.CONTEXT || '';
+  const deployUrl = (process.env.DEPLOY_PRIME_URL || process.env.DEPLOY_URL || '').toLowerCase();
   if (context === 'production' || deployUrl.includes('getcharteredai.com')) {
     return { statusCode: 403, headers: HEADERS, body: JSON.stringify({ error: 'Forbidden: production environment' }) };
   }

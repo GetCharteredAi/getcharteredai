@@ -10,10 +10,7 @@
 
 'use strict';
 
-const { getStore } = require('@netlify/blobs');
 const crypto = require('crypto');
-
-const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
 
 const HEADERS = {
   'Content-Type': 'application/json',
@@ -193,14 +190,13 @@ exports.handler = async (event) => {
     }).catch(() => {});
   }
 
-  // Poll cohort store via native getStore (correct namespace)
-  const cohortStore = getStore(`${PREFIX}p1-cohorts`);
+  // Poll via snapshot-load API — exercises the same path the dashboard uses, no direct blob access.
   async function waitForSnapshot(testFn, maxMs = 18000) {
     const deadline = Date.now() + maxMs;
     while (Date.now() < deadline) {
-      const s = await cohortStore.get(`${cohortId}/snapshot`, { type: 'json' });
-      if (s && testFn(s)) return s;
-      await new Promise(r => setTimeout(r, 1500));
+      const r = await post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken });
+      if (r.status === 200 && r.json?.snapshot && testFn(r.json.snapshot)) return r.json.snapshot;
+      await new Promise(r2 => setTimeout(r2, 1500));
     }
     return null;
   }

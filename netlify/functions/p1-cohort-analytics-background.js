@@ -654,21 +654,35 @@ Provided meaningful input: ${show(mp.participated, mp.coverage.basedOn)} of ${mp
 Genuine perspective divergence: ${div.count} area-instances across cohort
 ${phase4Section}
 
-Return 3–5 Development Conditions — evidence-based actions the employer can take to improve the professional development environment for this cohort.
+Return 2–5 Development Conditions — evidence-based actions the employer can take to improve the professional development environment for this cohort.
+Two sharp, defensible conditions are better than three manufactured ones. Only return a condition where the evidence clearly supports it.
 
-Each action must:
-- Derive from the specific numbers above — cite the signal in "basis"
-- Be confident and specific, not timid (e.g. "Create structured opportunities to practise X" not "Consider whether…")
+Each condition must:
 - Address an organisational condition the employer can change, not a personal performance target
 - Use the exact Benchmark area names where relevant
-- Where relevant, draw on perspective alignment or misalignment across candidate, manager and Michael signals
+- Draw on perspective alignment or misalignment across candidate, manager and Michael signals where available
+
+For each condition, return exactly four fields:
+- "seeing": purely the structured evidence — cite counts and denominators (e.g. "5 of 20 participants show a confirmed exposure gap in Judgement, Help & Escalation"). No interpretation here. Always include count + denominator where fewer than half the cohort is involved.
+- "means": one cautious sentence interpreting what this may indicate. Do not claim causation. Do not infer blame or organisational fault.
+- "toDo": a specific, proportionate employer action. Be confident and direct. Start with an imperative verb. Address the development condition, not the supposed organisational failure.
+- "review": one sentence saying what to check at the next Progress Reflection.
+
+Copy rules that must be followed in every field:
+- Do not infer intent, cause, blame or organisational fault
+- Use "participants are reporting limited opportunity to practise" — not "managers are not giving enough exposure"
+- Describe the development condition, not the supposed organisational failure
+- Do not turn divergence into disagreement — use "different priorities are being identified" not "managers and candidates disagree"
+- If fewer than half the cohort supports the finding, always show count and denominator in "seeing"
 
 Return ONLY valid JSON — no preamble, no markdown:
 {
   "actions": [
     {
-      "action": "<specific development condition — what the employer should create, change or provide>",
-      "basis": "<the specific aggregated signal that supports this — cite counts or percentages>"
+      "seeing": "<purely the structured evidence — cite counts and denominators>",
+      "means": "<one cautious sentence interpreting what this may indicate — no causation, no blame>",
+      "toDo": "<specific, proportionate employer action — imperative verb, development condition focused>",
+      "review": "<what to check at the next Progress Reflection>"
     }
   ]
 }`;

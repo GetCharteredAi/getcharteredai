@@ -193,12 +193,12 @@ exports.handler = async (event) => {
   }
 
   // Poll via snapshot-load API — no direct blob access; exercises the same path the dashboard uses.
-  async function waitForSnapshot(testFn, maxMs = 10000) {
+  async function waitForSnapshot(testFn, maxMs = 15000) {
     const deadline = Date.now() + maxMs;
     while (Date.now() < deadline) {
       const r = await post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken });
       if (r.status === 200 && r.json?.snapshot && testFn(r.json.snapshot)) return r.json.snapshot;
-      await new Promise(r2 => setTimeout(r2, 1500));
+      await new Promise(r2 => setTimeout(r2, 1000));
     }
     return null;
   }

@@ -139,8 +139,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({ error: 'Missing P1_INTERNAL_SECRET or JWT_SECRET in branch-deploy env' }) };
   }
 
-  // Derive branch URL from the incoming request host header — the exact URL the caller used,
-  // so function-to-function calls on the same deploy stay on the branch.
+  // Derive branch URL from the incoming request host header.
   const requestHost = event.headers['host'] || event.headers['Host'] || '';
   const BRANCH_URL  = requestHost
     ? `https://${requestHost}`
@@ -182,25 +181,33 @@ exports.handler = async (event) => {
     return { status: res.status, json };
   }
 
-  // Fire analytics directly at branch URL (snapshot-load's siteUrl resolves to production).
-  function fireAnalyticsDirect(id) {
+  // Fire analytics at branch URL and await the HTTP acknowledgement (202 expected).
+  // Awaiting gives us a confirmed HTTP status rather than silent fire-and-forget.
+  async function fireAnalyticsAndVerify(id) {
     const runToken = crypto.randomUUID();
-    fetch(`${BRANCH_URL}/.netlify/functions/p1-cohort-analytics-background`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cohortId: id, internalSecret: INTERNAL_SECRET, runToken })
-    }).catch(() => {});
+    try {
+      const res = await fetch(`${BRANCH_URL}/.netlify/functions/p1-cohort-analytics-background`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cohortId: id, internalSecret: INTERNAL_SECRET, runToken })
+      });
+      return { status: res.status };
+    } catch (e) {
+      return { status: null, error: e.message };
+    }
   }
 
-  // Poll via snapshot-load API — no direct blob access; exercises the same path the dashboard uses.
+  // Poll via snapshot-load API -- no direct blob access; exercises the same path the dashboard uses.
   async function waitForSnapshot(testFn, maxMs = 15000) {
     const deadline = Date.now() + maxMs;
+    let lastJson = null;
     while (Date.now() < deadline) {
       const r = await post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken });
-      if (r.status === 200 && r.json?.snapshot && testFn(r.json.snapshot)) return r.json.snapshot;
+      lastJson = r.json;
+      if (r.status === 200 && r.json?.snapshot && testFn(r.json.snapshot)) return { snapshot: r.json.snapshot };
       await new Promise(r2 => setTimeout(r2, 1000));
     }
-    return null;
+    return { snapshot: null, lastJson };
   }
 
   // Test accumulator
@@ -214,7 +221,6 @@ exports.handler = async (event) => {
   try {
 
     // -- 1. Seed + auth boundary checks in parallel ----------------------------
-    // Auth checks are seed-independent; running them concurrently saves ~2 RTTs.
 
     const [seedResult, r_missing, r_bad, r_secret] = await Promise.all([
       post('/.netlify/functions/p1-smoke-seed', {
@@ -240,11 +246,12 @@ exports.handler = async (event) => {
     check('snapshot-load: invalid token -> 401', r_bad.status === 401, `got ${r_bad.status}`);
     check('snapshot-trigger: wrong internal secret -> 403', r_secret.status === 403, `got ${r_secret.status}`);
 
-    // Fire analytics immediately after seed so it runs during steps 2+3 below.
-    fireAnalyticsDirect(cohortId);
+    // Fire analytics immediately after seed and verify HTTP 202 acknowledgement.
+    const fireResult = await fireAnalyticsAndVerify(cohortId);
+    check('analytics: background function acknowledged -> 202', fireResult.status === 202,
+      `got ${fireResult.status}${fireResult.error ? ' err=' + fireResult.error : ''}`);
 
     // -- 2. Non-snapshot checks in parallel while analytics runs ---------------
-    // First snapshot-load call, auth edge cases, and debounce reset are all independent.
 
     const [r_load1, r_role, r_404, resetResult] = await Promise.all([
       post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken }),
@@ -274,10 +281,20 @@ exports.handler = async (event) => {
     }
 
     // -- 4. Wait for analytics snapshot ---------------------------------------
-    // By now analytics has had a head start (steps 2+3 took ~3-8s while it ran).
 
-    const snapshot1 = await waitForSnapshot(s => s.schemaVersion === 'cohort-snapshot-v1');
-    check('analytics: snapshot written', snapshot1 !== null);
+    const { snapshot: snapshot1, lastJson: lastLoadJson } = await waitForSnapshot(
+      s => s.schemaVersion === 'cohort-snapshot-v1'
+    );
+    check('analytics: snapshot written', snapshot1 !== null,
+      snapshot1 ? undefined : `last snapshot-load: computing=${lastLoadJson?.computing} snapshot=${lastLoadJson?.snapshot}`);
+
+    // If snapshot still missing, read the job blob directly for diagnostics.
+    if (!snapshot1) {
+      const jobResult = await post('/.netlify/functions/p1-smoke-seed', {
+        action: 'read_job', internalSecret: INTERNAL_SECRET, cohortId
+      });
+      check('analytics diagnostic (job status)', false, `job=${JSON.stringify(jobResult.json?.job)}`);
+    }
 
     if (snapshot1) {
 

@@ -68,7 +68,7 @@ exports.handler = async (event) => {
   }
 
   // Guard 4: known actions only
-  const VALID_ACTIONS = new Set(['seed', 'cleanup', 'reset_debounce', 'set_stale']);
+  const VALID_ACTIONS = new Set(['seed', 'cleanup', 'reset_debounce', 'set_stale', 'read_job']);
   if (!VALID_ACTIONS.has(action)) {
     return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Unknown action' }) };
   }
@@ -144,6 +144,12 @@ exports.handler = async (event) => {
       await cs.setJSON('index', (idx || []).filter(c => c.cohortId !== cohortId));
 
       return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ cleaned: true }) };
+    }
+
+    // ── read_job (diagnostic) ─────────────────────────────────────────────────
+    if (action === 'read_job') {
+      const job = await cs.get(`${cohortId}/jobs/analytics`, { type: 'json' });
+      return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ job }) };
     }
 
     // ── reset_debounce ────────────────────────────────────────────────────────

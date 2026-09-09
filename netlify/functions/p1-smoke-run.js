@@ -142,11 +142,16 @@ exports.handler = async (event) => {
       body: JSON.stringify({ error: 'Missing P1_INTERNAL_SECRET or JWT_SECRET in branch-deploy env' }) };
   }
 
-  // Branch URL for HTTP calls — must be branch-specific, not the main site domain
-  const BRANCH_URL = process.env.DEPLOY_PRIME_URL || process.env.DEPLOY_URL || '';
+  // Derive the branch URL from the incoming request host — this is the exact URL the caller
+  // used, so function-to-function calls on the same deploy will stay on the branch.
+  // Env var fallbacks kept for local testing; DEPLOY_PRIME_URL not reliably set by Netlify.
+  const requestHost = event.headers['host'] || event.headers['Host'] || '';
+  const BRANCH_URL  = requestHost
+    ? `https://${requestHost}`
+    : (process.env.DEPLOY_PRIME_URL || process.env.DEPLOY_URL || '');
   if (!BRANCH_URL) {
     return { statusCode: 500, headers: HEADERS,
-      body: JSON.stringify({ error: 'DEPLOY_PRIME_URL not set — cannot call branch functions' }) };
+      body: JSON.stringify({ error: 'Cannot determine branch URL from host header or env vars' }) };
   }
 
   // Unique identifiers for this run

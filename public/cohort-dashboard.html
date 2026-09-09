@@ -348,7 +348,7 @@ function deriveExecutiveSummary(coverage, stateA, stateB) {
     return d && d.denominator >= 3 && d.confirmedLack > d.relevantExposure && d.confirmedLack > 1;
   });
   if (constrained.length >= 1) {
-    const named = constrained.slice(0, 2).map(shortArea);
+    const named = constrained.slice(0, 2);
     const areaStr = named.length === 1 ? named[0] : named[0] + ' and ' + named[1];
     return { mode: 'constraint-led', text: 'Workplace exposure appears to be the strongest current development constraint in this cohort, particularly in ' + areaStr + '.' };
   }

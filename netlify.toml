@@ -10,6 +10,9 @@
 [functions]
   node_bundler = "esbuild"
 
+[functions."p1-smoke-run"]
+  timeout = 26
+
 [build.processing]
   skip_processing = false
 

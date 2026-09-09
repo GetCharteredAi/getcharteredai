@@ -101,18 +101,18 @@ exports.handler = async (event) => {
 
       const sessionIds = sessions.map(s => s.sessionId);
 
-      // Upsert cohort index entry
-      const idx = await cs.get('index', { type: 'json' }) || [];
-      const fresh = idx.filter(c => c.cohortId !== cohortId);
+      // Upsert cohort index entry and write all blobs in parallel
+      const [idx] = await Promise.all([
+        cs.get('index', { type: 'json' }),
+        cs.setJSON(`${cohortId}/sessions`, sessionIds),
+        ...sessions.flatMap(s => [
+          ss.setJSON(`${s.sessionId}/metadata`, s.metadata),
+          ss.setJSON(`${s.sessionId}/cohort-safe`, s.cohortSafe)
+        ])
+      ]);
+      const fresh = (idx || []).filter(c => c.cohortId !== cohortId);
       fresh.push({ cohortId, firmName, employerContactEmail: employerEmail, status: 'active', createdAt: Date.now() });
       await cs.setJSON('index', fresh);
-
-      // Write cohort sessions list and per-session blobs
-      await cs.setJSON(`${cohortId}/sessions`, sessionIds);
-      for (const s of sessions) {
-        await ss.setJSON(`${s.sessionId}/metadata`, s.metadata);
-        await ss.setJSON(`${s.sessionId}/cohort-safe`, s.cohortSafe);
-      }
 
       return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ seeded: true, sessions: sessionIds.length }) };
     }
@@ -130,18 +130,18 @@ exports.handler = async (event) => {
         }
       }
 
-      for (const id of sessionIds) {
-        await ss.delete(`${id}/metadata`);
-        await ss.delete(`${id}/cohort-safe`);
-      }
-
-      await cs.delete(`${cohortId}/sessions`);
-      await cs.delete(`${cohortId}/snapshot`);
-      await cs.delete(`${cohortId}/jobs/analytics`);
-      await cs.delete(`${cohortId}/lastTriggerAt`);
-
-      const idx = await cs.get('index', { type: 'json' }) || [];
-      await cs.setJSON('index', idx.filter(c => c.cohortId !== cohortId));
+      const [idx] = await Promise.all([
+        cs.get('index', { type: 'json' }),
+        cs.delete(`${cohortId}/sessions`),
+        cs.delete(`${cohortId}/snapshot`),
+        cs.delete(`${cohortId}/jobs/analytics`),
+        cs.delete(`${cohortId}/lastTriggerAt`),
+        ...sessionIds.flatMap(id => [
+          ss.delete(`${id}/metadata`),
+          ss.delete(`${id}/cohort-safe`)
+        ])
+      ]);
+      await cs.setJSON('index', (idx || []).filter(c => c.cohortId !== cohortId));
 
       return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ cleaned: true }) };
     }

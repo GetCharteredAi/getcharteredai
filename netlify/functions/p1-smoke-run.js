@@ -211,16 +211,15 @@ exports.handler = async (event) => {
 
   try {
 
-    // ── 1. Auth boundaries ────────────────────────────────────────────────────
+    // ── 1. Auth boundaries (parallel) ────────────────────────────────────────
 
-    const r_missing = await post('/.netlify/functions/p1-cohort-snapshot-load', {});
+    const [r_missing, r_bad, r_secret] = await Promise.all([
+      post('/.netlify/functions/p1-cohort-snapshot-load', {}),
+      post('/.netlify/functions/p1-cohort-snapshot-load', { token: 'bad.token.xyz' }),
+      post('/.netlify/functions/p1-cohort-snapshot-trigger', { sessionId: 'test', internalSecret: 'wrongsecret' })
+    ]);
     check('snapshot-load: missing token → 400', r_missing.status === 400, `got ${r_missing.status}`);
-
-    const r_bad = await post('/.netlify/functions/p1-cohort-snapshot-load', { token: 'bad.token.xyz' });
     check('snapshot-load: invalid token → 401', r_bad.status === 401, `got ${r_bad.status}`);
-
-    const r_secret = await post('/.netlify/functions/p1-cohort-snapshot-trigger',
-      { sessionId: 'test', internalSecret: 'wrongsecret' });
     check('snapshot-trigger: wrong internal secret → 403', r_secret.status === 403, `got ${r_secret.status}`);
 
     // ── 2. Seed ───────────────────────────────────────────────────────────────
@@ -299,20 +298,21 @@ exports.handler = async (event) => {
         val ? `analyticsEligible=${val.analyticsEligible}` : 'group absent');
       check('Valuation: no areaOutcomes when suppressed', !val?.areaOutcomes);
 
-      // ── 7. Employer auth ────────────────────────────────────────────────────
+      // ── 7. Employer auth (parallel) ─────────────────────────────────────────
 
-      const r_valid = await post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken });
+      const candidateToken = signJwt({ role: 'candidate', email: EMPLOYER_EMAIL, expires: Date.now() + 3600000 });
+      const badToken = signJwt({ cohortId: 'nonexistent-xyz', role: 'employer', email: EMPLOYER_EMAIL, expires: Date.now() + 3600000 });
+
+      const [r_valid, r_role, r_404] = await Promise.all([
+        post('/.netlify/functions/p1-cohort-snapshot-load', { token: employerToken }),
+        post('/.netlify/functions/p1-cohort-snapshot-load', { token: candidateToken }),
+        post('/.netlify/functions/p1-cohort-snapshot-load', { token: badToken })
+      ]);
       check('valid employer token → 200 + snapshot returned',
         r_valid.status === 200 && r_valid.json?.snapshot?.schemaVersion === 'cohort-snapshot-v1',
         `status=${r_valid.status}`);
       check('firmName = Smoke Test Firm', r_valid.json?.firmName === 'Smoke Test Firm', r_valid.json?.firmName);
-
-      const candidateToken = signJwt({ role: 'candidate', email: EMPLOYER_EMAIL, expires: Date.now() + 3600000 });
-      const r_role = await post('/.netlify/functions/p1-cohort-snapshot-load', { token: candidateToken });
       check('candidate-role token → 401', r_role.status === 401, `got ${r_role.status}`);
-
-      const badToken = signJwt({ cohortId: 'nonexistent-xyz', role: 'employer', email: EMPLOYER_EMAIL, expires: Date.now() + 3600000 });
-      const r_404 = await post('/.netlify/functions/p1-cohort-snapshot-load', { token: badToken });
       check('nonexistent cohortId → 404', r_404.status === 404, `got ${r_404.status}`);
 
       // ── 8. Stale snapshot detection ─────────────────────────────────────────

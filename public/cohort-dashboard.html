@@ -233,9 +233,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:28px 40px
   <div class="footer-links">
     <a href="/employer">Employer</a>
     <a href="/employer-guide">Guide</a>
-    <a href="mailto:support@getcharteredai.com">support@getcharteredai.com</a>
   </div>
-  <p class="footer-copy">&copy; Get Chartered AI 2026 &middot; Professional Readiness Dashboard</p>
+  <p class="footer-copy">&copy; 2026 Get Chartered AI</p>
 </footer>
 
 <script>
@@ -434,7 +433,7 @@ function renderEvidenceStrip(coverage, stateA, stateB) {
   const items = [
     { n: coverage.total, label: 'Total participants' },
     { n: coverage.analyticsEligible, label: 'Analytics eligible' },
-    mp && mp.coverage.basedOn > 0 ? { n: mp.participated, label: 'of ' + mp.coverage.basedOn + ' with manager perspective' } : null,
+    mp && mp.coverage.basedOn > 0 ? { n: mp.participated, label: 'of ' + mp.coverage.basedOn + ' eligible with manager perspective' } : null,
     stateB && stateB.available ? { n: stateB.basedOn, label: 'with Progress Reflection' } : null,
     stateA && stateA.available ? { n: areasCount, label: 'of 5 areas with sufficient evidence' } : null
   ].filter(Boolean);
@@ -503,7 +502,7 @@ function renderExposureSection(stateA) {
     const nasPct = 100 - lackPct - relPct;
     const statText = d.confirmedLack === 0
       ? '<strong>No confirmed exposure gaps</strong> in this area (' + d.denominator + ' with exposure data).'
-      : '<strong>' + d.confirmedLack + ' of ' + d.denominator + ' participants</strong> with exposure data show a confirmed opportunity gap.';
+      : '<strong>' + d.confirmedLack + ' of ' + d.denominator + '</strong> participants report limited opportunity to practise in this area. ' + d.relevantExposure + ' report relevant workplace exposure.';
     return `<div class="exp-area">
       <div class="exp-area-name">${e(shortArea(area))}</div>
       <div>
@@ -522,8 +521,8 @@ function renderExposureSection(stateA) {
     <div class="section-inner">
       <span class="eyebrow">Exposure Intelligence</span>
       <h2 class="section-title">Where people may not be getting the experience they need</h2>
-      <p class="section-sub">Participants are reporting whether they have relevant opportunities in each area. Exposure confirmation available for ${coverage.coveredSessions} of ${coverage.total} sessions.</p>
-      <p class="exposure-note">This is an experience signal, not a capability judgement. A confirmed exposure gap indicates limited opportunity to practise &mdash; not a personal performance issue.</p>
+      <p class="section-sub">This shows where participants are getting the opportunity to practise key professional behaviours &mdash; and where that opportunity may be limited.</p>
+      <p class="exposure-note">A lack of opportunity is not a capability judgement.</p>
       <div class="exposure-areas">${areasHtml}</div>
     </div>
   </div>`;
@@ -535,7 +534,7 @@ function renderInterventionSection(stateA) {
     { key: 'experienceExposureNeed', label: 'Create more workplace exposure', note: 'Participants are reporting limited opportunity to practise. This is an organisational condition, not a personal capability issue.' },
     { key: 'learningPracticeNeed', label: 'Build capability through learning and practice', note: 'Participants may benefit from structured learning or rehearsal before applying further in live work.' },
     { key: 'priorityAlignmentConversation', label: 'Clarify development priorities', note: 'Different development priorities are being identified across sources. A focused conversation may help align on what to focus on next.' },
-    { key: 'insufficientEvidence', label: 'Strengthen evidence before acting', note: 'Insufficient structured evidence to classify the development need reliably. Gathering more information would help before intervening.' }
+    { key: 'insufficientEvidence', label: 'Strengthen evidence before acting', note: 'Evidence in this area is limited at this stage. More structured engagement would give a clearer picture before any action is taken.' }
   ];
   const items = defs.map(def => {
     const areaList = FIVE_AREAS
@@ -562,10 +561,6 @@ function renderInterventionSection(stateA) {
                 ${item.areaList.map(x => `<span class="interv-area-tag">${e(shortArea(x.area))} <span class="interv-count">${x.count}</span></span>`).join('')}
               </div>
               <p class="interv-item-note">${e(item.note)}</p>
-            </div>
-            <div class="interv-total">
-              <span class="interv-total-n">${item.total}</span>
-              <span class="interv-total-label">across areas</span>
             </div>
           </div>`).join('')}
       </div>
@@ -609,7 +604,6 @@ function renderPerspectivesSection(stateA) {
             : divergent.map(x => `<div class="persp-area-item">${e(shortArea(x.area))}</div>`).join('')}
         </div>
       </div>
-      <p class="persp-note">Different priorities are not necessarily a problem. They can indicate where a focused development conversation would be useful &mdash; particularly where Michael and the manager identify the same area but the candidate has selected a different priority.</p>
     </div>
   </div>`;
 }
@@ -622,8 +616,8 @@ function renderRecommendationsSection(stateA) {
   if (!actions) {
     return `<div class="section-rec"><div class="section-inner">${heading}
       <div class="rec-generating">
-        <p class="rec-generating-title">Development conditions are being prepared</p>
-        <p class="rec-generating-sub">Michael is reviewing the cohort evidence. Conditions will appear here once the analysis is complete.</p>
+        <p class="rec-generating-title">Preparing your recommendations</p>
+        <p class="rec-generating-sub">Michael is reviewing the cohort patterns and identifying the most useful actions to consider next.</p>
       </div></div></div>`;
   }
   if (actions.length === 0) {

@@ -107,6 +107,11 @@
   to = "/cohort-dashboard.html"
   status = 200
 
+[[redirects]]
+  from = "/employer/professional-readiness"
+  to = "/employer-professional-readiness.html"
+  status = 200
+
 [functions."p1-scheduled"]
   schedule = "@daily"
 

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://getcharteredai.com/employer/professional-readiness">
+<title>Professional Readiness for Graduates &amp; Apprentices — Get Chartered AI</title>
+<meta name="description" content="See where your graduates and apprentices are developing well — and what they need next. The Professional Readiness Benchmark gives employers a structured, privacy-first group-level view of professional development.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0D0F1C;--blue:#2563EB;--blue-dark:#1d4ed8;--amber:#f59e0b;--green:#10b981;--f:'Inter',sans-serif;--fh:'Plus Jakarta Sans','Inter',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);background:#fff;color:#1a1a2e;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-filter:blur(16px);height:64px;display:flex;align-items:center;padding:0 40px;border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo{display:flex;align-items:center;margin-right:auto;text-decoration:none}
+.nav-links{display:flex;gap:24px;margin-right:28px}
+.nav-link{font-size:13px;color:rgba(255,255,255,.58);text-decoration:none;transition:.15s}.nav-link:hover{color:#fff}
+.nav-btn{font-size:13px;font-weight:700;color:var(--navy);background:var(--amber);padding:8px 18px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.15s}.nav-btn:hover{background:#d97706}
+
+/* HERO */
+.hero{background:var(--navy);padding:96px 40px 88px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 28% 0%,rgba(37,99,235,.15) 0%,transparent 65%);pointer-events:none}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 400px;gap:64px;align-items:center;position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);padding:5px 14px;border-radius:20px;margin-bottom:22px}
+.hero h1{font-family:var(--fh);font-size:clamp(26px,3.8vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.03em;color:#fff;margin-bottom:20px}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.60);line-height:1.72;max-width:480px;margin-bottom:32px}
+.hero-reassurances{display:flex;flex-direction:column;gap:11px;margin-bottom:36px}
+.hero-reassurance{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(255,255,255,.70);line-height:1.5}
+.reassurance-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-amber{background:var(--amber);color:var(--navy);padding:14px 26px;border-radius:9px;font-size:15px;font-weight:700;text-decoration:none;transition:.15s;white-space:nowrap}.btn-amber:hover{background:#d97706}
+.btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.28);color:#fff;padding:14px 24px;border-radius:9px;font-size:15px;font-weight:600;text-decoration:none;transition:.15s}.btn-ghost:hover{border-color:rgba(255,255,255,.55)}
+
+/* HERO PANEL */
+.hero-panel{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:36px;position:relative;overflow:hidden}
+.hero-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--amber))}
+.panel-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:16px}
+.panel-h2{font-family:var(--fh);font-size:21px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:12px;letter-spacing:-.02em}
+.panel-sub{font-size:13px;color:rgba(255,255,255,.58);line-height:1.65;margin-bottom:26px}
+.panel-areas{display:flex;flex-direction:column;gap:7px}
+.panel-area{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:8px}
+.area-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.area-name{font-size:13px;color:rgba(255,255,255,.72);font-weight:500}
+
+/* SECTION COMMON */
+.section{padding:80px 40px}
+.sec-inner{max-width:1100px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:14px}
+.eyebrow-blue{color:var(--blue)}
+.eyebrow-amber{color:var(--amber)}
+.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.5vw,38px);font-weight:800;line-height:1.12;letter-spacing:-.025em;margin-bottom:14px}
+.sec-h2-dark{color:var(--navy)}
+.sec-h2-white{color:#fff}
+.sec-lead{font-size:16px;line-height:1.72;max-width:620px;margin-bottom:44px}
+.sec-lead-muted{color:#64748b}
+.sec-lead-white{color:rgba(255,255,255,.60)}
+
+/* WHAT'S INCLUDED */
+.sec-navy{background:var(--navy)}
+.sec-white{background:#fff}
+.sec-light{background:#f8fafc}
+.included-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.inc-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:28px 24px}
+.inc-icon{font-size:22px;margin-bottom:14px}
+.inc-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.35}
+.inc-body{font-size:13px;color:rgba(255,255,255,.56);line-height:1.65;margin:0}
+
+/* HOW IT WORKS — 5-step horizontal journey */
+.how-journey{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;margin-top:48px}
+.how-journey::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--blue),rgba(37,99,235,.18));z-index:0}
+.how-step{text-align:center;padding:0 10px;position:relative;z-index:1}
+.step-num{width:56px;height:56px;border-radius:50%;background:#fff;border:2px solid var(--blue);color:var(--navy);font-family:var(--fh);font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 0 0 6px #f8fafc}
+.step-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.35}
+.step-body{font-size:12px;color:#64748b;line-height:1.6}
+
+/* WHAT THE EMPLOYER SEES */
+.sees-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sees-row{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 24px;display:flex;align-items:flex-start;gap:16px;transition:.15s}.sees-row:hover{border-color:#bfdbfe;box-shadow:0 2px 12px rgba(37,99,235,.06)}
+.sees-num{font-family:var(--fh);font-size:13px;font-weight:800;color:var(--blue);min-width:26px;padding-top:2px;flex-shrink:0}
+.sees-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:5px}
+.sees-desc{font-size:13px;color:#64748b;line-height:1.62;margin:0}
+
+/* DARK CLOSE */
+.close-sec{background:linear-gradient(140deg,#0D0F1C 0%,#0b152a 100%);padding:96px 40px;text-align:center;position:relative;overflow:hidden}
+.close-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 110%,rgba(37,99,235,.12) 0%,transparent 65%);pointer-events:none}
+.close-inner{max-width:660px;margin:0 auto;position:relative;z-index:1}
+.close-h2{font-family:var(--fh);font-size:clamp(24px,3.5vw,38px);font-weight:800;line-height:1.12;letter-spacing:-.025em;color:#fff;margin-bottom:16px}
+.close-sub{font-size:16px;color:rgba(255,255,255,.56);line-height:1.72;margin-bottom:36px}
+
+/* FOOTER */
+footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.footer-brand{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--navy)}.footer-brand span{color:var(--amber)}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{color:#64748b;font-size:12px;text-decoration:none;transition:.15s}.footer-links a:hover{color:var(--navy)}
+.footer-copy{font-size:11px;color:#94a3b8;width:100%;margin:0}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .hero-inner{grid-template-columns:1fr;gap:44px}
+  .hero{padding:72px 24px 64px}
+  .hero-sub{max-width:100%}
+  .included-grid{grid-template-columns:1fr 1fr}
+  .section{padding:64px 24px}
+  .close-sec{padding:72px 24px}
+  footer{padding:24px 20px}
+  nav{padding:0 20px}
+}
+@media(max-width:720px){
+  .how-journey{grid-template-columns:1fr 1fr;gap:28px}
+  .how-journey::before{display:none}
+  .sees-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+@media(max-width:540px){
+  .included-grid{grid-template-columns:1fr}
+  .how-journey{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/logo1.png" alt="Get Chartered AI" style="height:42px"></a>
+  <div class="nav-links">
+    <a href="/employer" class="nav-link">Employer</a>
+    <a href="/professional-readiness-benchmark" class="nav-link">Benchmark</a>
+  </div>
+  <a href="/professional-readiness-benchmark" class="nav-btn">Get started &rarr;</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Part One &mdash; Professional Readiness</div>
+      <h1>See where your graduates and apprentices are developing well &mdash; and what they need next.</h1>
+      <p class="hero-sub">The Professional Readiness Benchmark gives you a structured, group-level view of where professional development is progressing and where support may help &mdash; at the point when it matters most.</p>
+      <div class="hero-reassurances">
+        <div class="hero-reassurance"><span class="reassurance-dot"></span>Group-level reporting only &mdash; individual results are never visible to the employer</div>
+        <div class="hero-reassurance"><span class="reassurance-dot"></span>Covers the five areas of professional readiness that matter in early careers</div>
+        <div class="hero-reassurance"><span class="reassurance-dot"></span>Manager perspective built in, not bolted on</div>
+      </div>
+      <div class="hero-btns">
+        <a href="/professional-readiness-benchmark" class="btn-amber">Start the Professional Readiness Benchmark</a>
+        <a href="#how-it-works" class="btn-ghost">See how it works</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="panel-label">Professional Readiness Benchmark</div>
+      <h2 class="panel-h2">See what your graduates and apprentices need after onboarding.</h2>
+      <p class="panel-sub">Understand where development is progressing, where support may help and where workplace opportunity may be limited.</p>
+      <div class="panel-areas">
+        <div class="panel-area"><span class="area-dot" style="background:#2563EB"></span><span class="area-name">APC framework understanding</span></div>
+        <div class="panel-area"><span class="area-dot" style="background:#10b981"></span><span class="area-name">Competency level understanding</span></div>
+        <div class="panel-area"><span class="area-dot" style="background:#f59e0b"></span><span class="area-name">Diary and evidence practice</span></div>
+        <div class="panel-area"><span class="area-dot" style="background:#8b5cf6"></span><span class="area-name">Professional articulation</span></div>
+        <div class="panel-area"><span class="area-dot" style="background:#f43f5e"></span><span class="area-name">Legislation awareness</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT'S INCLUDED -->
+<div class="section sec-navy">
+  <div class="sec-inner">
+    <span class="eyebrow eyebrow-amber">What&rsquo;s included</span>
+    <h2 class="sec-h2 sec-h2-white">A complete group readiness picture.<br>Built in from the start.</h2>
+    <p class="sec-lead sec-lead-white">Everything needed to understand where your graduates and apprentices stand &mdash; and what they need next &mdash; without requiring significant employer time or administration.</p>
+    <div class="included-grid">
+      <div class="inc-card">
+        <div class="inc-icon">📋</div>
+        <div class="inc-title">15-Question Participant Benchmark</div>
+        <p class="inc-body">Each participant completes a structured 15-question benchmark covering five areas of professional practice. Approximately 15 minutes. Completed independently at their own pace.</p>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">💬</div>
+        <div class="inc-title">Short Manager Reflection</div>
+        <p class="inc-body">A brief structured reflection from the participant&rsquo;s line manager or counsellor. Adds a genuine external perspective to the development picture without requiring a long process.</p>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">⚙️</div>
+        <div class="inc-title">AI-Supported Pattern Analysis</div>
+        <p class="inc-body">Michael analyses responses across your group, identifying where development is progressing, where support may be needed and where patterns emerge across the five areas.</p>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">📊</div>
+        <div class="inc-title">Professional Readiness Overview</div>
+        <p class="inc-body">A group-level dashboard showing development patterns across your graduates and apprentices. Built for training managers and HR leads. No individual scores visible to the employer.</p>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">🔄</div>
+        <div class="inc-title">Progress Reflection</div>
+        <p class="inc-body">A follow-up check that captures how development is moving over time. Run it later in the year to see what has changed since the initial Benchmark.</p>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">🔒</div>
+        <div class="inc-title">Privacy-First Group Reporting</div>
+        <p class="inc-body">Results are shown at group level only. No individual scores are visible to the employer. No ranking. No surveillance. Participants can engage honestly without concern about what their employer will see.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section sec-white" id="how-it-works">
+  <div class="sec-inner">
+    <span class="eyebrow eyebrow-blue">How it works</span>
+    <h2 class="sec-h2 sec-h2-dark">Five steps from benchmark to insight.</h2>
+    <p class="sec-lead sec-lead-muted">A straightforward process that requires minimal employer administration. Participants and managers engage at their own pace.</p>
+    <div class="how-journey">
+      <div class="how-step">
+        <div class="step-num">1</div>
+        <div class="step-title">Participant completes the Benchmark</div>
+        <p class="step-body">Each graduate or apprentice completes the 15-question Professional Readiness Benchmark independently. Takes approximately 15 minutes.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">2</div>
+        <div class="step-title">Manager adds their perspective</div>
+        <p class="step-body">The participant&rsquo;s manager or counsellor completes a short structured reflection on the same five areas. A separate, independent view.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">3</div>
+        <div class="step-title">Michael identifies patterns</div>
+        <p class="step-body">Michael analyses responses across your group and identifies where development is progressing, where support may help and where priorities align or differ.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">4</div>
+        <div class="step-title">Employer sees the group overview</div>
+        <p class="step-body">You receive access to the Professional Readiness Overview &mdash; a group-level dashboard showing development patterns across your graduates and apprentices.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">5</div>
+        <div class="step-title">Review progress later</div>
+        <p class="step-body">Run the Progress Reflection to see what has changed. Compare where the group was at Benchmark against where they are now.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT THE EMPLOYER SEES -->
+<div class="section sec-light">
+  <div class="sec-inner">
+    <span class="eyebrow eyebrow-blue">What the employer sees</span>
+    <h2 class="sec-h2 sec-h2-dark">Six views. One clear picture.</h2>
+    <p class="sec-lead sec-lead-muted">The Professional Readiness Overview gives you a structured group-level view across six dimensions of professional development.</p>
+    <div class="sees-grid">
+      <div class="sees-row">
+        <div class="sees-num">01</div>
+        <div>
+          <div class="sees-title">Where your graduates and apprentices are developing well</div>
+          <p class="sees-desc">Clear signal on where professional practice is progressing across the group &mdash; the areas where development is taking hold.</p>
+        </div>
+      </div>
+      <div class="sees-row">
+        <div class="sees-num">02</div>
+        <div>
+          <div class="sees-title">Where support may help</div>
+          <p class="sees-desc">Areas where the group data suggests structured support or learning would make a meaningful difference to professional development.</p>
+        </div>
+      </div>
+      <div class="sees-row">
+        <div class="sees-num">03</div>
+        <div>
+          <div class="sees-title">Where workplace exposure may be limited</div>
+          <p class="sees-desc">Where participants are reporting limited opportunity to practise key professional behaviours &mdash; an experience signal, not a capability judgement.</p>
+        </div>
+      </div>
+      <div class="sees-row">
+        <div class="sees-num">04</div>
+        <div>
+          <div class="sees-title">Where priorities align &mdash; or differ</div>
+          <p class="sees-desc">How candidate, manager and Michael perspectives point across the five areas. Alignment suggests shared recognition; difference often shows where a conversation would be useful.</p>
+        </div>
+      </div>
+      <div class="sees-row">
+        <div class="sees-num">05</div>
+        <div>
+          <div class="sees-title">What support appears to be needed</div>
+          <p class="sees-desc">The pattern of development needs across the group, classified by type &mdash; so the right kind of support can be identified and considered.</p>
+        </div>
+      </div>
+      <div class="sees-row">
+        <div class="sees-num">06</div>
+        <div>
+          <div class="sees-title">What to consider next</div>
+          <p class="sees-desc">Specific, evidence-based conditions you can create to support professional development. Derived from structured group evidence, not generic recommendations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DARK CLOSE -->
+<div class="close-sec">
+  <div class="close-inner">
+    <h2 class="close-h2">A structured, privacy-first view of where your graduates and apprentices stand.</h2>
+    <p class="close-sub">No individual scores visible to employers. No ranking. No surveillance. Just the group-level patterns that help you support professional development at the point when it matters most.</p>
+    <div>
+      <a href="/professional-readiness-benchmark" class="btn-amber">Start the Professional Readiness Benchmark</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">Get Chartered <span>AI</span></div>
+  <div class="footer-links">
+    <a href="/">Platform</a>
+    <a href="/employer">Employer</a>
+    <a href="/employer-guide">Employer Guide</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Get Chartered AI</p>
+</footer>
+
+</body>
+</html>

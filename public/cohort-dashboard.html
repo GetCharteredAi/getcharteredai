@@ -722,15 +722,19 @@ function renderProgressSection(stateB) {
   </div>`;
 }
 
-function renderEvidenceQualitySection(stateA) {
+function renderEvidenceQualitySection(stateA, coverage, stateB) {
   if (!stateA || !stateA.available) return '';
   const { managerParticipation } = stateA;
-  const participated = managerParticipation.participated;
-  const basedOn = managerParticipation.coverage.basedOn;
-  const mgrPct = basedOn > 0 ? pct(participated, basedOn) : 0;
-  const note = participated < basedOn
-    ? 'Manager perspective is available for part of this cohort. This means some findings rely more heavily on participant-reported evidence than on paired participant-manager evidence.'
-    : 'Manager perspective is available for the full cohort. Findings benefit from both participant-reported and external workplace-observation evidence.';
+  const mgrParticipated = managerParticipation.participated;
+  const mgrBasedOn = managerParticipation.coverage.basedOn;
+  const mgrPct = mgrBasedOn > 0 ? pct(mgrParticipated, mgrBasedOn) : 0;
+  const ph4Count = stateB && stateB.available ? stateB.basedOn : (coverage.phase4Complete || 0);
+  const total = coverage.analyticsEligible;
+
+  const note = mgrParticipated < mgrBasedOn
+    ? 'Manager perspective is available for part of this cohort. Where it is absent, findings rely on participant-reported evidence only — interpret those areas with more caution.'
+    : 'Manager perspective is available across the full cohort. Findings benefit from both participant-reported and externally observed workplace evidence.';
+
   return `
   <div class="section sec-white">
     <div class="section-inner">
@@ -739,13 +743,21 @@ function renderEvidenceQualitySection(stateA) {
       <p class="eq-note">${e(note)}</p>
       <div class="eq-stats">
         <div class="eq-stat">
-          <span class="eq-stat-n">${participated}</span>
-          <span class="eq-stat-label">of ${basedOn} sessions with manager perspective</span>
+          <span class="eq-stat-n">${total}</span>
+          <span class="eq-stat-label">participants completed the Benchmark</span>
         </div>
-        <div class="eq-bar-wrap">
-          <div class="eq-bar-track"><div class="eq-bar-fill" style="width:${mgrPct}%"></div></div>
-          <div class="eq-bar-label">${mgrPct}% manager participation</div>
+        <div class="eq-stat">
+          <span class="eq-stat-n">${mgrParticipated}</span>
+          <span class="eq-stat-label">of ${mgrBasedOn} with manager perspective</span>
         </div>
+        <div class="eq-stat">
+          <span class="eq-stat-n">${ph4Count}</span>
+          <span class="eq-stat-label">${ph4Count >= 5 ? 'with Progress Reflection data' : 'with Progress Reflection — below threshold for cohort patterns'}</span>
+        </div>
+      </div>
+      <div class="eq-bar-wrap">
+        <div class="eq-bar-track"><div class="eq-bar-fill" style="width:${mgrPct}%"></div></div>
+        <div class="eq-bar-label">${mgrPct}% manager participation rate</div>
       </div>
     </div>
   </div>`;
@@ -811,7 +823,7 @@ function renderDashboard(apiResponse) {
     html += renderPerspectivesSection(stateA);
     html += renderRecommendationsSection(stateA);
     html += renderProgressSection(stateB || { available: false });
-    html += renderEvidenceQualitySection(stateA);
+    html += renderEvidenceQualitySection(stateA, coverage, stateB);
   }
 
   html += renderFooterClose();

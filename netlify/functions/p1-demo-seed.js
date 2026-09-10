@@ -20,11 +20,15 @@ const HEADERS = {
 };
 
 function getSessionStore() {
-  return getStore(`${PREFIX}p1-sessions`);
+  return process.env.NETLIFY_BLOBS_CONTEXT
+    ? getStore(`${PREFIX}p1-sessions`)
+    : getStore({ name: `${PREFIX}p1-sessions`, siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
 }
 
 function getCohortStore() {
-  return getStore(`${PREFIX}p1-cohorts`);
+  return process.env.NETLIFY_BLOBS_CONTEXT
+    ? getStore(`${PREFIX}p1-cohorts`)
+    : getStore({ name: `${PREFIX}p1-cohorts`, siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
 }
 
 function signToken(payload) {

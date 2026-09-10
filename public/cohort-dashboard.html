@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Professional Readiness — Cohort Overview | Get Chartered AI</title>
+<title>Professional Readiness Overview | Get Chartered AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -224,7 +224,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:28px 40px
 <div id="app">
   <div class="state-wrap">
     <div class="spinner"></div>
-    <p class="state-title">Loading cohort overview&hellip;</p>
+    <p class="state-title">Loading overview&hellip;</p>
   </div>
 </div>
 
@@ -326,7 +326,7 @@ function shortArea(name) {
 
 function deriveExecutiveSummary(coverage, stateA, stateB) {
   if (!stateA || !stateA.available) {
-    return { mode: 'evidence-limited', text: 'The current evidence is not yet strong enough to identify a reliable cohort-wide development pattern.' };
+    return { mode: 'evidence-limited', text: 'The current evidence is not yet strong enough to identify a reliable pattern across your graduates and apprentices.' };
   }
 
   // Progress-led via State B: broad progress evident at Phase 4
@@ -337,7 +337,7 @@ function deriveExecutiveSummary(coverage, stateA, stateB) {
       if (p && p.total > 0) { ev += p['Progress evident'] || 0; tot += p.total; }
     }
     if (tot >= 5 && ev / tot >= 0.5) {
-      return { mode: 'progress-led', text: 'The cohort is showing progress across most active priorities, with the clearest opportunity now being greater stretch and responsibility.' };
+      return { mode: 'progress-led', text: 'Your graduates and apprentices are showing progress across most active priorities, with the clearest opportunity now being greater stretch and responsibility.' };
     }
   }
 
@@ -349,7 +349,7 @@ function deriveExecutiveSummary(coverage, stateA, stateB) {
   if (constrained.length >= 1) {
     const named = constrained.slice(0, 2);
     const areaStr = named.length === 1 ? named[0] : named[0] + ' and ' + named[1];
-    return { mode: 'constraint-led', text: 'Workplace exposure appears to be the strongest current development constraint in this cohort, particularly in ' + areaStr + '.' };
+    return { mode: 'constraint-led', text: 'Workplace exposure appears to be the strongest current development constraint in this group, particularly in' + areaStr + '.' };
   }
 
   // Progress-led at Benchmark: majority on track
@@ -359,11 +359,11 @@ function deriveExecutiveSummary(coverage, stateA, stateB) {
     if (c) { onTrack += c['ON TRACK'] || 0; total += c.total || 0; }
   }
   if (total >= 5 && onTrack / total >= 0.5) {
-    return { mode: 'progress-led', text: 'Development is progressing well across most areas in this cohort. The majority of participants show evidence of readiness across the five professional readiness areas.' };
+    return { mode: 'progress-led', text: 'Development is progressing well across most areas in this group. The majority of participants show evidence of readiness across the five professional readiness areas.' };
   }
 
   // Mixed
-  return { mode: 'mixed', text: 'Development is uneven across the cohort: progress is evident in some areas, while development priorities and exposure gaps remain active in others.' };
+  return { mode: 'mixed', text: 'Development is uneven across the group: progress is evident in some areas, while development priorities and exposure gaps remain active in others.' };
 }
 
 function countAreasWithEvidence(stateA) {
@@ -386,7 +386,7 @@ function renderNoToken() {
   document.getElementById('app').innerHTML = `
     <div class="state-wrap">
       <p class="state-title">Access link required</p>
-      <p class="state-body">Please use the access link sent to your email address to view your cohort dashboard.</p>
+      <p class="state-body">Please use the access link sent to your email address to view your Professional Readiness Overview.</p>
       <a class="state-link" href="mailto:support@getcharteredai.com">Request a new access link</a>
     </div>`;
 }
@@ -395,8 +395,8 @@ function renderComputingOnly(firmName) {
   document.getElementById('app').innerHTML = `
     <div class="state-wrap">
       <div class="spinner"></div>
-      <p class="state-title">Preparing your cohort overview</p>
-      <p class="state-body">Michael is analysing the Professional Readiness data for ${e(firmName || 'your cohort')}. This usually takes under a minute. The page will refresh automatically.</p>
+      <p class="state-title">Preparing your overview</p>
+      <p class="state-body">Michael is analysing the Professional Readiness data for ${e(firmName || 'your group')}. This usually takes under a minute. The page will refresh automatically.</p>
     </div>`;
 }
 
@@ -414,9 +414,9 @@ function renderHero(coverage, stateA, stateB, firmName, computing) {
   <div class="hero">
     <div class="hero-inner">
       <span class="hero-eyebrow">Employer Dashboard</span>
-      <h1 class="hero-title">Professional Readiness &mdash; Cohort Overview</h1>
+      <h1 class="hero-title">Professional Readiness Overview</h1>
       ${firmName ? `<p class="hero-firm">${e(firmName)}</p>` : ''}
-      <p class="hero-desc">A pattern-level view of where your cohort is progressing, where development may be constrained, and what to consider next.</p>
+      <p class="hero-desc">A pattern-level view of where your graduates and apprentices are progressing, where development may be constrained, and what to consider next.</p>
       <p class="hero-privacy">This dashboard shows cohort patterns, not individual results. Individual reflections remain with the participant and their manager.</p>
       <div class="exec-card ${modeClass}">
         <span class="exec-card-label">What the current evidence suggests</span>
@@ -424,7 +424,7 @@ function renderHero(coverage, stateA, stateB, firmName, computing) {
       </div>
     </div>
   </div>
-  ${computing ? `<div id="refresh-banner" class="refresh-banner"><span class="refresh-dot"></span>&ensp;Refreshing cohort data &mdash; existing overview shown below.</div>` : ''}`;
+  ${computing ? `<div id="refresh-banner" class="refresh-banner"><span class="refresh-dot"></span>&ensp;Refreshing overview &mdash; existing view shown below.</div>` : ''}`;
 }
 
 function renderEvidenceStrip(coverage, stateA, stateB) {
@@ -479,7 +479,7 @@ function renderReadinessSection(stateA) {
   <div class="section sec-white">
     <div class="section-inner">
       <span class="eyebrow">Professional Readiness</span>
-      <h2 class="section-title">Where the cohort is developing well &mdash; and where support is needed</h2>
+      <h2 class="section-title">Where your graduates and apprentices are developing well &mdash; and where support is needed</h2>
       <p class="section-sub">Outcome distribution across the five Professional Readiness areas. Based on ${coverage.basedOn} of ${coverage.total} analytics-eligible sessions with Benchmark data.</p>
       <div class="outcome-legend">${legendHtml}</div>
       <div class="area-rows">${rowsHtml}</div>
@@ -726,8 +726,8 @@ function renderEvidenceQualitySection(stateA, coverage, stateB) {
   const total = coverage.analyticsEligible;
 
   const note = mgrParticipated < mgrBasedOn
-    ? 'Manager perspective is available for part of this cohort. Where it is absent, findings rely on participant-reported evidence only — interpret those areas with more caution.'
-    : 'Manager perspective is available across the full cohort. Findings benefit from both participant-reported and externally observed workplace evidence.';
+    ? 'Manager perspective is available for part of this group. Where it is absent, findings rely on participant-reported evidence only — interpret those areas with more caution.'
+    : 'Manager perspective is available across the full group. Findings benefit from both participant-reported and externally observed workplace evidence.';
 
   return `
   <div class="section sec-white">
@@ -795,7 +795,7 @@ function renderDashboard(apiResponse) {
     return;
   }
   if (!snapshot) {
-    renderError('No cohort data is available yet. Please check back once participants have begun.');
+    renderError('No data is available yet. Please check back once participants have begun.');
     return;
   }
 
@@ -839,7 +839,7 @@ async function loadDashboard(silent) {
     document.getElementById('app').innerHTML = `
       <div class="state-wrap">
         <div class="spinner"></div>
-        <p class="state-title">Loading cohort overview&hellip;</p>
+        <p class="state-title">Loading overview&hellip;</p>
       </div>`;
   }
 
@@ -856,11 +856,11 @@ async function loadDashboard(silent) {
       return;
     }
     if (res.status === 404) {
-      renderError('Cohort not found. Please contact support@getcharteredai.com.');
+      renderError('Professional Readiness Overview not found. Please contact support@getcharteredai.com.');
       return;
     }
     if (!res.ok) {
-      renderError('Could not load the cohort overview. Please try again in a few minutes.');
+      renderError('Could not load the overview. Please try again in a few minutes.');
       return;
     }
 

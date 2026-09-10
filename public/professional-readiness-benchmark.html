@@ -170,7 +170,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
     <div class="hero-eyebrow">Employer-sponsored</div>
     <h1>Professional Readiness<br><em>Benchmark</em></h1>
     <p class="hero-sub">A structured development review for graduates and apprentices in their first two years — giving candidates a candid picture of where they are, and giving managers the insight to support them effectively.</p>
-    <a href="#discuss" class="btn btn-primary">Discuss your cohort</a>
+    <a href="#discuss" class="btn btn-primary">Discuss professional readiness</a>
   </div>
 
   <div class="sec" style="max-width:900px;text-align:center">
@@ -208,9 +208,9 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
   <div class="cta-band" id="discuss">
     <div class="lbl">For employers</div>
-    <div class="h2" style="max-width:500px;margin:0 auto 12px">Ready to discuss a cohort?</div>
-    <p class="sub" style="margin:0 auto 28px">The Benchmark is available exclusively through employer cohort access. Get in touch to discuss how it fits your team.</p>
-    <a href="/employer#contact" class="btn btn-primary">Discuss your cohort →</a>
+    <div class="h2" style="max-width:500px;margin:0 auto 12px">Ready to discuss professional readiness?</div>
+    <p class="sub" style="margin:0 auto 28px">The Benchmark is available to employers for groups of graduates and apprentices. Get in touch to discuss how it fits your team.</p>
+    <a href="/employer#contact" class="btn btn-primary">Discuss professional readiness →</a>
   </div>
 
   <footer>
@@ -336,7 +336,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
     <!-- Employer status -->
     <div id="state-employer-status" style="display:none">
-      <div class="arev-heading" id="employer-firm-name">Cohort Status</div>
+      <div class="arev-heading" id="employer-firm-name">Professional Readiness Overview</div>
       <p class="arev-sub" id="employer-cohort-sub"></p>
       <div id="employer-status-table-wrap"></div>
     </div>
@@ -1191,7 +1191,7 @@ function renderReport(report) {
 // ── Employer status ───────────────────────────────────────────────────────────
 
 function renderEmployerStatus(data) {
-  document.getElementById('employer-firm-name').textContent = `${data.firmName} — Cohort Status`;
+  document.getElementById('employer-firm-name').textContent = `${data.firmName} — Professional Readiness Overview`;
   document.getElementById('employer-cohort-sub').textContent = `${data.sessions.length} candidate${data.sessions.length !== 1 ? 's' : ''}`;
 
   const wrap = document.getElementById('employer-status-table-wrap');

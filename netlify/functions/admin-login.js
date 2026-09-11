@@ -43,7 +43,7 @@ exports.handler = async (event) => {
         cohortId: null,
         firmName: '[TEST] GCA Internal',
         candidateEmail: 'test@getcharteredai.com',
-        managerEmail: 'test@getcharteredai.com',
+        managerEmail: 'contact@gcaitutor.com',
         employerEmail: 'test@getcharteredai.com',
         candidateName: null,
         managerName: null,

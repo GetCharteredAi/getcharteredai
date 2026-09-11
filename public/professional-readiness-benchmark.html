@@ -253,17 +253,17 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
     <!-- Home / Journey -->
     <div id="state-home" style="display:none">
-      <div style="background:#0D0F1C;border-radius:16px;padding:28px 24px;margin-bottom:20px;position:relative;overflow:hidden">
+      <div style="background:#0D0F1C;border-radius:16px;padding:24px 20px;margin-bottom:16px;position:relative;overflow:hidden">
         <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(37,99,235,.14) 0%,transparent 65%);pointer-events:none"></div>
         <div style="position:relative">
-          <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:10px">Professional Readiness</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:8px">Professional Readiness</div>
           <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px">Your Professional Readiness</div>
-          <div style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.6">Understand where you are. Agree what to develop. See how you progress.</div>
-          <div id="home-meta" style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.32)"></div>
+          <div style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.5">Understand where you are. Agree what to develop. See how you progress.</div>
+          <div id="home-meta" style="margin-top:10px"></div>
         </div>
       </div>
-      <div id="home-journey" style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px"></div>
-      <div style="padding:16px 18px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px">
+      <div id="home-journey" style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px"></div>
+      <div style="padding:13px 16px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:10px">
         <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:5px">Later in your development</div>
         <div style="font-size:14px;font-weight:600;color:#0D0F1C;margin-bottom:3px">Part Two — Professional Readiness Review</div>
         <div style="font-size:13px;color:#64748b;line-height:1.55">A deeper individual reflection around your annual development review.</div>
@@ -765,7 +765,7 @@ function renderHome(data) {
     const parts = [];
     if (data.firmName && !data.firmName.startsWith('[TEST]')) parts.push(data.firmName);
     if (data.discipline) parts.push(data.discipline);
-    if (parts.length) metaEl.textContent = parts.join(' · ');
+    if (parts.length) metaEl.innerHTML = parts.map(p => `<span style="display:inline-block;background:rgba(255,255,255,.10);color:rgba(255,255,255,.60);font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 9px;border-radius:4px;margin-right:5px">${p}</span>`).join('');
   }
 
   const postBenchmark = ['candidate-complete','awaiting-manager','manager-complete','synthesising','summary-ready','reflection-ready','manager-lapsed','progress-reflection-open','progress-manager-invited','progress-manager-lapsed','progress-synthesising','progress-ready','progress-complete'];
@@ -839,21 +839,31 @@ function renderHome(data) {
   ];
 
   const container = document.getElementById('home-journey');
+  let incompleteCount = 0;
   container.innerHTML = stages.map((st, i) => {
     const isDone = st.done;
     const isPending = st.pending;
     const isActive = st.active && !isDone;
     const borderColor = isDone ? '#10b981' : (isActive ? '#2563EB' : (isPending ? '#f59e0b' : '#e2e8f0'));
-    const numBg = isDone ? '#ecfdf5' : (isActive ? '#eff6ff' : (isPending ? '#fffbeb' : '#f8fafc'));
+    const borderWidth = isActive ? '4px' : '3px';
+    const cardBg = isDone ? '#f0fdf9' : (isActive ? '#f0f6ff' : (isPending ? '#fffdf5' : '#fafafa'));
+    const numBg = isDone ? '#dcfce7' : (isActive ? '#dbeafe' : (isPending ? '#fef3c7' : '#f1f5f9'));
     const numColor = isDone ? '#059669' : (isActive ? '#2563EB' : (isPending ? '#d97706' : '#94a3b8'));
-    const titleColor = (isDone || isActive) ? '#0D0F1C' : '#94a3b8';
+    const titleColor = (isDone || isActive) ? '#0D0F1C' : '#374151';
     const hasCta = st.cta || st.statusLabel;
-    return `<div style="background:#fff;border:1px solid #e2e8f0;border-left:3px solid ${borderColor};border-radius:10px;padding:18px 20px;display:flex;align-items:flex-start;gap:14px">
-      <div style="width:28px;height:28px;border-radius:50%;background:${numBg};color:${numColor};font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">${isDone ? '✓' : (i + 1)}</div>
+    let stageLabel = null;
+    if (!isDone) {
+      if (incompleteCount === 0) stageLabel = { text: 'Current', color: '#2563EB' };
+      else if (incompleteCount === 1) stageLabel = { text: 'Next', color: '#94a3b8' };
+      incompleteCount++;
+    }
+    return `<div style="background:${cardBg};border:1px solid #e2e8f0;border-left:${borderWidth} solid ${borderColor};border-radius:10px;padding:15px 18px;display:flex;align-items:flex-start;gap:12px">
+      <div style="width:26px;height:26px;border-radius:50%;background:${numBg};color:${numColor};font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">${isDone ? '✓' : (i + 1)}</div>
       <div style="flex:1;min-width:0">
-        <div style="font-size:14px;font-weight:700;color:${titleColor};margin-bottom:3px;line-height:1.35">${st.title}</div>
+        ${stageLabel ? `<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:${stageLabel.color};margin-bottom:3px">${stageLabel.text}</div>` : ''}
+        <div style="font-size:14px;font-weight:700;color:${titleColor};margin-bottom:2px;line-height:1.35">${st.title}</div>
         <div style="font-size:13px;color:#64748b;line-height:1.55;margin-bottom:${hasCta ? '10px' : '0'}">${st.desc}</div>
-        ${st.statusLabel ? `<div style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#94a3b8">${st.statusLabel}</div>` : ''}
+        ${st.statusLabel ? `<div style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#94a3b8;margin-top:4px">${st.statusLabel}</div>` : ''}
         ${st.cta || ''}
       </div>
     </div>`;

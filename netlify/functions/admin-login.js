@@ -50,7 +50,7 @@ exports.handler = async (event) => {
         team: null,
         office: null,
         employmentType: 'apprentice',
-        discipline: 'APC',
+        discipline: 'Building Surveying',
         employmentStartDate: '2025-09-01',
         monthsInRole: 12,
         status: 'invited',

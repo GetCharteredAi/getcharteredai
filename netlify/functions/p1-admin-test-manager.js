@@ -44,6 +44,30 @@ exports.handler = async (event) => {
   try {
     const sessionStore = getSessionStore();
 
+    // Debug mode — read-only, returns all p1-test-* session states, no writes
+    if (body.debug) {
+      const { blobs } = await sessionStore.list({ prefix: 'p1-test-' });
+      const metaKeys = blobs.map(b => b.key).filter(k => k.endsWith('/metadata'));
+      const metas = (await Promise.all(
+        metaKeys.map(k => sessionStore.get(k, { type: 'json' }).catch(() => null))
+      ))
+        .filter(m => m && m.sessionId?.startsWith('p1-test-'))
+        .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      return { statusCode: 200, headers: HEADERS, body: JSON.stringify({
+        count: metas.length,
+        sessions: metas.map(m => ({
+          sessionId: m.sessionId,
+          createdAt: m.createdAt,
+          status: m.status,
+          hasManagerInviteKey: !!m.currentManagerInviteKey,
+          candidateCompletedAt: m.candidateCompletedAt ?? null,
+          managerInvitedAt: m.managerInvitedAt ?? null,
+          managerCompletedAt: m.managerCompletedAt ?? null,
+          synthesisCompletedAt: m.synthesisCompletedAt ?? null
+        }))
+      })};
+    }
+
     // List only p1-test-* keys, keep /metadata entries
     const { blobs } = await sessionStore.list({ prefix: 'p1-test-' });
     const metaKeys = blobs.map(b => b.key).filter(k => k.endsWith('/metadata'));

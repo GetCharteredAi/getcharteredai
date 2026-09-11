@@ -512,8 +512,9 @@ exports.handler = async (event) => {
 
     const siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
     const managerLink = `${siteUrl}/professional-readiness-benchmark?token=${managerToken}`;
+    const managerRecipient = sessionId.startsWith('p1-test-') ? 'contact@gcaitutor.com' : meta.managerEmail;
     await sendEmail(
-      meta.managerEmail,
+      managerRecipient,
       `A team member has completed their Benchmark — your input is invited`,
       wrap(`
         <p style="font-size:15px;color:#374151;line-height:1.7">A member of your team has completed their Professional Readiness Benchmark and your input has been invited.</p>
@@ -525,7 +526,7 @@ exports.handler = async (event) => {
       `),
       `A team member has completed their Professional Readiness Benchmark. Your input is invited here: ${managerLink}`
     );
-    console.log(`[p1-report-bg] Email #3 sent to ${meta.managerEmail} for session ${sessionId}`);
+    console.log(`[p1-report-bg] Email #3 sent to ${managerRecipient} for session ${sessionId}`);
 
   } catch (err) {
     console.error('[p1-report-bg] Unexpected error:', err.message);

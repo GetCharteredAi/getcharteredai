@@ -51,7 +51,7 @@ exports.handler = async (event) => {
 
     // Read all, filter to completed sessions, most recent first
     const metas = (await Promise.all(metaKeys.map(k => sessionStore.get(k, { type: 'json' }).catch(() => null))))
-      .filter(m => m && m.sessionId?.startsWith('p1-test-') && ['candidate-complete', 'awaiting-manager'].includes(m.status))
+      .filter(m => m && m.sessionId?.startsWith('p1-test-') && (m.status === 'candidate-complete' || !!m.currentManagerInviteKey))
       .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
     if (!metas.length) return { statusCode: 404, headers: HEADERS, body: JSON.stringify({ error: 'No completed test sessions found — complete the Benchmark first' }) };
@@ -65,7 +65,7 @@ exports.handler = async (event) => {
     const siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
 
     // Existing token — return URL, no writes
-    if (meta.status === 'awaiting-manager' && meta.currentManagerInviteKey) {
+    if (meta.currentManagerInviteKey) {
       return { statusCode: 200, headers: HEADERS, body: JSON.stringify({
         sessionId,
         status: meta.status,

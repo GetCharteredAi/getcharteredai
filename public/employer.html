@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://getcharteredai.com/employer">
 <title>For Employers — Get Chartered AI</title>
-<meta name="description" content="Structured professional development for your graduates and apprentices — from early careers through professional qualification and into greater responsibility. Professional Readiness Benchmark, APC preparation and referred candidate support.">
+<meta name="description" content="Support your graduates and apprentices at every stage of professional development. Professional Readiness, APC preparation and referred candidate support from Get Chartered AI.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -24,10 +24,11 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-fi
 /* HERO */
 .hero{background:var(--navy);padding:96px 40px 88px;position:relative;overflow:hidden;text-align:center}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(37,99,235,.14) 0%,transparent 65%);pointer-events:none}
-.hero-inner{max-width:780px;margin:0 auto;position:relative;z-index:1}
+.hero-inner{max-width:800px;margin:0 auto;position:relative;z-index:1}
 .hero-eyebrow{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);padding:5px 14px;border-radius:20px;margin-bottom:22px}
-.hero h1{font-family:var(--fh);font-size:clamp(26px,3.8vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.03em;color:#fff;margin-bottom:20px}
-.hero-sub{font-size:17px;color:rgba(255,255,255,.60);line-height:1.72;margin-bottom:36px}
+.hero h1{font-family:var(--fh);font-size:clamp(26px,3.8vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.03em;color:#fff;margin-bottom:16px}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.65);line-height:1.72;margin-bottom:10px;max-width:680px;margin-left:auto;margin-right:auto}
+.hero-support{font-size:14px;color:rgba(255,255,255,.38);line-height:1.7;margin-bottom:36px;max-width:640px;margin-left:auto;margin-right:auto}
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .btn-amber{background:var(--amber);color:var(--navy);padding:14px 26px;border-radius:9px;font-size:15px;font-weight:700;text-decoration:none;transition:.15s;white-space:nowrap}.btn-amber:hover{background:#d97706}
 .btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.28);color:#fff;padding:14px 24px;border-radius:9px;font-size:15px;font-weight:600;text-decoration:none;transition:.15s}.btn-ghost:hover{border-color:rgba(255,255,255,.55)}
@@ -48,7 +49,7 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-fi
 .sec-lead-white{color:rgba(255,255,255,.60)}
 .sec-lead-muted{color:#64748b}
 
-/* PROFESSIONAL READINESS PATHWAY */
+/* PROFESSIONAL READINESS CARDS (dark, 2-col) */
 .pathway-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
 .pathway-card{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:36px 32px;display:flex;flex-direction:column;position:relative;overflow:hidden}
 .pathway-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
@@ -62,14 +63,32 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-fi
 .pathway-points li::before{content:'–';position:absolute;left:0;color:rgba(255,255,255,.22)}
 .pathway-link{font-size:14px;font-weight:700;color:rgba(255,255,255,.72);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:2px;display:inline-block;transition:.15s}.pathway-link:hover{color:#fff;border-bottom-color:rgba(255,255,255,.55)}
 
-/* OFFER SECTIONS */
-.offer-wrap{max-width:720px}
-.offer-stats{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 28px}
-.offer-stat{display:inline-flex;align-items:center;font-size:13px;font-weight:600;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:20px;padding:5px 14px}
-.offer-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--blue);text-decoration:none;border-bottom:1.5px solid rgba(37,99,235,.25);padding-bottom:2px;transition:.15s}.offer-link:hover{border-bottom-color:var(--blue)}
+/* QUALIFICATION CARDS (light, 3-col) */
+.qual-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.qual-card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.qual-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.qual-card-1::before{background:linear-gradient(90deg,var(--blue),#7c3aed)}
+.qual-card-2::before{background:linear-gradient(90deg,var(--amber),#f97316)}
+.qual-card-3::before{background:linear-gradient(90deg,var(--green),#0891b2)}
+.qual-type{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#94a3b8;margin-bottom:10px}
+.qual-title{font-family:var(--fh);font-size:19px;font-weight:800;color:var(--navy);margin-bottom:10px;line-height:1.2;letter-spacing:-.02em}
+.qual-desc{font-size:14px;color:#64748b;line-height:1.65;margin-bottom:18px}
+.qual-points{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:24px;flex:1}
+.qual-points li{font-size:13px;color:#475569;padding-left:14px;position:relative;line-height:1.5}
+.qual-points li::before{content:'–';position:absolute;left:0;color:#94a3b8}
+.qual-link{font-size:14px;font-weight:700;color:var(--blue);text-decoration:none;border-bottom:1.5px solid rgba(37,99,235,.25);padding-bottom:2px;display:inline-block;transition:.15s}.qual-link:hover{border-bottom-color:var(--blue)}
+.qual-link-muted{color:#64748b;border-bottom-color:rgba(100,116,139,.25)}.qual-link-muted:hover{color:var(--navy);border-bottom-color:rgba(13,15,28,.4)}
+
+/* WHY SECTION */
+.why-list{display:flex;flex-direction:column;gap:0;max-width:680px;margin-top:40px}
+.why-point{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid #e2e8f0}
+.why-list .why-point:last-child{border-bottom:none}
+.why-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:7px}
+.why-text h4{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:3px;line-height:1.3}
+.why-text p{font-size:14px;color:#64748b;line-height:1.6}
 
 /* CONTACT */
-.contact-card{background:#fff;border-radius:20px;padding:48px;max-width:640px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.1)}
+.contact-card{background:#fff;border-radius:20px;padding:48px;max-width:640px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.08)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 .form-group{display:flex;flex-direction:column;gap:5px}
 .form-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b}
@@ -97,8 +116,12 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
 .footer-copy{font-size:11px;color:#94a3b8;width:100%;margin:0}
 
 /* RESPONSIVE */
+@media(max-width:1000px){
+  .qual-grid{grid-template-columns:1fr 1fr}
+}
 @media(max-width:900px){
   .pathway-grid{grid-template-columns:1fr}
+  .qual-grid{grid-template-columns:1fr}
   .section{padding:64px 24px}
   .hero{padding:72px 24px 64px}
   nav{padding:0 20px}
@@ -124,97 +147,159 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
   <a href="#contact" class="nav-btn">Talk to us &rarr;</a>
 </nav>
 
-<!-- HERO -->
+<!-- S1: HERO -->
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">For Employers</div>
-    <h1>Structured professional development for your graduates and apprentices &mdash; from early careers through professional qualification and into greater responsibility.</h1>
-    <p class="hero-sub">Get Chartered AI helps employers understand where people are developing well, where support may help, and how to build the knowledge, judgement, communication and confidence needed for professional practice.</p>
+    <h1>Support your graduates and apprentices at every stage of professional development.</h1>
+    <p class="hero-sub">Build professional readiness over time, then provide the right qualification support for the route each person is taking.</p>
+    <p class="hero-support">From early-career development through professional qualification and reassessment, Get Chartered AI gives employers a clearer way to support progression without treating every route the same.</p>
     <div class="hero-btns">
-      <a href="/employer/professional-readiness" class="btn-amber">Explore professional readiness &rarr;</a>
-      <a href="#contact" class="btn-ghost">Talk to us</a>
+      <a href="/employer/professional-readiness" class="btn-amber">Explore Professional Readiness &rarr;</a>
+      <a href="#qualification" class="btn-ghost">Explore Qualification Support</a>
     </div>
   </div>
 </div>
 
-<!-- PROFESSIONAL READINESS PATHWAY -->
+<!-- S2: PROFESSIONAL READINESS -->
 <div class="section sec-navy">
   <div class="sec-inner">
     <span class="eyebrow eyebrow-amber">Professional Readiness</span>
-    <h2 class="sec-h2 sec-h2-white">Understand where your graduates and apprentices are &mdash; and how they&rsquo;re developing over time.</h2>
-    <p class="sec-lead sec-lead-white">Two structured assessments &mdash; one that establishes the starting point, one that takes a deeper look later in the journey. Both privacy-first, employer-facing, and designed for professional development in practice.</p>
+    <h2 class="sec-h2 sec-h2-white">Understand how your graduates and apprentices are developing in practice.</h2>
+    <p class="sec-lead sec-lead-white">A structured development pathway that helps employers see where people are progressing, where support may help and what to focus on next.</p>
     <div class="pathway-grid">
       <div class="pathway-card pathway-card-1">
         <div class="pathway-part">Part One</div>
         <h3 class="pathway-title">Professional Readiness Benchmark</h3>
-        <p class="pathway-desc">Where are your graduates and apprentices now &mdash; and what do they need next?</p>
+        <p class="pathway-desc">A starting-point review of where your graduates and apprentices are now &mdash; and what they need next.</p>
         <ul class="pathway-points">
           <li>15-question benchmark completed by each participant</li>
           <li>Manager perspective built in, not bolted on</li>
           <li>Group-level Professional Readiness Overview for employers</li>
           <li>Progress Reflection to track what changes over time</li>
         </ul>
-        <a href="/employer/professional-readiness" class="pathway-link">Learn about Part One &rarr;</a>
+        <a href="/employer/professional-readiness" class="pathway-link">Explore Part One &rarr;</a>
       </div>
       <div class="pathway-card pathway-card-2">
         <div class="pathway-part">Part Two</div>
         <h3 class="pathway-title">Professional Readiness Review</h3>
-        <p class="pathway-desc">How is professional capability developing &mdash; and where should the next level of responsibility come from?</p>
+        <p class="pathway-desc">A deeper later-stage review of how professional capability is developing and where greater responsibility should come from.</p>
         <ul class="pathway-points">
-          <li>36-question in-depth diagnostic</li>
-          <li>Seven assessment areas covering knowledge, judgement and communication</li>
-          <li>Structured report for the participant from Michael</li>
-          <li>For graduates and apprentices further into their development</li>
+          <li>36-question diagnostic</li>
+          <li>Broader review of professional capability across seven areas</li>
+          <li>Designed for graduates and apprentices further into their development</li>
+          <li>Structured report for the participant</li>
         </ul>
-        <a href="/apprentice-review" class="pathway-link">Learn about Part Two &rarr;</a>
+        <a href="/apprentice-review" class="pathway-link">Explore Part Two &rarr;</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- APC SUPPORT -->
-<div class="section sec-white">
+<!-- S3: PROFESSIONAL QUALIFICATION SUPPORT -->
+<div class="section sec-white" id="qualification">
   <div class="sec-inner">
-    <div class="offer-wrap">
-      <span class="eyebrow eyebrow-blue">APC Preparation</span>
-      <h2 class="sec-h2 sec-h2-dark">Structured APC preparation across all 22 RICS pathways.</h2>
-      <p class="sec-lead sec-lead-muted">Candidates can build knowledge, practise under pressure and prepare for assessment with structured modules, Michael, pathway-specific questions and mock interview practice.</p>
-      <div class="offer-stats">
-        <span class="offer-stat">12 structured modules</span>
-        <span class="offer-stat">22 RICS pathways</span>
-        <span class="offer-stat">5,000+ practice questions</span>
-        <span class="offer-stat">Mock interview simulator</span>
-        <span class="offer-stat">Updated every assessment window</span>
+    <span class="eyebrow eyebrow-blue">Professional Qualification Support</span>
+    <h2 class="sec-h2 sec-h2-dark">The right support depends on the route and stage.</h2>
+    <p class="sec-lead sec-lead-muted">As people move towards professional qualification, the support they need is not always the same. Get Chartered AI provides route-specific support for APC candidates, apprentices and referred candidates.</p>
+    <div class="qual-grid">
+
+      <div class="qual-card qual-card-1">
+        <div class="qual-type">APC Preparation</div>
+        <h3 class="qual-title">Structured preparation for APC assessment.</h3>
+        <p class="qual-desc">For candidates approaching APC assessment across any of the 22 RICS pathways.</p>
+        <ul class="qual-points">
+          <li>12-module structured preparation programme</li>
+          <li>Pathway-specific practice questions</li>
+          <li>Michael coaching throughout</li>
+          <li>Mock interview support</li>
+          <li>Updated every assessment window</li>
+        </ul>
+        <a href="/employer-guide" class="qual-link">Explore APC Preparation &rarr;</a>
       </div>
-      <a href="/employer-guide" class="offer-link">View the employer guide &rarr;</a>
+
+      <div class="qual-card qual-card-2">
+        <div class="qual-type">Apprenticeship Support</div>
+        <h3 class="qual-title">Support for apprentices through their programme.</h3>
+        <p class="qual-desc">For apprentices developing through their programme and preparing for professional qualification requirements.</p>
+        <ul class="qual-points">
+          <li>Route-specific, not one-size-fits-all</li>
+          <li>Aligned to professional qualification requirements</li>
+          <li>Builds knowledge, judgement and communication alongside programme progress</li>
+        </ul>
+        <a href="#contact" class="qual-link qual-link-muted">Talk to us about apprenticeship support &rarr;</a>
+      </div>
+
+      <div class="qual-card qual-card-3">
+        <div class="qual-type">Referred Candidate Support</div>
+        <h3 class="qual-title">Focused support after APC referral.</h3>
+        <p class="qual-desc">For candidates preparing for reassessment after referral &mdash; a separate route, not a normal progression stage.</p>
+        <ul class="qual-points">
+          <li>Turn assessor feedback into a focused reassessment plan</li>
+          <li>Rebuild weaker evidence areas</li>
+          <li>9 specialist resit modules over 90 days</li>
+          <li>Prepare differently for the next attempt</li>
+        </ul>
+        <a href="/referred-programme" class="qual-link">Explore Referred Candidate Support &rarr;</a>
+      </div>
+
     </div>
   </div>
 </div>
 
-<!-- REFERRED CANDIDATE SUPPORT -->
+<!-- S4: WHY GET CHARTERED AI -->
 <div class="section sec-light">
   <div class="sec-inner">
-    <div class="offer-wrap">
-      <span class="eyebrow eyebrow-blue">Referred Candidates</span>
-      <h2 class="sec-h2 sec-h2-dark">Structured support when an APC candidate is referred.</h2>
-      <p class="sec-lead sec-lead-muted">Help them turn assessor feedback into a focused reassessment plan, rebuild weaker evidence and prepare differently for the next attempt.</p>
-      <div class="offer-stats">
-        <span class="offer-stat">9 specialist resit modules</span>
-        <span class="offer-stat">90-day programme</span>
-        <span class="offer-stat">Michael coaching focused on referral gaps</span>
+    <span class="eyebrow eyebrow-blue">Why employers use Get Chartered AI</span>
+    <h2 class="sec-h2 sec-h2-dark">Structured support for professional development &mdash; without replacing the people already doing it.</h2>
+    <div class="why-list">
+      <div class="why-point">
+        <div class="why-dot"></div>
+        <div class="why-text">
+          <h4>A clearer view of development</h4>
+          <p>Professional Readiness assessments give employers structured insight into where their people are &mdash; without relying on informal impressions or self-reported progress.</p>
+        </div>
       </div>
-      <a href="/referred-programme" class="offer-link">View the programme &rarr;</a>
+      <div class="why-point">
+        <div class="why-dot"></div>
+        <div class="why-text">
+          <h4>Structured support without replacing managers or counsellors</h4>
+          <p>Get Chartered AI is designed to sit alongside the people already supporting development &mdash; not to replace them.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-dot"></div>
+        <div class="why-text">
+          <h4>Route-specific preparation</h4>
+          <p>Whether someone is heading towards APC assessment, working through an apprenticeship, or preparing after referral &mdash; the support matches the route and stage they are actually on.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-dot"></div>
+        <div class="why-text">
+          <h4>Privacy-first employer insight</h4>
+          <p>Employer-level overviews are structured to protect individual privacy while still giving employers the picture they need.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-dot"></div>
+        <div class="why-text">
+          <h4>Develops judgement, communication and confidence &mdash; not just knowledge</h4>
+          <p>Professional qualification requires more than technical knowledge. Get Chartered AI helps people build the judgement, communication and professional confidence that assessors and employers are actually looking for.</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- CONTACT -->
+<!-- S5: CONTACT -->
 <div class="section sec-white" id="contact">
   <div class="sec-inner">
     <div style="text-align:center;margin-bottom:40px">
       <span class="eyebrow eyebrow-blue" style="display:block;text-align:center">Get in touch</span>
-      <h2 class="sec-h2 sec-h2-dark" style="max-width:560px;margin:0 auto 12px">Tell us about your graduates and apprentices.<br>We will come back to you directly.</h2>
-      <p style="font-size:15px;color:#64748b;max-width:480px;margin:0 auto">No commitment, no sales pressure. We want to understand your situation before suggesting anything.</p>
+      <h2 class="sec-h2 sec-h2-dark" style="max-width:600px;margin:0 auto 12px">Talk to us about what your people need.</h2>
+      <p style="font-size:15px;color:#64748b;max-width:520px;margin:0 auto">Whether you are supporting graduates, apprentices, APC candidates or referred candidates, we can help you work out the right starting point.</p>
+      <p style="font-size:13px;color:#94a3b8;margin-top:8px">No commitment, no sales pressure.</p>
     </div>
     <div class="contact-card">
       <div id="contactAlert" class="alert"></div>
@@ -247,7 +332,7 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
       </div>
       <div class="form-group" style="margin-bottom:14px">
         <label class="form-label">What would be most useful to discuss?</label>
-        <textarea id="empMessage" class="form-input" placeholder="e.g. professional readiness for graduates, APC preparation, referred candidate support, counsellor guidance..."></textarea>
+        <textarea id="empMessage" class="form-input" placeholder="e.g. professional readiness for graduates, APC preparation, apprenticeship support, referred candidate support..."></textarea>
       </div>
       <button class="form-btn" id="empBtn" onclick="submitEmployer()">Send enquiry &rarr;</button>
       <p class="form-note">We will respond directly. No obligation.</p>
@@ -257,7 +342,7 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
       <div>
         <span class="guide-banner-tag">Employer Resources</span>
         <div class="guide-banner-title">Platform Overview &amp; Employer Guide</div>
-        <p class="guide-banner-body">A full overview of what Get Chartered AI offers your graduates, how employer access is structured, and the current rule changes your counsellors need to know.</p>
+        <p class="guide-banner-body">A full overview of what Get Chartered AI offers your graduates and apprentices, how employer access is structured, and the current rule changes your counsellors need to know.</p>
       </div>
       <a href="/employer-guide" class="guide-banner-cta">View Employer Guide &rarr;</a>
     </div>

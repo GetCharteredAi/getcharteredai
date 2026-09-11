@@ -149,8 +149,13 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 .p1-sb-progress-synthesising{background:#f0f9ff;color:#0369a1}
 .p1-sb-progress-ready{background:#ecfdf5;color:#059669}
 .p1-sb-progress-complete{background:#ecfdf5;color:#065f46}
+/* Candidate home */
+.p1-home-cta{background:#2563EB;color:#fff;border:none;padding:8px 16px;border-radius:7px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;transition:.18s;display:inline-block}
+.p1-home-cta:hover{background:#1d4ed8}
+/* Privacy cards */
+.p1-privacy-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px}
 @media(max-width:900px){nav{padding:0 20px}.sec{padding:60px 20px}.hero{padding:72px 20px 60px}.areas-grid{grid-template-columns:repeat(3,1fr)}footer{padding:32px 20px 24px}}
-@media(max-width:600px){.areas-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.areas-grid{grid-template-columns:1fr 1fr}.p1-privacy-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -246,22 +251,51 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       </div>
     </div>
 
-    <!-- Privacy -->
-    <div id="state-privacy" style="display:none">
-      <div class="arev-michael-icon">🔒</div>
-      <div class="arev-heading">Before you begin</div>
-      <p class="arev-sub">How your responses are used</p>
-      <div class="arev-panel">
-        <span class="arev-michael-label">Privacy notice</span>
-        <div class="arev-q-text" style="font-size:14px">
-          <p style="margin-bottom:12px">Your reflection is a <strong style="color:#fff">private conversation with Michael</strong>. Your specific answers, reasoning and examples are for your development report only.</p>
-          <p style="margin-bottom:12px">Your manager will receive a <strong style="color:#fff">development summary</strong> — themes, conversation prompts and suggested priorities — without seeing your individual responses.</p>
-          <p style="margin-bottom:12px">Your employer can see that you have completed the Benchmark and your overall progress status. They cannot see your individual responses or development report.</p>
-          <p>There is no pass or fail outcome. The Benchmark is a development tool, not a performance assessment.</p>
+    <!-- Home / Journey -->
+    <div id="state-home" style="display:none">
+      <div style="background:#0D0F1C;border-radius:16px;padding:28px 24px;margin-bottom:20px;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(37,99,235,.14) 0%,transparent 65%);pointer-events:none"></div>
+        <div style="position:relative">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:10px">Professional Readiness</div>
+          <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px">Your Professional Readiness</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.6">Understand where you are. Agree what to develop. See how you progress.</div>
+          <div id="home-meta" style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.32)"></div>
         </div>
       </div>
-      <div class="arev-actions" style="margin-top:20px">
-        <button class="arev-btn-primary" onclick="goToContext()">I understand — begin my Benchmark →</button>
+      <div id="home-journey" style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px"></div>
+      <div style="padding:16px 18px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:5px">Later in your development</div>
+        <div style="font-size:14px;font-weight:600;color:#0D0F1C;margin-bottom:3px">Part Two — Professional Readiness Review</div>
+        <div style="font-size:13px;color:#64748b;line-height:1.55">A deeper individual reflection around your annual development review.</div>
+      </div>
+    </div>
+
+    <!-- Privacy -->
+    <div id="state-privacy" style="display:none">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="display:inline-flex;align-items:center;gap:7px">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M8 1L2 3.5v4c0 3.3 2.5 6.4 6 7.1 3.5-.7 6-3.8 6-7.1v-4L8 1z" fill="#94a3b8"/></svg>
+          <span style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#94a3b8">Before you begin</span>
+        </div>
+      </div>
+      <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:22px;font-weight:800;color:#0D0F1C;letter-spacing:-.02em;text-align:center;margin-bottom:24px;line-height:1.2">Your reflection is yours</div>
+      <div class="p1-privacy-grid">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:18px 16px">
+          <div style="font-size:12px;font-weight:700;color:#0D0F1C;margin-bottom:8px">Private reflection</div>
+          <div style="font-size:13px;color:#64748b;line-height:1.6">Your individual answers, reasoning and examples are not shared with your employer.</div>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:18px 16px">
+          <div style="font-size:12px;font-weight:700;color:#0D0F1C;margin-bottom:8px">A useful development conversation</div>
+          <div style="font-size:13px;color:#64748b;line-height:1.6">Your manager receives themes and prompts to support the conversation — not your individual responses.</div>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:18px 16px">
+          <div style="font-size:12px;font-weight:700;color:#0D0F1C;margin-bottom:8px">No pass or fail</div>
+          <div style="font-size:13px;color:#64748b;line-height:1.6">This is a development tool, not a performance assessment.</div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:#94a3b8;text-align:center;margin-bottom:20px;line-height:1.6;font-style:italic">Take your time and answer based on where you are today. There are no right answers.</p>
+      <div class="arev-actions">
+        <button class="arev-btn-primary" onclick="goToContext()">Begin my Benchmark →</button>
       </div>
     </div>
 
@@ -661,7 +695,7 @@ let pollInterval = null;
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
 function show(stateId) {
-  ['loading','error','privacy','context','reflection','priority-select','generating','report','employer-status','manager-privacy','manager-reflection','manager-complete','candidate-development','manager-development','synthesising-pending','agree-priorities','lapsed-self-plan','progress-reflection','progress-manager-invited','progress-synthesising','progress-ready','progress-complete','progress-manager-reflection','progress-manager-complete','manager-phase4']
+  ['home','loading','error','privacy','context','reflection','priority-select','generating','report','employer-status','manager-privacy','manager-reflection','manager-complete','candidate-development','manager-development','synthesising-pending','agree-priorities','lapsed-self-plan','progress-reflection','progress-manager-invited','progress-synthesising','progress-ready','progress-complete','progress-manager-reflection','progress-manager-complete','manager-phase4']
     .forEach(s => { const el = document.getElementById('state-' + s); if (el) el.style.display = 'none'; });
   const target = document.getElementById('state-' + stateId);
   if (target) target.style.display = '';
@@ -716,6 +750,114 @@ async function apiPost(endpoint, body) {
     body: JSON.stringify(body)
   });
   return r.json();
+}
+
+// ── Candidate Home ────────────────────────────────────────────────────────────
+
+function renderHome(data) {
+  const s = data.status;
+  const hasSynthesis = !!data.synthesis;
+  const hasReport = !!data.report;
+  const hasProgressReview = !!data.progressReview;
+
+  const metaEl = document.getElementById('home-meta');
+  if (metaEl) {
+    const parts = [];
+    if (data.firmName && !data.firmName.startsWith('[TEST]')) parts.push(data.firmName);
+    if (data.discipline) parts.push(data.discipline);
+    if (parts.length) metaEl.textContent = parts.join(' · ');
+  }
+
+  const postBenchmark = ['candidate-complete','awaiting-manager','manager-complete','synthesising','summary-ready','reflection-ready','manager-lapsed','progress-reflection-open','progress-manager-invited','progress-manager-lapsed','progress-synthesising','progress-ready','progress-complete'];
+  const benchmarkDone = postBenchmark.includes(s);
+  const reportReady = hasReport && hasSynthesis && ['summary-ready','reflection-ready','manager-lapsed','progress-reflection-open','progress-manager-invited','progress-manager-lapsed','progress-synthesising','progress-ready','progress-complete'].includes(s);
+  const reportPending = benchmarkDone && !reportReady;
+  const prioritiesSet = ['reflection-ready','progress-reflection-open','progress-manager-invited','progress-manager-lapsed','progress-synthesising','progress-ready','progress-complete'].includes(s)
+    || (s === 'manager-lapsed' && (data.agreedPriorities?.length ?? 0) > 0);
+  const managerDone = ['reflection-ready','progress-reflection-open','progress-manager-invited','progress-manager-lapsed','progress-synthesising','progress-ready','progress-complete'].includes(s);
+  const progressActive = s === 'progress-reflection-open';
+  const progressWaiting = ['progress-manager-invited','progress-manager-lapsed','progress-synthesising'].includes(s);
+  const progressReviewReady = s === 'progress-ready' && hasProgressReview;
+  const progressDone = s === 'progress-complete';
+
+  const reportPendingDesc = (() => {
+    if (s === 'candidate-complete') return 'Generating your report — this takes up to 60 seconds';
+    if (s === 'awaiting-manager') return 'Waiting for your manager\'s perspective before your development summary is prepared';
+    if (['manager-complete','synthesising'].includes(s)) return 'Manager has responded — preparing your development summary';
+    return 'Preparing your development summary';
+  })();
+
+  const managerStatusLabel = (() => {
+    if (['candidate-complete','awaiting-manager'].includes(s)) return 'Awaiting manager response';
+    if (['manager-complete','synthesising','summary-ready'].includes(s)) return 'Manager submitted — preparing development summary';
+    if (s === 'manager-lapsed') return 'Manager response window closed';
+    return null;
+  })();
+
+  const stages = [
+    {
+      title: 'Your Benchmark',
+      desc: '15-question professional reflection',
+      done: benchmarkDone,
+      active: !benchmarkDone,
+      cta: benchmarkDone ? null : `<button class="p1-home-cta" onclick="show('privacy')">Start Benchmark →</button>`
+    },
+    {
+      title: 'Your Development Report',
+      desc: reportReady ? 'Generated from your Benchmark responses' : (reportPending ? reportPendingDesc : 'Generated after your Benchmark is complete'),
+      done: reportReady,
+      active: reportReady,
+      pending: reportPending,
+      cta: reportReady ? `<button class="p1-home-cta" onclick="renderReport(sessionData.report);renderCandidateDevelopment(sessionData);show('candidate-development')">View my report →</button>` : null
+    },
+    {
+      title: 'Your Development Priorities',
+      desc: prioritiesSet ? 'The areas you want to focus on' : 'Agreed after your report is ready',
+      done: prioritiesSet,
+      active: reportReady && !prioritiesSet,
+      cta: prioritiesSet
+        ? `<button class="p1-home-cta" onclick="renderReport(sessionData.report);renderCandidateDevelopment(sessionData);show('candidate-development')">View priorities →</button>`
+        : (reportReady ? `<button class="p1-home-cta" onclick="renderReport(sessionData.report);renderCandidateDevelopment(sessionData);show('candidate-development')">${s === 'summary-ready' ? 'View development summary →' : 'Set your priorities →'}</button>` : null)
+    },
+    {
+      title: 'Development Conversation',
+      desc: 'Your manager adds their perspective to help shape the development conversation.',
+      done: managerDone,
+      active: benchmarkDone && !managerDone,
+      statusLabel: managerDone ? null : managerStatusLabel
+    },
+    {
+      title: 'Progress Reflection',
+      desc: progressDone ? 'Your progress review is complete' : (progressReviewReady ? 'Your progress review is ready' : (progressWaiting ? "Your manager's perspective is being combined" : (progressActive ? 'Your progress check-in is open' : 'A later check-in to see what has moved'))),
+      done: progressDone,
+      active: progressActive || progressReviewReady,
+      pending: progressWaiting,
+      cta: progressActive
+        ? `<button class="p1-home-cta" onclick="renderProgressReflectionContext(sessionData);show('progress-reflection')">Open →</button>`
+        : (progressReviewReady ? `<button class="p1-home-cta" onclick="renderProgressReview(sessionData);show('progress-ready')">View Progress Review →</button>` : null)
+    }
+  ];
+
+  const container = document.getElementById('home-journey');
+  container.innerHTML = stages.map((st, i) => {
+    const isDone = st.done;
+    const isPending = st.pending;
+    const isActive = st.active && !isDone;
+    const borderColor = isDone ? '#10b981' : (isActive ? '#2563EB' : (isPending ? '#f59e0b' : '#e2e8f0'));
+    const numBg = isDone ? '#ecfdf5' : (isActive ? '#eff6ff' : (isPending ? '#fffbeb' : '#f8fafc'));
+    const numColor = isDone ? '#059669' : (isActive ? '#2563EB' : (isPending ? '#d97706' : '#94a3b8'));
+    const titleColor = (isDone || isActive) ? '#0D0F1C' : '#94a3b8';
+    const hasCta = st.cta || st.statusLabel;
+    return `<div style="background:#fff;border:1px solid #e2e8f0;border-left:3px solid ${borderColor};border-radius:10px;padding:18px 20px;display:flex;align-items:flex-start;gap:14px">
+      <div style="width:28px;height:28px;border-radius:50%;background:${numBg};color:${numColor};font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">${isDone ? '✓' : (i + 1)}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:14px;font-weight:700;color:${titleColor};margin-bottom:3px;line-height:1.35">${st.title}</div>
+        <div style="font-size:13px;color:#64748b;line-height:1.55;margin-bottom:${hasCta ? '10px' : '0'}">${st.desc}</div>
+        ${st.statusLabel ? `<div style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#94a3b8">${st.statusLabel}</div>` : ''}
+        ${st.cta || ''}
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
@@ -788,48 +930,10 @@ async function init() {
     }
 
     if (data.role === 'candidate') {
-      // Pre-fill context
       contextAnswers.discipline = data.discipline || '';
       contextAnswers.monthsInRole = data.monthsInRole || 0;
-
-      // Route by status once report exists
-      if (data.report) {
-        renderReport(data.report);
-        if (data.status === 'summary-ready' && data.synthesis) {
-          renderCandidateDevelopment(data);
-          show('candidate-development');
-        } else if (data.status === 'summary-ready') {
-          console.warn('[p1] summary-ready but synthesis absent (candidate)', data.sessionId);
-          show('synthesising-pending');
-        } else if (data.status === 'reflection-ready') {
-          if (data.synthesis) { renderCandidateDevelopment(data); show('candidate-development'); }
-          else { console.warn('[p1] reflection-ready but synthesis absent (candidate)', data.sessionId); show('synthesising-pending'); }
-        } else if (data.status === 'manager-complete' || data.status === 'synthesising') {
-          show('synthesising-pending');
-        } else if (data.status === 'manager-lapsed') {
-          if (data.synthesis) { renderCandidateDevelopment(data); show('candidate-development'); }
-          else { show('synthesising-pending'); }
-        } else if (data.status === 'progress-reflection-open') {
-          renderProgressReflectionContext(data);
-          show('progress-reflection');
-        } else if (data.status === 'progress-manager-invited') {
-          show('progress-manager-invited');
-        } else if (data.status === 'progress-manager-lapsed' || data.status === 'progress-synthesising') {
-          show('progress-synthesising');
-        } else if (data.status === 'progress-ready') {
-          if (data.progressReview) { renderProgressReview(data); show('progress-ready'); }
-          else { show('progress-synthesising'); }
-        } else if (data.status === 'progress-complete') {
-          renderProgressComplete(data);
-          show('progress-complete');
-        } else {
-          show('report'); // awaiting-manager, candidate-complete
-        }
-        return;
-      }
-
-      // Otherwise start the flow
-      show('privacy');
+      renderHome(data);
+      show('home');
     }
 
   } catch (e) {

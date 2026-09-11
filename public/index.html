@@ -2798,8 +2798,8 @@ function showPlanSelector() {
     const card = document.createElement('div');
     card.style.cssText = 'background:#0D0F1C;border:1px solid #2563EB;border-radius:12px;padding:32px 28px;min-width:260px;text-align:center';
     card.innerHTML = '<div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:20px;letter-spacing:.01em">Select Test Plan</div>';
-    const planLabels = {'annual':'Annual','monthly':'Monthly','sprint':'Sprint','referred':'Referred','year-one':'Mid-Programme','apprentice':'Apprentice','benchmark':'Professional Readiness'};
-    ['annual','monthly','sprint','referred','year-one','apprentice','benchmark'].forEach(plan => {
+    const planLabels = {'annual':'Annual','monthly':'Monthly','sprint':'Sprint','referred':'Referred','year-one':'Mid-Programme','apprentice':'Apprentice','benchmark':'Professional Readiness — Candidate','benchmark-manager':'Professional Readiness — Manager','benchmark-manager-return':'↩ Candidate Return'};
+    ['annual','monthly','sprint','referred','year-one','apprentice','benchmark','benchmark-manager','benchmark-manager-return'].forEach(plan => {
       const btn = document.createElement('button');
       btn.textContent = planLabels[plan];
       btn.style.cssText = 'display:block;width:100%;padding:10px 0;margin-bottom:10px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s';
@@ -2823,14 +2823,30 @@ async function doLogin() {
   // Admin test account — bypasses normal login entirely
   if (email === 'test@getcharteredai.com') {
     const selectedPlan = await showPlanSelector();
+
+    // Candidate Return — client-side only, no admin-login call needed
+    if (selectedPlan === 'benchmark-manager-return') {
+      const returnToken = localStorage.getItem('gca_p1_test_return_token');
+      if (!returnToken) { err.textContent = 'No candidate return session found. Run a Manager test first.'; err.style.display='block'; return; }
+      closeLogin();
+      window.location.href = '/professional-readiness-benchmark?token=' + returnToken;
+      return;
+    }
+
     try {
       const r = await fetch('/.netlify/functions/admin-login', {
         method: 'POST', headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ email, password: pass, plan: selectedPlan })
       });
       const d = await r.json();
-      if (d.token) {
+      if (d.token || d.managerToken) {
         if (selectedPlan === 'benchmark') { closeLogin(); window.location.href = '/professional-readiness-benchmark?token=' + d.token; return; }
+        if (selectedPlan === 'benchmark-manager') {
+          localStorage.setItem('gca_p1_test_return_token', d.candidateToken);
+          closeLogin();
+          window.location.href = '/professional-readiness-benchmark?token=' + d.managerToken;
+          return;
+        }
         setToken(d.token);
         currentUser = d.email;
         localStorage.setItem('gca_user', d.email);

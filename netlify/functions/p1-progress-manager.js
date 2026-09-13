@@ -96,7 +96,7 @@ exports.handler = async (event) => {
     const internalSecret = process.env.P1_INTERNAL_SECRET;
     const siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
     if (internalSecret) {
-      fetch(`${siteUrl}/.netlify/functions/p1-progress-synthesis-background`, {
+      await fetch(`${siteUrl}/.netlify/functions/p1-progress-synthesis-background`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sessionId, internalSecret, runToken })

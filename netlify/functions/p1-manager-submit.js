@@ -115,7 +115,7 @@ exports.handler = async (event) => {
     const internalSecret = process.env.P1_INTERNAL_SECRET;
     const runToken = crypto.randomUUID();
     if (internalSecret) {
-      fetch(`${siteUrl}/.netlify/functions/p1-synthesis-background`, {
+      await fetch(`${siteUrl}/.netlify/functions/p1-synthesis-background`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sessionId, internalSecret, runToken })

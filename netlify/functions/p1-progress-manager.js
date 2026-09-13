@@ -100,9 +100,15 @@ exports.handler = async (event) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sessionId, internalSecret, runToken })
-      }).catch(e => console.error('[p1-progress-manager] Synthesis trigger failed:', e.message));
+      }).catch(async e => {
+        console.error('[p1-progress-manager] Synthesis trigger failed:', e.message);
+        try {
+          await sessionStore.setJSON(`${sessionId}/jobs/progress-synthesis`, { status: 'failed', error: 'trigger_failed', failedAt: Date.now() });
+        } catch { /* ignore */ }
+      });
     } else {
-      console.warn('[p1-progress-manager] P1_INTERNAL_SECRET not set — progress synthesis not triggered');
+      console.error('[p1-progress-manager] P1_INTERNAL_SECRET not set — progress synthesis cannot run for session', sessionId);
+      await sessionStore.setJSON(`${sessionId}/jobs/progress-synthesis`, { status: 'failed', error: 'no_internal_secret', failedAt: Date.now() }).catch(() => {});
     }
 
     console.log(`[p1-progress-manager] Manager progress reflection submitted for session ${sessionId}`);

@@ -93,6 +93,11 @@ exports.handler = async (event) => {
         if (synthData?.synthesis) response.synthesis = synthData.synthesis;
       }
 
+      if (meta.status === 'manager-complete') {
+        const synthJob = await sessionStore.get(`${payload.sessionId}/jobs/synthesis`, { type: 'json' });
+        if (synthJob?.status === 'failed') response.synthesisJobFailed = true;
+      }
+
       if (meta.status === 'reflection-ready' || meta.status === 'manager-lapsed') {
         const apData = await sessionStore.get(`${payload.sessionId}/agreed-priorities`, { type: 'json' });
         if (apData) {
@@ -182,7 +187,7 @@ exports.handler = async (event) => {
         firmName: meta.firmName,
         discipline: meta.discipline,
         monthsInRole: meta.monthsInRole,
-        candidateLabel: 'the individual'
+        candidateLabel: meta.candidateName || 'your team member'
       };
 
       if (meta.status === 'summary-ready' || meta.status === 'reflection-ready') {

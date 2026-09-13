@@ -427,7 +427,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       </div>
       <div style="background:#fffbeb;border:1px solid #fde68a;border-left:3px solid #d97706;border-radius:10px;padding:16px 18px;margin-bottom:14px">
         <div style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:8px">Why your perspective matters</div>
-        <p style="font-size:13px;color:#374151;line-height:1.7;margin:0 0 8px">This is not an assessment of the individual. Your reflection adds another perspective on how they are developing in practice — how they communicate, use judgement, take responsibility and respond to feedback.</p>
+        <p style="font-size:13px;color:#374151;line-height:1.7;margin:0 0 8px">This is not an assessment of your team member. Your reflection adds another perspective on how they are developing in practice — how they communicate, use judgement, take responsibility and respond to feedback.</p>
         <p style="font-size:13px;color:#374151;line-height:1.7;margin:0">The aim is to help create a more useful development conversation and identify where support, experience or further development may help next.</p>
       </div>
       <div class="p1-mgr-cards">
@@ -437,7 +437,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
         </div>
         <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-left:3px solid #059669;border-radius:10px;padding:14px">
           <div style="font-size:12px;font-weight:700;color:#0D0F1C;margin-bottom:5px">What stays private</div>
-          <div style="font-size:13px;color:#64748b;line-height:1.6">You will not see the individual's specific answers or private reflections.</div>
+          <div style="font-size:13px;color:#64748b;line-height:1.6">You will not see your team member's specific answers or private reflections.</div>
         </div>
       </div>
       <p style="font-size:12px;color:#94a3b8;text-align:center;margin-bottom:20px;line-height:1.5">Your responses are combined with the participant's development themes to help shape the conversation and suggested priorities, and are treated in confidence.</p>
@@ -464,7 +464,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       <div style="text-align:center;padding:40px 0">
         <div class="arev-heading">Thank you</div>
         <p class="arev-sub" style="margin-bottom:8px">Your responses have been submitted.</p>
-        <p style="font-size:14px;color:#64748b;line-height:1.7">We'll combine your perspective with the individual's self-assessment to produce a development summary. You don't need to do anything further.</p>
+        <p style="font-size:14px;color:#64748b;line-height:1.7">We'll combine your perspective with your team member's self-assessment to produce a development summary. You don't need to do anything further.</p>
       </div>
     </div>
 
@@ -526,7 +526,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       <div style="text-align:center;margin-bottom:28px">
         <div class="arev-michael-icon">✅</div>
         <div class="arev-heading">Record agreed priorities</div>
-        <p class="arev-sub">Enter the priorities you and the individual agreed during your development conversation.</p>
+        <p class="arev-sub">Enter the priorities you and your team member agreed during your development conversation.</p>
       </div>
       <div id="agree-priorities-form">
         <div class="arev-form-group">
@@ -633,7 +633,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
           <textarea class="arev-textarea" id="pmr-pm1" rows="3" placeholder=""></textarea>
         </div>
         <div class="arev-form-group">
-          <label>Where does the individual still need support, exposure or experience?</label>
+          <label>Where does your team member still need support, exposure or experience?</label>
           <textarea class="arev-textarea" id="pmr-pm2" rows="3" placeholder=""></textarea>
         </div>
         <div class="arev-form-group">
@@ -652,7 +652,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       <div style="text-align:center;padding:40px 0">
         <div class="arev-heading">Thank you</div>
         <p class="arev-sub" style="margin-bottom:8px">Your perspective has been submitted.</p>
-        <p style="font-size:14px;color:#64748b;line-height:1.7">Michael will combine this with the individual's reflection to produce their Progress Review. You don't need to do anything further.</p>
+        <p style="font-size:14px;color:#64748b;line-height:1.7">Michael will combine this with your team member's reflection to produce their Progress Review. You don't need to do anything further.</p>
       </div>
     </div>
 
@@ -802,7 +802,10 @@ function renderHome(data) {
   const reportPendingDesc = (() => {
     if (s === 'candidate-complete') return 'Generating your report — this takes up to 60 seconds';
     if (s === 'awaiting-manager') return 'Waiting for your manager\'s perspective before your development summary is prepared';
-    if (['manager-complete','synthesising'].includes(s)) return 'Manager has responded — preparing your development summary';
+    if (['manager-complete','synthesising'].includes(s)) {
+      if (data.synthesisJobFailed) return 'We weren\'t able to prepare your development summary automatically — please contact info@getcharteredai.com.';
+      return 'Manager has responded — preparing your development summary';
+    }
     return 'Preparing your development summary';
   })();
 
@@ -1377,7 +1380,7 @@ const OUTCOME_COLOURS = {
 };
 
 function goToManagerReflection() {
-  const label = sessionData.candidateLabel || 'the individual';
+  const label = sessionData.candidateLabel || 'your team member';
 
   // Render area outcomes
   const areaSummaryEl = document.getElementById('manager-area-summary');
@@ -1416,7 +1419,7 @@ function goToManagerReflection() {
     'Feedback, Reflection & Development'
   ];
   formHtml += `<div id="manager-focus-wrap" style="margin-top:28px;padding-top:24px;border-top:1px solid #e2e8f0">
-    <p style="font-size:14px;font-weight:600;color:#0D0F1C;margin:0 0 4px">Which of these areas do you think would most benefit this individual&#39;s development? Select 1 to 3.</p>
+    <p style="font-size:14px;font-weight:600;color:#0D0F1C;margin:0 0 4px">Which of these areas do you think would most benefit your team member&#39;s development? Select 1 to 3.</p>
     <p id="manager-focus-err" style="font-size:13px;color:#dc2626;display:none;margin:4px 0 8px">Please select between 1 and 3 areas.</p>
     <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
       ${FOCUS_AREAS.map(a => `<label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:#374151;padding:8px 12px;background:#f8fafc;border-radius:7px">
@@ -1719,7 +1722,7 @@ async function submitAgreedPriorities() {
         <div style="text-align:center;padding:20px 0">
           <div style="font-size:28px;margin-bottom:12px">&#10003;</div>
           <p style="font-size:15px;color:#16a34a;font-weight:600;margin-bottom:8px">Agreed priorities saved</p>
-          <p style="font-size:14px;color:#64748b;line-height:1.7">These priorities will be visible to both you and the individual when they next open their development summary.</p>
+          <p style="font-size:14px;color:#64748b;line-height:1.7">These priorities will be visible to both you and your team member when they next open their development summary.</p>
         </div>`;
     } else {
       err.textContent = data.error || 'Could not save. Please try again.';

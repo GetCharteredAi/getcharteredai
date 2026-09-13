@@ -119,9 +119,15 @@ exports.handler = async (event) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sessionId, internalSecret, runToken })
-      }).catch(e => console.error('[p1-manager-submit] Synthesis trigger failed:', e.message));
+      }).catch(async e => {
+        console.error('[p1-manager-submit] Synthesis trigger failed:', e.message);
+        try {
+          await sessionStore.setJSON(`${sessionId}/jobs/synthesis`, { status: 'failed', error: 'trigger_failed', failedAt: Date.now() });
+        } catch { /* ignore */ }
+      });
     } else {
-      console.warn('[p1-manager-submit] P1_INTERNAL_SECRET not set — synthesis not triggered');
+      console.error('[p1-manager-submit] P1_INTERNAL_SECRET not set — synthesis cannot run for session', sessionId);
+      await sessionStore.setJSON(`${sessionId}/jobs/synthesis`, { status: 'failed', error: 'no_internal_secret', failedAt: Date.now() }).catch(() => {});
     }
 
     console.log(`[p1-manager-submit] Manager responses saved for session ${sessionId}`);

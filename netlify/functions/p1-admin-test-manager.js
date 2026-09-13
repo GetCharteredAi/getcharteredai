@@ -53,9 +53,12 @@ exports.handler = async (event) => {
       ))
         .filter(m => m && m.sessionId?.startsWith('p1-test-'))
         .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      const synthJobs = await Promise.all(
+        metas.map(m => sessionStore.get(`${m.sessionId}/jobs/synthesis`, { type: 'json' }).catch(() => null))
+      );
       return { statusCode: 200, headers: HEADERS, body: JSON.stringify({
         count: metas.length,
-        sessions: metas.map(m => ({
+        sessions: metas.map((m, i) => ({
           sessionId: m.sessionId,
           createdAt: m.createdAt,
           status: m.status,
@@ -63,7 +66,8 @@ exports.handler = async (event) => {
           candidateCompletedAt: m.candidateCompletedAt ?? null,
           managerInvitedAt: m.managerInvitedAt ?? null,
           managerCompletedAt: m.managerCompletedAt ?? null,
-          synthesisCompletedAt: m.synthesisCompletedAt ?? null
+          synthesisCompletedAt: m.synthesisCompletedAt ?? null,
+          synthesisJobStatus: synthJobs[i]?.status ?? null
         }))
       })};
     }

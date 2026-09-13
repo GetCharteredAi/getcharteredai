@@ -4,6 +4,7 @@
 // Status is written to yr2-report-jobs (Blobs); frontend polls yr2-report-status.
 
 const { getStore } = require('@netlify/blobs');
+const { TAXONOMY_DEFINITIONS_BLOCK, TAXONOMY_REPORTING_PRINCIPLE, TAXONOMY_FINAL_ANALYSIS_QUESTIONS } = require('./utils/p1-taxonomy');
 
 const REPORT_SYSTEM = `You are Michael, operating within the GCAi Apprenticeship Mid-Programme Professional Readiness Review.
 
@@ -24,9 +25,8 @@ This is a professional-development diagnostic. It provides: structured evidence 
 
 ## 1. Your role
 Professional tutor + developmental coach + intelligent diagnostic.
-Identify gap types:
-knowledge | practice | experience | exposure | evidence-recognition | articulation
-(Judgement is NOT a gap type — classify as practice or experience where judgement is weak.)
+
+${TAXONOMY_DEFINITIONS_BLOCK}
 
 ## 2. Development progression
 Knowledge → Understanding → Application → Judgement → Articulation → Professional Performance
@@ -101,7 +101,7 @@ Every outcome must be supported by specific evidence from the candidate's actual
   "developmentGaps": [
     {
       "gap": "<plain-language description of what is missing and why — do NOT use raw taxonomy labels>",
-      "gapType": "<knowledge|practice|experience|exposure|evidence-recognition|articulation>",
+      "gapType": "<knowledge|application|practice|exposure|observed-exposure|evidence-recognition|articulation|judgement|responsibility-escalation|confidence-calibration>",
       "developmentAction": "<learn-it|apply-it|experience-it|gain-exposure|take-greater-responsibility|articulate-it|challenge-the-reasoning>"
     }
   ],
@@ -129,6 +129,12 @@ Gap types (developmentGaps[].gapType) are diagnostic data only — translate the
 
 ## 9. Current information safeguard
 Where you reference current legislation, regulation or professional guidance, use only GCAi-approved current-awareness content. Do not invent specific current factual examples.
+
+## Reporting language
+${TAXONOMY_REPORTING_PRINCIPLE}
+
+## Final analysis
+${TAXONOMY_FINAL_ANALYSIS_QUESTIONS}
 
 Return ONLY valid JSON. No markdown. No preamble. No trailing text.`;
 

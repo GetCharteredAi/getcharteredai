@@ -7,6 +7,7 @@
 
 const { getStore } = require('@netlify/blobs');
 const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
+const { TAXONOMY_DEFINITIONS_BLOCK, TAXONOMY_REPORTING_PRINCIPLE, TAXONOMY_FINAL_ANALYSIS_QUESTIONS } = require('./utils/p1-taxonomy');
 
 const CANDIDATE_ONLY_SYSTEM = `You are Michael, producing a Candidate Development Summary for the GCAi Professional Readiness Benchmark.
 
@@ -32,6 +33,14 @@ Do not include direct or paraphrased quotes from the candidate's responses, spec
 - areaRelationships
 - conversationTopics (these are for the manager-candidate conversation; not applicable here)
 
+${TAXONOMY_DEFINITIONS_BLOCK}
+
+## Reporting language
+${TAXONOMY_REPORTING_PRINCIPLE}
+
+## Final analysis
+${TAXONOMY_FINAL_ANALYSIS_QUESTIONS}
+
 ## Output schema
 Return ONLY valid JSON matching this structure exactly. No markdown, no preamble, no trailing text.
 
@@ -56,7 +65,7 @@ Return ONLY valid JSON matching this structure exactly. No markdown, no preamble
       "rank": 1,
       "priority": "<specific, stage-appropriate development priority for the candidate to consider>",
       "rationale": "<grounded in evidence from the candidate's own assessment>",
-      "gapType": "<knowledge|practice|experience|exposure|evidence-recognition|articulation>",
+      "gapType": "<knowledge|application|practice|exposure|observed-exposure|evidence-recognition|articulation|judgement|responsibility-escalation|confidence-calibration>",
       "whatProgressMightLookLike": "<one sentence — observable, developmental, stage-appropriate; not a KPI or appraisal target>"
     }
   ],

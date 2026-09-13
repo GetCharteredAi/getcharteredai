@@ -6,6 +6,7 @@
 
 const { getStore } = require('@netlify/blobs');
 const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
+const { GAP_TYPE_FAMILIES } = require('./utils/p1-taxonomy');
 
 const FIVE_AREAS = [
   'Professional Behaviour & Responsibility',
@@ -243,6 +244,9 @@ function computeInterventionTypes(eligible) {
     byArea[area] = {
       learningPracticeNeed: 0,
       experienceExposureNeed: 0,
+      recognitionArticulationNeed: 0,
+      judgementResponsibilityNeed: 0,
+      confidenceCalibrationNeed: 0,
       priorityAlignmentConversation: 0,
       insufficientEvidence: 0,
       total: 0
@@ -296,16 +300,24 @@ function computeInterventionTypes(eligible) {
         type = 'priorityAlignmentConversation';
       } else if (outcome === 'NOT YET ENOUGH EXPOSURE') {
         type = 'experienceExposureNeed';
-      } else if (gapType && ['knowledge', 'practice'].includes(gapType) &&
-                 ['DEVELOPING', 'SUPPORT WOULD HELP'].includes(outcome)) {
-        type = 'learningPracticeNeed';
-      } else if (gapType && ['experience', 'exposure'].includes(gapType) &&
-                 exposureConf === 'relevant-exposure-identified' &&
-                 ['DEVELOPING', 'SUPPORT WOULD HELP'].includes(outcome)) {
-        const corroborated = phase4ForArea.some(p => p.progressJudgement === 'Limited evidence of progress');
-        type = corroborated ? 'learningPracticeNeed' : 'insufficientEvidence';
       } else {
-        type = 'insufficientEvidence';
+        const family = gapType ? GAP_TYPE_FAMILIES[gapType] : null;
+        const developingOutcome = ['DEVELOPING', 'SUPPORT WOULD HELP'].includes(outcome);
+        if (family === 'learning-practice' && developingOutcome) {
+          type = 'learningPracticeNeed';
+        } else if (family === 'workplace-exposure' && developingOutcome &&
+                   exposureConf === 'relevant-exposure-identified') {
+          const corroborated = phase4ForArea.some(p => p.progressJudgement === 'Limited evidence of progress');
+          type = corroborated ? 'learningPracticeNeed' : 'insufficientEvidence';
+        } else if (family === 'recognition-articulation' && developingOutcome) {
+          type = 'recognitionArticulationNeed';
+        } else if (family === 'judgement-responsibility' && developingOutcome) {
+          type = 'judgementResponsibilityNeed';
+        } else if (family === 'confidence-calibration') {
+          type = 'confidenceCalibrationNeed';
+        } else {
+          type = 'insufficientEvidence';
+        }
       }
 
       byArea[area][type]++;

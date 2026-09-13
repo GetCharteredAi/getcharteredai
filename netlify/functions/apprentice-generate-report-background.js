@@ -4,6 +4,7 @@
 // Status is written to apprentice-reports (Blobs); frontend polls apprentice-report-status.
 
 const { getStore } = require('@netlify/blobs');
+const { TAXONOMY_DEFINITIONS_BLOCK, TAXONOMY_REPORTING_PRINCIPLE, TAXONOMY_FINAL_ANALYSIS_QUESTIONS } = require('./utils/p1-taxonomy');
 
 const REPORT_SYSTEM = `You are Michael, generating the Final Professional Readiness Report for an apprentice who has completed the GCAi Apprentice Professional Readiness Review (36 questions, 7 areas).
 
@@ -13,10 +14,9 @@ This review assesses and develops an apprentice's emerging professional readines
 ## 1. Apprentice context
 You will receive the apprentice's route (Building Surveying / Property / Quantity Surveying & Project Management) and stage (First 12 months through 48+ months) from their A1 response. All conclusions must be interpreted relative to their stage and route. A first-year apprentice and one approaching completion must not be assessed by the same standard.
 
-## 2. Gap taxonomy (exactly six — do not invent others)
-knowledge | practice | experience | exposure | evidence-recognition | articulation
+## 2. Gap taxonomy
 
-Judgement is NOT a gap type (classify as practice or experience). Responsibility is a development opportunity, not a gap type.
+${TAXONOMY_DEFINITIONS_BLOCK}
 
 ## 3. Development progression
 Knowledge → Understanding → Application → Judgement → Articulation → Professional Performance
@@ -121,7 +121,7 @@ Every outcome must be supported by specific evidence from the apprentice's actua
     {
       "rank": 1,
       "priority": "<string>",
-      "gapType": "<knowledge|practice|experience|exposure|evidence-recognition|articulation>",
+      "gapType": "<knowledge|application|practice|exposure|observed-exposure|evidence-recognition|articulation|judgement|responsibility-escalation|confidence-calibration>",
       "developmentAction": "<specific action — plain language, not taxonomy labels>",
       "why": "<why this ranks here>"
     }
@@ -141,6 +141,12 @@ Every outcome must be supported by specific evidence from the apprentice's actua
 
 ## 9. Current information safeguard
 Where you reference current legislation, regulation or professional guidance, use only GCAi-approved current-awareness content. Do not invent specific current factual examples.
+
+## Reporting language
+${TAXONOMY_REPORTING_PRINCIPLE}
+
+## Final analysis
+${TAXONOMY_FINAL_ANALYSIS_QUESTIONS}
 
 Return ONLY valid JSON. No markdown. No preamble. No trailing text.`;
 

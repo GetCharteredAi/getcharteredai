@@ -7,6 +7,7 @@
 
 const { getStore } = require('@netlify/blobs');
 const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
+const { TAXONOMY_DEFINITIONS_BLOCK, TAXONOMY_REPORTING_PRINCIPLE, TAXONOMY_FINAL_ANALYSIS_QUESTIONS } = require('./utils/p1-taxonomy');
 
 const SYNTHESIS_SYSTEM = `You are Michael, producing a Professional Readiness Synthesis for the GCAi Professional Readiness Benchmark.
 
@@ -50,6 +51,14 @@ alignmentSummary: If manager evidence is absent, use this wording exactly: "This
 ## Privacy boundary
 Do not include direct or paraphrased quotes from either source, specific anecdotes in identifiable form, or either party's own words. You may include thematic observations, relationship classifications, development priorities, and conversation prompts drawn from both sources.
 
+${TAXONOMY_DEFINITIONS_BLOCK}
+
+## Reporting language
+${TAXONOMY_REPORTING_PRINCIPLE}
+
+## Final analysis
+${TAXONOMY_FINAL_ANALYSIS_QUESTIONS}
+
 ## Output schema
 Return ONLY valid JSON matching this structure exactly. No markdown, no preamble, no trailing text.
 
@@ -86,7 +95,7 @@ Return ONLY valid JSON matching this structure exactly. No markdown, no preamble
       "rank": 1,
       "priority": "<specific, stage-appropriate development priority>",
       "rationale": "<grounded in evidence from both sources>",
-      "gapType": "<knowledge|practice|experience|exposure|evidence-recognition|articulation>",
+      "gapType": "<knowledge|application|practice|exposure|observed-exposure|evidence-recognition|articulation|judgement|responsibility-escalation|confidence-calibration>",
       "area": "<the one Benchmark area this priority most directly addresses — use the exact area name>",
       "whatProgressMightLookLike": "<one sentence — observable, developmental, stage-appropriate; not a KPI or appraisal target>",
       "managerAction": "<concrete action the manager can take to support this priority>"

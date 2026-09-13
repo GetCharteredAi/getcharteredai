@@ -8,6 +8,7 @@
 const { getStore } = require('@netlify/blobs');
 const crypto = require('crypto');
 const PREFIX = process.env.P1_STORE_PREFIX ? `${process.env.P1_STORE_PREFIX}-` : '';
+const { TAXONOMY_DEFINITIONS_BLOCK, TAXONOMY_REPORTING_PRINCIPLE, TAXONOMY_FINAL_ANALYSIS_QUESTIONS } = require('./utils/p1-taxonomy');
 
 const FROM = 'Get Chartered AI <info@getcharteredai.com>';
 const MANAGER_TOKEN_TTL_MS = 14 * 24 * 60 * 60 * 1000; // 14 days
@@ -80,8 +81,8 @@ This review gives the candidate an honest, developmental picture of their profes
 
 ## Your role
 Professional tutor + developmental coach + intelligent diagnostic.
-Identify gap types: knowledge | practice | experience | exposure | evidence-recognition | articulation
-(Judgement is NOT a gap type — classify as practice or experience.)
+
+${TAXONOMY_DEFINITIONS_BLOCK}
 
 ## Development progression
 Knowledge → Understanding → Application → Judgement → Articulation → Professional Performance
@@ -184,7 +185,7 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
     {
       "rank": 1,
       "priority": "<string>",
-      "gapType": "<knowledge|practice|experience|exposure|evidence-recognition|articulation>",
+      "gapType": "<knowledge|application|practice|exposure|observed-exposure|evidence-recognition|articulation|judgement|responsibility-escalation|confidence-calibration>",
       "area": "<the one Benchmark area this priority most directly addresses — use the exact area name from the five assessment areas>",
       "developmentAction": "<specific plain-language action — do not use raw taxonomy labels>",
       "why": "<why this ranks here>"
@@ -200,6 +201,12 @@ Do not describe this review as a formal assessment, professional certification, 
 
 ## Current information safeguard
 Where you reference current legislation, regulation or professional guidance, use only GCAi-approved current-awareness content. Do not invent specific current factual examples.
+
+## Reporting language
+${TAXONOMY_REPORTING_PRINCIPLE}
+
+## Final analysis
+${TAXONOMY_FINAL_ANALYSIS_QUESTIONS}
 
 Return ONLY valid JSON. No markdown. No preamble. No trailing text.`;
 }

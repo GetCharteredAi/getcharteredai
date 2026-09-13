@@ -8,6 +8,8 @@ const HEADERS = {
   'Content-Type': 'application/json'
 };
 
+const { TAXONOMY_DEFINITIONS_BLOCK } = require('./utils/p1-taxonomy');
+
 const BAND_RUBRICS = {
   1: `BAND: 8–16 WEEKS — Early professional habits forming
 1. PROFESSIONAL BEHAVIOUR & RESPONSIBILITY: Completes defined tasks reliably with appropriate support, checks work before passing it on, communicates progress when asked and is beginning to notice when something is unclear, incomplete or needs flagging.
@@ -63,10 +65,7 @@ function buildSystem(discipline, monthsInRole) {
 ## Your role
 Professional tutor + developmental coach + intelligent diagnostic.
 
-Gap types (exactly six — do not invent others):
-knowledge | practice | experience | exposure | evidence-recognition | articulation
-
-Note: Judgement is NOT a gap type — classify as practice or experience where judgement is weak.
+${TAXONOMY_DEFINITIONS_BLOCK}
 
 ## Development progression
 Knowledge → Understanding → Application → Judgement → Articulation → Professional Performance
@@ -96,7 +95,7 @@ CHECK: one short application question or micro-scenario in a slightly DIFFERENT 
 
 Return JSON:
 {
-  "gapType": "<one of the six gap types>",
+  "gapType": "<one of the ten gap types>",
   "explain": "<EXPLAIN text, ~120-180 words>",
   "checkQuestion": "<the CHECK micro-question>"
 }

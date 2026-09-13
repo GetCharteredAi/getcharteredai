@@ -29,8 +29,30 @@ exports.handler = async (event) => {
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) throw new Error('JWT_SECRET not configured');
 
-    const validPlans = ['annual', 'monthly', 'sprint', 'referred', 'year-one', 'apprentice', 'benchmark', 'benchmark-manager'];
+    const validPlans = ['annual', 'monthly', 'sprint', 'referred', 'year-one', 'apprentice', 'benchmark', 'benchmark-manager', 'benchmark-manager-return'];
     const resolvedPlan = validPlans.includes(plan) ? plan : 'annual';
+
+    // ── Benchmark Manager Return: find most recent test session where manager completed ──
+    if (resolvedPlan === 'benchmark-manager-return') {
+      const sessionStore = getSessionStore();
+      const { blobs } = await sessionStore.list({ prefix: 'p1-test-' });
+      const metaKeys = blobs.map(b => b.key).filter(k => k.endsWith('/metadata'));
+      const metas = (await Promise.all(
+        metaKeys.map(k => sessionStore.get(k, { type: 'json' }).catch(() => null))
+      ))
+        .filter(m => m && m.sessionId?.startsWith('p1-test-') && m.managerCompletedAt)
+        .sort((a, b) => (b.managerCompletedAt || 0) - (a.managerCompletedAt || 0));
+      if (!metas.length) {
+        return { statusCode: 404, body: JSON.stringify({ success: false, error: 'No completed manager session found — run the manager flow first' }) };
+      }
+      const meta = metas[0];
+      const now = Date.now();
+      const candidateToken = generateToken(
+        { sessionId: meta.sessionId, role: 'candidate', email: meta.candidateEmail, expires: now + 30 * 24 * 60 * 60 * 1000 },
+        jwtSecret
+      );
+      return { statusCode: 200, body: JSON.stringify({ success: true, candidateToken, sessionId: meta.sessionId, plan: 'benchmark-manager-return' }) };
+    }
 
     // ── Benchmark Manager: create session pre-seeded at awaiting-manager ─────
     if (resolvedPlan === 'benchmark-manager') {

@@ -2824,25 +2824,18 @@ async function doLogin() {
   if (email === 'test@getcharteredai.com') {
     const selectedPlan = await showPlanSelector();
 
-    // Candidate Return — client-side only, no admin-login call needed
-    if (selectedPlan === 'benchmark-manager-return') {
-      const returnToken = localStorage.getItem('gca_p1_test_return_token');
-      if (!returnToken) { err.textContent = 'No candidate return session found. Run a Manager test first.'; err.style.display='block'; return; }
-      closeLogin();
-      window.location.href = '/professional-readiness-benchmark?token=' + returnToken;
-      return;
-    }
-
     try {
       const r = await fetch('/.netlify/functions/admin-login', {
         method: 'POST', headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ email, password: pass, plan: selectedPlan })
       });
       const d = await r.json();
+      if (selectedPlan === 'benchmark-manager-return' && d.candidateToken) {
+        closeLogin(); window.location.href = '/professional-readiness-benchmark?token=' + d.candidateToken; return;
+      }
       if (d.token || d.managerToken) {
         if (selectedPlan === 'benchmark') { closeLogin(); window.location.href = '/professional-readiness-benchmark?token=' + d.token; return; }
         if (selectedPlan === 'benchmark-manager') {
-          localStorage.setItem('gca_p1_test_return_token', d.candidateToken);
           closeLogin();
           window.location.href = '/professional-readiness-benchmark?token=' + d.managerToken;
           return;

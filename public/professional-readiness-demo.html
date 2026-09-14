@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://getcharteredai.com/employer/professional-readiness/demo">
+<title>Professional Readiness Experience &mdash; Get Chartered AI</title>
+<meta name="description" content="A guided example of the Get Chartered AI employee and manager Professional Readiness experience.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0d2238;
+  --navy2:#17324f;
+  --gold:#d9b66a;
+  --ink:#1c2b39;
+  --muted:#627182;
+  --line:#dfe6ec;
+  --paper:#ffffff;
+  --soft:#f6f8fa;
+  --warm:#f5efe3;
+  --amber:#f59e0b;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:Inter, Arial, sans-serif;
+  color:var(--ink);
+  background:var(--soft);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* SITE NAV */
+nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-filter:blur(16px);height:64px;display:flex;align-items:center;padding:0 40px;border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo{display:flex;align-items:center;margin-right:auto;text-decoration:none}
+.nav-links{display:flex;gap:24px;margin-right:28px}
+.nav-link{font-size:13px;color:rgba(255,255,255,.58);text-decoration:none;transition:.15s}.nav-link:hover{color:#fff}
+.nav-btn{font-size:13px;font-weight:700;color:#0D0F1C;background:var(--amber);padding:8px 18px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.15s}.nav-btn:hover{background:#d97706}
+
+/* DEMO CHROME */
+.demo-eyebrow {
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  padding:10px 40px;
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:.04em;
+}
+
+/* DEMO LAYOUT */
+.wrap { max-width:1060px; margin:0 auto; padding:40px 24px 60px; }
+.progress {
+  display:flex;
+  gap:8px;
+  margin:4px 0 28px;
+}
+.progress span {
+  height:7px;
+  border-radius:6px;
+  flex:1;
+  background:#d9e0e6;
+}
+.progress span.active { background:#0d2238; }
+.kicker {
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#9c7c37;
+  margin-bottom:10px;
+}
+h1 { font-size:42px; line-height:1.08; margin:0 0 12px; color:var(--navy); }
+h2 { font-size:28px; line-height:1.2; color:var(--navy); margin:0 0 12px; }
+h3 { color:var(--navy); }
+.lead { font-size:19px; line-height:1.55; color:#425466; max-width:850px; }
+.card {
+  background:white;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:26px;
+  box-shadow:0 8px 28px rgba(13,34,56,.06);
+}
+.grid2 {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+.option {
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px 18px;
+  margin-top:12px;
+  background:#fbfcfd;
+}
+.option strong { display:block; margin-bottom:5px; color:var(--navy); }
+.badge {
+  display:inline-block;
+  background:var(--warm);
+  color:#765c27;
+  font-weight:700;
+  padding:6px 9px;
+  border-radius:999px;
+  font-size:12px;
+}
+.flow {
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:14px;
+  align-items:center;
+  margin:22px 0;
+}
+.arrow { font-size:26px; color:#7d8b98; }
+.result {
+  background:var(--navy);
+  color:white;
+  border-radius:16px;
+  padding:22px;
+}
+.result h3, .result strong { color:white; }
+.result p { color:#edf2f7; }
+.callout {
+  background:var(--warm);
+  border-radius:14px;
+  padding:18px 20px;
+  margin-top:18px;
+}
+.actions {
+  display:flex;
+  gap:12px;
+  margin-top:26px;
+  flex-wrap:wrap;
+}
+button, .btn {
+  border:0;
+  cursor:pointer;
+  text-decoration:none;
+  border-radius:10px;
+  padding:14px 18px;
+  font-weight:800;
+  font-size:15px;
+  font-family:inherit;
+}
+.primary { background:var(--navy); color:white; }
+.secondary { background:white; color:var(--navy); border:1px solid var(--navy); }
+.gold { background:var(--gold); color:#18202a; }
+.screen { display:none; }
+.screen.active { display:block; }
+.mini {
+  font-size:13px;
+  color:var(--muted);
+}
+.output-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:18px;
+}
+.output-grid .card { padding:20px; }
+.person {
+  font-weight:800;
+  color:var(--navy);
+}
+.manager-note {
+  border-left:4px solid var(--gold);
+  padding-left:16px;
+  margin-top:18px;
+}
+.footer-note {
+  margin-top:34px;
+  font-size:12px;
+  color:#7c8995;
+}
+@media (max-width:780px) {
+  .grid2,.output-grid,.flow { grid-template-columns:1fr; }
+  .arrow { transform:rotate(90deg); text-align:center; }
+  h1 { font-size:34px; }
+  nav { padding:0 20px; }
+  .nav-links { display:none; }
+  .demo-eyebrow { padding:10px 20px; }
+  .wrap { padding:28px 20px 48px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/logo1.png" alt="Get Chartered AI" style="height:42px"></a>
+  <div class="nav-links">
+    <a href="/employer" class="nav-link">Employer</a>
+    <a href="/employer/professional-readiness" class="nav-link">Professional Readiness</a>
+  </div>
+  <a href="/employer#contact" class="nav-btn">Talk to us &rarr;</a>
+</nav>
+
+<div class="demo-eyebrow">Professional Readiness &mdash; guided example</div>
+
+<div class="wrap">
+
+  <div class="progress" aria-label="Demo progress">
+    <span id="p1" class="active"></span>
+    <span id="p2"></span>
+    <span id="p3"></span>
+    <span id="p4"></span>
+  </div>
+
+  <!-- SCREEN 1 -->
+  <section class="screen active" id="screen1">
+    <div class="kicker">1 &middot; Employee experience</div>
+    <h1>How am I actually developing?</h1>
+    <p class="lead">
+      The employee reflects privately on real workplace experience. The aim is not simply to ask whether they know something,
+      but whether they can recognise it, apply it and explain their judgement.
+    </p>
+
+    <div class="card">
+      <span class="badge">Example area: Client care</span>
+      <h2 style="margin-top:14px;">A client challenges part of your advice. What do you do next?</h2>
+      <div class="option">
+        <strong>Employee response</strong>
+        &ldquo;I would make sure I understood the concern, check the information I had relied on, explain my reasoning clearly
+        and ask for support if the issue went beyond my experience or authority.&rdquo;
+      </div>
+      <div class="option">
+        <strong>Follow-up reflection</strong>
+        &ldquo;I understand what I should do, but I have had very little direct client-facing responsibility so far.&rdquo;
+      </div>
+      <div class="callout">
+        <strong>What this starts to reveal</strong><br>
+        The employee may understand the right professional response &mdash; but still need more opportunity to demonstrate it in practice.
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" onclick="showScreen(2)">See the manager perspective &rarr;</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 -->
+  <section class="screen" id="screen2">
+    <div class="kicker">2 &middot; Manager perspective</div>
+    <h1>What is the manager seeing?</h1>
+    <p class="lead">
+      The manager adds a practical workplace view. This does not expose the employee&rsquo;s private answers.
+      It adds observed evidence and context.
+    </p>
+
+    <div class="card">
+      <span class="badge">Same development area: Client care</span>
+      <div class="manager-note">
+        <div class="person">Manager observation</div>
+        <p>
+          &ldquo;She communicates clearly internally and responds well to feedback. She has not yet had much direct responsibility
+          for client conversations because those have mainly been handled by senior team members.&rdquo;
+        </p>
+      </div>
+
+      <div class="grid2" style="margin-top:20px;">
+        <div class="option">
+          <strong>What appears strong</strong>
+          Professional communication, willingness to ask for help, understanding of expected behaviour.
+        </div>
+        <div class="option">
+          <strong>What may be limiting progress</strong>
+          Limited workplace opportunity rather than an obvious knowledge problem.
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Why both perspectives matter</strong><br>
+        Without the employee and manager context together, a weaker outcome could easily be treated as &ldquo;needs more training&rdquo;.
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="secondary" onclick="showScreen(1)">&larr; Back</button>
+      <button class="primary" onclick="showScreen(3)">See what Michael does &rarr;</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 3 -->
+  <section class="screen" id="screen3">
+    <div class="kicker">3 &middot; Michael synthesis</div>
+    <h1>Michael helps identify the cause &mdash; not just the outcome.</h1>
+    <p class="lead">
+      Michael brings the two perspectives together, spots where they align or differ, and turns that into clear points to discuss.
+    </p>
+
+    <div class="flow">
+      <div class="card">
+        <div class="person">Employee signal</div>
+        <p>Understands the professional response and can explain the reasoning.</p>
+      </div>
+      <div class="arrow">&rarr;</div>
+      <div class="card">
+        <div class="person">Manager signal</div>
+        <p>Confirms limited opportunity to demonstrate the behaviour directly with clients.</p>
+      </div>
+    </div>
+
+    <div class="result">
+      <h3>Likely development type: Workplace Exposure</h3>
+      <p>
+        The immediate priority is not another generic client-care course. The stronger next step is structured client-facing opportunity,
+        with appropriate supervision and feedback.
+      </p>
+    </div>
+
+    <div class="callout">
+      <strong>Same apparent outcome. Different cause. Different action.</strong><br><br>
+      A person with regular client exposure but poor follow-through on feedback may need more practice and application.
+      This person appears to need opportunity.
+    </div>
+
+    <div class="actions">
+      <button class="secondary" onclick="showScreen(2)">&larr; Back</button>
+      <button class="primary" onclick="showScreen(4)">See the manager output &rarr;</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 4 -->
+  <section class="screen" id="screen4">
+    <div class="kicker">4 &middot; Manager output</div>
+    <h1>A better-prepared development conversation.</h1>
+    <p class="lead">
+      The manager does not receive the employee&rsquo;s raw private responses. They receive a clear development picture
+      and useful next-step prompts.
+    </p>
+
+    <div class="output-grid">
+      <div class="card">
+        <h3>Strengths</h3>
+        <p>Clear communication, professional awareness, appropriate escalation, responsiveness to feedback.</p>
+      </div>
+      <div class="card">
+        <h3>Development priority</h3>
+        <p>Build confidence and judgement through more direct client-facing experience.</p>
+      </div>
+      <div class="card">
+        <h3>Suggested next action</h3>
+        <p>Give structured client exposure with a senior colleague, followed by short reflective feedback.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>For the manager</strong><br>
+      Less guesswork. A clearer reason for the development need. A more useful conversation about what should happen next.
+    </div>
+
+    <div class="result" style="margin-top:18px;">
+      <h3>And across teams?</h3>
+      <p>
+        When the same structured approach is used consistently, these individual signals can begin to reveal wider patterns &mdash;
+        helping the business distinguish a learning need from an opportunity need.
+      </p>
+    </div>
+
+    <div class="actions">
+      <button class="secondary" onclick="showScreen(3)">&larr; Back</button>
+      <a class="btn gold" id="returnBtn" href="/employer/professional-readiness#workforce-intelligence">
+        Back to Professional Readiness &rarr;
+      </a>
+    </div>
+
+    <div class="footer-note">
+      Guided demonstration only. The live experience can use pathway-specific questions and development logic appropriate to the employee&rsquo;s role and stage.
+    </div>
+  </section>
+
+</div>
+
+<script>
+function showScreen(n) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.progress span').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('screen' + n).classList.add('active');
+  for (var i = 1; i <= n; i++) {
+    document.getElementById('p' + i).classList.add('active');
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// If the pitch page supplies a ?return= URL, use that.
+// Otherwise default to the production Professional Readiness route.
+var params = new URLSearchParams(window.location.search);
+var returnUrl = params.get('return');
+if (returnUrl) {
+  document.getElementById('returnBtn').href = returnUrl;
+}
+</script>
+
+</body>
+</html>

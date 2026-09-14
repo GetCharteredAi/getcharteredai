@@ -112,6 +112,11 @@
   to = "/employer-professional-readiness.html"
   status = 200
 
+[[redirects]]
+  from = "/employer/professional-readiness/demo"
+  to = "/professional-readiness-demo.html"
+  status = 200
+
 [functions."p1-scheduled"]
   schedule = "@daily"
 

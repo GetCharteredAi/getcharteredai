@@ -29,9 +29,8 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-fi
 .hero h1{font-family:var(--fh);font-size:clamp(28px,4vw,52px);font-weight:800;line-height:1.06;letter-spacing:-.03em;color:#fff;margin-bottom:20px}
 .hero-sub{font-size:18px;color:rgba(255,255,255,.68);line-height:1.72;max-width:700px;margin-bottom:20px}
 .hero-tagline{font-size:15px;font-weight:700;color:rgba(255,255,255,.80);margin-bottom:36px}
-.video-box{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);border-radius:14px;padding:48px 28px;text-align:center;max-width:620px}
-.video-box strong{font-size:16px;color:#fff;display:block;margin-bottom:8px}
-.video-box span{font-size:13px;color:rgba(255,255,255,.48)}
+.video-box{border:1px solid rgba(255,255,255,.16);border-radius:14px;overflow:hidden;max-width:620px;line-height:0}
+.video-box video{width:100%;display:block;border-radius:0}
 
 /* SECTION COMMON */
 .section{padding:80px 40px}
@@ -159,8 +158,9 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
     <p class="hero-sub">Helping developing professionals turn learning and experience into judgement, confidence and professional capability &mdash; while helping experienced people spend their time where it adds most value.</p>
     <p class="hero-tagline">Thoughtfully designed. Human-led. AI-supported.</p>
     <div class="video-box">
-      <strong>Meet Michael &mdash; the AI coach inside Get Chartered AI</strong>
-      <span>Short Professional Readiness introduction video.</span>
+      <video controls preload="metadata">
+        <source src="/videos/michael-professional-readiness-intro.mp4" type="video/mp4">
+      </video>
     </div>
   </div>
 </div>

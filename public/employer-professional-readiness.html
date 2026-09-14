@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://getcharteredai.com/employer/professional-readiness">
-<title>Professional Readiness for Graduates &amp; Apprentices — Get Chartered AI</title>
-<meta name="description" content="See where your graduates and apprentices are developing well — and what they need next. The Professional Readiness Benchmark gives employers a structured, privacy-first group-level view of professional development.">
+<title>Professional Readiness for Employers &mdash; Get Chartered AI</title>
+<meta name="description" content="Professional Readiness from Get Chartered AI helps built-environment employers support developing professionals, prepare better manager conversations and build clearer workforce insight.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0D0F1C;--blue:#2563EB;--blue-dark:#1d4ed8;--amber:#f59e0b;--green:#10b981;--f:'Inter',sans-serif;--fh:'Plus Jakarta Sans','Inter',sans-serif}
+:root{--navy:#0D0F1C;--blue:#2563EB;--blue-dark:#1d4ed8;--amber:#f59e0b;--green:#10b981;--ink:#1a1a2e;--muted:#64748b;--line:#e2e8f0;--f:'Inter',sans-serif;--fh:'Plus Jakarta Sans','Inter',sans-serif}
 html{scroll-behavior:smooth}
-body{font-family:var(--f);background:#fff;color:#1a1a2e;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:var(--f);background:#fff;color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
 /* NAV */
 nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-filter:blur(16px);height:64px;display:flex;align-items:center;padding:0 40px;border-bottom:1px solid rgba(255,255,255,.06)}
@@ -24,72 +24,93 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-fi
 /* HERO */
 .hero{background:var(--navy);padding:96px 40px 88px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 28% 0%,rgba(37,99,235,.15) 0%,transparent 65%);pointer-events:none}
-.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 400px;gap:64px;align-items:center;position:relative;z-index:1}
+.hero-inner{max-width:820px;margin:0 auto;position:relative;z-index:1}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);padding:5px 14px;border-radius:20px;margin-bottom:22px}
-.hero h1{font-family:var(--fh);font-size:clamp(26px,3.8vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.03em;color:#fff;margin-bottom:20px}
-.hero-sub{font-size:16px;color:rgba(255,255,255,.60);line-height:1.72;max-width:480px;margin-bottom:32px}
-.hero-reassurances{display:flex;flex-direction:column;gap:11px;margin-bottom:36px}
-.hero-reassurance{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(255,255,255,.70);line-height:1.5}
-.reassurance-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn-amber{background:var(--amber);color:var(--navy);padding:14px 26px;border-radius:9px;font-size:15px;font-weight:700;text-decoration:none;transition:.15s;white-space:nowrap}.btn-amber:hover{background:#d97706}
-.btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.28);color:#fff;padding:14px 24px;border-radius:9px;font-size:15px;font-weight:600;text-decoration:none;transition:.15s}.btn-ghost:hover{border-color:rgba(255,255,255,.55)}
-
-/* HERO PANEL */
-.hero-panel{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:36px;position:relative;overflow:hidden}
-.hero-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--amber))}
-.panel-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:16px}
-.panel-h2{font-family:var(--fh);font-size:21px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:12px;letter-spacing:-.02em}
-.panel-sub{font-size:13px;color:rgba(255,255,255,.58);line-height:1.65;margin-bottom:26px}
-.panel-areas{display:flex;flex-direction:column;gap:7px}
-.panel-area{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:8px}
-.area-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.area-name{font-size:13px;color:rgba(255,255,255,.72);font-weight:500}
+.hero h1{font-family:var(--fh);font-size:clamp(28px,4vw,52px);font-weight:800;line-height:1.06;letter-spacing:-.03em;color:#fff;margin-bottom:20px}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.68);line-height:1.72;max-width:700px;margin-bottom:20px}
+.hero-tagline{font-size:15px;font-weight:700;color:rgba(255,255,255,.80);margin-bottom:36px}
+.video-box{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);border-radius:14px;padding:48px 28px;text-align:center;max-width:620px}
+.video-box strong{font-size:16px;color:#fff;display:block;margin-bottom:8px}
+.video-box span{font-size:13px;color:rgba(255,255,255,.48)}
 
 /* SECTION COMMON */
 .section{padding:80px 40px}
 .sec-inner{max-width:1100px;margin:0 auto}
-.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:14px}
-.eyebrow-blue{color:var(--blue)}
-.eyebrow-amber{color:var(--amber)}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:14px}
 .sec-h2{font-family:var(--fh);font-size:clamp(24px,3.5vw,38px);font-weight:800;line-height:1.12;letter-spacing:-.025em;margin-bottom:14px}
 .sec-h2-dark{color:var(--navy)}
-.sec-h2-white{color:#fff}
-.sec-lead{font-size:16px;line-height:1.72;max-width:620px;margin-bottom:44px}
-.sec-lead-muted{color:#64748b}
-.sec-lead-white{color:rgba(255,255,255,.60)}
-
-/* WHAT'S INCLUDED */
-.sec-navy{background:var(--navy)}
+.sec-lead{font-size:17px;line-height:1.72;max-width:720px;margin-bottom:36px}
+.sec-lead-muted{color:var(--muted)}
 .sec-white{background:#fff}
 .sec-light{background:#f8fafc}
-.included-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.inc-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:28px 24px}
-.inc-icon{font-size:22px;margin-bottom:14px}
-.inc-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.35}
-.inc-body{font-size:13px;color:rgba(255,255,255,.56);line-height:1.65;margin:0}
+.quote{font-family:var(--fh);font-size:clamp(19px,2.2vw,27px);line-height:1.3;font-weight:800;color:var(--navy);max-width:860px;margin:28px 0 0}
 
-/* HOW IT WORKS — 5-step horizontal journey */
-.how-journey{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;margin-top:48px}
-.how-journey::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--blue),rgba(37,99,235,.18));z-index:0}
-.how-step{text-align:center;padding:0 10px;position:relative;z-index:1}
-.step-num{width:56px;height:56px;border-radius:50%;background:#fff;border:2px solid var(--blue);color:var(--navy);font-family:var(--fh);font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 0 0 6px #f8fafc}
-.step-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.35}
-.step-body{font-size:12px;color:#64748b;line-height:1.6}
+/* NOW PANEL */
+.now-panel-dark{background:var(--navy);border-radius:16px;padding:34px;margin-top:28px;max-width:820px}
+.now-panel-dark .kicker{color:rgba(245,158,11,.80)}
+.now-panel-dark h3{font-family:var(--fh);font-size:26px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:14px}
+.now-panel-dark p{color:rgba(255,255,255,.70);line-height:1.65;margin-bottom:12px;font-size:16px}
+.now-panel-dark p:last-child{margin-bottom:0}
+.now-panel-dark strong{color:#fff}
 
-/* WHAT THE EMPLOYER SEES */
-.sees-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.sees-row{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 24px;display:flex;align-items:flex-start;gap:16px;transition:.15s}.sees-row:hover{border-color:#bfdbfe;box-shadow:0 2px 12px rgba(37,99,235,.06)}
-.sees-num{font-family:var(--fh);font-size:13px;font-weight:800;color:var(--blue);min-width:26px;padding-top:2px;flex-shrink:0}
-.sees-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:5px}
-.sees-desc{font-size:13px;color:#64748b;line-height:1.62;margin:0}
+/* CARDS */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{border:1px solid var(--line);border-radius:14px;padding:28px 26px;background:#fff}
+.card h3{font-family:var(--fh);font-size:17px;font-weight:700;color:var(--navy);margin-bottom:12px;line-height:1.35}
+.card p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:8px}
+.card p:last-child{margin-bottom:0}
 
-/* DARK CLOSE */
-.close-sec{background:linear-gradient(140deg,#0D0F1C 0%,#0b152a 100%);padding:96px 40px;text-align:center;position:relative;overflow:hidden}
-.close-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 110%,rgba(37,99,235,.12) 0%,transparent 65%);pointer-events:none}
-.close-inner{max-width:660px;margin:0 auto;position:relative;z-index:1}
-.close-h2{font-family:var(--fh);font-size:clamp(24px,3.5vw,38px);font-weight:800;line-height:1.12;letter-spacing:-.025em;color:#fff;margin-bottom:16px}
-.close-sub{font-size:16px;color:rgba(255,255,255,.56);line-height:1.72;margin-bottom:36px}
+/* FLOW STACK */
+.flow-stack{display:grid;gap:10px;margin-top:18px}
+.flowbox{border:1px solid var(--line);padding:16px 18px;border-radius:10px;background:#f8fafc}
+.flowbox strong{display:block;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:5px}
+.flowbox p{font-size:13px;color:var(--muted);margin:0;line-height:1.6}
+
+/* CALLOUT */
+.callout{border-left:3px solid var(--amber);padding:14px 18px;background:#fffbeb;border-radius:0 8px 8px 0;margin-top:20px;font-size:14px;line-height:1.65;color:#44403c}
+.callout strong{color:var(--navy)}
+.callout-blue{border-left-color:var(--blue);background:#eff6ff;color:#1e3a5f}
+.callout-blue strong{color:var(--navy)}
+
+/* DEMO STRIP */
+.demo-strip{padding:18px 40px}
+.demo-strip-inner{max-width:1100px;margin:0 auto;background:var(--navy);border-radius:18px;padding:30px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.demo-strip-text .kicker{color:rgba(245,158,11,.80);margin-bottom:6px}
+.demo-strip-text h2{font-family:var(--fh);font-size:22px;font-weight:800;color:#fff;margin:0 0 8px}
+.demo-strip-text p{font-size:14px;color:rgba(255,255,255,.65);margin:0;max-width:560px}
+.demo-btn{display:inline-block;background:#fff;color:var(--navy);text-decoration:none;font-family:var(--fh);font-weight:800;font-size:14px;padding:14px 22px;border-radius:10px;white-space:nowrap;transition:.15s;flex-shrink:0}
+.demo-btn:hover{background:rgba(255,255,255,.88)}
+
+/* TAXONOMY / DIAGNOSIS */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:28px}
+.proof{border:1px solid var(--line);border-radius:14px;padding:26px;background:#fff}
+.proof-type{font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.proof h3{font-family:var(--fh);font-size:16px;font-weight:700;color:var(--navy);margin-bottom:10px;line-height:1.4}
+.proof p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:8px}
+.proof p:last-child{margin-bottom:0}
+.proof strong{color:var(--navy)}
+.bigline{font-family:var(--fh);font-size:clamp(22px,2.8vw,32px);line-height:1.2;font-weight:800;color:var(--navy);margin:28px 0 10px}
+details summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--navy);user-select:none;margin-top:20px}
+details p{margin-top:12px;font-size:14px;color:var(--muted);line-height:1.65}
+.taxonomy-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:#fff;color:var(--navy);font-size:13px;font-weight:600}
+
+/* FAMILY TAGS */
+.family-tags{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 22px}
+.family{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:7px 16px;background:#fff;color:var(--navy);font-size:13px;font-weight:700}
+
+/* QS */
+.qs-list{column-count:2;column-gap:40px;list-style:disc;padding-left:20px;margin-top:18px;font-size:15px;color:var(--muted);line-height:1.9}
+
+/* PILOT */
+.pilot{background:var(--navy);border-radius:18px;padding:44px}
+.pilot h2{font-family:var(--fh);font-size:clamp(22px,3vw,32px);font-weight:800;color:#fff;line-height:1.15;letter-spacing:-.02em;margin-bottom:14px}
+.pilot .kicker{color:rgba(245,158,11,.80)}
+.pilot-lead{font-size:17px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:28px}
+.pilot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pilot-cell{color:rgba(255,255,255,.75);font-size:14px;line-height:1.65}
+.pilot-cell strong{display:block;color:#fff;font-size:15px;font-weight:700;margin-bottom:7px}
 
 /* FOOTER */
 footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
@@ -100,25 +121,22 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
 
 /* RESPONSIVE */
 @media(max-width:1000px){
-  .hero-inner{grid-template-columns:1fr;gap:44px}
   .hero{padding:72px 24px 64px}
-  .hero-sub{max-width:100%}
-  .included-grid{grid-template-columns:1fr 1fr}
   .section{padding:64px 24px}
-  .close-sec{padding:72px 24px}
+  .demo-strip{padding:14px 24px}
   footer{padding:24px 20px}
   nav{padding:0 20px}
+  .grid2,.split{grid-template-columns:1fr}
+  .grid3,.pilot-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:720px){
-  .how-journey{grid-template-columns:1fr 1fr;gap:28px}
-  .how-journey::before{display:none}
-  .sees-grid{grid-template-columns:1fr}
+  .grid3,.pilot-grid{grid-template-columns:1fr}
   .nav-links{display:none}
+  .qs-list{column-count:1}
+  .demo-strip-inner{flex-direction:column;align-items:flex-start}
 }
 @media(max-width:540px){
-  .included-grid{grid-template-columns:1fr}
-  .how-journey{grid-template-columns:1fr}
-  .hero-btns{flex-direction:column;align-items:flex-start}
+  .hero h1{font-size:28px}
 }
 </style>
 </head>
@@ -136,182 +154,246 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div>
-      <div class="hero-eyebrow">Part One &mdash; Professional Readiness</div>
-      <h1>See where your graduates and apprentices are developing well &mdash; and what they need next.</h1>
-      <p class="hero-sub">The Professional Readiness Benchmark gives you a structured, group-level view of where professional development is progressing and where support may help &mdash; at the point when it matters most.</p>
-      <div class="hero-reassurances">
-        <div class="hero-reassurance"><span class="reassurance-dot"></span>Group-level reporting only &mdash; individual results are never visible to the employer</div>
-        <div class="hero-reassurance"><span class="reassurance-dot"></span>Covers the five areas of professional readiness that matter in early careers</div>
-        <div class="hero-reassurance"><span class="reassurance-dot"></span>Manager perspective built in, not bolted on</div>
-      </div>
-      <div class="hero-btns">
-        <a href="/employer#contact" class="btn-amber">Talk to us about getting started &rarr;</a>
-        <a href="#how-it-works" class="btn-ghost">See how it works</a>
-      </div>
-    </div>
-    <div class="hero-panel">
-      <div class="panel-label">Professional Readiness Benchmark</div>
-      <h2 class="panel-h2">See where your graduates and apprentices are a few months into their role.</h2>
-      <p class="panel-sub">Understand where development is progressing, where support may help and where workplace opportunity may be limited.</p>
-      <div class="panel-areas">
-        <div class="panel-area"><span class="area-dot" style="background:#2563EB"></span><span class="area-name">APC framework understanding</span></div>
-        <div class="panel-area"><span class="area-dot" style="background:#10b981"></span><span class="area-name">Competency level understanding</span></div>
-        <div class="panel-area"><span class="area-dot" style="background:#f59e0b"></span><span class="area-name">Diary and evidence practice</span></div>
-        <div class="panel-area"><span class="area-dot" style="background:#8b5cf6"></span><span class="area-name">Professional articulation</span></div>
-        <div class="panel-area"><span class="area-dot" style="background:#f43f5e"></span><span class="area-name">Legislation awareness</span></div>
-      </div>
+    <div class="hero-eyebrow">Professional Readiness</div>
+    <h1>Building professional judgement in an AI-supported world</h1>
+    <p class="hero-sub">Helping developing professionals turn learning and experience into judgement, confidence and professional capability &mdash; while helping experienced people spend their time where it adds most value.</p>
+    <p class="hero-tagline">Thoughtfully designed. Human-led. AI-supported.</p>
+    <div class="video-box">
+      <strong>Meet Michael &mdash; the AI coach inside Get Chartered AI</strong>
+      <span>Short Professional Readiness introduction video.</span>
     </div>
   </div>
 </div>
 
-<!-- WHAT'S INCLUDED -->
-<div class="section sec-navy">
+<!-- WHY THIS MATTERS NOW -->
+<div class="section sec-light">
+  <div class="sec-inner" style="max-width:820px">
+    <div class="kicker">Why this matters now</div>
+    <h2 class="sec-h2 sec-h2-dark">AI can support the work. Human judgement still decides.</h2>
+    <p class="sec-lead sec-lead-muted">Professionals still need to know what to observe, what to question, what evidence matters and when to ask for help.</p>
+    <div class="now-panel-dark">
+      <div class="kicker">Thoughtfully designed. Human-led. AI-supported.</div>
+      <h3>The human role remains central.</h3>
+      <p>Observe. Investigate. Interpret. Challenge. Decide. Take responsibility.</p>
+      <p><strong>Get Chartered helps build repeatable foundations and prepare better development conversations &mdash; so manager time is focused where experience matters most.</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT HAPPENS AFTER ONBOARDING -->
+<div class="section sec-white">
   <div class="sec-inner">
-    <span class="eyebrow eyebrow-amber">What&rsquo;s included</span>
-    <h2 class="sec-h2 sec-h2-white">A complete group readiness picture.<br>Built in from the start.</h2>
-    <p class="sec-lead sec-lead-white">Everything needed to understand where your graduates and apprentices stand &mdash; and what they need next &mdash; without requiring significant employer time or administration.</p>
-    <div class="included-grid">
-      <div class="inc-card">
-        <div class="inc-icon">📋</div>
-        <div class="inc-title">15-Question Participant Benchmark</div>
-        <p class="inc-body">Each participant completes a structured 15-question benchmark covering five areas of professional practice. Approximately 15 minutes. Completed independently at their own pace.</p>
+    <div class="kicker">The space after onboarding</div>
+    <h2 class="sec-h2 sec-h2-dark">So what happens after onboarding?</h2>
+    <p class="sec-lead sec-lead-muted">Once induction is complete and real work begins, developing professionals are no longer just learning systems and tasks. They are learning how to operate professionally &mdash; when to ask, act, escalate, explain their reasoning and exercise judgement.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>The developing professional may be thinking&hellip;</h3>
+        <p>Am I doing enough?</p>
+        <p>When should I ask for help?</p>
+        <p>How much initiative should I take?</p>
+        <p>What does &ldquo;good&rdquo; look like at this stage?</p>
+        <p>Am I progressing as expected?</p>
       </div>
-      <div class="inc-card">
-        <div class="inc-icon">💬</div>
-        <div class="inc-title">Short Manager Reflection</div>
-        <p class="inc-body">A brief structured reflection from the participant&rsquo;s line manager or counsellor. Adds a genuine external perspective to the development picture without requiring a long process.</p>
-      </div>
-      <div class="inc-card">
-        <div class="inc-icon">⚙️</div>
-        <div class="inc-title">AI-Supported Pattern Analysis</div>
-        <p class="inc-body">Michael analyses responses across your group, identifying where development is progressing, where support may be needed and where patterns emerge across the five areas.</p>
-      </div>
-      <div class="inc-card">
-        <div class="inc-icon">📊</div>
-        <div class="inc-title">Professional Readiness Overview</div>
-        <p class="inc-body">A group-level dashboard showing development patterns across your graduates and apprentices. Built for training managers and HR leads. No individual scores visible to the employer.</p>
-      </div>
-      <div class="inc-card">
-        <div class="inc-icon">🔄</div>
-        <div class="inc-title">Progress Reflection</div>
-        <p class="inc-body">A follow-up check that captures how development is moving over time. Run it later in the year to see what has changed since the initial Benchmark.</p>
-      </div>
-      <div class="inc-card">
-        <div class="inc-icon">🔒</div>
-        <div class="inc-title">Privacy-First Group Reporting</div>
-        <p class="inc-body">Results are shown at group level only. No individual scores are visible to the employer. No ranking. No surveillance. Participants can engage honestly without concern about what their employer will see.</p>
+      <div class="card">
+        <h3>The manager may be asking&hellip;</h3>
+        <p>Where are they progressing well?</p>
+        <p>Where do they need more exposure?</p>
+        <p>Are they beginning to exercise appropriate judgement?</p>
+        <p>What should we focus on next?</p>
+        <p>Are expectations clear enough?</p>
       </div>
     </div>
+    <p class="quote">That is where Professional Readiness starts &mdash; helping make early development clearer for both the individual and the manager.</p>
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
-<div class="section sec-white" id="how-it-works">
-  <div class="sec-inner">
-    <span class="eyebrow eyebrow-blue">How it works</span>
-    <h2 class="sec-h2 sec-h2-dark">Five steps from benchmark to insight.</h2>
-    <p class="sec-lead sec-lead-muted">A straightforward process that requires minimal employer administration. Participants and managers engage at their own pace.</p>
-    <div class="how-journey">
-      <div class="how-step">
-        <div class="step-num">1</div>
-        <div class="step-title">Participant completes the Benchmark</div>
-        <p class="step-body">Each graduate or apprentice completes the 15-question Professional Readiness Benchmark independently. Takes approximately 15 minutes.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-num">2</div>
-        <div class="step-title">Manager adds their perspective</div>
-        <p class="step-body">The participant&rsquo;s manager or counsellor completes a short structured reflection on the same five areas. A separate, independent view.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-num">3</div>
-        <div class="step-title">Michael identifies patterns</div>
-        <p class="step-body">Michael analyses responses across your group and identifies where development is progressing, where support may help and where priorities align or differ.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-num">4</div>
-        <div class="step-title">Employer sees the group overview</div>
-        <p class="step-body">You receive access to the Professional Readiness Overview &mdash; a group-level dashboard showing development patterns across your graduates and apprentices.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-num">5</div>
-        <div class="step-title">Review progress later</div>
-        <p class="step-body">Run the Progress Reflection to see what has changed. Compare where the group was at Benchmark against where they are now.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- WHAT THE EMPLOYER SEES -->
+<!-- ONE PRODUCT. TWO DEVELOPMENT POINTS. -->
 <div class="section sec-light">
   <div class="sec-inner">
-    <span class="eyebrow eyebrow-blue">What the employer sees</span>
-    <h2 class="sec-h2 sec-h2-dark">Six views. One clear picture.</h2>
-    <p class="sec-lead sec-lead-muted">The Professional Readiness Overview gives you a structured group-level view across six dimensions of professional development.</p>
-    <div class="sees-grid">
-      <div class="sees-row">
-        <div class="sees-num">01</div>
-        <div>
-          <div class="sees-title">Where your graduates and apprentices are developing well</div>
-          <p class="sees-desc">Clear signal on where professional practice is progressing across the group &mdash; the areas where development is taking hold.</p>
+    <div class="kicker">One product. Two development points.</div>
+    <h2 class="sec-h2 sec-h2-dark">Entering a professional role. Progressing within it.</h2>
+    <p class="sec-lead sec-lead-muted">Professional Readiness supports two different moments in development &mdash; one focused on the transition into professional work, the other on progression as experience and responsibility grow.</p>
+    <div class="grid2">
+
+      <!-- Part One -->
+      <div class="card">
+        <div class="kicker" style="margin-bottom:6px">Part One</div>
+        <h3>Professional Readiness Benchmark</h3>
+        <p>Typically around <strong>8&ndash;12 weeks after joining</strong>, once onboarding is complete and there has been enough real workplace experience to reflect on &mdash; or, where appropriate, aligned with the end of the probation period.</p>
+        <p><strong>Transition-led.</strong></p>
+        <hr style="border:none;border-top:1px solid var(--line);margin:22px 0">
+        <h3 style="font-size:17px;margin-bottom:10px">A clearer development picture &mdash; from both sides.</h3>
+        <p>The point is not to create another score. It is to create a better development conversation.</p>
+        <div class="flow-stack">
+          <div class="flowbox"><strong>Employee perspective</strong><p>Private reflection on how they are beginning to operate professionally.</p></div>
+          <div class="flowbox"><strong>Manager perspective</strong><p>Observed strengths, development needs and workplace context.</p></div>
+          <div class="flowbox"><strong>Michael brings the two perspectives together</strong><p>He spots where they align or differ, and turns that into clear points to discuss.</p></div>
+          <div class="flowbox"><strong>Development conversation</strong><p>A clearer conversation about what is going well, what needs attention and what should happen next.</p></div>
         </div>
+        <div class="callout"><strong>Designed around employee privacy.</strong><br>The employee&rsquo;s private responses remain private. Managers receive relevant development outcomes, conversation points and next-step prompts &mdash; not raw answers.</div>
       </div>
-      <div class="sees-row">
-        <div class="sees-num">02</div>
-        <div>
-          <div class="sees-title">Where support may help</div>
-          <p class="sees-desc">Areas where the group data suggests structured support or learning would make a meaningful difference to professional development.</p>
+
+      <!-- Part Two -->
+      <div class="card">
+        <div class="kicker" style="margin-bottom:6px">Part Two</div>
+        <h3>Professional Readiness Review</h3>
+        <p><strong>An independent view of how professional and technical capability is developing.</strong></p>
+        <p>Part Two is employee-owned and built around pathway-specific technical questions and professional judgement scenarios.</p>
+        <p><strong>Progression-led.</strong> Used at an appropriate development, progression or annual-review point. Part Two does not depend on someone having completed Part One.</p>
+        <hr style="border:none;border-top:1px solid var(--line);margin:22px 0">
+        <h3 style="font-size:17px;margin-bottom:10px">It sits alongside existing training &mdash; it does not replace it.</h3>
+        <p>Employees may already be following a graduate programme, apprenticeship route, internal academy, technical course or professional-body pathway.</p>
+        <p>The purpose of Part Two is to help the employee, line manager and wider business understand whether that learning and workplace experience appear to be translating into professional capability.</p>
+        <div class="flow-stack">
+          <div class="flowbox"><strong>Pathway-specific technical review</strong><p>Questions and scenarios relevant to the employee&rsquo;s discipline and stage.</p></div>
+          <div class="flowbox"><strong>Application + judgement</strong><p>Can they apply what they know, explain their reasoning, recognise limits and exercise professional judgement?</p></div>
+          <div class="flowbox"><strong>Independent development check</strong><p>A consistent view of whether professional and technical capability appears to be progressing as expected.</p></div>
+          <div class="flowbox"><strong>Development / progression conversation</strong><p>The employee brings the output into a focused discussion about what is strong, what needs more depth and what experience should come next.</p></div>
         </div>
+        <div class="callout callout-blue"><strong>For the employee</strong><br>A clearer view of progress, technical depth and what to work on next.</div>
+        <div class="callout callout-blue" style="margin-top:10px"><strong>For the line manager</strong><br>An independent, evidence-informed development check alongside existing training and workplace experience.</div>
+        <div class="callout callout-blue" style="margin-top:10px"><strong>For the wider business</strong><br>A more consistent view of whether professional and technical capability is developing across people following different internal or external programmes.</div>
       </div>
-      <div class="sees-row">
-        <div class="sees-num">03</div>
-        <div>
-          <div class="sees-title">Where workplace exposure may be limited</div>
-          <p class="sees-desc">Where participants are reporting limited opportunity to practise key professional behaviours &mdash; an experience signal, not a capability judgement.</p>
-        </div>
-      </div>
-      <div class="sees-row">
-        <div class="sees-num">04</div>
-        <div>
-          <div class="sees-title">Where priorities align &mdash; or differ</div>
-          <p class="sees-desc">How candidate, manager and Michael perspectives point across the five areas. Alignment suggests shared recognition; difference often shows where a conversation would be useful.</p>
-        </div>
-      </div>
-      <div class="sees-row">
-        <div class="sees-num">05</div>
-        <div>
-          <div class="sees-title">What support appears to be needed</div>
-          <p class="sees-desc">The pattern of development needs across the group, classified by type &mdash; so the right kind of support can be identified and considered.</p>
-        </div>
-      </div>
-      <div class="sees-row">
-        <div class="sees-num">06</div>
-        <div>
-          <div class="sees-title">What to consider next</div>
-          <p class="sees-desc">Specific, evidence-based conditions you can create to support professional development. Derived from structured group evidence, not generic recommendations.</p>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>
 
-<!-- WHAT COMES NEXT -->
-<div class="section sec-white">
-  <div class="sec-inner" style="max-width:680px">
-    <span class="eyebrow eyebrow-blue">What comes next</span>
-    <h2 class="sec-h2 sec-h2-dark">The Benchmark is the starting point.</h2>
-    <p style="font-size:16px;color:#64748b;line-height:1.72;margin-bottom:24px">Around the annual development review, each person can complete a deeper Professional Readiness Review &mdash; a structured view of how their judgement, communication, responsibility and professional capability are developing. The report belongs to them &mdash; they can bring it into that conversation and use it to help shape the discussion.</p>
-    <a href="/employer#contact" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--blue);text-decoration:none;border-bottom:1.5px solid rgba(37,99,235,.25);padding-bottom:2px;transition:.15s" onmouseover="this.style.borderBottomColor='var(--blue)'" onmouseout="this.style.borderBottomColor='rgba(37,99,235,.25)'">Talk to us about Part Two access &rarr;</a>
+<!-- DEMO STRIP (not wired) -->
+<div class="demo-strip" id="experience-demo">
+  <div class="demo-strip-inner">
+    <div class="demo-strip-text">
+      <div class="kicker">See it in practice</div>
+      <h2>See the employee and manager experience.</h2>
+      <p>See what the employee experiences, how the manager perspective is brought in, and how both feed a more focused development conversation.</p>
+    </div>
+    <a href="#" id="employee-manager-demo-link" class="demo-btn">See the employee and manager experience</a>
   </div>
 </div>
 
-<!-- DARK CLOSE -->
-<div class="close-sec">
-  <div class="close-inner">
-    <h2 class="close-h2">A structured, privacy-first view of where your graduates and apprentices stand.</h2>
-    <p class="close-sub">No individual scores visible to employers. No ranking. No surveillance. Just the group-level patterns that help you support professional development at the point when it matters most.</p>
-    <div>
-      <a href="/employer#contact" class="btn-amber">Talk to us about getting started &rarr;</a>
+<!-- WHAT MAKES THE DIAGNOSIS DIFFERENT -->
+<div class="section sec-white">
+  <div class="sec-inner">
+    <div class="kicker">What makes the diagnosis different</div>
+    <h2 class="sec-h2 sec-h2-dark">Not just where development is needed &mdash; why.</h2>
+    <p class="sec-lead sec-lead-muted">Two people can appear to be developing in the same area for completely different reasons.</p>
+    <div class="split">
+      <div class="proof">
+        <div class="proof-type">Person A &mdash; Application</div>
+        <h3>Has the opportunity, but is not yet converting feedback into changed practice.</h3>
+        <p>Regular feedback conversations are happening. The issue is turning feedback into deliberate professional adjustment.</p>
+        <p><strong>What helps next:</strong> more deliberate feedback-to-action practice.</p>
+      </div>
+      <div class="proof">
+        <div class="proof-type">Person B &mdash; Exposure</div>
+        <h3>Understands the principle, but has not had enough workplace opportunity to demonstrate it.</h3>
+        <p>The understanding is there. The missing ingredient is structured opportunity and feedback exposure.</p>
+        <p><strong>What helps next:</strong> greater workplace opportunity and structured feedback conversations.</p>
+      </div>
+    </div>
+    <div class="bigline">Same apparent outcome. Different cause. Different action.</div>
+    <p style="font-size:17px;color:var(--muted);line-height:1.72;margin-bottom:6px">We don&rsquo;t just identify where someone needs development &mdash; we help identify why, so the next action is more useful.</p>
+    <details>
+      <summary>How the diagnostic works</summary>
+      <p>GCAi distinguishes between different causes of development need rather than treating every weaker outcome as the same kind of gap.</p>
+      <div class="taxonomy-pills">
+        <span class="pill">Knowledge</span>
+        <span class="pill">Application</span>
+        <span class="pill">Practice</span>
+        <span class="pill">Exposure</span>
+        <span class="pill">Observed exposure</span>
+        <span class="pill">Evidence recognition</span>
+        <span class="pill">Articulation</span>
+        <span class="pill">Judgement</span>
+        <span class="pill">Responsibility / escalation</span>
+        <span class="pill">Confidence calibration</span>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- MANAGER VIEW -->
+<div class="section sec-light">
+  <div class="sec-inner">
+    <div class="kicker">Manager view</div>
+    <h2 class="sec-h2 sec-h2-dark">Something useful to have a conversation about.</h2>
+    <div class="grid3">
+      <div class="card">
+        <h3>Strengths</h3>
+        <p>What is already being demonstrated.</p>
+      </div>
+      <div class="card">
+        <h3>Development priorities</h3>
+        <p>What would most help progression now.</p>
+      </div>
+      <div class="card">
+        <h3>Next actions</h3>
+        <p>Practical prompts, opportunities and manager conversation points.</p>
+      </div>
+    </div>
+    <p class="quote">Better prepared conversations &mdash; so manager time is spent on context, challenge, judgement and what happens next.</p>
+  </div>
+</div>
+
+<!-- WORKFORCE INTELLIGENCE -->
+<div class="section sec-white" id="workforce-intelligence">
+  <div class="sec-inner">
+    <div class="kicker">Workforce Intelligence</div>
+    <h2 class="sec-h2 sec-h2-dark">A consistent view across the business.</h2>
+    <p class="sec-lead sec-lead-muted">When the same structured Professional Readiness approach is used consistently across teams and early-career groups, individual development signals can be examined collectively &mdash; making it easier to see recurring strengths, exposure needs, capability priorities and differences between teams or disciplines.</p>
+    <div class="family-tags">
+      <span class="family">Learning &amp; Practice</span>
+      <span class="family">Workplace Exposure</span>
+      <span class="family">Recognition &amp; Articulation</span>
+      <span class="family">Judgement &amp; Responsibility</span>
+      <span class="family">Confidence Calibration</span>
+    </div>
+    <div class="callout"><strong>Training need or opportunity need?</strong><br>If a group of developing professionals appears weaker in client care, the useful question is why. Is it a knowledge or practice issue &mdash; or have people simply not had enough client-facing exposure?<br><br><strong>Those require different responses.</strong></div>
+  </div>
+</div>
+
+<!-- QS / COMMERCIAL PROOF -->
+<div class="section sec-light">
+  <div class="sec-inner">
+    <div class="kicker">QS / Commercial proof</div>
+    <h2 class="sec-h2 sec-h2-dark">Technical depth &mdash; not generic skills training.</h2>
+    <p class="sec-lead sec-lead-muted">The QS pathway can challenge real technical knowledge and professional judgement across cost planning, procurement, contracts, payment and commercial management &mdash; showing that Professional Readiness can go beyond broad behavioural review.</p>
+    <ul class="qs-list">
+      <li>Cost planning</li>
+      <li>Procurement</li>
+      <li>JCT / NEC</li>
+      <li>Payment</li>
+      <li>Commercial management</li>
+      <li>NRM / BCIS</li>
+      <li>Professional judgement scenarios</li>
+      <li>Pathway-specific application</li>
+    </ul>
+    <p class="quote">QS is the proof of depth, not the boundary of the proposition.</p>
+  </div>
+</div>
+
+<!-- PILOT CTA -->
+<div class="section sec-white">
+  <div class="sec-inner">
+    <div class="pilot">
+      <div class="kicker">A practical first step</div>
+      <h2>Start with a team. Test the value. Review the insight. Scale what works.</h2>
+      <p class="pilot-lead">Professional Readiness can be introduced with a team or business area, using the same structured approach to support individual development, manager conversations and wider workforce insight.</p>
+      <div class="pilot-grid">
+        <div class="pilot-cell">
+          <strong>Start with a team</strong>
+          Choose the group or business area where a clearer development picture would be most useful.
+        </div>
+        <div class="pilot-cell">
+          <strong>Create useful insight</strong>
+          Support employees and managers while building a more consistent view of development needs.
+        </div>
+        <div class="pilot-cell">
+          <strong>Review and scale</strong>
+          Assess the value, refine the approach and extend it where it makes sense.
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -325,6 +407,23 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
   </div>
   <p class="footer-copy">&copy; 2026 Get Chartered AI</p>
 </footer>
+
+<script>
+(function () {
+  const DEMO_URL = "";
+  const demoLink = document.getElementById("employee-manager-demo-link");
+  if (!demoLink) return;
+  demoLink.addEventListener("click", function (event) {
+    if (!DEMO_URL) {
+      event.preventDefault();
+      return;
+    }
+    const returnUrl = window.location.href.split("#")[0] + "#workforce-intelligence";
+    const separator = DEMO_URL.includes("?") ? "&" : "?";
+    window.location.href = DEMO_URL + separator + "return=" + encodeURIComponent(returnUrl);
+  });
+})();
+</script>
 
 </body>
 </html>

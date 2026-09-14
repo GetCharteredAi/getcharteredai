@@ -5,178 +5,116 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://getcharteredai.com/employer/professional-readiness/demo">
 <title>Professional Readiness Experience &mdash; Get Chartered AI</title>
-<meta name="description" content="A guided example of the Get Chartered AI employee and manager Professional Readiness experience.">
+<meta name="description" content="A guided interactive example of the Get Chartered AI employee and manager Professional Readiness experience.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy:#0d2238;
-  --navy2:#17324f;
-  --gold:#d9b66a;
-  --ink:#1c2b39;
-  --muted:#627182;
-  --line:#dfe6ec;
-  --paper:#ffffff;
-  --soft:#f6f8fa;
-  --warm:#f5efe3;
+  --navy:#0D0F1C;
+  --blue:#2563EB;
   --amber:#f59e0b;
+  --green:#10b981;
+  --ink:#1a1a2e;
+  --muted:#64748b;
+  --line:#e2e8f0;
+  --soft:#f8fafc;
+  --warm:#fffbeb;
+  --gold:#d9b66a;
+  --f:'Inter',sans-serif;
+  --fh:'Plus Jakarta Sans','Inter',sans-serif;
 }
-* { box-sizing:border-box; margin:0; padding:0; }
-body {
-  font-family:Inter, Arial, sans-serif;
-  color:var(--ink);
-  background:var(--soft);
-  -webkit-font-smoothing:antialiased;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--ink);background:var(--soft);-webkit-font-smoothing:antialiased}
 
 /* SITE NAV */
 nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-filter:blur(16px);height:64px;display:flex;align-items:center;padding:0 40px;border-bottom:1px solid rgba(255,255,255,.06)}
 .nav-logo{display:flex;align-items:center;margin-right:auto;text-decoration:none}
 .nav-links{display:flex;gap:24px;margin-right:28px}
 .nav-link{font-size:13px;color:rgba(255,255,255,.58);text-decoration:none;transition:.15s}.nav-link:hover{color:#fff}
-.nav-btn{font-size:13px;font-weight:700;color:#0D0F1C;background:var(--amber);padding:8px 18px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.15s}.nav-btn:hover{background:#d97706}
+.nav-btn{font-size:13px;font-weight:700;color:var(--navy);background:var(--amber);padding:8px 18px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.15s}.nav-btn:hover{background:#d97706}
 
-/* DEMO CHROME */
-.demo-eyebrow {
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  padding:10px 40px;
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:.04em;
-}
+/* DEMO EYEBROW */
+.demo-eyebrow{background:#fff;border-bottom:1px solid var(--line);padding:10px 40px;font-size:12px;color:var(--muted);letter-spacing:.04em}
 
-/* DEMO LAYOUT */
-.wrap { max-width:1060px; margin:0 auto; padding:40px 24px 60px; }
-.progress {
-  display:flex;
-  gap:8px;
-  margin:4px 0 28px;
-}
-.progress span {
-  height:7px;
-  border-radius:6px;
-  flex:1;
-  background:#d9e0e6;
-}
-.progress span.active { background:#0d2238; }
-.kicker {
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:#9c7c37;
-  margin-bottom:10px;
-}
-h1 { font-size:42px; line-height:1.08; margin:0 0 12px; color:var(--navy); }
-h2 { font-size:28px; line-height:1.2; color:var(--navy); margin:0 0 12px; }
-h3 { color:var(--navy); }
-.lead { font-size:19px; line-height:1.55; color:#425466; max-width:850px; }
-.card {
-  background:white;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:26px;
-  box-shadow:0 8px 28px rgba(13,34,56,.06);
-}
-.grid2 {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-.option {
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:16px 18px;
-  margin-top:12px;
-  background:#fbfcfd;
-}
-.option strong { display:block; margin-bottom:5px; color:var(--navy); }
-.badge {
-  display:inline-block;
-  background:var(--warm);
-  color:#765c27;
-  font-weight:700;
-  padding:6px 9px;
-  border-radius:999px;
-  font-size:12px;
-}
-.flow {
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  gap:14px;
-  align-items:center;
-  margin:22px 0;
-}
-.arrow { font-size:26px; color:#7d8b98; }
-.result {
-  background:var(--navy);
-  color:white;
-  border-radius:16px;
-  padding:22px;
-}
-.result h3, .result strong { color:white; }
-.result p { color:#edf2f7; }
-.callout {
-  background:var(--warm);
-  border-radius:14px;
-  padding:18px 20px;
-  margin-top:18px;
-}
-.actions {
-  display:flex;
-  gap:12px;
-  margin-top:26px;
-  flex-wrap:wrap;
-}
-button, .btn {
-  border:0;
-  cursor:pointer;
-  text-decoration:none;
-  border-radius:10px;
-  padding:14px 18px;
-  font-weight:800;
-  font-size:15px;
-  font-family:inherit;
-}
-.primary { background:var(--navy); color:white; }
-.secondary { background:white; color:var(--navy); border:1px solid var(--navy); }
-.gold { background:var(--gold); color:#18202a; }
-.screen { display:none; }
-.screen.active { display:block; }
-.mini {
-  font-size:13px;
-  color:var(--muted);
-}
-.output-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-  margin-top:18px;
-}
-.output-grid .card { padding:20px; }
-.person {
-  font-weight:800;
-  color:var(--navy);
-}
-.manager-note {
-  border-left:4px solid var(--gold);
-  padding-left:16px;
-  margin-top:18px;
-}
-.footer-note {
-  margin-top:34px;
-  font-size:12px;
-  color:#7c8995;
-}
-@media (max-width:780px) {
-  .grid2,.output-grid,.flow { grid-template-columns:1fr; }
-  .arrow { transform:rotate(90deg); text-align:center; }
-  h1 { font-size:34px; }
-  nav { padding:0 20px; }
-  .nav-links { display:none; }
-  .demo-eyebrow { padding:10px 20px; }
-  .wrap { padding:28px 20px 48px; }
+/* LAYOUT */
+.wrap{max-width:740px;margin:0 auto;padding:44px 24px 72px}
+
+/* PROGRESS */
+.progress{display:flex;gap:8px;margin-bottom:36px}
+.progress-seg{height:5px;border-radius:6px;flex:1;background:#dde3ea;transition:background .3s}
+.progress-seg.done{background:var(--navy)}
+.progress-seg.active{background:var(--blue)}
+
+/* STEP SECTIONS */
+.step{display:none}
+.step.active{display:block}
+
+/* TYPOGRAPHY */
+.kicker{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:12px}
+h1{font-family:var(--fh);font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.1;letter-spacing:-.025em;color:var(--navy);margin-bottom:14px}
+.lead{font-size:16px;line-height:1.72;color:var(--muted);margin-bottom:28px}
+
+/* QUESTION BLOCK */
+.question-block{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px;margin-bottom:22px}
+.question-text{font-family:var(--fh);font-size:18px;font-weight:700;color:var(--navy);line-height:1.45;margin-bottom:20px}
+textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--f);font-size:15px;line-height:1.65;color:var(--ink);background:#fafcfe;resize:vertical;min-height:120px;outline:none;transition:border-color .15s}
+textarea:focus{border-color:var(--blue);background:#fff}
+textarea::placeholder{color:#a0aec0}
+.example-btn{display:inline-block;margin-top:12px;font-size:13px;font-weight:600;color:var(--blue);background:none;border:1.5px solid rgba(37,99,235,.3);border-radius:7px;padding:7px 14px;cursor:pointer;text-decoration:none;transition:.15s;font-family:var(--f)}
+.example-btn:hover{border-color:var(--blue);background:rgba(37,99,235,.04)}
+
+/* CALLOUT */
+.callout{border-left:3px solid var(--amber);padding:14px 18px;background:var(--warm);border-radius:0 10px 10px 0;margin-bottom:22px;font-size:14px;line-height:1.65;color:#44403c}
+.callout strong{color:var(--navy)}
+.callout-navy{border-left-color:var(--blue);background:#eff6ff;color:#1e3a5f}
+.callout-navy strong{color:var(--navy)}
+
+/* ACTIONS */
+.actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;align-items:center}
+.btn-primary{background:var(--navy);color:#fff;border:none;border-radius:10px;padding:13px 22px;font-family:var(--fh);font-weight:700;font-size:15px;cursor:pointer;transition:.15s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:#1e2540}
+.btn-primary:disabled{opacity:.45;cursor:not-allowed}
+.btn-secondary{background:#fff;color:var(--navy);border:1.5px solid var(--line);border-radius:10px;padding:13px 20px;font-family:var(--fh);font-weight:700;font-size:15px;cursor:pointer;transition:.15s;text-decoration:none;display:inline-block}
+.btn-secondary:hover{border-color:var(--navy)}
+.btn-amber{background:var(--amber);color:var(--navy);border:none;border-radius:10px;padding:13px 22px;font-family:var(--fh);font-weight:700;font-size:15px;cursor:pointer;transition:.15s;text-decoration:none;display:inline-block}
+.btn-amber:hover{background:#d97706}
+.error-msg{font-size:14px;color:#dc2626;margin-top:8px;display:none}
+
+/* LOADING */
+.loading-wrap{text-align:center;padding:64px 0}
+.loading-label{font-family:var(--fh);font-size:20px;font-weight:700;color:var(--navy);margin-bottom:10px}
+.loading-sub{font-size:14px;color:var(--muted);margin-bottom:32px}
+.dots{display:flex;gap:10px;justify-content:center}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--blue);animation:pulse 1.2s ease-in-out infinite}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+@keyframes pulse{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+
+/* RESULTS */
+.result-header{background:var(--navy);border-radius:16px;padding:28px 32px;margin-bottom:20px}
+.result-type-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,158,11,.85);margin-bottom:8px}
+.result-type{font-family:var(--fh);font-size:26px;font-weight:800;color:#fff;margin-bottom:12px;line-height:1.2}
+.result-rationale{font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin:0}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.result-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+.result-card-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.result-card-body{font-size:14px;line-height:1.7;color:var(--ink)}
+.result-action{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:14px}
+.result-action-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.result-action-body{font-size:15px;font-weight:600;color:var(--navy);line-height:1.6}
+.result-prompt{background:#f0f9ff;border:1px solid #bfdbfe;border-radius:14px;padding:22px;margin-bottom:20px}
+.result-prompt-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.result-prompt-body{font-size:15px;color:#1e40af;line-height:1.65;font-style:italic}
+.privacy-note{font-size:13px;color:var(--muted);line-height:1.65;text-align:center;margin-bottom:28px;padding:14px 18px;background:#fff;border-radius:10px;border:1px solid var(--line)}
+.privacy-note strong{color:var(--ink)}
+
+@media(max-width:600px){
+  nav{padding:0 20px}
+  .demo-eyebrow{padding:10px 20px}
+  .result-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  h1{font-size:26px}
 }
 </style>
 </head>
@@ -191,200 +129,218 @@ button, .btn {
   <a href="/employer#contact" class="nav-btn">Talk to us &rarr;</a>
 </nav>
 
-<div class="demo-eyebrow">Professional Readiness &mdash; guided example</div>
+<div class="demo-eyebrow">Professional Readiness &mdash; interactive example</div>
 
 <div class="wrap">
 
-  <div class="progress" aria-label="Demo progress">
-    <span id="p1" class="active"></span>
-    <span id="p2"></span>
-    <span id="p3"></span>
-    <span id="p4"></span>
+  <div class="progress" role="progressbar" aria-label="Demo progress">
+    <div class="progress-seg active" id="seg1"></div>
+    <div class="progress-seg" id="seg2"></div>
+    <div class="progress-seg" id="seg3"></div>
   </div>
 
-  <!-- SCREEN 1 -->
-  <section class="screen active" id="screen1">
-    <div class="kicker">1 &middot; Employee experience</div>
+  <!-- STEP 1: EMPLOYEE -->
+  <section class="step active" id="step1">
+    <span class="kicker">Employee experience</span>
     <h1>How am I actually developing?</h1>
-    <p class="lead">
-      The employee reflects privately on real workplace experience. The aim is not simply to ask whether they know something,
-      but whether they can recognise it, apply it and explain their judgement.
-    </p>
-
-    <div class="card">
-      <span class="badge">Example area: Client care</span>
-      <h2 style="margin-top:14px;">A client challenges part of your advice. What do you do next?</h2>
-      <div class="option">
-        <strong>Employee response</strong>
-        &ldquo;I would make sure I understood the concern, check the information I had relied on, explain my reasoning clearly
-        and ask for support if the issue went beyond my experience or authority.&rdquo;
-      </div>
-      <div class="option">
-        <strong>Follow-up reflection</strong>
-        &ldquo;I understand what I should do, but I have had very little direct client-facing responsibility so far.&rdquo;
-      </div>
-      <div class="callout">
-        <strong>What this starts to reveal</strong><br>
-        The employee may understand the right professional response &mdash; but still need more opportunity to demonstrate it in practice.
-      </div>
+    <p class="lead">The employee reflects privately on a real workplace situation. The aim is not just whether they know the answer, but whether they can recognise what applies, explain their reasoning and acknowledge the limits of their experience so far.</p>
+    <div class="question-block">
+      <div class="question-text">A client challenges part of your advice. What would you do next?</div>
+      <textarea id="employee-input" placeholder="Type an answer here, or use the example below…" rows="5" oninput="onEmployeeInput()"></textarea>
+      <button class="example-btn" onclick="fillEmployee()">Use example employee answer</button>
     </div>
-
     <div class="actions">
-      <button class="primary" onclick="showScreen(2)">See the manager perspective &rarr;</button>
+      <button class="btn-primary" id="to-step2" onclick="goToStep(2)" disabled>Continue &rarr;</button>
     </div>
   </section>
 
-  <!-- SCREEN 2 -->
-  <section class="screen" id="screen2">
-    <div class="kicker">2 &middot; Manager perspective</div>
+  <!-- STEP 2: MANAGER -->
+  <section class="step" id="step2">
+    <span class="kicker">Manager perspective</span>
     <h1>What is the manager seeing?</h1>
-    <p class="lead">
-      The manager adds a practical workplace view. This does not expose the employee&rsquo;s private answers.
-      It adds observed evidence and context.
-    </p>
-
-    <div class="card">
-      <span class="badge">Same development area: Client care</span>
-      <div class="manager-note">
-        <div class="person">Manager observation</div>
-        <p>
-          &ldquo;She communicates clearly internally and responds well to feedback. She has not yet had much direct responsibility
-          for client conversations because those have mainly been handled by senior team members.&rdquo;
-        </p>
-      </div>
-
-      <div class="grid2" style="margin-top:20px;">
-        <div class="option">
-          <strong>What appears strong</strong>
-          Professional communication, willingness to ask for help, understanding of expected behaviour.
-        </div>
-        <div class="option">
-          <strong>What may be limiting progress</strong>
-          Limited workplace opportunity rather than an obvious knowledge problem.
-        </div>
-      </div>
-
-      <div class="callout">
-        <strong>Why both perspectives matter</strong><br>
-        Without the employee and manager context together, a weaker outcome could easily be treated as &ldquo;needs more training&rdquo;.
-      </div>
+    <p class="lead">The manager adds their own observed perspective — what they have actually seen in the workplace. This is independent of the employee&rsquo;s private answers.</p>
+    <div class="callout">
+      <strong>Employee privacy.</strong> In the live product, the manager does not see the employee&rsquo;s private answers. They receive development outcomes and conversation prompts — not raw responses.
     </div>
-
+    <div class="question-block">
+      <div class="question-text">What have you observed about this person&rsquo;s client-facing experience and how they respond to feedback?</div>
+      <textarea id="manager-input" placeholder="Type an observation here, or use the example below…" rows="5" oninput="onManagerInput()"></textarea>
+      <button class="example-btn" onclick="fillManager()">Use example manager observation</button>
+    </div>
+    <div id="step2-error" class="error-msg"></div>
     <div class="actions">
-      <button class="secondary" onclick="showScreen(1)">&larr; Back</button>
-      <button class="primary" onclick="showScreen(3)">See what Michael does &rarr;</button>
+      <button class="btn-secondary" onclick="goToStep(1)">&larr; Back</button>
+      <button class="btn-primary" id="analyse-btn" onclick="analyse()" disabled>Analyse with Michael &rarr;</button>
     </div>
   </section>
 
-  <!-- SCREEN 3 -->
-  <section class="screen" id="screen3">
-    <div class="kicker">3 &middot; Michael synthesis</div>
-    <h1>Michael helps identify the cause &mdash; not just the outcome.</h1>
-    <p class="lead">
-      Michael brings the two perspectives together, spots where they align or differ, and turns that into clear points to discuss.
-    </p>
-
-    <div class="flow">
-      <div class="card">
-        <div class="person">Employee signal</div>
-        <p>Understands the professional response and can explain the reasoning.</p>
+  <!-- STEP 3: LOADING -->
+  <section class="step" id="step3">
+    <div class="loading-wrap">
+      <div class="loading-label">Michael is analysing&hellip;</div>
+      <div class="loading-sub">Bringing the employee and manager perspectives together</div>
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
       </div>
-      <div class="arrow">&rarr;</div>
-      <div class="card">
-        <div class="person">Manager signal</div>
-        <p>Confirms limited opportunity to demonstrate the behaviour directly with clients.</p>
-      </div>
-    </div>
-
-    <div class="result">
-      <h3>Likely development type: Workplace Exposure</h3>
-      <p>
-        The immediate priority is not another generic client-care course. The stronger next step is structured client-facing opportunity,
-        with appropriate supervision and feedback.
-      </p>
-    </div>
-
-    <div class="callout">
-      <strong>Same apparent outcome. Different cause. Different action.</strong><br><br>
-      A person with regular client exposure but poor follow-through on feedback may need more practice and application.
-      This person appears to need opportunity.
-    </div>
-
-    <div class="actions">
-      <button class="secondary" onclick="showScreen(2)">&larr; Back</button>
-      <button class="primary" onclick="showScreen(4)">See the manager output &rarr;</button>
     </div>
   </section>
 
-  <!-- SCREEN 4 -->
-  <section class="screen" id="screen4">
-    <div class="kicker">4 &middot; Manager output</div>
-    <h1>A better-prepared development conversation.</h1>
-    <p class="lead">
-      The manager does not receive the employee&rsquo;s raw private responses. They receive a clear development picture
-      and useful next-step prompts.
-    </p>
+  <!-- STEP 4: RESULTS -->
+  <section class="step" id="step4">
+    <span class="kicker">Michael&rsquo;s analysis</span>
+    <h1>The development picture.</h1>
 
-    <div class="output-grid">
-      <div class="card">
-        <h3>Strengths</h3>
-        <p>Clear communication, professional awareness, appropriate escalation, responsiveness to feedback.</p>
+    <div class="result-header">
+      <div class="result-type-label">Likely development type</div>
+      <div class="result-type" id="result-type">&mdash;</div>
+      <p class="result-rationale" id="result-rationale"></p>
+    </div>
+
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="result-card-label">Employee signal</div>
+        <div class="result-card-body" id="result-employee-evidence"></div>
       </div>
-      <div class="card">
-        <h3>Development priority</h3>
-        <p>Build confidence and judgement through more direct client-facing experience.</p>
-      </div>
-      <div class="card">
-        <h3>Suggested next action</h3>
-        <p>Give structured client exposure with a senior colleague, followed by short reflective feedback.</p>
+      <div class="result-card">
+        <div class="result-card-label">Manager signal</div>
+        <div class="result-card-body" id="result-manager-evidence"></div>
       </div>
     </div>
 
-    <div class="callout">
-      <strong>For the manager</strong><br>
-      Less guesswork. A clearer reason for the development need. A more useful conversation about what should happen next.
+    <div class="result-action">
+      <div class="result-action-label">Suggested next action</div>
+      <div class="result-action-body" id="result-next-action"></div>
     </div>
 
-    <div class="result" style="margin-top:18px;">
-      <h3>And across teams?</h3>
-      <p>
-        When the same structured approach is used consistently, these individual signals can begin to reveal wider patterns &mdash;
-        helping the business distinguish a learning need from an opportunity need.
-      </p>
+    <div class="result-prompt">
+      <div class="result-prompt-label">Manager conversation prompt</div>
+      <div class="result-prompt-body" id="result-manager-prompt"></div>
+    </div>
+
+    <div class="privacy-note">
+      <strong>In the live product:</strong> The manager receives development outcomes and useful discussion points &mdash; not the employee&rsquo;s raw private answers.
     </div>
 
     <div class="actions">
-      <button class="secondary" onclick="showScreen(3)">&larr; Back</button>
-      <a class="btn gold" id="returnBtn" href="/employer/professional-readiness#workforce-intelligence">
-        Back to Professional Readiness &rarr;
-      </a>
-    </div>
-
-    <div class="footer-note">
-      Guided demonstration only. The live experience can use pathway-specific questions and development logic appropriate to the employee&rsquo;s role and stage.
+      <button class="btn-secondary" onclick="reset()">Try different answers</button>
+      <a class="btn-amber" id="return-btn" href="/employer/professional-readiness#workforce-intelligence">Back to Professional Readiness &rarr;</a>
     </div>
   </section>
 
 </div>
 
 <script>
-function showScreen(n) {
-  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
-  document.querySelectorAll('.progress span').forEach(function(p) { p.classList.remove('active'); });
-  document.getElementById('screen' + n).classList.add('active');
-  for (var i = 1; i <= n; i++) {
-    document.getElementById('p' + i).classList.add('active');
-  }
+var EXAMPLE_EMPLOYEE = "I would make sure I understood the concern, check the information I had relied on, explain my reasoning clearly and ask for support if the issue went beyond my experience or authority. I understand what I should do, but I have had very little direct client-facing responsibility so far.";
+var EXAMPLE_MANAGER = "She communicates clearly internally and responds well to feedback. She has not yet had much direct responsibility for client conversations because those have mainly been handled by senior team members.";
+
+function setProgress(step) {
+  ['seg1','seg2','seg3'].forEach(function(id, i) {
+    var el = document.getElementById(id);
+    el.className = 'progress-seg';
+    if (i + 1 < step) el.classList.add('done');
+    else if (i + 1 === step) el.classList.add('active');
+  });
+}
+
+function setStep(n) {
+  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+  var el = document.getElementById('step' + n);
+  if (el) el.classList.add('active');
+  setProgress(n === 3 ? 2 : n); // loading inherits step 2 progress
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// If the pitch page supplies a ?return= URL, use that.
-// Otherwise default to the production Professional Readiness route.
-var params = new URLSearchParams(window.location.search);
-var returnUrl = params.get('return');
-if (returnUrl) {
-  document.getElementById('returnBtn').href = returnUrl;
+function goToStep(n) {
+  setStep(n);
 }
+
+function onEmployeeInput() {
+  var val = document.getElementById('employee-input').value.trim();
+  document.getElementById('to-step2').disabled = val.length < 10;
+}
+
+function onManagerInput() {
+  var val = document.getElementById('manager-input').value.trim();
+  document.getElementById('analyse-btn').disabled = val.length < 10;
+  document.getElementById('step2-error').style.display = 'none';
+}
+
+function fillEmployee() {
+  document.getElementById('employee-input').value = EXAMPLE_EMPLOYEE;
+  document.getElementById('to-step2').disabled = false;
+}
+
+function fillManager() {
+  document.getElementById('manager-input').value = EXAMPLE_MANAGER;
+  document.getElementById('analyse-btn').disabled = false;
+  document.getElementById('step2-error').style.display = 'none';
+}
+
+async function analyse() {
+  var employeeAnswer = document.getElementById('employee-input').value.trim();
+  var managerAnswer = document.getElementById('manager-input').value.trim();
+
+  if (employeeAnswer.length < 10 || managerAnswer.length < 10) return;
+
+  setStep(3);
+
+  try {
+    var response = await fetch('/.netlify/functions/p1-demo-analyse', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ employeeAnswer: employeeAnswer, managerAnswer: managerAnswer })
+    });
+
+    var data = await response.json();
+
+    if (!response.ok || data.error) {
+      showError(data.error || 'Analysis failed. Please try again.');
+      return;
+    }
+
+    renderResults(data.analysis);
+    setStep(4);
+
+  } catch (e) {
+    showError('Something went wrong. Please try again.');
+  }
+}
+
+function showError(msg) {
+  setStep(2);
+  var el = document.getElementById('step2-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function renderResults(a) {
+  document.getElementById('result-type').textContent = a.developmentType || 'Development need identified';
+  document.getElementById('result-rationale').textContent = a.rationale || '';
+  document.getElementById('result-employee-evidence').textContent = a.employeeEvidence || '';
+  document.getElementById('result-manager-evidence').textContent = a.managerEvidence || '';
+  document.getElementById('result-next-action').textContent = a.suggestedNextAction || '';
+  document.getElementById('result-manager-prompt').textContent = a.managerConversationPrompt || '';
+}
+
+function reset() {
+  document.getElementById('employee-input').value = '';
+  document.getElementById('manager-input').value = '';
+  document.getElementById('to-step2').disabled = true;
+  document.getElementById('analyse-btn').disabled = true;
+  document.getElementById('step2-error').style.display = 'none';
+  setStep(1);
+}
+
+// Honour ?return= URL from the employer page demo button
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var returnUrl = params.get('return');
+  if (returnUrl) {
+    document.getElementById('return-btn').href = returnUrl;
+  }
+})();
 </script>
 
 </body>

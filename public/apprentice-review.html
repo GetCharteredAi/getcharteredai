@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://getcharteredai.com/apprentice-review">
-<title>Apprentice Professional Readiness Review — Get Chartered AI</title>
-<meta name="description" content="A 36-question diagnostic review for Chartered Surveyor degree apprentices. Michael analyses your professional knowledge, experience, judgement, communication and development — then gives you an honest, structured readiness report.">
+<title>Advanced Technical Pathway Benchmark — Get Chartered AI</title>
+<meta name="description" content="A 36-question technical diagnostic benchmark for developing professionals further into their journey. Michael analyses your professional knowledge, workplace experience, judgement, communication and development — then gives you a structured, honest picture of exactly where you stand.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -253,7 +253,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 </nav>
 
 <section class="hero">
-  <div class="hero-eyebrow">Part Two &mdash; Professional Readiness Review</div>
+  <div class="hero-eyebrow">Advanced Technical Pathway Benchmark</div>
   <h1>Where am I in my <em>professional development</em>?</h1>
   <p class="hero-sub">A 36-question diagnostic for Chartered Surveyor degree apprentices. Michael analyses your professional knowledge, workplace experience, judgement, communication and development — then gives you a structured, honest picture of where you stand.</p>
   <div class="hero-btns">
@@ -345,7 +345,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
     <h2 class="h2" style="color:#0D0F1C">One price. Everything included.</h2>
     <div class="pricing-wrap">
       <div class="price-card-single">
-        <div class="price-card-badge">Apprentice Professional Readiness Review</div>
+        <div class="price-card-badge">Advanced Technical Pathway Benchmark</div>
         <div class="price-card-name" style="margin-top:16px">Diagnostic Review</div>
         <div class="price-card-title">Understand exactly where your professional development stands — and what to focus on next.</div>
         <div class="price-amount-row"><span class="price-sym">£</span><span class="price-num">165</span></div>
@@ -654,8 +654,8 @@ async function startArevCheckout(meta) {
     const r = await fetch('/.netlify/functions/create-checkout', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ plan:'apprentice', ...meta }) });
     const d = await r.json();
     if (d.url) { window.location.href = d.url; }
-    else { window.location.href = 'mailto:info@getcharteredai.com?subject=Apprentice Professional Readiness Review — Purchase'; }
-  } catch(e) { window.location.href = 'mailto:info@getcharteredai.com?subject=Apprentice Professional Readiness Review — Purchase'; }
+    else { window.location.href = 'mailto:info@getcharteredai.com?subject=Advanced Technical Pathway Benchmark — Purchase'; }
+  } catch(e) { window.location.href = 'mailto:info@getcharteredai.com?subject=Advanced Technical Pathway Benchmark — Purchase'; }
 }
 
 // ── APPRENTICESHIP PATHWAY MODAL ──────────────────────────────────────────
@@ -740,7 +740,7 @@ async function arevDoLogin() {
       localStorage.setItem('gca_user', d.email);
       arevInit();
     } else if (d.valid && d.plan !== 'apprentice') {
-      err.textContent = 'This account does not have access to the Apprentice Professional Readiness Review.';
+      err.textContent = 'This account does not have access to the Advanced Technical Pathway Benchmark.';
       err.style.display = 'block';
     } else {
       err.textContent = 'Incorrect email or password. Please try again.';
@@ -786,7 +786,7 @@ async function arevInit() {
 function arevRenderWelcome() {
   arevRender(`
     <div style="text-align:center;margin-bottom:16px">
-      <div class="arev-heading" style="margin-bottom:2px">Apprentice Professional Readiness Review</div>
+      <div class="arev-heading" style="margin-bottom:2px">Advanced Technical Pathway Benchmark</div>
     </div>
 
     <div class="arev-panel">
@@ -848,7 +848,7 @@ function arevRenderReturning(currentQ) {
     <div style="text-align:center;padding-bottom:8px">
       <div class="arev-michael-icon">🎓</div>
       <div class="arev-heading">Welcome back</div>
-      <div class="arev-sub">Apprentice Professional Readiness Review</div>
+      <div class="arev-sub">Advanced Technical Pathway Benchmark</div>
     </div>
     <div class="arev-panel">
       <span class="arev-michael-label">Michael</span>

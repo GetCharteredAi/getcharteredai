@@ -725,6 +725,8 @@ async function arevDoLogin() {
         localStorage.setItem('gca_token', d.token);
         localStorage.setItem('gca_plan', d.plan);
         localStorage.setItem('gca_user', d.email);
+        localStorage.setItem('gca_pathway', 'Valuation');
+        localStorage.removeItem('gca_last_module');
         arevInit();
       } else {
         err.textContent = 'Incorrect password for test account.';

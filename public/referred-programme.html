@@ -425,6 +425,8 @@ async function refDoLogin() {
         localStorage.setItem('gca_plan', d.plan);
         localStorage.setItem('gca_user', d.email);
         if (d.activatedAt) localStorage.setItem('gca_activated', d.activatedAt.toString());
+        localStorage.setItem('gca_pathway', 'Valuation');
+        localStorage.removeItem('gca_last_module');
         window.location.href = '/index.html?view=dashboard';
       } else {
         err.textContent = 'Incorrect password for test account.';

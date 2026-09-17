@@ -5343,9 +5343,12 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   if (urlParams.get('view') === 'dashboard') {
     history.replaceState({}, '', window.location.pathname);
+    console.log('[view=dashboard] arrived — gca_token present:', !!localStorage.getItem('gca_token'), '| gca_plan:', localStorage.getItem('gca_plan'));
     const session = await getSession();
+    console.log('[view=dashboard] getSession result — valid:', session.valid, '| plan:', session.plan, '| error:', session.error || 'none');
     if (session.valid) {
       if (session.plan === 'year-one') { window.location.href = '/year-two-review'; return; }
+      console.log('[view=dashboard] calling showView(dashboard)');
       showView('dashboard');
       updateNav();
       if (localStorage.getItem('gca_cs_first_visit') === 'true') {
@@ -5354,6 +5357,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       }
       return;
     }
+    console.log('[view=dashboard] session not valid — falling through to landing');
   }
 
   // Handle magic link token from password reset email

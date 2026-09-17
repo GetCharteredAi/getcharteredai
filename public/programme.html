@@ -573,9 +573,12 @@ async function progDoLogin() {
   try {
     if (email === 'test@getcharteredai.com') {
       const rawPass = document.getElementById('prog-login-token')?.value || '';
+      console.log('[prog-bypass] sending to admin-login — keys: email, password, plan:annual — password length:', rawPass.length);
       const r = await fetch('/.netlify/functions/admin-login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password: rawPass, plan: 'annual' }) });
       const d = await r.json();
+      console.log('[prog-bypass] admin-login response — status:', r.status, '| success:', d.success, '| plan:', d.plan, '| hasToken:', !!d.token, '| error:', d.error || 'none');
       if (d.token) {
+        console.log('[prog-bypass] token received — redirecting to /index.html?view=dashboard');
         localStorage.setItem('gca_token', d.token);
         localStorage.setItem('gca_plan', d.plan);
         localStorage.setItem('gca_user', d.email);
@@ -584,6 +587,7 @@ async function progDoLogin() {
         localStorage.removeItem('gca_last_module');
         window.location.href = '/index.html?view=dashboard';
       } else {
+        console.log('[prog-bypass] no token — showing error');
         err.textContent = 'Incorrect password for test account.';
         err.style.display = 'block';
       }

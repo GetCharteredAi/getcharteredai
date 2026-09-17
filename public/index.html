@@ -2798,7 +2798,7 @@ function showPlanSelector() {
     const card = document.createElement('div');
     card.style.cssText = 'background:#0D0F1C;border:1px solid #2563EB;border-radius:12px;padding:32px 28px;min-width:260px;text-align:center';
     card.innerHTML = '<div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:20px;letter-spacing:.01em">Select Test Plan</div>';
-    const planLabels = {'annual':'Annual','monthly':'Monthly','sprint':'Sprint','referred':'Referred','year-one':'Mid-Programme','apprentice':'Apprentice','benchmark':'Professional Readiness — Candidate','benchmark-manager':'Professional Readiness — Manager','benchmark-manager-return':'↩ Candidate Return'};
+    const planLabels = {'annual':'Annual','monthly':'Monthly','sprint':'Sprint','referred':'Referred Candidate Support','year-one':'Mid-Programme Review','apprentice':'Advanced Technical Pathway Benchmark','benchmark':'Professional Readiness — Candidate','benchmark-manager':'Professional Readiness — Manager','benchmark-manager-return':'↩ Candidate Return'};
     ['annual','monthly','sprint','referred','year-one','apprentice','benchmark','benchmark-manager','benchmark-manager-return'].forEach(plan => {
       const btn = document.createElement('button');
       btn.textContent = planLabels[plan];

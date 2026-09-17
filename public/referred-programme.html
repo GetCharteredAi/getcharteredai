@@ -411,6 +411,21 @@ async function refDoLogin() {
   err.style.display = 'none';
   if (!email || !token) { err.textContent = 'Please enter your email and access token.'; err.style.display = 'block'; return; }
   try {
+    if (email === 'test@getcharteredai.com') {
+      const r = await fetch('/.netlify/functions/admin-login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password: token, plan: 'referred' }) });
+      const d = await r.json();
+      if (d.token) {
+        localStorage.setItem('gca_token', d.token);
+        localStorage.setItem('gca_plan', d.plan);
+        localStorage.setItem('gca_user', d.email);
+        if (d.activatedAt) localStorage.setItem('gca_activated', d.activatedAt.toString());
+        window.location.href = '/index.html?view=dashboard';
+      } else {
+        err.textContent = 'Incorrect password for test account.';
+        err.style.display = 'block';
+      }
+      return;
+    }
     const r = await fetch('/.netlify/functions/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ token }) });
     const d = await r.json();
     if (d.valid && d.plan === 'referred') {

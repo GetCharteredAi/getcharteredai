@@ -559,6 +559,11 @@ function progCloseLogin() {
   const m = document.getElementById('prog-login-modal');
   if (m) m.style.display = 'none';
 }
+function progUpdateTokenField(el) {
+  const isTest = el.value.trim().toLowerCase() === 'test@getcharteredai.com';
+  document.getElementById('prog-token-label').textContent = isTest ? 'Password' : 'Access token';
+  document.getElementById('prog-login-token').placeholder = isTest ? 'Admin password' : 'Paste from your welcome email link';
+}
 async function progDoLogin() {
   const email = (document.getElementById('prog-login-email')?.value || '').trim().toLowerCase();
   const token = (document.getElementById('prog-login-token')?.value || '').trim();
@@ -618,10 +623,10 @@ document.querySelectorAll('.fu').forEach(el => obs.observe(el));
     <p style="font-size:13px;color:#94a3b8;margin-bottom:24px;line-height:1.6">Use the access token from your purchase confirmation email.</p>
     <div style="margin-bottom:16px">
       <label style="display:block;font-size:12px;font-weight:600;color:#cbd5e1;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase">Email</label>
-      <input id="prog-login-email" type="email" placeholder="you@email.com" autocomplete="email" style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;outline:none">
+      <input id="prog-login-email" type="email" placeholder="you@email.com" autocomplete="email" oninput="progUpdateTokenField(this)" style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;outline:none">
     </div>
     <div style="margin-bottom:20px">
-      <label style="display:block;font-size:12px;font-weight:600;color:#cbd5e1;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase">Access token</label>
+      <label id="prog-token-label" style="display:block;font-size:12px;font-weight:600;color:#cbd5e1;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase">Access token</label>
       <input id="prog-login-token" type="password" placeholder="Paste from your welcome email link" style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;outline:none">
     </div>
     <div id="prog-login-err" style="display:none;color:#f87171;font-size:13px;margin-bottom:14px"></div>

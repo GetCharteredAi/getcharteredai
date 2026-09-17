@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Preview — Get Chartered AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2563EB;--blue-dark:#1d4ed8;--blue-light:#3b82f6;--blue-pale:#eff6ff;
+  --white:#fff;--off:#f8fafc;--border:#e2e8f0;--text:#0f172a;--muted:#1e293b;
+  --green:#16a34a;--red:#dc2626;
+  --navy:#0D0F1C;
+  --gold:#d4a017;--gold2:#f59e0b;
+  --f:'Inter',sans-serif;--fh:'Plus Jakarta Sans','Inter',sans-serif;
+}
+html,body{overflow-x:hidden}
+body{font-family:var(--f);background:var(--navy);color:var(--text);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.6}
+
+/* ── PREVIEW BANNER ── */
+.preview-bar{background:#78350f;color:#fde68a;font-size:11px;font-weight:600;text-align:center;padding:6px 16px;letter-spacing:.04em}
+
+/* ── LAYOUT SHELLS ── */
+.s-dark{background:var(--navy)}
+.s-white{background:#fff}
+.s-off{background:var(--off)}
+.inner{max-width:1160px;margin:0 auto;padding:0 40px}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:1000;
+  background:rgba(11,12,28,.97);backdrop-filter:blur(16px);
+  height:64px;display:flex;align-items:center;padding:0 32px;
+  border-bottom:1px solid rgba(255,255,255,.06)
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:44px}
+.nav-links{display:flex;align-items:center;gap:2px;margin-left:28px;flex:1}
+.nav-link{
+  font-size:13px;font-weight:500;color:rgba(255,255,255,.55);
+  padding:6px 12px;border-radius:6px;cursor:pointer;text-decoration:none;
+  transition:.15s;position:relative
+}
+.nav-link:hover{color:#fff}
+.nav-link.active{color:#fff;font-weight:600}
+.nav-link.active::after{
+  content:'';position:absolute;bottom:-19px;left:8px;right:8px;
+  height:2px;background:var(--gold2);border-radius:1px
+}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.nav-avatar{width:34px;height:34px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;flex-shrink:0}
+.nav-username{font-size:13px;font-weight:500;color:rgba(255,255,255,.6)}
+.nav-premium{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2);border:1.5px solid rgba(245,158,11,.45);padding:5px 14px;border-radius:20px;white-space:nowrap}
+
+/* ══════════════════════════════════════════════
+   PROGRAMME PANEL — white
+══════════════════════════════════════════════ */
+.prog-panel{background:var(--navy);padding-top:52px;border-bottom:none}
+.prog-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:#93c5fd;background:rgba(37,99,235,.14);
+  padding:4px 13px 4px 10px;border-radius:20px;margin-bottom:16px;
+  border:1px solid rgba(37,99,235,.3)
+}
+.prog-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:#60a5fa}
+.prog-welcome{
+  font-family:var(--fh);font-size:clamp(28px,3.2vw,44px);font-weight:800;
+  letter-spacing:-.04em;color:#fff;line-height:1.05;margin-bottom:10px
+}
+.prog-sub{font-size:15px;color:rgba(255,255,255,.58);line-height:1.65;margin-bottom:22px;max-width:560px}
+.prog-pathway-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:40px}
+.prog-pathway-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:600;color:#fff;
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:8px;
+  padding:8px 16px;cursor:pointer;font-family:var(--f);transition:.15s
+}
+.prog-pathway-btn:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.12)}
+.prog-ctrl{font-size:13px;font-weight:500;color:rgba(96,165,250,.85);cursor:pointer;transition:.15s}
+.prog-ctrl:hover{color:#93c5fd;text-decoration:underline}
+.prog-sep{color:rgba(255,255,255,.18);user-select:none;font-size:13px}
+
+/* ── JOURNEY STRIP ── */
+.journey-band{
+  background:var(--navy);
+  padding:0 40px 48px
+}
+.journey-band .inner{
+  background:var(--off);
+  border-radius:24px;
+  padding:22px 36px 24px;
+  box-shadow:0 4px 28px rgba(0,0,0,.22),0 1px 4px rgba(0,0,0,.12);
+  border:1px solid rgba(0,0,0,.05)
+}
+.journey-nodes{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  position:relative
+}
+.journey-nodes::before{
+  content:'';position:absolute;
+  top:20px;left:1.5%;right:1.5%;
+  height:2px;background:var(--border);z-index:0;border-radius:1px
+}
+.journey-track{
+  position:absolute;top:20px;left:1.5%;height:2px;
+  background:linear-gradient(90deg,var(--blue) 0%,#60a5fa 100%);
+  z-index:1;width:47%;border-radius:1px;
+  box-shadow:0 0 8px rgba(37,99,235,.25)
+}
+.ms-node{
+  display:flex;flex-direction:column;align-items:center;gap:9px;
+  flex:1;position:relative;z-index:2
+}
+.ms-dot{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;flex-shrink:0;
+  font-family:var(--fh);font-size:13px;
+  border:2px solid #cbd5e1;background:#f1f5f9;color:#64748b;
+  transition:.2s
+}
+.ms-node.enrolled .ms-dot{
+  background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.55);
+  color:var(--gold2);font-size:17px
+}
+.ms-node.done .ms-dot{
+  background:var(--blue);border-color:var(--blue);color:#fff;font-size:17px;
+  box-shadow:0 2px 10px rgba(37,99,235,.35)
+}
+.ms-node.active .ms-dot{
+  background:#fff;border:3px solid var(--blue);color:var(--blue);
+  font-size:12px;font-weight:800;
+  box-shadow:0 0 0 5px rgba(37,99,235,.1),0 2px 12px rgba(37,99,235,.2)
+}
+.ms-node.chartered .ms-dot{
+  background:rgba(245,158,11,.1);border:2px solid var(--gold2);
+  color:var(--gold2);font-size:18px
+}
+.ms-label{text-align:center;max-width:54px}
+.ms-code{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;display:block;line-height:1;margin-bottom:2px;color:#64748b}
+.ms-node.done .ms-code,.ms-node.active .ms-code,.ms-node.enrolled .ms-code{color:var(--blue)}
+.ms-node.chartered .ms-code{color:var(--gold2)}
+.ms-name{font-size:10px;font-weight:500;color:#64748b;line-height:1.35;display:block}
+.ms-node.done .ms-name{color:var(--muted)}
+.ms-node.active .ms-name{color:var(--text);font-weight:700}
+.ms-node.enrolled .ms-name{color:#475569}
+.ms-node.chartered .ms-name{color:var(--gold2);font-weight:600}
+
+/* ══════════════════════════════════════════════
+   4 CORE ACTIONS — dark navy band
+══════════════════════════════════════════════ */
+.actions-section{background:var(--navy);padding:52px 0}
+.actions-eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);margin-bottom:20px;display:block
+}
+.actions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.action-card{
+  border-radius:16px;padding:28px 24px;cursor:pointer;
+  transition:.2s;text-decoration:none;display:block;position:relative
+}
+.action-card.primary{
+  background:var(--blue);
+  box-shadow:0 8px 32px rgba(37,99,235,.4)
+}
+.action-card.primary:hover{background:var(--blue-dark);transform:translateY(-2px)}
+.action-card.secondary{
+  background:#fff;border:1px solid var(--border);
+  box-shadow:0 4px 20px rgba(0,0,0,.14)
+}
+.action-card.secondary:hover{border-color:#93c5fd;transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.18)}
+
+.ac-chip{
+  position:absolute;top:16px;right:16px;
+  width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.15);color:rgba(255,255,255,.7);
+  font-size:15px;line-height:1
+}
+.action-card.secondary .ac-chip{background:var(--off);color:#94a3b8}
+
+.ac-icon{
+  width:42px;height:42px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:14px;background:rgba(255,255,255,.18);color:#fff
+}
+.action-card.secondary .ac-icon{background:var(--blue-pale);color:var(--blue)}
+
+.ac-eyebrow{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:4px;display:block}
+.action-card.secondary .ac-eyebrow{color:#64748b}
+.ac-title{font-family:var(--fh);font-size:16px;font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:4px}
+.action-card.secondary .ac-title{color:var(--text)}
+.ac-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5}
+.action-card.secondary .ac-sub{color:#64748b}
+
+.ac-progress{margin-top:18px}
+.ac-progress-track{height:4px;background:rgba(255,255,255,.25);border-radius:2px;margin-bottom:7px;overflow:hidden}
+.ac-progress-fill{height:100%;background:#fff;border-radius:2px;width:25%}
+.ac-progress-lbl{font-size:11.5px;color:rgba(255,255,255,.6);font-weight:500}
+
+/* ══════════════════════════════════════════════
+   INDUSTRY BRIEFING + CPD — white section
+══════════════════════════════════════════════ */
+.content-section{background:#fff;padding:56px 0}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:8px}
+.section-h2{font-family:var(--fh);font-size:clamp(19px,2vw,26px);font-weight:800;letter-spacing:-.03em;color:var(--text);margin-bottom:28px;line-height:1.15}
+.content-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+
+/* Briefing card — top blue accent */
+.briefing-card{
+  background:#fff;border:1px solid var(--border);border-radius:16px;
+  padding:28px;border-top:3px solid var(--blue);
+  box-shadow:0 1px 4px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.04)
+}
+.briefing-badge{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue);background:var(--blue-pale);padding:3px 10px;border-radius:4px;margin-bottom:12px
+}
+.briefing-title{font-family:var(--fh);font-size:18px;font-weight:700;color:var(--text);letter-spacing:-.02em;margin-bottom:8px;line-height:1.3}
+.briefing-desc{font-size:14px;color:#475569;line-height:1.7;margin-bottom:20px}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:7px;
+  background:transparent;color:var(--blue);border:1.5px solid var(--blue);
+  font-size:13px;font-weight:600;padding:9px 20px;border-radius:8px;
+  cursor:pointer;font-family:var(--f);transition:.15s
+}
+.btn-outline:hover{background:var(--blue-pale)}
+
+/* White card (CPD, etc.) */
+.wcard{
+  background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px;
+  box-shadow:0 1px 4px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.04)
+}
+.wcard-icon-row{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
+.wcard-icon{width:44px;height:44px;border-radius:11px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--blue)}
+.wcard-hd{flex:1;min-width:0}
+.wcard-hd-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.wcard-title{font-family:var(--fh);font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.01em;margin-bottom:4px;line-height:1.25}
+.wcard-sub{font-size:13px;color:#64748b;line-height:1.55}
+.btn-row{display:flex;gap:8px;flex-shrink:0;margin-top:2px}
+.btn-sm{font-size:12px;font-weight:600;padding:7px 15px;border-radius:7px;cursor:pointer;font-family:var(--f);border:none;white-space:nowrap;transition:.15s}
+.btn-sm-outline{background:transparent;color:#475569;border:1.5px solid var(--border)}
+.btn-sm-outline:hover{border-color:#93c5fd;color:var(--blue)}
+.btn-sm-blue{background:var(--blue);color:#fff;box-shadow:0 3px 10px rgba(37,99,235,.25)}
+.btn-sm-blue:hover{background:var(--blue-dark)}
+.wcard-divider{border:none;border-top:1px solid var(--border);margin:18px 0}
+.cpd-stats{display:flex;gap:0}
+.cpd-stat{flex:1;border-right:1px solid var(--border);padding-right:16px;margin-right:16px}
+.cpd-stat:last-child{border-right:none;padding-right:0;margin-right:0}
+.cpd-n{font-family:var(--fh);font-size:28px;font-weight:700;color:var(--text);letter-spacing:-.04em;line-height:1}
+.cpd-l{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#64748b;margin-top:3px}
+
+/* ══════════════════════════════════════════════
+   EVIDENCE + CHECKLIST + Q-BANK — dark navy
+══════════════════════════════════════════════ */
+.dark-section{background:var(--navy);padding:56px 0}
+.dark-eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4);display:block;margin-bottom:8px}
+.dark-h2{font-family:var(--fh);font-size:clamp(19px,2vw,26px);font-weight:800;letter-spacing:-.03em;color:#fff;margin-bottom:28px;line-height:1.15}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+
+/* White cards inside dark section */
+.dw-card{
+  background:#fff;border-radius:16px;padding:26px;
+  border:1px solid var(--border);
+  box-shadow:0 4px 20px rgba(0,0,0,.18)
+}
+.dw-icon-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.dw-icon{width:42px;height:42px;border-radius:10px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--blue)}
+.dw-hd{flex:1;min-width:0}
+.dw-title{font-family:var(--fh);font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.25}
+.dw-sub{font-size:12.5px;color:#64748b;line-height:1.5}
+
+/* Evidence bank */
+.ev-coverage{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-top:2px}
+.ev-n{font-family:var(--fh);font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.04em;line-height:1}
+.ev-tag{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#64748b}
+.ev-bar-track{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.ev-bar-fill{height:100%;background:var(--blue);width:18%;border-radius:2px}
+.ev-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid rgba(0,0,0,.05);font-size:12.5px;color:var(--text)}
+.ev-comp{flex:1;min-width:0;font-weight:500}
+.ev-lvl{color:#64748b;font-size:12px;flex-shrink:0}
+.ev-status{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;flex-shrink:0}
+.ev-status.needs-work{background:rgba(220,38,38,.08);color:#dc2626;border:1px solid rgba(220,38,38,.15)}
+.ev-status.pending{background:rgba(217,119,6,.08);color:#d97706;border:1px solid rgba(217,119,6,.15)}
+.ev-arrow{color:#cbd5e1;font-size:14px;flex-shrink:0}
+
+/* Checklist */
+.cl-list{display:flex;flex-direction:column;gap:0}
+.cl-row{display:flex;align-items:flex-start;gap:11px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:13px;color:var(--muted)}
+.cl-row:last-child{border-bottom:none}
+.cl-check{
+  width:20px;height:20px;min-width:20px;border-radius:50%;
+  border:2px solid var(--border);background:var(--off);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;font-size:10px;font-weight:700;color:transparent
+}
+.cl-row.done .cl-check{background:var(--green);border-color:var(--green);color:#fff}
+.cl-text{flex:1;font-size:13px;line-height:1.45}
+.cl-row.done .cl-text{color:#94a3b8;text-decoration:line-through}
+
+/* Question Bank card */
+.qbank-card{
+  background:#fff;border-radius:16px;padding:26px;
+  border:1px solid var(--border);border-top:3px solid var(--gold2);
+  box-shadow:0 4px 20px rgba(0,0,0,.18)
+}
+.qbank-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2);margin-bottom:10px}
+.qbank-title{font-family:var(--fh);font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.01em;margin-bottom:8px;line-height:1.25}
+.qbank-desc{font-size:13px;color:#475569;line-height:1.65;margin-bottom:16px}
+.qbank-meta{display:flex;gap:18px;margin-bottom:20px;font-size:12px;color:#94a3b8}
+.btn-gold{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold2);color:#0a0f1e;
+  font-size:13px;font-weight:700;padding:10px 22px;border-radius:8px;
+  cursor:pointer;font-family:var(--f);border:none;letter-spacing:.02em;
+  box-shadow:0 4px 14px rgba(245,158,11,.3);transition:.15s
+}
+.btn-gold:hover{background:#e08906}
+
+/* ══════════════════════════════════════════════
+   YOUR MODULES — off-white
+══════════════════════════════════════════════ */
+.modules-section{background:var(--off);padding:56px 0}
+.modules-hdr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px}
+.modules-title{font-family:var(--fh);font-size:clamp(19px,2vw,26px);font-weight:800;letter-spacing:-.03em;color:var(--text)}
+.modules-count{font-size:13px;color:#94a3b8}
+.modules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+
+/* Dark navy module cards on light background */
+.mod-card{
+  background:var(--navy);border-radius:14px;padding:22px;
+  border:1px solid rgba(255,255,255,.04);
+  border-top:3px solid rgba(255,255,255,.05);
+  cursor:pointer;transition:.2s;text-decoration:none;display:block
+}
+.mod-card:hover{transform:translateY(-2px);border-top-color:var(--blue);box-shadow:0 8px 28px rgba(0,0,0,.22)}
+.mod-card.done{border-top-color:var(--blue)}
+.mod-card.active-mod{border-top-color:var(--blue);border-color:rgba(37,99,235,.2)}
+.mod-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:9px}
+.mod-num{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa}
+.mod-tick{width:20px;height:20px;border-radius:50%;background:var(--blue);display:none;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}
+.mod-card.done .mod-tick{display:flex}
+.mod-card-title{font-size:13.5px;font-weight:600;color:#e2e8f0;line-height:1.4;margin-bottom:10px}
+.mod-tags{display:flex;flex-wrap:wrap;gap:5px}
+.mod-tag{font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.mod-tag.foundation{background:rgba(245,158,11,.14);color:var(--gold2);border:1px solid rgba(245,158,11,.2)}
+.mod-tag.level{background:rgba(255,255,255,.06);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.07)}
+.mod-tag.mandatory{background:rgba(220,38,38,.1);color:#f87171;border:1px solid rgba(220,38,38,.15)}
+.mod-tag.final{background:rgba(37,99,235,.12);color:#93c5fd;border:1px solid rgba(37,99,235,.18)}
+.mod-tag.active-tag{background:rgba(37,99,235,.18);color:#60a5fa;border:1px solid rgba(37,99,235,.28);font-weight:800}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.04);padding:40px 0 28px}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-brand{display:flex;align-items:center;gap:10px}
+.footer-logo img{height:30px;opacity:.7}
+.footer-brand-name{font-family:var(--fh);font-size:11px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.05em;text-transform:uppercase}
+.footer-brand-sub{font-size:9px;color:rgba(255,255,255,.2);letter-spacing:.04em;display:block}
+.footer-links{display:flex;gap:22px}
+.footer-link{font-size:12.5px;color:rgba(255,255,255,.35);cursor:pointer;text-decoration:none;transition:.15s}
+.footer-link:hover{color:rgba(255,255,255,.7)}
+.footer-motto{display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.25);font-style:italic}
+.footer-motto::before{content:'';width:24px;height:1.5px;background:var(--gold2);opacity:.5;flex-shrink:0;border-radius:1px}
+</style>
+</head>
+<body>
+
+<div class="preview-bar">⚠ LOCAL PREVIEW ONLY — visual direction check · Annual · Building Surveying · do not commit or deploy</div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="/logo1.png" alt="Get Chartered AI">
+  </a>
+  <div class="nav-links">
+    <a class="nav-link active">Dashboard</a>
+    <a class="nav-link">Modules</a>
+    <a class="nav-link">Practice</a>
+    <a class="nav-link">Resources</a>
+    <a class="nav-link">CPD</a>
+    <a class="nav-link">My Progress</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-avatar">T</div>
+    <span class="nav-username">Test ▾</span>
+    <span class="nav-premium">Premium Member</span>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     PROGRAMME PANEL — white
+═══════════════════════════════════════════════════ -->
+<div class="prog-panel">
+  <div class="inner">
+    <div class="prog-badge">Full Programme — Annual Access</div>
+    <h1 class="prog-welcome">Welcome back, Test</h1>
+    <p class="prog-sub">All 12 modules are unlocked and ready. You're on Module 07 — keep going.</p>
+    <div class="prog-pathway-row">
+      <button class="prog-pathway-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Building Surveying Pathway ▾
+      </button>
+      <span class="prog-sep">|</span>
+      <a class="prog-ctrl">change pathway</a>
+      <span class="prog-sep">|</span>
+      <a class="prog-ctrl">reset journey</a>
+    </div>
+  </div>
+
+  <!-- Journey strip — full-width off-white band at base of panel -->
+  <div class="journey-band">
+    <div class="inner">
+      <div class="journey-nodes">
+        <div class="journey-track"></div>
+
+        <div class="ms-node enrolled">
+          <div class="ms-dot">✓</div>
+          <div class="ms-label"><span class="ms-name">Enrolled</span></div>
+        </div>
+
+        <div class="ms-node done">
+          <div class="ms-dot">✓</div>
+          <div class="ms-label"><span class="ms-code">M01</span><span class="ms-name">Preparing for RICS APC</span></div>
+        </div>
+
+        <div class="ms-node done">
+          <div class="ms-dot">✓</div>
+          <div class="ms-label"><span class="ms-code">M02</span><span class="ms-name">Ethics &amp; Professionalism</span></div>
+        </div>
+
+        <div class="ms-node done">
+          <div class="ms-dot">✓</div>
+          <div class="ms-label"><span class="ms-code">M03</span><span class="ms-name">Client Care</span></div>
+        </div>
+
+        <div class="ms-node done">
+          <div class="ms-dot">✓</div>
+          <div class="ms-label"><span class="ms-code">M04</span><span class="ms-name">Communication</span></div>
+        </div>
+
+        <div class="ms-node done">
+          <div class="ms-dot">✓</div>
+          <div class="ms-label"><span class="ms-code">M05</span><span class="ms-name">Health &amp; Safety</span></div>
+        </div>
+
+        <div class="ms-node done">
+          <div class="ms-dot">✓</div>
+          <div class="ms-label"><span class="ms-code">M06</span><span class="ms-name">Accounting Principles</span></div>
+        </div>
+
+        <div class="ms-node active">
+          <div class="ms-dot">07</div>
+          <div class="ms-label"><span class="ms-code">M07</span><span class="ms-name">Business Planning</span></div>
+        </div>
+
+        <div class="ms-node">
+          <div class="ms-dot">08</div>
+          <div class="ms-label"><span class="ms-code">M08</span><span class="ms-name">Conflict Avoidance</span></div>
+        </div>
+
+        <div class="ms-node">
+          <div class="ms-dot">09</div>
+          <div class="ms-label"><span class="ms-code">M09</span><span class="ms-name">Data Management</span></div>
+        </div>
+
+        <div class="ms-node">
+          <div class="ms-dot">10</div>
+          <div class="ms-label"><span class="ms-code">M10</span><span class="ms-name">Sustainability</span></div>
+        </div>
+
+        <div class="ms-node">
+          <div class="ms-dot">11</div>
+          <div class="ms-label"><span class="ms-code">M11</span><span class="ms-name">Inclusive Environments</span></div>
+        </div>
+
+        <div class="ms-node">
+          <div class="ms-dot" style="font-size:11px">M12</div>
+          <div class="ms-label"><span class="ms-code">M12</span><span class="ms-name">Mock &amp; Final Prep</span></div>
+        </div>
+
+        <div class="ms-node chartered">
+          <div class="ms-dot">★</div>
+          <div class="ms-label"><span class="ms-name">Chartered</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     4 CORE ACTIONS — dark navy
+═══════════════════════════════════════════════════ -->
+<div class="actions-section">
+  <div class="inner">
+    <span class="actions-eyebrow">Your next steps</span>
+    <div class="actions-grid">
+
+      <a class="action-card primary" href="#">
+        <div class="ac-chip">›</div>
+        <div class="ac-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <span class="ac-eyebrow">Continue</span>
+        <div class="ac-title">01: Preparing for RICS APC Exams</div>
+        <div class="ac-progress">
+          <div class="ac-progress-track"><div class="ac-progress-fill"></div></div>
+          <span class="ac-progress-lbl">25% complete</span>
+        </div>
+      </a>
+
+      <a class="action-card secondary" href="#">
+        <div class="ac-chip">›</div>
+        <div class="ac-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 0 2 2z"/></svg>
+        </div>
+        <span class="ac-eyebrow">Ask Michael</span>
+        <div class="ac-title">AI Tutor · 24/7</div>
+        <div class="ac-sub">Get tailored answers to your APC questions, any time.</div>
+      </a>
+
+      <a class="action-card secondary" href="#">
+        <div class="ac-chip">›</div>
+        <div class="ac-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <span class="ac-eyebrow">Mock Interview</span>
+        <div class="ac-title">60-min AI-scored mock</div>
+        <div class="ac-sub">Experience a realistic APC interview and receive detailed feedback.</div>
+      </a>
+
+      <a class="action-card secondary" href="#">
+        <div class="ac-chip">›</div>
+        <div class="ac-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <span class="ac-eyebrow">Think on Your Feet</span>
+        <div class="ac-title">3-min daily practice</div>
+        <div class="ac-sub">Build confidence with realistic, on-the-spot assessment questions.</div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     INDUSTRY BRIEFING + CPD — white section
+═══════════════════════════════════════════════════ -->
+<div class="content-section">
+  <div class="inner">
+    <span class="eyebrow">Stay current</span>
+    <div class="section-h2">Industry Briefing &amp; Professional Development</div>
+    <div class="content-grid-2">
+
+      <div class="briefing-card">
+        <span class="briefing-badge">Industry Briefing</span>
+        <div class="briefing-title">Autumn 2026: What assessors are looking for right now</div>
+        <p class="briefing-desc">Legislation changes and technical developments most likely to come up in your assessment this window — including Awaab's Law, Building Remediation Bill updates, and EPC changes. Updated every assessment window.</p>
+        <button class="btn-outline">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>
+          Read the Briefing
+        </button>
+      </div>
+
+      <div class="wcard">
+        <div class="wcard-icon-row">
+          <div class="wcard-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <div class="wcard-hd">
+            <div class="wcard-hd-row">
+              <div class="wcard-title">Continuing Professional Development Log</div>
+              <div class="btn-row">
+                <button class="btn-sm btn-sm-outline">View log</button>
+                <button class="btn-sm btn-sm-blue">+ Add entry</button>
+              </div>
+            </div>
+            <div class="wcard-sub">Record and review your CPD hours and activities before assessment.</div>
+          </div>
+        </div>
+        <hr class="wcard-divider">
+        <div class="cpd-stats">
+          <div class="cpd-stat">
+            <div class="cpd-n">2</div>
+            <div class="cpd-l">Total hours</div>
+          </div>
+          <div class="cpd-stat">
+            <div class="cpd-n">1</div>
+            <div class="cpd-l">Entries logged</div>
+          </div>
+          <div class="cpd-stat">
+            <div class="cpd-n">8 Jun</div>
+            <div class="cpd-l">Last entry</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     EVIDENCE + CHECKLIST + QUESTION BANK — dark navy
+═══════════════════════════════════════════════════ -->
+<div class="dark-section">
+  <div class="inner">
+    <span class="dark-eyebrow">Assessment preparation</span>
+    <div class="dark-h2">Build your submission &amp; practice your competencies</div>
+    <div class="three-col">
+
+      <div class="dw-card">
+        <div class="dw-icon-row">
+          <div class="dw-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <div class="dw-hd">
+            <div class="dw-title">Competency Evidence Bank</div>
+            <div class="dw-sub">Build and refine your PREP examples for every competency.</div>
+          </div>
+        </div>
+        <div class="ev-coverage">
+          <span class="ev-n">2 / 11</span>
+          <span class="ev-tag">Competencies covered</span>
+          <div class="ev-bar-track"><div class="ev-bar-fill"></div></div>
+        </div>
+        <div class="ev-row">
+          <span class="ev-comp">Ethics, Conduct &amp; Professionalism</span>
+          <span class="ev-lvl">Lvl 1</span>
+          <span class="ev-status needs-work">Needs work</span>
+          <span class="ev-arrow">›</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-comp">Ethics, Conduct &amp; Professionalism</span>
+          <span class="ev-lvl">Lvl 1</span>
+          <span class="ev-status pending">Pending</span>
+          <span class="ev-arrow">›</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-comp">Data Management</span>
+          <span class="ev-lvl">Lvl 1</span>
+          <span class="ev-status pending">Pending</span>
+          <span class="ev-arrow">›</span>
+        </div>
+        <div style="margin-top:16px">
+          <button class="btn-sm btn-sm-blue">+ Add Evidence</button>
+        </div>
+      </div>
+
+      <div class="dw-card">
+        <div class="dw-icon-row">
+          <div class="dw-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="dw-hd">
+            <div class="dw-title">Submission Checklist</div>
+            <div class="dw-sub">Track your readiness for final submission and assessment.</div>
+          </div>
+        </div>
+        <div class="cl-list">
+          <div class="cl-row done">
+            <div class="cl-check">✓</div>
+            <span class="cl-text">APC application submitted</span>
+          </div>
+          <div class="cl-row done">
+            <div class="cl-check">✓</div>
+            <span class="cl-text">Counsellor confirmed</span>
+          </div>
+          <div class="cl-row">
+            <div class="cl-check"></div>
+            <span class="cl-text">Summary of experience completed</span>
+          </div>
+          <div class="cl-row">
+            <div class="cl-check"></div>
+            <span class="cl-text">Critical analysis drafted</span>
+          </div>
+          <div class="cl-row">
+            <div class="cl-check"></div>
+            <span class="cl-text">CPD record complete (minimum 48 hours)</span>
+          </div>
+          <div class="cl-row">
+            <div class="cl-check"></div>
+            <span class="cl-text">Mock interview completed</span>
+          </div>
+        </div>
+        <div style="margin-top:16px">
+          <button class="btn-sm btn-sm-outline">Open full checklist</button>
+        </div>
+      </div>
+
+      <div class="qbank-card">
+        <span class="qbank-tag">Practice Questions</span>
+        <div class="qbank-title">Your Building Surveying Question Bank</div>
+        <p class="qbank-desc">50 assessor-led questions covering every mandatory competency for your pathway. Timed. Scored. Indexed by topic.</p>
+        <div class="qbank-meta">
+          <span>0 of 50 attempted</span>
+          <span>0 marked confident</span>
+        </div>
+        <button class="btn-gold">
+          Start Question Bank
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     YOUR MODULES — off-white
+═══════════════════════════════════════════════════ -->
+<div class="modules-section">
+  <div class="inner">
+    <div class="modules-hdr">
+      <div class="modules-title">Your Modules</div>
+      <span class="modules-count">6 of 12 in progress</span>
+    </div>
+    <div class="modules-grid">
+
+      <a class="mod-card done" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 01</span><div class="mod-tick">✓</div></div>
+        <div class="mod-card-title">Preparing for RICS APC Exams</div>
+        <div class="mod-tags"><span class="mod-tag foundation">Foundation</span></div>
+      </a>
+
+      <a class="mod-card done" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 02</span><div class="mod-tick">✓</div></div>
+        <div class="mod-card-title">Ethics, Conduct &amp; Professionalism</div>
+        <div class="mod-tags"><span class="mod-tag level">Level 3</span><span class="mod-tag mandatory">Mandatory</span></div>
+      </a>
+
+      <a class="mod-card done" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 03</span><div class="mod-tick">✓</div></div>
+        <div class="mod-card-title">Client Care</div>
+        <div class="mod-tags"><span class="mod-tag level">Level 2</span><span class="mod-tag mandatory">Mandatory</span></div>
+      </a>
+
+      <a class="mod-card done" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 04</span><div class="mod-tick">✓</div></div>
+        <div class="mod-card-title">Communication &amp; Negotiation</div>
+        <div class="mod-tags"><span class="mod-tag level">Level 2</span><span class="mod-tag mandatory">Mandatory</span></div>
+      </a>
+
+      <a class="mod-card done" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 05</span><div class="mod-tick">✓</div></div>
+        <div class="mod-card-title">Health &amp; Safety in Surveying</div>
+        <div class="mod-tags"><span class="mod-tag level">Level 2</span><span class="mod-tag mandatory">Mandatory</span></div>
+      </a>
+
+      <a class="mod-card done" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 06</span><div class="mod-tick">✓</div></div>
+        <div class="mod-card-title">Accounting Principles &amp; Procedures</div>
+        <div class="mod-tags"><span class="mod-tag level">Level 1</span><span class="mod-tag mandatory">Mandatory</span></div>
+      </a>
+
+      <a class="mod-card active-mod" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 07</span></div>
+        <div class="mod-card-title">Business Planning</div>
+        <div class="mod-tags"><span class="mod-tag level">Level 1</span><span class="mod-tag mandatory">Mandatory</span><span class="mod-tag active-tag">In Progress</span></div>
+      </a>
+
+      <a class="mod-card" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 08</span></div>
+        <div class="mod-card-title">Conflict Avoidance, Management &amp; Dispute Resolution</div>
+        <div class="mod-tags"><span class="mod-tag level">Level 1</span><span class="mod-tag mandatory">Mandatory</span></div>
+      </a>
+
+      <a class="mod-card" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 09</span></div>
+        <div class="mod-card-title">Data Management</div>
+        <div class="mod-tags"><span class="mod-tag level">Level 1</span><span class="mod-tag mandatory">Mandatory</span></div>
+      </a>
+
+      <a class="mod-card" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 10</span></div>
+        <div class="mod-card-title">Sustainability</div>
+        <div class="mod-tags"><span class="mod-tag level">Level 2</span><span class="mod-tag mandatory">Mandatory</span></div>
+      </a>
+
+      <a class="mod-card" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 11</span></div>
+        <div class="mod-card-title">Inclusive Environments</div>
+        <div class="mod-tags"><span class="mod-tag level">Level 2</span><span class="mod-tag mandatory">Mandatory</span></div>
+      </a>
+
+      <a class="mod-card" href="#">
+        <div class="mod-card-top"><span class="mod-num">Module 12</span></div>
+        <div class="mod-card-title">Mock Interview &amp; Final Preparation</div>
+        <div class="mod-tags"><span class="mod-tag final">Final Prep</span></div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="inner">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="/logo1.png" alt="Get Chartered AI"></div>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link">Help</a>
+        <a class="footer-link">Contact</a>
+        <a class="footer-link">Terms</a>
+        <a class="footer-link">Privacy</a>
+      </div>
+      <div class="footer-motto">Progress today. Chartered tomorrow.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

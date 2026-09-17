@@ -572,7 +572,8 @@ async function sprintDoLogin() {
   if (!email || !token) { err.textContent = 'Please enter your email and access token.'; err.style.display = 'block'; return; }
   try {
     if (email === 'test@getcharteredai.com') {
-      const r = await fetch('/.netlify/functions/admin-login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password: token, plan: 'sprint' }) });
+      const rawPass = document.getElementById('sprint-login-token')?.value || '';
+      const r = await fetch('/.netlify/functions/admin-login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password: rawPass, plan: 'sprint' }) });
       const d = await r.json();
       if (d.token) {
         localStorage.setItem('gca_token', d.token);

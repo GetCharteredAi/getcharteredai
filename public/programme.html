@@ -567,7 +567,8 @@ async function progDoLogin() {
   if (!email || !token) { err.textContent = 'Please enter your email and access token.'; err.style.display = 'block'; return; }
   try {
     if (email === 'test@getcharteredai.com') {
-      const r = await fetch('/.netlify/functions/admin-login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password: token, plan: 'annual' }) });
+      const rawPass = document.getElementById('prog-login-token')?.value || '';
+      const r = await fetch('/.netlify/functions/admin-login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password: rawPass, plan: 'annual' }) });
       const d = await r.json();
       if (d.token) {
         localStorage.setItem('gca_token', d.token);

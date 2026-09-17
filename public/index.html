@@ -1140,6 +1140,102 @@ input.err{border-color:var(--red)}
 .tofy-close:hover{color:#fff}
 .tofy-body{flex:1;padding:40px 20px 60px;max-width:640px;margin:0 auto;width:100%;box-sizing:border-box}
 
+/* ═══════════════════════════════════════════════
+   DASHBOARD REDESIGN — full-width, section rhythm
+═══════════════════════════════════════════════ */
+/* Layout: full-width, no sidebar */
+#view-dashboard .dash-layout{grid-template-columns:1fr}
+#view-dashboard .sidebar{display:none}
+#view-dashboard .dash-main{padding:0;background:var(--off)}
+
+/* Dark programme hero — strip card chrome, go full-width */
+#view-dashboard .dash-summary{border:none;border-radius:0;margin-bottom:0;padding:48px 40px 40px}
+#view-dashboard .ds-welcome{font-size:clamp(26px,3vw,40px)}
+
+/* Journey card — white rounded card on dark background */
+#journeyCardWrap{padding:20px 0 24px}
+#journeyCardWrap .ms-wrap{background:#f8fafc;border-radius:24px;padding:22px 36px 24px;box-shadow:0 4px 28px rgba(0,0,0,.22),0 1px 4px rgba(0,0,0,.12);border:1px solid rgba(0,0,0,.05);margin-bottom:0}
+/* 12-mod circles on white card */
+#journeyCardWrap .ms-strip.ms-twelve .ms-track{background:var(--border)}
+#journeyCardWrap .ms-strip.ms-twelve .ms-dot{background:#f1f5f9;border-color:#cbd5e1;color:#64748b}
+#journeyCardWrap .ms-strip.ms-twelve .ms-node.done .ms-dot{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.35)}
+#journeyCardWrap .ms-strip.ms-twelve .ms-node.active .ms-dot{background:#fff;border-width:3px;border-color:var(--blue);color:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,.1),0 2px 10px rgba(37,99,235,.2)}
+#journeyCardWrap .ms-strip.ms-twelve .ms-lbl{color:#64748b}
+#journeyCardWrap .ms-strip.ms-twelve .ms-code{color:#94a3b8}
+#journeyCardWrap .ms-strip.ms-twelve .ms-node.done .ms-lbl{color:#475569}
+#journeyCardWrap .ms-strip.ms-twelve .ms-node.active .ms-lbl{color:var(--text);font-weight:700}
+
+/* Action cards — 4-column white cards on dark hero */
+#view-dashboard .ds-actions{grid-template-columns:repeat(4,1fr);gap:16px}
+#view-dashboard .ds-btn{background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px 20px;flex-direction:column;align-items:flex-start;gap:0;box-shadow:0 4px 20px rgba(0,0,0,.14)}
+#view-dashboard .ds-btn:hover{border-color:#93c5fd;transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.18)}
+#view-dashboard .ds-btn-primary{background:var(--blue);border-color:var(--blue);box-shadow:0 8px 32px rgba(37,99,235,.4)}
+#view-dashboard .ds-btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px)}
+#view-dashboard .ds-btn-icon{background:var(--blue-pale);color:var(--blue);border-radius:10px;width:42px;height:42px;padding:0;font-size:20px;margin-bottom:14px;flex-shrink:0}
+#view-dashboard .ds-btn-primary .ds-btn-icon{background:rgba(255,255,255,.18);color:#fff}
+#view-dashboard .ds-btn-label{color:#64748b;margin-bottom:3px}
+#view-dashboard .ds-btn-primary .ds-btn-label{color:rgba(255,255,255,.65)}
+#view-dashboard .ds-btn-val{color:var(--text);font-size:14px;font-weight:700;white-space:normal}
+#view-dashboard .ds-btn-primary .ds-btn-val{color:#fff}
+#view-dashboard .ds-btn-text{display:flex;flex-direction:column}
+
+/* Section wrappers */
+#dashLightSection{background:#fff;padding:48px 40px}
+#dashDarkSection{background:var(--navy);padding:48px 40px}
+#dashModulesSection{background:var(--off);padding:48px 40px}
+
+/* Light section: white-card panels (briefing + CPD) */
+#dashLightSection .bs-qbank{background:#fff;border:1px solid var(--border);border-top:3px solid var(--blue);box-shadow:0 1px 4px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.05)}
+#dashLightSection .bs-qbank-title{color:var(--text)}
+#dashLightSection .bs-qbank-sub{color:#475569}
+#dashLightSection .panel-eyebrow,#dashLightSection .panel-eyebrow-light{color:var(--blue)}
+#dashLightSection .bs-stat-pill{background:rgba(37,99,235,.08);color:var(--blue);border-color:rgba(37,99,235,.2)}
+#dashLightSection .bs-mini-bar{background:var(--border)}
+#dashLightSection .bs-mini-bar-fill{background:var(--blue)}
+#dashLightSection .cpd-panel{background:#fff;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.05)}
+#dashLightSection .cpd-panel-title{color:var(--text)}
+#dashLightSection .cpd-stat-num{color:var(--text)}
+#dashLightSection .cpd-stat-num.cpd-zero{color:#cbd5e1}
+#dashLightSection .cpd-stat-lbl{color:#64748b}
+#dashLightSection .cpd-panel .cpd-stats{border-top-color:var(--border)}
+#dashLightSection .cpd-view-btn{color:var(--blue);border-color:var(--border)}
+#dashLightSection .cpd-view-btn:hover{color:var(--blue-dark);border-color:#93c5fd;background:var(--blue-pale)}
+#dashLightSection .cpd-form{background:var(--off);border-color:var(--border)}
+#dashLightSection .cpd-form label{color:#64748b}
+#dashLightSection .cpd-form input,#dashLightSection .cpd-form select,#dashLightSection .cpd-form textarea{color:var(--text);background:#fff;border-color:var(--border)}
+#dashLightSection .cpd-cancel-btn{color:var(--blue);border-color:var(--border)}
+#dashLightSection .cpd-log-table th{color:#64748b;border-bottom-color:var(--border)}
+#dashLightSection .cpd-log-table td{color:var(--text);border-bottom-color:var(--border)}
+#dashLightSection .cpd-empty{color:#94a3b8}
+
+/* Dark section: white cards on navy (evidence + checklist + qbanks) */
+#dashDarkSection .cpd-panel{background:#fff;border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.18)}
+#dashDarkSection .cpd-panel-title{color:var(--text)}
+#dashDarkSection .cpd-stat-num{color:var(--text)}
+#dashDarkSection .cpd-stat-lbl{color:#64748b}
+#dashDarkSection .cpd-panel .cpd-stats{border-top-color:var(--border)}
+#dashDarkSection .panel-eyebrow,#dashDarkSection .panel-eyebrow-light{color:var(--blue)}
+#dashDarkSection .prep-recent-item{background:var(--off);border-color:var(--border)}
+#dashDarkSection .prep-recent-comp{color:var(--text)}
+#dashDarkSection .prep-recent-level{color:#64748b}
+#dashDarkSection .prep-empty{color:#94a3b8}
+#dashDarkSection .prep-viewall{color:var(--blue)}
+#dashDarkSection .prep-progress-track{background:var(--border)}
+#dashDarkSection .bs-qbank{background:#fff;border:1px solid var(--border);border-top:3px solid #d97706;box-shadow:0 4px 20px rgba(0,0,0,.18)}
+#dashDarkSection .bs-qbank-title{color:var(--text)}
+#dashDarkSection .bs-qbank-sub{color:#475569}
+#dashDarkSection .bs-stat-pill{background:rgba(37,99,235,.08);color:var(--blue);border-color:rgba(37,99,235,.2)}
+#dashDarkSection .bs-mini-bar{background:var(--border)}
+#dashDarkSection .bs-mini-bar-fill{background:var(--blue)}
+
+/* Modules section */
+#dashModulesSection h3{color:var(--text)}
+#dashModulesSection #dashCompletedCount{color:#94a3b8}
+#view-dashboard .dash-modules-grid{grid-template-columns:repeat(4,1fr)}
+#view-dashboard .dash-mod-card{background:var(--navy);border-top:3px solid rgba(255,255,255,.05)}
+#view-dashboard .dash-mod-card.done{border-top-color:var(--blue)}
+#view-dashboard .dash-mod-card:hover{border-top-color:var(--blue)}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
@@ -2099,7 +2195,9 @@ async function _tmStage2() {
         </div>
 
         <!-- Milestone strip (referred plan — populated by JS) -->
-        <div id="msStripWrap"></div>
+        <div id="journeyCardWrap">
+          <div id="msStripWrap"></div>
+        </div>
 
         <!-- Continue + Quick links -->
         <div class="ds-actions" id="dsActions">
@@ -2108,6 +2206,7 @@ async function _tmStage2() {
 
       </div>
 
+      <div id="dashLightSection">
       <div id="dashBottomRowGrid" style="margin-bottom:24px">
         <div class="bs-qbank" id="industryBriefingCard" style="margin-bottom:0">
           <div class="panel-eyebrow panel-eyebrow-light">Stay current</div>
@@ -2206,8 +2305,9 @@ async function _tmStage2() {
           </table>
         </div>
       </div>
+      </div><!-- /dashLightSection -->
 
-      
+      <div id="dashDarkSection">
       <div class="cpd-panel" id="prepPanel">
         <div class="cpd-panel-header">
           <div>
@@ -2449,12 +2549,15 @@ async function _tmStage2() {
         </div>
         <button id="saStartBtn" onclick="openSAOverlay()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;font-family:var(--f)">Start Question Bank</button>
       </div>
+      </div><!-- /dashDarkSection -->
 
+      <div id="dashModulesSection">
       <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
-        <h3 style="font-family:var(--fh);font-size:16px;font-weight:700;color:#eef2ff">Your Modules</h3>
-        <span style="font-size:12px;color:rgba(255,255,255,.45)" id="dashCompletedCount">0 completed</span>
+        <h3 style="font-family:var(--fh);font-size:16px;font-weight:700;color:var(--text)">Your Modules</h3>
+        <span style="font-size:12px;color:#94a3b8" id="dashCompletedCount">0 completed</span>
       </div>
       <div class="dash-modules-grid" id="dashModGrid"></div>
+      </div><!-- /dashModulesSection -->
     </div>
   </div>
 </div>

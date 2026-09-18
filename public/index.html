@@ -2942,7 +2942,7 @@ async function doLogin() {
         if (!localStorage.getItem('gca_pathway')) localStorage.setItem('gca_pathway', 'Valuation');
         err.style.display = 'none';
         closeLogin();
-        if (selectedPlan === 'year-one') { window.location.href = '/year-two-review'; return; }
+        if (selectedPlan === 'year-one') { localStorage.removeItem('gca_yr2_progress'); window.location.href = '/year-two-review'; return; }
         if (selectedPlan === 'apprentice') { window.location.href = '/apprentice-review'; return; }
         showView('dashboard');
         renderDashboard();

@@ -512,6 +512,12 @@ async function yr2DoLogin() {
 // ── INIT ──
 async function yr2Init() {
   if (yr2PollTimer) { clearInterval(yr2PollTimer); yr2PollTimer = null; }
+  if (localStorage.getItem('gca_yr2_test_fresh') === 'true') {
+    localStorage.removeItem('gca_yr2_test_fresh');
+    yr2ShowOverlay();
+    yr2RenderWelcome();
+    return;
+  }
   yr2ShowOverlay();
   yr2Render('<div style="text-align:center;padding:80px 24px;color:#94a3b8;font-size:14px">Loading...</div>');
   try {

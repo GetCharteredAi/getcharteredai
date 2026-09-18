@@ -5471,6 +5471,16 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Feature-branch test entry: clears session, pre-fills test email, opens plan selector
+  if (urlParams.get('fresh-test') === '1') {
+    history.replaceState({}, '', window.location.pathname);
+    ['gca_token','gca_plan','gca_yr2_progress','gca_yr2_test_fresh'].forEach(k => localStorage.removeItem(k));
+    const ei = document.getElementById('loginEmail');
+    if (ei) ei.value = 'test@getcharteredai.com';
+    openLogin();
+    return;
+  }
+
   // Auto-open login when coming from welcome email link
   if (urlParams.get('login') === '1') {
     history.replaceState({}, '', window.location.pathname);

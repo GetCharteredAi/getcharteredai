@@ -105,6 +105,7 @@ async function activate() {
       localStorage.setItem('gca_user', data.email);
       localStorage.setItem('gca_plan', data.plan);
       localStorage.setItem('gca_activated', Date.now().toString());
+      if (data.plan === 'year-one') localStorage.removeItem('gca_yr2_progress');
 
       // Update success message based on plan
       const subEl = document.getElementById('successSub');

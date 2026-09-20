@@ -508,7 +508,6 @@ async function yr2DoLogin() {
 async function yr2Init() {
   if (yr2PollTimer) { clearInterval(yr2PollTimer); yr2PollTimer = null; }
   if (localStorage.getItem('gca_yr2_test_fresh') === 'true') {
-    localStorage.removeItem('gca_yr2_test_fresh');
     yr2ShowOverlay();
     yr2RenderWelcome();
     return;
@@ -664,6 +663,7 @@ function yr2RenderReturning(currentQ) {
 }
 
 function yr2StartAssessment() {
+  localStorage.removeItem('gca_yr2_test_fresh');
   const p = yr2GetProgress(); p.started = true; p.currentQuestion = 0;
   yr2SaveProgress(p); yr2RenderQuestion(0);
 }

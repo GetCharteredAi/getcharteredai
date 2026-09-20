@@ -624,9 +624,9 @@ input.err{border-color:var(--red)}
 /* ── MOBILE HAMBURGER ─────────────────────────────────────────────────────── */
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;margin-left:auto}
 .nav-hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,0.8);border-radius:2px;transition:all 0.25s}
-.nav-drawer{display:none;position:fixed;top:64px;left:0;right:0;background:#0b0c1c;z-index:999;padding:16px 20px 24px;flex-direction:column;gap:2px;border-top:1px solid rgba(255,255,255,.08);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.nav-drawer{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;background:#0b0c1c;z-index:999;padding:16px 20px 32px;flex-direction:column;gap:2px;border-top:1px solid rgba(255,255,255,.08);box-shadow:0 8px 24px rgba(0,0,0,.4);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .nav-drawer.open{display:flex}
-.nav-drawer a,.nav-drawer button{color:rgba(255,255,255,.75);text-decoration:none;font-size:15px;font-weight:500;padding:11px 4px;border-bottom:1px solid rgba(255,255,255,.06);background:none;border-left:none;border-right:none;border-top:none;cursor:pointer;text-align:left;font-family:var(--f);width:100%}
+.nav-drawer a,.nav-drawer button{color:rgba(255,255,255,.75);text-decoration:none;font-size:14px;font-weight:500;padding:11px 4px;line-height:1.4;border-bottom:1px solid rgba(255,255,255,.06);background:none;border-left:none;border-right:none;border-top:none;cursor:pointer;text-align:left;font-family:var(--f);width:100%}
 .nav-drawer a:last-child,.nav-drawer button:last-child{border-bottom:none}
 .nav-drawer .drawer-enrol{background:var(--blue);color:#fff;border-radius:8px;padding:12px 16px;margin-top:8px;text-align:center;border:none;font-weight:700}
 
@@ -5333,10 +5333,12 @@ function toggleMobileNav() {
   if (!drawer) return;
   const open = drawer.classList.toggle('open');
   if (btn) btn.setAttribute('aria-expanded', open);
+  document.body.style.overflow = open ? 'hidden' : '';
 }
 function closeMobileNav() {
   const drawer = document.getElementById('navDrawer');
   if (drawer) drawer.classList.remove('open');
+  document.body.style.overflow = '';
 }
 // Close drawer on outside click
 document.addEventListener('click', function(e) {
@@ -5345,6 +5347,7 @@ document.addEventListener('click', function(e) {
   if (drawer && drawer.classList.contains('open')) {
     if (!drawer.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
       drawer.classList.remove('open');
+      document.body.style.overflow = '';
     }
   }
 });

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Chartered AI — Employer Introduction</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --navy:#0D0F1C;
+  --gold:#D9B477;
+  --text:#DCE4F1;
+  --dim:rgba(220,228,241,.5);
+  --rule:rgba(220,228,241,.12);
+  --fh:'Plus Jakarta Sans','Inter',sans-serif;
+  --f:'Inter',sans-serif;
+}
+
+html,body{
+  height:100%;
+  overflow:hidden;
+  background:var(--navy);
+  font-family:var(--f);
+  -webkit-font-smoothing:antialiased;
+  color:#fff;
+}
+
+/* ══════════════════════════════════════════
+   DECK
+══════════════════════════════════════════ */
+.deck{
+  position:relative;
+  width:100%;
+  height:calc(100vh - 64px);
+}
+
+.slide{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .32s ease;
+  overflow:hidden;
+}
+
+.slide.is-active{
+  opacity:1;
+  pointer-events:all;
+}
+
+/* ══════════════════════════════════════════
+   SLIDE HEADER
+══════════════════════════════════════════ */
+.slide-hd{
+  flex-shrink:0;
+  padding:22px 48px;
+  display:flex;
+  align-items:center;
+  border-bottom:1px solid var(--rule);
+}
+
+.slide-hd img{
+  height:40px;
+  display:block;
+}
+
+/* ══════════════════════════════════════════
+   SLIDE BODY
+══════════════════════════════════════════ */
+.slide-body{
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  width:100%;
+  max-width:1040px;
+  margin:0 auto;
+  padding:36px 80px;
+}
+
+/* ══════════════════════════════════════════
+   COMMON ELEMENTS
+══════════════════════════════════════════ */
+.eyebrow{
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--gold);
+  opacity:.92;
+  margin-bottom:30px;
+}
+
+/* ══════════════════════════════════════════
+   SLIDE 1 — THE PROPOSITION
+══════════════════════════════════════════ */
+.c01-headline{
+  font-family:var(--fh);
+  font-size:clamp(26px,3.5vw,48px);
+  font-weight:800;
+  line-height:1.1;
+  letter-spacing:-.025em;
+  color:#fff;
+  max-width:820px;
+}
+
+.c01-gold{
+  font-family:var(--fh);
+  font-size:clamp(19px,2.3vw,30px);
+  font-weight:700;
+  color:var(--gold);
+  line-height:1.35;
+  max-width:700px;
+  margin-top:clamp(24px,3.5vh,44px);
+  opacity:0;
+  transform:translateY(9px);
+  transition:opacity .45s ease,transform .45s ease;
+}
+
+.c01-rule{
+  height:1px;
+  background:var(--rule);
+  max-width:480px;
+  margin:clamp(18px,2.8vh,34px) 0;
+  opacity:0;
+  transition:opacity .38s ease .1s;
+}
+
+.c01-white{
+  font-size:clamp(15px,1.45vw,19px);
+  color:var(--text);
+  line-height:1.7;
+  max-width:680px;
+  opacity:0;
+  transform:translateY(9px);
+  transition:opacity .42s ease .15s,transform .42s ease .15s;
+}
+
+/* Card 01 reveal states */
+#slide-1.s1 .c01-gold,
+#slide-1.s2 .c01-gold{
+  opacity:1;
+  transform:translateY(0);
+}
+
+#slide-1.s2 .c01-rule{
+  opacity:1;
+}
+
+#slide-1.s2 .c01-white{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ══════════════════════════════════════════
+   SLIDE 2 — THE CHALLENGE
+══════════════════════════════════════════ */
+.c02-headline{
+  font-family:var(--fh);
+  font-size:clamp(34px,5.5vw,70px);
+  font-weight:800;
+  line-height:1.05;
+  letter-spacing:-.03em;
+  color:#fff;
+  margin-bottom:clamp(16px,2.5vh,28px);
+}
+
+.c02-sub{
+  font-size:clamp(16px,1.7vw,21px);
+  color:var(--text);
+  line-height:1.6;
+  max-width:600px;
+}
+
+/* ══════════════════════════════════════════
+   SLIDES 3–5 — QUESTIONS + SUPPORT
+══════════════════════════════════════════ */
+.q{
+  font-family:var(--fh);
+  font-size:clamp(26px,3.8vw,52px);
+  font-weight:800;
+  line-height:1.15;
+  letter-spacing:-.02em;
+  color:#fff;
+}
+
+.q+.q{
+  margin-top:clamp(12px,1.8vh,22px);
+}
+
+.q-rule{
+  height:1px;
+  background:var(--rule);
+  max-width:440px;
+  margin:clamp(22px,3.2vh,40px) 0;
+}
+
+.q-support{
+  font-size:clamp(14px,1.38vw,18px);
+  color:var(--text);
+  line-height:1.65;
+  max-width:600px;
+}
+
+/* ══════════════════════════════════════════
+   SLIDE 5 — MEET MICHAEL REVEAL
+══════════════════════════════════════════ */
+.michael-panel{
+  margin-top:clamp(20px,3vh,36px);
+  padding:24px 28px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(217,180,119,.2);
+  border-radius:14px;
+  max-width:580px;
+  opacity:0;
+  transform:translateY(9px);
+  transition:opacity .45s ease,transform .45s ease;
+}
+
+#slide-5.show-michael .michael-panel{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.michael-panel-heading{
+  font-family:var(--fh);
+  font-size:clamp(17px,1.7vw,21px);
+  font-weight:700;
+  color:#fff;
+  line-height:1.3;
+  margin-bottom:7px;
+}
+
+.michael-panel-sub{
+  font-size:14px;
+  color:var(--text);
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.btn-michael{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:var(--gold);
+  color:var(--navy);
+  padding:11px 22px;
+  border-radius:8px;
+  font-family:var(--fh);
+  font-size:15px;
+  font-weight:700;
+  text-decoration:none;
+  transition:.15s;
+}
+
+.btn-michael:hover{
+  background:#c9a55a;
+}
+
+/* ══════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════ */
+.ctrl{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 48px;
+  border-top:1px solid var(--rule);
+  background:rgba(13,15,28,.96);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  z-index:100;
+}
+
+.ctrl-btn{
+  background:none;
+  border:1px solid rgba(220,228,241,.18);
+  border-radius:8px;
+  color:rgba(220,228,241,.65);
+  font-family:var(--f);
+  font-size:13px;
+  font-weight:600;
+  padding:8px 20px;
+  min-width:112px;
+  cursor:pointer;
+  transition:.15s;
+  letter-spacing:.01em;
+}
+
+.ctrl-btn:hover:not(:disabled){
+  border-color:rgba(220,228,241,.45);
+  color:#fff;
+}
+
+.ctrl-btn:disabled{
+  opacity:.2;
+  cursor:not-allowed;
+}
+
+.ctrl-ctr{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.07em;
+  color:rgba(220,228,241,.32);
+  font-family:var(--f);
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:768px){
+  .slide-hd{padding:18px 24px}
+  .slide-body{padding:24px 28px}
+  .ctrl{padding:0 24px}
+  .ctrl-btn{min-width:90px;padding:8px 14px}
+}
+
+@media(max-width:480px){
+  .slide-body{padding:20px 20px}
+  .ctrl-btn{min-width:76px;padding:7px 12px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 1 — THE PROPOSITION
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div class="slide is-active" id="slide-1">
+    <div class="slide-hd">
+      <a href="/"><img src="/logo1.png" alt="Get Chartered AI"></a>
+    </div>
+    <div class="slide-body">
+      <p class="eyebrow">Get Chartered AI &middot; For Employers</p>
+      <h1 class="c01-headline">Professional development insight for your people, managers and organisation.</h1>
+      <p class="c01-gold">Know how your people are developing.<br>Know what to do next.</p>
+      <hr class="c01-rule">
+      <p class="c01-white">And where to focus your support, experience and investment.</p>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 2 — THE CHALLENGE
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-hd">
+      <a href="/"><img src="/logo1.png" alt="Get Chartered AI"></a>
+    </div>
+    <div class="slide-body">
+      <p class="eyebrow">The employer challenge</p>
+      <h1 class="c02-headline">What happens after onboarding?</h1>
+      <p class="c02-sub">Your people have started work.<br>How do you know how they&rsquo;re developing?</p>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 3 — YOUR PEOPLE
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-hd">
+      <a href="/"><img src="/logo1.png" alt="Get Chartered AI"></a>
+    </div>
+    <div class="slide-body">
+      <p class="eyebrow">Your people</p>
+      <p class="q">Am I doing enough?</p>
+      <p class="q">Am I progressing as expected?</p>
+      <hr class="q-rule">
+      <p class="q-support">Recognise their progress, build on their strengths and take the next step in their development.</p>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 4 — YOUR MANAGERS
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-hd">
+      <a href="/"><img src="/logo1.png" alt="Get Chartered AI"></a>
+    </div>
+    <div class="slide-body">
+      <p class="eyebrow">Your managers</p>
+      <p class="q">Where are they progressing well?</p>
+      <p class="q">What support or experience do they need?</p>
+      <hr class="q-rule">
+      <p class="q-support">Better-informed development conversations, with clearer priorities and practical action.</p>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 5 — YOUR ORGANISATION
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-hd">
+      <a href="/"><img src="/logo1.png" alt="Get Chartered AI"></a>
+    </div>
+    <div class="slide-body">
+      <p class="eyebrow">Your organisation</p>
+      <p class="q">Where is capability growing?</p>
+      <p class="q">Where should we focus our investment?</p>
+      <hr class="q-rule">
+      <p class="q-support">Identify patterns across teams and cohorts to make more informed workforce decisions.</p>
+      <div class="michael-panel">
+        <div class="michael-panel-heading">From development insight to practical action.</div>
+        <div class="michael-panel-sub">See how Professional Readiness brings employee and manager perspectives together.</div>
+        <a href="/employer-conversation" target="_blank" rel="noopener" class="btn-michael">Meet Michael &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- .deck -->
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     NAVIGATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<nav class="ctrl" aria-label="Presentation controls">
+  <button class="ctrl-btn" id="bPrev" disabled aria-label="Previous slide">&#8592; Previous</button>
+  <span class="ctrl-ctr" id="ctr" aria-live="polite">1 &thinsp;/&thinsp; 5</span>
+  <button class="ctrl-btn" id="bNext" aria-label="Next slide">Next &#8594;</button>
+</nav>
+
+<script>
+(function () {
+  var cur  = 1;   // 1–5
+  var s01  = 0;   // card 01 reveal state: 0 | 1 | 2
+  var s05  = 0;   // card 05 michael state: 0 | 1
+
+  var slides = [null,
+    document.getElementById('slide-1'),
+    document.getElementById('slide-2'),
+    document.getElementById('slide-3'),
+    document.getElementById('slide-4'),
+    document.getElementById('slide-5')
+  ];
+
+  var bPrev = document.getElementById('bPrev');
+  var bNext = document.getElementById('bNext');
+  var ctr   = document.getElementById('ctr');
+
+  function activate(n) {
+    for (var i = 1; i <= 5; i++) {
+      slides[i].classList.toggle('is-active', i === n);
+    }
+  }
+
+  function setS01(state) {
+    s01 = state;
+    slides[1].classList.remove('s0', 's1', 's2');
+    slides[1].classList.add('s' + state);
+  }
+
+  function setS05(state) {
+    s05 = state;
+    if (state === 1) {
+      slides[5].classList.add('show-michael');
+    } else {
+      slides[5].classList.remove('show-michael');
+    }
+  }
+
+  function sync() {
+    ctr.innerHTML = cur + ' &thinsp;/&thinsp; 5';
+    bPrev.disabled = (cur === 1 && s01 === 0);
+    bNext.disabled = (cur === 5 && s05 === 1);
+  }
+
+  function next() {
+    if (cur === 1) {
+      if (s01 < 2) { setS01(s01 + 1); }
+      else { cur = 2; activate(2); }
+    } else if (cur >= 2 && cur <= 4) {
+      cur++; activate(cur);
+    } else if (cur === 5 && s05 === 0) {
+      setS05(1);
+    }
+    sync();
+  }
+
+  function prev() {
+    if (cur === 1) {
+      if (s01 > 0) setS01(s01 - 1);
+    } else if (cur === 2) {
+      cur = 1;
+      setS01(2);
+      activate(1);
+    } else if (cur >= 3 && cur <= 5) {
+      if (cur === 5 && s05 === 1) {
+        setS05(0);
+      } else {
+        cur--;
+        activate(cur);
+      }
+    }
+    sync();
+  }
+
+  bNext.addEventListener('click', next);
+  bPrev.addEventListener('click', prev);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      next();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      prev();
+    }
+  });
+
+  activate(1);
+  setS01(0);
+  sync();
+}());
+</script>
+
+</body>
+</html>

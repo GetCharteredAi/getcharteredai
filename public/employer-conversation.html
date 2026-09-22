@@ -37,7 +37,7 @@ body{font-family:var(--f);background:var(--navy);color:#fff;-webkit-font-smoothi
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(37,99,235,.16) 0%,transparent 60%);pointer-events:none}
 .hero-inner{max-width:780px;margin:0 auto;position:relative;z-index:1}
 .eyebrow-tag{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid var(--amber-border);padding:5px 14px;border-radius:20px;margin-bottom:24px}
-.hero h1{font-family:var(--fh);font-size:clamp(28px,4.2vw,52px);font-weight:800;line-height:1.07;letter-spacing:-.03em;color:#fff;margin-bottom:20px}
+.hero h1{font-family:var(--fh);font-size:clamp(28px,4.2vw,52px);font-weight:800;line-height:1.1;letter-spacing:-.03em;color:#fff;margin-bottom:20px}
 .hero-sub{font-size:17px;color:var(--muted);line-height:1.72;max-width:640px;margin:0 auto}
 .tagline{font-size:13px;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.32);margin-top:20px;text-transform:uppercase}
 
@@ -65,7 +65,7 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
 .sec-lead-muted{color:var(--muted-dark)}
 
 /* ── GRID ── */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
 @media(max-width:760px){.grid2{grid-template-columns:1fr}}
 
 /* ── CHALLENGE CARDS ── */
@@ -74,41 +74,29 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
 .card-light p{font-size:15px;color:var(--muted-dark);line-height:2}
 
 /* ── NAVY CARD — on white/light backgrounds ── */
-.card-navy{background:var(--navy);border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:32px}
-.card-navy h3{font-family:var(--fh);font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.2}
-.card-navy p{font-size:14px;color:rgba(255,255,255,.62);line-height:1.72}
-.card-navy hr.divider-line{border:none;border-top:1px solid rgba(255,255,255,.1);margin:20px 0}
-.part-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid var(--amber-border);padding:3px 10px;border-radius:6px;margin-bottom:10px}
+.card-navy{background:var(--navy);border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:36px}
+.card-navy h3{font-family:var(--fh);font-size:clamp(22px,3vw,28px);font-weight:800;color:#fff;margin-bottom:10px;line-height:1.2}
+.card-navy p{font-size:15px;color:rgba(255,255,255,.72);line-height:1.72}
+.card-navy hr.divider-line{border:none;border-top:1px solid rgba(255,255,255,.1);margin:22px 0}
+.part-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid var(--amber-border);padding:3px 10px;border-radius:6px;margin-bottom:12px}
 
 /* ── CONTENT ROWS (inside navy cards) ── */
-.part-timing{font-size:14px;color:rgba(255,255,255,.52);line-height:1.65;margin-bottom:6px}
-.part-benefit{font-size:15px;color:rgba(255,255,255,.85);line-height:1.6;font-weight:500;margin-bottom:0}
+.part-timing{font-size:clamp(15px,1.8vw,17px);color:rgba(255,255,255,.7);line-height:1.65;margin-bottom:8px}
+.part-benefit{font-size:clamp(17px,2vw,19px);color:rgba(255,255,255,.9);line-height:1.58;font-weight:500;margin-bottom:0}
 .content-rows{display:flex;flex-direction:column}
-.content-row{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;gap:12px;align-items:flex-start}
+.content-row{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;gap:14px;align-items:flex-start}
 .content-row:first-child{padding-top:0}
 .content-row:last-child{border-bottom:none;padding-bottom:0}
-.content-row-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:7px}
-.content-row-label{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
-.content-row-desc{font-size:13px;color:rgba(255,255,255,.58);line-height:1.6}
-.outcome-panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:16px 18px;margin-top:18px}
-.outcome-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:6px}
-.outcome-text{font-size:14px;font-weight:600;color:#fff;line-height:1.55}
-.card-note{font-size:12px;color:rgba(255,255,255,.4);line-height:1.6;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+.content-row-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:9px}
+.content-row-label{font-size:clamp(16px,1.9vw,19px);font-weight:700;color:#fff;margin-bottom:4px;line-height:1.3}
+.content-row-desc{font-size:clamp(15px,1.8vw,18px);color:rgba(255,255,255,.82);line-height:1.6}
+.outcome-panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:18px 20px;margin-top:20px}
+.outcome-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.outcome-text{font-size:clamp(16px,1.9vw,18px);font-weight:600;color:#fff;line-height:1.55}
+.card-note{font-size:12px;color:rgba(255,255,255,.52);line-height:1.65;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
 
 /* ── BLOCKQUOTE ── */
 .blockquote{font-family:var(--fh);font-size:clamp(16px,2vw,20px);font-weight:700;color:var(--navy);letter-spacing:-.015em;line-height:1.45;margin:32px 0 0;padding:22px 26px;border-left:3px solid var(--blue);background:rgba(37,99,235,.05);border-radius:0 12px 12px 0}
-
-/* ── WHAT MAKES IT DIFFERENT ── */
-.proof-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
-@media(max-width:720px){.proof-split{grid-template-columns:1fr}}
-.proof-navy{background:var(--navy);border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:28px}
-.proof-type{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
-.proof-navy h3{font-family:var(--fh);font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.4}
-.proof-navy p{font-size:14px;color:rgba(255,255,255,.62);line-height:1.65;margin-bottom:10px}
-.proof-navy p:last-child{margin-bottom:0}
-.proof-next{font-weight:700;color:rgba(255,255,255,.85) !important}
-.wmid-conclusion{margin-top:28px;padding:20px 24px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15);border-radius:12px;font-size:15px;color:var(--muted-dark);line-height:1.7}
-.wmid-conclusion strong{color:var(--navy)}
 
 /* ── SEE IT IN PRACTICE ── */
 .demo-panel{background:var(--navy);border-radius:20px;overflow:hidden;border:1px solid rgba(0,0,0,.08)}
@@ -120,31 +108,19 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
 @media(max-width:680px){.demo-inputs{grid-template-columns:1fr}}
 .demo-input-block{padding:22px 28px;background:var(--navy)}
 .demo-input-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
-.demo-input-q{font-size:13px;font-weight:600;color:rgba(255,255,255,.65);margin-bottom:10px;line-height:1.5}
-.demo-input-a{font-size:13px;color:rgba(255,255,255,.48);line-height:1.65;font-style:italic;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px}
-.demo-arrow-row{padding:12px 32px;text-align:center;background:rgba(255,255,255,.025);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);font-size:12px;color:rgba(255,255,255,.35);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.demo-perspective{font-size:15px;color:rgba(255,255,255,.82);line-height:1.65;font-style:italic;margin:0}
 
-/* ── ANALYSIS RESULT PANEL ── */
-.analysis-panel{background:#f8fafc;border:1px solid var(--line-light);border-radius:0 0 16px 16px;padding:32px;margin-top:0}
-.analysis-kicker{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-dark);margin-bottom:12px}
-.analysis-h3{font-family:var(--fh);font-size:clamp(18px,2.2vw,22px);font-weight:800;color:var(--navy);margin-bottom:8px}
-.analysis-intro{font-size:14px;color:var(--muted-dark);line-height:1.65;margin-bottom:22px}
-.result-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:640px){.result-cards{grid-template-columns:1fr}}
-.result-card-white{background:#fff;border:1px solid var(--line-light);border-radius:12px;padding:22px}
-.result-card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-dark);margin-bottom:10px}
-.result-card-label-priority{color:var(--blue)}
-.result-card-white h4{font-family:var(--fh);font-size:16px;font-weight:800;color:var(--navy);margin-bottom:10px;line-height:1.3}
-.result-card-white p{font-size:14px;color:var(--muted-dark);line-height:1.65;margin-bottom:0}
-.mgr-prompt-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-dark);margin-top:16px;margin-bottom:6px}
-.mgr-prompt{font-style:italic;color:var(--navy);font-weight:500;font-size:14px;line-height:1.65;margin-top:4px}
+/* ── MICHAEL'S INSIGHT PANEL ── */
+.insight-panel{background:#fff;border:1px solid var(--line-light);border-radius:0 0 16px 16px;padding:32px 36px;margin-bottom:14px}
+.insight-kicker{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.insight-h3{font-family:var(--fh);font-size:clamp(20px,2.6vw,26px);font-weight:800;color:var(--navy);margin-bottom:10px;line-height:1.2}
+.insight-body{font-size:15px;color:var(--muted-dark);line-height:1.65;margin:0}
 .demo-illustrative-note{font-size:11px;color:var(--muted-dark);letter-spacing:.03em;margin-top:10px;text-align:center}
 
 /* ── DEMO CTA NAVY PANEL ── */
 .demo-cta-navy{background:var(--navy);border-radius:16px;padding:40px;margin-top:14px;text-align:center}
 .demo-cta-kicker{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
 .demo-cta-navy h3{font-family:var(--fh);font-size:clamp(20px,2.6vw,26px);font-weight:800;color:#fff;margin-bottom:10px;line-height:1.2}
-.demo-cta-navy > p{font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
 .btn-demo-primary{display:inline-block;background:var(--amber);color:var(--navy);padding:14px 32px;border-radius:10px;font-size:17px;font-weight:700;text-decoration:none;transition:.15s}.btn-demo-primary:hover{background:#d97706}
 .demo-privacy-note{font-size:13px;color:rgba(255,255,255,.42);line-height:1.55;margin-top:16px}
 
@@ -153,11 +129,13 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
 @media(max-width:700px){.wi-levels{grid-template-columns:1fr}}
 .wi-level{background:var(--navy);border-radius:14px;padding:24px 22px}
 .wi-level-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
-.wi-level-quote{font-family:var(--fh);font-size:15px;font-weight:600;color:#fff;line-height:1.55;font-style:italic}
-.wi-note{font-size:14px;color:var(--muted-dark);line-height:1.7;padding:18px 22px;background:#fff;border:1px solid var(--line-light);border-radius:10px;margin-top:4px}
+.wi-level-body{font-family:var(--fh);font-size:15px;font-weight:600;color:#fff;line-height:1.55}
+.wi-note{font-size:15px;color:var(--muted-dark);line-height:1.7;padding:18px 22px;background:#fff;border:1px solid var(--line-light);border-radius:10px;margin-top:4px}
 
 /* ── EMPLOYER JOURNEY — 3 stages ── */
-.journey-stages{display:flex;flex-direction:column;gap:0;margin-top:40px;position:relative}
+.journey-intro{font-size:15px;color:var(--muted-dark);line-height:1.7;margin-bottom:40px;padding:18px 22px;background:rgba(37,99,235,.04);border-left:3px solid var(--blue);border-radius:0 10px 10px 0}
+.journey-intro strong{color:var(--navy)}
+.journey-stages{display:flex;flex-direction:column;gap:0;position:relative}
 .journey-stages::before{content:'';position:absolute;left:14px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--amber),rgba(245,158,11,.15));border-radius:2px;pointer-events:none}
 @media(max-width:680px){.journey-stages::before{display:none}}
 .journey-stage{display:grid;grid-template-columns:200px 1fr;gap:36px;padding:36px 0;border-bottom:1px solid var(--line-light);align-items:start}
@@ -168,31 +146,34 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
 @media(max-width:680px){.journey-stage-left{padding-left:0}}
 .journey-stage-left::before{content:'';position:absolute;left:-22px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--amber);border:2px solid #fff;box-shadow:0 0 0 2px var(--amber);flex-shrink:0}
 @media(max-width:680px){.journey-stage-left::before{display:none}}
-.journey-stage-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:6px}
+.journey-stage-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;line-height:1.5}
 .journey-stage-title{font-family:var(--fh);font-size:16px;font-weight:800;color:var(--navy);line-height:1.35}
 .journey-products{display:flex;flex-direction:column;gap:14px}
 .journey-product{padding:20px 24px;background:#fff;border:1px solid #d1d9e6;border-radius:14px;border-top:3px solid var(--navy);box-shadow:0 2px 12px rgba(13,15,28,.07)}
 .journey-product-name{font-family:var(--fh);font-size:16px;font-weight:800;color:var(--navy);margin-bottom:5px}
 .journey-product-desc{font-size:14px;color:var(--muted-dark);line-height:1.65;margin-bottom:10px}
+.journey-product-note{font-size:12px;color:var(--muted-dark);line-height:1.6;margin-top:8px;padding-top:10px;border-top:1px solid var(--line-light);margin-bottom:10px}
+.journey-footnote{margin-top:32px;padding:18px 22px;background:#f8fafc;border:1px solid var(--line-light);border-radius:10px;font-size:12px;color:var(--muted-dark);line-height:1.7}
 .dj-cta{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--blue);text-decoration:none;padding:5px 12px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);border-radius:6px;transition:.15s}.dj-cta:hover{background:rgba(37,99,235,.12);border-color:rgba(37,99,235,.35);color:var(--blue-dark)}
 .dj-referred{margin-top:28px;padding:22px 26px;background:#fffbeb;border:1px solid #fcd34d;border-left:3px solid var(--amber);border-radius:14px;display:flex;gap:20px;align-items:flex-start}
 .dj-referred-tag{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#92400e;background:#fef3c7;border:1px solid #fcd34d;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-top:3px}
 .dj-referred-body h4{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--navy);margin-bottom:5px}
 .dj-referred-body p{font-size:13px;color:var(--muted-dark);line-height:1.65;margin-bottom:8px}
 
-/* ── CLOSING INVITATION ── */
-.closing-lead{font-size:18px;color:rgba(255,255,255,.72);line-height:1.75;max-width:640px;margin-bottom:40px}
-.closing-next-step{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:28px 32px;max-width:600px;margin-bottom:40px}
-.closing-next-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,158,11,.75);margin-bottom:10px}
-.closing-next-text{font-size:16px;color:rgba(255,255,255,.65);line-height:1.65}
+/* ── VALUE PANEL ── */
+.value-panel{padding:80px 48px;background:var(--navy-2);border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);text-align:center}
+.value-inner{max-width:700px;margin:0 auto}
+.value-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:20px}
+.value-h2{font-family:var(--fh);font-size:clamp(26px,3.6vw,40px);font-weight:800;line-height:1.1;letter-spacing:-.025em;color:#fff;margin-bottom:24px}
+.value-body{font-size:17px;color:rgba(255,255,255,.72);line-height:1.72;margin-bottom:28px;max-width:640px;margin-left:auto;margin-right:auto}
+.value-closing{font-size:15px;color:rgba(255,255,255,.45);line-height:1.65;font-style:italic}
+@media(max-width:600px){.value-panel{padding:60px 24px}}
 
-/* ── CTA ── */
-.cta-section{background:var(--navy-2);padding:80px 48px;text-align:center;border-top:1px solid rgba(255,255,255,.07)}
-.cta-inner{max-width:540px;margin:0 auto}
-.cta-section h2{font-family:var(--fh);font-size:clamp(26px,3.6vw,42px);font-weight:800;color:#fff;letter-spacing:-.025em;margin-bottom:16px;line-height:1.1}
-.cta-section p{font-size:16px;color:var(--muted);line-height:1.72;margin-bottom:36px}
+/* ── CLOSING ── */
+.closing-lead{font-size:18px;color:rgba(255,255,255,.72);line-height:1.75;max-width:640px;margin-bottom:40px}
+
+/* ── CTA BUTTON ── */
 .btn-cta{display:inline-block;background:var(--amber);color:var(--navy);padding:15px 32px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;transition:.15s}.btn-cta:hover{background:#d97706}
-@media(max-width:600px){.cta-section{padding:60px 24px}}
 </style>
 </head>
 <body>
@@ -206,8 +187,8 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
 <div class="hero">
   <div class="hero-inner">
     <div class="eyebrow-tag">Professional Readiness &middot; For Employers</div>
-    <h1>Developing professionals. Supporting managers. Building capability.</h1>
-    <p class="hero-sub">A clearer picture of how your people are developing &mdash; from their first months after onboarding through chartership and greater responsibility.</p>
+    <h1>Know how your people are developing.<br>Know what to do next.</h1>
+    <p class="hero-sub">Professional development insight for your people, managers and organisation.</p>
     <p class="tagline">Thoughtfully designed &middot; Human-led &middot; AI-assisted</p>
   </div>
 </div>
@@ -223,29 +204,29 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
   </div>
 </div>
 
-<!-- THE CHALLENGE -->
+<!-- THE EMPLOYER CHALLENGE -->
 <div class="section sec-light">
   <div class="sec-inner-narrow">
-    <div class="kicker">The challenge</div>
+    <div class="kicker">The Employer Challenge</div>
     <h2 class="sec-h2 sec-h2-dark">What happens after onboarding?</h2>
-    <p class="sec-lead sec-lead-muted">Once induction is complete and real work begins, developing professionals are no longer just learning systems and tasks. They are learning when to ask, when to act, how to explain their reasoning and how to exercise judgement &mdash; and that does not happen automatically.</p>
+    <p class="sec-lead sec-lead-muted">Your graduates and apprentices have joined their teams and started doing real work.</p>
 
     <div class="grid2">
       <div class="card-light">
-        <h3>The developing professional&hellip;</h3>
-        <p>Am I doing enough?<br>When should I ask for help?<br>Am I progressing as expected?</p>
+        <h3>Your people&hellip;</h3>
+        <p>How am I doing?<br>Am I progressing as expected?<br>Where should I focus?</p>
       </div>
       <div class="card-light">
-        <h3>The manager&hellip;</h3>
-        <p>Where are they doing well?<br>Where do they need more experience?<br>What should we focus on next?</p>
+        <h3>Your managers&hellip;</h3>
+        <p>How are they progressing?<br>Where are they doing well?<br>What support or experience would be useful?</p>
       </div>
     </div>
 
-    <div class="blockquote">Professional Readiness brings both perspectives together, creating a clearer picture of development and what should happen next.</div>
+    <div class="blockquote">A clearer picture helps both sides have a more purposeful development conversation.</div>
   </div>
 </div>
 
-<!-- PART ONE AND PART TWO — approved cards, unchanged -->
+<!-- PART ONE AND PART TWO -->
 <div class="section sec-white">
   <div class="sec-inner">
     <div class="kicker">One product. Two development points.</div>
@@ -279,21 +260,21 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
             <div class="content-row-dot"></div>
             <div>
               <div class="content-row-label">Michael brings the perspectives together</div>
-              <div class="content-row-desc">Identifies development priorities and suggests useful next actions and conversation prompts.</div>
+              <div class="content-row-desc">Identifies development priorities and suggests useful actions and conversation prompts.</div>
             </div>
           </div>
         </div>
         <div class="outcome-panel">
           <div class="outcome-label">The Outcome</div>
-          <div class="outcome-text">A more focused development conversation and agreed next steps.</div>
+          <div class="outcome-text">A more focused development conversation and agreed actions.</div>
         </div>
         <p class="card-note">Employee reflections remain private. Managers receive development outcomes and conversation prompts &mdash; not raw answers.</p>
       </div>
 
       <div class="card-navy">
-        <div class="part-badge">Part Two &middot; As People Progress</div>
+        <div class="part-badge">Part Two &middot; As Capability Develops</div>
         <h3>Professional Readiness Review</h3>
-        <p class="part-timing">A deeper review of technical and professional capability at an appropriate development point.</p>
+        <p class="part-timing">A deeper, employee-owned review of developing technical and professional capability.</p>
         <p class="part-benefit">Understanding how knowledge and workplace experience are translating into professional capability.</p>
         <hr class="divider-line">
         <div class="content-rows">
@@ -301,169 +282,128 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
             <div class="content-row-dot"></div>
             <div>
               <div class="content-row-label">Technical knowledge</div>
-              <div class="content-row-desc">What do they know within their professional pathway?</div>
+              <div class="content-row-desc">What do they understand within their pathway?</div>
             </div>
           </div>
           <div class="content-row">
             <div class="content-row-dot"></div>
             <div>
               <div class="content-row-label">Application and judgement</div>
-              <div class="content-row-desc">Can they apply that knowledge and explain their reasoning?</div>
+              <div class="content-row-desc">Can they apply that knowledge, explain their reasoning and recognise their limits?</div>
             </div>
           </div>
           <div class="content-row">
             <div class="content-row-dot"></div>
             <div>
-              <div class="content-row-label">Development priorities</div>
-              <div class="content-row-desc">Where would further learning, practice or workplace experience be useful?</div>
+              <div class="content-row-label">Progression</div>
+              <div class="content-row-desc">What is developing well, and what knowledge or experience should they focus on?</div>
             </div>
           </div>
         </div>
         <div class="outcome-panel">
           <div class="outcome-label">The Outcome</div>
-          <div class="outcome-text">A clearer view of technical and professional development, informing the next development conversation.</div>
+          <div class="outcome-text">A more informed technical and professional development conversation.</div>
         </div>
-        <p class="card-note">Part Two can be used independently of Part One, at an appropriate progression point.</p>
+        <p class="card-note">Part Two can be used at appropriate development stages and does not depend on completing Part One.</p>
       </div>
 
-    </div>
-  </div>
-</div>
-
-<!-- WHAT MAKES IT DIFFERENT -->
-<div class="section sec-light">
-  <div class="sec-inner-narrow">
-    <div class="kicker">What makes it different</div>
-    <h2 class="sec-h2 sec-h2-dark">The right support starts with understanding the need.</h2>
-    <p class="sec-lead sec-lead-muted">Two people may appear to be struggling in the same area, but for very different reasons.</p>
-
-    <div class="proof-split">
-      <div class="proof-navy">
-        <div class="proof-type">Person A</div>
-        <h3>Needs more practice</h3>
-        <p>They receive regular feedback but aren&rsquo;t yet putting it into practice.</p>
-        <p class="proof-next"><strong>Next step:</strong> Targeted practice and follow-up.</p>
-      </div>
-      <div class="proof-navy">
-        <div class="proof-type">Person B</div>
-        <h3>Needs more experience</h3>
-        <p>They understand what&rsquo;s expected but haven&rsquo;t had the opportunity to demonstrate it.</p>
-        <p class="proof-next"><strong>Next step:</strong> Relevant workplace experience and feedback.</p>
-      </div>
-    </div>
-
-    <div class="wmid-conclusion">
-      <strong>Professional Readiness helps identify what is holding someone back</strong>, so managers can focus on the support that will make a difference.
     </div>
   </div>
 </div>
 
 <!-- SEE IT IN PRACTICE -->
-<div class="section sec-white">
+<div class="section sec-light">
   <div class="sec-inner-narrow">
-    <div class="kicker">See it in practice</div>
-    <h2 class="sec-h2 sec-h2-dark">From reflection to a more focused development conversation.</h2>
-    <p class="sec-lead sec-lead-muted">Michael uses the employee&rsquo;s own view and the manager&rsquo;s observed perspective together to identify what is likely holding someone back and what would help most.</p>
+    <div class="kicker">See It In Practice</div>
+    <h2 class="sec-h2 sec-h2-dark" style="margin-bottom:32px">Two perspectives. One clearer picture.</h2>
 
     <div class="demo-panel">
       <div class="demo-eyebrow-bar">
         <img src="/images/michael-avatar.jpg" alt="Michael">
         <div class="demo-eyebrow-bar-text">
           <h4>Michael&rsquo;s analysis</h4>
-          <p>Bringing the employee and manager perspectives together</p>
+          <p>Employee and manager perspectives combined.</p>
         </div>
       </div>
       <div class="demo-inputs">
         <div class="demo-input-block">
-          <div class="demo-input-label">Employee reflection</div>
-          <div class="demo-input-q">A client challenges part of your advice. What would you do next?</div>
-          <div class="demo-input-a">&ldquo;I understand what to do &mdash; check the information, explain my reasoning clearly and escalate if needed. I have had very little direct client-facing responsibility so far.&rdquo;</div>
+          <div class="demo-input-label">Employee</div>
+          <p class="demo-perspective">&ldquo;I know how to respond, but I&rsquo;ve had little direct client experience.&rdquo;</p>
         </div>
         <div class="demo-input-block">
-          <div class="demo-input-label">Manager perspective</div>
-          <div class="demo-input-q">What have you observed about client-facing experience and response to feedback?</div>
-          <div class="demo-input-a">&ldquo;She communicates clearly internally and responds well to feedback. She hasn&rsquo;t had much direct client responsibility yet &mdash; those conversations have mainly been handled by more senior team members.&rdquo;</div>
-        </div>
-      </div>
-      <div class="demo-arrow-row">Michael analysing &darr;</div>
-    </div>
-
-    <div class="analysis-panel">
-      <div class="analysis-kicker">Michael&rsquo;s Analysis</div>
-      <h3 class="analysis-h3">What&rsquo;s holding back progress?</h3>
-      <p class="analysis-intro">Michael brings the two perspectives together to identify what support may be useful next.</p>
-      <div class="result-cards">
-        <div class="result-card-white">
-          <div class="result-card-label result-card-label-priority">Development Priority &middot; Workplace Exposure</div>
-          <h4>The next step is workplace experience.</h4>
-          <p>She understands how to respond to a client challenge and communicates well internally. What she hasn&rsquo;t yet had is enough direct client-facing experience to put that understanding into practice.</p>
-        </div>
-        <div class="result-card-white">
-          <div class="result-card-label">Suggested Next Step</div>
-          <p>Give her the opportunity to take part in client conversations, with support and feedback from a more experienced colleague.</p>
-          <div class="mgr-prompt-label">For the Manager to Explore</div>
-          <p class="mgr-prompt">&ldquo;What client-facing opportunities could we build into your work over the next few months?&rdquo;</p>
+          <div class="demo-input-label">Manager</div>
+          <p class="demo-perspective">&ldquo;She communicates well but hasn&rsquo;t had much client responsibility.&rdquo;</p>
         </div>
       </div>
     </div>
 
-    <p class="demo-illustrative-note">Illustrative example &mdash; the actual output depends on the evidence provided.</p>
+    <div class="insight-panel">
+      <div class="insight-kicker">Michael&rsquo;s Insight</div>
+      <h3 class="insight-h3">More experience, not more training.</h3>
+      <p class="insight-body">Give her supported opportunities to participate in client conversations.</p>
+    </div>
+
+    <p class="demo-illustrative-note">Illustrative example &mdash; actual outcomes depend on the evidence provided.</p>
 
     <div class="demo-cta-navy">
       <div class="demo-cta-kicker">Try it yourself</div>
-      <h3>See how Michael turns reflection into action.</h3>
-      <p>Explore the interactive demonstration to see how employee and manager perspectives inform a more focused development conversation.</p>
+      <h3>See Michael in action.</h3>
       <a href="/professional-readiness-demo" target="_blank" class="btn-demo-primary">Try the interactive demo &rarr;</a>
-      <div class="demo-privacy-note">The manager receives development outcomes and conversation prompts &mdash; not the employee&rsquo;s private answers.</div>
+      <div class="demo-privacy-note">Managers receive development insights, not private employee answers.</div>
     </div>
 
   </div>
 </div>
 
 <!-- WORKFORCE INTELLIGENCE -->
-<div class="section sec-light">
+<div class="section sec-white">
   <div class="sec-inner-narrow">
-    <div class="kicker">Workforce intelligence</div>
-    <h2 class="sec-h2 sec-h2-dark">From individual insight to a clearer workforce picture.</h2>
-    <p class="sec-lead sec-lead-muted">Professional Readiness sits alongside existing graduate and apprenticeship programmes, managers, mentors and workplace training. When the same structured approach is used consistently, individual development signals begin to build a wider picture.</p>
+    <div class="kicker">Workforce Intelligence</div>
+    <h2 class="sec-h2 sec-h2-dark">From development insight to a clearer workforce picture.</h2>
+    <p class="sec-lead sec-lead-muted">Bring together relevant development insights to understand progress across your teams and intakes.</p>
 
     <div class="wi-levels">
       <div class="wi-level">
-        <div class="wi-level-label">For the developing professional</div>
-        <div class="wi-level-quote">&ldquo;I know where I&rsquo;m doing well and what to focus on next.&rdquo;</div>
+        <div class="wi-level-label">Your People</div>
+        <div class="wi-level-body">Understand their strengths and what to focus on.</div>
       </div>
       <div class="wi-level">
-        <div class="wi-level-label">For the manager</div>
-        <div class="wi-level-quote">&ldquo;I have clearer development priorities and more useful actions to discuss.&rdquo;</div>
+        <div class="wi-level-label">Your Managers</div>
+        <div class="wi-level-body">Have clearer information to guide development conversations and workplace opportunities.</div>
       </div>
       <div class="wi-level">
-        <div class="wi-level-label">For the employer</div>
-        <div class="wi-level-quote">&ldquo;We can identify recurring development needs and patterns across teams and cohorts.&rdquo;</div>
+        <div class="wi-level-label">Your Organisation</div>
+        <div class="wi-level-body">Identify emerging capability patterns and recurring development needs across teams.</div>
       </div>
     </div>
 
-    <div class="wi-note">Across a cohort, appropriately aggregated development insights can help employers recognise recurring strengths, potential development gaps and areas where further workplace experience or support may be useful.</div>
+    <div class="wi-note">Use those insights to inform your workforce development and investment decisions.</div>
   </div>
 </div>
 
-<!-- THE EMPLOYER JOURNEY — 3 stages -->
-<div class="section sec-white">
+<!-- THE EMPLOYER JOURNEY -->
+<div class="section sec-light">
   <div class="sec-inner-narrow">
-    <div class="kicker">The employer journey</div>
-    <h2 class="sec-h2 sec-h2-dark">How support develops over time.</h2>
-    <p class="sec-lead sec-lead-muted">Employers choose support according to their people&rsquo;s development stages and needs. Not every employee will follow the same path or use every product.</p>
+    <div class="kicker">The Employer Journey</div>
+    <h2 class="sec-h2 sec-h2-dark">Supporting your people as they progress.</h2>
+    <p class="sec-lead sec-lead-muted">Professional Readiness works alongside your existing graduate, apprenticeship and professional development programmes.</p>
+
+    <div class="journey-intro">
+      <strong>Connecting learning with workplace experience.</strong> Our insights can help inform manager conversations, annual reviews and, where appropriate, formal apprenticeship progress reviews.
+    </div>
 
     <div class="journey-stages">
 
       <div class="journey-stage">
         <div class="journey-stage-left">
-          <div class="journey-stage-label">Stage One</div>
+          <div class="journey-stage-label">Stage One &middot; 8&ndash;12 Weeks After Joining</div>
           <div class="journey-stage-title">Entering Professional Work</div>
         </div>
         <div class="journey-products">
           <div class="journey-product">
             <div class="journey-product-name">Professional Readiness Benchmark</div>
-            <div class="journey-product-desc">A clearer view of how someone is beginning to operate professionally after onboarding.</div>
+            <div class="journey-product-desc">Understand how your people are settling into their roles and identify useful development actions.</div>
+            <div class="journey-product-note">Employer benefit: A clearer starting point for the next development conversation or apprenticeship progress review.</div>
             <a href="/employer/professional-readiness" class="dj-cta">Explore &rarr;</a>
           </div>
         </div>
@@ -471,13 +411,14 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
 
       <div class="journey-stage">
         <div class="journey-stage-left">
-          <div class="journey-stage-label">Stage Two</div>
-          <div class="journey-stage-title">Developing Technical and Professional Capability</div>
+          <div class="journey-stage-label">Stage Two &middot; Developing Capability</div>
+          <div class="journey-stage-title">Progressing Within the Profession</div>
         </div>
         <div class="journey-products">
           <div class="journey-product">
             <div class="journey-product-name">Professional Readiness Review</div>
-            <div class="journey-product-desc">A deeper check of technical knowledge, application and professional judgement as capability develops.</div>
+            <div class="journey-product-desc">Review technical knowledge, workplace application and professional judgement as experience and responsibility grow.</div>
+            <div class="journey-product-note">Illustrative checkpoints: 12, 24 and 36 months. Align reviews with your existing annual reviews, academic learning and workplace development plans. Part Two does not depend on completing Part One.</div>
             <a href="/year-two-review" class="dj-cta">Explore &rarr;</a>
           </div>
           <div class="journey-product">
@@ -490,23 +431,28 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
 
       <div class="journey-stage">
         <div class="journey-stage-left">
-          <div class="journey-stage-label">Stage Three</div>
-          <div class="journey-stage-title">Preparing for Professional Qualification</div>
+          <div class="journey-stage-label">Stage Three &middot; Approaching Qualification</div>
+          <div class="journey-stage-title">Preparing to Demonstrate Professional Competence</div>
         </div>
         <div class="journey-products">
           <div class="journey-product">
             <div class="journey-product-name">Full APC Programme</div>
-            <div class="journey-product-desc">Structured preparation across competencies, communication and assessment readiness.</div>
+            <div class="journey-product-desc">Structured learning, practice and feedback to help developing professionals explain their knowledge, experience and professional decisions.</div>
+            <div class="journey-product-note">Employer benefit: Focused preparation alongside existing employer and training-provider arrangements.</div>
             <a href="/programme" class="dj-cta">Explore &rarr;</a>
           </div>
           <div class="journey-product">
             <div class="journey-product-name">Final Sprint</div>
-            <div class="journey-product-desc">Focused preparation for candidates approaching assessment.</div>
+            <div class="journey-product-desc">Focused preparation for candidates approaching their professional assessment.</div>
             <a href="/sprint" class="dj-cta">Explore &rarr;</a>
           </div>
         </div>
       </div>
 
+    </div>
+
+    <div class="journey-footnote">
+      Illustrative journey. Employers can select support at the stages relevant to their people. The 12-, 24- and 36-month checkpoints are examples, not a fixed programme sequence. Formal apprenticeship Gateway and EPA decisions remain with the responsible parties.
     </div>
 
     <div class="dj-referred">
@@ -521,19 +467,23 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
   </div>
 </div>
 
-<!-- CLOSING INVITATION -->
+<!-- THE VALUE TO YOUR ORGANISATION -->
+<div class="value-panel">
+  <div class="value-inner">
+    <div class="value-eyebrow">The Value to Your Organisation</div>
+    <h2 class="value-h2">Develop your people. Understand their progress. Make the most of their potential.</h2>
+    <p class="value-body">Gain clearer insight into how your people are progressing, support more purposeful development conversations and make informed decisions about workplace experience and future opportunities.</p>
+    <p class="value-closing">Developing people is the investment. Understanding their progress makes that investment more purposeful.</p>
+  </div>
+</div>
+
+<!-- THE NEXT CONVERSATION -->
 <div class="section sec-dark" style="padding-bottom:96px">
   <div class="sec-inner-narrow">
-    <div class="kicker">Let&rsquo;s talk</div>
-    <h2 class="sec-h2" style="max-width:680px;margin-bottom:24px">Where could Professional Readiness fit within your organisation?</h2>
-    <p class="closing-lead">We&rsquo;d welcome the opportunity to understand how you currently develop your people and explore whether Professional Readiness could complement your existing approach.</p>
-
-    <div class="closing-next-step">
-      <div class="closing-next-label">A possible next step</div>
-      <div class="closing-next-text">If there is a potential fit, we could explore a pilot with a team or intake.</div>
-    </div>
-
-    <a href="/employer#contact" class="btn-cta">Get in touch &rarr;</a>
+    <div class="kicker">The Next Conversation</div>
+    <h2 class="sec-h2" style="max-width:680px;margin-bottom:24px">What could this look like for your people?</h2>
+    <p class="closing-lead">We&rsquo;d welcome your perspective on how Professional Readiness might complement the development programmes you already have in place.</p>
+    <a href="/employer#contact" class="btn-cta">Explore together &rarr;</a>
   </div>
 </div>
 

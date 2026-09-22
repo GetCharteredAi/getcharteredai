@@ -59,12 +59,14 @@ exports.handler = async (event) => {
     // Issue sprint JWT token
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) throw new Error('JWT_SECRET not configured');
+    const pathway = (session.metadata?.rics_pathway || '').trim() || null;
     const payload = {
       email: cleanEmail,
       plan: 'sprint',
       activatedAt,
       expires,
-      sessionId: session_id
+      sessionId: session_id,
+      ...(pathway ? { pathway } : {}),
     };
 
     const tokenData = Buffer.from(JSON.stringify(payload)).toString('base64');

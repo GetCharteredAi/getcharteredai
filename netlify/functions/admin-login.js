@@ -29,7 +29,7 @@ exports.handler = async (event) => {
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) throw new Error('JWT_SECRET not configured');
 
-    const validPlans = ['annual', 'monthly', 'sprint', 'referred', 'year-one', 'apprentice', 'benchmark', 'benchmark-manager', 'benchmark-manager-return'];
+    const validPlans = ['annual', 'monthly', 'sprint', 'referred', 'selfpaced', 'year-one', 'apprentice', 'benchmark', 'benchmark-manager', 'benchmark-manager-return'];
     const resolvedPlan = validPlans.includes(plan) ? plan : 'annual';
 
     // ── Benchmark Manager Return: find most recent test session where manager completed ──
@@ -208,14 +208,39 @@ exports.handler = async (event) => {
 
     // ── Standard test plans ──────────────────────────────────────────────────
     const activatedAt = Date.now();
+
+    // Test pathway — matches the default set on line 2949 of index.html
+    const TEST_PATHWAY = 'Valuation';
+    const pathwayPlans = new Set(['annual', 'monthly', 'sprint', 'referred', 'selfpaced']);
+
     const payload = {
       email: 'test@getcharteredai.com',
       plan: resolvedPlan,
       activatedAt,
-      expires: activatedAt + 365 * 24 * 60 * 60 * 1000
+      expires: activatedAt + 365 * 24 * 60 * 60 * 1000,
+      ...(pathwayPlans.has(resolvedPlan) ? { pathway: TEST_PATHWAY } : {}),
     };
 
     const token = generateToken(payload, jwtSecret);
+
+    // For selfpaced: create a test Blobs record with all 12 modules unlocked so every
+    // module is accessible during testing without needing real unlock purchases.
+    if (resolvedPlan === 'selfpaced') {
+      try {
+        const spStore = process.env.NETLIFY_BLOBS_CONTEXT
+          ? getStore('selfpaced-progress')
+          : getStore({ name: 'selfpaced-progress', siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
+        await spStore.set('test@getcharteredai.com', JSON.stringify({
+          customerId: 'test',
+          paymentMethodId: 'test',
+          unlockedModules: [1,2,3,4,5,6,7,8,9,10,11,12],
+          createdAt: activatedAt,
+          isTestRecord: true,
+        }));
+      } catch (e) {
+        console.warn('[admin-login] selfpaced Blobs write failed (non-fatal):', e.message);
+      }
+    }
 
     return {
       statusCode: 200,

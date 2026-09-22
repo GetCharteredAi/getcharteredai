@@ -76,6 +76,7 @@ exports.handler = async (event) => {
     let plan = null;
     let activatedAt = null;
     let expires = null;
+    let pathway = null;
     let foundPayment = false; // true when a payment is found but plan can't be confirmed
 
     if (custData.data && custData.data.length > 0) {
@@ -91,6 +92,7 @@ exports.handler = async (event) => {
           plan = 'monthly';
           activatedAt = subData.data[0].start_date * 1000;
           expires = Date.now() + (60 * 24 * 60 * 60 * 1000);
+          pathway = (subData.data[0].metadata?.rics_pathway || '').trim() || null;
           break;
         }
 
@@ -106,8 +108,9 @@ exports.handler = async (event) => {
             activatedAt = paid.created * 1000;
             foundPayment = true;
 
-            // Fetch the checkout session to get the price ID for accurate plan detection
+            // Fetch the checkout session to get the price ID and pathway for accurate plan detection
             let priceId = '';
+            let csPathway = null;
             try {
               const csResp = await fetch(
                 `https://api.stripe.com/v1/checkout/sessions?payment_intent=${paid.id}&expand[]=data.line_items&limit=1`,
@@ -116,15 +119,18 @@ exports.handler = async (event) => {
               if (csResp.ok) {
                 const csData = await csResp.json();
                 priceId = csData.data?.[0]?.line_items?.data?.[0]?.price?.id || '';
+                csPathway = (csData.data?.[0]?.metadata?.rics_pathway || '').trim() || null;
               }
             } catch (_) { /* price ID stays empty; explicit-match block below will handle it */ }
 
             if (REFERRED_PRICE_IDS.has(priceId)) {
               plan = 'referred';
               expires = activatedAt + (90 * 24 * 60 * 60 * 1000);
+              pathway = csPathway;
             } else if (SPRINT_PRICE_IDS.has(priceId)) {
               plan = 'sprint';
               expires = activatedAt + (70 * 24 * 60 * 60 * 1000);
+              pathway = csPathway;
             } else if (YEAR_TWO_PRICE_IDS.has(priceId)) {
               plan = 'year-one';
               // Option C: pre-deploy purchases keep their original 548-day reset window
@@ -134,9 +140,11 @@ exports.handler = async (event) => {
             } else if (ANNUAL_PRICE_IDS.has(priceId)) {
               plan = 'annual';
               expires = activatedAt + (548 * 24 * 60 * 60 * 1000);
+              pathway = csPathway;
             } else if (SELFPACED_PRICE_IDS.has(priceId)) {
               plan = 'selfpaced';
               expires = activatedAt + (548 * 24 * 60 * 60 * 1000);
+              pathway = csPathway;
             } else {
               // Price ID is empty or unrecognised — do not guess the plan.
               // foundPayment=true will surface a clear error below rather than silent success.
@@ -180,7 +188,8 @@ exports.handler = async (event) => {
       plan,
       activatedAt,
       expires,
-      resetIssued: Date.now()
+      resetIssued: Date.now(),
+      ...(pathway ? { pathway } : {}),
     };
 
     const tokenData = Buffer.from(JSON.stringify(payload)).toString('base64');

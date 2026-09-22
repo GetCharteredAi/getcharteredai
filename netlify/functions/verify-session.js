@@ -94,11 +94,13 @@ exports.handler = async (event) => {
 
     // Create a simple token (base64 encoded payload + secret)
     // This avoids needing the jsonwebtoken npm package
+    const pathway = (session.metadata?.rics_pathway || '').trim() || null;
     const payload = {
       email: cleanEmail,
       plan: plan,
       sessionId: session_id,
       activatedAt: activatedAt,
+      ...(pathway ? { pathway } : {}),
       expires: activatedAt + (
         plan === 'annual'      ? 548 * 24 * 60 * 60 * 1000 :
         plan === 'selfpaced'   ? 548 * 24 * 60 * 60 * 1000 :

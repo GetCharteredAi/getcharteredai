@@ -24,11 +24,13 @@ exports.handler = async (event) => {
       body: JSON.stringify({ error: 'JWT_SECRET not configured' }) };
   }
 
-  // DEPLOY_URL is set by Netlify to this deploy's own URL (branch / preview).
-  const deployUrl = (process.env.DEPLOY_URL || '').replace(/\/$/, '');
+  // Derive the deploy URL from the incoming request host — works for branch
+  // deploys and PR previews where DEPLOY_URL may not be set.
+  const host = event.headers['x-forwarded-host'] || event.headers['host'] || '';
+  const deployUrl = host ? `https://${host}` : (process.env.DEPLOY_URL || process.env.URL || '').replace(/\/$/, '');
   if (!deployUrl) {
     return { statusCode: 500, headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'DEPLOY_URL not available' }) };
+      body: JSON.stringify({ error: 'Could not determine deploy URL' }) };
   }
 
   // ── Token factory ─────────────────────────────────────────────────────────

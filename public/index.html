@@ -4954,7 +4954,7 @@ function renderQuiz(m) {
 
 function selectOpt(modId, qi, oi) {
   if (quizSubmitted) return;
-  const m = MODULES.find(x => x.id === modId);
+  const m = (window._lessonCache && window._lessonCache[modId]) || MODULES.find(x => x.id === modId);
   const questions = m._quizQuestions || m.quiz;
   // Clear row
   questions[qi].opts.forEach((_,k) => {
@@ -4971,7 +4971,7 @@ function selectOpt(modId, qi, oi) {
 function submitQuiz(modId) {
   if (quizSubmitted) return;
   quizSubmitted = true;
-  const m = MODULES.find(x => x.id === modId);
+  const m = (window._lessonCache && window._lessonCache[modId]) || MODULES.find(x => x.id === modId);
   const questions = m._quizQuestions || m.quiz;
   let score = 0;
   questions.forEach((q, qi) => {

@@ -3,6 +3,8 @@
   publish = "public"
   functions = "netlify/functions"
 
+[dev]
+  port = 8080
 
 [build.environment]
   NODE_VERSION = "18"
@@ -115,6 +117,16 @@
 [[redirects]]
   from = "/employer/professional-readiness/demo"
   to = "/professional-readiness-demo.html"
+  status = 200
+
+[[redirects]]
+  from = "/employer-conversation"
+  to = "/employer-conversation.html"
+  status = 200
+
+[[redirects]]
+  from = "/employer-professional-readiness-review"
+  to = "/employer-professional-readiness-review.html"
   status = 200
 
 [functions."p1-scheduled"]

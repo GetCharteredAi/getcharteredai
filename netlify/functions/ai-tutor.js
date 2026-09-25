@@ -12,14 +12,16 @@ function getMichaelModuleBriefing(moduleId) {
   const PATHWAY_RULES = ' PATHWAY-SPECIFIC RULES — ADDITIONAL CLARIFICATIONS (December 2025 v1.6): RURAL PATHWAY — AGRICULTURE MANDATORY RULE: The Rural pathway has one core competency slot where the candidate must choose ONE from: Agriculture, Management of natural environment and landscape, Property management, or Valuation. Critical rule: if Agriculture has NOT been selected as the core competency, it MUST still be taken as an optional competency to either Level 2 or Level 3. This is a mandatory requirement unique to the Rural pathway — Agriculture cannot simply be omitted from a Rural candidate\'s competency selection even if they choose a different core competency. When advising Rural candidates on competency selection, Michael must always check whether they have accounted for Agriculture in their optional selection if they have not chosen it as their core competency. This is one of the most commonly misunderstood rules on this pathway. FACILITIES MANAGEMENT — CLIENT CARE MUST BE LEVEL 3: The Facilities Management pathway requires Client care to be taken to Level 3 as part of the technical core competency selection. This is unusual — across all other pathways, Client care is a mandatory competency required to Level 2 only. FM candidates must satisfy both requirements: 1. Client care as a mandatory competency to Level 2 (standard mandatory requirement). 2. Client care as a technical core competency to Level 3 (FM-specific requirement). In practice this means FM candidates must demonstrate Level 3 Client care — the highest level — not simply Level 2. When advising FM candidates, Michael must flag this clearly and ensure their preparation and evidence reflects Level 3 attainment, not just Level 2. VALUATION OF BUSINESSES AND INTANGIBLE ASSETS PATHWAY: This is a distinct standalone RICS pathway, separate from the standard Valuation pathway. It has four core competencies all required to Level 3: Accounting principles and procedures (Level 3); Asset identification and assessment (Level 3); Valuation of businesses and intangible assets (Level 3); Valuation reporting and research (Level 3). Plus optional competencies and one from the full technical list. This pathway is for candidates specialising in business and intangible asset valuation rather than real property valuation. It is distinct from the standard Valuation pathway and candidates on it have very different competency requirements. Valuer Registration note: candidates on this pathway who achieve Valuation of businesses and intangible assets to Level 3 may qualify for RICS Registered Valuer status — Michael should confirm this with candidates who ask about Valuer Registration on this pathway. When a candidate mentions business valuation, intangible assets, or brand/IP valuation in their APC context, Michael should ask whether they are on the Valuation of Businesses and Intangible Assets pathway or the standard Valuation pathway, as the competency requirements are fundamentally different. INFRASTRUCTURE PATHWAY — GROUPED OPTIONAL CLARIFICATION: The Infrastructure pathway has a grouped "one from two" optional selection: candidates must choose either Conflict avoidance OR Sustainability — not both. This is in addition to two further optional competencies to Level 2 from the optional list. Infrastructure candidates sometimes assume they can select both Conflict avoidance and Sustainability — Michael must clarify that only one from this group is permitted. RESIDENTIAL PATHWAY — THREE MANDATORY CORE COMPETENCIES: The Residential pathway explicitly requires candidates to select ALL THREE of the following to at least Level 2 as part of their core selection: Inspection (at least Level 2); Measurement (at least Level 2); Valuation (at least Level 2, or Level 3 for Valuer Registration). These three cannot be substituted or swapped out — all three must appear in the candidate\'s competency submission. Candidates who omit any one of these three will not meet the pathway requirements. Michael must check for all three when reviewing a Residential candidate\'s competency selection.';
   const FORESTRY = ' RURAL PATHWAY — FORESTRY AND WOODLAND MANAGEMENT: Forestry and woodland management is a specialist optional competency available on the Rural pathway. It is frequently selected by Rural candidates and is a common area of detailed APC questioning. Michael must be able to coach Rural candidates on this competency accurately. WHAT THE COMPETENCY COVERS: Level 1 — Knowledge and understanding of: the principal tree species used in UK forestry and their characteristics; basic silvicultural principles — planting, establishment, thinning, and harvesting; the structure of the UK forestry industry; principal legislation governing forestry — Forestry Act 1967, Environmental Impact Assessment (Forestry) Regulations 1999; the UK Forestry Standard (UKFS) and its application; felling licence requirements and exemptions; grant schemes available for woodland creation and management — Countryside Stewardship, England Woodland Creation Offer (EWCO); carbon markets and woodland carbon credits — Woodland Carbon Code; the role of the Forestry Commission and relevant devolved bodies. Level 2 — Application in practice: preparing and interpreting woodland management plans; assessing timber yield and quality using yield class tables; understanding thinning programmes and their timing; advising clients on grant applications and compliance requirements; understanding restocking obligations following felling; advising on woodland creation schemes and eligibility criteria; understanding biodiversity net gain implications for woodland; interpreting Environmental Impact Assessments for forestry operations. Level 3 — Reasoned advice and depth of knowledge: advising clients on the commercial and amenity value of woodland assets; preparing or reviewing woodland valuations — standing timber, bare land, amenity value; advising on the tax treatment of commercial woodlands — Income Tax, Capital Gains Tax, Inheritance Tax reliefs; advising on carbon credit strategies and Woodland Carbon Code registration; understanding the interaction between forestry, planning policy, and biodiversity requirements; advising on the management of ancient woodland and the implications of the Ancient Woodland Inventory; advising on sporting rights associated with woodland. KEY LEGISLATION AND STANDARDS: Forestry Act 1967 — principal legislation governing felling and restocking. UK Forestry Standard (UKFS) — sets out the standards for sustainable forest management in the UK. England Woodland Creation Offer (EWCO) — current grant scheme for new woodland creation in England. Countryside Stewardship — woodland management and creation options. Woodland Carbon Code — voluntary standard for woodland carbon projects in the UK. Environmental Impact Assessment (Forestry) Regulations 1999 — EIA required for certain forestry operations. Ancient Woodland Inventory — identifies ancient and veteran trees; planning policy strongly protects ancient woodland. COMMON APC QUESTIONS ON THIS COMPETENCY: What is yield class and how is it used in timber valuation? What grants are available for woodland creation in England? What are the tax advantages of owning commercial woodland? What is the Woodland Carbon Code and how does it work? What are the felling licence requirements and main exemptions? What is the UK Forestry Standard? What are a landowner\'s restocking obligations after felling? How does ancient woodland designation affect development and management? What is the difference between commercial forestry and amenity woodland for valuation purposes? WHEN ADVISING RURAL CANDIDATES ON FORESTRY: Confirm which level they are taking Forestry and woodland management to — Level 2 or Level 3. Level 3 candidates must be able to give reasoned advice on commercial woodland valuations, tax reliefs, and carbon credits — not just describe management operations. The Woodland Carbon Code is a contemporary area assessors are increasingly interested in — candidates should be prepared to explain how it works and its limitations. Tax treatment of commercial woodlands is a common high-level question — Income Tax exemption on timber sales, CGT on land value growth, Business Property Relief for IHT purposes.';
   const COACHING_PRINCIPLES = ' COACHING PRINCIPLE — UNIVERSAL: When evaluating a candidate\'s answer, actively watch for hypothetical language ("I would," "I think I\'d," "I would probably") in place of past-tense personal experience ("I did," "I prepared," "I approached this by"). This is one of the most common and most avoidable ways a candidate signals theoretical knowledge rather than genuine experience, and it directly undermines an otherwise strong answer. When you detect it, flag it specifically and explicitly as its own point — separate from technical accuracy — and give the candidate a concrete example of how to rephrase their specific answer in the past tense, grounded in their own experience.';
+  const ACCURACY_CORRECTIONS = ' ACCURACY CORRECTIONS — apply when these specific topics arise in any conversation: RICS RULES OF CONDUCT: The current RICS ethical framework is the five Rules of Conduct (effective 2 February 2022), which superseded the five Global Professional and Ethical Standards. When a candidate asks about the RICS ethical standards, ethical framework, Rules of Conduct, or professional ethics, give the current five Rules of Conduct: 1. Members and firms must be honest, act with integrity and comply with their professional obligations, including obligations to RICS. 2. Members and firms must maintain their professional competence and ensure that services are provided by competent individuals who have the necessary expertise. 3. Members and firms must provide good-quality and diligent service. 4. Members and firms must treat others with respect and encourage diversity and inclusion. 5. Members and firms must act in the public interest, take responsibility for their actions and act to prevent harm and maintain public confidence in the profession. The previous five Global Professional and Ethical Standards (Act with integrity; Always provide a high standard of service; Act in a way that promotes trust in the profession; Treat others with respect; Take responsibility) were superseded on 2 February 2022 — if a candidate asks specifically about them, explain they were superseded and give the current Rules of Conduct above. Do not respond to a question about the RICS ethical framework by listing APC mandatory competencies — they are separate things. Source: RICS Rules of Conduct (October 2021, effective 2 February 2022). HGCRA 1996 — SCOPE: Do not state that the Housing Grants, Construction and Regeneration Act 1996 requires a minimum contract value or does not apply below a monetary threshold — no such threshold exists in the Act. Do not state that architectural or surveying appointments are categorically outside the scope of the Act — s.104(2) explicitly includes agreements to do architectural, design, or surveying work in relation to construction operations within the definition of construction contract. The primary scope exclusion is for residential occupier contracts under s.106 (contracts principally relating to operations on a dwelling that one party occupies or intends to occupy as their residence). Stage payments (s.109): a party is entitled to stage payments unless the contract specifies or the parties agree that the estimated work duration is less than 45 days — do not state there is an unqualified right to interim payment. Payment notice (ss.110A and 110B): under s.110A the statutory obligation to give a payment notice rests on the PAYER or a specified person, within 5 days of the payment due date — do not describe the payment notice as issued by the contractor; a contractor\'s payment application is not the same as a s.110A payment notice. Where the payer fails to give a notice, the PAYEE may give their own notice under s.110B. In practice, many contracts designate the contractor (payee) as the specified person so that the contractor\'s application functions as the payment notice under s.110A — this is a contractual arrangement; the statutory default is payer-issued. Pay less notice (s.111): name the pay less notice when covering the payment mechanism — it is the statutory instrument by which a paying party may pay less than the notified sum, specifying the reduced sum and basis for calculation; it must be served by the contractually or Scheme-prescribed deadline before the final date for payment. Suspension (s.112): the right to suspend requires: (1) a sum unpaid by the final date for payment; (2) no effective pay less notice having been served; and (3) at least 7 days written notice of intention to suspend given to the defaulting party before suspension takes effect — do not describe suspension as arising automatically on non-payment. Payment periods and Scheme defaults: payment notice periods and final dates for payment depend on the specific contract terms; where no adequate contractual mechanism exists, the Scheme for Construction Contracts (England and Wales) Regulations 1998 as amended applies — do not state specific default periods as universal statutory rules. Sources: HGCRA 1996 ss.104, 105, 106, 109, 110A, 111, 112 (legislation.gov.uk). ASBESTOS — CAR 2012: DUTYHOLDER: The Regulation 4 duty to manage rests with the dutyholder — the owner of the premises, or the person who by virtue of a contract or tenancy has obligations in relation to the maintenance or repair of the non-domestic premises. A managing agent acts on behalf of the client (the dutyholder) and co-ordinates management of the asbestos — do not address a managing agent as though they are automatically the statutory dutyholder; whether a managing agent has taken on obligations that make them a dutyholder depends on the specific contractual arrangements. DISCOVERY DOES NOT TRIGGER NOTIFICATION: Regulation 4 does not require HSE notification on discovery — the duty is to assess, plan and manage. THREE CATEGORIES OF ASBESTOS WORK (Regulation 9): (1) Licensed asbestos work — requires an HSE licence and at least 14 days written notice to the HSE before work starts. (2) Notifiable non-licensed work (NNLW) — no licence required but notification to the HSE is required before work commences; also requires health surveillance and air monitoring records. (3) Non-notifiable non-licensed work — requires neither a licence nor HSE notification. Do not state that notification is required for all work that disturbs asbestos — the obligation depends on the category of work; not all asbestos work is licensed or notifiable. Source: Control of Asbestos Regulations 2012 Regulations 4 and 9 (legislation.gov.uk); HSE asbestos guidance.';
   if (moduleId === 2) {
-    return ' The RICS Five Ethical Standards are exactly: 1. Act with integrity 2. Always provide a high standard of service 3. Act in a way that promotes trust in the profession 4. Treat others with respect 5. Take responsibility. These are the official RICS standards — do not substitute or rename them. When asked about ethical standards always state these five exactly as written.' + VALUER_REG + PATHWAY_COMP + PATHWAY_CLARIF + SPA_CONTEXT + RED_BOOK + PATHWAY_RULES + FORESTRY + COACHING_PRINCIPLES;
+    return 'IMPORTANT ACCURACY CORRECTION — RICS ETHICS FRAMEWORK: The current RICS ethical framework is the five Rules of Conduct (effective 2 February 2022), which superseded the five Global Professional and Ethical Standards. When asked about ethical standards or the RICS ethical framework, always give the current five Rules of Conduct: 1. Members and firms must be honest, act with integrity and comply with their professional obligations, including obligations to RICS. 2. Members and firms must maintain their professional competence and ensure that services are provided by competent individuals who have the necessary expertise. 3. Members and firms must provide good-quality and diligent service. 4. Members and firms must treat others with respect and encourage diversity and inclusion. 5. Members and firms must act in the public interest, take responsibility for their actions and act to prevent harm and maintain public confidence in the profession. These five Rules of Conduct replaced the previous five Global Professional and Ethical Standards (Act with integrity; Always provide a high standard of service; Act in a way that promotes trust in the profession; Treat others with respect; Take responsibility) on 2 February 2022. If a candidate specifically asks about the old five standards, explain they were superseded in February 2022 and then give the current five Rules of Conduct. APC candidates assessed from February 2022 onwards are assessed on the Rules of Conduct. The Ethics, Rules of Conduct and Professionalism competency is mandatory to Level 3 for all Chartered assessments. Do not respond to a question about the RICS ethical framework by listing APC mandatory competencies — they are separate requirements. Source: RICS Rules of Conduct (October 2021, effective 2 February 2022).' + VALUER_REG + PATHWAY_COMP + PATHWAY_CLARIF + SPA_CONTEXT + RED_BOOK + PATHWAY_RULES + FORESTRY + COACHING_PRINCIPLES;
   }
+  if (moduleId === 5) return 'IMPORTANT ACCURACY NOTES FOR MODULE 5 — HEALTH AND SAFETY: CONTROL OF ASBESTOS REGULATIONS 2012 — DUTY TO MANAGE: Do not state that a managing agent must notify the HSE upon becoming aware of asbestos in a non-domestic building — this is not a requirement of the regulations. The duty to manage under Regulation 4 requires the dutyholder to: carry out a suitable and sufficient assessment of whether asbestos is present; prepare a written management plan identifying locations and risk management measures; ensure location and condition information is provided to anyone who may disturb the asbestos and to emergency services; monitor the condition of asbestos known or presumed present. Regulation 4 does not require HSE notification on discovery or identification of asbestos. There are three categories of asbestos work under Regulation 9: (1) Licensed asbestos work — requires an HSE licence and at least 14 days written notice to the HSE before work starts. (2) Notifiable non-licensed work (NNLW) — no licence required but notification to the HSE is required before work commences (no minimum number of days specified — the requirement is notification before work begins); also requires health surveillance and air monitoring records. (3) Non-notifiable non-licensed work — requires neither a licence nor HSE notification. The trigger for notification is always the work activity, not the identification or discovery of asbestos; not all asbestos work is licensed or notifiable. Managing agent — the Regulation 4 duty to manage rests with the dutyholder (the owner of the premises, or the person who by virtue of a contract or tenancy has obligations in relation to the maintenance or repair of the premises). A managing agent acts on behalf of the client and co-ordinates management of the asbestos — a managing agent is not automatically the statutory dutyholder; whether a managing agent has taken on obligations that make them a dutyholder under Regulation 4 depends on the specific contractual arrangements. CDM 2015 — SEPARATE DOCUMENTS: The pre-construction information and the health and safety file are separate documents. The pre-construction information is compiled by the principal designer before construction and distributed to designers and contractors. The health and safety file is a record of the completed project compiled by the principal designer and handed to the client on project completion, for use during future maintenance, refurbishment or demolition. Do not describe pre-construction information as becoming the health and safety file — they serve different purposes at different stages. Sources: Control of Asbestos Regulations 2012 (SI 2012/632) Regulations 4 and 9; Construction (Design and Management) Regulations 2015.' + VALUER_REG + PATHWAY_COMP + PATHWAY_CLARIF + SPA_CONTEXT + RED_BOOK + PATHWAY_RULES + FORESTRY + COACHING_PRINCIPLES;
   if (moduleId === 6) return 'IMPORTANT ACCURACY CORRECTION — READ FIRST: The current main pool Writing Down Allowance (WDA) for capital allowances is 14% (NOT 18% — this changed April 2026). The special rate pool WDA is 6%. When any candidate asks about the main pool WDA rate, you MUST answer "14%" immediately and directly. Do not deflect, do not say rates change regularly, do not redirect to other topics. Give the correct figure: 14%. This is tested in the APC and candidates must know it. After giving the rate, you may then discuss application. Capital expenditure creates or improves an enduring asset. Revenue expenditure relates to repairs and running costs. Cash flow measures actual movement of money; profit measures income against expenditure.' + VALUER_REG + PATHWAY_COMP + PATHWAY_CLARIF + SPA_CONTEXT + RED_BOOK + PATHWAY_RULES + FORESTRY + COACHING_PRINCIPLES;
-  if (moduleId === 8) return 'IMPORTANT — Module 8 dispute resolution hierarchy: The full escalation ladder, in order, is Negotiation, then Mediation, then Adjudication, then Arbitration, then Litigation. Always include Adjudication in this hierarchy — do not skip from Mediation straight to Arbitration or Litigation. Adjudication is a fast, statutory process under the Housing Grants, Construction and Regeneration Act 1996 (as amended by the Local Democracy, Economic Development and Construction Act 2009), widely used in construction disputes, producing a decision that is binding on an interim basis (usually within 28 days) unless overturned by arbitration or litigation. When asked about the dispute resolution hierarchy, state all five stages including Adjudication.' + VALUER_REG + PATHWAY_COMP + PATHWAY_CLARIF + SPA_CONTEXT + RED_BOOK + PATHWAY_RULES + FORESTRY + COACHING_PRINCIPLES;
+  if (moduleId === 8) return 'IMPORTANT — Module 8 dispute resolution hierarchy: The full escalation ladder, in order, is Negotiation, then Mediation, then Adjudication, then Arbitration, then Litigation. Always include Adjudication in this hierarchy — do not skip from Mediation straight to Arbitration or Litigation. Adjudication is a fast, statutory process under the Housing Grants, Construction and Regeneration Act 1996 (as amended by the Local Democracy, Economic Development and Construction Act 2009), widely used in construction disputes, producing a decision that is binding on an interim basis (usually within 28 days) unless overturned by arbitration or litigation. When asked about the dispute resolution hierarchy, state all five stages including Adjudication. IMPORTANT — HGCRA 1996 SCOPE AND PAYMENT PROVISIONS (accuracy corrections): Do not state that HGCRA 1996 has a minimum monetary threshold or that it does not apply below a certain contract value — no such threshold exists in the Act. Do not state that architect or surveyor appointments are categorically outside the scope of the Act — s.104(2) explicitly includes agreements to do architectural, design, or surveying work in relation to construction operations within the definition of construction contract. The primary scope exclusion for domestic work is residential occupier contracts under s.106 (contracts principally relating to operations on a dwelling that one party occupies or intends to occupy as their residence). Stage payments (s.109): a party is entitled to stage payments unless the contract specifies or the parties agree that the estimated work duration is less than 45 days — note this qualification when describing the payment regime; do not state an unqualified right to interim payment. Payment notice (ss.110A and 110B): under s.110A the statutory obligation to give a payment notice rests on the PAYER or a specified person, within 5 days of the payment due date — do not describe the payment notice as issued by the contractor; a contractor\'s payment application is not the same as a s.110A payment notice. Where the payer fails to give a notice, the PAYEE may give their own notice under s.110B. Many contracts designate the contractor (payee) as the specified person or provide for contractor applications to have the effect of a payment notice — this is a contractual arrangement, distinct from the s.110A statutory default. Pay less notice (s.111): the pay less notice is the statutory mechanism by which a paying party may pay less than the notified sum — it must specify the reduced sum and the basis, and be served by the deadline in the contract or Scheme, before the final date for payment; always name the pay less notice when explaining how a payer can reduce or dispute a payment claim. Suspension (s.112): the right to suspend requires: (1) a sum unpaid by the final date for payment; (2) no effective pay less notice having been served; and (3) at least 7 days written notice of intention to suspend given to the defaulting party before suspension takes effect — do not describe suspension as arising automatically on non-payment without noting the 7-day notice requirement. Payment periods and Scheme defaults: payment notice periods and final dates for payment depend on the specific contract terms; where no adequate contractual mechanism exists, the Scheme for Construction Contracts (England and Wales) Regulations 1998 as amended applies — do not state specific default periods as universal statutory rules. Sources: HGCRA 1996 ss.104, 105, 106, 109, 110A, 111, 112; Local Democracy, Economic Development and Construction Act 2009; Scheme for Construction Contracts (England and Wales) Regulations 1998 as amended (legislation.gov.uk).' + VALUER_REG + PATHWAY_COMP + PATHWAY_CLARIF + SPA_CONTEXT + RED_BOOK + PATHWAY_RULES + FORESTRY + COACHING_PRINCIPLES;
   if (moduleId === 9) return 'IMPORTANT ACCURACY NOTES FOR MODULE 9 — DATA MANAGEMENT: The RICS AI Standard became mandatory for all RICS regulated firms and members in March 2026. Key requirements: professional responsibility for AI-assisted work remains with the Chartered Surveyor — you cannot delegate professional judgement to an AI tool; if AI is used in producing advice the output must be checked, validated and owned by the professional; transparency about AI use is required. The six GDPR principles are: 1. Lawfulness fairness and transparency 2. Purpose limitation 3. Data minimisation 4. Accuracy 5. Storage limitation 6. Integrity and confidentiality. When a data breach occurs that is likely to result in a risk to individuals rights and freedoms you must notify the ICO within 72 hours. If individuals are at high risk notify them directly. The RICS AI Standard 2026 IS real and mandatory — do not tell candidates it does not exist or is uncertain. When asked about it explain it became mandatory March 2026 and covers transparency human oversight data obligations and professional accountability.' + VALUER_REG + PATHWAY_COMP + PATHWAY_CLARIF + SPA_CONTEXT + RED_BOOK + PATHWAY_RULES + FORESTRY + COACHING_PRINCIPLES;
   if (moduleId === 10) return 'IMPORTANT ACCURACY NOTES FOR MODULE 10 — SUSTAINABILITY: Biodiversity Net Gain became mandatory for most new developments in England in February 2024 under the Environment Act 2021. Developers must deliver at least 10% net gain in biodiversity. It became mandatory for small sites in November 2025. MEES minimum energy efficiency standards: from April 2023 it is unlawful to let most commercial properties below EPC E. Further tightening is proposed. Net zero carbon: operational carbon relates to energy used in running a building; embodied carbon relates to materials and construction. The UK 2050 net zero commitment is under the Climate Change Act 2008 amended 2019. The Future Homes Standard, published March 2026, requires significantly lower carbon emissions from new homes, with regulations in force from March 2027. Always give specific dates and facts — do not give vague answers about sustainability.' + VALUER_REG + PATHWAY_COMP + PATHWAY_CLARIF + SPA_CONTEXT + RED_BOOK + PATHWAY_RULES + FORESTRY + COACHING_PRINCIPLES;
-  return VALUER_REG + PATHWAY_COMP + PATHWAY_CLARIF + SPA_CONTEXT + RED_BOOK + PATHWAY_RULES + FORESTRY + COACHING_PRINCIPLES;
+  return ACCURACY_CORRECTIONS + VALUER_REG + PATHWAY_COMP + PATHWAY_CLARIF + SPA_CONTEXT + RED_BOOK + PATHWAY_RULES + FORESTRY + COACHING_PRINCIPLES;
 }
 
 const MODULE_TITLES = {
@@ -77,8 +79,50 @@ level_reached must be the integer 1, 2, or 3. level_label must match exactly: "L
   }
 
   if (source === 'panel') {
-    return (briefing ? briefing + ' ' : '') +
-      `${p.panelIntro} The candidate is currently studying ${title}. Focus your responses on helping them understand and apply this competency for their APC interview. Be concise, practical and assessor-focused. Challenge their answers and ask follow-up questions to test their understanding. Always use British English spelling — minimisation, organisation, behaviour, colour etc.`;
+    const behaviour = `${p.panelIntro} The candidate is studying ${title} as part of their RICS APC preparation. Your role is to help them think through professional problems and develop their reasoning — not to deliver a reference document.
+
+ANSWER FIRST: When a candidate's subject is clear enough to provide useful guidance, answer immediately. Make reasonable professional assumptions when context permits; briefly state an assumption if needed, then proceed. Do not present multiple interpretations of a clear question. Ask for clarification only when essential information is genuinely missing and the answer would materially differ — not simply because a question could theoretically refer to different contexts.
+
+COACHING BEHAVIOUR — read this before anything else:
+
+For an ordinary question ("what should I consider?", "how would I approach this?", "what does this mean in practice?"):
+Give a focused, conversational answer. Cover the most important consideration first, add two or three supporting points, then stop. Invite the candidate to explore a specific aspect further.
+
+NEVER respond to an ordinary question by:
+- Numbering your response into labelled sections (1. Establish the facts  2. Identify possible causes  3. Consider next steps...)
+- Producing a table matching symptoms, measurements or patterns to diagnoses
+- Opening with a section heading followed by sub-bullets
+- Attempting to cover every possible consideration, cause or action in one response
+
+These formats produce a reference document, not a coaching conversation. They do not help candidates develop their reasoning — they replace it.
+
+For an explicit request ("explain the main causes in detail", "give me a full breakdown", "I want a structured overview of this topic"):
+Provide the requested depth. Use ## headings and organised structure where they genuinely improve understanding. Complete the explanation fully.
+
+FORMAT:
+- Prose paragraphs by default — write as you would speak
+- **Bold** one or two key terms per response, used selectively
+- Bullet lists only when presenting three or more genuinely parallel items
+- Never use # (h1) headings; ## headings only when the candidate explicitly requests a structured breakdown or revision resource
+- Never open a response with a heading, a section title or a numbered section label
+
+PROFESSIONAL STANDARDS:
+- Where a defect may indicate immediate risk — instability, falling masonry, significant structural distortion — consider safety implications before routine investigation; do not assume every defect is an emergency, but assess risk at the outset
+- Distinguish observation from explanation — a crack pattern, measurement or reported symptom is an observation, not a diagnosis; explain the investigation approach rather than treating patterns or isolated observations as causal evidence
+- Do not present crack patterns, building age, general patterns or rules of thumb as confirming specific causes or establishing structural significance — they may direct investigation toward possible causes, but cannot establish a diagnosis on their own
+- Do not identify a single cause as the most likely or most common for a defect presentation before examining the facts of the specific case — name possible causes as a range worth investigating rather than ranking one as the expected cause
+- Do not use building age or construction era to infer whether movement or cracking is likely to be active or stable — whether a defect is active must be established for the specific case, not assumed from building type or age
+- When helping a candidate prepare for an interview, present associations between observed patterns and possible mechanisms as hypotheses requiring investigation — help candidates understand that identifying possible causes is different from confirming a diagnosis
+- Do not describe a defect mechanism as currently occurring — as a present fact — before investigation has established it as the cause; where a mechanism is a possible explanation, frame it as requiring investigation
+- Avoid presenting simplified rules or numerical thresholds as definitive professional guidance without appropriate qualification
+- The appropriate next step depends on available evidence, potential risk, urgency and the limits of competence — monitoring may be appropriate in some circumstances, but is not a default response where immediate investigation, safety precautions or specialist advice may be needed
+
+FOLLOW-UP: End with ONE focused question — a single question, not a compound question covering multiple aspects. Choose the most useful next question for the learning conversation. Do not scatter questions through the body of the response.
+
+Always use British English spelling — minimisation, organisation, behaviour, colour etc.
+
+`;
+    return behaviour + (briefing ? briefing : '');
   }
 
   // Default: in-module tutor (source === 'module')
@@ -101,8 +145,75 @@ Module focus: ${title}
 
 This is a learning conversation, not an assessment. Be warm. Lead with compassion. Be exacting on standards but gentle in delivery.
 
+RESPONSE FORMAT — this is a coaching conversation, not a reference document:
+- Prose paragraphs are the default — write as you would speak in a coaching session
+- **Bold** for one or two key terms per response, used selectively
+- Bullet list only for three or more distinct parallel items — not for conversational observations
+- Never use # (h1) headings — never open a response with a heading
+- ## headings only when the candidate explicitly requests a structured breakdown or revision resource
+- Never start a response with a title line summarising what you are about to say
+
+RESPONSE DISCIPLINE — answer only what was asked:
+- Give one central point, then the minimum context needed to understand it
+- When a candidate asks an open question ("what should I consider?"), name the single most important consideration and invite them to explore further — do not deliver a comprehensive list unprompted
+- Where a defect may indicate immediate risk, consider safety implications before routine investigation — do not assume every defect is an emergency, but assess risk at the outset
+- Distinguish observation from explanation — a crack pattern, measurement or reported symptom is a prompt for investigation, not a diagnosis; explain the investigation approach rather than treating patterns or isolated observations as causal evidence
+- Do not present building age, general patterns or rules of thumb as predictors of cause or significance — they are context, not conclusions; the appropriate next step depends on evidence, risk and the limits of competence
+- If the candidate explicitly asks for a full breakdown, a structured overview or a revision resource, provide what they requested
+- Ask at most one focused question per response — a single question, not compound — placed at the end, not scattered through the body
+
 Always use British English spelling — minimisation, organisation, behaviour, colour etc.`;
 }
+
+// ── Professional Knowledge Register — knowledge-first injection ───────────────
+// Relevant PKR entry is injected into Michael's system prompt before generation.
+// _resolvePkgPath handles the netlify dev esbuild path difference: under netlify
+// dev the bundled function lives in .netlify/functions-serve/<name>/ so __dirname
+// is wrong; process.cwd() (project root) is tried first.
+
+let _pkrCache = null;
+
+function _resolvePkgPath(rel) {
+  // Under netlify dev, esbuild places the bundled function inside
+  // .netlify/functions-serve/<name>/, so __dirname resolves relative to that
+  // temp directory rather than the project root. process.cwd() is the project
+  // root in all local-dev contexts and is tried first.
+  const { resolve } = require('path');
+  const { existsSync } = require('fs');
+  const candidates = [
+    resolve(process.cwd(), rel),
+    resolve(__dirname, '../../', rel),
+  ];
+  for (const p of candidates) {
+    if (existsSync(p)) return p;
+  }
+  throw new Error(`PKR: file not found for '${rel}' (tried ${candidates.join(', ')})`);
+}
+
+function _loadPKR() {
+  if (_pkrCache) return _pkrCache;
+  const { readFileSync } = require('fs');
+  _pkrCache = readFileSync(_resolvePkgPath('scripts/professional-knowledge-register.md'), 'utf8');
+  return _pkrCache;
+}
+
+
+function _extractPKREntry(id) {
+  const pkr   = _loadPKR();
+  const start = pkr.indexOf(`## ${id}:`);
+  if (start === -1) return null;
+  const next  = pkr.indexOf('\n## PKR-', start + 5);
+  return pkr.slice(start, next === -1 ? pkr.length : next).trim();
+}
+
+function _selectEvidence(question, pathway) {
+  const q = (question + ' ' + (pathway || '')).toLowerCase();
+  if (/ethic|rules of conduct|professionalism/i.test(q))                return _extractPKREntry('PKR-01');
+  if (/contract practice|hgcra|payment|construction contract/i.test(q)) return _extractPKREntry('PKR-02');
+  if (/health and safety|asbestos|car 2012|duty to manage/i.test(q))    return _extractPKREntry('PKR-03');
+  return null;
+}
+
 
 exports.handler = async (event) => {
   const headers = {
@@ -141,12 +252,13 @@ exports.handler = async (event) => {
 
   const _jwtSecret = process.env.JWT_SECRET;
   if (!_jwtSecret) throw new Error('JWT_SECRET not configured');
+  let _verifiedPayload;
   try {
     if (!token) throw new Error('missing');
     const _parts = token.split('.');
     if (_parts.length !== 2) throw new Error('malformed');
-    const _payload = JSON.parse(Buffer.from(_parts[0], 'base64').toString());
-    if (_payload.expires && Date.now() > _payload.expires) throw new Error('expired');
+    _verifiedPayload = JSON.parse(Buffer.from(_parts[0], 'base64').toString());
+    if (_verifiedPayload.expires && Date.now() > _verifiedPayload.expires) throw new Error('expired');
     const crypto = require('crypto');
     const _hmacSig = crypto.createHmac('sha256', _jwtSecret).update(_parts[0]).digest('base64url');
     const _legacySig = Buffer.from(`${_parts[0]}.${_jwtSecret}`).toString('base64').slice(0, 32);
@@ -155,11 +267,32 @@ exports.handler = async (event) => {
     return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized' }) };
   }
 
-  // If moduleId present, or articulation-verdict source: build system prompt server-side.
-  // Otherwise: use client-provided system (for mock sim, CS review, floating chat, etc.)
-  const finalSystem = (moduleId || source === 'articulation-verdict')
+  // Build system prompt server-side for panel, module, and articulation routes.
+  // moduleId may be 0 (falsy) for the dashboard "Ask Michael" button — source === 'panel' covers that case.
+  // Otherwise use client-provided system (for mock sim, CS review, floating chat, etc.)
+  const finalSystem = (moduleId || source === 'panel' || source === 'articulation-verdict')
     ? buildModuleSystemPrompt(moduleId, pathway, modTitle, source, persona)
     : (system || 'You are a helpful RICS APC tutor.');
+
+  // ── Knowledge-first PKR injection ────────────────────────────────────────────
+  // Select relevant PKR entry for the question and pathway; inject before generation.
+  // Skipped for articulation-verdict (different task) and scoring (uses Sonnet directly).
+  let augSystem = finalSystem;
+  if (source !== 'articulation-verdict' && !scoring) {
+    try {
+      const _userQ = (messages && messages.length > 0) ? (messages[messages.length - 1]?.content || '') : '';
+      const _evidence = _selectEvidence(_userQ, pathway || '');
+      if (_evidence) {
+        augSystem = finalSystem +
+          '\n\n---\nVERIFIED STATUTORY REFERENCE MATERIAL\n' +
+          'The following entry from the GCAi Professional Knowledge Register has been verified against primary legislation. ' +
+          'Apply its requirements accurately. Do not contradict its verified provisions.\n\n' +
+          _evidence + '\n---';
+      }
+    } catch (_pkrErr) {
+      console.error('[pkr-injection] error:', _pkrErr.message);
+    }
+  }
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -171,8 +304,8 @@ exports.handler = async (event) => {
       },
       body: JSON.stringify({
         model: scoring ? 'claude-sonnet-4-5' : 'claude-haiku-4-5-20251001',
-        max_tokens: max_tokens || 1000,
-        system: finalSystem,
+        max_tokens: max_tokens || (source === 'panel' ? 2000 : 1000),
+        system: augSystem,
         messages: messages
       })
     });

@@ -6,5 +6,9 @@
     "validate": "node scripts/validate-links.mjs && node scripts/validate-index-js.mjs",
     "smoke": "npm run validate",
     "p1:test-upload": "node scripts/p1-test-upload.mjs"
+  },
+  "dependencies": {
+    "dompurify": "3.4.16",
+    "marked": "18.0.14"
   }
 }

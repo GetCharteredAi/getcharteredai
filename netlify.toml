@@ -12,6 +12,9 @@
 [functions]
   node_bundler = "esbuild"
 
+[functions."ai-tutor"]
+  included_files = ["scripts/professional-knowledge-register.md"]
+
 [build.processing]
   skip_processing = false
 

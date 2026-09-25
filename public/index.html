@@ -394,6 +394,14 @@ footer{background:#0D0F1C;padding:52px 32px 32px}
 .ai-msg-user{background:rgba(37,99,235,.25);border:1px solid rgba(37,99,235,.3);color:#e2e8f0;margin-left:32px}
 .ai-msg-bot{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#e2e8f0;margin-right:32px}
 .ai-msg-bot strong{color:#93c5fd}
+.ai-msg-bot p{margin:0 0 8px}
+.ai-msg-bot p:last-child{margin-bottom:0}
+.ai-msg-bot h2,.ai-msg-bot h3{font-family:var(--fh);font-weight:700;color:#e2e8f0;margin:12px 0 4px}
+.ai-msg-bot h2{font-size:15px}
+.ai-msg-bot h3{font-size:14px;color:#93c5fd}
+.ai-msg-bot ul,.ai-msg-bot ol{padding-left:20px;margin:4px 0 8px}
+.ai-msg-bot li{margin-bottom:3px}
+.ai-msg-bot li p{margin:0}
 .ai-msg-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;display:block}
 .ai-msg-user .ai-msg-label{color:rgba(147,197,253,.6);text-align:right}
 .ai-msg-bot .ai-msg-label{color:rgba(255,255,255,.3)}
@@ -1237,6 +1245,8 @@ input.err{border-color:var(--red)}
 #view-dashboard .dash-mod-card:hover{border-top-color:var(--blue)}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="/js/marked.umd.js"></script>
+<script src="/js/purify.min.js"></script>
 </head>
 <body>
 <!-- BUILD-MARKER-2026-06-02 -->
@@ -4485,7 +4495,13 @@ async function callModuleTutor(modId, msg, isSystem) {
     typingEl.remove();
     if (!isSystem) moduleTutorHistories[modId].push({role:'assistant', content: text});
     else moduleTutorHistories[modId] = [{role:'assistant', content: text}];
-    msgsDiv.innerHTML += '<div style="margin-bottom:10px"><span style="color:#f59e0b;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em">Michael</span><br>' + text.replace(/\n/g,'<br>') + '</div>';
+    const _modEl = document.createElement('div');
+    _modEl.className = 'ai-msg ai-msg-bot';
+    let _modHtml;
+    try { _modHtml = DOMPurify.sanitize(marked.parse(text)); }
+    catch(e) { _modHtml = '<p>' + text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>') + '</p>'; }
+    _modEl.innerHTML = '<span class="ai-msg-label">Michael</span>' + _modHtml;
+    msgsDiv.appendChild(_modEl);
     msgsDiv.scrollTop = msgsDiv.scrollHeight;
     document.getElementById('modTutorInput' + modId).focus();
   } catch(e) {
@@ -4643,6 +4659,11 @@ APPROACH:
 - Connect to the candidate's real experience — ask them to share a situation, then help them shape it
 - Zoom out when they are lost in detail — remind them of the bigger picture
 - Never say "great answer" without saying exactly what made it strong
+- Answer the candidate's question first — provide substantive guidance immediately when the subject is sufficiently clear; ask for clarification only when the subject genuinely cannot be identified from context
+- Where a defect may indicate immediate risk, consider safety implications before routine investigation — do not assume every defect is an emergency, but assess risk at the outset
+- Distinguish observation from explanation — a reported symptom, pattern or measurement is a prompt for investigation, not a diagnosis; explain the investigation approach rather than treating patterns or isolated observations as causal evidence
+- Do not present building age, general patterns or rules of thumb as predictors of cause or significance — they are context, not conclusions; the appropriate next step depends on evidence, risk and the limits of competence
+- Ask at most one focused question per response — a single question, not compound — placed at the end; name multiple considerations in the body, not as questions
 
 TONE EXAMPLES:
 - "That is closer than you think — here is the one thing that would lift it to Level 2"
@@ -4883,12 +4904,28 @@ Control of Asbestos Regulations 2012 · Landlord and Tenant Act 1927 s.18(1) · 
 MODULE SCOPE:
 ${buildAITutorScope()}
 
+RESPONSE FORMAT — use Markdown so responses render clearly for the candidate:
+- Paragraphs for prose — keep them focused and direct
+- **Bold** for key terms and important concepts, used selectively
+- ## headings only where a response genuinely benefits from structure — not every response needs headings
+- Bullet points or numbered lists when presenting several distinct items
+- Avoid deeply nested lists, large tables or lengthy subheadings for straightforward questions
+
+RESPONSE DISCIPLINE — answer the question the candidate actually asked:
+- Open with the central point directly, then add the detail needed to understand it
+- For a practical scenario: explain the professional approach, the key considerations and the relevant standards
+- Distinguish established professional requirements from judgements that depend on the specific situation — crack patterns indicate possibilities, not causes; cost estimates are subject to assumptions; legal positions require specific advice
+- Do not front-load everything at once — offer to explore a specific aspect in more depth rather than delivering a full reference document unprompted
+- If the candidate explicitly asks for a comprehensive explanation, a detailed technical breakdown or a full revision resource, provide the depth they have requested
+
 CANDIDATE NAME: ${window._candidateName || 'the candidate'} — use their first name occasionally (not every message) when it feels natural, the way a good coach would. Never use it mechanically.
 CANDIDATE PATHWAY: ${window._candidatePathway || 'not specified'}
 CURRENT MODE: ${tutorMode}`,
         messages: aiHistory,
         max_tokens: 1000,
-        token: getToken()
+        token: getToken(),
+        source: 'tutor24',
+        pathway: window._candidatePathway || ''
       })
     });
 
@@ -4900,12 +4937,15 @@ CURRENT MODE: ${tutorMode}`,
 
     const botDiv = document.createElement('div');
     botDiv.className = 'ai-msg ai-msg-bot';
-    // Format markdown-style bold and line breaks
-    const formatted = botReply
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\n\n/g, '<br><br>')
-      .replace(/\n/g, '<br>');
-    botDiv.innerHTML = `<span class="ai-msg-label">Michael</span>${formatted}`;
+    let _rendered;
+    try {
+      _rendered = DOMPurify.sanitize(marked.parse(botReply));
+    } catch(renderErr) {
+      console.error('[Michael render error]', renderErr, 'marked:', typeof marked, 'DOMPurify:', typeof DOMPurify);
+      _rendered = botReply.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>');
+      _rendered = '<p>' + _rendered + '</p>';
+    }
+    botDiv.innerHTML = `<span class="ai-msg-label">Michael</span>${_rendered}`;
     messages.appendChild(botDiv);
     messages.scrollTop = messages.scrollHeight;
 
@@ -8557,10 +8597,17 @@ function closeMichaelPanel() {
 function michaelPanelAppend(sender, text) {
   const msgs = document.getElementById('michaelPanelMsgs');
   const div = document.createElement('div');
-  div.style.cssText = sender === 'Michael'
-    ? 'margin-bottom:12px;padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.6;background:#1e2235;color:#f0f4ff;'
-    : 'margin-bottom:12px;padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.6;background:#2563EB;color:#fff;margin-left:20px;';
-  div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+  if (sender === 'Michael') {
+    div.className = 'ai-msg ai-msg-bot';
+    div.style.cssText = 'margin-bottom:12px;background:#1e2235;margin-right:0;';
+    let _html;
+    try { _html = DOMPurify.sanitize(marked.parse(text)); }
+    catch(e) { _html = '<p>' + text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>') + '</p>'; }
+    div.innerHTML = '<span class="ai-msg-label">Michael</span>' + _html;
+  } else {
+    div.style.cssText = 'margin-bottom:12px;padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.6;background:#2563EB;color:#fff;margin-left:20px;';
+    div.innerHTML = '<strong>' + sender + ':</strong> ' + text;
+  }
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
 }
@@ -8571,6 +8618,8 @@ async function sendMichaelPanel() {
   const msg = input.value.trim();
   if (!msg) return;
   input.value = '';
+  const existingContinue = document.getElementById('michaelContinueBtn');
+  if (existingContinue) existingContinue.remove();
   michaelPanelAppend('You', msg);
   _michaelPanelHistory.push({ role: 'user', content: msg });
   michaelPanelAppend('Michael', '...');
@@ -8582,7 +8631,8 @@ async function sendMichaelPanel() {
       body: JSON.stringify({
         moduleId: mod.id, modTitle: mod.title, source: 'panel',
         messages: _michaelPanelHistory,
-        token: getToken()
+        token: getToken(),
+        pathway: window._candidatePathway || ''
       })
     });
     const data = await response.json();
@@ -8591,6 +8641,52 @@ async function sendMichaelPanel() {
     msgs.lastChild.remove();
     michaelPanelAppend('Michael', reply);
     _michaelPanelHistory.push({ role: 'assistant', content: reply });
+    if (data.stop_reason === 'max_tokens') {
+      const cd = document.createElement('div');
+      cd.id = 'michaelContinueBtn';
+      cd.style.cssText = 'padding:4px 0 10px;text-align:center';
+      cd.innerHTML = '<button onclick="continueMichaelPanel()" style="background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.35);color:#93c5fd;border-radius:6px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit">Continue explanation →</button>';
+      msgs.appendChild(cd);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+  } catch(e) {
+    const msgs = document.getElementById('michaelPanelMsgs');
+    msgs.lastChild.remove();
+    michaelPanelAppend('Michael', 'Sorry — I had trouble connecting. Please try again.');
+  }
+}
+
+async function continueMichaelPanel() {
+  const cd = document.getElementById('michaelContinueBtn');
+  if (cd) cd.remove();
+  _michaelPanelHistory.push({ role: 'user', content: 'Please continue.' });
+  michaelPanelAppend('Michael', '...');
+  const mod = window._michaelPanelModule;
+  try {
+    const response = await fetch('/.netlify/functions/ai-tutor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        moduleId: mod.id, modTitle: mod.title, source: 'panel',
+        messages: _michaelPanelHistory,
+        token: getToken(),
+        pathway: window._candidatePathway || ''
+      })
+    });
+    const data = await response.json();
+    const reply = data.content ? data.content[0].text : 'I could not continue. Please try again.';
+    const msgs = document.getElementById('michaelPanelMsgs');
+    msgs.lastChild.remove();
+    michaelPanelAppend('Michael', reply);
+    _michaelPanelHistory.push({ role: 'assistant', content: reply });
+    if (data.stop_reason === 'max_tokens') {
+      const cd2 = document.createElement('div');
+      cd2.id = 'michaelContinueBtn';
+      cd2.style.cssText = 'padding:4px 0 10px;text-align:center';
+      cd2.innerHTML = '<button onclick="continueMichaelPanel()" style="background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.35);color:#93c5fd;border-radius:6px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit">Continue explanation →</button>';
+      msgs.appendChild(cd2);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
   } catch(e) {
     const msgs = document.getElementById('michaelPanelMsgs');
     msgs.lastChild.remove();

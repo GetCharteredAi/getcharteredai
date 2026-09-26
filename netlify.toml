@@ -15,6 +15,12 @@
 [functions."ai-tutor"]
   included_files = ["scripts/professional-knowledge-register.md"]
 
+[functions."michael-audit"]
+  included_files = ["scripts/professional-knowledge-register.md"]
+
+[functions."try-michael"]
+  included_files = ["scripts/professional-knowledge-register.md"]
+
 [build.processing]
   skip_processing = false
 

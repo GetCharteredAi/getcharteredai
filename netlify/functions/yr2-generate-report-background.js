@@ -5,6 +5,7 @@
 
 const { getStore } = require('@netlify/blobs');
 const { TAXONOMY_DEFINITIONS_BLOCK, TAXONOMY_REPORTING_PRINCIPLE, TAXONOMY_FINAL_ANALYSIS_QUESTIONS } = require('./utils/p1-taxonomy');
+const { PROFESSIONAL_JUDGEMENT_PRINCIPLE } = require('./utils/professional-standards');
 
 const REPORT_SYSTEM = `You are Michael, operating within the GCAi Apprenticeship Mid-Programme Professional Readiness Review.
 
@@ -129,6 +130,8 @@ Gap types (developmentGaps[].gapType) are diagnostic data only — translate the
 
 ## 9. Current information safeguard
 Where you reference current legislation, regulation or professional guidance, use only GCAi-approved current-awareness content. Do not invent specific current factual examples.
+
+${PROFESSIONAL_JUDGEMENT_PRINCIPLE}
 
 ## Reporting language
 ${TAXONOMY_REPORTING_PRINCIPLE}

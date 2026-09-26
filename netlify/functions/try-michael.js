@@ -7,6 +7,16 @@
 // Visitor answer goes into the user message slot only — never into a system prompt.
 
 const { getStore } = require('@netlify/blobs');
+const { EVIDENCE_INTEGRITY_CLAUSE } = require('./utils/professional-standards');
+const { extractPKREntry } = require('./utils/pkr-loader');
+
+let _pkr01;
+try {
+  _pkr01 = extractPKREntry('PKR-01') || '';
+} catch (e) {
+  console.error('[try-michael] Could not load PKR-01:', e.message);
+  _pkr01 = '';
+}
 
 const QUESTIONS = [
   'Tell me about a time you identified a conflict of interest during your work. What did you do?',
@@ -22,11 +32,17 @@ A prospective candidate has answered a single RICS APC-style ethics question. Gi
 
 State plainly which level their answer currently reflects — Level 1 (awareness), Level 2 (application), or Level 3 (reasoned advice) — and the single most important reason why, specifically tied to what they wrote.
 
+${_pkr01}
+
 Keep this to 40-60 words. Do not soften it, do not explain this is a demo, do not mention pricing.`;
 
 const STAGE_2_SYSTEM = `You are Michael, an AI coach for Get Chartered AI, operating in Assessor Mode for a public product demonstration.
 
 A prospective candidate has already seen a brief initial level assessment of their answer to an ethics question, and has now given their email specifically to see your full breakdown. This is their only interaction with you.
+
+${_pkr01}
+
+${EVIDENCE_INTEGRITY_CLAUSE}
 
 Structure your response in exactly three parts:
 1. Show them, grounded specifically in what they wrote (not a generic example), what a stronger answer at the next level up would actually look like.

@@ -7,9 +7,14 @@ metadata:
 
 # GCAi Professional Knowledge Register
 
-Each entry has been verified against the cited authoritative source.
-Classification: AUTHORITATIVE_VERIFIED = checked against the primary published document.
-Do not upgrade entries without re-checking the primary source.
+Entries are classified by evidence status. Not all entries have been verified against their primary authoritative source — see status field for each entry.
+
+Evidence status classifications:
+  AUTHORITATIVE_VERIFIED — content checked against the primary published authoritative source (legislation, RICS publication, or equivalent primary document).
+  INTERNALLY_REVIEWED — content reflects professional knowledge reviewed for accuracy internally; has not been independently verified against the primary authoritative source (which may be proprietary or unavailable).
+  PROVISIONAL — content awaiting sufficient review or authoritative verification; treat with additional caution.
+
+Do not upgrade an entry's status without re-checking the primary source and recording the verification date.
 
 Verification date of this register: 24 September 2026
 
@@ -213,6 +218,63 @@ Pre-construction information and the health and safety file are separate CDM 201
 - Health and safety file: record of the completed project; compiled by the principal designer; handed to the client on project completion for future reference
 
 Source: Construction (Design and Management) Regulations 2015
+
+---
+
+---
+
+## PKR-04: JCT and NEC4 Contract Families
+
+| Field | Value |
+|---|---|
+| Topic | JCT and NEC4 standard form contract families — structure, mechanisms and common errors |
+| Applicable competency | Contract Practice (mandatory Level 3, QS and Construction pathway; applicable across multiple pathways) |
+| Authoritative source | General professional knowledge; JCT and NEC4 publications (proprietary) |
+| Issuing organisation | Joint Contracts Tribunal (JCT); NEC (formerly New Engineering Contract) |
+| Jurisdiction | England and Wales (JCT); international use (NEC4) |
+| Verification date | 24 September 2026 |
+| Source review status | INTERNALLY_REVIEWED — content reflects widely-published professional knowledge reviewed internally; not independently verified against authoritative primary publications (JCT and NEC4 documents are proprietary and unavailable for independent clause-level verification). |
+
+### Verified professional requirements
+
+**JCT (Joint Contracts Tribunal) suite:**
+
+The JCT publishes a family of standard form contracts for the UK construction industry. Principal forms include:
+- Design and Build Contract (DB)
+- Standard Building Contract (SBC)
+- Intermediate Building Contract (IBC)
+- Minor Works Building Contract (MW)
+- Management Contract (MC)
+
+JCT contracts use a traditional allocation of risk and responsibility. They are neutral standard forms — not designed to be adversarial. Adversarial outcomes arise from how contracts are administered, from commercial pressures and project management quality, not from the contract design itself.
+
+**NEC4 (New Engineering Contract, 4th edition):**
+
+NEC4 is a family of contracts designed to promote a collaborative, proactive approach to project management. The main form (Engineering and Construction Contract, ECC) offers six pricing options:
+- Option A — Priced contract with Activity Schedule (lump sum)
+- Option B — Priced contract with Bill of Quantities (remeasurement)
+- Option C — Target contract with Activity Schedule
+- Option D — Target contract with Bill of Quantities
+- Option E — Cost reimbursable contract
+- Option F — Management contract
+
+Core Clause 10.1 requires the parties to act in a spirit of mutual trust and co-operation (a widely published and regularly cited provision). NEC4 is not universally a target cost contract — the pricing mechanism depends on which Option the parties choose.
+
+**Both families:**
+
+Both JCT and NEC4 contracts must comply with the Housing Grants, Construction and Regeneration Act 1996 (as amended) where applicable to qualifying construction contracts. See PKR-02.
+
+### Source limitation
+
+JCT and NEC4 documents are proprietary publications. Specific clause numbers and exact clause text cannot be independently verified from publicly available sources. Describe the general principles, structure and mechanisms accurately. Do not assert specific clause text as verified.
+
+### Common errors to avoid
+
+- Describing JCT as "adversarial by design" or inherently dispute-prone — incorrect: outcomes depend on how contracts are administered, not on the form itself
+- Describing NEC4 as universally a target cost contract — incorrect: Options A and B are priced/remeasurement; target cost applies to Options C and D only
+- Stating that NEC4 inherently resolves disputes faster or produces better outcomes — this depends on administration, behaviour and commercial context, not on the contract form alone
+- Treating either family as universally superior — suitability depends on project type, client requirements, procurement strategy and the specific transaction
+- Conflating the NEC4 Core Clause 10.1 mutual trust requirement with a guarantee of collaborative outcomes
 
 ---
 

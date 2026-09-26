@@ -3,6 +3,8 @@
 // Phase 1 content-security: coaching intelligence (PATHWAY_RULES, PATHWAY_COMP, etc.)
 // now lives server-side only. Clients send {moduleId, pathway, modTitle, source, messages}.
 
+const { PROFESSIONAL_JUDGEMENT_PRINCIPLE, EVIDENCE_INTEGRITY_CLAUSE } = require('./utils/professional-standards');
+
 function getMichaelModuleBriefing(moduleId) {
   const VALUER_REG = ' VALUER REGISTRATION — IMPORTANT CONTEXT FOR RELEVANT PATHWAYS: RICS Valuer Registration is an independent system of regulatory monitoring, separate from MRICS — it is an additional regulatory credential requiring ongoing monitoring by RICS after qualification. Candidates who wish to become an RICS Registered Valuer must achieve either the Valuation competency to Level 3, or the Valuation of businesses and intangible assets competency to Level 3. Pathway-specific guidance: Valuation pathway — Valuation is core to Level 3, all candidates on this pathway automatically meet the Valuer Registration requirement if they pass. Taxation Allowances pathway — Valuation is a core competency to Level 3, candidates automatically meet the requirement. Commercial Real Estate — Valuation is core to Level 2 but can be taken to Level 3 as part of optional selection; candidates who want Valuer Registration must elect to take Valuation to Level 3. Planning and Development — same as Commercial Real Estate; Valuation core to Level 2, optional to Level 3. Residential — Valuation must be selected to at least Level 2 in core; candidates wanting Valuer Registration must take it to Level 3. Personal Property/Arts and Antiques — Valuation core to Level 2, can be taken to Level 3. Other pathways where Valuation appears as an optional competency — candidates can elect Valuation to Level 3 as part of their optional selection to qualify. When a candidate mentions they are on the Valuation, Commercial Real Estate, Residential or Planning and Development pathway, proactively ask whether they are aiming for RICS Registered Valuer status, and if so confirm they understand they need Valuation to Level 3 and adjust coaching accordingly.';
   const PATHWAY_COMP = ' COMPETENCY SELECTION RULES BY PATHWAY — DECEMBER 2025 (v1.6): GLOBAL RULES (apply to all pathways): 1. Core to Level 1 → candidate CAN select same competency as optional to a higher level, where permitted in the pathway guide. 2. Core to Level 2 → candidate CANNOT select same competency to Level 3 as optional. 3. Where mandatory competencies appear in a grouped "one from" optional selection, only ONE from the group can be chosen. 4. Most pathways require at least one competency from the full technical competency list — a mandatory competency only counts toward this if: (a) it is listed as technical in the pathway guide AND (b) if grouped with others as "one", no other competency from that group has already been selected. BUILDING CONTROL: Core: Building control inspections, Fire safety, Inspection, Legal/regulatory compliance (all Level 3). Optional: Two to Level 3 and one to Level 2 from the optional list. Grouped "one": Client care (to Level 3) OR Data management. Note: Sustainability is listed separately; candidates can select up to TWO from the grouped competencies (Client care/Data management as one group, Sustainability separately) — Building Control is the exception to the standard "one from group" rule. Plus one to Level 2 from the full technical list. BUILDING SURVEYING: Core: Building pathology, Construction technology and environmental services, Contract administration, Design and specification, Inspection, Legal/regulatory compliance (all Level 3); Fire safety (Level 1). Optional: Two to Level 2. Grouped "one": Client care (to Level 3) OR Conflict avoidance OR Health and safety (to Level 3) OR Inclusive environments OR Sustainability. Note: Fire safety is core to Level 1 but CAN also be selected as optional to a higher level. Plus one to Level 2 from the full technical list. COMMERCIAL REAL ESTATE: Core: Inspection (Level 3); Measurement (Level 2); Valuation (Level 2, or Level 3*). Optional: Three to Level 3 from the optional list. Ceiling rule — if selecting from Accounting principles and procedures / Conflict avoidance / Data management / Sustainability, choose at most one; this group is not a mandatory pick. Standard: Plus one to Level 3 or two to Level 2 from the full list of technical competencies (the cross-pathway master list, not CRE\'s own lists). *If Valuation taken to Level 3: two at Level 3 and one at Level 2 from optional list, plus one to Level 3 or two to Level 2 from full technical list. Note: Up to 30% of experience can come from other property sectors. CORPORATE REAL ESTATE: Core: Business alignment OR Strategic real estate consultancy (Level 3); Business case (Level 2); Landlord and tenant OR Property management (Level 2); Valuation (Level 1). Optional: Three to Level 3 and one to Level 2 from: Change management, Inspection, Leasing and letting, Local taxation/assessment, Measurement, Performance management, Procurement and tendering, Programming and planning, Purchase and sale, Strategic real estate consultancy, Supplier management, Sustainability, Valuation, Workspace strategy. Plus one to Level 2 from full technical list. FACILITIES MANAGEMENT: Core: Two to Level 3 and two to Level 2 from: Asset management, Business alignment, Client care (must be taken to Level 3), Legal/regulatory compliance, Maintenance management, Performance management, Procurement and tendering, Project finance, Supplier management, Workspace strategy. Optional: Two to Level 3 and one to Level 2. Grouped "one": Conflict avoidance OR Data management OR Health and safety (must be Level 3) OR Inclusive environments OR Sustainability. Plus one to Level 2 from full technical list. INFRASTRUCTURE: Core: Engineering science and technology (Level 3); plus four to Level 3 from: Client care, Contract practice, Cost prediction and analysis, Procurement and tendering, Programming and planning, Project controls, Quantification/costing and price analysis, Risk management. Optional: Two to Level 2. Grouped "one": Conflict avoidance OR Sustainability. Plus one to Level 2 from full technical list. LAND AND RESOURCES: No separate core list — all from optional list. Optional: Five to Level 3 and one to Level 2 from: Access and rights over land, Agriculture, Big data, Cadastre and land administration, Client care (must be to Level 3), Compulsory purchase and compensation, Consultancy services, Contaminated land, Development appraisals, Economic development, Energy and renewable resources, Engineering surveying, Environmental management, Geodesy, GIS, Hydrographic surveying, Inspection, Land use and diversification, Landlord and tenant, Legal/regulatory compliance, Management of the natural environment and landscape, Masterplanning and urban design, Measurement, Minerals management, Planning and development management, Property management, Risk management, Smart cities and intelligent buildings, Spatial planning policy and infrastructure, Strategic real estate consultancy, Surveying and mapping, Sustainability, Valuation, Waste management. Plus two to Level 2 from full technical list. MANAGEMENT CONSULTANCY: Core: Business case, Business planning, Consultancy services, Research methodologies and techniques (all Level 3). Optional: One to Level 3 and one to Level 2 from: Business alignment, Change management, Corporate finance, Corporate recovery and insolvency, Data management, Development appraisals, Development projects/briefs, Economic development, Managing resources, Performance management, Programming and planning, Property finance and funding, Smart cities and intelligent buildings, Strategic real estate consultancy, Workspace strategy. Plus one to Level 2 from full technical list. MINERALS AND WASTE MANAGEMENT: Core: Minerals management OR Waste management (Level 3); Legal/regulatory compliance (Level 2); plus three to Level 3. Optional: Two to Level 2. Plus one to Level 2 from full technical list. PERSONAL PROPERTY/ARTS AND ANTIQUES: Core: Object identification, Research methodologies and techniques (Level 3); Valuation (Level 2, or Level 3*); Auctioneering (Level 1). Optional: Three to Level 3 and one to Level 2. Grouped "one": Accounting principles and procedures OR Business planning OR Communication and negotiation (must be Level 3). *If Valuation taken to Level 3: two to Level 3 and one to Level 2, plus two to Level 2 from full technical list. Plus one to Level 2 from full technical list. PLANNING AND DEVELOPMENT: Core: Development appraisals (Level 3); Planning and development management OR Spatial planning policy and infrastructure (Level 3); Legal/regulatory compliance (Level 2); Valuation (Level 2, or Level 3*); Measurement (Level 1); Surveying and mapping (Level 1). Optional: Two to Level 3. *If Valuation taken to Level 3: one to Level 3 and one to Level 2 from optional list, plus one to Level 3 or two to Level 2 from full technical list. Standard: Plus one to Level 3 or two to Level 2 from full technical list. PROJECT MANAGEMENT: Core: Contract practice, Development/project briefs, Leading projects people and teams, Managing projects, Programming and planning (all Level 3); Construction technology and environmental services, Procurement and tendering, Project finance (all Level 2). Optional: One to Level 2. Grouped "one": Accounting principles and procedures OR Communication and negotiation (must be Level 3) OR Conflict avoidance OR Sustainability. Plus one to Level 2 from full technical list. PROPERTY FINANCE AND INVESTMENT: Core: Financial modelling, Inspection, Investment management, Property finance and funding (three to Level 3 and one to Level 2); Valuation (Level 1). Optional: One to Level 3 and one to Level 2 from: Accounting principles and procedures, Capital taxation, Corporate finance, Development appraisals, Indirect investment vehicles, Landlord and tenant, Leasing/letting, Local taxation/assessment, Property management, Purchase and sale, Research methodologies and techniques, Strategic real estate consultancy, Valuation. Plus one to Level 2 from full technical list. QUANTITY SURVEYING AND CONSTRUCTION: Core: Commercial management OR Design economics and cost planning* (Level 3); Construction technology and environmental services, Contract practice, Procurement and tendering, Project finance, Quantification and costing (all Level 3). Optional: Two to Level 2. Grouped "one": Conflict avoidance OR Sustainability. *Candidates in commercial/contracting environment → Commercial management to Level 3. Candidates in consulting environment → Design economics and cost planning to Level 3. Note: No "one from full technical list" requirement — QS pathway does not include this rule. RESIDENTIAL: Core: Must select Inspection, Measurement AND Valuation to at least Level 2; two to Level 3 and two to Level 2 from core list. Optional: Two to Level 3 and one to Level 2. Grouped "one": Conflict avoidance OR Sustainability. Plus one to Level 2 from full technical list. Note: Candidates wanting Valuer Registration must take Valuation to Level 3. RURAL: Core: One to Level 3 (Agriculture, Management of natural environment and landscape, Property management, OR Valuation). Optional: Three to Level 3 and two to Level 2. Note: If Agriculture is NOT selected as the core competency, it must be taken as optional to Level 2 or 3. Plus one to Level 3 or two to Level 2 from full technical list. TAXATION ALLOWANCES: Core: Accounting principles and procedures, Capital allowances, Construction technology and environmental services, Quantification and costing, Valuation (all Level 3); Contract practice (Level 2). Optional: Two to Level 2, from: Capital taxation, Contaminated land, Design economics and cost planning, Development appraisals, Due diligence, Insurance, Property finance and funding, Property management, Risk management, Sustainability. Note: No "one from full technical list" requirement and no grouped "one" rule — Taxation Allowances pathway has a simpler optional structure. Note: Valuation is core to Level 3 — all Taxation Allowances candidates automatically meet Valuer Registration requirement. VALUATION: Core: Inspection, Valuation (both Level 3); Measurement (Level 2). Optional: Three to Level 3 OR two to Level 3 and two to Level 2*. Grouped "one": Accounting principles and procedures OR Conflict avoidance OR Data management OR Sustainability. *Candidates specialising in Residential survey and valuation: must choose Building pathology to Level 3. *Candidates specialising in Machinery and business assets: must choose two to Level 3 from: Accounting principles and procedures OR Conflict avoidance OR Sustainability (grouped as one); Auctioneering; Capital taxation; Compulsory purchase and compensation; Corporate recovery and insolvency; Insurance; Investment management; Leasing/letting; Legal/regulatory compliance; Local taxation/assessment; Purchase and sale. Plus one to Level 2 from full technical list. Note: Valuation is core to Level 3 — all Valuation candidates automatically meet Valuer Registration requirement. WHEN ADVISING ON COMPETENCY SELECTION: Always confirm the candidate\'s specific pathway before giving selection guidance. Always check whether a mandatory competency they want to count toward their optional selection (a) appears as technical in their pathway guide and (b) has not already been used in a grouped "one" selection. Flag the Valuer Registration requirement proactively for Valuation, Taxation Allowances, Commercial Real Estate, Planning and Development, Residential, and Personal Property candidates. Remind candidates that their competency choices should reflect their actual day-to-day work — assessors will expect a coherent and realistic selection. Never guess at pathway-specific rules — always refer to the specific pathway section above.';
@@ -64,6 +66,8 @@ EVALUATION CRITERIA:
 - Better structure: a reframed opening or ordering that would have made the response stronger
 - Likely follow-up: what an APC assessor would probe next, given this response
 
+${EVIDENCE_INTEGRITY_CLAUSE}
+
 Return ONLY a valid JSON object — no surrounding text, no markdown code fences, no explanation:
 {
   "technical_accuracy": "assessment of factual correctness and RICS standard alignment",
@@ -117,6 +121,8 @@ PROFESSIONAL STANDARDS:
 - Avoid presenting simplified rules or numerical thresholds as definitive professional guidance without appropriate qualification
 - The appropriate next step depends on available evidence, potential risk, urgency and the limits of competence — monitoring may be appropriate in some circumstances, but is not a default response where immediate investigation, safety precautions or specialist advice may be needed
 
+${PROFESSIONAL_JUDGEMENT_PRINCIPLE}
+
 FOLLOW-UP: End with ONE focused question — a single question, not a compound question covering multiple aspects. Choose the most useful next question for the learning conversation. Do not scatter questions through the body of the response.
 
 Always use British English spelling — minimisation, organisation, behaviour, colour etc.
@@ -162,6 +168,8 @@ RESPONSE DISCIPLINE — answer only what was asked:
 - If the candidate explicitly asks for a full breakdown, a structured overview or a revision resource, provide what they requested
 - Ask at most one focused question per response — a single question, not compound — placed at the end, not scattered through the body
 
+${PROFESSIONAL_JUDGEMENT_PRINCIPLE}
+
 Always use British English spelling — minimisation, organisation, behaviour, colour etc.`;
 }
 
@@ -206,12 +214,53 @@ function _extractPKREntry(id) {
   return pkr.slice(start, next === -1 ? pkr.length : next).trim();
 }
 
-function _selectEvidence(question, pathway) {
-  const q = (question + ' ' + (pathway || '')).toLowerCase();
-  if (/ethic|rules of conduct|professionalism/i.test(q))                return _extractPKREntry('PKR-01');
-  if (/contract practice|hgcra|payment|construction contract/i.test(q)) return _extractPKREntry('PKR-02');
-  if (/health and safety|asbestos|car 2012|duty to manage/i.test(q))    return _extractPKREntry('PKR-03');
-  return null;
+// Match all PKR topics against a text string; returns array of matched entry strings.
+// \bcontract practice\b is deliberately excluded — too broad; keep specific HGCRA terms only.
+function _matchTopics(text) {
+  const matches = [];
+  if (/\bethic|\brules of conduct\b|\bprofessionalism\b/i.test(text)) {
+    const e = _extractPKREntry('PKR-01'); if (e) matches.push(e);
+  }
+  if (/\bjct\b|\bnec4\b|\bnec 4\b/i.test(text)) {
+    const e = _extractPKREntry('PKR-04'); if (e) matches.push(e);
+  }
+  if (/\bhgcra\b|housing grants|payment notice|pay less notice|\bs\.?110\b|\bs\.?111\b|construction act 1996|\bconstruction contract\b/i.test(text)) {
+    const e = _extractPKREntry('PKR-02'); if (e) matches.push(e);
+  }
+  if (/\bhealth and safety\b|\basbestos\b|\bcar 2012\b|\bduty to manage\b|\bcontrol of asbestos\b/i.test(text)) {
+    const e = _extractPKREntry('PKR-03'); if (e) matches.push(e);
+  }
+  return matches;
+}
+
+// Regex of all topic keywords — used to confirm a short question has no independent topic.
+const _HAS_TOPIC_RX = /\bjct\b|\bnec4\b|\bnec 4\b|\bethic|\brules of conduct\b|\bhgcra\b|housing grants|payment notice|pay less notice|\bs\.?110\b|\bs\.?111\b|construction act 1996|\bconstruction contract\b|\bhealth and safety\b|\basbestos\b|\bcar 2012\b|\bduty to manage\b|\bcontrol of asbestos\b|\bprofessionalism\b/i;
+
+// Phrases that introduce a follow-up to the prior topic rather than a new subject.
+const _FOLLOW_UP_RX = /^(what about|and |tell me more|can you (explain|clarify|elaborate)|how does|why (is|does|did)|that means|so |going back|you mentioned|following on|in that case|if so|could you explain|what if)\b/i;
+
+// True when the current question appears to be continuing the prior thread.
+// Only explicit follow-up phrases qualify — length heuristics produce false positives
+// because short questions introducing new topics are indistinguishable by length alone.
+function _isFollowUp(question, recentMessages) {
+  if (!recentMessages || recentMessages.length === 0) return false;
+  return _FOLLOW_UP_RX.test(question.trim());
+}
+
+function _selectEvidence(question, pathway, recentMessages) {
+  // 1. Match current question and pathway — always the primary signal
+  const primary = _matchTopics((question + ' ' + (pathway || '')).toLowerCase());
+  if (primary.length > 0) return primary.join('\n\n---\n\n');
+
+  // 2. No primary match — only use prior context for genuine follow-up questions
+  if (!_isFollowUp(question, recentMessages)) return null;
+
+  // 3. Contextual continuity: resolve topic from the most recent exchange only
+  const recentText = Array.isArray(recentMessages)
+    ? recentMessages.slice(-2).map(m => (typeof m.content === 'string' ? m.content : '')).join(' ')
+    : '';
+  const contextual = _matchTopics(recentText.toLowerCase());
+  return contextual.length > 0 ? contextual.join('\n\n---\n\n') : null;
 }
 
 
@@ -281,7 +330,8 @@ exports.handler = async (event) => {
   if (source !== 'articulation-verdict' && !scoring) {
     try {
       const _userQ = (messages && messages.length > 0) ? (messages[messages.length - 1]?.content || '') : '';
-      const _evidence = _selectEvidence(_userQ, pathway || '');
+      const _recentHistory = (messages && messages.length > 1) ? messages.slice(0, -1) : [];
+      const _evidence = _selectEvidence(_userQ, pathway || '', _recentHistory);
       if (_evidence) {
         augSystem = finalSystem +
           '\n\n---\nVERIFIED STATUTORY REFERENCE MATERIAL\n' +

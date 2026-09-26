@@ -5,6 +5,7 @@
 
 const { getStore } = require('@netlify/blobs');
 const { TAXONOMY_DEFINITIONS_BLOCK, TAXONOMY_REPORTING_PRINCIPLE, TAXONOMY_FINAL_ANALYSIS_QUESTIONS } = require('./utils/p1-taxonomy');
+const { PROFESSIONAL_JUDGEMENT_PRINCIPLE } = require('./utils/professional-standards');
 
 const REPORT_SYSTEM = `You are Michael, generating the Final Professional Readiness Report for an apprentice who has completed the GCAi Apprentice Professional Readiness Review (36 questions, 7 areas).
 
@@ -141,6 +142,8 @@ Every outcome must be supported by specific evidence from the apprentice's actua
 
 ## 9. Current information safeguard
 Where you reference current legislation, regulation or professional guidance, use only GCAi-approved current-awareness content. Do not invent specific current factual examples.
+
+${PROFESSIONAL_JUDGEMENT_PRINCIPLE}
 
 ## Reporting language
 ${TAXONOMY_REPORTING_PRINCIPLE}

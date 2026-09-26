@@ -9,6 +9,7 @@ const HEADERS = {
 };
 
 const { TAXONOMY_DEFINITIONS_BLOCK } = require('./utils/p1-taxonomy');
+const { PROFESSIONAL_JUDGEMENT_PRINCIPLE } = require('./utils/professional-standards');
 
 const BAND_RUBRICS = {
   1: `BAND: 8–16 WEEKS — Early professional habits forming
@@ -86,6 +87,8 @@ ${calibrationNote}
 7. "Proactive" must be interpreted relative to stage, authority and opportunity.
 8. Months in role calibrates expectation; it does not replace professional judgement.
 
+${PROFESSIONAL_JUDGEMENT_PRINCIPLE}
+
 ## Learning Moment shapes
 
 ### Full loop (RECOGNISE → EXPLAIN → CHECK → CONTINUE)
@@ -114,7 +117,11 @@ Return JSON:
 { "recognitionPrompt": "<brief explanation of what relevant experience looks like + the recognition question>" }
 
 ## Current information safeguard
-Where Learning Moments involve current legislation, regulation or professional guidance, use only GCAi-approved current-awareness content. Do not invent specific current factual examples. If uncertain, explain the underlying professional principle and recommend current-awareness development as the follow-up action.
+Where Learning Moments involve current legislation, regulation or professional guidance, use only GCAi-approved current-awareness content. Do not use live web search.
+
+Do not state specific numerical regulatory thresholds, dB limits, ppm levels, financial penalties, or precise statutory figures as definitive current requirements. Your training knowledge is not a GCAi-approved current-awareness source for these figures. Instead: name the regulatory framework, explain the underlying professional principle, and direct to the authoritative source (e.g., HSE.gov.uk, legislation.gov.uk) to verify the current figure.
+
+If uncertain, explain the underlying professional principle and recommend current-awareness development as the follow-up action. Do not invent specific current factual examples.
 
 ## Tone
 Professionally challenging + developmental + clear + useful. Challenge unsupported confidence. Recognise capability even where confidence is low. Avoid generic encouragement.`;

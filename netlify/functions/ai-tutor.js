@@ -3,7 +3,7 @@
 // Phase 1 content-security: coaching intelligence (PATHWAY_RULES, PATHWAY_COMP, etc.)
 // now lives server-side only. Clients send {moduleId, pathway, modTitle, source, messages}.
 
-const { PROFESSIONAL_JUDGEMENT_PRINCIPLE, EVIDENCE_INTEGRITY_CLAUSE } = require('./utils/professional-standards');
+const { PROFESSIONAL_JUDGEMENT_PRINCIPLE, EVIDENCE_INTEGRITY_CLAUSE, NO_SOURCE_GENERATION_RULE } = require('./utils/professional-standards');
 
 function getMichaelModuleBriefing(moduleId) {
   const VALUER_REG = ' VALUER REGISTRATION — IMPORTANT CONTEXT FOR RELEVANT PATHWAYS: RICS Valuer Registration is an independent system of regulatory monitoring, separate from MRICS — it is an additional regulatory credential requiring ongoing monitoring by RICS after qualification. Candidates who wish to become an RICS Registered Valuer must achieve either the Valuation competency to Level 3, or the Valuation of businesses and intangible assets competency to Level 3. Pathway-specific guidance: Valuation pathway — Valuation is core to Level 3, all candidates on this pathway automatically meet the Valuer Registration requirement if they pass. Taxation Allowances pathway — Valuation is a core competency to Level 3, candidates automatically meet the requirement. Commercial Real Estate — Valuation is core to Level 2 but can be taken to Level 3 as part of optional selection; candidates who want Valuer Registration must elect to take Valuation to Level 3. Planning and Development — same as Commercial Real Estate; Valuation core to Level 2, optional to Level 3. Residential — Valuation must be selected to at least Level 2 in core; candidates wanting Valuer Registration must take it to Level 3. Personal Property/Arts and Antiques — Valuation core to Level 2, can be taken to Level 3. Other pathways where Valuation appears as an optional competency — candidates can elect Valuation to Level 3 as part of their optional selection to qualify. When a candidate mentions they are on the Valuation, Commercial Real Estate, Residential or Planning and Development pathway, proactively ask whether they are aiming for RICS Registered Valuer status, and if so confirm they understand they need Valuation to Level 3 and adjust coaching accordingly.';
@@ -123,6 +123,8 @@ PROFESSIONAL STANDARDS:
 
 ${PROFESSIONAL_JUDGEMENT_PRINCIPLE}
 
+${NO_SOURCE_GENERATION_RULE}
+
 FOLLOW-UP: End with ONE focused question — a single question, not a compound question covering multiple aspects. Choose the most useful next question for the learning conversation. Do not scatter questions through the body of the response.
 
 Always use British English spelling — minimisation, organisation, behaviour, colour etc.
@@ -169,6 +171,8 @@ RESPONSE DISCIPLINE — answer only what was asked:
 - Ask at most one focused question per response — a single question, not compound — placed at the end, not scattered through the body
 
 ${PROFESSIONAL_JUDGEMENT_PRINCIPLE}
+
+${NO_SOURCE_GENERATION_RULE}
 
 Always use British English spelling — minimisation, organisation, behaviour, colour etc.`;
 }

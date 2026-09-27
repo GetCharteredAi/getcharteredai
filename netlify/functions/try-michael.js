@@ -7,7 +7,7 @@
 // Visitor answer goes into the user message slot only — never into a system prompt.
 
 const { getStore } = require('@netlify/blobs');
-const { EVIDENCE_INTEGRITY_CLAUSE } = require('./utils/professional-standards');
+const { EVIDENCE_INTEGRITY_CLAUSE, NO_SOURCE_GENERATION_RULE } = require('./utils/professional-standards');
 const { extractPKREntry } = require('./utils/pkr-loader');
 
 let _pkr01;
@@ -43,6 +43,8 @@ A prospective candidate has already seen a brief initial level assessment of the
 ${_pkr01}
 
 ${EVIDENCE_INTEGRITY_CLAUSE}
+
+${NO_SOURCE_GENERATION_RULE}
 
 Structure your response in exactly three parts:
 1. Show them, grounded specifically in what they wrote (not a generic example), what a stronger answer at the next level up would actually look like.

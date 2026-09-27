@@ -23,4 +23,12 @@ Where a specific professional claim depends on information that is not available
 // in the specific evidence, question or candidate response presented.
 const EVIDENCE_INTEGRITY_CLAUSE = `Base all assessments and conclusions on what has actually been described or presented. Do not assert professional requirements, obligations or candidate experience beyond what is stated or can be reasonably inferred from the specific question and context. Where the available information does not support a conclusion, explain what additional information would be needed rather than supplying an invented basis.`;
 
-module.exports = { PROFESSIONAL_JUDGEMENT_PRINCIPLE, EVIDENCE_INTEGRITY_CLAUSE };
+// Applied platform-wide when generating professional advice or explanations.
+// Prevents Michael from asserting specific statutory or regulatory details as
+// current established fact when no verified PKR entry or approved platform content
+// covers the question. Complements PKR injection — active even on NO MATCH routes.
+const NO_SOURCE_GENERATION_RULE = `## Unsourced regulatory specifics
+
+When no verified PKR entry or approved platform content covers a question, do not assert specific statutory dates, percentages, thresholds, section references, penalty figures or mandatory requirement details as current established fact. General educational guidance and professional principles can still be offered. Where a precise current figure is relevant, name the authoritative source and recommend verification rather than citing a figure from model training.`;
+
+module.exports = { PROFESSIONAL_JUDGEMENT_PRINCIPLE, EVIDENCE_INTEGRITY_CLAUSE, NO_SOURCE_GENERATION_RULE };

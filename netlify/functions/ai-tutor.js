@@ -268,6 +268,37 @@ function _selectEvidence(question, pathway, recentMessages) {
 }
 
 
+// ── NO MATCH deterministic backstop ──────────────────────────────────────────
+// Applied only when _selectEvidence() returns no PKR match.
+// Scans generated text for precise professional claims (%, dates, thresholds,
+// section/clause/schedule refs) and replaces only the unsupported precise element.
+// No regeneration. No extra AI call. Conservative: false-positive sensitivity acceptable.
+function _applyNoMatchBackstop(text) {
+  const _rules = [
+    // Percentages: 10%, 14.5%, 25 per cent
+    [/\b\d+(?:\.\d+)?\s*%/g,                              '[current figure — verify against authoritative source]'],
+    [/\b\d+(?:\.\d+)?\s*per\s+cent\b/gi,                  '[current figure — verify against authoritative source]'],
+    // Full dates: 1 April 2026, 11 February 2024
+    [/\b\d{1,2}\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\b/gi, '[current date — verify against authoritative source]'],
+    // Month + year: April 2026, February 2024
+    [/\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\b/gi, '[current date — verify against authoritative source]'],
+    // Section refs: s.106, section 20A
+    [/\bs\.\s*\d+[A-Z]?\b/gi,                            '[current provision — verify reference]'],
+    [/\bsection\s+\d+[A-Za-z]?\b/gi,                     '[current provision — verify reference]'],
+    // Schedule, Article, Clause refs: Schedule 7A, Article 7, Clause 26
+    [/\bSchedule\s+\d+[A-Z]?\b/gi,                       '[current provision — verify reference]'],
+    [/\bArticle\s+\d+\b/gi,                               '[current provision — verify reference]'],
+    [/\bClause\s+\d+(?:\.\d+)?\b/gi,                     '[current provision — verify reference]'],
+    // Measurement thresholds: 18 metres, 7 storeys
+    [/\b\d+\s*(?:metres|meters|storeys?|floors?)\b/gi,   '[current threshold — verify against authoritative source]'],
+    // Year-count periods: 6 years, 6-year, 12-year
+    [/\b\d+[\s-]years?\b/gi,                             '[current period — verify against authoritative source]'],
+  ];
+  let _out = text;
+  for (const [_pat, _rep] of _rules) _out = _out.replace(_pat, _rep);
+  return _out;
+}
+
 exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -331,6 +362,7 @@ exports.handler = async (event) => {
   // Select relevant PKR entry for the question and pathway; inject before generation.
   // Skipped for articulation-verdict (different task) and scoring (uses Sonnet directly).
   let augSystem = finalSystem;
+  let _noMatch = false;
   if (source !== 'articulation-verdict' && !scoring) {
     try {
       const _userQ = (messages && messages.length > 0) ? (messages[messages.length - 1]?.content || '') : '';
@@ -342,6 +374,8 @@ exports.handler = async (event) => {
           'The following entry from the GCAi Professional Knowledge Register has been verified against primary legislation. ' +
           'Apply its requirements accurately. Do not contradict its verified provisions.\n\n' +
           _evidence + '\n---';
+      } else {
+        _noMatch = true;
       }
     } catch (_pkrErr) {
       console.error('[pkr-injection] error:', _pkrErr.message);
@@ -375,6 +409,10 @@ exports.handler = async (event) => {
           content: [{ text: `I'm having trouble connecting right now. Please try again in a moment. (Error: ${data.error?.message || 'API error'})` }]
         })
       };
+    }
+
+    if (_noMatch && Array.isArray(data.content) && data.content[0]?.text) {
+      data.content[0].text = _applyNoMatchBackstop(data.content[0].text);
     }
 
     return { statusCode: 200, headers, body: JSON.stringify(data) };

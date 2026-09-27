@@ -8828,7 +8828,7 @@
     {
       "q": "What is the purpose of a rent review?",
       "why": "Assessors test whether you understand the commercial purpose of rent reviews and how they operate within a lease, not just a definition.",
-      "pass": "A rent review is a lease mechanism that allows the rent to be reviewed at agreed intervals during the lease term. I would first review the lease carefully to understand the review mechanism, assumptions, disregards, review date and notice requirements. I would then gather and analyse comparable evidence considering location, size, specification, lease terms and incentives.",
+      "pass": "A rent review is a lease mechanism that allows the rent to be reviewed at agreed intervals during the lease term. Its purpose is to align the rent with market conditions at the review date, subject to the assumptions and disregards set out in the lease. Reviews can be open market, indexed or fixed depending on how the lease is drafted.",
       "high": "The rent review can have significant financial implications for both landlord and tenant so it is important that advice is properly evidenced and clearly communicated. I would not simply apply a general market view \u2014 my advice would be based on the specific lease terms and market evidence. I would also explain the difference between types of review including open market, indexed and fixed increases.",
       "referral": "A rent review means the rent will go up at the review date.",
       "referralWhy": [
@@ -8932,7 +8932,7 @@
     {
       "q": "What is interim rent?",
       "why": "Interim rent is a technical landlord and tenant topic that often appears in lease renewal discussions. Assessors use it to test whether you understand the financial implications of statutory lease renewal.",
-      "pass": "Interim rent is the rent payable during the period between the end of the contractual lease term and the commencement of the new lease, where the tenant remains in occupation under statutory protection. Under the Regulatory Reform (Business Tenancies) Order 2003, either party \u2014 landlord or tenant \u2014 may apply to the court for an interim rent determination; previously only the landlord could apply. Where the court grants a new tenancy on the same terms at the same holding, interim rent is presumed to match the rent under the new lease, unless it would be substantially different \u2014 for example due to a significant change in market conditions between the lease expiry and the new term commencing.",
+      "pass": "Interim rent is the rent payable during the period between the end of the contractual lease term and the commencement of the new lease, where the tenant remains in occupation under statutory protection. Under the Regulatory Reform (Business Tenancies) (England and Wales) Order 2003, either party \u2014 landlord or tenant \u2014 may apply to the court for an interim rent determination; previously only the landlord could apply. Where the court grants a new tenancy on the same terms at the same holding, interim rent is presumed to match the rent under the new lease, unless it would be substantially different \u2014 for example due to a significant change in market conditions between the lease expiry and the new term commencing.",
       "high": "It commonly arises under the lease renewal process where parties have not yet completed the new lease. The level may be determined by agreement or by the court. The 2003 Order presumption \u2014 that interim rent equals the new lease rent in unopposed, like-for-like renewals \u2014 has real practical significance: a tenant who secures a new lease at a reduced rent may benefit from that lower figure applying back through the interim period, rather than continuing to pay a higher historic rent throughout. When advising a client I would explain that interim rent can have financial implications and should be considered as part of the wider lease renewal strategy. I would also recommend legal advice because the statutory process and timing can affect the position.",
       "referral": "Interim rent is the same as the current passing rent.",
       "referralWhy": [
@@ -9214,7 +9214,7 @@
     {
       "q": "What is yield?",
       "why": "Yield is fundamental to commercial property valuation and investment. Assessors want to see whether you understand yield as a measure of return and risk, not just a calculation.",
-      "pass": "Yield is a measure of return from an investment property reflecting the relationship between income and capital value. At a simple level initial yield is calculated by dividing the current annual rent by the purchase price or capital value.",
+      "pass": "Yield is a measure of return from an investment property expressed as a percentage, reflecting the relationship between income and capital value. At a simple level, initial yield is calculated by dividing the current annual rent by the purchase price.",
       "high": "In practice different yields may be used depending on the income profile. Equivalent yield reflects the overall return from both current income and future reversionary income. Reversionary yield reflects the return once the property reaches market rent. Yield is also a measure of risk \u2014 a secure income stream from a strong tenant on a long lease may attract a lower yield resulting in a higher capital value. When advising a client I would support yield selection with comparable investment evidence and explain the risk factors that influence it.",
       "referral": "Yield is the percentage return you get from a property.",
       "referralWhy": [
@@ -9424,7 +9424,7 @@
       "referral": "Asset management means maintaining the property and collecting rent.",
       "referralWhy": [
         "Confuses asset management with property management",
-        "Lists opportunities without assessing cost or risk",
+        "Describes property management rather than active value creation",
         "Ignores client investment strategy"
       ],
       "challenge": [
@@ -9470,7 +9470,7 @@
       "q": "What is a tenant retention strategy?",
       "why": "Tenant retention is central to protecting income and reducing void risk. Assessors test whether you understand occupier relationships and income security.",
       "pass": "A tenant retention strategy is an approach to keeping existing tenants in occupation where this supports the landlord's objectives. Retaining a good tenant protects income, reduces void periods, avoids reletting costs and may preserve investment value.",
-      "high": "To advise on tenant retention I would monitor upcoming lease events such as break options, rent reviews and lease expiries and engage with the tenant to understand their business needs and future occupational requirements. If the tenant was important to the asset I may advise the landlord to consider a regear, refurbishment works or a commercially appropriate incentive. However retention is not always the best strategy \u2014 if the tenant is paying below market rent, has weak covenant or does not support the future positioning of the asset, reletting may be preferable.",
+      "high": "To advise on tenant retention I would monitor upcoming lease events such as break options, rent reviews and lease expiries and engage with the tenant to understand their business needs and future occupational requirements. If the tenant was important to the asset I may advise the landlord to consider a regear, refurbishment works or a commercially appropriate incentive. However retention is not always the best strategy \u2014 if the tenant has weak covenant, does not support the future positioning of the asset, or if strong alternative occupier demand makes reletting achievable at better terms, reletting may be preferable.",
       "referral": "You should always try to keep your tenants.",
       "referralWhy": [
         "Assumes all tenants should be retained",
@@ -9546,8 +9546,8 @@
     {
       "q": "How would ESG influence investment advice?",
       "why": "ESG is now a significant factor in commercial real estate investment. Assessors want to see whether candidates understand how environmental, social and governance considerations affect risk, value and marketability.",
-      "pass": "ESG can influence investment advice because it affects risk, occupier demand, operating costs, funding, marketability and long-term value. I would consider the property's EPC rating, energy efficiency, MEES compliance and likely future capital expenditure required to improve performance. Under current MEES regulations, most commercial properties cannot be let below EPC E. The government confirmed in 2026 a target of EPC B from 2031 for commercial buildings over 1,000 m\u00b2 \u2014 a one-year extension from the earlier 2030 proposal, with the previously floated EPC C interim milestone for 2027 dropped entirely. Secondary legislation is still required, but this is confirmed government direction and should be informing acquisition strategy, hold period analysis and capital expenditure planning now.",
-      "high": "A building with poor environmental performance may face reduced occupier demand, higher running costs, regulatory risk and potential value impact. For any commercial asset above 1,000 m\u00b2, I would assess the gap between its current EPC rating and the EPC B target confirmed for 2031, model the improvement costs into acquisition advice, and consider how that capital expenditure affects pricing, returns and hold strategy. Existing flexibility mechanisms including the 7-year payback test and specific exemptions remain in place and should be reviewed where the EPC B requirement would otherwise be disproportionate. The dropped EPC C 2027 interim milestone is itself a material point \u2014 investors who were holding provisions against a 2027 compliance event need to understand that risk has been removed, replaced by the single 2031 EPC B target. Conversely a building with strong sustainability credentials may attract stronger occupier interest and investor demand. I would consider whether lease structures support ESG objectives through green lease provisions. When advising a client I would integrate ESG into asset strategy, acquisition due diligence, valuation risk and future capital expenditure planning \u2014 not treat it as a separate issue.",
+      "pass": "ESG can influence investment advice because it affects risk, occupier demand, operating costs, funding, marketability and long-term value. I would consider the property's EPC rating, energy efficiency, MEES compliance and likely future capital expenditure required to improve performance. Under current MEES regulations, most privately rented commercial buildings in England and Wales cannot be let below EPC E. The government has announced its intention to raise the non-domestic standard to EPC B by 2031 for buildings above 1,000 m\u00b2 where the improvement is cost-effective \u2014 but this is stated policy, not yet in force, and requires secondary legislation to become legally binding. When advising a client I would set out the current legal position and the anticipated regulatory direction, and model the capital expenditure implications for any significant acquisition.",
+      "high": "A building with poor environmental performance may face reduced occupier demand, higher running costs, regulatory risk and potential value impact. For any commercial acquisition I would assess the EPC rating against the current MEES standard and the announced future direction. Under current law, most privately rented commercial property in England and Wales cannot be let below EPC E. The government has announced its intention to require EPC B from 2031 for privately rented non-domestic buildings above 1,000 m\u00b2 where cost-effective \u2014 buildings below 1,000 m\u00b2 are currently intended to remain at EPC E, and the previously proposed EPC C 2027 milestone is not being taken forward \u2014 but these changes are not yet in force and depend on secondary legislation. When advising a client I would distinguish clearly between the current legal requirement and the anticipated regulatory direction, model improvement costs into acquisition pricing and hold strategy, review available exemptions and the 7-year payback test, and consider green lease provisions. A building with strong sustainability credentials may attract stronger occupier and investor demand, and I would integrate ESG into all aspects of acquisition due diligence and capital expenditure planning.",
       "referral": "ESG just means checking the EPC rating.",
       "referralWhy": [
         "Treats ESG as only an EPC issue",
@@ -9599,7 +9599,7 @@
       "q": "Tell us about your APC case study.",
       "why": "Assessors open the discussion around your submission and test whether you genuinely understand the project you selected, your personal role, the client's objective, the key issue, the advice you gave and the outcome.",
       "pass": "My case study concerned a commercial property instruction where my client required advice on a key issue. My role was to review relevant property information, analyse market evidence, identify the main risks and prepare advice for the client. The client's objective was clearly defined and I considered available options before making my recommendation.",
-      "high": "The strongest case study answers are structured and concise \u2014 assessors want your role not the whole project story. I would explain the client's objective, the key challenge and why it mattered commercially, the options I considered, my recommendation and why it was appropriate, the outcome and my main learning point. Using I rather than we throughout is essential to demonstrate personal involvement.",
+      "high": "I would structure my answer around my personal role and the professional judgement I exercised, not just the sequence of events. I would explain the client's objective, the key challenge and why it mattered commercially, the options I considered, my recommendation and why it was appropriate, the outcome and my main learning point. Using I rather than we throughout is essential to demonstrate personal involvement.",
       "referral": "The project involved a large team and we successfully completed the transaction.",
       "referralWhy": [
         "Uses we instead of I",
@@ -9655,7 +9655,7 @@
       "referral": "There was really only one option that made sense.",
       "referralWhy": [
         "Demonstrates no judgement or alternatives considered",
-        "Listing options without comparing them",
+        "Does not explain why other approaches were rejected",
         "Ignoring risk",
         "Not linking decision to client objective"
       ],

@@ -10117,16 +10117,17 @@ function _render(data){
 }
 
 function _renderExploring(){
-  document.getElementById(‘alanRC’).innerHTML=
-    ‘<div class="alan-res-eyebrow">A good place to start</div>’+
-    ‘<div class="alan-rec-p" style="border-color:#e5e7eb">’+
-      ‘<div class="alan-rec-why" style="margin-bottom:18px">If you&#x2019;re just exploring, you don&#x2019;t need to choose a programme yet.</div>’+
-      ‘<div class="alan-explore-wrap">’+
-        ‘<a href="/programme" class="alan-cta-row dark">Explore our programmes &#x2192;</a>’+
-        ‘<a href="/guides" class="alan-cta-row light">Browse free guides &#x2192;</a>’+
-        ‘<button onclick="alanTryMichael()" class="alan-cta-row light">Try Michael &#x2192;</button>’+
-      ‘</div>’+
-    ‘</div>’;
+  var rc=document.getElementById('alanRC');
+  rc.innerHTML=
+    '<div class="alan-res-eyebrow">A good place to start</div>'+
+    '<div class="alan-rec-p" style="border-color:#e5e7eb">'+
+      '<div class="alan-rec-why" style="margin-bottom:18px">If you’re just exploring, you don’t need to choose a programme yet.</div>'+
+      '<div class="alan-explore-wrap">'+
+        '<a href="/programme" class="alan-cta-row dark">Explore our programmes →</a>'+
+        '<a href="/guides" class="alan-cta-row light">Browse free guides →</a>'+
+        '<button onclick="alanTryMichael()" class="alan-cta-row light">Try Michael →</button>'+
+      '</div>'+
+    '</div>';
 }
 
 window.alanBack=function(){

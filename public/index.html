@@ -9784,6 +9784,19 @@ function _tofyRevealAnswer() {
 .alan-cta-row.light{background:#fff;color:#374151;border:1.5px solid #d1d5db}
 .alan-cta-row.light:hover{background:#f3f4f6;border-color:#9ca3af;color:#0D0F1C}
 .alan-cta-row:focus-visible{outline:2px solid #2563EB;outline-offset:2px}
+
+/* ── Human handoff ───────────────────────────────────────────────────── */
+.alan-handoff{margin-top:18px;padding-top:14px;border-top:1px solid #f1f3f5;text-align:center}
+.alan-handoff-label{font-size:12px;color:#9ca3af;margin:0 0 4px;line-height:1.5}
+.alan-handoff-link{font-size:12px;font-weight:500;color:#6b7280;text-decoration:none;transition:color .15s;display:inline-block}
+.alan-handoff-link:hover{color:#374151}
+.alan-handoff-link:focus-visible{outline:2px solid #2563EB;outline-offset:2px;border-radius:3px}
+
+/* ── Desktop panel: content-led height ──────────────────────────────── */
+@media(min-width:481px){
+  #alanPanel{top:auto;max-height:75vh;border-radius:14px 0 0 0;overflow:hidden}
+  #alanSWrap{min-height:0}
+}
 </style>
 
 <!-- Persistent floating concierge trigger -->
@@ -10127,6 +10140,10 @@ function _renderExploring(){
         '<a href="/guides" class="alan-cta-row light">Browse free guides →</a>'+
         '<button onclick="alanTryMichael()" class="alan-cta-row light">Try Michael →</button>'+
       '</div>'+
+    '</div>'+
+    '<div class="alan-handoff">'+
+      '<p class="alan-handoff-label">Have a specific question?</p>'+
+      '<a href="mailto:info@getcharteredai.com" class="alan-handoff-link">Email the team →</a>'+
     '</div>';
 }
 

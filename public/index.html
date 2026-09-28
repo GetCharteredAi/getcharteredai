@@ -10142,11 +10142,16 @@ window.alanBack=function(){
 };
 
 window.alanRestart=function(){
-  var cur=_currentId();
+  ['alanW0','alanS1','alanS2','alanS3','alanLWrap','alanRWrap'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){el.classList.remove('vis');el.style.display='none';}
+  });
   _hist=[];_ans={};_step=0;
   document.querySelectorAll('.alan-opt').forEach(function(o){o.classList.remove('sel');});
   document.getElementById('alanRC').innerHTML='';
-  _goto(cur,'alanW0',function(){_updateDots(0);_nav();});
+  _show('alanW0');
+  _updateDots(0);
+  _nav();
 };
 
 document.addEventListener('keydown',function(e){

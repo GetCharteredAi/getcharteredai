@@ -1663,6 +1663,9 @@ input.err{border-color:var(--red)}
     <div style="text-align:center;margin-bottom:28px">
       <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563EB;margin-bottom:10px">APC PROGRAMMES</div>
       <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;color:#0D0F1C;letter-spacing:-.02em">Find the right support for where you are now.</div>
+      <div style="margin-top:12px">
+        <button id="alanTrigger" onclick="openAlan()" style="background:none;border:none;cursor:pointer;font-size:14px;color:#2563EB;font-weight:600;padding:0;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(37,99,235,.35)">Not sure where to start? Talk to our Programme Guide &#x2014; Ask Alan &#x2192;</button>
+      </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px" class="pf-grid">
 
@@ -9640,6 +9643,203 @@ function _tofyRevealAnswer() {
 
   </div>
 </div>
+
+<!-- ASK ALAN PANEL -->
+<style>
+#alanOverlay{position:fixed;inset:0;z-index:9000;background:rgba(13,15,28,.45);opacity:0;pointer-events:none;transition:opacity .22s}
+#alanOverlay.open{opacity:1;pointer-events:auto}
+#alanPanel{position:fixed;top:0;right:0;bottom:0;width:390px;max-width:100vw;background:#fff;box-shadow:-6px 0 40px rgba(0,0,0,.18);z-index:9001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1)}
+#alanPanel.open{transform:translateX(0)}
+#alanHeader{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid #e5e7eb;flex-shrink:0}
+#alanHeaderLeft{display:flex;align-items:center;gap:10px}
+#alanAvatar{width:32px;height:32px;background:#2563EB;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
+#alanTitle{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:15px;font-weight:700;color:#0D0F1C;margin:0}
+#alanSubtitle{font-size:11px;color:#6b7280;margin:0}
+#alanClose{background:none;border:none;cursor:pointer;color:#9ca3af;font-size:20px;padding:2px 4px;line-height:1;border-radius:4px}
+#alanClose:hover{background:#f3f4f6;color:#374151}
+#alanBody{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:16px}
+#alanGreeting{background:#f0f7ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 16px;font-size:14px;color:#1e3a5f;line-height:1.6}
+.alan-msg{font-size:14px;color:#1f2937;line-height:1.65;padding:12px 14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px}
+.alan-card{border:1px solid #e5e7eb;border-radius:12px;padding:14px 16px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.alan-card-name{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:14px;font-weight:700;color:#0D0F1C;margin:0 0 6px}
+.alan-card-purpose{font-size:13px;color:#4b5563;line-height:1.55;margin:0 0 12px}
+.alan-card-cta{display:inline-block;padding:9px 16px;background:#2563EB;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .15s}
+.alan-card-cta:hover{background:#1d4ed8}
+.alan-card-cta.secondary{background:#fff;color:#2563EB;border:1.5px solid #2563EB}
+.alan-card-cta.secondary:hover{background:#eff6ff}
+.alan-clarify{font-size:14px;color:#374151;line-height:1.6;font-style:italic}
+.alan-resource-card{border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px;background:#fafafa}
+.alan-resource-title{font-size:13px;font-weight:700;color:#0D0F1C;margin:0 0 4px}
+.alan-resource-desc{font-size:12px;color:#6b7280;margin:0 0 10px;line-height:1.5}
+#alanFooter{padding:14px 20px;border-top:1px solid #e5e7eb;flex-shrink:0;background:#fff}
+#alanForm{display:flex;gap:8px}
+#alanInput{flex:1;padding:10px 13px;border:1.5px solid #d1d5db;border-radius:8px;font-size:14px;color:#0D0F1C;font-family:'Inter',sans-serif;resize:none;transition:border-color .15s;line-height:1.5}
+#alanInput:focus{border-color:#2563EB;outline:none}
+#alanInput::placeholder{color:#9ca3af}
+#alanSend{padding:10px 16px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s;flex-shrink:0}
+#alanSend:hover:not(:disabled){background:#1d4ed8}
+#alanSend:disabled{opacity:.55;cursor:default}
+#alanSpinner{display:none;align-items:center;gap:8px;font-size:13px;color:#6b7280;padding:4px 0}
+#alanSpinner.active{display:flex}
+#alanSpinner span{width:5px;height:5px;border-radius:50%;background:#2563EB;animation:alanBounce 1s infinite ease-in-out}
+#alanSpinner span:nth-child(2){animation-delay:.16s}
+#alanSpinner span:nth-child(3){animation-delay:.32s}
+@keyframes alanBounce{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+@media(max-width:480px){#alanPanel{width:100vw}}
+</style>
+
+<div id="alanOverlay" onclick="closeAlan()"></div>
+<div id="alanPanel" role="dialog" aria-modal="true" aria-labelledby="alanTitle">
+  <div id="alanHeader">
+    <div id="alanHeaderLeft">
+      <div id="alanAvatar">A</div>
+      <div>
+        <p id="alanTitle">Ask Alan</p>
+        <p id="alanSubtitle">Programme guide &middot; Get Chartered AI</p>
+      </div>
+    </div>
+    <button id="alanClose" onclick="closeAlan()" aria-label="Close Ask Alan">&#x2715;</button>
+  </div>
+
+  <div id="alanBody">
+    <div id="alanGreeting">Tell me where you are in your journey and what you&rsquo;re trying to work out.</div>
+    <div id="alanSpinner"><span></span><span></span><span></span></div>
+    <div id="alanMessages"></div>
+  </div>
+
+  <div id="alanFooter">
+    <div id="alanForm">
+      <textarea id="alanInput" rows="2" placeholder="Where are you in your APC journey?" maxlength="600"></textarea>
+      <button id="alanSend" onclick="alanSend()">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var _alanOpen = false;
+
+  window.openAlan = function() {
+    _alanOpen = true;
+    document.getElementById('alanOverlay').classList.add('open');
+    document.getElementById('alanPanel').classList.add('open');
+    document.getElementById('alanInput').focus();
+  };
+
+  window.closeAlan = function() {
+    _alanOpen = false;
+    document.getElementById('alanOverlay').classList.remove('open');
+    document.getElementById('alanPanel').classList.remove('open');
+  };
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && _alanOpen) closeAlan();
+  });
+
+  window.alanSend = async function() {
+    var input = document.getElementById('alanInput');
+    var msg = (input.value || '').trim();
+    if (!msg) return;
+
+    var send = document.getElementById('alanSend');
+    var spinner = document.getElementById('alanSpinner');
+    var msgs = document.getElementById('alanMessages');
+
+    // Append visitor message
+    var visitorDiv = document.createElement('div');
+    visitorDiv.style.cssText = 'font-size:13px;color:#374151;background:#f3f4f6;border-radius:10px;padding:10px 13px;text-align:right;margin-left:32px';
+    visitorDiv.textContent = msg;
+    msgs.appendChild(visitorDiv);
+
+    input.value = '';
+    send.disabled = true;
+    spinner.classList.add('active');
+    msgs.scrollTop = msgs.scrollHeight;
+    document.getElementById('alanBody').scrollTop = document.getElementById('alanBody').scrollHeight;
+
+    try {
+      var res = await fetch('/.netlify/functions/alan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg })
+      });
+      var data = await res.json();
+      spinner.classList.remove('active');
+
+      if (data.rateLimited || data.error) {
+        var errDiv = document.createElement('div');
+        errDiv.className = 'alan-msg';
+        errDiv.textContent = data.text || data.error || 'Something went wrong — please try again.';
+        msgs.appendChild(errDiv);
+      } else {
+        _alanRender(data, msgs);
+      }
+    } catch (e) {
+      spinner.classList.remove('active');
+      var errDiv = document.createElement('div');
+      errDiv.className = 'alan-msg';
+      errDiv.textContent = 'Something went wrong — please try again.';
+      msgs.appendChild(errDiv);
+    }
+
+    send.disabled = false;
+    document.getElementById('alanBody').scrollTop = document.getElementById('alanBody').scrollHeight;
+  };
+
+  function _alanRender(data, container) {
+    // Text response
+    if (data.clarifyQuestion) {
+      var q = document.createElement('div');
+      q.className = 'alan-clarify alan-msg';
+      q.textContent = data.clarifyQuestion;
+      container.appendChild(q);
+    } else if (data.text) {
+      var t = document.createElement('div');
+      t.className = 'alan-msg';
+      t.textContent = data.text;
+      container.appendChild(t);
+    }
+
+    // Product or resource cards
+    if (data.cards && data.cards.length) {
+      data.cards.forEach(function(card, i) {
+        var cardEl = document.createElement('div');
+        cardEl.className = card.isResource ? 'alan-resource-card' : 'alan-card';
+        if (card.isResource) {
+          cardEl.innerHTML =
+            '<p class="alan-resource-title">' + _esc(card.title) + '</p>' +
+            '<p class="alan-resource-desc">' + _esc(card.description) + '</p>' +
+            '<a href="' + _esc(card.url) + '" class="alan-card-cta secondary" style="font-size:12px;padding:7px 12px">Read the guide &rarr;</a>';
+        } else {
+          var ctaClass = i === 0 ? 'alan-card-cta' : 'alan-card-cta secondary';
+          cardEl.innerHTML =
+            '<p class="alan-card-name">' + _esc(card.canonicalName) + '</p>' +
+            '<p class="alan-card-purpose">' + _esc(card.purpose) + '</p>' +
+            '<a href="' + _esc(card.url) + '" class="' + ctaClass + '">' + _esc(card.ctaLabel) + ' &rarr;</a>';
+        }
+        container.appendChild(cardEl);
+      });
+    }
+  }
+
+  function _esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // Allow Enter to submit (Shift+Enter for newline)
+  document.addEventListener('DOMContentLoaded', function() {
+    var inp = document.getElementById('alanInput');
+    if (inp) {
+      inp.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          alanSend();
+        }
+      });
+    }
+  });
+})();
+</script>
 
 <!-- THINK ON YOUR FEET OVERLAY -->
 <div id="tofyOverlay">

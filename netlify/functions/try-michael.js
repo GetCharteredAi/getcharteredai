@@ -19,11 +19,7 @@ try {
 }
 
 const QUESTIONS = [
-  'Tell me about a time you identified a conflict of interest during your work. What did you do?',
-  "Describe a situation where you had to decide whether to raise a concern about something you'd seen on a project. What did you do?",
-  'Tell me about a time you had to explain a difficult professional decision to a client. How did you approach it?',
-  "Describe an occasion where you were asked to do something you weren't fully comfortable with professionally. What was your response?",
-  'Tell me about a time you identified a risk that others may have overlooked. What did you do about it?'
+  'A client asks you to proceed with an instruction that you believe exposes them to unnecessary risk. How would you respond?'
 ];
 
 const STAGE_1_SYSTEM = `You are Michael, an AI coach for Get Chartered AI, giving a brief initial reaction for a public demo.

@@ -1944,10 +1944,11 @@ input.err{border-color:var(--red)}
 
     <div id="tm-gate" style="display:none;margin-top:16px">
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:20px 22px">
-        <p style="font-size:14px;color:rgba(248,250,252,.65);line-height:1.7;margin:0 0 14px">Enter your details for a full breakdown of what a stronger answer would look like — Level 1, 2 and 3 explained, plus a real assessor-style follow-up question.</p>
-        <input id="tm-email" type="email" placeholder="your@email.com" style="width:100%;padding:11px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:’Inter’,sans-serif;font-size:14px;display:block;margin-bottom:8px;transition:border-color .15s">
+        <p style="font-size:15px;font-weight:700;color:rgba(248,250,252,.9);line-height:1.4;margin:0 0 6px">Want to see how Michael would take this further?</p>
+        <p style="font-size:14px;color:rgba(248,250,252,.55);line-height:1.7;margin:0 0 14px">Add a little context and we'll tailor the breakdown to your pathway and assessment stage — including what a stronger answer could look like and a realistic assessor-style follow-up.</p>
+        <input id="tm-email" type="email" placeholder="Where should we send your breakdown?" style="width:100%;padding:11px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:’Inter’,sans-serif;font-size:14px;display:block;margin-bottom:8px;transition:border-color .15s">
         <select id="tm-pathway" style="width:100%;padding:11px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:’Inter’,sans-serif;font-size:14px;display:block;margin-bottom:8px;transition:border-color .15s;appearance:none;-webkit-appearance:none">
-          <option value="" style="color:rgba(248,250,252,.4)">Select your pathway</option>
+          <option value="" style="color:rgba(248,250,252,.4)">Your APC pathway</option>
           <option value="Building Control">Building Control</option>
           <option value="Building Surveying">Building Surveying</option>
           <option value="Commercial Real Estate">Commercial Real Estate</option>
@@ -1966,7 +1967,7 @@ input.err{border-color:var(--red)}
           <option value="Valuation">Valuation</option>
         </select>
         <select id="tm-sitting" style="width:100%;padding:11px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:’Inter’,sans-serif;font-size:14px;display:block;margin-bottom:8px;transition:border-color .15s;appearance:none;-webkit-appearance:none">
-          <option value="" style="color:rgba(248,250,252,.4)">When is your assessment?</option>
+          <option value="" style="color:rgba(248,250,252,.4)">Your assessment window</option>
           <option value="Under 3 months">Under 3 months</option>
           <option value="3–6 months">3–6 months</option>
           <option value="6–12 months">6–12 months</option>
@@ -1974,7 +1975,8 @@ input.err{border-color:var(--red)}
           <option value="More than 18 months">More than 18 months</option>
         </select>
         <div id="tm-gate-warn" style="font-size:12px;color:#fca5a5;margin-bottom:8px;display:none">Please complete all fields above.</div>
-        <button id="tm-btn2" onclick="_tmStage2()" style="width:100%;padding:13px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s">Get full breakdown →</button>
+        <button id="tm-btn2" onclick="_tmStage2()" style="width:100%;padding:13px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s">Show me the full breakdown →</button>
+        <p style="font-size:12px;color:rgba(248,250,252,.35);margin:10px 0 0;text-align:center">We'll only use these details to personalise and send your result.</p>
       </div>
     </div>
 
@@ -2093,7 +2095,7 @@ async function _tmStage2() {
   } catch(e) {
     document.getElementById('tm-err-text').textContent = e.message;
     document.getElementById('tm-err').style.display = 'block';
-    btn.textContent = 'Get full breakdown →';
+    btn.textContent = 'Show me the full breakdown →';
     btn.disabled = false;
     document.getElementById('tm-email').disabled = false;
     document.getElementById('tm-pathway').disabled = false;

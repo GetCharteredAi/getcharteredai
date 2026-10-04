@@ -9846,11 +9846,10 @@ function _tofyRevealAnswer() {
           <rect x="34" y="22" width="4" height="4" stroke="#0D0F1C" stroke-width=".5" fill="none"/>
         </svg>
       </div>
-      <h2 class="alan-w0-hl">How may I help?</h2>
-      <p class="alan-w0-sub">I can help you find the most useful GCAi support for where you are now.</p>
+      <h2 class="alan-w0-hl">Not sure where to start?</h2>
+      <p class="alan-w0-sub">I'll guide you to the most useful GCAi support for where you are now.</p>
       <div class="alan-w0-btns">
         <button class="alan-w0-btn-p" onclick="alanGuide()">Guide me in 3 questions</button>
-        <button class="alan-w0-btn-s" onclick="alanTryMichael()">Try Michael &#x2192;</button>
       </div>
     </div>
 
@@ -10140,7 +10139,11 @@ function _renderExploring(){
       '<div class="alan-explore-wrap">'+
         '<a href="/programme" class="alan-cta-row dark">Explore our programmes →</a>'+
         '<a href="/guides" class="alan-cta-row light">Browse free guides →</a>'+
-        '<button onclick="alanTryMichael()" class="alan-cta-row light">Try Michael →</button>'+
+      '</div>'+
+      '<div style="border-top:1px solid #f1f3f5;margin-top:14px;padding-top:14px">'+
+        '<p style="font-size:13px;font-weight:600;color:#374151;margin:0 0 5px;line-height:1.5">Want a bit more help?</p>'+
+        '<p style="font-size:12px;color:#9ca3af;margin:0 0 10px;line-height:1.55">Michael is your AI mentor. Ask him a question, explore a topic or practise your thinking.</p>'+
+        '<button onclick="alanTryMichael()" class="alan-cta-row light">Ask Michael →</button>'+
       '</div>'+
     '</div>'+
     '<div class="alan-handoff">'+

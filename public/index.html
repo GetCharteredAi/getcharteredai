@@ -1451,38 +1451,35 @@ input.err{border-color:var(--red)}
 </section>
 
 <!-- TRUST SIGNAL ROW -->
-<section id="trust-sec" style="background:#0D0F1C;background-image:radial-gradient(ellipse 900px 400px at 15% -20%,rgba(37,99,235,.16),transparent 60%);padding:64px 40px 68px">
+<section id="trust-sec" style="background:var(--off);padding:64px 40px 68px">
 <style>
-.gcai-split{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:1120px;margin:0 auto}
-.gcai-split-col{padding:0 48px}
-.gcai-split-col:first-child{padding-left:0}
-.gcai-split-col:last-child{padding-right:0}
-.gcai-split-col+.gcai-split-col{border-left:1px solid rgba(255,255,255,.08)}
-.gcai-split-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin:0 0 18px;display:block}
-.gcai-split-hl{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#eef2ff;letter-spacing:-.02em;line-height:1.2;margin:0 0 24px}
+.gcai-split{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1120px;margin:0 auto}
+.gcai-card{background:#0f1729;border-radius:16px;padding:36px;border:1px solid rgba(255,255,255,.1);box-shadow:0 4px 32px rgba(13,15,28,.08)}
+.gcai-split-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin:0 0 16px;display:block}
+.gcai-split-hl{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(20px,2.2vw,27px);font-weight:800;color:#eef2ff;letter-spacing:-.02em;line-height:1.2;margin:0 0 14px}
+.gcai-split-intro{font-size:14px;color:rgba(255,255,255,.55);line-height:1.6;margin:0 0 22px}
 .gcai-split-bullets{list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:10px}
 .gcai-split-bullets li{font-size:14px;color:rgba(255,255,255,.6);line-height:1.5;display:flex;gap:10px}
 .gcai-split-bullets li strong{color:#f4f6fb}
 .gcai-split-ck{font-weight:700;flex-shrink:0;line-height:1.5}
-.gcai-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:32px}
+.gcai-chips{display:flex;flex-wrap:wrap;gap:7px}
 .gcai-chip{font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid rgba(37,99,235,.4);background:rgba(37,99,235,.1);color:#93c5fd;letter-spacing:.01em;white-space:nowrap}
-.gcai-prog{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.3);padding-top:20px;border-top:1px solid rgba(255,255,255,.07);margin:0;line-height:1.8}
-.gcai-prog-w{color:rgba(255,255,255,.5)}
+.gcai-emp-benefit{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.22);border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;color:#fbbf24;line-height:1.5}
 @media(max-width:900px){
   #trust-sec{padding:48px 24px 52px!important}
-  .gcai-split{grid-template-columns:1fr!important}
-  .gcai-split-col{padding:0!important}
-  .gcai-split-col+.gcai-split-col{border-left:none!important;border-top:1px solid rgba(255,255,255,.08)!important;padding-top:40px!important;margin-top:40px!important}
+  .gcai-split{grid-template-columns:1fr!important;gap:16px!important}
+  .gcai-card{padding:28px!important}
 }
 </style>
-  <h2 style="text-align:center;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(18px,2vw,24px);font-weight:700;color:rgba(255,255,255,.75);letter-spacing:-.01em;margin:0 auto 52px;max-width:840px">Everything you need to prepare, practise and perform.</h2>
+  <h2 style="text-align:center;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(18px,2vw,24px);font-weight:700;color:#1e293b;letter-spacing:-.01em;margin:0 auto 40px;max-width:840px">Everything you need to prepare, practise and perform.</h2>
 
   <div class="gcai-split">
 
     <!-- APC CANDIDATES -->
-    <div class="gcai-split-col">
+    <div class="gcai-card">
       <span class="gcai-split-label" style="color:#2563EB">For APC Candidates</span>
       <h3 class="gcai-split-hl">More than a guide.<br>Your APC practice partner.</h3>
+      <p class="gcai-split-intro">Explain your reasoning and respond when the questioning changes direction.</p>
       <ul class="gcai-split-bullets">
         <li><span class="gcai-split-ck" style="color:#10b981">&#10003;</span><span><strong>Learn</strong> what you need to know.</span></li>
         <li><span class="gcai-split-ck" style="color:#10b981">&#10003;</span><span><strong>Practise</strong> applying it.</span></li>
@@ -1496,26 +1493,27 @@ input.err{border-color:var(--red)}
         <span class="gcai-chip">Take a full mock</span>
         <span class="gcai-chip">Find out what still needs work</span>
       </div>
-      <p class="gcai-prog"><span class="gcai-prog-w">Learn</span> &#x2192; <span class="gcai-prog-w">Practise</span> &#x2192; <span class="gcai-prog-w">Get Challenged</span> &#x2192; <span class="gcai-prog-w">Perform</span></p>
     </div>
 
     <!-- EMPLOYERS -->
-    <div class="gcai-split-col">
+    <div class="gcai-card">
       <span class="gcai-split-label" style="color:#f59e0b">For Employers</span>
       <h3 class="gcai-split-hl">Develop people who are<br>ready to perform.</h3>
-      <p style="font-size:14px;font-weight:600;color:rgba(255,255,255,.7);line-height:1.6;margin:0 0 20px">GCAi provides the practice and development layer between formal learning and workplace performance.</p>
+      <p class="gcai-split-intro" style="font-weight:600;color:rgba(255,255,255,.7)">Get Chartered provides the practice and development layer between formal learning and workplace performance.</p>
       <ul class="gcai-split-bullets">
         <li><span class="gcai-split-ck" style="color:#f59e0b">&#10003;</span><span><strong>Identify</strong> role-specific development needs.</span></li>
         <li><span class="gcai-split-ck" style="color:#f59e0b">&#10003;</span><span><strong>Target</strong> the right support.</span></li>
-        <li><span class="gcai-split-ck" style="color:#f59e0b">&#10003;</span><span><strong>Structure</strong> better development conversations.</span></li>
+        <li><span class="gcai-split-ck" style="color:#f59e0b">&#10003;</span><span><strong>Practise</strong> applying knowledge in role-specific situations.</span></li>
         <li><span class="gcai-split-ck" style="color:#f59e0b">&#10003;</span><span><strong>Evidence</strong> professional growth over time.</span></li>
       </ul>
-      <p class="gcai-prog"><span class="gcai-prog-w">Identify</span> &#x2192; <span class="gcai-prog-w">Develop</span> &#x2192; <span class="gcai-prog-w">Practise</span> &#x2192; <span class="gcai-prog-w">Evidence</span></p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="gcai-emp-benefit">See whether learning is translating into greater workplace capability.</div>
+        <div class="gcai-emp-benefit">Structure better development conversations.</div>
+      </div>
     </div>
 
   </div>
 </section>
-<div style="height:10px;background:rgba(255,255,255,0.92)"></div>
 
 <!-- PROFESSIONAL READINESS STATEMENT -->
 <section id="readiness-sec" style="background:#0D0F1C;padding:96px 40px 88px;text-align:center">

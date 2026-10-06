@@ -4,174 +4,199 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://getcharteredai.com/sprint">
-<title>APC Final Sprint — Submission Done. Now Prove You're Ready.</title>
-<meta name="description" content="APC Final Sprint — Identify your gaps, strengthen your answers and practise performing before your RICS APC assessment. Six focused modules, 5,000+ practice questions, Michael 24/7 and a full 60-minute mock. £297.">
+<title>APC Final Sprint — Make Sure Your Answers Are Ready | Get Chartered AI</title>
+<meta name="description" content="Built Environment APC final assessments begin 2 November. The APC Final Sprint helps you structure better answers, practise challenge and follow-up with Michael, and test your full performance in a 60-minute mock. £297 · Immediate access.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0a0f1e;
+  --navy:#0D0F1C;
   --navy2:#0f1729;
-  --blue:#2563EB;
-  --blue2:#1d4ed8;
-  --gold:#f59e0b;
-  --gold2:#d97706;
-  --white:#f8fafc;
-  --muted:#94a3b8;
-  --border:rgba(255,255,255,.08);
+  --cream:#fdfaf6;
+  --gold:#b45309;
+  --gold-bright:#d97706;
+  --white:#ffffff;
+  --text:#0D0F1C;
+  --text-muted:#374151;
+  --text-sub:#6b7280;
+  --border:rgba(13,15,28,.1);
+  --border-dark:rgba(255,255,255,.08);
   --f-head:'Plus Jakarta Sans','Inter',sans-serif;
   --f-body:'Inter',system-ui,sans-serif;
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--f-body);background:var(--navy);color:var(--white);line-height:1.6;overflow-x:hidden}
+body{font-family:var(--f-body);background:var(--cream);color:var(--text);line-height:1.6;overflow-x:hidden}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,15,30,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-.nav-logo{font-family:var(--f-head);font-size:18px;font-weight:700;color:var(--white);text-decoration:none}
-.nav-logo span{color:var(--gold)}
-.nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:.02em;transition:.18s}
-.nav-cta:hover{background:var(--gold2)}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;background:rgba(13,15,28,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo{font-family:var(--f-head);font-size:18px;font-weight:700;color:#f8fafc;text-decoration:none}
+.nav-cta{background:var(--gold);color:#fff;padding:9px 20px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:.02em;transition:.18s}
+.nav-cta:hover{background:var(--gold-bright)}
 .nav-signin{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(248,250,252,.75);font-family:var(--f-body);font-size:13px;font-weight:500;padding:9px 16px;border-radius:6px;cursor:pointer;transition:.18s;white-space:nowrap}
-.nav-signin:hover{border-color:rgba(255,255,255,.4);color:var(--white)}
+.nav-signin:hover{border-color:rgba(255,255,255,.4);color:#f8fafc}
 
-/* ── CAMPAIGN STRIP ── */
-.campaign-strip{margin-top:80px;background:linear-gradient(135deg,rgba(37,99,235,.15) 0%,rgba(29,78,216,.07) 100%);border-bottom:1px solid rgba(37,99,235,.22);padding:16px 24px;text-align:center}
-.campaign-strip-inner{max-width:760px;margin:0 auto}
-.campaign-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;display:block;margin-bottom:7px}
-.campaign-heading{font-family:var(--f-head);font-size:clamp(15px,2.2vw,19px);font-weight:700;color:var(--white);margin-bottom:5px;line-height:1.3}
-.campaign-sub{font-size:13px;color:rgba(248,250,252,.5);font-style:italic}
+/* CAMPAIGN STRIP */
+.campaign-strip{margin-top:76px;background:var(--navy);padding:13px 24px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)}
+.campaign-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#d97706;display:block;margin-bottom:4px}
+.campaign-heading{font-family:var(--f-head);font-size:clamp(13px,1.6vw,15px);font-weight:600;color:#f8fafc;line-height:1.35}
 
-/* ── HERO ── */
-.hero{min-height:85vh;display:flex;align-items:center;justify-content:center;position:relative;padding:60px 24px 80px;text-align:center;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,99,235,.18) 0%, transparent 70%)}
-.hero::after{content:'';position:absolute;pointer-events:none;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(37,99,235,.4),transparent)}
-.hero-inner{position:relative;max-width:760px;margin:0 auto}
+/* HERO */
+.hero{background:var(--cream);padding:80px 40px 72px}
+.hero-inner{max-width:680px;margin:0 auto}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;display:block}
+.hero h1{font-family:var(--f-head);font-size:clamp(24px,3.8vw,46px);font-weight:700;line-height:1.1;letter-spacing:-.03em;color:var(--navy);margin-bottom:32px;max-width:580px}
+.hero-date{font-size:clamp(15px,1.5vw,19px);color:var(--navy);font-weight:500;line-height:1.45;margin-bottom:14px}
+.hero-body{font-size:clamp(15px,1.4vw,18px);color:var(--navy);font-weight:400;line-height:1.55;margin-bottom:14px}
+.hero-body strong{font-weight:600}
+.hero-outro{font-size:clamp(14px,1.25vw,16px);color:var(--text-muted);line-height:1.6;margin-bottom:28px}
+.hero-price{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:22px}
+.hero-price .price-num{font-size:20px;font-weight:800}
+.btn-sprint-primary{display:inline-block;background:var(--navy);color:#fff;padding:16px 40px;border-radius:8px;font-size:16px;font-weight:700;text-decoration:none;letter-spacing:.01em;transition:.2s;border:none;cursor:pointer;font-family:var(--f-body)}
+.btn-sprint-primary:hover{background:#1a1d30;transform:translateY(-1px)}
+.hero-signin{margin-top:16px;font-size:13px;color:var(--text-sub)}
+.hero-signin button{background:none;border:none;color:var(--gold);font-family:var(--f-body);font-size:13px;cursor:pointer;text-decoration:underline;padding:0}
 
-.sprint-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:28px;animation:fadeDown .6s ease both}
-.sprint-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;flex-shrink:0}
-
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-.hero h1{font-family:var(--f-head);font-size:clamp(38px,7vw,72px);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:20px;animation:fadeUp .7s .1s ease both}
-.hero h1 em{font-style:normal;color:var(--gold)}
-.hero-sub{font-size:clamp(16px,2.5vw,20px);color:rgba(248,250,252,.75);line-height:1.6;max-width:600px;margin:0 auto 12px;font-weight:400;animation:fadeUp .7s .2s ease both}
-.hero-rec{font-size:15px;color:rgba(248,250,252,.5);line-height:1.6;max-width:520px;margin:0 auto 36px;font-style:italic;animation:fadeUp .7s .25s ease both}
-.hero-proof{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;margin-bottom:40px;animation:fadeUp .7s .3s ease both}
-.hero-proof-item{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:rgba(248,250,252,.8)}
-.hero-proof-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
-
-.price-block{margin-bottom:32px;animation:fadeUp .7s .35s ease both}
-.price-main{display:flex;align-items:baseline;justify-content:center;gap:4px}
-.price-sym{font-size:28px;font-weight:700;color:var(--white);margin-top:6px}
-.price-num{font-family:var(--f-head);font-size:72px;font-weight:900;color:var(--white);line-height:1}
-.price-note{font-size:13px;color:var(--muted);margin-top:4px}
-
-.hero-btns{display:flex;flex-direction:column;align-items:center;gap:14px;animation:fadeUp .7s .4s ease both}
-.btn-sprint{background:var(--gold);color:var(--navy);padding:18px 48px;border-radius:8px;font-size:17px;font-weight:700;text-decoration:none;letter-spacing:.01em;transition:.2s;display:inline-block;box-shadow:0 8px 32px rgba(245,158,11,.35)}
-.btn-sprint:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 12px 40px rgba(245,158,11,.45)}
-.btn-secondary{font-size:14px;color:#60a5fa;text-decoration:none;border-bottom:1px solid rgba(96,165,250,.3);padding-bottom:2px;transition:.18s}
-.btn-secondary:hover{color:#93c5fd;border-color:rgba(147,197,253,.5)}
-.btn-sub{font-size:12px;color:var(--muted);letter-spacing:.03em}
-.urgency{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#fbbf24;font-weight:500;margin-top:4px}
-.urgency::before{content:'⚠';font-size:11px}
-
-/* ── SECTIONS ── */
-.sec{padding:80px 24px}
+/* SECTION BASE */
+.sec{padding:72px 40px}
 .sec-inner{max-width:900px;margin:0 auto}
+.sec-narrow{max-width:680px;margin:0 auto}
+.sec-white{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.sec-cream{background:var(--cream)}
+.sec-navy{background:var(--navy);color:#f8fafc}
+.sec-navy2{background:var(--navy2);color:#f8fafc}
 .eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-.sec-h{font-family:var(--f-head);font-size:clamp(28px,4vw,42px);font-weight:800;line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
-.sec-lead{font-size:16px;color:rgba(248,250,252,.65);line-height:1.7;max-width:620px}
+.eyebrow-light{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#d97706;margin-bottom:12px}
+.sec-h{font-family:var(--f-head);font-size:clamp(22px,3vw,36px);font-weight:700;line-height:1.15;letter-spacing:-.025em;margin-bottom:18px;color:var(--navy)}
+.sec-h-light{font-family:var(--f-head);font-size:clamp(22px,3vw,36px);font-weight:700;line-height:1.15;letter-spacing:-.025em;margin-bottom:18px;color:#f8fafc}
+.sec-lead{font-size:16px;color:var(--text-muted);line-height:1.65;max-width:600px}
+.sec-lead-light{font-size:16px;color:rgba(248,250,252,.65);line-height:1.65;max-width:600px}
 
-/* ── CANDIDATE RECOGNITION ── */
-.recognition-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:40px}
-.recognition-item{background:rgba(255,255,255,.03);border:1px solid var(--border);border-left:3px solid rgba(37,99,235,.45);border-radius:0 10px 10px 0;padding:22px 24px}
-.recognition-q{font-size:15px;font-weight:600;color:rgba(248,250,252,.9);margin-bottom:8px;font-style:italic}
-.recognition-a{font-size:13px;color:var(--muted);line-height:1.65}
+/* SECONDARY PROPOSITION */
+.prop-list{margin-top:24px;display:flex;flex-direction:column;gap:10px;max-width:560px}
+.prop-item{display:flex;align-items:flex-start;gap:14px;font-size:15px;color:var(--text-muted);line-height:1.6}
+.prop-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:8px}
 
-/* ── PHILOSOPHY + TRANSFORMATION ── */
-.philosophy-sec{background:rgba(255,255,255,.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 24px;text-align:center}
-.philosophy-inner{max-width:700px;margin:0 auto}
-.philosophy-q{font-family:var(--f-head);font-size:clamp(22px,3.5vw,36px);font-weight:800;line-height:1.2;letter-spacing:-.02em;margin-bottom:14px}
-.philosophy-q em{font-style:normal;color:var(--gold)}
-.philosophy-sub{font-size:16px;color:rgba(248,250,252,.55);line-height:1.7;margin-bottom:44px}
-.transform-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left}
-.transform-box{border-radius:12px;padding:26px 28px}
-.transform-before{background:rgba(100,116,139,.08);border:1px solid rgba(100,116,139,.2)}
-.transform-after{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2)}
-.transform-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
-.transform-before .transform-label{color:#94a3b8}
-.transform-after .transform-label{color:#60a5fa}
-.transform-text{font-size:15px;line-height:1.7;color:rgba(248,250,252,.8)}
+/* JOURNEY STEPS */
+.journey-step{padding:72px 40px}
+.journey-inner{max-width:860px;margin:0 auto}
+.step-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block}
+.step-h{font-family:var(--f-head);font-size:clamp(22px,2.8vw,34px);font-weight:700;line-height:1.15;letter-spacing:-.025em;color:var(--navy);margin-bottom:16px}
+.step-body{font-size:16px;color:var(--text-muted);line-height:1.65;max-width:600px;margin-bottom:16px}
+.step-body strong{color:var(--navy);font-weight:600}
+.step-pull{font-size:clamp(17px,1.9vw,22px);font-weight:600;color:var(--navy);line-height:1.35;margin-bottom:16px;max-width:580px}
+.step-aside{background:rgba(180,83,9,.06);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:16px 22px;font-size:15px;color:var(--navy);line-height:1.6;max-width:560px;margin-top:20px;font-style:italic}
 
-/* ── SIZZLE ── */
-.sizzle-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin-top:40px}
-.sizzle-item{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:26px 24px;transition:.2s}
-.sizzle-item:hover{background:rgba(37,99,235,.06);border-color:rgba(37,99,235,.25);transform:translateY(-2px)}
-.sizzle-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.sizzle-benefit{font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.3}
-.sizzle-why{font-size:13px;color:var(--muted);line-height:1.65}
+/* TAGS */
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;max-width:620px}
+.tag{background:rgba(13,15,28,.06);border:1px solid rgba(13,15,28,.12);border-radius:6px;padding:7px 14px;font-size:13px;font-weight:500;color:var(--navy)}
 
-/* ── INSIDE / 7-ITEM GRID ── */
-.inside-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:36px}
-.inside-item{background:#0f172a;border:1px solid #1a2540;border-radius:10px;padding:20px}
-.inside-num{font-family:var(--f-head);font-size:32px;font-weight:900;color:rgba(37,99,235,.4);line-height:1;margin-bottom:8px}
-.inside-h{font-size:15px;font-weight:600;margin-bottom:6px;color:#eef2ff}
-.inside-p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
+/* INSUFFICIENCY GRID */
+.signs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:20px;max-width:760px}
+.sign-item{background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.14);border-radius:8px;padding:14px 18px;font-size:14px;color:var(--text-muted);line-height:1.55}
 
-/* ── PRICE SECTION ── */
-.price-sec{text-align:center}
-.price-card{background:rgba(255,255,255,.04);border:1px solid rgba(245,158,11,.25);border-radius:20px;padding:52px 40px;max-width:500px;margin:44px auto 0;position:relative;overflow:hidden}
-.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--blue))}
-.price-big{font-family:var(--f-head);font-size:80px;font-weight:900;line-height:1;margin-bottom:4px}
-.price-big span{font-size:36px;vertical-align:super}
-.price-period{font-size:14px;color:var(--muted);margin-bottom:28px}
-.price-feats{list-style:none;text-align:left;margin-bottom:32px}
-.price-feats li{padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;color:rgba(248,250,252,.8);display:flex;gap:10px;align-items:flex-start}
-.price-feats li:last-child{border-bottom:none}
-.price-feats li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;margin-top:1px}
-.price-card .btn-sprint{width:100%;text-align:center;display:block;border:none;cursor:pointer;font-family:var(--f-body)}
-.price-guarantee{font-size:12px;color:var(--muted);margin-top:16px}
+/* MICHAEL (navy) */
+.michael-inner{max-width:800px;margin:0 auto}
+.michael-h{font-family:var(--f-head);font-size:clamp(24px,3.4vw,42px);font-weight:700;line-height:1.1;letter-spacing:-.03em;color:#f8fafc;margin-bottom:18px}
+.michael-intro{font-size:17px;color:rgba(248,250,252,.6);line-height:1.65;margin-bottom:36px;max-width:600px}
+.challenge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:32px}
+.challenge-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:16px 18px}
+.challenge-q{font-family:var(--f-head);font-size:15px;font-weight:700;color:#f8fafc;margin-bottom:5px;font-style:italic}
+.challenge-sub{font-size:12px;color:rgba(248,250,252,.38);line-height:1.45}
+.michael-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.michael-pill{font-size:13px;font-weight:500;color:rgba(248,250,252,.65);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:100px;padding:6px 14px}
+.michael-key{font-size:clamp(16px,1.9vw,21px);font-weight:600;color:#f8fafc;line-height:1.4}
+.michael-key em{font-style:normal;color:#d97706}
 
-/* ── UPSELL CALLOUT ── */
-.upsell-bar{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:12px;padding:24px 28px;margin-top:44px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
-.upsell-text h4{font-size:15px;font-weight:700;margin-bottom:4px}
-.upsell-text p{font-size:13px;color:var(--muted)}
-.upsell-btn{background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.4);color:#93c5fd;padding:10px 20px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:.18s}
-.upsell-btn:hover{background:rgba(37,99,235,.25)}
+/* MOCK (navy2) */
+.mock-inner{max-width:720px;margin:0 auto;text-align:center}
+.mock-h{font-family:var(--f-head);font-size:clamp(24px,3.4vw,42px);font-weight:700;line-height:1.1;letter-spacing:-.03em;color:#f8fafc;margin-bottom:14px}
+.mock-highlight{font-family:var(--f-head);font-size:clamp(18px,2.2vw,26px);font-weight:700;color:#d97706;margin-bottom:20px;display:block}
+.mock-body{font-size:16px;color:rgba(248,250,252,.6);line-height:1.65;max-width:540px;margin:0 auto 24px}
+.mock-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:28px}
+.mock-pill{font-size:13px;font-weight:500;color:rgba(248,250,252,.65);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:100px;padding:6px 14px}
+.mock-key{font-size:clamp(15px,1.75vw,19px);font-weight:600;color:#f8fafc;max-width:500px;margin:0 auto;line-height:1.45}
+.mock-key em{font-style:normal;color:#d97706}
 
-/* ── FAQ ── */
-.faq-list{margin-top:36px;display:flex;flex-direction:column;gap:2px}
+/* OUTCOMES */
+.outcomes-inner{max-width:680px;margin:0 auto}
+.outcome-item{padding:18px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:18px}
+.outcome-item:last-child{border-bottom:none}
+.outcome-num{font-family:var(--f-head);font-size:12px;font-weight:700;color:var(--gold);min-width:20px;margin-top:3px;flex-shrink:0}
+.outcome-q{font-size:16px;font-weight:600;color:var(--navy);line-height:1.4}
+
+/* FEATURE LIST */
+.feature-list{margin-top:20px;display:flex;flex-direction:column;gap:0;max-width:600px;border-top:1px solid var(--border)}
+.feature-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:15px;color:var(--text-muted);line-height:1.5}
+.feature-item strong{color:var(--navy);font-weight:600}
+.feature-check{color:var(--gold);font-weight:700;flex-shrink:0;margin-top:2px}
+
+/* URGENCY BAND */
+.urgency-band{background:rgba(180,83,9,.07);border-top:1px solid rgba(180,83,9,.15);border-bottom:1px solid rgba(180,83,9,.15);padding:28px 40px;text-align:center}
+.urgency-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:block}
+.urgency-text{font-size:clamp(15px,1.6vw,18px);color:var(--navy);font-weight:500;line-height:1.5;max-width:560px;margin:0 auto}
+
+/* PRICE SECTION */
+.price-sec-inner{max-width:520px;margin:0 auto;text-align:center}
+.price-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#d97706;margin-bottom:12px;display:block}
+.price-h{font-family:var(--f-head);font-size:clamp(20px,2.8vw,34px);font-weight:700;color:#f8fafc;line-height:1.15;letter-spacing:-.025em;margin-bottom:8px}
+.price-sub{font-size:14px;color:rgba(248,250,252,.45);margin-bottom:32px;letter-spacing:.02em}
+.price-display{font-family:var(--f-head);font-size:clamp(52px,7vw,80px);font-weight:800;color:#f8fafc;line-height:1;margin-bottom:5px}
+.price-display sup{font-size:.4em;vertical-align:super}
+.price-access{font-size:13px;color:rgba(248,250,252,.35);letter-spacing:.06em;text-transform:uppercase;margin-bottom:30px}
+.price-feats{list-style:none;text-align:left;margin-bottom:30px;border-top:1px solid rgba(255,255,255,.07)}
+.price-feats li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:14px;color:rgba(248,250,252,.7);display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.price-feats li strong{color:#f8fafc;font-weight:600}
+.price-feats li::before{content:'✓';color:#d97706;font-weight:700;flex-shrink:0;margin-top:1px}
+.btn-sprint-enrol{display:block;width:100%;background:var(--gold);color:#fff;padding:18px;border-radius:8px;font-size:17px;font-weight:700;text-decoration:none;letter-spacing:.01em;transition:.2s;border:none;cursor:pointer;font-family:var(--f-body);text-align:center}
+.btn-sprint-enrol:hover{background:var(--gold-bright)}
+.price-note{font-size:12px;color:rgba(248,250,252,.3);margin-top:14px;line-height:1.6}
+.upsell-bar{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:22px 26px;margin-top:24px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;text-align:left}
+.upsell-text h4{font-size:14px;font-weight:700;margin-bottom:3px;color:#f8fafc}
+.upsell-text p{font-size:13px;color:rgba(248,250,252,.45)}
+.upsell-btn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#f8fafc;padding:9px 18px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:.18s}
+.upsell-btn:hover{background:rgba(255,255,255,.13)}
+
+/* FAQ */
+.faq-list{margin-top:32px;display:flex;flex-direction:column;gap:2px}
 .faq-item{border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.faq-q{width:100%;background:rgba(255,255,255,.03);border:none;padding:18px 20px;text-align:left;font-family:var(--f-body);font-size:15px;font-weight:600;color:var(--white);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:.18s}
-.faq-q:hover{background:rgba(255,255,255,.06)}
+.faq-q{width:100%;background:rgba(13,15,28,.03);border:none;padding:18px 20px;text-align:left;font-family:var(--f-body);font-size:15px;font-weight:600;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:.18s}
+.faq-q:hover{background:rgba(13,15,28,.06)}
 .faq-q .arrow{font-size:18px;color:var(--gold);transition:.2s;flex-shrink:0}
-.faq-a{display:none;padding:0 20px 18px;font-size:14px;color:var(--muted);line-height:1.7}
+.faq-a{display:none;padding:0 20px 18px;font-size:14px;color:var(--text-muted);line-height:1.7}
 .faq-item.open .faq-a{display:block}
 .faq-item.open .arrow{transform:rotate(45deg)}
 
-/* ── FINAL CTA ── */
-.final-cta{text-align:center;padding:80px 24px;background:linear-gradient(180deg,transparent,rgba(37,99,235,.06))}
-.final-cta h2{font-family:var(--f-head);font-size:clamp(28px,4vw,48px);font-weight:900;margin-bottom:16px;letter-spacing:-.02em}
-.final-cta p{font-size:16px;color:rgba(248,250,252,.6);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto}
+/* FINAL CTA */
+.final-cta{background:var(--navy);padding:80px 40px;text-align:center}
+.final-cta-h{font-family:var(--f-head);font-size:clamp(19px,2.6vw,32px);font-weight:700;color:#f8fafc;line-height:1.35;letter-spacing:-.02em;margin-bottom:32px;max-width:620px;margin-left:auto;margin-right:auto}
+.final-cta-h em{font-style:normal;color:#d97706}
+.btn-sprint-final{display:inline-block;background:var(--gold);color:#fff;padding:18px 48px;border-radius:8px;font-size:17px;font-weight:700;text-decoration:none;transition:.2s;border:none;cursor:pointer;font-family:var(--f-body)}
+.btn-sprint-final:hover{background:var(--gold-bright)}
 
-/* ── FOOTER ── */
-footer{padding:24px;text-align:center;border-top:1px solid var(--border)}
-footer p{font-size:12px;color:var(--muted)}
-footer a{color:#60a5fa;text-decoration:none}
+/* MISTAKE EXPLAINER */
+@media(max-width:600px){.mistake-grid{grid-template-columns:1fr!important}}
 
-/* ── MOBILE ── */
+/* FOOTER */
+footer{background:var(--navy2);padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+footer p{font-size:12px;color:rgba(248,250,252,.38)}
+footer a{color:rgba(248,250,252,.55);text-decoration:none}
+footer a:hover{color:rgba(248,250,252,.8)}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero{padding:56px 24px 48px}
+  .sec{padding:56px 24px}
+  .journey-step{padding:56px 24px}
+  .urgency-band,.final-cta{padding:48px 24px}
+  .challenge-grid{grid-template-columns:1fr}
+  .signs-grid{grid-template-columns:1fr}
+}
 @media(max-width:600px){
   .nav-cta{display:none}
-  .hero{padding:48px 20px 60px}
-  .price-card{padding:36px 24px}
-  .price-big{font-size:64px}
-  .upsell-bar{flex-direction:column;text-align:center}
-  .transform-grid{grid-template-columns:1fr}
-  .recognition-grid{grid-template-columns:1fr}
-  .mistake-grid{grid-template-columns:1fr!important}
+  .upsell-bar{flex-direction:column}
+  .price-display{font-size:52px}
+  .hero h1{font-size:26px}
 }
 </style>
 </head>
@@ -181,120 +206,177 @@ footer a{color:#60a5fa;text-decoration:none}
   <a href="/" class="nav-logo"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px"></a>
   <div style="display:flex;align-items:center;gap:12px">
     <button id="sprint-signin-nav" class="nav-signin" onclick="sprintRenderLogin()">Already purchased? Sign in →</button>
-    <a href="#enrol" id="sprint-nav-cta" class="nav-cta">Start Your Final Sprint →</a>
+    <a href="#enrol" id="sprint-nav-cta" class="nav-cta">Start My Final Sprint →</a>
   </div>
 </nav>
 
-<!-- AUTUMN CAMPAIGN STRIP — above hero -->
 <div class="campaign-strip">
-  <div class="campaign-strip-inner">
-    <span class="campaign-label">Autumn 2026 — Land &amp; Property</span>
-    <div class="campaign-heading">Submission complete. Assessment preparation starts here.</div>
-    <div class="campaign-sub">Assessments begin from 5 October 2026. However much preparation time you have left, Final Sprint helps you focus it where it matters most.</div>
+  <div style="max-width:760px;margin:0 auto">
+    <span class="campaign-label">Built Environment · Autumn 2026 Final Assessment</span>
+    <div class="campaign-heading">Final assessments begin <strong style="color:#f8fafc">Monday 2 November</strong>. Final Sprint is open now.</div>
   </div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="sprint-badge">Final Preparation — Sprint to the Finish Line Starts Now</div>
-    <h1>Submission done.<br><em>Now prove you're ready.</em></h1>
-    <p class="hero-sub">Identify your gaps, strengthen your answers and practise performing before your final APC assessment.</p>
-    <p class="hero-rec">If your APC assessment is approaching and you want to know where you stand, you're in the right place.</p>
-    <div class="hero-proof">
-      <span class="hero-proof-item">Six focused stages</span>
-      <span class="hero-proof-item">Pathway-specific practice</span>
-      <span class="hero-proof-item">Michael 24/7</span>
-      <span class="hero-proof-item">Full 60-minute mock</span>
-    </div>
-    <p id="sprint-hero-signin" style="margin-top:20px;font-size:13px;color:rgba(248,250,252,0.5);text-align:center">Already purchased? <button onclick="sprintRenderLogin()" style="background:none;border:none;color:rgba(248,250,252,0.7);font-family:var(--f-body);font-size:13px;cursor:pointer;padding:0;text-decoration:underline">Sign in →</button></p>
+    <span class="hero-eyebrow">BUILT ENVIRONMENT · AUTUMN 2026 FINAL ASSESSMENT</span>
+    <h1>Your APC assessment is approaching. Make sure your answers are ready.</h1>
+    <p class="hero-date">Built Environment final assessments begin <strong>Monday 2 November.</strong></p>
+    <p class="hero-body">You may know your work. The question now is whether you can <strong>structure your answers to the level being assessed, recognise when an answer is not strong enough, explain your reasoning and respond when the questioning goes deeper.</strong></p>
+    <p class="hero-outro">The APC Final Sprint gives you a focused way to test, strengthen and practise that performance before the real assessment.</p>
+    <p class="hero-price"><span class="price-num">£297</span>&nbsp;&nbsp;·&nbsp;&nbsp;Immediate access</p>
+    <button id="sprint-hero-cta" class="btn-sprint-primary" onclick="showApcModal('sprint')">Start My Final Sprint</button>
+    <p id="sprint-hero-signin" class="hero-signin">Already purchased? <button onclick="sprintRenderLogin()">Sign in →</button></p>
   </div>
 </section>
 
-<!-- CANDIDATE RECOGNITION -->
-<section class="sec">
-  <div class="sec-inner">
-    <span class="eyebrow">If this sounds familiar</span>
-    <h2 class="sec-h">You've prepared.<br>But how do you know you're ready?</h2>
-    <div class="recognition-grid">
-      <div class="recognition-item">
-        <div class="recognition-q">"I've revised, but I'm not sure what I'm missing."</div>
-        <div class="recognition-a">Final Sprint helps you identify less-secure areas so you can focus your preparation where it matters most.</div>
-      </div>
-      <div class="recognition-item">
-        <div class="recognition-q">"I know the answer, but can I explain it properly?"</div>
-        <div class="recognition-a">Practise turning knowledge and experience into clear, structured professional answers.</div>
-      </div>
-      <div class="recognition-item">
-        <div class="recognition-q">"What if they ask something I haven't prepared?"</div>
-        <div class="recognition-a">Practise reasoning and responding professionally when the question changes.</div>
-      </div>
-      <div class="recognition-item">
-        <div class="recognition-q">"I don't want the real interview to be my first proper test."</div>
-        <div class="recognition-a">Experience a complete 60-minute mock before assessment day.</div>
-      </div>
-      <div class="recognition-item">
-        <div class="recognition-q">"I haven't got unlimited time."</div>
-        <div class="recognition-a">Use readiness checks and pathway-specific practice to concentrate on what matters most.</div>
-      </div>
+<!-- SECONDARY PROPOSITION -->
+<section class="sec sec-white">
+  <div class="sec-narrow">
+    <span class="eyebrow">What Sprint is for</span>
+    <h2 class="sec-h">Don't just revise. Learn how to answer at the level your APC assessment requires.</h2>
+    <p class="sec-lead">Sprint is not more material to read. It is a structured way to improve the quality of what you actually say in the assessment room.</p>
+    <div class="prop-list">
+      <div class="prop-item"><span class="prop-dot"></span><span>How to structure an answer at the required competency level</span></div>
+      <div class="prop-item"><span class="prop-dot"></span><span>What distinguishes a sufficient answer from an insufficient one</span></div>
+      <div class="prop-item"><span class="prop-dot"></span><span>When your answer needs more — and how to strengthen it</span></div>
+      <div class="prop-item"><span class="prop-dot"></span><span>How to communicate your reasoning clearly</span></div>
+      <div class="prop-item"><span class="prop-dot"></span><span>How to respond when the question changes or goes deeper</span></div>
     </div>
   </div>
 </section>
 
-<!-- PHILOSOPHY + TRANSFORMATION -->
-<section class="philosophy-sec">
-  <div class="philosophy-inner">
-    <div class="philosophy-q">There comes a point when you need to<br>stop revising and start <em>rehearsing</em>.</div>
-    <p class="philosophy-sub">Don't revise new content — rehearse performing what you already know.</p>
-    <div class="transform-grid">
-      <div class="transform-box transform-before">
-        <div class="transform-label">Before</div>
-        <div class="transform-text">"I've done a lot of preparation, but I'm still not sure where I stand."</div>
+<!-- 01 STRUCTURE STRONGER ANSWERS -->
+<section class="journey-step" style="background:var(--cream)">
+  <div class="journey-inner">
+    <span class="step-label">01 — Prepare</span>
+    <h2 class="step-h">Structure stronger answers.</h2>
+    <p class="step-body">Sprint helps you understand what each competency level actually requires from an answer — not just what the correct information is, but how to present it to the standard being assessed.</p>
+    <p class="step-body">The distinction that matters in the assessment room:</p>
+    <div class="tag-row">
+      <span class="tag">Knowledge</span>
+      <span class="tag">Application</span>
+      <span class="tag">Experience</span>
+      <span class="tag">Reasoned advice</span>
+      <span class="tag">Professional judgement</span>
+    </div>
+    <div class="step-aside">A technically correct answer may still be insufficient if it does not demonstrate the competency level being assessed. Sprint helps you understand the difference before it matters.</div>
+  </div>
+</section>
+
+<!-- 02 MODULE 11B -->
+<section class="journey-step" style="background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="journey-inner">
+    <span class="step-label">02 — Test</span>
+    <h2 class="step-h">Test your pathway knowledge.</h2>
+    <span class="eyebrow" style="margin-bottom:10px">Module 11B</span>
+    <p class="step-pull">50 pathway-specific questions and answers.</p>
+    <p class="step-body">Work through 50 questions built specifically for your RICS pathway. Use them to test your technical knowledge, expose gaps, identify topics requiring further attention, and practise recalling and explaining what you know under time pressure.</p>
+    <div class="step-aside">Find out what you know — and what still needs work — before the assessment does.</div>
+  </div>
+</section>
+
+<!-- 03 RECOGNISE INSUFFICIENT ANSWERS -->
+<section class="journey-step" style="background:var(--cream)">
+  <div class="journey-inner">
+    <span class="step-label">03 — Strengthen</span>
+    <h2 class="step-h">Recognise when an answer is not enough.</h2>
+    <p class="step-body">One of the most important preparation skills is being able to identify an answer that falls short — before an assessor does. Sprint helps you spot answers that are:</p>
+    <div class="signs-grid">
+      <div class="sign-item">Too descriptive — telling rather than demonstrating</div>
+      <div class="sign-item">Incomplete — lacking application or evidence</div>
+      <div class="sign-item">Poorly structured — no clear reasoning thread</div>
+      <div class="sign-item">Not at the right level — knowledge only, when judgement is required</div>
+      <div class="sign-item">Unsupported — no reasoning or experience behind the answer</div>
+      <div class="sign-item">Missing the question — not addressing the competency being tested</div>
+    </div>
+    <div class="step-aside" style="margin-top:24px">Don't just find the wrong answer. Learn why it is insufficient and how to strengthen it.</div>
+  </div>
+</section>
+
+<!-- MICHAEL (navy) -->
+<section class="sec sec-navy" style="padding:80px 40px">
+  <div class="michael-inner">
+    <span class="eyebrow-light">Michael</span>
+    <h2 class="michael-h">Your first answer is only the beginning.</h2>
+    <p class="michael-intro">Michael challenges your answer with the follow-up questions that make the difference between an answer that sounds prepared and one that demonstrates genuine professional reasoning.</p>
+    <div class="challenge-grid">
+      <div class="challenge-item">
+        <div class="challenge-q">Why?</div>
+        <div class="challenge-sub">Explain your reasoning</div>
       </div>
-      <div class="transform-box transform-after">
-        <div class="transform-label">After</div>
-        <div class="transform-text">"I know where I'm strong, where I still need to focus, I've practised being challenged and I've experienced the assessment before the real thing."</div>
+      <div class="challenge-item">
+        <div class="challenge-q">What would change your answer?</div>
+        <div class="challenge-sub">Test the conditions</div>
       </div>
+      <div class="challenge-item">
+        <div class="challenge-q">What would you do next?</div>
+        <div class="challenge-sub">Demonstrate judgement</div>
+      </div>
+      <div class="challenge-item">
+        <div class="challenge-q">Where are the limits of your competence?</div>
+        <div class="challenge-sub">Recognise your boundaries</div>
+      </div>
+      <div class="challenge-item">
+        <div class="challenge-q">When would you escalate?</div>
+        <div class="challenge-sub">Show professional responsibility</div>
+      </div>
+      <div class="challenge-item">
+        <div class="challenge-q">How would you explain that to a client?</div>
+        <div class="challenge-sub">Practise communication</div>
+      </div>
+    </div>
+    <div class="michael-pills">
+      <span class="michael-pill">Reasoning</span>
+      <span class="michael-pill">Professional judgement</span>
+      <span class="michael-pill">Articulation</span>
+      <span class="michael-pill">Handling changing questions</span>
+      <span class="michael-pill">Defending a position</span>
+      <span class="michael-pill">Recognising limits</span>
+      <span class="michael-pill">Responding under pressure</span>
+    </div>
+    <p class="michael-key"><em>Practise the follow-up before an assessor asks it.</em></p>
+  </div>
+</section>
+
+<!-- 04 ARTICULATION -->
+<section class="journey-step" style="background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="journey-inner">
+    <span class="step-label">04 — Communicate</span>
+    <h2 class="step-h">Knowing the answer is not enough if you cannot communicate it clearly.</h2>
+    <p class="step-body">Sprint helps candidates practise the delivery alongside the content. The way an answer lands depends on structure, pace, and clarity as much as the substance behind it.</p>
+    <div class="tag-row">
+      <span class="tag">Answering directly</span>
+      <span class="tag">Avoiding unnecessary detail</span>
+      <span class="tag">Structuring responses clearly</span>
+      <span class="tag">Explaining reasoning</span>
+      <span class="tag">Presenting advice confidently</span>
+      <span class="tag">Staying composed when challenged</span>
     </div>
   </div>
 </section>
 
-<!-- SIZZLE — FEATURE → BENEFIT -->
-<section class="sec">
-  <div class="sec-inner">
-    <span class="eyebrow">What Final Sprint gives you</span>
-    <h2 class="sec-h">Not more content.<br>A structured way to use what you have.</h2>
-    <p class="sec-lead">Each part of Final Sprint is built around a specific preparation need.</p>
-    <div class="sizzle-grid">
-      <div class="sizzle-item">
-        <div class="sizzle-label">Six stages</div>
-        <div class="sizzle-benefit">A clear structure for what to do next</div>
-        <div class="sizzle-why">Know what to work on, in what order. No guessing where to start or how to use your remaining time.</div>
-      </div>
-      <div class="sizzle-item">
-        <div class="sizzle-label">Michael</div>
-        <div class="sizzle-benefit">A way to explore, practise and challenge an uncertain area whenever you need to</div>
-        <div class="sizzle-why">Available 24/7. Use him to test your reasoning, work through a scenario or explore an area you're less confident about.</div>
-      </div>
-      <div class="sizzle-item">
-        <div class="sizzle-label">Full mock</div>
-        <div class="sizzle-benefit">Experience the complete assessment format before the real thing</div>
-        <div class="sizzle-why">A 60-minute mock interview for your chosen RICS pathway. Run it more than once. Arrive knowing what the experience feels like.</div>
-      </div>
-      <div class="sizzle-item">
-        <div class="sizzle-label">Industry Briefing</div>
-        <div class="sizzle-benefit">Walk into assessment having reviewed the current landscape</div>
-        <div class="sizzle-why">The biggest legislation and technical developments relevant to your assessment window — reviewed and ready.</div>
-      </div>
+<!-- MOCK INTERVIEW (navy2) -->
+<section class="sec sec-navy2" style="padding:80px 40px">
+  <div class="mock-inner">
+    <span class="eyebrow-light">Mock interview</span>
+    <h2 class="mock-h">Then test the whole performance.</h2>
+    <span class="mock-highlight">60-minute AI-scored mock interview</span>
+    <p class="mock-body">The mock gives you the opportunity to practise sustaining your performance across a realistic final-assessment experience — before the real assessment begins.</p>
+    <div class="mock-pills">
+      <span class="mock-pill">Test your readiness</span>
+      <span class="mock-pill">Practise under time pressure</span>
+      <span class="mock-pill">Experience sustained questioning</span>
+      <span class="mock-pill">Identify remaining weak areas</span>
+      <span class="mock-pill">Build familiarity before assessment day</span>
     </div>
+    <p class="mock-key">The real assessment should not be the first time you have <em>tested yourself under sustained questioning.</em></p>
   </div>
 </section>
 
-<!-- MISTAKE EXPLAINER — unchanged -->
-<section style="background:#0D0F1C;padding:72px 24px 56px">
-<style>
-@media(max-width:600px){.mistake-grid{grid-template-columns:1fr!important}}
-</style>
+<!-- MISTAKE EXPLAINER -->
+<section style="background:#0D0F1C;padding:72px 40px 56px">
   <div style="max-width:720px;margin:0 auto;text-align:center">
     <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;display:block;margin-bottom:14px">THE MISTAKE MOST PEOPLE DON'T EVEN KNOW THEY'RE MAKING</span>
     <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(24px,4vw,36px);font-weight:800;color:#fff;letter-spacing:-.03em;margin:0 0 20px;line-height:1.15">You can know everything &mdash; and still fail the interview.</h2>
@@ -307,7 +389,7 @@ footer a{color:#60a5fa;text-decoration:none}
     </div>
     <div style="background:rgba(34,197,94,.07);border-left:3px solid #22c55e;border-radius:8px;padding:18px 20px">
       <p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4ade80;margin:0 0 10px">Sounds like experience</p>
-      <p style="font-size:15px;color:rgba(248,250,252,.75);line-height:1.65;margin:0">&ldquo;I explained the risks, and here's what I did next&hellip;&rdquo;</p>
+      <p style="font-size:15px;color:rgba(248,250,252,.75);line-height:1.65;margin:0">&ldquo;I explained the risks, and here&rsquo;s what I did next&hellip;&rdquo;</p>
     </div>
     <div style="background:rgba(239,68,68,.07);border-left:3px solid #ef4444;border-radius:8px;padding:18px 20px">
       <p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f87171;margin:0 0 10px">Sounds like a guess</p>
@@ -318,82 +400,88 @@ footer a{color:#60a5fa;text-decoration:none}
       <p style="font-size:15px;color:rgba(248,250,252,.75);line-height:1.65;margin:0">&ldquo;I raised it with my manager, explained why I disagreed, and we agreed to&hellip;&rdquo;</p>
     </div>
   </div>
-  <p style="text-align:center;font-size:15px;color:rgba(248,250,252,.55);line-height:1.75;max-width:600px;margin:40px auto 0">Most people don't notice they're doing this &mdash; until it costs them a <strong style="color:rgba(248,250,252,.8)">referral</strong>. For employers, that's a candidate back to square one, and <strong style="color:rgba(248,250,252,.8)">months of training investment</strong> on hold. See it in action below.</p>
+  <p style="text-align:center;font-size:15px;color:rgba(248,250,252,.55);line-height:1.75;max-width:600px;margin:40px auto 0">Most people don&rsquo;t notice they&rsquo;re doing this &mdash; until it costs them a <strong style="color:rgba(248,250,252,.8)">referral</strong>. For employers, that&rsquo;s a candidate back to square one, and <strong style="color:rgba(248,250,252,.8)">months of training investment</strong> on hold.</p>
 </section>
 
-<!-- INSIDE THE APC FINAL SPRINT — 7 items, items 01–05 unchanged, 06 rewritten honestly, 07 rewritten to describe section 12.14 -->
-<section class="sec" id="included" style="background:rgba(255,255,255,.015);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="sec-inner">
-    <span class="eyebrow">Inside the APC Final Sprint</span>
-    <h2 class="sec-h">Focused. Structured.<br>Entirely focused on passing.</h2>
-    <div class="inside-grid">
-      <div class="inside-item">
-        <div class="inside-num">01</div>
-        <div class="inside-h">Sprint-Specific Coaching in Every Mandatory Competency Module</div>
-        <div class="inside-p">Focused on performing, not learning.</div>
-      </div>
-      <div class="inside-item">
-        <div class="inside-num">02</div>
-        <div class="inside-h">Michael — Available Inside Every Module</div>
-        <div class="inside-p">To challenge your answers and work through scenarios.</div>
-      </div>
-      <div class="inside-item">
-        <div class="inside-num">03</div>
-        <div class="inside-h">50 Pathway-Specific Assessor-Led Questions</div>
-        <div class="inside-p">Your question bank for your pathway.</div>
-      </div>
-      <div class="inside-item">
-        <div class="inside-num">04</div>
-        <div class="inside-h">5,000+ Practice Questions and Answers</div>
-        <div class="inside-p">Across all competencies.</div>
-      </div>
-      <div class="inside-item">
-        <div class="inside-num">05</div>
-        <div class="inside-h">60-Minute Mock Interview Simulator</div>
-      </div>
-      <div class="inside-item">
-        <div class="inside-num">06</div>
-        <div class="inside-h">Industry Briefing</div>
-        <div class="inside-p">Review the biggest legislation and technical developments relevant to your assessment window.</div>
-      </div>
-      <div class="inside-item">
-        <div class="inside-num">07</div>
-        <div class="inside-h">Final Eight APC Assignment Questions</div>
-        <div class="inside-p">Eight written questions across all mandatory competencies. Write each one in full, time yourself, and review your reasoning before assessment day.</div>
-      </div>
+<!-- OUTCOME SUMMARY -->
+<section class="sec sec-cream">
+  <div class="outcomes-inner">
+    <span class="eyebrow">By the end of your Sprint</span>
+    <h2 class="sec-h" style="margin-bottom:24px">You should have a clearer answer to five questions.</h2>
+    <div class="outcome-item">
+      <span class="outcome-num">01</span>
+      <span class="outcome-q">Do I know my pathway?</span>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">02</span>
+      <span class="outcome-q">Can I structure an answer to the required competency level?</span>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">03</span>
+      <span class="outcome-q">Can I recognise and strengthen a weak answer?</span>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">04</span>
+      <span class="outcome-q">Can I explain and defend my reasoning when challenged?</span>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">05</span>
+      <span class="outcome-q">Can I sustain that performance in a mock assessment?</span>
     </div>
   </div>
 </section>
 
-<!-- PRICE + ENROL -->
-<section class="sec price-sec" id="enrol">
-  <div class="sec-inner">
-    <span class="eyebrow">Enrol Now</span>
-    <h2 class="sec-h" style="text-align:center">One payment.<br>Focused preparation — however much time you have.</h2>
-    <div class="price-card">
-      <div class="price-big"><span>£</span>297</div>
-      <div class="price-period">One payment · Instant access · 70-day access</div>
-      <ul class="price-feats">
-        <li>Six focused stages — Modules 1 and 12 plus your pathway stage</li>
-        <li>11 mandatory competency revision sheets</li>
-        <li>Revision quiz across all competencies</li>
-        <li>50 pathway-specific assessor-led questions</li>
-        <li>5,000+ practice questions and answers</li>
-        <li>Michael — available throughout every module, 24/7</li>
-        <li>60-minute AI-scored mock interview — all 22 RICS pathways</li>
-        <li>Final Eight APC Assignment Questions</li>
-        <li>Industry Briefing — current issues for your assessment window</li>
-        <li>70-day access from date of purchase</li>
-        <li>Instant access on enrolment · Counts toward RICS CPD</li>
-      </ul>
-      <button id="sprint-enrol-btn" class="btn-sprint" onclick="showApcModal('sprint')">Start Your Final Sprint</button>
-      <div class="price-guarantee">One-off payment · No subscription · No cancellation required.<br>Questions? <a href="mailto:info@getcharteredai.com" style="color:#60a5fa">info@getcharteredai.com</a></div>
+<!-- FEATURE PROOF -->
+<section class="sec sec-white">
+  <div class="sec-narrow">
+    <span class="eyebrow">What&rsquo;s included</span>
+    <h2 class="sec-h">Your Final Sprint includes</h2>
+    <div class="feature-list">
+      <div class="feature-item"><span class="feature-check">✓</span><span>Structured final-assessment preparation</span></div>
+      <div class="feature-item"><span class="feature-check">✓</span><span><strong>Module 11B</strong> — 50 pathway-specific questions and answers</span></div>
+      <div class="feature-item"><span class="feature-check">✓</span><span><strong>Michael</strong> — challenge and follow-up practice throughout every module</span></div>
+      <div class="feature-item"><span class="feature-check">✓</span><span>Answer-structure and competency-level guidance</span></div>
+      <div class="feature-item"><span class="feature-check">✓</span><span>Practice identifying and strengthening insufficient answers</span></div>
+      <div class="feature-item"><span class="feature-check">✓</span><span>Articulation and presentation practice</span></div>
+      <div class="feature-item"><span class="feature-check">✓</span><span><strong>60-minute AI-scored mock interview</strong> — all 22 RICS pathways</span></div>
+      <div class="feature-item"><span class="feature-check">✓</span><span>Current Industry Briefing — key developments for your assessment window</span></div>
+      <div class="feature-item"><span class="feature-check">✓</span><span>Immediate access · 70 days from purchase</span></div>
     </div>
+  </div>
+</section>
 
+<!-- URGENCY BAND -->
+<div class="urgency-band">
+  <span class="urgency-label">Assessment approaching</span>
+  <p class="urgency-text">Built Environment final assessments begin <strong>Monday 2 November</strong>. Use the remaining weeks to practise how you will perform — not simply what you will revise.</p>
+</div>
+
+<!-- PRICE / ENROL -->
+<section class="sec sec-navy" id="enrol" style="padding:80px 40px">
+  <div class="price-sec-inner">
+    <span class="price-eyebrow">Enrol now</span>
+    <h2 class="price-h">One payment. Full access. Start today.</h2>
+    <p class="price-sub">Final Sprint · 70-day access from purchase</p>
+    <div class="price-display"><sup>£</sup>297</div>
+    <div class="price-access">Immediate access · One payment · No subscription</div>
+    <ul class="price-feats">
+      <li>Structured final-assessment preparation</li>
+      <li><strong>Module 11B</strong> — 50 pathway-specific questions and answers</li>
+      <li><strong>Michael</strong> — available throughout every module, 24/7</li>
+      <li>Answer-structure and competency-level guidance</li>
+      <li>11 mandatory competency revision sheets</li>
+      <li>5,000+ practice questions and answers across all competencies</li>
+      <li><strong>60-minute AI-scored mock interview</strong> — all 22 RICS pathways</li>
+      <li>Current Industry Briefing</li>
+      <li>Final Eight APC Assignment Questions</li>
+      <li>70-day access from date of purchase · Counts toward RICS CPD</li>
+    </ul>
+    <button id="sprint-enrol-btn" class="btn-sprint-enrol" onclick="showApcModal('sprint')">Start My Final Sprint</button>
+    <p class="price-note">One-off payment · No subscription · No cancellation required.<br>Questions? <a href="mailto:info@getcharteredai.com" style="color:rgba(248,250,252,.45)">info@getcharteredai.com</a></p>
     <div class="upsell-bar">
       <div class="upsell-text">
         <h4>Didn't pass first time? Your £297 counts.</h4>
-        <p>Upgrade to the full Get Chartered AI programme — all 12 modules, 18 months access — and your sprint fee is credited. You pay just £200 for everything.</p>
+        <p>Upgrade to the full programme — all 12 modules, 18 months access — and your Sprint fee is credited. You pay just £200 for everything.</p>
       </div>
       <a href="/programme#pricing" class="upsell-btn">See Full Programme →</a>
     </div>
@@ -401,7 +489,7 @@ footer a{color:#60a5fa;text-decoration:none}
 </section>
 
 <!-- FAQ -->
-<section class="sec">
+<section class="sec sec-cream">
   <div class="sec-inner">
     <span class="eyebrow">Questions</span>
     <h2 class="sec-h">Frequently asked</h2>
@@ -446,36 +534,31 @@ footer a{color:#60a5fa;text-decoration:none}
   </div>
 </section>
 
-<!-- FINAL CTA — unchanged -->
+<!-- FINAL CTA -->
 <section class="final-cta">
-  <div class="sec-inner">
-    <h2>Your assessment is approaching.<br>Make the next sprints count.</h2>
-    <p>Focused preparation that builds confidence. Bingeable, repeatable and built around how assessors actually think.</p>
-    <a href="#enrol" class="btn-sprint">Start My Sprint Now</a>
-    <div style="margin-top:16px">
-      <span class="urgency">Start today — full access from day one</span>
-    </div>
-  </div>
+  <h2 class="final-cta-h">You&rsquo;ve done the learning. Now make sure you can turn what you know into <em>clear, structured, assessment-ready answers</em> — and still defend them when the questioning gets harder.</h2>
+  <button class="btn-sprint-final" onclick="showApcModal('sprint')">Start My Final Sprint</button>
+  <p style="margin-top:16px;font-size:13px;color:rgba(248,250,252,.3)">£297 · Immediate access · Built Environment Autumn 2026</p>
 </section>
 
 <section style="background:#111527;padding:48px 24px;border-top:1px solid rgba(255,255,255,.06)">
   <div style="max-width:860px;margin:0 auto;text-align:center">
-    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px">Explore related support</div>
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:16px">Explore related support</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:720px;margin:0 auto">
-      <a href="/programme" style="display:block;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;text-decoration:none;transition:.15s" onmouseover="this.style.borderColor='#2563EB'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+      <a href="/programme" style="display:block;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;text-decoration:none;transition:.15s" onmouseover="this.style.borderColor='rgba(180,83,9,.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
         <div style="font-size:13px;font-weight:700;color:#f8fafc;margin-bottom:5px">APC Full 12 Module Programme</div>
-        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.5">Full structured preparation from competency basics through to assessment</div>
-        <div style="font-size:12px;font-weight:700;color:#60a5fa;margin-top:10px">Explore →</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.38);line-height:1.5">Full structured preparation from competency basics through to assessment</div>
+        <div style="font-size:12px;font-weight:700;color:#d97706;margin-top:10px">Explore →</div>
       </a>
-      <a href="/referred-programme" style="display:block;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;text-decoration:none;transition:.15s" onmouseover="this.style.borderColor='#2563EB'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+      <a href="/referred-programme" style="display:block;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;text-decoration:none;transition:.15s" onmouseover="this.style.borderColor='rgba(180,83,9,.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
         <div style="font-size:13px;font-weight:700;color:#f8fafc;margin-bottom:5px">Referred Candidate Support</div>
-        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.5">Performance Reconstruction After Referral — rebuilds evidence and prepares you for the resit</div>
-        <div style="font-size:12px;font-weight:700;color:#60a5fa;margin-top:10px">Explore →</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.38);line-height:1.5">Performance Reconstruction After Referral — rebuilds evidence and prepares you for the resit</div>
+        <div style="font-size:12px;font-weight:700;color:#d97706;margin-top:10px">Explore →</div>
       </a>
-      <a href="/employer" style="display:block;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;text-decoration:none;transition:.15s" onmouseover="this.style.borderColor='#2563EB'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+      <a href="/employer" style="display:block;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;text-decoration:none;transition:.15s" onmouseover="this.style.borderColor='rgba(180,83,9,.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
         <div style="font-size:13px;font-weight:700;color:#f8fafc;margin-bottom:5px">For Employers</div>
-        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.5">Supporting apprentices, graduates and APC candidates across the full development journey</div>
-        <div style="font-size:12px;font-weight:700;color:#60a5fa;margin-top:10px">Explore →</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.38);line-height:1.5">Supporting apprentices, graduates and APC candidates across the full development journey</div>
+        <div style="font-size:12px;font-weight:700;color:#d97706;margin-top:10px">Explore →</div>
       </a>
     </div>
   </div>
@@ -543,15 +626,16 @@ function sprintCheckSession() {
   const plan  = localStorage.getItem('gca_plan');
   const token = localStorage.getItem('gca_token');
   if (plan === 'sprint' && token) {
-    // Active session — swap all CTAs to Continue
     const navCta = document.getElementById('sprint-nav-cta');
     if (navCta) { navCta.textContent = 'Continue Your Final Sprint →'; navCta.href = '/index.html?view=dashboard'; }
     const signinNav = document.getElementById('sprint-signin-nav');
     if (signinNav) signinNav.style.display = 'none';
     const heroSignin = document.getElementById('sprint-hero-signin');
-    if (heroSignin) heroSignin.innerHTML = 'You already have access — <button onclick="window.location.href=\'/index.html?view=dashboard\'" style="background:none;border:none;color:rgba(248,250,252,0.7);font-family:var(--f-body);font-size:13px;cursor:pointer;padding:0;text-decoration:underline">Continue Your Final Sprint →</button>';
+    if (heroSignin) heroSignin.innerHTML = 'You already have access — <button onclick="window.location.href=\'/index.html?view=dashboard\'" style="background:none;border:none;color:var(--gold);font-family:var(--f-body);font-size:13px;cursor:pointer;padding:0;text-decoration:underline">Continue Your Final Sprint →</button>';
     const enrolBtn = document.getElementById('sprint-enrol-btn');
     if (enrolBtn) { enrolBtn.textContent = 'Continue Your Final Sprint →'; enrolBtn.onclick = () => window.location.href = '/index.html?view=dashboard'; }
+    const heroCta = document.getElementById('sprint-hero-cta');
+    if (heroCta) { heroCta.textContent = 'Continue Your Final Sprint →'; heroCta.onclick = () => window.location.href = '/index.html?view=dashboard'; }
   }
 }
 
@@ -635,9 +719,9 @@ document.addEventListener('DOMContentLoaded', () => {
       <input id="sprint-login-token" type="password" placeholder="Paste from your welcome email link" style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:var(--f-body);font-size:14px;outline:none">
     </div>
     <div id="sprint-login-err" style="display:none;color:#f87171;font-size:13px;margin-bottom:14px"></div>
-    <button onclick="sprintDoLogin()" style="width:100%;padding:13px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:var(--f-body);cursor:pointer;transition:.15s">Sign in →</button>
-    <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:16px;line-height:1.6">Your token is in the link from your welcome email. Can't find it? <a href="mailto:info@getcharteredai.com" style="color:#2563EB">info@getcharteredai.com</a></p>
-    <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:8px">Don't have access yet? <button onclick="sprintCloseLogin();showApcModal('sprint')" style="background:none;border:none;color:#2563EB;font-family:var(--f-body);font-size:12px;cursor:pointer;text-decoration:underline;padding:0">Enrol now →</button></p>
+    <button onclick="sprintDoLogin()" style="width:100%;padding:13px;background:#b45309;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:var(--f-body);cursor:pointer;transition:.15s">Sign in →</button>
+    <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:16px;line-height:1.6">Your token is in the link from your welcome email. Can't find it? <a href="mailto:info@getcharteredai.com" style="color:#b45309">info@getcharteredai.com</a></p>
+    <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:8px">Don't have access yet? <button onclick="sprintCloseLogin();showApcModal('sprint')" style="background:none;border:none;color:#b45309;font-family:var(--f-body);font-size:12px;cursor:pointer;text-decoration:underline;padding:0">Enrol now →</button></p>
   </div>
 </div>
 
@@ -684,7 +768,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </select>
     </div>
 
-    <button id="apc-modal-btn" onclick="_submitApcModal()" disabled style="width:100%;padding:14px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;opacity:.4;cursor:not-allowed;transition:opacity .15s">Continue to Payment →</button>
+    <button id="apc-modal-btn" onclick="_submitApcModal()" disabled style="width:100%;padding:14px;background:#b45309;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;opacity:.4;cursor:not-allowed;transition:opacity .15s">Continue to Payment →</button>
     <p style="font-size:11px;color:#64748b;text-align:center;margin-top:12px;line-height:1.5">These questions don't affect your access or pricing. They help us prepare your pathway-specific content.</p>
   </div>
 </div>

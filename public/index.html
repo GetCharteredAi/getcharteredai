@@ -1402,8 +1402,8 @@ input.err{border-color:var(--red)}
     <!-- LEFT COLUMN — copy -->
     <div>
       <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b45309;margin-bottom:24px">BUILDING PROFESSIONAL READINESS</div>
-      <h1 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(32px,5vw,62px);font-weight:700;color:#0D0F1C;line-height:1.1;letter-spacing:-.03em;margin-bottom:28px">Helping built-environment professionals become ready for greater responsibility.</h1>
-      <p style="font-size:clamp(15px,1.5vw,20px);color:#1e293b;line-height:1.5;margin-bottom:22px;max-width:460px">From early career and chartership through to more complex work, clients and decisions, Get Chartered helps professionals develop the knowledge, communication and judgement they need to perform and progress.</p>
+      <h1 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(26px,3.8vw,50px);font-weight:600;color:#0D0F1C;line-height:1.12;letter-spacing:-.025em;margin-bottom:26px">Helping built-environment professionals become ready for greater responsibility.</h1>
+      <p style="font-size:clamp(14px,1.3vw,17px);color:#1e293b;line-height:1.65;margin-bottom:22px;max-width:440px">From early career and chartership through to more complex work, clients and decisions, Get Chartered helps professionals develop the knowledge, communication and judgement they need to perform and progress.</p>
       <p style="font-size:14px;font-weight:600;color:#0D0F1C;margin-bottom:22px">Built by chartered professionals. Human-led. AI-assisted.</p>
       <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:36px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <span>Learn the work</span>
@@ -1459,42 +1459,45 @@ input.err{border-color:var(--red)}
 </section>
 
 <!-- DEVELOPMENT SYSTEM -->
-<section id="dev-system-sec" style="background:#fafafa;border-top:1px solid #f1f5f9;border-bottom:1px solid #f1f5f9;padding:76px 40px 84px">
+<section id="dev-system-sec" style="background:#fafafa;border-top:1px solid #f1f5f9;border-bottom:1px solid #f1f5f9;padding:80px 40px 88px">
 <style>
-@media(max-width:900px){#dev-system-sec .dev-steps{grid-template-columns:1fr 1fr!important}}
-@media(max-width:900px){#dev-system-sec .dev-steps>div{padding:0 0 28px 0!important;border-right:none!important;border-bottom:1px solid #e2e8f0}}
-@media(max-width:900px){#dev-system-sec .dev-steps>div:last-child{border-bottom:none!important;padding-bottom:0!important}}
-@media(max-width:540px){#dev-system-sec .dev-steps{grid-template-columns:1fr!important}}
+.dev-card{background:#fff;border:1px solid #e8edf3;border-top:2px solid rgba(180,83,9,.22);border-radius:12px;padding:28px 22px 26px;flex:1;min-width:0}
+.dev-card-lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b45309;margin-bottom:18px}
+.dev-card-title{font-size:15px;font-weight:700;color:#0D0F1C;line-height:1.35;margin-bottom:10px}
+.dev-card-body{font-size:13px;color:#64748b;line-height:1.6}
+.dev-cards{display:flex;gap:12px}
+@media(max-width:960px){.dev-cards{flex-wrap:wrap}.dev-card{flex-basis:calc(50% - 6px)!important;min-width:0}}
+@media(max-width:540px){.dev-card{flex-basis:100%!important}}
 @media(max-width:768px){#dev-system-sec{padding:56px 24px 64px!important}}
 </style>
   <div style="max-width:1100px;margin:0 auto">
-    <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b45309;margin:0 0 14px">The Development System</p>
-    <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(20px,2.4vw,28px);font-weight:700;color:#0D0F1C;letter-spacing:-.02em;line-height:1.25;margin:0 0 52px;max-width:520px">A structured approach to professional development that goes beyond learning content.</h2>
-    <div class="dev-steps" style="display:grid;grid-template-columns:repeat(5,1fr);gap:0">
-      <div style="padding:0 32px 0 0;border-right:1px solid #e2e8f0">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#b45309;margin-bottom:14px">01</div>
-        <div style="font-size:15px;font-weight:700;color:#0D0F1C;line-height:1.3;margin-bottom:10px">Identify what needs developing.</div>
-        <div style="font-size:13px;color:#64748b;line-height:1.55">Understand where you stand and what to focus on first.</div>
+    <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b45309;margin:0 0 16px">The Development System</p>
+    <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(22px,3vw,40px);font-weight:700;color:#0D0F1C;letter-spacing:-.02em;line-height:1.2;margin:0 0 56px;max-width:560px">A structured approach to professional development that goes beyond learning content.</h2>
+    <div class="dev-cards">
+      <div class="dev-card">
+        <div class="dev-card-lbl">01 &mdash; Identify</div>
+        <div class="dev-card-title">Identify what needs developing.</div>
+        <div class="dev-card-body">Understand where development is needed and what should be prioritised first.</div>
       </div>
-      <div style="padding:0 32px 0 32px;border-right:1px solid #e2e8f0">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#b45309;margin-bottom:14px">02</div>
-        <div style="font-size:15px;font-weight:700;color:#0D0F1C;line-height:1.3;margin-bottom:10px">Target the right support.</div>
-        <div style="font-size:13px;color:#64748b;line-height:1.55">Choose the programme and approach that matches your situation.</div>
+      <div class="dev-card">
+        <div class="dev-card-lbl">02 &mdash; Target</div>
+        <div class="dev-card-title">Target the right support.</div>
+        <div class="dev-card-body">Focus development activity where it can make the greatest difference.</div>
       </div>
-      <div style="padding:0 32px 0 32px;border-right:1px solid #e2e8f0">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#b45309;margin-bottom:14px">03</div>
-        <div style="font-size:15px;font-weight:700;color:#0D0F1C;line-height:1.3;margin-bottom:10px">Practise applying it.</div>
-        <div style="font-size:13px;color:#64748b;line-height:1.55">Build knowledge and test your reasoning under real assessor-style questioning.</div>
+      <div class="dev-card">
+        <div class="dev-card-lbl">03 &mdash; Practise</div>
+        <div class="dev-card-title">Practise applying it.</div>
+        <div class="dev-card-body">Apply knowledge, explain reasoning and respond under questioning.</div>
       </div>
-      <div style="padding:0 32px 0 32px;border-right:1px solid #e2e8f0">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#b45309;margin-bottom:14px">04</div>
-        <div style="font-size:15px;font-weight:700;color:#0D0F1C;line-height:1.3;margin-bottom:10px">Use the workplace to develop it.</div>
-        <div style="font-size:13px;color:#64748b;line-height:1.55">Structured frameworks for logging and applying learning on the job.</div>
+      <div class="dev-card">
+        <div class="dev-card-lbl">04 &mdash; Apply</div>
+        <div class="dev-card-title">Use the workplace to develop it.</div>
+        <div class="dev-card-body">Build capability through real work, responsibility and experience.</div>
       </div>
-      <div style="padding:0 0 0 32px">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#b45309;margin-bottom:14px">05</div>
-        <div style="font-size:15px;font-weight:700;color:#0D0F1C;line-height:1.3;margin-bottom:10px">Evidence whether it has improved.</div>
-        <div style="font-size:13px;color:#64748b;line-height:1.55">Progress tracking and reflection that show capability developing over time.</div>
+      <div class="dev-card">
+        <div class="dev-card-lbl">05 &mdash; Evidence</div>
+        <div class="dev-card-title">Evidence whether it has improved.</div>
+        <div class="dev-card-body">Review whether learning is translating into stronger workplace capability.</div>
       </div>
     </div>
   </div>

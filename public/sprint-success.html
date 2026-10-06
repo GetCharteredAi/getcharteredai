@@ -12,15 +12,7 @@
   gtag('config', 'AW-18498077631');
 </script>
 
-  <!-- Event snippet for Purchase conversion page -->
-<script>
-  gtag('event', 'conversion', {
-    'send_to': 'AW-18498077631/QgrnCNeAvJMdEL-HyfRE',
-    'value': 297.0,
-    'currency': 'GBP',
-    'transaction_id': ''
-  });
-</script>
+ 
 <title>Payment Confirmed — APC Final Sprint</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -125,7 +117,12 @@ async function activate() {
       localStorage.setItem('gca_user', data.email);
       localStorage.setItem('gca_plan', 'sprint');
       localStorage.setItem('gca_activated', Date.now().toString());
-
+gtag('event', 'conversion', {
+  'send_to': 'AW-18498077631/QgrnCNeAvJMdEL-HyfRE',
+  'value': 297.0,
+  'currency': 'GBP',
+  'transaction_id': sessionId
+});
       showAlert('✓ Sprint activated! Redirecting to your dashboard...', 'green');
       loading.style.display = 'none';
 

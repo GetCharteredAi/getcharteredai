@@ -23,7 +23,6 @@ function verifyToken(token, jwtSecret) {
 
 async function transcribeAudio(audioBuffer, mimeType) {
   const boundary = '----GCAWhisper' + Date.now().toString(16);
-  // Pick a sensible filename extension for Whisper
   const ext = (mimeType.includes('mp4') || mimeType.includes('m4a')) ? 'm4a'
              : mimeType.includes('ogg') ? 'ogg'
              : 'webm';
@@ -46,6 +45,8 @@ async function transcribeAudio(audioBuffer, mimeType) {
 
   const body = Buffer.concat([filePart, audioBuffer, modelPart]);
 
+  console.log('[tofy-speak] calling OpenAI Whisper — mimeType:', mimeType, 'filename:', filename, 'bodyBytes:', body.length);
+
   const res = await fetch('https://api.openai.com/v1/audio/transcriptions', {
     method: 'POST',
     headers: {
@@ -55,10 +56,12 @@ async function transcribeAudio(audioBuffer, mimeType) {
     body: body
   });
 
+  console.log('[tofy-speak] Whisper response status:', res.status);
+
   if (!res.ok) {
     const errText = await res.text();
-    console.error('Whisper error:', res.status, errText.slice(0, 300));
-    throw new Error(`Transcription failed: ${res.status}`);
+    console.error('[tofy-speak] Whisper error body:', errText.slice(0, 500));
+    throw new Error(`Transcription request failed: ${res.status}`);
   }
   const data = await res.json();
   return (data.text || '').trim();
@@ -123,6 +126,8 @@ Return JSON exactly matching this structure:
   "try_again": "<one sentence coaching instruction for the next attempt>"
 }`;
 
+  console.log('[tofy-speak] calling Anthropic feedback — area:', practiceArea, 'attempt:', attemptNum, 'isRetry:', isRetry);
+
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -138,8 +143,13 @@ Return JSON exactly matching this structure:
     })
   });
 
+  console.log('[tofy-speak] Anthropic response status:', res.status);
+
   const data = await res.json();
-  if (!res.ok) throw new Error(`Anthropic error: ${data.error?.message || res.status}`);
+  if (!res.ok) {
+    console.error('[tofy-speak] Anthropic error:', JSON.stringify(data.error || data).slice(0, 300));
+    throw new Error(`Feedback request failed: ${data.error?.message || res.status}`);
+  }
 
   const raw = (data.content?.[0]?.text || '')
     .replace(/```json\n?/gi, '').replace(/```\n?/gi, '').trim();
@@ -147,6 +157,8 @@ Return JSON exactly matching this structure:
 }
 
 exports.handler = async (event) => {
+  console.log('[tofy-speak] invoked — method:', event.httpMethod);
+
   if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers, body: '' };
   if (event.httpMethod !== 'POST') return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
 
@@ -154,33 +166,55 @@ exports.handler = async (event) => {
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
   const openaiKey = process.env.OPENAI_API_KEY;
 
+  console.log('[tofy-speak] env check — JWT_SECRET present:', !!jwtSecret, '| ANTHROPIC_API_KEY present:', !!anthropicKey, '| OPENAI_API_KEY present:', !!openaiKey);
+  console.log('[tofy-speak] Content-Type:', event.headers['content-type'] || event.headers['Content-Type'] || '(none)');
+  console.log('[tofy-speak] raw body size (chars):', (event.body || '').length);
+
   if (!jwtSecret || !anthropicKey) {
+    console.error('[tofy-speak] missing JWT_SECRET or ANTHROPIC_API_KEY');
     return { statusCode: 500, headers, body: JSON.stringify({ error: 'Server configuration error' }) };
   }
   if (!openaiKey) {
+    console.error('[tofy-speak] missing OPENAI_API_KEY');
     return { statusCode: 503, headers, body: JSON.stringify({ error: 'Transcription not yet configured — please use typed practice for now.' }) };
   }
 
   let body;
-  try { body = JSON.parse(event.body); }
-  catch { return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request body' }) }; }
+  try {
+    body = JSON.parse(event.body);
+  } catch (e) {
+    console.error('[tofy-speak] JSON parse failed:', e.message);
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid audio payload' }) };
+  }
 
   const { audioBase64, audioMimeType, question, keyPoints, attemptNum, attempt1Transcript, practiceArea, token } = body;
 
-  try { verifyToken(token, jwtSecret); }
-  catch { return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized' }) }; }
+  console.log('[tofy-speak] parsed body — mimeType:', audioMimeType, '| audioBase64 length:', (audioBase64 || '').length, '| question length:', (question || '').length, '| area:', practiceArea);
+
+  try {
+    verifyToken(token, jwtSecret);
+  } catch (e) {
+    console.error('[tofy-speak] token verification failed:', e.message);
+    return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized' }) };
+  }
 
   if (!audioBase64 || !question) {
+    console.error('[tofy-speak] missing audioBase64 or question — audioBase64 present:', !!audioBase64, '| question present:', !!question);
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing required fields' }) };
   }
 
   try {
     const audioBuffer = Buffer.from(audioBase64, 'base64');
-    const mimeType = (audioMimeType || 'audio/webm').split(';')[0]; // strip codecs param for Whisper
+    const mimeType = (audioMimeType || 'audio/webm').split(';')[0];
+
+    console.log('[tofy-speak] audioBuffer size (bytes):', audioBuffer.length, '| mimeType (stripped):', mimeType);
 
     const transcript = await transcribeAudio(audioBuffer, mimeType);
 
+    console.log('[tofy-speak] transcript length:', transcript.length);
+
     if (!transcript || transcript.length < 5) {
+      console.log('[tofy-speak] transcript too short or empty — returning no-speech response');
       return {
         statusCode: 200,
         headers,
@@ -193,10 +227,12 @@ exports.handler = async (event) => {
       attemptNum || 1, attempt1Transcript || null, practiceArea || 'apc'
     );
 
+    console.log('[tofy-speak] success — returning transcript + coaching');
     return { statusCode: 200, headers, body: JSON.stringify({ transcript, coaching }) };
 
   } catch (e) {
-    console.error('tofy-speak error:', e.message);
-    return { statusCode: 500, headers, body: JSON.stringify({ error: 'Processing failed — please try again.' }) };
+    console.error('[tofy-speak] caught error — name:', e.name, '| message:', e.message);
+    if (e.stack) console.error('[tofy-speak] stack:', e.stack.split('\n').slice(0, 4).join(' | '));
+    return { statusCode: 500, headers, body: JSON.stringify({ error: e.message || 'Processing failed — please try again.' }) };
   }
 };

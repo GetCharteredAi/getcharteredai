@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://getcharteredai.com/employer/professional-readiness">
 <title>Professional Readiness for Employers &mdash; Get Chartered AI</title>
-<meta name="description" content="Professional Readiness from Get Chartered AI helps built-environment employers support developing professionals, prepare better manager conversations and build clearer workforce insight.">
+<meta name="description" content="A connected development approach that helps employers identify where development is needed, give people somewhere to practise and apply what they know, connect development to workplace evidence, and review whether capability has actually changed.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -36,6 +36,7 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-fi
 .section{padding:80px 40px}
 .sec-inner{max-width:1100px;margin:0 auto}
 .kicker{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);display:block;width:max-content;padding-bottom:8px;border-bottom:1.5px solid rgba(245,158,11,.28);margin-bottom:16px}
+.kicker-blue{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);display:block;width:max-content;padding-bottom:8px;border-bottom:1.5px solid rgba(37,99,235,.22);margin-bottom:16px}
 .sec-h2{font-family:var(--fh);font-size:clamp(24px,3.5vw,38px);font-weight:800;line-height:1.12;letter-spacing:-.025em;margin-bottom:14px}
 .sec-h2-dark{color:var(--navy)}
 .sec-lead{font-size:17px;line-height:1.72;max-width:720px;margin-bottom:36px}
@@ -44,6 +45,9 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-fi
 .sec-light{background:#f8fafc}
 .quote{font-family:var(--fh);font-size:clamp(19px,2.2vw,27px);line-height:1.3;font-weight:800;color:var(--navy);max-width:860px;margin:28px 0 0}
 
+/* STAGE MARKER */
+.stage-marker{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);background:#eff6ff;border:1px solid #bfdbfe;padding:5px 14px;border-radius:6px;margin-bottom:16px}
+
 /* NOW PANEL */
 .now-panel-dark{background:var(--navy);border-radius:16px;padding:34px;margin-top:28px;max-width:820px}
 .now-panel-dark .kicker{color:rgba(245,158,11,.80)}
@@ -51,6 +55,14 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-fi
 .now-panel-dark p{color:rgba(255,255,255,.70);line-height:1.65;margin-bottom:12px;font-size:16px}
 .now-panel-dark p:last-child{margin-bottom:0}
 .now-panel-dark strong{color:#fff}
+
+/* LOOP OVERVIEW */
+.loop-overview{background:var(--navy);border-radius:16px;padding:36px 40px;margin-top:28px}
+.loop-overview-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:28px;border-top:1px solid rgba(255,255,255,.1);padding-top:28px}
+.lo-step{padding-right:20px;position:relative}
+.lo-step:not(:last-child)::after{content:'›';position:absolute;right:4px;top:14px;color:rgba(255,255,255,.2);font-size:20px;font-weight:300}
+.lo-tag{font-family:var(--fh);font-size:14px;font-weight:800;color:var(--amber);margin-bottom:6px}
+.lo-body{font-size:13px;color:rgba(255,255,255,.52);line-height:1.65}
 
 /* CARDS */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
@@ -71,6 +83,22 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-fi
 .callout strong{color:var(--navy)}
 .callout-blue{border-left-color:var(--blue);background:#eff6ff;color:#1e3a5f}
 .callout-blue strong{color:var(--navy)}
+
+/* MICHAEL PANEL */
+.michael-panel{background:var(--navy);border-radius:16px;padding:36px 40px;margin-top:28px}
+.michael-panel h3{font-family:var(--fh);font-size:22px;font-weight:800;color:#fff;margin-bottom:14px;line-height:1.2}
+.michael-panel p{color:rgba(255,255,255,.70);line-height:1.65;font-size:15px;margin-bottom:12px}
+.michael-panel p:last-child{margin-bottom:0}
+.michael-panel strong{color:#fff}
+.michael-items{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:20px 0}
+.mi-item{border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px 16px;background:rgba(255,255,255,.04)}
+.mi-item strong{display:block;font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.mi-item p{font-size:13px;color:rgba(255,255,255,.52);margin:0;line-height:1.6}
+
+/* EVIDENCE LIST */
+.evidence-list{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:10px 32px;margin-top:20px}
+.evidence-list li{font-size:14px;color:var(--muted);line-height:1.65;padding-left:18px;position:relative}
+.evidence-list li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--blue)}
 
 /* DEMO STRIP */
 .demo-strip{padding:18px 40px}
@@ -99,6 +127,13 @@ details p{margin-top:12px;font-size:14px;color:var(--muted);line-height:1.65}
 .family-tags{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 22px}
 .family{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:7px 16px;background:#fff;color:var(--navy);font-size:13px;font-weight:700}
 
+/* ENTRY POINTS */
+.ep-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:28px}
+.ep-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px;border-left:3px solid var(--blue)}
+.ep-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;display:block}
+.ep-title{font-family:var(--fh);font-size:16px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.3}
+.ep-body{font-size:14px;color:var(--muted);line-height:1.65}
+
 /* QS */
 .qs-list{column-count:2;column-gap:40px;list-style:disc;padding-left:20px;margin-top:18px;font-size:15px;color:var(--muted);line-height:1.9}
 
@@ -125,14 +160,22 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
   .demo-strip{padding:14px 24px}
   footer{padding:24px 20px}
   nav{padding:0 20px}
-  .grid2,.split{grid-template-columns:1fr}
+  .grid2,.split,.ep-grid{grid-template-columns:1fr}
   .grid3,.pilot-grid{grid-template-columns:1fr 1fr}
+  .loop-overview-steps{grid-template-columns:1fr 1fr}
+  .lo-step:nth-child(2)::after{display:none}
+  .michael-items{grid-template-columns:1fr}
+  .loop-overview{padding:28px 24px}
+  .michael-panel{padding:28px 24px}
 }
 @media(max-width:720px){
   .grid3,.pilot-grid{grid-template-columns:1fr}
   .nav-links{display:none}
   .qs-list{column-count:1}
   .demo-strip-inner{flex-direction:column;align-items:flex-start}
+  .loop-overview-steps{grid-template-columns:1fr}
+  .lo-step::after{display:none!important}
+  .evidence-list{grid-template-columns:1fr}
 }
 @media(max-width:540px){
   .hero h1{font-size:28px}
@@ -149,13 +192,13 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
   <a href="/employer#contact" class="nav-btn">Talk to us &rarr;</a>
 </nav>
 
-<!-- HERO -->
+<!-- ══ HERO ══ -->
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">Professional Readiness</div>
-    <h1>Developing apprentices and graduates from early career to chartership &mdash; and into greater responsibility.</h1>
-    <p class="hero-sub">Helping developing professionals turn learning and experience into judgement, confidence and professional capability &mdash; while helping experienced people spend their time where it adds most value.</p>
-    <p class="hero-tagline">Thoughtfully designed. Human-led. AI-supported.</p>
+    <h1>From development need to demonstrated capability.</h1>
+    <p class="hero-sub">A connected approach that helps employers identify where development is needed, give people somewhere to practise and apply what they know, connect that development to workplace evidence, and review whether capability has actually changed.</p>
+    <p class="hero-tagline">Thoughtfully designed. Human-led. AI-assisted.</p>
     <div class="video-box">
       <video controls preload="metadata" poster="/videos/michael-professional-readiness-poster.jpg">
         <source src="/videos/michael-professional-readiness-intro.mp4" type="video/mp4">
@@ -164,27 +207,42 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
   </div>
 </div>
 
-<!-- WHY THIS MATTERS NOW -->
+<!-- ══ THE CONNECTED MODEL ══ -->
 <div class="section sec-light">
-  <div class="sec-inner" style="max-width:820px">
-    <div class="kicker">Why this matters now</div>
-    <h2 class="sec-h2 sec-h2-dark">AI can support the work. Human judgement still decides.</h2>
-    <p class="sec-lead sec-lead-muted">Professionals still need to know what to observe, what to question, what evidence matters and when to ask for help.</p>
-    <div class="now-panel-dark">
-      <div class="kicker">Thoughtfully designed. Human-led. AI-supported.</div>
-      <h3>The human role remains central.</h3>
-      <p>Observe. Investigate. Interpret. Challenge. Decide. Take responsibility.</p>
-      <p><strong>Get Chartered helps build repeatable foundations and prepare better development conversations &mdash; so manager time is focused where experience matters most.</strong></p>
+  <div class="sec-inner" style="max-width:900px">
+    <div class="kicker">One connected development system</div>
+    <h2 class="sec-h2 sec-h2-dark">Identify &rarr; Practise &amp; Apply &rarr; Evidence &rarr; Review</h2>
+    <p class="sec-lead sec-lead-muted">One system, not a set of separate products. Each stage connects to the next, and the later review asks the important question: has anything actually changed?</p>
+    <div class="loop-overview">
+      <p style="color:rgba(255,255,255,.55);font-size:14px">Get Chartered AI is designed to work alongside university, apprenticeship training, internal learning and manager support &mdash; providing the practice and evidence layer between formal learning and workplace performance.</p>
+      <div class="loop-overview-steps">
+        <div class="lo-step">
+          <div class="lo-tag">Identify</div>
+          <p class="lo-body">Surface strengths, development priorities and where experience, exposure or confidence may be needed.</p>
+        </div>
+        <div class="lo-step">
+          <div class="lo-tag">Practise &amp; Apply</div>
+          <p class="lo-body">A safe place to apply knowledge, explain reasoning and respond to challenge before taking that practice back into the workplace.</p>
+        </div>
+        <div class="lo-step">
+          <div class="lo-tag">Evidence</div>
+          <p class="lo-body">Development is demonstrated through what the individual can actually do in real work &mdash; not simply by attending training.</p>
+        </div>
+        <div class="lo-step">
+          <div class="lo-tag">Review</div>
+          <p class="lo-body">Return later. Has anything actually changed? What has developed, what still needs attention, and what should happen next?</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- WHAT HAPPENS AFTER ONBOARDING -->
+<!-- ══ THE STARTING POINT ══ -->
 <div class="section sec-white">
   <div class="sec-inner">
-    <div class="kicker">The space after onboarding</div>
-    <h2 class="sec-h2 sec-h2-dark">So what happens after onboarding?</h2>
-    <p class="sec-lead sec-lead-muted">Once induction is complete and real work begins, developing professionals are no longer just learning systems and tasks. They are learning how to operate professionally &mdash; when to ask, act, escalate, explain their reasoning and exercise judgement.</p>
+    <div class="kicker">The starting point</div>
+    <h2 class="sec-h2 sec-h2-dark">What happens once real work begins?</h2>
+    <p class="sec-lead sec-lead-muted">Once onboarding is complete, developing professionals are no longer just learning systems and tasks. They are learning how to operate professionally &mdash; when to ask, act, escalate, explain their reasoning and exercise judgement. That does not happen automatically.</p>
     <div class="grid2">
       <div class="card">
         <h3>The developing professional may be thinking&hellip;</h3>
@@ -203,79 +261,42 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
         <p>Are expectations clear enough?</p>
       </div>
     </div>
-    <p class="quote">That is where Professional Readiness starts &mdash; helping make early development clearer for both the individual and the manager.</p>
+    <p class="quote">Professional Readiness starts here &mdash; helping make early development clearer for both the individual and the manager, and giving both sides something structured to build from.</p>
   </div>
 </div>
 
-<!-- ONE PRODUCT. TWO DEVELOPMENT POINTS. -->
+<!-- ══ STAGE 01: IDENTIFY ══ -->
 <div class="section sec-light">
-  <div class="sec-inner">
-    <div class="kicker">One product. Two development points.</div>
-    <h2 class="sec-h2 sec-h2-dark">Entering a professional role. Progressing within it.</h2>
-    <p class="sec-lead sec-lead-muted">Professional Readiness supports two different moments in development &mdash; one focused on the transition into professional work, the other on progression as experience and responsibility grow.</p>
-    <div class="grid2">
+  <div class="sec-inner" style="max-width:900px">
+    <div class="stage-marker">Stage 01 &nbsp;&middot;&nbsp; Identify</div>
+    <h2 class="sec-h2 sec-h2-dark">Surface where development is needed &mdash; and why.</h2>
+    <p class="sec-lead sec-lead-muted">A structured readiness review brings together the individual&rsquo;s own perspective and the manager&rsquo;s observed perspective on the same development areas. That combination creates a clearer starting point than either view alone.</p>
 
-      <!-- Part One -->
+    <div class="grid2" style="margin-bottom:28px">
       <div class="card">
-        <div class="kicker" style="margin-bottom:6px">Part One</div>
-        <h3>Professional Readiness Benchmark</h3>
-        <p>Typically around <strong>8&ndash;12 weeks after joining</strong>, once onboarding is complete and there has been enough real workplace experience to reflect on &mdash; or, where appropriate, aligned with the end of the probation period.</p>
-        <p><strong>Transition-led.</strong></p>
-        <hr style="border:none;border-top:1px solid var(--line);margin:22px 0">
-        <h3 style="font-size:17px;margin-bottom:10px">A clearer development picture &mdash; from both sides.</h3>
-        <p>The point is not to create another score. It is to create a better development conversation.</p>
+        <h3>What the review can surface</h3>
+        <div class="flow-stack">
+          <div class="flowbox"><strong>Strengths</strong><p>What is already being demonstrated consistently in the workplace.</p></div>
+          <div class="flowbox"><strong>Development priorities</strong><p>Where more focused attention, practice or experience would make the most difference.</p></div>
+          <div class="flowbox"><strong>Experience and exposure gaps</strong><p>Where the opportunity to develop capability simply has not yet arisen.</p></div>
+          <div class="flowbox"><strong>Confidence and articulation</strong><p>Where knowledge or capability exists but is not yet being applied or expressed confidently.</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>How perspectives come together</h3>
         <div class="flow-stack">
           <div class="flowbox"><strong>Employee perspective</strong><p>Private reflection on how they are beginning to operate professionally.</p></div>
-          <div class="flowbox"><strong>Manager perspective</strong><p>Observed strengths, development needs and workplace context.</p></div>
-          <div class="flowbox"><strong>Michael brings the two perspectives together</strong><p>He spots where they align or differ, and turns that into clear points to discuss.</p></div>
+          <div class="flowbox"><strong>Manager observations</strong><p>Observed strengths, development needs and workplace context.</p></div>
+          <div class="flowbox"><strong>Structured analysis</strong><p>Where the two perspectives align or differ &mdash; and what that points to.</p></div>
           <div class="flowbox"><strong>Development conversation</strong><p>A clearer conversation about what is going well, what needs attention and what should happen next.</p></div>
         </div>
-        <div class="callout"><strong>Designed around employee privacy.</strong><br>The employee&rsquo;s private responses remain private. Managers receive relevant development outcomes, conversation points and next-step prompts &mdash; not raw answers.</div>
+        <div class="callout" style="margin-top:18px"><strong>Employee privacy.</strong> The employee&rsquo;s detailed responses remain private. Managers receive development outcomes, conversation points and next-step prompts &mdash; not a transcript of private reasoning.</div>
       </div>
-
-      <!-- Part Two -->
-      <div class="card">
-        <div class="kicker" style="margin-bottom:6px">Part Two</div>
-        <h3>Professional Readiness Review</h3>
-        <p><strong>A deeper, independent view of how professional and technical capability is developing.</strong></p>
-        <p>Part Two is employee-owned and built around <strong>pathway-specific technical questions and professional judgement scenarios</strong>.</p>
-        <p>It sits alongside existing graduate, apprenticeship, technical and professional-development programmes &mdash; helping show whether learning and workplace experience are translating into professional capability.</p>
-        <hr style="border:none;border-top:1px solid var(--line);margin:22px 0">
-        <p><strong>It looks at:</strong></p>
-        <div class="flow-stack">
-          <div class="flowbox"><strong>Technical depth</strong><p>What do they know within their pathway?</p></div>
-          <div class="flowbox"><strong>Application + judgement</strong><p>Can they apply that knowledge, explain their reasoning and recognise their limits?</p></div>
-          <div class="flowbox"><strong>Progression</strong><p>What is already strong, what needs more depth, and what experience should come next?</p></div>
-        </div>
-        <hr style="border:none;border-top:1px solid var(--line);margin:22px 0">
-        <p><strong>For the employee:</strong> clearer direction on what to work on next.<br>
-        <strong>For the manager:</strong> an independent, evidence-informed development check.<br>
-        <strong>For the business:</strong> a more consistent view of how capability is developing across its people.</p>
-        <p style="margin-top:14px"><strong>Progression-led.</strong> Used when it is useful &mdash; and it does not depend on completing Part One.</p>
-      </div>
-
     </div>
-  </div>
-</div>
 
-<!-- DEMO STRIP (not wired) -->
-<div class="demo-strip" id="experience-demo">
-  <div class="demo-strip-inner">
-    <div class="demo-strip-text">
-      <div class="kicker">See it in practice</div>
-      <h2>See the employee and manager experience.</h2>
-      <p>See what the employee experiences, how the manager perspective is brought in, and how both feed a more focused development conversation.</p>
-    </div>
-    <a href="#" id="employee-manager-demo-link" class="demo-btn">See the employee and manager experience</a>
-  </div>
-</div>
-
-<!-- WHAT MAKES THE DIAGNOSIS DIFFERENT -->
-<div class="section sec-white">
-  <div class="sec-inner">
-    <div class="kicker">What makes the diagnosis different</div>
-    <h2 class="sec-h2 sec-h2-dark">Not just where development is needed &mdash; why.</h2>
-    <p class="sec-lead sec-lead-muted">Two people can appear to be developing in the same area for completely different reasons.</p>
+    <div class="kicker-blue">What makes the diagnosis useful</div>
+    <h3 style="font-family:var(--fh);font-size:22px;font-weight:800;color:var(--navy);margin-bottom:12px">Not just where development is needed &mdash; why.</h3>
+    <p style="font-size:16px;color:var(--muted);line-height:1.72;max-width:680px;margin-bottom:24px">Two people can appear to be developing in the same area for completely different reasons. Knowing the cause changes the response.</p>
     <div class="split">
       <div class="proof">
         <div class="proof-type">Person A &mdash; Application</div>
@@ -291,10 +312,9 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
       </div>
     </div>
     <div class="bigline">Same apparent outcome. Different cause. Different action.</div>
-    <p style="font-size:17px;color:var(--muted);line-height:1.72;margin-bottom:6px">We don&rsquo;t just identify where someone needs development &mdash; we help identify why, so the next action is more useful.</p>
     <details>
-      <summary>How the diagnostic works</summary>
-      <p>Get Chartered distinguishes between different causes of development need rather than treating every weaker outcome as the same kind of gap.</p>
+      <summary>How the diagnostic distinguishes between different types of gap</summary>
+      <p>Get Chartered AI distinguishes between different causes of development need rather than treating every weaker outcome as the same kind of gap.</p>
       <div class="taxonomy-pills">
         <span class="pill">Knowledge</span>
         <span class="pill">Application</span>
@@ -311,36 +331,145 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
   </div>
 </div>
 
-<!-- MANAGER VIEW -->
+<!-- ══ STAGE 02: PRACTISE & APPLY ══ -->
+<div class="section sec-white">
+  <div class="sec-inner" style="max-width:900px">
+    <div class="stage-marker">Stage 02 &nbsp;&middot;&nbsp; Practise &amp; Apply</div>
+    <h2 class="sec-h2 sec-h2-dark">Somewhere safe to apply what you know before it counts.</h2>
+    <p class="sec-lead sec-lead-muted">Knowing something and being able to apply it under questioning are different things. The gap between formal learning and confident workplace performance is where most development stalls.</p>
+
+    <div class="callout-blue callout" style="margin-bottom:28px"><strong>Formal learning &rarr; Safe practice &rarr; Workplace application</strong><br>Get Chartered AI provides the practice layer in the middle &mdash; so development does not stop at the point of learning.</div>
+
+    <div class="michael-panel">
+      <h3>Michael &mdash; the practice and challenge layer</h3>
+      <p>Michael gives the individual a safe place to apply knowledge, reason through problems and respond to challenge &mdash; without the pressure of a live workplace situation. The goal is not simply to score performance but to support improvement through practice, retry and reflection.</p>
+      <div class="michael-items">
+        <div class="mi-item"><strong>Applies knowledge</strong><p>Works through real professional situations, not abstract questions.</p></div>
+        <div class="mi-item"><strong>Responds to follow-up</strong><p>Follows up on answers to probe reasoning rather than accepting surface responses.</p></div>
+        <div class="mi-item"><strong>Explains and defends decisions</strong><p>Practises articulating why &mdash; not just what.</p></div>
+        <div class="mi-item"><strong>Challenges reasoning</strong><p>Introduces complications, edge cases and alternative perspectives.</p></div>
+        <div class="mi-item"><strong>Supports retry</strong><p>Where a response is weak, supports reflection and a second attempt rather than simply recording a lower score.</p></div>
+        <div class="mi-item"><strong>Builds professional judgement</strong><p>Repeated practice develops the confidence to apply knowledge independently in the workplace.</p></div>
+      </div>
+      <p style="margin-top:8px">Practice then goes back into the workplace. The aim is not to replace real experience &mdash; it is to make the most of it when it happens.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STAGE 03: EVIDENCE ══ -->
+<div class="section sec-light">
+  <div class="sec-inner" style="max-width:900px">
+    <div class="stage-marker">Stage 03 &nbsp;&middot;&nbsp; Evidence</div>
+    <h2 class="sec-h2 sec-h2-dark">Development should be visible in the work itself.</h2>
+    <p class="sec-lead sec-lead-muted">Training completed is not the same as capability developed. The employer should be able to ask a concrete question about each development priority:</p>
+    <p class="quote" style="margin:0 0 28px;font-size:clamp(18px,2vw,26px)">What would demonstrate that this capability has actually developed?</p>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>What workplace evidence might look like</h3>
+        <ul class="evidence-list" style="margin-top:0">
+          <li>Taking on a more complex task</li>
+          <li>Demonstrating better judgement in a real situation</li>
+          <li>Handling a client conversation independently</li>
+          <li>Recognising when to escalate &mdash; and doing it</li>
+          <li>Explaining reasoning more clearly to a manager</li>
+          <li>Applying knowledge without being prompted</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>The important distinction</h3>
+        <p>Formal learning creates awareness. Practice builds the capability to apply it. But it is in real work, with real consequences, that capability is properly developed and demonstrated.</p>
+        <p>The employer&rsquo;s role is to create opportunities for that demonstration to happen &mdash; and to notice when it does.</p>
+        <div class="callout" style="margin-top:18px"><strong>Evidence should come from real work where possible.</strong> The aim is to connect development activity to what happens in the workplace, not to create an additional assessment layer.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STAGE 04: REVIEW ══ -->
+<div class="section sec-white">
+  <div class="sec-inner" style="max-width:900px">
+    <div class="stage-marker">Stage 04 &nbsp;&middot;&nbsp; Review</div>
+    <h2 class="sec-h2 sec-h2-dark">Has anything actually changed?</h2>
+    <p class="sec-lead sec-lead-muted">The later review is not a separate product &mdash; it is the same connected approach used again, asking the question that makes the whole system meaningful.</p>
+
+    <div class="now-panel-dark" style="max-width:none">
+      <div class="kicker">What the later review establishes</div>
+      <div class="grid3" style="margin-top:4px;gap:16px">
+        <div>
+          <h3 style="font-size:18px;color:#fff;font-family:var(--fh);margin-bottom:8px">What has improved</h3>
+          <p style="font-size:14px">Where development priorities have moved. What is now being demonstrated consistently that was not before.</p>
+        </div>
+        <div>
+          <h3 style="font-size:18px;color:#fff;font-family:var(--fh);margin-bottom:8px">Where development is still needed</h3>
+          <p style="font-size:14px">What has not yet moved. Where experience, practice or exposure has been insufficient. What was a priority then, and whether it still is.</p>
+        </div>
+        <div>
+          <h3 style="font-size:18px;color:#fff;font-family:var(--fh);margin-bottom:8px">What the next priority should be</h3>
+          <p style="font-size:14px">As capability develops, what matters most will change. The later review surfaces the next development priority, not just the last.</p>
+        </div>
+      </div>
+      <p style="margin-top:24px"><strong>Deeper technical review.</strong> The later review can also include pathway-specific technical questions and professional judgement scenarios &mdash; showing whether learning and workplace experience are translating into technical capability, not just professional awareness.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DEMO STRIP ══ -->
+<div class="demo-strip" id="experience-demo">
+  <div class="demo-strip-inner">
+    <div class="demo-strip-text">
+      <div class="kicker">See it in practice</div>
+      <h2>See the employee and manager experience.</h2>
+      <p>See what the employee experiences, how the manager perspective is brought in, and how both feed a more focused development conversation.</p>
+    </div>
+    <a href="#" id="employee-manager-demo-link" class="demo-btn">See the employee and manager experience</a>
+  </div>
+</div>
+
+<!-- ══ MANAGER VIEW ══ -->
 <div class="section sec-light">
   <div class="sec-inner">
     <div class="kicker">Manager view</div>
     <h2 class="sec-h2 sec-h2-dark">Something useful to have a conversation about.</h2>
+    <p class="sec-lead sec-lead-muted" style="max-width:680px">Get Chartered AI structures the evidence and conversation so managers can focus their judgement where it matters most. The system does not replace the manager&rsquo;s role &mdash; it makes the conversation more useful before it begins.</p>
     <div class="grid3">
       <div class="card">
         <h3>Strengths</h3>
-        <p>What is already being demonstrated.</p>
+        <p>What is already being demonstrated. Helps managers recognise and build on what is working rather than focusing only on gaps.</p>
       </div>
       <div class="card">
         <h3>Development priorities</h3>
-        <p>What would most help progression now.</p>
+        <p>What would most help progression now &mdash; and whether the issue is knowledge, practice, experience, exposure, evidence recognition or articulation.</p>
       </div>
       <div class="card">
-        <h3>Next actions</h3>
-        <p>Practical prompts, opportunities and manager conversation points.</p>
+        <h3>Suggested development actions</h3>
+        <p>Practical prompts, opportunities and conversation starters matched to the individual&rsquo;s development profile.</p>
+      </div>
+      <div class="card">
+        <h3>Workplace evidence ideas</h3>
+        <p>Suggestions for the kinds of workplace activity and demonstration that would show development has moved.</p>
+      </div>
+      <div class="card">
+        <h3>Later review signals</h3>
+        <p>When a later review is completed, managers can see whether priorities have moved &mdash; not just what they were.</p>
+      </div>
+      <div class="card">
+        <h3>Structured APC support</h3>
+        <p>Get Chartered AI sits alongside the counsellor relationship. Candidates arrive better prepared and with clearer questions.</p>
       </div>
     </div>
-    <p class="quote">Better prepared conversations &mdash; so manager time is spent on context, challenge, judgement and what happens next.</p>
+    <div class="callout" style="max-width:760px"><strong>Employee privacy.</strong> Detailed employee responses remain private. Managers receive development outcomes, prompts and agreed actions &mdash; not a transcript of private reasoning.</div>
+    <p class="quote">Better-prepared conversations &mdash; so manager time is spent on context, challenge, judgement and what happens next.</p>
   </div>
 </div>
 
-<!-- WORKFORCE INTELLIGENCE -->
+<!-- ══ WORKFORCE INTELLIGENCE ══ -->
 <div class="section sec-white" id="workforce-intelligence">
   <div class="sec-inner">
     <div class="kicker">Workforce Intelligence</div>
-    <h2 class="sec-h2 sec-h2-dark">A consistent view across the business.</h2>
-    <p class="sec-lead">And when the same structured approach is used across teams, those individual signals begin to build a wider picture.</p>
-    <p class="sec-lead sec-lead-muted">When the same structured Professional Readiness approach is used consistently across teams and early-career groups, individual development signals can be examined collectively &mdash; making it easier to see recurring strengths, exposure needs, capability priorities and differences between teams or disciplines.</p>
+    <h2 class="sec-h2 sec-h2-dark">A consistent view across teams and intakes.</h2>
+    <p class="sec-lead">The aggregate outcome of repeated individual development cycles.</p>
+    <p class="sec-lead sec-lead-muted">When the same structured approach is used consistently across teams and early-career groups, individual development signals can be examined collectively &mdash; making it easier to see common strengths, recurring development gaps, experience or exposure shortages, capability priorities and differences between cohorts, teams or disciplines.</p>
     <div class="family-tags">
       <span class="family">Learning &amp; Practice</span>
       <span class="family">Workplace Exposure</span>
@@ -348,11 +477,12 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
       <span class="family">Judgement &amp; Responsibility</span>
       <span class="family">Confidence Calibration</span>
     </div>
-    <div class="callout"><strong>Training need or opportunity need?</strong><br>If a group of developing professionals appears weaker in client care, the useful question is why. Is it a knowledge or practice issue &mdash; or have people simply not had enough client-facing exposure?<br><br><strong>Those require different responses.</strong></div>
+    <div class="callout"><strong>Training need or opportunity need?</strong><br>If a group of developing professionals appears weaker in client care, the useful question is why. Is it a knowledge or practice issue &mdash; or have people simply not had enough client-facing exposure?<br><br><strong>Those require different responses. And the same system that identified the individual gap provides the signal for the organisational picture.</strong></div>
+    <p style="font-size:14px;color:var(--muted);margin-top:20px;line-height:1.65;max-width:680px">Workforce Intelligence does not make promotion or employment decisions. It provides a more structured basis for the conversations and decisions that managers and organisations already make.</p>
   </div>
 </div>
 
-<!-- QS / COMMERCIAL PROOF -->
+<!-- ══ QS / TECHNICAL DEPTH ══ -->
 <div class="section sec-light">
   <div class="sec-inner">
     <div class="kicker">QS / Commercial proof</div>
@@ -372,27 +502,59 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
   </div>
 </div>
 
-<!-- PILOT CTA -->
+<!-- ══ ENTRY POINTS ══ -->
 <div class="section sec-white">
+  <div class="sec-inner" style="max-width:900px">
+    <div class="kicker">Where to start</div>
+    <h2 class="sec-h2 sec-h2-dark">Start where the need is.</h2>
+    <p class="sec-lead sec-lead-muted">Employers do not need to follow a rigid sequence. These are entry points into one connected system &mdash; used at the point where they are most useful.</p>
+    <div class="ep-grid">
+      <div class="ep-card">
+        <span class="ep-tag">Entry Point</span>
+        <div class="ep-title">Early Professional Readiness Benchmark</div>
+        <p class="ep-body">Often used after onboarding, once real work has begun. Brings together the individual&rsquo;s own view and the manager&rsquo;s observed perspective to create a clearer starting point for development.</p>
+      </div>
+      <div class="ep-card">
+        <span class="ep-tag">Entry Point</span>
+        <div class="ep-title">Later Professional Readiness Review</div>
+        <p class="ep-body">Used to revisit development and establish what has changed. The same structured approach applied again &mdash; asking whether capability has developed and what should happen next.</p>
+      </div>
+      <div class="ep-card">
+        <span class="ep-tag">Entry Point</span>
+        <div class="ep-title">Technical and pathway-specific review</div>
+        <p class="ep-body">Used where deeper role-specific technical knowledge and professional judgement need attention &mdash; going beyond early professional behaviours into pathway-specific capability.</p>
+      </div>
+      <div class="ep-card">
+        <span class="ep-tag">Entry Point</span>
+        <div class="ep-title">APC and chartership support</div>
+        <p class="ep-body">Used as people progress towards professional qualification. Structured preparation across competencies, pathway-specific technical knowledge, assessor-style challenge and mock interview practice.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PILOT / CTA ══ -->
+<div class="section sec-light">
   <div class="sec-inner">
     <div class="pilot">
       <div class="kicker">A practical first step</div>
-      <h2>Start with a team. Test the value. Review the insight. Scale what works.</h2>
-      <p class="pilot-lead">Professional Readiness can be introduced with a team or business area, using the same structured approach to support individual development, manager conversations and wider workforce insight.</p>
+      <h2>Start where the need is.</h2>
+      <p class="pilot-lead">Whether you want to understand early professional readiness, strengthen workplace capability or support people towards chartership, the same connected system can be used at the point that matters most. Start with a team or business area, review the insight and build from there.</p>
       <div class="pilot-grid">
         <div class="pilot-cell">
           <strong>Start with a team</strong>
           Choose the group or business area where a clearer development picture would be most useful.
         </div>
         <div class="pilot-cell">
-          <strong>Create useful insight</strong>
-          Support employees and managers while building a more consistent view of development needs.
+          <strong>Build useful insight</strong>
+          Support individuals and managers while creating a more consistent view of development across the group.
         </div>
         <div class="pilot-cell">
           <strong>Review and scale</strong>
           Assess the value, refine the approach and extend it where it makes sense.
         </div>
       </div>
+      <a href="/employer#contact" style="display:inline-block;margin-top:32px;background:var(--amber);color:var(--navy);padding:14px 26px;border-radius:9px;font-family:var(--fh);font-size:15px;font-weight:700;text-decoration:none;transition:.15s" onmouseover="this.style.background='#d97706'" onmouseout="this.style.background='var(--amber)'">Talk to us about Professional Readiness &rarr;</a>
     </div>
   </div>
 </div>

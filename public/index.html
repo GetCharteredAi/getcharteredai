@@ -9343,12 +9343,16 @@ function _paShowPathwaySelect() {
     </div>
     <div style="color:#fff;font-size:clamp(18px,2.8vw,24px);font-weight:700;line-height:1.25;letter-spacing:-.015em;margin-bottom:6px">Choose your APC pathway</div>
     <div style="color:rgba(255,255,255,.4);font-size:14px;margin-bottom:22px">Select your pathway so Michael can give you relevant technical questions.</div>
-    <div class="pa-topic-grid">
-      ${PATHWAYS.map(p => `<button class="pa-topic-btn" onclick="_paSelectPathway('${p.replace(/'/g,"\\'")}'">${p}</button>`).join('')}
+    <div class="pa-topic-grid" id="paPathwayGrid">
+      ${PATHWAYS.map(p => `<button class="pa-topic-btn" data-pathway="${p}">${p}</button>`).join('')}
     </div>`;
+  document.getElementById('paPathwayGrid').addEventListener('click', function(e) {
+    const btn = e.target.closest('button[data-pathway]');
+    if (btn) _paSelectPathway(btn.dataset.pathway);
+  });
 }
 
-async function _paSelectPathway(pathway) {
+function _paSelectPathway(pathway) {
   _tofyPathway = pathway;
   _tofyAttempt1Transcript = null;
   const body = document.getElementById('tofyBody');
@@ -9358,16 +9362,18 @@ async function _paSelectPathway(pathway) {
   if (!bank || !bank.length) {
     body.innerHTML = `
       <div style="margin-bottom:22px">
-        <button class="pa-back-btn" onclick="_paShowPathwaySelect()">&#8592; Choose a different pathway</button>
+        <button class="pa-back-btn" id="paBackToPathways">&#8592; Choose a different pathway</button>
       </div>
       <div style="background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);border-radius:12px;padding:28px 24px;text-align:center">
         <div style="font-size:15px;font-weight:600;color:#fcd34d;margin-bottom:10px">More pathway-specific questions are being added.</div>
         <div style="color:rgba(255,255,255,.5);font-size:14px;line-height:1.6">Please choose another APC practice area for now, or select a different pathway.</div>
       </div>
       <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
-        <button onclick="_paShowPathwaySelect()" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer">Try another pathway</button>
+        <button id="paTryAnotherPathway" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer">Try another pathway</button>
         <button onclick="_tofyShowTopicSelect('apc')" style="background:transparent;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.45);border-radius:10px;padding:12px 18px;font-size:14px;cursor:pointer">Back to APC topics</button>
       </div>`;
+    document.getElementById('paBackToPathways').addEventListener('click', _paShowPathwaySelect);
+    document.getElementById('paTryAnotherPathway').addEventListener('click', _paShowPathwaySelect);
     return;
   }
 

@@ -1165,11 +1165,24 @@ input.err{border-color:var(--red)}
 @keyframes tofyPulse{0%,100%{opacity:1}50%{opacity:.3}}
 .tofy-cap-row{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07)}
 .tofy-cap-row:last-child{border-bottom:none}
-.tofy-cap-name{font-size:13px;color:rgba(255,255,255,.45);min-width:168px;flex-shrink:0;padding-top:1px}
+.tofy-cap-name{font-size:13px;color:rgba(255,255,255,.45);min-width:140px;max-width:200px;flex-shrink:0;padding-top:1px}
 .tofy-cap-strong{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:rgba(110,231,183,.12);color:#6ee7b7;border-radius:4px;padding:2px 8px;flex-shrink:0;white-space:nowrap}
 .tofy-cap-improve{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:rgba(245,158,11,.1);color:#fcd34d;border-radius:4px;padding:2px 8px;flex-shrink:0;white-space:nowrap}
 .tofy-cap-tryagain{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:rgba(248,113,113,.1);color:#fca5a5;border-radius:4px;padding:2px 8px;flex-shrink:0;white-space:nowrap}
 .tofy-cap-note{font-size:13px;color:rgba(255,255,255,.5);line-height:1.55;flex:1}
+/* PA area + topic screens */
+.pa-area-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px}
+.pa-area-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:22px 22px;cursor:pointer;transition:background .15s,border-color .15s;text-align:left;width:100%;font-family:inherit}
+.pa-area-card:hover{background:rgba(37,99,235,.1);border-color:rgba(37,99,235,.4)}
+.pa-area-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:5px;line-height:1.25}
+.pa-area-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.55}
+.pa-topic-grid{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px}
+.pa-topic-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:11px 16px;font-size:14px;font-weight:500;color:rgba(255,255,255,.75);cursor:pointer;transition:background .15s,border-color .15s;font-family:inherit;line-height:1.3;text-align:left}
+.pa-topic-btn:hover{background:rgba(37,99,235,.15);border-color:rgba(37,99,235,.5);color:#fff}
+.pa-back-btn{background:transparent;border:none;color:rgba(255,255,255,.35);font-size:13px;cursor:pointer;padding:6px 0;display:inline-flex;align-items:center;gap:5px;font-family:inherit}
+.pa-back-btn:hover{color:rgba(255,255,255,.7)}
+.pa-think-box{background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.2);border-radius:14px;padding:28px 24px;margin-bottom:24px;text-align:center}
+.pa-think-timer{font-size:clamp(52px,10vw,80px);font-weight:700;color:#fff;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1;margin:8px 0 10px}
 
 /* ═══════════════════════════════════════════════
    DASHBOARD REDESIGN — full-width, section rhythm
@@ -9048,6 +9061,10 @@ let _tofyQuestion = null;
 let _tofyTimer = null;
 let _tofyCoach = 'michael';
 let _tofyContentSource = 'pathway';
+// PA navigation state
+let _tofyArea = 'apc';
+let _tofyTopic = null;
+let _tofyThinkTimer = null;
 // Speak route state
 let _tofyAttempt1Transcript = null;
 let _tofyMediaRecorder = null;
@@ -9055,36 +9072,249 @@ let _tofyAudioChunks = [];
 let _tofyRecordingTimer = null;
 let _tofyRecordingSecs = 0;
 
+// Curated question bank (manager + team areas; APC uses live API)
+const _paQBank = {
+  apc: {
+    'case-study': [
+      { q: "You've been appointed to value a commercial property for lending purposes. On inspection, you notice significant unauthorised alterations. How do you proceed?", module: "APC ASSESSMENT · CASE STUDY", keyPoints: ["Notify client immediately", "Cannot provide value until alterations assessed", "May need to qualify or withdraw report", "Professional duty to lender and RICS standards"], pass: "I would advise the client that the unauthorised alterations mean I cannot complete the valuation as instructed without further investigation. I would document my findings, explain the implications for the report and seek legal and planning advice before proceeding.", high: "I would immediately put the issue in writing to the client, explain that RICS Red Book requirements prevent me from ignoring material factors, and advise that the valuation would need to be qualified or suspended pending confirmation of the planning position. I would also notify the lender client, as they have an independent duty of care, and consider whether the instruction remains viable." },
+      { q: "A client asks you to sign off on a valuation figure that you consider inflated relative to the evidence. What do you do?", module: "APC ASSESSMENT · CASE STUDY", keyPoints: ["Cannot sign off a figure unsupported by evidence", "Explain professional obligations", "Risk of negligence claim", "Offer to discuss methodology transparently"], pass: "I would explain to the client that I can only sign off a figure I can defend with evidence, and that signing off an unsupported valuation would expose both of us to significant risk. I would show them my workings and explain where the disconnect is.", high: "I would clearly document my reasoning and the evidence base, explain that RICS standards and my professional indemnity obligations mean I cannot certify a figure I cannot justify, and offer a transparent discussion of the methodology. If the client refused to accept my professional view, I would need to consider withdrawing from the instruction. I would also consider whether the instruction raised any wider conduct concerns." },
+      { q: "You are managing a construction project and discover a subcontractor has installed materials that do not meet specification. The client wants to avoid delay. How do you handle this?", module: "APC ASSESSMENT · CASE STUDY", keyPoints: ["Document the non-compliance immediately", "Cannot accept non-compliant materials", "Advise client of implications honestly", "Contractual and safety obligations take precedence over programme"], pass: "I would document the non-compliance formally, advise the client that the materials cannot be accepted regardless of programme pressure, and instruct the subcontractor to remedy the work. Accepting non-compliant materials could create liability and safety issues.", high: "I would issue a formal instruction to the subcontractor to remedy the work, document the defect with photographs and written records, and advise the client clearly that accepting non-compliant materials would expose them to latent defects liability and potentially building safety risk. I would present a revised programme showing the minimum delay required to remedy the issue properly, and make clear that programme pressure cannot override contractual or safety obligations." }
+    ],
+    'mandatory': [
+      { q: "Explain how you have demonstrated ethics, rules of conduct and professionalism in your day-to-day work.", module: "APC ASSESSMENT · MANDATORY COMPETENCIES", keyPoints: ["Specific example with context", "Conflict of interest or client pressure handled correctly", "Acting in public interest as well as client interest", "RICS Rules of Conduct reference"], pass: "In a recent instruction I identified a potential conflict of interest and disclosed it to both parties immediately. I explained the situation, offered to withdraw if either party preferred, and documented the outcome. I try to apply the five RICS ethical principles in every client interaction.", high: "I can point to a specific situation where a client asked me to include information in a report that I felt was misleading. I explained that my obligation was to produce an honest and balanced assessment, and that including the information as framed would risk the report being professionally misleading. The client initially pushed back, but I held my position and the instruction proceeded on the correct basis. I documented the discussion throughout." },
+      { q: "A colleague asks you to cut corners on a client report to meet a tight deadline. How do you respond?", module: "APC ASSESSMENT · MANDATORY COMPETENCIES", keyPoints: ["Cannot compromise professional standards for time", "Report quality has direct liability implications", "Raise concern constructively with colleague or manager", "Consider whether deadline can be renegotiated with client"], pass: "I would explain that I understand the time pressure but that cutting corners on a professional report creates liability risk for the firm and the client. I would try to help find a solution — such as extending the deadline or getting additional resource — rather than just saying no.", high: "I would raise the concern directly with my colleague and, if needed, with a manager. I would be specific about which elements I felt couldn't be shortened without compromising quality, and propose either a realistic timeline or a reduction in scope that the client would need to agree to. The key issue is that professional reports carry liability and the firm's professional indemnity insurance is predicated on appropriate standards being met." },
+      { q: "How do you ensure your technical advice to clients remains within your current level of competence?", module: "APC ASSESSMENT · MANDATORY COMPETENCIES", keyPoints: ["Honest self-assessment", "Seek supervision or guidance when at limits", "Refer to specialist where appropriate", "CPD and keeping knowledge current"], pass: "I try to be honest about the limits of my knowledge. If I'm working in an area I'm not fully experienced in, I seek supervision from a more senior colleague before advising the client, and I'm clear with clients about what I can and cannot advise on.", high: "I have a clear sense of where my competence ends and I apply it consistently. In practice this means I discuss complex or unusual instructions with my supervisor before advising the client, I flag where specialist input is needed, and I don't overstate my experience in areas where I'm still developing. I also keep a CPD record that reflects where I'm actively developing knowledge, which helps me track where I'm still building capability." }
+    ],
+    'pathway-technical': [
+      { q: "How would you approach a dilapidations assessment at the end of a lease for a large commercial property?", module: "APC ASSESSMENT · PATHWAY-SPECIFIC TECHNICAL", keyPoints: ["Terminal schedule of dilapidations", "Supersession arguments", "Quantified demand", "Negotiation and settlement strategy"], pass: "I would start with a detailed inspection comparing current condition against the lease covenants and any schedule of condition. I would prepare a terminal schedule, consider any supersession arguments the tenant might raise, and produce a quantified demand. I would then advise the client on a realistic settlement range.", high: "The process starts well before lease expiry — ideally I would have reviewed interim compliance during the tenancy. At expiry, I would produce a terminal schedule based on the lease obligations, assess each item against current building regulations to test supersession, prepare a quantified demand with costs, and advise on the prospect of the landlord actually carrying out the works, since that affects the negotiating position considerably. I would also consider the cap on damages under section 18 of the Landlord and Tenant Act 1927." },
+      { q: "Explain the key considerations when advising a client on a pre-acquisition survey for a mixed-use building constructed in the 1960s.", module: "APC ASSESSMENT · PATHWAY-SPECIFIC TECHNICAL", keyPoints: ["Asbestos — likely pre-2000 construction", "Structural considerations for the era", "Building services age and condition", "Environmental and remediation risk", "Scope of survey and limitations"], pass: "A 1960s mixed-use building raises several issues. Asbestos is a primary concern — it was widely used in that period and I would flag this early and recommend a management survey. I would also look at the structural frame, roof condition, building services age, and any environmental history of the site.", high: "The first thing I flag is asbestos — any pre-2000 building requires an asbestos management survey before meaningful advice can be given on condition or cost. Beyond that I would consider the construction method — many 1960s commercial buildings used system-built or curtain wall construction that has specific known failure modes. I would assess building services life expectancy (most will be at or beyond end of life), check for flat roof issues, and consider whether any previous uses of the site created contamination risk. I would also be explicit in the report about the scope and limitations of the survey." },
+      { q: "A client is considering purchasing a property affected by Japanese Knotweed. What are the key issues you would raise?", module: "APC ASSESSMENT · PATHWAY-SPECIFIC TECHNICAL", keyPoints: ["Structural damage risk", "Mortgage lender restrictions", "Remediation cost and time", "Disclosure obligations on sale", "RICS Japanese Knotweed guidance"], pass: "I would advise the client on the potential structural risk, the impact on mortgage lending, the likely cost and time for remediation, and the implications for future saleability. I would recommend a specialist survey before proceeding.", high: "Japanese Knotweed raises four distinct issues I would cover in sequence: structural risk to foundations and drainage; mortgage lender restrictions — most high-street lenders require a specialist management plan before lending; remediation cost, which can be significant and is typically a multi-year programme; and disclosure obligations — the client would need to declare it on any future sale, and failing to do so could give rise to a misrepresentation claim. I would recommend commissioning a specialist RICS-compliant survey and would not advise proceeding until the full picture was understood." }
+    ],
+    'professional-judgement': [
+      { q: "A client asks you for advice outside your area of competence. What would you do?", module: "APC ASSESSMENT · PROFESSIONAL JUDGEMENT", keyPoints: ["Be honest about limits of competence", "Do not advise beyond competence", "Refer to appropriate specialist", "Document the advice given and the referral"], pass: "I would be honest with the client that the question falls outside my current area of competence. I would explain what I can cover and refer them to an appropriate specialist, making sure they understand the importance of getting the right advice.", high: "I would tell the client directly that I'm not the right person to advise on that specific point, explain what I can help with, and recommend a specialist with the relevant expertise. I would document the conversation — both that I was asked and that I declined to advise outside my competence — to protect both the client and myself. Acting outside competence is one of the clearest ways a professional can expose themselves and their client to risk." },
+      { q: "You discover a potential conflict of interest mid-instruction. How do you handle it?", module: "APC ASSESSMENT · PROFESSIONAL JUDGEMENT", keyPoints: ["Disclose immediately to both parties", "Cannot act for both without informed consent", "May need to withdraw", "Document everything"], pass: "I would disclose the conflict to both clients immediately, explain the position clearly, and seek their informed consent to continue — or withdraw if either party objected or if continuing would compromise my professional objectivity.", high: "The first step is disclosure — both parties need to know. I would explain the nature of the conflict clearly, advise that I cannot continue to act for both without their informed consent, and give them time to take independent advice if they wished. If either party objected or if I felt my objectivity was genuinely compromised, I would withdraw from one or both instructions. The key principle is that a conflict of interest, once identified, cannot simply be managed privately." },
+      { q: "Your client is about to make a decision you believe is commercially risky. You have given your advice and they have chosen to proceed. What do you do?", module: "APC ASSESSMENT · PROFESSIONAL JUDGEMENT", keyPoints: ["Respect client's right to make the decision", "Ensure advice was clearly given and documented", "Not continue to override client autonomy", "Support client to execute their decision as well as possible"], pass: "I would ensure my advice was clearly documented so the client understood the risks I had identified, but ultimately it is the client's decision to make. Once they have chosen to proceed on the basis of full information, my role is to help them execute it as well as possible.", high: "My job is to advise, not to decide. If I have given clear, honest advice and documented it properly, and the client has made an informed decision to proceed, I accept that. I would confirm the advice in writing, make sure they understood the downside risks, and then support them to proceed as effectively as possible. What I would not do is continue to raise the same objection repeatedly once the decision is made — that serves no one. The one exception would be if proceeding created a legal or regulatory risk to me or the firm, in which case I would raise that separately." }
+    ]
+  },
+  manager: {
+    'proud-work': [
+      { q: "Tell me about a piece of work you're genuinely proud of and what it shows about where you are in your professional development.", module: "MANAGER CONVERSATIONS · PIECE OF WORK I'M PROUD OF", keyPoints: ["What the work was and your specific contribution", "What made it good — not just the outcome but how you approached it", "What it reveals about your current capability level", "Honest reflection, not just a success story"], pass: "I recently led the production of a detailed cost plan for a commercial refurbishment project. I'm proud of it because I caught an error in the original brief that would have significantly understated the budget. What it shows is that I'm starting to apply genuine professional judgement, not just follow process.", high: "I want to give you a specific example rather than a general one. On a recent instruction, I identified that the scope we had been briefed on was inconsistent with the planning consent. I flagged it, proposed a revised approach, and the client thanked us for catching it before we committed resources. What that tells me about my development is that I'm starting to look beyond my immediate task and think about the wider context — that feels like a real step forward." },
+      { q: "What's the best piece of work you've produced in the last six months, and what made it good?", module: "MANAGER CONVERSATIONS · PIECE OF WORK I'M PROUD OF", keyPoints: ["Concrete example with context", "Your specific contribution, not just the team's", "What good looks like in your view", "Self-awareness about what you could still improve"], pass: "The best piece of work I've produced was a project risk register for a complex residential development. I think it was good because it was genuinely useful — the project director used it in client meetings, which doesn't always happen. I was thorough and I presented the risks clearly.", high: "The piece of work I'm most proud of is a report I produced for a client facing a valuation dispute. It was good because I went beyond the brief — I identified a comparable that my supervisor hadn't considered and it materially strengthened our position. What I'd acknowledge is that it took me longer than it should have, so I'm still developing in terms of producing high-quality work efficiently." }
+    ],
+    'more-experience': [
+      { q: "Where do you feel least confident right now, and what are you doing about it?", module: "MANAGER CONVERSATIONS · WHERE DO I NEED MORE EXPERIENCE?", keyPoints: ["Genuine self-awareness, not a polished non-answer", "Specific gap, not vague", "Active steps being taken to address it", "Shows maturity to name it honestly"], pass: "I feel least confident in client-facing situations where I have to push back on something they want to hear. I know what the right advice is but I sometimes find it hard to deliver it clearly under pressure. I'm working on this by practising those conversations with my supervisor before they happen.", high: "I'll be direct — I feel least confident advising on anything with a significant legal dimension. I understand the technical aspects of my work but when instructions stray into planning law or lease interpretation, I know I'm close to the edge of my competence. I'm addressing that by studying the relevant areas in my CPD and making sure I involve a more experienced colleague on those instructions rather than attempting to advise alone." },
+      { q: "Which parts of your role do you feel you're not yet fully stretched on, and why does that matter for your development?", module: "MANAGER CONVERSATIONS · WHERE DO I NEED MORE EXPERIENCE?", keyPoints: ["Honest reflection on where work has been narrow", "Understanding of what the gap means for readiness to progress", "Proactive thinking about how to close it"], pass: "I haven't had much exposure to larger or more complex projects. Most of my work has been on relatively straightforward instructions and I'm aware that my experience of managing more difficult client relationships or higher-stakes decisions is limited. I think it matters because progression will require me to handle those situations.", high: "I've had strong exposure to the technical side of my work but limited experience of the commercial and relationship management aspects — negotiating fees, managing difficult client expectations, building my own client relationships. That matters for my development because those are the things that will determine whether I can progress to a more senior role. I've raised this with my manager and we've agreed I should take a lead role on the next new client instruction that comes in." }
+    ],
+    'differently': [
+      { q: "Think of a project or situation that didn't go as well as you'd hoped. What would you do differently now?", module: "MANAGER CONVERSATIONS · WHAT WOULD I DO DIFFERENTLY?", keyPoints: ["Honest about what went wrong", "Not defensive or blame-focused", "Clear understanding of your specific contribution to the problem", "Genuine learning, not a formulaic answer"], pass: "There was a report I produced early on where I misjudged what the client actually needed. I focused on technical completeness but they needed something they could use in a board presentation. I would now clarify the purpose and audience before starting, not assume I know.", high: "On a project last year, a key milestone slipped because I assumed my colleague was handling something and they assumed I was. Neither of us had confirmed it. I would handle that differently now — I've learned to make responsibility explicit rather than assumed, especially on handoffs. The frustrating thing was it was completely avoidable and it created pressure for everyone on the team." },
+      { q: "If you could go back six months, what would you change about how you approached your development?", module: "MANAGER CONVERSATIONS · WHAT WOULD I DO DIFFERENTLY?", keyPoints: ["Reflective, not defensive", "Specific about what you'd change and why", "Shows understanding of development as an active process"], pass: "I would have been more deliberate about seeking feedback. I tended to wait until formal reviews rather than asking for input in the moment. I think I would have developed faster if I'd been more proactive about asking how I could improve after specific pieces of work.", high: "I would have been clearer about what I was trying to get out of each instruction. I did a lot of good work but I wasn't always conscious of what I was learning from it. I think deliberate practice — going in with a specific learning intention — is more effective than just accumulating experience, and I'm trying to apply that now." }
+    ],
+    'responsibility': [
+      { q: "What tells you that you're ready to take on more responsibility?", module: "MANAGER CONVERSATIONS · READY FOR MORE RESPONSIBILITY?", keyPoints: ["Evidence-based, not just assertion", "Awareness of what more responsibility actually involves", "Honest about what you still need to develop", "Shows you've thought about this seriously"], pass: "I think I'm ready because I'm consistently producing work that requires minimal review before it goes to clients, I've started to identify issues that others miss, and I'm being asked to contribute to more senior discussions. I'm also honest that I'm still developing in some areas.", high: "What tells me I'm ready is that the nature of the supervision I need has changed — it's less about checking whether I've done things correctly and more about judgment calls and priorities. That's a qualitative shift. At the same time, I'm clear-eyed about what more responsibility involves — it's not just doing the same things at a higher level, it's managing complexity and relationships I haven't fully navigated yet. I think I'm ready to take that on, with support." },
+      { q: "Make the case for why you should be given a more senior role or a bigger instruction.", module: "MANAGER CONVERSATIONS · READY FOR MORE RESPONSIBILITY?", keyPoints: ["Concrete evidence, not just confidence", "Understands what the role requires", "Honest about the stretch involved", "Articulates the value to the firm, not just the benefit to themselves"], pass: "I think I should be considered because I've demonstrated I can manage instructions independently, I've consistently delivered quality work, and clients have given positive feedback. I understand there's a step up involved and I'm prepared to take it.", high: "I want to make this case on evidence rather than enthusiasm. I've managed three instructions independently in the last year, with no significant errors and positive client feedback on two of them. I've also started identifying work beyond the immediate brief — which I think is what senior roles require. The honest case is that I'm ready for more complexity and that giving me bigger instructions will develop me faster while also creating capacity for the team. What I'd ask for is a clear brief on what good looks like at the next level so I know what I'm aiming for." }
+    ],
+    'support': [
+      { q: "What would help you most in the next three months to keep developing?", module: "MANAGER CONVERSATIONS · WHAT SUPPORT DO I NEED?", keyPoints: ["Specific and practical, not vague", "Shows self-awareness about current constraints", "Realistic — not demanding everything at once", "Linked to a clear development purpose"], pass: "The thing that would help most is exposure to a more complex instruction where I can work alongside someone more senior and learn how they approach decisions under pressure. I learn best by doing and observing, and I haven't had that kind of instruction recently.", high: "The most useful thing for me right now would be structured feedback on a piece of work in progress rather than after the fact. I often get feedback on completed work, but by then it's too late to change anything and the learning is more abstract. If I could bring a draft to you before it's finalised on one or two occasions, I think I would develop faster. The other thing I'd find useful is clarity on what progression to the next level actually looks like in practice." },
+      { q: "What's getting in the way of your progress, and what would you need from your manager to address it?", module: "MANAGER CONVERSATIONS · WHAT SUPPORT DO I NEED?", keyPoints: ["Honest about the constraint", "Not purely blaming external factors", "Specific ask — not just 'more support'", "Shows awareness of the manager's perspective too"], pass: "I think the main constraint is that I spend a lot of time on reactive work and it makes it hard to develop on the more complex things. What I'd find helpful is some protected time on a project where I have to stretch — even if it means I'm slower initially.", high: "I want to be honest without sounding like I'm complaining. The main constraint is that most of my work is at a level I can handle comfortably, which is good for output but not great for development. What I'd ask for is deliberate exposure to work that's slightly beyond where I am — instructions where I'm the most junior person in the room and have to contribute rather than just execute. The risk I'm conscious of is that I accumulate experience without developing judgement, and I want to avoid that." }
+    ],
+    'mistake': [
+      { q: "Tell me about a situation that went wrong and what you learned from it.", module: "MANAGER CONVERSATIONS · MISTAKE OR DIFFICULT SITUATION", keyPoints: ["Honest about your specific role in what went wrong", "Not defensive, not overly self-critical", "Clear learning that changed how you work", "Impact on the client or team honestly described"], pass: "On an early instruction I gave a client an indicative cost figure before I had done enough analysis. They shared it internally and when the proper figure came in significantly higher, it created a difficult conversation. I learned to be explicit about what stage an estimate is at and what it does and doesn't include.", high: "I want to be direct about this. I missed a deadline on a report because I underestimated how long the analysis would take and I didn't flag the risk early enough. By the time I raised it, there wasn't enough time to recover it without the client noticing. What I learned was that identifying a problem early, even when it's uncomfortable to raise, is always better than hoping you can recover. I now have a rule: if I think there's a risk to a deadline, I raise it as soon as I see it." },
+      { q: "Describe the most challenging professional situation you've been in. How did you handle it?", module: "MANAGER CONVERSATIONS · MISTAKE OR DIFFICULT SITUATION", keyPoints: ["Clear description of why it was genuinely difficult", "What you actually did — specific actions", "Honest about what was hard", "What you would do differently now"], pass: "The most challenging situation was when a client asked me to include information in a report that I felt was selective and potentially misleading. I had to explain why I couldn't do that professionally, which was uncomfortable because they were a significant client. I held my position, documented the conversation, and the instruction continued on the right basis.", high: "The hardest situation I've been in was being asked to advise on something where I knew there were significant gaps in my knowledge, under time pressure, without access to a supervisor. I made the decision to be transparent with the client about the limits of my certainty rather than overstating my confidence. It was uncomfortable — clients generally want decisive answers — but I think it was the right call. What I'd do differently is be more explicit up front about what a reasonable timeline looks like so the time pressure doesn't arise." }
+    ]
+  },
+  team: {
+    'raise-concern': [
+      { q: "You're in a project team meeting. The project manager has just presented a programme that you believe is unrealistic given the risks you've identified on site. How do you raise this?", module: "TEAM CONTRIBUTION · RAISE A CONCERN", keyPoints: ["State the concern clearly and specifically", "Base it on evidence, not just feeling", "Do it in the moment, not after the meeting", "Constructive — offer a solution or ask a question rather than just objecting"], pass: "I would raise my hand and say something like: I want to raise a concern about the programme. Based on what I've seen on site, I think there are risks that aren't reflected in the timeline. Can we look at sections two and three specifically before we confirm the dates?", high: "I'd raise it directly in the meeting: 'I want to flag something before we confirm the programme. From the site visit, I identified two risks that I think could affect the timeline — specifically the drainage issue in the north section and the lead time on the structural steelwork. I may be missing context, but I think we need to pressure-test those dates before we commit to the client. Can we spend five minutes on it?' The key is to be specific, evidence-based, and to frame it as a question rather than a challenge." },
+      { q: "Your team has just agreed a course of action you think is wrong. How do you speak up?", module: "TEAM CONTRIBUTION · RAISE A CONCERN", keyPoints: ["Timing — raise it before the meeting ends if possible", "Specific about what concerns you", "Not undermining the team — framed as a question or observation", "Willing to be wrong"], pass: "I'd say something like: before we move on, can I just raise something? I'm not sure I fully understood the reasoning behind that decision. I have a concern about [specific point] — can someone help me understand how we've thought about that?", high: "I would wait for a natural pause and say: 'I want to make sure we've thought this through before we move forward, because I have a concern I don't want to sit on. My worry is [specific issue]. I may be missing something — is there a reason we've discounted that? I'd rather raise it now and be wrong than not raise it and find out later.' The goal is to be direct without being obstructive." }
+    ],
+    'spot-risk': [
+      { q: "You've noticed something in a project that could become a significant issue if not addressed now. Raise it with the team.", module: "TEAM CONTRIBUTION · SPOT A RISK", keyPoints: ["Be specific about what you observed", "Explain why it matters if not addressed", "Propose a next step, not just the problem", "Don't catastrophise — be proportionate"], pass: "In the debrief I'd say: 'I want to flag something I noticed today that I think we need to look at. I noticed [specific observation] and I'm concerned that if we don't address it before the next stage, it could [consequence]. I'd suggest we [specific action] before we proceed.'", high: "I'd frame it clearly: 'I want to raise a risk before we move on. On the site visit I noticed [specific thing]. Based on what I know, my concern is [consequence if ignored]. I think this is worth pausing on because the cost of addressing it now is much lower than later. I'd suggest we [next action] — can we agree who's going to take that forward?'" },
+      { q: "During a site visit you spot something that concerns you. How do you flag it in the team debrief?", module: "TEAM CONTRIBUTION · SPOT A RISK", keyPoints: ["Describe what you saw specifically", "Explain why it concerns you", "Acknowledge if you're uncertain", "Ask for input rather than stating conclusions"], pass: "I'd say: 'Can I flag something from the site visit? I noticed [specific thing]. I'm not certain what it means but it concerned me and I think it's worth someone taking a closer look. Does anyone else have a view on it?'", high: "'I want to flag something before we close out the debrief. I noticed [specific observation] in [location]. I'm not an expert in [area] but my understanding is that could indicate [risk]. I may be reading too much into it — does anyone with more experience in that area have a view? I'd rather raise it and be corrected than say nothing.'" }
+    ],
+    'give-view': [
+      { q: "The team is discussing how to approach a client situation and no one has asked for your view. Contribute.", module: "TEAM CONTRIBUTION · GIVE MY VIEW", keyPoints: ["Volunteer your view clearly, don't wait to be asked", "Acknowledge you may not have the full picture", "Make your point once — clearly, not repeatedly", "Add something that isn't already on the table"], pass: "'Can I add something? I've been thinking about this from the client's perspective and I think the issue they're most concerned about is [point]. That makes me think the approach we should lead with is [suggestion].'", high: "'Before we land on this — can I offer a view? I think the conversation so far has focused on [X], but from what I know of the client, their primary concern is actually [Y]. If that's right, it might be worth leading with [Z]. I could be wrong about their priorities — does that match what others have seen?'" },
+      { q: "A senior colleague has proposed a solution you're not sure about. Give your perspective.", module: "TEAM CONTRIBUTION · GIVE MY VIEW", keyPoints: ["Respectful but direct", "Ask a question or flag a specific concern rather than dismissing", "Based on evidence or reasoning, not just instinct", "Contribute to a better outcome rather than just challenging"], pass: "'Can I raise a question about that approach? I want to make sure I understand the reasoning. My concern is [specific point] — I'm wondering how we'd handle that situation. Have we considered [alternative]?'", high: "'I want to think through one aspect of that proposal before we commit. The part I'm uncertain about is [specific element] — my concern is that if [scenario], we might find ourselves in a difficult position. Is there a reason we've taken that approach rather than [alternative]? I may be missing context, but I'd find it helpful to work through that logic.'" }
+    ],
+    'clarification': [
+      { q: "A client brief is unclear and the team is about to start work based on different assumptions. How do you raise this?", module: "TEAM CONTRIBUTION · ASK FOR CLARIFICATION", keyPoints: ["Identify the specific point of ambiguity", "Raise it before work starts, not after", "Frame as a question, not a criticism", "Suggest a way to resolve it"], pass: "'Before we start, I want to flag that I read the brief differently to how I think others are reading it. Specifically on [point] — I want to check we're all working from the same assumption. Can we confirm with the client before we get too far in?'", high: "'I want to pause on this before we divide up the work. When I read the brief, I understood [interpretation A], but listening to the conversation I think some of us may be reading it as [interpretation B]. Those would lead to different outputs. It seems worth a quick clarification call with the client — it's a five-minute conversation that could save us significant rework. Can we agree who makes that call?'" },
+      { q: "In a meeting, a key decision has just been made and you're not sure what you're supposed to do next. Ask.", module: "TEAM CONTRIBUTION · ASK FOR CLARIFICATION", keyPoints: ["Ask directly, don't assume you'll work it out later", "Specific about what you need to know", "Not apologetic about not knowing", "Checks understanding rather than admitting confusion"], pass: "'Before we close out — I want to make sure I'm clear on what I'm doing next. My understanding is [X], but I want to check that's right before I start. Is that correct?'", high: "'Can I just check my understanding of the actions? I'm going to [specific task] and I'm aiming to have it to [person] by [time]. Is that right? And just to confirm — is [related question] in scope for me or is someone else covering that?'" }
+    ],
+    'challenge-deadline': [
+      { q: "Your manager has committed to a deadline that you believe is unachievable given the current workload. How do you raise this?", module: "TEAM CONTRIBUTION · CHALLENGE A DEADLINE", keyPoints: ["Raise it early — the earlier the better", "Specific about why it's not achievable", "Come with a proposed solution or alternative", "Not just complaining — constructive"], pass: "'I want to raise something about the deadline. Based on the current workload, I don't think we can deliver [deliverable] by [date] without [impact]. I'd rather flag it now when there's still time to adjust than raise it later when there's no flexibility. Can we look at the plan together?'", high: "'I need to be honest about the Friday deadline. Here's the situation: I'm currently working on [X] which takes up [time], and [Y] has come in this week. If I do all three to the standard the client expects, Friday isn't realistic. I have a few options I wanted to talk through with you — either we push back on [task], we ask for more time on [task], or we agree a reduced scope. What do you want to do?'" },
+      { q: "The team is under pressure to deliver by Friday. You can see it won't be possible to do it well. What do you say?", module: "TEAM CONTRIBUTION · CHALLENGE A DEADLINE", keyPoints: ["Honest and specific about the constraint", "Not catastrophising, but clear about the tradeoff", "Propose options rather than just the problem", "Timely — say it now, not Thursday afternoon"], pass: "'I want to be transparent about where we are. We can hit Friday, but at the current pace the quality won't be where it needs to be. I think we need to decide: do we deliver something incomplete on Friday, or do we ask for a short extension and deliver something we're confident in?'", high: "'I need to raise something now rather than Friday morning. Based on where we are, here's the reality: we can produce a draft by Friday but it will have gaps in [sections]. The alternative is we take until Monday and deliver something we stand behind. I know neither is ideal — I just think it's better to have that conversation with the client now when there's time to agree a solution, rather than deliver something we're not proud of.'" }
+    ],
+    'summarise-action': [
+      { q: "A long meeting is ending with no clear actions agreed. Provide a summary of what you believe was decided and what needs to happen next.", module: "TEAM CONTRIBUTION · SUMMARISE NEXT ACTION", keyPoints: ["Be specific — names, tasks, dates", "Check agreement rather than just stating", "Cover what was decided AND what remains open", "Keep it brief — don't re-open the discussion"], pass: "'Before we close out, can I just confirm my understanding of the actions? I have: [person] is going to [action] by [date], and [person] is going to [action] before the next meeting. Is that right, and is anything missing?'", high: "'Can I summarise before we close? My read of what was agreed: [decision 1], and [decision 2]. On actions: [name] is taking forward [task] by [date], and [name] is going to follow up with [person] on the open point about [topic]. The one thing I think is still unresolved is [issue] — do we need to set a date to come back to that, or is someone taking it offline?'" },
+      { q: "After a complex client conversation, summarise the three key actions you're taking away.", module: "TEAM CONTRIBUTION · SUMMARISE NEXT ACTION", keyPoints: ["Specific and numbered — not vague", "Confirms timeline for each action", "Checks client agrees with your understanding", "Professional close to the conversation"], pass: "'Before we finish, can I confirm my three takeaways? One: I'll send through [document] by [date]. Two: I'll follow up with [person] on [question]. Three: we'll schedule the next call for [timeframe]. Does that match your understanding?'", high: "'To close out — I want to confirm what I'm taking away so we're aligned. First: I'll prepare [deliverable] and send it to you by [date] for your review. Second: I'll speak to [colleague] about [issue] and come back to you by [date]. Third: there's an open question on [topic] that I'll need more time on — can I have until [date] to respond on that specifically? Does that work for you?'" }
+    ]
+  }
+};
+
+const _paAreaMeta = {
+  apc: { label: 'APC Assessment', tag: 'APC Assessment · Michael' },
+  manager: { label: 'Manager Conversations', tag: 'Manager Conversations · Michael' },
+  team: { label: 'Team Contribution', tag: 'Team Contribution · Michael' }
+};
+
+const _paTopics = {
+  apc: [
+    { key: 'case-study', label: 'Case study questions' },
+    { key: 'mandatory', label: 'Mandatory competencies' },
+    { key: 'pathway-technical', label: 'Pathway-specific technical questions' },
+    { key: 'professional-judgement', label: 'Professional judgement' },
+    { key: 'random', label: 'Random challenge' }
+  ],
+  manager: [
+    { key: 'proud-work', label: 'Piece of work I\'m proud of' },
+    { key: 'more-experience', label: 'Where do I need more experience?' },
+    { key: 'differently', label: 'What would I do differently?' },
+    { key: 'responsibility', label: 'Ready for more responsibility?' },
+    { key: 'support', label: 'What support do I need?' },
+    { key: 'mistake', label: 'Mistake or difficult situation' }
+  ],
+  team: [
+    { key: 'raise-concern', label: 'Raise a concern' },
+    { key: 'spot-risk', label: 'Spot a risk' },
+    { key: 'give-view', label: 'Give my view' },
+    { key: 'clarification', label: 'Ask for clarification' },
+    { key: 'challenge-deadline', label: 'Challenge a deadline' },
+    { key: 'summarise-action', label: 'Summarise next action' }
+  ]
+};
+
 function openThinkOnYourFeet(coachPersona, contentSource) {
   _tofyCoach = coachPersona || 'michael';
   _tofyContentSource = contentSource || 'pathway';
   if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
+  if (_tofyThinkTimer) { clearInterval(_tofyThinkTimer); _tofyThinkTimer = null; }
   document.getElementById('tofyOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  _tofyLoad();
+  _tofyShowAreaSelect();
 }
 
 function closeTOFY() {
   if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
+  if (_tofyThinkTimer) { clearInterval(_tofyThinkTimer); _tofyThinkTimer = null; }
+  if (_tofyRecordingTimer) { clearInterval(_tofyRecordingTimer); _tofyRecordingTimer = null; }
+  if (_tofyMediaRecorder && _tofyMediaRecorder.state !== 'inactive') { try { _tofyMediaRecorder.stop(); } catch(e) {} }
   document.getElementById('tofyOverlay').style.display = 'none';
   document.body.style.overflow = '';
 }
 
-async function _tofyLoad() {
+function _paSetHeader(area) {
+  const meta = _paAreaMeta[area] || _paAreaMeta.apc;
+  document.getElementById('paHeaderTag').textContent = meta.tag;
+}
+
+function _tofyShowAreaSelect() {
+  _paSetHeader('apc');
+  document.getElementById('paHeaderTag').textContent = 'Michael';
   const body = document.getElementById('tofyBody');
-  body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.5);font-size:15px">Loading your question...</p></div>';
+  body.innerHTML = `
+    <div style="margin-bottom:10px">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(96,165,250,.65);margin-bottom:10px">Professional Articulation</div>
+      <div style="color:#fff;font-size:clamp(22px,3.5vw,30px);font-weight:700;line-height:1.2;letter-spacing:-.02em;margin-bottom:8px">What do you want to practise?</div>
+      <div style="color:rgba(255,255,255,.45);font-size:15px;margin-bottom:28px">Choose the type of professional conversation you want to work on.</div>
+    </div>
+    <div class="pa-area-grid">
+      <button class="pa-area-card" onclick="_tofyShowTopicSelect('apc')">
+        <div class="pa-area-title">APC Assessment</div>
+        <div class="pa-area-desc">Practise answering professional and technical questions under assessor-style pressure.</div>
+      </button>
+      <button class="pa-area-card" onclick="_tofyShowTopicSelect('manager')">
+        <div class="pa-area-title">Manager Conversations</div>
+        <div class="pa-area-desc">Practise explaining your work, development and readiness for greater responsibility.</div>
+      </button>
+      <button class="pa-area-card" onclick="_tofyShowTopicSelect('team')">
+        <div class="pa-area-title">Team Contribution</div>
+        <div class="pa-area-desc">Practise speaking up and contributing clearly in meetings and internal discussions.</div>
+      </button>
+    </div>`;
+}
+
+function _tofyShowTopicSelect(area) {
+  _tofyArea = area;
+  _paSetHeader(area);
+  const topics = _paTopics[area] || [];
+  const body = document.getElementById('tofyBody');
+  const areaLabel = _paAreaMeta[area]?.label || area;
+  body.innerHTML = `
+    <div style="margin-bottom:22px">
+      <button class="pa-back-btn" onclick="_tofyShowAreaSelect()">&#8592; Back</button>
+    </div>
+    <div style="color:#fff;font-size:clamp(18px,2.8vw,24px);font-weight:700;line-height:1.25;letter-spacing:-.015em;margin-bottom:6px">${areaLabel}</div>
+    <div style="color:rgba(255,255,255,.4);font-size:14px;margin-bottom:24px">Choose a topic to practise.</div>
+    <div class="pa-topic-grid">
+      ${topics.map(t => `<button class="pa-topic-btn" onclick="_tofySelectTopic('${area}','${t.key}')">${t.label}</button>`).join('')}
+    </div>`;
+}
+
+async function _tofySelectTopic(area, topic) {
+  _tofyArea = area;
+  _tofyTopic = topic;
+  _tofyAttempt1Transcript = null;
+  _paSetHeader(area);
+  const body = document.getElementById('tofyBody');
+  body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.45);font-size:15px">Getting your question…</p></div>';
+
   try {
-    const res = await fetch('/.netlify/functions/get-questions', {
-      method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ token: getToken(), pathway: localStorage.getItem('gca_pathway'), random: true })
-    });
-    const data = await res.json();
-    if (!data.question) throw new Error('no question');
-    _tofyQuestion = data.question;
-    _tofyShowQuestion();
+    if (area === 'apc' && topic === 'random') {
+      const res = await fetch('/.netlify/functions/get-questions', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ token: getToken(), pathway: localStorage.getItem('gca_pathway'), random: true })
+      });
+      const data = await res.json();
+      if (!data.question) throw new Error('no question');
+      _tofyQuestion = data.question;
+    } else {
+      const bank = (_paQBank[area] || {})[topic];
+      if (!bank || !bank.length) throw new Error('no questions for this topic');
+      _tofyQuestion = bank[Math.floor(Math.random() * bank.length)];
+    }
+    _tofyShowThinkScreen();
   } catch(e) {
-    body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:#f87171;font-size:15px;margin-bottom:16px">Could not load a question — please try again.</p><button onclick="closeTOFY()" style="background:transparent;border:1px solid rgba(248,113,113,.3);color:#f87171;border-radius:8px;padding:10px 20px;font-size:13px;cursor:pointer">Close</button></div>';
+    body.innerHTML = `<div style="text-align:center;padding:60px 20px">
+      <p style="color:#f87171;font-size:15px;margin-bottom:16px">Couldn't load a question — please try again.</p>
+      <button onclick="_tofyShowTopicSelect(_tofyArea)" style="background:transparent;border:1px solid rgba(248,113,113,.3);color:#f87171;border-radius:8px;padding:10px 20px;font-size:13px;cursor:pointer">Back to topics</button>
+    </div>`;
   }
+}
+
+function _tofyShowThinkScreen() {
+  if (_tofyThinkTimer) { clearInterval(_tofyThinkTimer); _tofyThinkTimer = null; }
+  const q = _tofyQuestion;
+  const body = document.getElementById('tofyBody');
+  let secs = 15;
+  body.innerHTML = `
+    <div style="margin-bottom:28px">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:10px">${q.module}</div>
+      <div style="color:#fff;font-size:clamp(19px,2.8vw,24px);font-weight:700;line-height:1.4;letter-spacing:-.02em">${q.q}</div>
+    </div>
+    <div class="pa-think-box" id="paThinkBox">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:2px">Take a moment to think</div>
+      <div class="pa-think-timer" id="paThinkTimer">0:15</div>
+      <div style="color:rgba(255,255,255,.3);font-size:12px">seconds to collect your thoughts</div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button onclick="_paRevealMode()" style="background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);border-radius:10px;padding:10px 22px;font-size:14px;cursor:pointer">I&rsquo;m ready &rarr;</button>
+    </div>`;
+
+  _tofyThinkTimer = setInterval(() => {
+    secs--;
+    const el = document.getElementById('paThinkTimer');
+    if (!el) { clearInterval(_tofyThinkTimer); _tofyThinkTimer = null; return; }
+    el.textContent = '0:' + (secs < 10 ? '0' : '') + secs;
+    if (secs <= 5) el.style.color = '#fcd34d';
+    if (secs <= 0) {
+      clearInterval(_tofyThinkTimer); _tofyThinkTimer = null;
+      _paRevealMode();
+    }
+  }, 1000);
+}
+
+function _paRevealMode() {
+  if (_tofyThinkTimer) { clearInterval(_tofyThinkTimer); _tofyThinkTimer = null; }
+  _tofyShowQuestion();
 }
 
 function _tofyFmt(s) { const m = Math.floor(s/60); return m+':'+String(s%60).padStart(2,'0'); }
@@ -9113,7 +9343,7 @@ function _tofyShowQuestion() {
       </div>
     </div>
     <div style="text-align:right">
-      <button onclick="openThinkOnYourFeet(_tofyCoach,_tofyContentSource)" style="background:transparent;border:none;color:rgba(255,255,255,.3);font-size:13px;cursor:pointer;padding:6px 0">Different question</button>
+      <button onclick="_tofySelectTopic(_tofyArea,_tofyTopic)" style="background:transparent;border:none;color:rgba(255,255,255,.3);font-size:13px;cursor:pointer;padding:6px 0">Different question</button>
     </div>`;
 }
 
@@ -9189,6 +9419,7 @@ async function _tofySubmitRecap() {
         messages: [{ role:'user', content:'Question: '+q.q+'\n\nKey points to cover: '+(q.keyPoints||[]).join('; ')+'\n\nMy recap: '+recap }],
         source: 'articulation-verdict', persona: _tofyCoach,
         pathway: localStorage.getItem('gca_pathway'), modTitle: q.module,
+        practiceArea: _tofyArea || 'apc',
         scoring: true, max_tokens: 1200, token: getToken()
       })
     });
@@ -9226,8 +9457,9 @@ function _tofyShowVerdict(v) {
       <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.12);border-radius:10px;padding:15px 18px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(248,113,113,.7);margin-bottom:6px">Likely assessor follow-up</div><div style="color:#fca5a5;font-size:14px;line-height:1.65">&ldquo;${v.follow_up_question}&rdquo;</div></div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px">
-      <button onclick="openThinkOnYourFeet(_tofyCoach,_tofyContentSource)" style="flex:1;min-width:160px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:15px;font-weight:600;cursor:pointer">Try another question &rarr;</button>
-      <button onclick="_tofyRevealAnswer()" id="tofyRevealBtn" style="background:transparent;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.55);border-radius:10px;padding:14px 18px;font-size:14px;cursor:pointer">Reveal model answer</button>
+      <button onclick="_tofySelectTopic(_tofyArea,_tofyTopic)" style="flex:1;min-width:160px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:15px;font-weight:600;cursor:pointer">Try again &rarr;</button>
+      <button onclick="_tofyShowTopicSelect(_tofyArea)" style="background:transparent;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.4);border-radius:10px;padding:14px 18px;font-size:14px;cursor:pointer">Try a different question</button>
+      <button onclick="_tofyRevealAnswer()" id="tofyRevealBtn" style="background:transparent;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.55);border-radius:10px;padding:14px 18px;font-size:14px;cursor:pointer">Model answer</button>
     </div>
     <div id="tofyModelAnswer" style="display:none"></div>`;
 }
@@ -9376,6 +9608,7 @@ async function _tofySubmitAudio(blob) {
         keyPoints: q.keyPoints || [],
         attemptNum,
         attempt1Transcript: _tofyAttempt1Transcript || null,
+        practiceArea: _tofyArea || 'apc',
         token: getToken()
       })
     });
@@ -9466,9 +9699,9 @@ function _tofyShowSpeakVerdict(data, attemptNum) {
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px">
       ${attemptNum === 1
         ? `<button onclick="_tofySpeakMode()" style="flex:1;min-width:160px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer">Try again</button>`
-        : `<button onclick="openThinkOnYourFeet(_tofyCoach,_tofyContentSource)" style="flex:1;min-width:140px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer">Next question</button>`}
+        : `<button onclick="_tofySelectTopic(_tofyArea,_tofyTopic)" style="flex:1;min-width:140px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer">Next challenge</button>`}
       <button onclick="_tofyShowSpeakModelAnswer()" id="tofySpeakRevealBtn" style="background:transparent;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.55);border-radius:10px;padding:13px 18px;font-size:14px;cursor:pointer">Model answer</button>
-      <button onclick="openThinkOnYourFeet(_tofyCoach,_tofyContentSource)" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3);border-radius:10px;padding:13px 14px;font-size:13px;cursor:pointer">New question</button>
+      <button onclick="_tofyShowTopicSelect(_tofyArea)" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3);border-radius:10px;padding:13px 14px;font-size:13px;cursor:pointer">Try a different question</button>
     </div>`;
 }
 
@@ -10518,11 +10751,11 @@ document.addEventListener('keydown',function(e){
 </script>
 
 
-<!-- THINK ON YOUR FEET OVERLAY -->
+<!-- PROFESSIONAL ARTICULATION OVERLAY -->
 <div id="tofyOverlay">
   <div class="tofy-header">
-    <span class="tofy-title">Think on Your Feet</span>
-    <span class="tofy-coach-tag">3-min practice &middot; Michael</span>
+    <span class="tofy-title" id="paHeaderTitle">Professional Articulation</span>
+    <span class="tofy-coach-tag" id="paHeaderTag">Michael</span>
     <button class="tofy-close" onclick="closeTOFY()" aria-label="Close">&#x2715;</button>
   </div>
   <div class="tofy-body" id="tofyBody"></div>

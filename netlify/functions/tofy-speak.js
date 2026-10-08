@@ -64,17 +64,37 @@ async function transcribeAudio(audioBuffer, mimeType) {
   return (data.text || '').trim();
 }
 
-async function getCoaching(apiKey, question, keyPoints, transcript, attemptNum, attempt1Transcript) {
+const _areaConfig = {
+  apc: {
+    systemContext: 'You are Michael, an experienced RICS assessor giving direct coaching on spoken APC answers.',
+    caps: 'Answer|Structure|Reasoning|Judgement|Professional communication',
+    emphasis: 'Weight your feedback on: direct answer to the question, technical/professional application, reasoning, judgement, and professional tone.'
+  },
+  manager: {
+    systemContext: 'You are Michael, an experienced professional development coach giving direct coaching on spoken manager conversations.',
+    caps: 'Ownership|Reflection|Evidence|Development awareness|Clarity',
+    emphasis: 'Weight your feedback on: taking ownership, genuine reflection, supporting claims with evidence, development self-awareness, and clarity of communication.'
+  },
+  team: {
+    systemContext: 'You are Michael, an experienced professional development coach giving direct coaching on spoken team contributions.',
+    caps: 'Relevance|Confidence|Concision|Reasoning|Usefulness',
+    emphasis: 'Weight your feedback on: relevance to what matters, confidence of delivery, concision (not rambling), reasoning explained, and whether the contribution moves things forward.'
+  }
+};
+
+async function getCoaching(apiKey, question, keyPoints, transcript, attemptNum, attempt1Transcript, practiceArea) {
   const isRetry = attemptNum > 1 && attempt1Transcript;
+  const cfg = _areaConfig[practiceArea] || _areaConfig.apc;
 
   const systemPrompt =
-    'You are Michael, an experienced RICS assessor giving direct coaching on spoken APC answers. ' +
+    `${cfg.systemContext} ` +
     'Return only valid JSON — no markdown, no preamble, no trailing text.';
 
-  const capSchema = '{"name":"<one of: Answer|Structure|Reasoning|Judgement|Professional communication>","label":"<one of: Strong|Improve|Try again>","note":"<one short honest sentence>"}';
+  const capSchema = `{"name":"<one of: ${cfg.caps}>","label":"<one of: Strong|Improve|Try again>","note":"<one short honest sentence>"}`;
 
   const userPrompt = isRetry
-    ? `Evaluate attempt 2 of a spoken APC answer and compare it honestly with attempt 1.
+    ? `Evaluate attempt 2 of this spoken answer and compare it honestly with attempt 1.
+${cfg.emphasis}
 
 Question: ${question}
 Key points to cover: ${(keyPoints || []).join('; ')}
@@ -85,11 +105,12 @@ Attempt 2 transcript: ${transcript}
 Return JSON exactly matching this structure:
 {
   "capabilities": [${capSchema}, ${capSchema}, ${capSchema}, ${capSchema}, ${capSchema}],
-  "try_again": "<one sentence: what to try on the next attempt>",
+  "try_again": "<one sentence: what to focus on next time>",
   "improvements": ["<what specifically got better, or honest statement if nothing improved>"],
   "overall": "<one of: Improved|Stronger overall|No change|Weaker — try again>"
 }`
-    : `Evaluate this spoken APC answer.
+    : `Evaluate this spoken answer.
+${cfg.emphasis}
 
 Question: ${question}
 Key points to cover: ${(keyPoints || []).join('; ')}
@@ -99,7 +120,7 @@ Transcript: ${transcript}
 Return JSON exactly matching this structure:
 {
   "capabilities": [${capSchema}, ${capSchema}, ${capSchema}, ${capSchema}, ${capSchema}],
-  "try_again": "<one sentence: State X first, then explain Y, then Z>"
+  "try_again": "<one sentence coaching instruction for the next attempt>"
 }`;
 
   const res = await fetch('https://api.anthropic.com/v1/messages', {
@@ -144,7 +165,7 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request body' }) }; }
 
-  const { audioBase64, audioMimeType, question, keyPoints, attemptNum, attempt1Transcript, token } = body;
+  const { audioBase64, audioMimeType, question, keyPoints, attemptNum, attempt1Transcript, practiceArea, token } = body;
 
   try { verifyToken(token, jwtSecret); }
   catch { return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized' }) }; }
@@ -169,7 +190,7 @@ exports.handler = async (event) => {
 
     const coaching = await getCoaching(
       anthropicKey, question, keyPoints || [], transcript,
-      attemptNum || 1, attempt1Transcript || null
+      attemptNum || 1, attempt1Transcript || null, practiceArea || 'apc'
     );
 
     return { statusCode: 200, headers, body: JSON.stringify({ transcript, coaching }) };

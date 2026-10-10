@@ -9076,6 +9076,7 @@ let _tofyPathway = null;
 let _tofyThinkTimer = null;
 // Speak route state
 let _tofyAttempt1Transcript = null;
+let _tofyRetryRequested = false;  // Set ONLY by "Try again" button; prevents help-request transcripts from being mistaken as attempt 1
 let _tofyLockedQuestion = null;  // Question locked at speak/type-mode entry — used for submission
 let _tofyFetchGeneration = 0;    // Incremented on each question fetch; stale results are silently discarded
 let _tofyMediaRecorder = null;
@@ -9260,6 +9261,7 @@ async function _tofySelectTopic(area, topic) {
   _tofyTopic = topic;
   _tofyPathway = null;
   _tofyAttempt1Transcript = null;
+  _tofyRetryRequested = false;
   _tofyLockedQuestion = null;
   _paSetHeader(area);
 
@@ -9318,6 +9320,7 @@ function _paShowPathwaySelect() {
 async function _paSelectPathway(pathway) {
   _tofyPathway = pathway;
   _tofyAttempt1Transcript = null;
+  _tofyRetryRequested = false;
   _tofyLockedQuestion = null;          // Clear any lock from the previous session
   const myGen = ++_tofyFetchGeneration; // Claim this generation; any older in-flight fetch will be discarded
   const body = document.getElementById('tofyBody');
@@ -9421,6 +9424,7 @@ function _tofyFmt(s) { const m = Math.floor(s/60); return m+':'+String(s%60).pad
 function _tofyShowQuestion() {
   if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
   _tofyAttempt1Transcript = null;
+  _tofyRetryRequested = false;
   const q = _tofyQuestion;
   const body = document.getElementById('tofyBody');
   body.innerHTML = `
@@ -9580,6 +9584,11 @@ function _tofyRevealAnswer() {
   el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
+function _tofyRetryMode() {
+  _tofyRetryRequested = true;
+  _tofySpeakMode();
+}
+
 function _tofySpeakMode() {
   if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
   _tofyLockedQuestion = _tofyQuestion; // Lock question identity for this answer session
@@ -9700,7 +9709,9 @@ async function _tofySubmitAudio(blob) {
     </div>`;
     return;
   }
-  const attemptNum = _tofyAttempt1Transcript ? 2 : 1;
+  // Attempt 2 only when the candidate explicitly clicked "Try again" after a genuine attempt —
+  // prevents help-request transcripts from being counted as attempt 1
+  const attemptNum = (_tofyRetryRequested && _tofyAttempt1Transcript) ? 2 : 1;
   try {
     const ab = await blob.arrayBuffer();
     const bytes = new Uint8Array(ab);
@@ -9717,7 +9728,7 @@ async function _tofySubmitAudio(blob) {
         question: q.q,
         keyPoints: q.keyPoints || [],
         attemptNum,
-        attempt1Transcript: _tofyAttempt1Transcript || null,
+        attempt1Transcript: attemptNum === 2 ? _tofyAttempt1Transcript : null,
         practiceArea: _tofyArea || 'apc',
         token: getToken(),
         pathway: _tofyPathway || null,
@@ -9783,8 +9794,10 @@ function _tofyShowSpeakVerdict(data, attemptNum) {
     return;
   }
 
-  // Coaching response: genuine attempt — record it so attempt 2 comparison works correctly
+  // Coaching response: genuine attempt — record transcript for comparison if user retries
   if (attemptNum === 1 && data.transcript) _tofyAttempt1Transcript = data.transcript;
+  // Attempt 2 is now complete — clear the retry flag so any further navigation starts fresh
+  if (attemptNum === 2) _tofyRetryRequested = false;
 
   const caps = coaching.capabilities || [];
 
@@ -9837,7 +9850,7 @@ function _tofyShowSpeakVerdict(data, attemptNum) {
     <div id="tofySpeakModelAnswer" style="display:none"></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px">
       ${attemptNum === 1
-        ? `<button onclick="_tofySpeakMode()" style="flex:1;min-width:160px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer">Try again</button>`
+        ? `<button onclick="_tofyRetryMode()" style="flex:1;min-width:160px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer">Try again</button>`
         : `<button onclick="_tofyDifferentQuestion()" style="flex:1;min-width:140px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer">Next challenge</button>`}
       ${q.pass ? `<button onclick="_tofyShowSpeakModelAnswer()" id="tofySpeakRevealBtn" style="background:transparent;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.55);border-radius:10px;padding:13px 18px;font-size:14px;cursor:pointer">Model answer</button>` : ''}
       <button onclick="_tofyShowTopicSelect(_tofyArea)" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3);border-radius:10px;padding:13px 14px;font-size:13px;cursor:pointer">Try a different question</button>

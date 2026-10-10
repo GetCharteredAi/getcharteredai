@@ -321,15 +321,120 @@ _simLockedQ = profitsMethod;  // _tofySpeakMode re-locks on entry
 ok('Re-entering speak mode after teaching re-locks same question', _simLockedQ === profitsMethod);
 
 // Step 4: second submission uses the same locked question, attemptNum still 1
-const simAttemptNum = _simAttempt1 ? 2 : 1;
+// New design: attemptNum = (_tofyRetryRequested && attempt1Transcript) ? 2 : 1
+// No retry flag has been set yet, so this is still attempt 1.
+let _simRetryRequested = false;
+const simAttemptNum = (_simRetryRequested && _simAttempt1) ? 2 : 1;
 ok('Attempt number is still 1 after teaching response (slot not consumed)', simAttemptNum === 1);
 ok('Second submission evaluates against profits method (correct question)', _simLockedQ.q === profitsMethod.q);
 
-// Step 5: genuine coaching response sets attempt1
+// Step 5: genuine coaching response stores transcript; without "Try again", next attempt is still 1
 const transcriptOfAnswer = 'The profits method uses maintainable trade...';
 if (simAttemptNum === 1 && transcriptOfAnswer) _simAttempt1 = transcriptOfAnswer;
-const simAttemptNum2 = _simAttempt1 ? 2 : 1;
-ok('After genuine attempt, next submission is attempt 2', simAttemptNum2 === 2);
+// Retry requires EXPLICIT "Try again" button — attempt1Transcript alone is not enough
+const simAttemptNumWithoutRetry = (_simRetryRequested && _simAttempt1) ? 2 : 1;
+ok('Without Try Again click, next submission is still attempt 1 (not auto-incremented)', simAttemptNumWithoutRetry === 1);
+// Clicking "Try again" sets the flag
+_simRetryRequested = true;
+const simAttemptNumWithRetry = (_simRetryRequested && _simAttempt1) ? 2 : 1;
+ok('After Try Again click with stored attempt 1, next submission is attempt 2', simAttemptNumWithRetry === 2);
+
+// ─── 10. Retry numbering regression — explicit Try Again gate ─────────────
+console.log('\n10. Retry numbering regression — explicit Try Again gate');
+
+// Structural checks
+ok('_tofyRetryRequested global declared', html.includes('let _tofyRetryRequested = false'));
+ok('_tofyRetryMode function defined', html.includes('function _tofyRetryMode'));
+// The verdict "Try again" button uses min-width:160px; "Ready — speak your answer" uses min-width:180px
+// Check that the verdict button (160px) calls _tofyRetryMode(), not _tofySpeakMode()
+ok('"Try again" verdict button calls _tofyRetryMode() not _tofySpeakMode()',
+  html.includes('onclick="_tofyRetryMode()"') &&
+  !html.includes('onclick="_tofySpeakMode()" style="flex:1;min-width:160px'));
+ok('_tofyRetryRequested set in _tofyRetryMode',
+  (() => {
+    const idx = html.indexOf('function _tofyRetryMode');
+    return html.slice(idx, idx + 150).includes('_tofyRetryRequested = true');
+  })());
+ok('_tofySubmitAudio uses _tofyRetryRequested for attemptNum',
+  html.includes('_tofyRetryRequested && _tofyAttempt1Transcript'));
+ok('attempt1Transcript only sent when attemptNum === 2',
+  html.includes('attemptNum === 2 ? _tofyAttempt1Transcript : null'));
+ok('_tofyShowQuestion clears _tofyRetryRequested',
+  (() => {
+    const idx = html.indexOf('function _tofyShowQuestion');
+    return html.slice(idx, idx + 300).includes('_tofyRetryRequested = false');
+  })());
+ok('_tofySelectTopic clears _tofyRetryRequested',
+  (() => {
+    const idx = html.indexOf('async function _tofySelectTopic');
+    return html.slice(idx, idx + 300).includes('_tofyRetryRequested = false');
+  })());
+ok('_paSelectPathway clears _tofyRetryRequested',
+  (() => {
+    const idx = html.indexOf('async function _paSelectPathway');
+    return html.slice(idx, idx + 300).includes('_tofyRetryRequested = false');
+  })());
+ok('_tofyShowSpeakVerdict clears _tofyRetryRequested after attempt 2',
+  html.includes('if (attemptNum === 2) _tofyRetryRequested = false'));
+
+// Server-side guard
+ok('tofy-speak.js isRetry guards against help-request attempt1Transcript',
+  tofySrc.includes('!_isHelpRequest(attempt1Transcript)'));
+
+// Transcript-only coaching — explicit prohibition on vocal delivery comments
+ok('tofy-speak.js prohibits comments on vocal delivery in system prompt',
+  tofySrc.includes('Do not comment on vocal delivery, tone of voice, pace or intonation'));
+
+// ── Simulation: bug scenario — help first, then first genuine attempt ───────
+console.log('\n  Simulation — help-first bug scenario');
+
+let _bugSimAttempt1Transcript = null;
+let _bugSimRetryRequested = false;
+
+// Step 1: Candidate asks for help — teaching response returned, no attempt recorded
+// (teaching branch returns early; transcript NOT stored as attempt1)
+const helpRequestTranscript = "I don't know what risks arise from capital allowances in a sale contract. Can you help?";
+const bugSimAttemptNum1 = (_bugSimRetryRequested && _bugSimAttempt1Transcript) ? 2 : 1;
+ok('Help-first: attemptNum is 1 when retry not requested', bugSimAttemptNum1 === 1);
+
+// Teaching response: teaching branch returns early, _bugSimAttempt1Transcript stays null
+// (simulate: coaching.response_type === 'teaching' → early return, no transcript stored)
+const helpResponseType = 'teaching';
+if (helpResponseType !== 'teaching') {
+  if (bugSimAttemptNum1 === 1) _bugSimAttempt1Transcript = helpRequestTranscript;
+}
+ok('Help-first: attempt1Transcript not set after teaching response', _bugSimAttempt1Transcript === null);
+
+// Step 2: Candidate clicks "Ready — speak your answer" → does NOT set retry flag
+ok('Help-first: retry flag not set by Ready button (only by Try Again)', _bugSimRetryRequested === false);
+
+// Step 3: Candidate gives first genuine answer
+const bugSimAttemptNum2 = (_bugSimRetryRequested && _bugSimAttempt1Transcript) ? 2 : 1;
+ok('Help-first: first genuine answer is Attempt 1, no comparison', bugSimAttemptNum2 === 1);
+
+// Step 4: Coaching response — set attempt1Transcript for future retry
+const genuineTranscript = 'The risks include loss of capital allowances pool apportionment and disputes over fixtures...';
+if (bugSimAttemptNum2 === 1 && genuineTranscript) _bugSimAttempt1Transcript = genuineTranscript;
+ok('Help-first: attempt1Transcript set after genuine attempt 1', _bugSimAttempt1Transcript !== null);
+
+// Step 5: "Try again" button clicked — now retry flag is set
+_bugSimRetryRequested = true;
+
+// Step 6: Genuine attempt 2
+const bugSimAttemptNum3 = (_bugSimRetryRequested && _bugSimAttempt1Transcript) ? 2 : 1;
+ok('Help-first: attempt 2 only after explicit Try Again click', bugSimAttemptNum3 === 2);
+
+// ── Simulation: server-side defence — help-request as attempt1Transcript ────
+console.log('\n  Simulation — server-side isRetry defence');
+const { _isHelpRequest: _isHR } = require(path.join(root, 'netlify/functions/tofy-speak.js'));
+
+const helpReqAsAttempt1 = "I don't know what risks arise, can you explain them to me?";
+const genuineAttempt2 = "The risks include disputes over CAA 2001 fixture pools and loss of allowances";
+const isRetryGuarded = (2 > 1 && helpReqAsAttempt1 && !_isHR(helpReqAsAttempt1));
+ok('Server guards: help-request attempt1 suppresses comparison', isRetryGuarded === false);
+
+const isRetryGenuine = (2 > 1 && genuineAttempt2 && !_isHR(genuineAttempt2));
+ok('Server guards: genuine attempt1 allows comparison for attempt 2', isRetryGenuine === true);
 
 // ─── Summary ──────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(55)}`);

@@ -168,7 +168,9 @@ async function getCoaching(
   apiKey, question, keyPoints, transcript, attemptNum, attempt1Transcript,
   practiceArea, pathway, practiceMode, questionWhy, questionPass, questionHigh
 ) {
-  const isRetry = attemptNum > 1 && attempt1Transcript;
+  // Defence-in-depth: if attempt1Transcript is itself a help request (slipped through detection),
+  // suppress comparison rather than compare a genuine answer against an incoherent non-attempt.
+  const isRetry = attemptNum > 1 && attempt1Transcript && !_isHelpRequest(attempt1Transcript);
   const isTutor = practiceMode === 'tutor';
   const cfg = _areaConfig[practiceArea] || _areaConfig.apc;
 

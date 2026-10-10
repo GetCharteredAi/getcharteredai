@@ -389,7 +389,7 @@ exports.handler = async (event) => {
     }
 
     if (_isLikelyWrongLanguage(transcript, 'en')) {
-      console.warn('[tofy-speak] wrong-language transcript detected — not scoring (first 200):', transcript.slice(0, 200));
+      console.warn('[tofy-speak] wrong-language transcript detected — not scoring — wordCount:', (transcript.match(/[a-z']+/gi) || []).length, '| chars:', transcript.length);
       return {
         statusCode: 200,
         headers,

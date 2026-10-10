@@ -9076,6 +9076,8 @@ let _tofyPathway = null;
 let _tofyThinkTimer = null;
 // Speak route state
 let _tofyAttempt1Transcript = null;
+let _tofyLockedQuestion = null;  // Question locked at speak/type-mode entry — used for submission
+let _tofyFetchGeneration = 0;    // Incremented on each question fetch; stale results are silently discarded
 let _tofyMediaRecorder = null;
 let _tofyAudioChunks = [];
 let _tofyRecordingTimer = null;
@@ -9258,6 +9260,7 @@ async function _tofySelectTopic(area, topic) {
   _tofyTopic = topic;
   _tofyPathway = null;
   _tofyAttempt1Transcript = null;
+  _tofyLockedQuestion = null;
   _paSetHeader(area);
 
   // Pathway-technical requires a pathway choice first
@@ -9269,6 +9272,7 @@ async function _tofySelectTopic(area, topic) {
   const body = document.getElementById('tofyBody');
   body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.45);font-size:15px">Getting your question…</p></div>';
 
+  const myGen = ++_tofyFetchGeneration;
   try {
     if (area === 'apc' && topic === 'random') {
       const res = await fetch('/.netlify/functions/get-questions', {
@@ -9276,6 +9280,7 @@ async function _tofySelectTopic(area, topic) {
         body: JSON.stringify({ token: getToken(), pathway: localStorage.getItem('gca_pathway'), random: true })
       });
       const data = await res.json();
+      if (myGen !== _tofyFetchGeneration) return; // Newer question fetch started — discard
       if (!data.question) throw new Error('no question');
       _tofyQuestion = data.question;
     } else {
@@ -9285,6 +9290,7 @@ async function _tofySelectTopic(area, topic) {
     }
     _tofyShowThinkScreen();
   } catch(e) {
+    if (myGen !== _tofyFetchGeneration) return;
     body.innerHTML = `<div style="text-align:center;padding:60px 20px">
       <p style="color:#f87171;font-size:15px;margin-bottom:16px">Couldn't load a question — please try again.</p>
       <button onclick="_tofyShowTopicSelect(_tofyArea)" style="background:transparent;border:1px solid rgba(248,113,113,.3);color:#f87171;border-radius:8px;padding:10px 20px;font-size:13px;cursor:pointer">Back to topics</button>
@@ -9312,6 +9318,8 @@ function _paShowPathwaySelect() {
 async function _paSelectPathway(pathway) {
   _tofyPathway = pathway;
   _tofyAttempt1Transcript = null;
+  _tofyLockedQuestion = null;          // Clear any lock from the previous session
+  const myGen = ++_tofyFetchGeneration; // Claim this generation; any older in-flight fetch will be discarded
   const body = document.getElementById('tofyBody');
   body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.45);font-size:15px">Getting your question…</p></div>';
 
@@ -9343,11 +9351,13 @@ async function _paSelectPathway(pathway) {
     });
     if (!res.ok) throw new Error(res.status);
     const data = await res.json();
+    if (myGen !== _tofyFetchGeneration) return; // A newer fetch started — discard this result silently
     if (!data.question || !data.question.q) throw new Error('no question returned');
     _tofyQuestion = data.question;
     _tofyQuestion.module = `APC ASSESSMENT · ${pathway.toUpperCase()}`;
     _tofyShowThinkScreen();
   } catch(e) {
+    if (myGen !== _tofyFetchGeneration) return; // Stale error — suppress to avoid confusing UI state
     body.innerHTML = `
       <div style="text-align:center;padding:60px 20px">
         <p style="color:#f87171;font-size:15px;margin-bottom:16px">Couldn't load a question — please try again.</p>
@@ -9438,7 +9448,8 @@ function _tofyShowQuestion() {
 
 function _tofyTypeMode() {
   if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
-  const q = _tofyQuestion;
+  _tofyLockedQuestion = _tofyQuestion; // Lock question identity for this answer session
+  const q = _tofyLockedQuestion;
   const body = document.getElementById('tofyBody');
   body.innerHTML = `
     <div style="margin-bottom:28px">
@@ -9498,7 +9509,7 @@ async function _tofySubmitRecap() {
   const ta = document.getElementById('tofyRecap');
   const recap = ta?.value?.trim();
   if (!recap || recap.length < 10) return;
-  const q = _tofyQuestion;
+  const q = _tofyLockedQuestion || _tofyQuestion; // Prefer locked; _tofyTypeMode sets the lock
   const body = document.getElementById('tofyBody');
   body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.55);font-size:15px;margin-bottom:6px">Michael is reviewing your response...</p><p style="color:rgba(255,255,255,.25);font-size:13px">Usually a few seconds</p></div>';
   try {
@@ -9571,7 +9582,8 @@ function _tofyRevealAnswer() {
 
 function _tofySpeakMode() {
   if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
-  const q = _tofyQuestion;
+  _tofyLockedQuestion = _tofyQuestion; // Lock question identity for this answer session
+  const q = _tofyLockedQuestion;
   const body = document.getElementById('tofyBody');
   body.innerHTML = `
     <div style="margin-bottom:28px">
@@ -9678,7 +9690,16 @@ function _tofyStopRecording() {
 }
 
 async function _tofySubmitAudio(blob) {
-  const q = _tofyQuestion;
+  const q = _tofyLockedQuestion; // Must match the question displayed to the candidate
+  if (!q || !q.q) {
+    // Question identity lost — fail safely rather than evaluate against wrong question
+    const body = document.getElementById('tofyBody');
+    body.innerHTML = `<div style="padding:30px 20px;text-align:center">
+      <div style="color:#fca5a5;font-size:14px;margin-bottom:20px">Session expired — please start again with a new question.</div>
+      <button onclick="_tofyDifferentQuestion()" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:14px;cursor:pointer">Get a new question</button>
+    </div>`;
+    return;
+  }
   const attemptNum = _tofyAttempt1Transcript ? 2 : 1;
   try {
     const ab = await blob.arrayBuffer();

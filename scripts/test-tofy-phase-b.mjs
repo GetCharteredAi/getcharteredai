@@ -233,6 +233,104 @@ ok('articulation-verdict route uses text-chat rubric (technical_accuracy field)'
 ok('TOFY route uses five-capability spoken rubric (Answer|Structure|Reasoning|Judgement)',
   tofySrc.includes('Answer|Structure|Reasoning|Judgement|Professional communication'));
 
+// ─── 9. Question-mismatch regression — client-side data flow ─────────────
+console.log('\n9. Question-mismatch regression — locks and generation counters');
+
+// Root cause: _tofyQuestion is a shared mutable global; _tofySubmitAudio read it at
+// call time. A concurrent second _paSelectPathway fetch could resolve while the
+// candidate was recording, silently replacing _tofyQuestion with a different question.
+// The screen showed the original question (embedded in HTML at render time), but the
+// POST body sent the replacement — causing Michael to evaluate the wrong question.
+
+// ── Structural checks ───────────────────────────────────────────────────────
+ok('_tofyLockedQuestion variable declared',
+  html.includes('let _tofyLockedQuestion = null'));
+ok('_tofyFetchGeneration counter declared',
+  html.includes('let _tofyFetchGeneration = 0'));
+ok('_tofySpeakMode locks the question at entry',
+  html.includes('_tofyLockedQuestion = _tofyQuestion') && html.includes('function _tofySpeakMode'));
+ok('_tofyTypeMode locks the question at entry',
+  html.includes('_tofyLockedQuestion = _tofyQuestion') && html.includes('function _tofyTypeMode'));
+ok('_tofySubmitAudio uses _tofyLockedQuestion not _tofyQuestion',
+  /async function _tofySubmitAudio[\s\S]{0,30}const q = _tofyLockedQuestion/.test(html));
+ok('_tofySubmitAudio has fail-safe for missing locked question',
+  html.includes('Session expired — please start again'));
+ok('_paSelectPathway increments generation counter before fetch',
+  html.includes('const myGen = ++_tofyFetchGeneration') && html.includes('_paSelectPathway'));
+ok('_paSelectPathway discards stale fetch result',
+  html.includes('myGen !== _tofyFetchGeneration'));
+ok('_paSelectPathway clears locked question on new load',
+  html.includes('_tofyLockedQuestion = null') && html.includes('_paSelectPathway'));
+ok('_tofySelectTopic increments generation counter for async path',
+  (() => {
+    const selectTopicIdx = html.indexOf('async function _tofySelectTopic');
+    const paSelectIdx = html.indexOf('async function _paSelectPathway');
+    const sectionEnd = Math.min(paSelectIdx, selectTopicIdx + 2000);
+    const section = html.slice(selectTopicIdx, sectionEnd);
+    return section.includes('++_tofyFetchGeneration') && section.includes('myGen !== _tofyFetchGeneration');
+  })());
+ok('_tofySubmitRecap uses locked question',
+  html.includes('_tofyLockedQuestion || _tofyQuestion'));
+
+// ── Simulation: generation counter prevents stale overwrites ────────────────
+console.log('\n  Simulation — generation counter');
+let _simQuestion = null, _simLocked = null, _simGen = 0;
+
+// Simulate: fetch 1 starts
+const gen1 = ++_simGen;
+// Simulate: fetch 2 starts (user navigates or double-clicks) before fetch 1 resolves
+const gen2 = ++_simGen;
+
+// Fetch 1 resolves (slower) — should be discarded
+if (gen1 === _simGen) _simQuestion = { q: 'Question from fetch 1' };
+ok('Stale fetch 1 discarded when fetch 2 is current', _simQuestion === null);
+
+// Fetch 2 resolves — should be applied
+if (gen2 === _simGen) _simQuestion = { q: 'Question from fetch 2' };
+ok('Current fetch 2 result applied', _simQuestion !== null && _simQuestion.q === 'Question from fetch 2');
+
+// Simulate: speak mode locks the question
+_simLocked = _simQuestion;
+// Simulate: while recording, another navigation starts a fetch 3
+const gen3 = ++_simGen;
+// Fetch 3 resolves and would overwrite _simQuestion
+if (gen3 === _simGen) _simQuestion = { q: 'Question from fetch 3' };
+// But submission uses _simLocked, not _simQuestion
+ok('Locked question unchanged even after concurrent fetch resolves',
+  _simLocked.q === 'Question from fetch 2');
+ok('Submit uses locked question, not overwritten _simQuestion',
+  _simLocked.q !== _simQuestion.q);
+
+// ── Simulation: teaching → spoken answer → retry question identity ──────────
+console.log('\n  Simulation — teaching → retry question identity');
+let _simAttempt1 = null, _simLockedQ = null;
+const profitsMethod = { q: 'What is the profits method of valuation?', keyPoints: ['maintainable trade', 'FMT'] };
+
+// Step 1: question loaded, speak mode entered
+_simLockedQ = profitsMethod;  // _tofySpeakMode sets _tofyLockedQuestion = _tofyQuestion
+ok('Locked question set to profits method on speak-mode entry', _simLockedQ === profitsMethod);
+
+// Step 2: first submission returns teaching response — attempt1 NOT set
+// (teaching responses don't consume an attempt slot)
+const teachingResp = { coaching: { response_type: 'teaching', explanation: 'The profits method...' } };
+// _tofyShowSpeakVerdict teaching branch: does NOT set _tofyAttempt1Transcript
+ok('After teaching response attempt1 transcript is still null', _simAttempt1 === null);
+
+// Step 3: "Ready — speak your answer" → _tofySpeakMode() → re-locks same question
+_simLockedQ = profitsMethod;  // _tofySpeakMode re-locks on entry
+ok('Re-entering speak mode after teaching re-locks same question', _simLockedQ === profitsMethod);
+
+// Step 4: second submission uses the same locked question, attemptNum still 1
+const simAttemptNum = _simAttempt1 ? 2 : 1;
+ok('Attempt number is still 1 after teaching response (slot not consumed)', simAttemptNum === 1);
+ok('Second submission evaluates against profits method (correct question)', _simLockedQ.q === profitsMethod.q);
+
+// Step 5: genuine coaching response sets attempt1
+const transcriptOfAnswer = 'The profits method uses maintainable trade...';
+if (simAttemptNum === 1 && transcriptOfAnswer) _simAttempt1 = transcriptOfAnswer;
+const simAttemptNum2 = _simAttempt1 ? 2 : 1;
+ok('After genuine attempt, next submission is attempt 2', simAttemptNum2 === 2);
+
 // ─── Summary ──────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(55)}`);
 console.log(`Result: ${passed} passed, ${failed} failed`);

@@ -9061,6 +9061,14 @@ let _tofyQuestion = null;
 let _tofyTimer = null;
 let _tofyCoach = 'michael';
 let _tofyContentSource = 'pathway';
+// Pathways with completed 50-question technical banks — subset of the 22-pathway catalogue
+const _PA_TECH_BANK_PATHWAYS = new Set([
+  'Building Surveying','Quantity Surveying and Construction','Taxation Allowances',
+  'Valuation','Planning and Development','Project Management','Residential',
+  'Commercial Real Estate','Property Finance and Investment','Facility Management',
+  'Rural','Land and Resources','Building Control','Corporate Real Estate',
+  'Management Consultancy','Infrastructure'
+]);
 // PA navigation state
 let _tofyArea = 'apc';
 let _tofyTopic = null;
@@ -9301,24 +9309,25 @@ function _paShowPathwaySelect() {
   });
 }
 
-function _paSelectPathway(pathway) {
+async function _paSelectPathway(pathway) {
   _tofyPathway = pathway;
   _tofyAttempt1Transcript = null;
   const body = document.getElementById('tofyBody');
   body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.45);font-size:15px">Getting your question…</p></div>';
 
-  const bank = PATHWAY_QUESTIONS[pathway];
-  if (!bank || !bank.length) {
+  // Pathways with completed 50-question banks use the authenticated question API.
+  // Pathways whose technical bank is still in development show an accurate message.
+  if (!_PA_TECH_BANK_PATHWAYS.has(pathway)) {
     body.innerHTML = `
       <div style="margin-bottom:22px">
         <button class="pa-back-btn" id="paBackToPathways">&#8592; Choose a different pathway</button>
       </div>
       <div style="background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);border-radius:12px;padding:28px 24px;text-align:center">
-        <div style="font-size:15px;font-weight:600;color:#fcd34d;margin-bottom:10px">More pathway-specific questions are being added.</div>
-        <div style="color:rgba(255,255,255,.5);font-size:14px;line-height:1.6">Please choose another APC practice area for now, or select a different pathway.</div>
+        <div style="font-size:15px;font-weight:600;color:#fcd34d;margin-bottom:10px">Technical practice questions coming soon</div>
+        <div style="color:rgba(255,255,255,.5);font-size:14px;line-height:1.6">Pathway-specific technical questions for ${pathway} are being added. In the meantime you can practise APC mandatory competency questions or select another pathway for technical practice.</div>
       </div>
       <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
-        <button id="paTryAnotherPathway" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer">Try another pathway</button>
+        <button id="paTryAnotherPathway" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer">Choose another pathway</button>
         <button onclick="_tofyShowTopicSelect('apc')" style="background:transparent;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.45);border-radius:10px;padding:12px 18px;font-size:14px;cursor:pointer">Back to APC topics</button>
       </div>`;
     document.getElementById('paBackToPathways').addEventListener('click', _paShowPathwaySelect);
@@ -9326,12 +9335,30 @@ function _paSelectPathway(pathway) {
     return;
   }
 
-  // Pick from bank, preferring a question not already showing
-  const prevQ = _tofyQuestion && _tofyQuestion.q;
-  const available = bank.length > 1 ? bank.filter(q => q !== prevQ) : bank;
-  const qText = available[Math.floor(Math.random() * available.length)];
-  _tofyQuestion = { q: qText, module: `APC ASSESSMENT · ${pathway.toUpperCase()}`, keyPoints: [] };
-  _tofyShowThinkScreen();
+  try {
+    const res = await fetch('/.netlify/functions/get-questions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: getToken(), pathway, random: true })
+    });
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    if (!data.question || !data.question.q) throw new Error('no question returned');
+    _tofyQuestion = data.question;
+    _tofyQuestion.module = `APC ASSESSMENT · ${pathway.toUpperCase()}`;
+    _tofyShowThinkScreen();
+  } catch(e) {
+    body.innerHTML = `
+      <div style="text-align:center;padding:60px 20px">
+        <p style="color:#f87171;font-size:15px;margin-bottom:16px">Couldn't load a question — please try again.</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button id="paRetryPathway" style="background:#2563EB;color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer">Try again</button>
+          <button id="paRetryPathwayBack" style="background:transparent;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.45);border-radius:10px;padding:12px 18px;font-size:14px;cursor:pointer">Choose another pathway</button>
+        </div>
+      </div>`;
+    document.getElementById('paRetryPathway').addEventListener('click', () => _paSelectPathway(pathway));
+    document.getElementById('paRetryPathwayBack').addEventListener('click', _paShowPathwaySelect);
+  }
 }
 
 function _tofyDifferentQuestion() {
@@ -9671,7 +9698,12 @@ async function _tofySubmitAudio(blob) {
         attemptNum,
         attempt1Transcript: _tofyAttempt1Transcript || null,
         practiceArea: _tofyArea || 'apc',
-        token: getToken()
+        token: getToken(),
+        pathway: _tofyPathway || null,
+        practiceMode: (typeof tutorMode !== 'undefined' && tutorMode.includes('ASSESSOR')) ? 'assessor' : 'tutor',
+        questionWhy: q.why || '',
+        questionPass: q.pass || '',
+        questionHigh: q.high || ''
       })
     });
     const data = await res.json();
@@ -9689,7 +9721,8 @@ async function _tofySubmitAudio(blob) {
       throw new Error(data.error);
     }
 
-    if (attemptNum === 1) _tofyAttempt1Transcript = data.transcript;
+    // _tofyAttempt1Transcript is set inside _tofyShowSpeakVerdict so teaching responses
+    // (where no scored attempt was made) do not consume an attempt slot.
     _tofyShowSpeakVerdict(data, attemptNum);
 
   } catch (e) {
@@ -9709,6 +9742,29 @@ function _tofyShowSpeakVerdict(data, attemptNum) {
   const q = _tofyQuestion;
   const body = document.getElementById('tofyBody');
   const coaching = data.coaching || {};
+
+  // Teaching response: candidate asked for help — don't record as a scored attempt
+  if (coaching.response_type === 'teaching') {
+    body.innerHTML = `
+      <div style="margin-bottom:24px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:10px">${q.module}</div>
+        <div style="color:#fff;font-size:clamp(16px,2vw,19px);font-weight:600;line-height:1.45;letter-spacing:-.015em">${q.q}</div>
+      </div>
+      <div style="background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.18);border-radius:12px;padding:20px 22px;margin-bottom:18px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#93c5fd;margin-bottom:10px">Michael's explanation</div>
+        <div style="color:rgba(255,255,255,.75);font-size:14px;line-height:1.65">${coaching.explanation || ''}</div>
+      </div>
+      ${coaching.try_again ? `<div style="background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);border-radius:10px;padding:14px 18px;margin-bottom:18px"><div style="color:rgba(255,255,255,.65);font-size:13px;line-height:1.6">${coaching.try_again}</div></div>` : ''}
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
+        <button onclick="_tofySpeakMode()" style="flex:1;min-width:180px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer">Ready — speak your answer</button>
+        <button onclick="_tofyTypeMode()" style="background:transparent;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.45);border-radius:10px;padding:13px 18px;font-size:14px;cursor:pointer">Type instead</button>
+      </div>`;
+    return;
+  }
+
+  // Coaching response: genuine attempt — record it so attempt 2 comparison works correctly
+  if (attemptNum === 1 && data.transcript) _tofyAttempt1Transcript = data.transcript;
+
   const caps = coaching.capabilities || [];
 
   const labelClass = lbl => {

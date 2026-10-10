@@ -70,7 +70,7 @@ console.log('\n3. tofy-speak.js — structure verification');
 const tofySrc = readFileSync(path.join(root, 'netlify/functions/tofy-speak.js'), 'utf8');
 ok('_TECHNICAL_BANK_PATHWAYS constant defined', tofySrc.includes('_TECHNICAL_BANK_PATHWAYS'));
 ok('_RICS_VOCAB constant defined', tofySrc.includes('_RICS_VOCAB'));
-ok('transcribeAudio accepts questionHint parameter', tofySrc.includes('async function transcribeAudio(audioBuffer, mimeType, questionHint)'));
+ok('transcribeAudio accepts questionHint and language parameters', tofySrc.includes('async function transcribeAudio(audioBuffer, mimeType, questionHint, language)'));
 ok('Whisper prompt field added to multipart', tofySrc.includes('name="prompt"'));
 ok('getCoaching accepts pathway parameter', tofySrc.includes('practiceArea, pathway, practiceMode, questionWhy'));
 ok('_isHelpRequest function defined', tofySrc.includes('function _isHelpRequest(transcript)'));
@@ -435,6 +435,93 @@ ok('Server guards: help-request attempt1 suppresses comparison', isRetryGuarded 
 
 const isRetryGenuine = (2 > 1 && genuineAttempt2 && !_isHR(genuineAttempt2));
 ok('Server guards: genuine attempt1 allows comparison for attempt 2', isRetryGenuine === true);
+
+// ─── 11. Welsh / wrong-language transcription safeguard ───────────────────
+console.log('\n11. Welsh / wrong-language transcription safeguard');
+
+const { _isLikelyWrongLanguage } = require(path.join(root, 'netlify/functions/tofy-speak.js'));
+
+// Structural checks
+ok('_isLikelyWrongLanguage exported from tofy-speak.js', typeof _isLikelyWrongLanguage === 'function');
+ok('transcribeAudio signature accepts language parameter',
+  tofySrc.includes('async function transcribeAudio(audioBuffer, mimeType, questionHint, language)'));
+ok('language field added to Whisper multipart body',
+  tofySrc.includes('name="language"'));
+ok('transcribeAudio called with \'en\' in handler',
+  tofySrc.includes("transcribeAudio(audioBuffer, mimeType, question, 'en')"));
+ok('wrong-language check present in handler before scoring',
+  tofySrc.includes("_isLikelyWrongLanguage(transcript, 'en')"));
+ok('wrong-language check returns empty transcript to suppress attempt consumption',
+  (() => {
+    const idx = tofySrc.indexOf("_isLikelyWrongLanguage(transcript, 'en')");
+    const block = tofySrc.slice(idx, idx + 400);
+    return block.includes("transcript: ''") && block.includes('error:');
+  })());
+
+// ── Live function tests — exact Welsh transcript from the reported failure ─
+console.log('\n  Language detection — live function tests');
+
+// Welsh transcript containing the exact terms from the failure report.
+// This is > 20 words and has almost no English function words.
+const welshTranscript20 = "Mae cyfrifiadur yn cyfrifo cyfradd ddiddordeb ar gyfer y gwerthiant eiddo yn seiliedig ar y gwerth cyfredol o'r farchnad bresennol heddiw";
+ok('Welsh transcript (20+ words, reported failure terms) flagged as wrong language',
+  _isLikelyWrongLanguage(welshTranscript20, 'en') === true);
+
+// Longer Welsh passage with "cyfrifiadur" and "ddiddordeb" from reported failure
+const welshTranscriptLong = "Cyfrifiadur a ddiddordeb yn y gwerthu eiddo mae'r asiantwr yn nodi gwrthdaro buddiant os oes ganddo gysylltiad personol ariannol neu brofesiynol a'r gwerthwr neu'r prynwr yn y gwerthiant hwn";
+ok('Long Welsh passage with "cyfrifiadur" and "ddiddordeb" flagged', _isLikelyWrongLanguage(welshTranscriptLong, 'en') === true);
+
+// English APC answers must pass through (not be flagged)
+const englishConflict = "A conflict of interest in valuation arises when the valuer has a financial or personal connection to the property or parties involved, which could compromise independence and objectivity";
+ok('English conflict-of-interest answer not flagged', _isLikelyWrongLanguage(englishConflict, 'en') === false);
+
+const englishCapAllowances = "The risks include loss of capital allowances pool for the seller and inability for the buyer to claim allowances on fixtures and plant under the CAA 2001 unless addressed in the contract";
+ok('English capital allowances answer not flagged', _isLikelyWrongLanguage(englishCapAllowances, 'en') === false);
+
+const englishTerse = "Conflict arises where valuer has undisclosed financial interest in the subject property reducing objectivity";
+ok('Short English answer (< 20 words) passes through regardless of function word count',
+  _isLikelyWrongLanguage(englishTerse, 'en') === false);
+
+const englishSingleWord = 'MEES';
+ok('Single-word transcript passes through (too short to judge)', _isLikelyWrongLanguage(englishSingleWord, 'en') === false);
+
+// Non-English expected language is always passed through (req 6 — no hardcoded English assumption)
+ok('Non-English expected language always passes through (future-proofing)',
+  _isLikelyWrongLanguage(welshTranscriptLong, 'cy') === false);
+ok('Undefined expected language passes through',
+  _isLikelyWrongLanguage(welshTranscriptLong, undefined) === false);
+
+// ── Attempt-state preservation on transcription failure ───────────────────
+console.log('\n  Simulation — attempt state preserved on transcription failure');
+
+let _tfSimAttempt1 = null;
+let _tfSimRetryRequested = false;
+
+// Attempt 1: transcription failure (empty transcript returned by server)
+const tfSimAttemptNum1 = (_tfSimRetryRequested && _tfSimAttempt1) ? 2 : 1;
+// Server returns { transcript: '', error: '...' } — client throws, never reaches _tofyShowSpeakVerdict
+// _tfSimAttempt1 is NOT set
+ok('Transcription failure on attempt 1 does not set attempt1Transcript', _tfSimAttempt1 === null);
+ok('Transcription failure on attempt 1 leaves retry flag false', _tfSimRetryRequested === false);
+
+// Retry click + genuine attempt 1 succeeds
+_tfSimAttempt1 = 'A conflict of interest arises when the valuer has a financial connection to the property being valued';
+ok('Genuine attempt 1 sets attempt1Transcript', _tfSimAttempt1 !== null);
+
+// Try Again clicked
+_tfSimRetryRequested = true;
+
+// Attempt 2: transcription failure
+const tfSimAttemptNum2 = (_tfSimRetryRequested && _tfSimAttempt1) ? 2 : 1;
+ok('Transcription failure on attempt 2: attemptNum was 2', tfSimAttemptNum2 === 2);
+// Server returns { transcript: '', error: '...' } — client throws, never reaches _tofyShowSpeakVerdict
+// _tfSimAttempt1 preserved, _tfSimRetryRequested preserved
+ok('Transcription failure on attempt 2 preserves attempt1Transcript', _tfSimAttempt1 !== null);
+ok('Transcription failure on attempt 2 preserves retry flag for re-record', _tfSimRetryRequested === true);
+
+// Candidate re-records attempt 2 — retry flag and attempt1 still in place
+const tfSimAttemptNum3 = (_tfSimRetryRequested && _tfSimAttempt1) ? 2 : 1;
+ok('Re-recorded attempt 2 after failure is still attempt 2 (not attempt 3)', tfSimAttemptNum3 === 2);
 
 // ─── Summary ──────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(55)}`);

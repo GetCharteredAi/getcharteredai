@@ -39,7 +39,8 @@ function verifyToken(token, jwtSecret) {
 }
 
 // questionHint: question text for Whisper vocabulary priming (truncated to 400 chars)
-async function transcribeAudio(audioBuffer, mimeType, questionHint) {
+// language: ISO 639-1 code (e.g. 'en') passed to Whisper to prevent wrong-language hallucination
+async function transcribeAudio(audioBuffer, mimeType, questionHint, language) {
   const boundary = '----GCAWhisper' + Date.now().toString(16);
   const ext = (mimeType.includes('mp4') || mimeType.includes('m4a')) ? 'm4a'
              : mimeType.includes('ogg') ? 'ogg'
@@ -74,9 +75,21 @@ async function transcribeAudio(audioBuffer, mimeType, questionHint) {
     'utf8'
   );
 
+  // Language field — tells Whisper which language to transcribe rather than auto-detecting.
+  // Auto-detection can hallucinate non-English text on short or quiet recordings.
+  const languagePart = language ? Buffer.from(
+    `${CRLF}--${boundary}${CRLF}` +
+    `Content-Disposition: form-data; name="language"${CRLF}${CRLF}` +
+    `${language}`,
+    'utf8'
+  ) : null;
+
   const closing = Buffer.from(`${CRLF}--${boundary}--${CRLF}`, 'utf8');
 
-  const body = Buffer.concat([filePart, audioBuffer, modelPart, promptPart, closing]);
+  const parts = [filePart, audioBuffer, modelPart, promptPart];
+  if (languagePart) parts.push(languagePart);
+  parts.push(closing);
+  const body = Buffer.concat(parts);
 
   console.log('[tofy-speak] calling OpenAI Whisper — mimeType:', mimeType, 'filename:', filename, 'bodyBytes:', body.length);
 
@@ -269,8 +282,32 @@ async function _getTeachingResponse(apiKey, question, questionWhy, questionPass,
   return JSON.parse(raw);
 }
 
+// Detects transcripts that are likely in the wrong language before capability scoring.
+// Only English detection is implemented; other expectedLang values pass through untested.
+// A transcript of < 20 words is too short to be confident and always passes through.
+// The check is deliberately conservative — only flags when strong English function words
+// (multi-character, highly unlikely to appear standalone in other Latin-script languages)
+// are almost entirely absent. A genuine English answer of 20+ words almost always contains
+// at least 2 of these. A predominantly Welsh or other-language transcript almost never does.
+function _isLikelyWrongLanguage(transcript, expectedLang) {
+  if (expectedLang !== 'en') return false;
+  const words = transcript.toLowerCase().match(/[a-z']+/g) || [];
+  if (words.length < 20) return false;
+  // Multi-character function words that appear in virtually every English sentence but rarely
+  // appear as standalone words in Welsh or other Latin-script languages
+  const strongEnglishMarkers = new Set([
+    'the','is','are','was','were','of','it','for','with','and','that',
+    'this','you','we','they','would','should','could','will','not','be',
+    'have','has','been','which','who','when','where','what','how','does',
+    'did','their','also','than','then','into','about','there','here'
+  ]);
+  const matchCount = words.filter(w => strongEnglishMarkers.has(w)).length;
+  return matchCount < 2;
+}
+
 // Exported for unit tests only — Netlify calls only exports.handler
 exports._isHelpRequest = _isHelpRequest;
+exports._isLikelyWrongLanguage = _isLikelyWrongLanguage;
 
 exports.handler = async (event) => {
   console.log('[tofy-speak] invoked — method:', event.httpMethod);
@@ -335,7 +372,10 @@ exports.handler = async (event) => {
 
     console.log('[tofy-speak] audioBuffer size (bytes):', audioBuffer.length, '| mimeType (stripped):', mimeType);
 
-    const transcript = await transcribeAudio(audioBuffer, mimeType, question);
+    // 'en' is the correct language for this English-language APC practice platform.
+    // Passing the language code prevents Whisper auto-detection from hallucinating
+    // non-English text on short, quiet or accented recordings (e.g. Welsh on attempt 2).
+    const transcript = await transcribeAudio(audioBuffer, mimeType, question, 'en');
 
     console.log('[tofy-speak] transcript length:', transcript.length);
 
@@ -345,6 +385,15 @@ exports.handler = async (event) => {
         statusCode: 200,
         headers,
         body: JSON.stringify({ transcript: '', error: 'No speech detected — please try again.' })
+      };
+    }
+
+    if (_isLikelyWrongLanguage(transcript, 'en')) {
+      console.warn('[tofy-speak] wrong-language transcript detected — not scoring (first 200):', transcript.slice(0, 200));
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ transcript: '', error: "Michael couldn’t catch that clearly — please try recording your answer again, speaking clearly into your microphone." })
       };
     }
 

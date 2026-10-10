@@ -181,7 +181,7 @@ async function getCoaching(
   const pathwayLine = (pathway && _TECHNICAL_BANK_PATHWAYS.has(pathway)) ? `Pathway: ${pathway}\n` : '';
 
   const modeInstruction = isTutor
-    ? 'You are in Practice Mode. Encourage genuine attempts. Be direct and honest but constructive.'
+    ? 'You are in Practice Mode. Encourage genuine attempts. Be direct and honest but constructive. For knowledge questions ("What is...", "What are..."), evaluate accuracy and depth of explanation — do not comment on experience language. Reserve coaching on experience language for Level 2 and Level 3 questions where personal application is expected.'
     : 'You are in Assessor Mode. Evaluate as a RICS panel assessor would. Be direct and unsparing.';
 
   const systemPrompt = `${cfg.systemContext} ${modeInstruction} You are evaluating a text transcript — assess only what the candidate communicated through their words. Do not comment on vocal delivery, tone of voice, pace or intonation. Return only valid JSON — no markdown, no preamble, no trailing text.`;

@@ -200,6 +200,39 @@ if (pathwaysMatch) {
   console.log('    Remaining 6:', remaining6.join(', '));
 }
 
+// ─── 8. Competency-level alignment — ai-tutor.js and tofy-speak.js ───────
+console.log('\n8. Competency-level alignment — coaching prompt guards');
+const aiTutorSrc = readFileSync(path.join(root, 'netlify/functions/ai-tutor.js'), 'utf8');
+
+// articulation-verdict route: level must be determined before language-register check
+ok('articulation-verdict determines competency level before language-register check',
+  aiTutorSrc.includes('Competency level reached: determine this first'));
+ok('articulation-verdict flags hypothetical language only for Level 2 and Level 3',
+  aiTutorSrc.includes('For Level 2 and Level 3 questions, flag hypothetical language'));
+ok('articulation-verdict does not flag hypothetical language for Level 1 knowledge questions',
+  aiTutorSrc.includes('For Level 1 knowledge questions, accurate explanation') &&
+  aiTutorSrc.includes('must NOT be flagged as a deficiency'));
+ok('articulation-verdict contains fabrication guard',
+  aiTutorSrc.includes('Never advise a candidate to invent or claim experience they have not had'));
+
+// COACHING_PRINCIPLES: same level-qualification applied to panel and module routes
+ok('COACHING_PRINCIPLES qualified for Level 2 and Level 3 only',
+  aiTutorSrc.includes('Level 2 or Level 3 question') && aiTutorSrc.includes('COACHING PRINCIPLE'));
+ok('COACHING_PRINCIPLES contains fabrication guard',
+  aiTutorSrc.includes('Never advise a candidate to invent, fabricate or claim experience they have not had'));
+ok('COACHING_PRINCIPLES does not remove the experience-language coaching principle entirely',
+  aiTutorSrc.includes('past-tense personal experience'));
+
+// TOFY spoken route: same level-awareness in modeInstruction
+ok('TOFY modeInstruction guards knowledge questions against experience-language coaching',
+  tofySrc.includes('For knowledge questions') && tofySrc.includes('Reserve coaching on experience language for Level 2 and Level 3'));
+
+// Route distinction preserved: two different evaluation rubrics remain separate
+ok('articulation-verdict route uses text-chat rubric (technical_accuracy field)',
+  aiTutorSrc.includes('"technical_accuracy"'));
+ok('TOFY route uses five-capability spoken rubric (Answer|Structure|Reasoning|Judgement)',
+  tofySrc.includes('Answer|Structure|Reasoning|Judgement|Professional communication'));
+
 // ─── Summary ──────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(55)}`);
 console.log(`Result: ${passed} passed, ${failed} failed`);

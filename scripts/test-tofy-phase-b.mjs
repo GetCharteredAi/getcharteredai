@@ -75,6 +75,11 @@ ok('Whisper prompt field added to multipart', tofySrc.includes('name="prompt"'))
 ok('getCoaching accepts pathway parameter', tofySrc.includes('practiceArea, pathway, practiceMode, questionWhy'));
 ok('_isHelpRequest function defined', tofySrc.includes('function _isHelpRequest(transcript)'));
 ok('No 15-char length trigger in _isHelpRequest', !tofySrc.includes('t.length < 15'));
+ok('_isHelpRequest uses word-boundary anchors not ^-anchors', !tofySrc.includes('/^i don') && tofySrc.includes('/\\bi don'));
+ok('_isHelpRequest Stage 2 uses action-verb pattern only (no vocabulary-only override)', tofySrc.includes('actionVerbPattern') && !tofySrc.includes('substantiveContent'));
+ok('_isHelpRequest has Stage 3 word-count threshold', tofySrc.includes('wordCount >= 40'));
+ok('_isHelpRequest exported for unit testing', tofySrc.includes('exports._isHelpRequest = _isHelpRequest'));
+ok('transcript-assessment disclaimer in getCoaching prompt', tofySrc.includes('You are evaluating a text transcript'));
 ok('_getTeachingResponse function defined', tofySrc.includes('async function _getTeachingResponse('));
 ok('response_type included in coaching schema', tofySrc.includes('"response_type":"coaching"'));
 ok('response_type included in teaching schema', tofySrc.includes('"response_type":"teaching"'));
@@ -103,26 +108,22 @@ ok('Teaching response branch in _tofyShowSpeakVerdict', html.includes("coaching.
 ok("Teaching message doesn't imply platform limited to 16 pathways",
   html.includes("Pathway-specific technical questions for") && !html.includes("supports only 16"));
 
-// ─── 5. _isHelpRequest edge case logic ───────────────────────────────────
-console.log('\n5. _isHelpRequest — edge case logic');
-function _isHelpRequest(transcript) {
-  const t = transcript.toLowerCase().trim();
-  const helpPatterns = [
-    /^i don'?t know/,
-    /^i'?m not sure what (to say|this means|this is|the answer)/,
-    /^(can you |could you )(explain|tell me|help me|describe) (this|what|how|why|the)/,
-    /^i have no idea/,
-    /^i need (help|a hint)/,
-    /^sorry,? i (don'?t|couldn'?t|can'?t)/
-  ];
-  return helpPatterns.some(p => p.test(t));
-}
+// ─── 5. _isHelpRequest — exercises the ACTUAL production function ─────────
+console.log('\n5. _isHelpRequest — live production function (3-stage)');
+// Import the real function exported from tofy-speak.js.
+// Any divergence between the production implementation and these test cases
+// will surface as a test failure — not just a structural string check.
+const { _isHelpRequest } = require(path.join(root, 'netlify/functions/tofy-speak.js'));
+ok('_isHelpRequest imported from production tofy-speak.js', typeof _isHelpRequest === 'function');
+
 const helpCases = [
+  // ── Core help signals ───────────────────────────────────────────────────
   ["I don't know what to say", true],
   ["Can you explain this to me?", true],
   ["I have no idea", true],
   ["I need a hint", true],
   ["I'm not sure what this means", true],
+  // ── Genuine attempts — should be scored, not taught ─────────────────────
   ["I'm not sure but I would first check the client's instructions", false],
   ["I think the approach would be to inspect the property first", false],
   ["MEES", false],
@@ -130,9 +131,26 @@ const helpCases = [
   ["OK so", false],
   ["The answer probably relates to RICS Red Book guidance", false],
   ["I would start by reviewing the lease terms", false],
+  // ── Regression: exact transcript from live acceptance test (Priority 3) ──
+  // Whisper hallucinated "What are we going to do John?" before the candidate spoke.
+  // The old ^-anchored patterns failed because "i don't know" was at word 9, not word 1.
+  ["What are we going to do John? I don't know, can you help me please Michael?", true],
+  // ── Mid-position help signal without professional content ───────────────
+  ["Actually I'm not sure where to start", true],
+  // ── Help request mentioning RICS terminology (new safeguard) ────────────
+  // Vocabulary alone must not override a clear help request.
+  // "I don't understand dilapidations, can you explain?" must trigger teaching.
+  ["I don't understand dilapidations. Can you explain them to me?", true],
+  ["Can you help me understand what a party wall agreement is?", true],
+  // ── Stage 2 override: action-verb language signals genuine attempt ───────
+  // Candidate expresses uncertainty but constructs an answer — should be scored.
+  ["I don't know all the regs but I would inspect the building using a schedule of condition", false],
+  ["I'm not entirely sure, but I would inspect the building and review the relevant documentation", false],
+  // ── Stage 3 override: ≥ 40 words treated as genuine attempt ────────────
+  ["I don't know for certain but off the top of my head I'd say there are probably about five or six things worth mentioning here and they all relate to how you approach the situation professionally and whether you have thought through the client's needs and the commercial context and any relevant regulations", false],
 ];
 helpCases.forEach(([t, expected]) => {
-  ok(`"${t.slice(0,50)}" → ${expected}`, _isHelpRequest(t) === expected);
+  ok(`"${t.slice(0,65)}" → ${expected}`, _isHelpRequest(t) === expected);
 });
 
 // ─── 6. State clearing — pathway switching cannot leak question/transcript ─

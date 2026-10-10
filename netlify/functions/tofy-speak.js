@@ -118,20 +118,50 @@ const _areaConfig = {
   }
 };
 
-// Detects explicit help requests vs genuine answer attempts (even uncertain ones).
-// Only triggers on unambiguous non-attempts — explicit "I don't know / explain this to me" phrases.
-// Does NOT trigger on uncertainty within a genuine attempt ("I think...", "I'm not sure but...").
+// Three-stage help-request detection.
+//
+// Stage 1: help-seeking signals checked ANYWHERE in the transcript (no ^ anchors).
+//   Whisper frequently hallucinate filler at the start ("What are we going to do..." etc.)
+//   which can push the real signal to the middle of the string.
+//
+// Stage 2: substantive professional content overrides the help signal.
+//   Uncertainty alongside a genuine answer attempt should be scored, not taught.
+//   e.g. "I don't know all the regs but I would inspect the building..." → score it.
+//
+// Stage 3: transcripts of ≥ 40 words are treated as genuine attempts even if no
+//   recognised vocabulary matched — professional language is too broad to enumerate.
 function _isHelpRequest(transcript) {
   const t = transcript.toLowerCase().trim();
-  const helpPatterns = [
-    /^i don'?t know/,
-    /^i'?m not sure what (to say|this means|this is|the answer)/,
-    /^(can you |could you )(explain|tell me|help me|describe) (this|what|how|why|the)/,
-    /^i have no idea/,
-    /^i need (help|a hint)/,
-    /^sorry,? i (don'?t|couldn'?t|can'?t)/
+
+  // Stage 1 — help signal anywhere
+  const helpSignals = [
+    /\bi don'?t know\b/,
+    /\bi have no idea\b/,
+    /\bi need (?:(?:\w+ )?help|a hint)\b/,
+    /\bcan you (?:help|explain|tell me)\b/,
+    /\bcould you (?:help|explain|tell me)\b/,
+    /\bhelp me\b/,
+    /\bi'?m not sure what (?:to say|the answer|this means)\b/,
+    /\bplease (?:help|explain)\b/,
+    /\bdon'?t know (?:what|how) to (?:start|begin|answer)\b/,
+    /\bnot sure where to (?:start|begin)\b/
   ];
-  return helpPatterns.some(p => p.test(t));
+  if (!helpSignals.some(p => p.test(t))) return false;
+
+  // Stage 2 — candidate is actively constructing an answer (action-verb pattern only).
+  // Vocabulary-only matching is intentionally excluded: a candidate can mention RICS terms
+  // while asking for an explanation (e.g. "I don't understand dilapidations, can you explain?").
+  // Only purposeful action language ("I would inspect…", "my approach would be to…") reliably
+  // signals a genuine attempt rather than a terminology question.
+  const actionVerbPattern =
+    /\b(?:i would|i'd|my approach|we would|the approach|the process)\s+(?:be to\s+)?(?:start|begin|check|inspect|review|consider|assess|obtain|request|look at|involve|include)\b/;
+  if (actionVerbPattern.test(t)) return false;
+
+  // Stage 3 — long transcript treated as genuine attempt regardless of vocabulary match
+  const wordCount = t.split(/\s+/).filter(Boolean).length;
+  if (wordCount >= 40) return false;
+
+  return true;
 }
 
 async function getCoaching(
@@ -154,7 +184,7 @@ async function getCoaching(
     ? 'You are in Practice Mode. Encourage genuine attempts. Be direct and honest but constructive.'
     : 'You are in Assessor Mode. Evaluate as a RICS panel assessor would. Be direct and unsparing.';
 
-  const systemPrompt = `${cfg.systemContext} ${modeInstruction} Return only valid JSON — no markdown, no preamble, no trailing text.`;
+  const systemPrompt = `${cfg.systemContext} ${modeInstruction} You are evaluating a text transcript — assess only what the candidate communicated through their words. Do not comment on vocal delivery, tone of voice, pace or intonation. Return only valid JSON — no markdown, no preamble, no trailing text.`;
 
   // Technical context from question bank — always include keyPoints and why; model answers in tutor mode only
   const contextLines = [];
@@ -236,6 +266,9 @@ async function _getTeachingResponse(apiKey, question, questionWhy, questionPass,
     .replace(/```json\n?/gi, '').replace(/```\n?/gi, '').trim();
   return JSON.parse(raw);
 }
+
+// Exported for unit tests only — Netlify calls only exports.handler
+exports._isHelpRequest = _isHelpRequest;
 
 exports.handler = async (event) => {
   console.log('[tofy-speak] invoked — method:', event.httpMethod);

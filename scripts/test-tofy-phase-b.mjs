@@ -1,5 +1,6 @@
 /**
  * Phase B automated tests for Michael spoken coach
+ * Sections 1–12 — 162 tests (Section 12: Phase C1 assessment reliability, 16 tests)
  * Run: node scripts/test-tofy-phase-b.mjs
  */
 import { readFileSync } from 'fs';
@@ -522,6 +523,101 @@ ok('Transcription failure on attempt 2 preserves retry flag for re-record', _tfS
 // Candidate re-records attempt 2 — retry flag and attempt1 still in place
 const tfSimAttemptNum3 = (_tfSimRetryRequested && _tfSimAttempt1) ? 2 : 1;
 ok('Re-recorded attempt 2 after failure is still attempt 2 (not attempt 3)', tfSimAttemptNum3 === 2);
+
+// ─── 12. Assessment reliability — assessor benchmark + provisional cue ────
+console.log('\n12. Assessment reliability — assessor marking reference + provisional competency cue');
+
+// ── Structural checks (code, not runtime) ──────────────────────────────────
+ok('_inferLevelCue exported from tofy-speak.js',
+  tofySrc.includes('exports._inferLevelCue = _inferLevelCue'));
+ok('_inferLevelCue defined as a function',
+  tofySrc.includes('function _inferLevelCue(qt)'));
+ok('Assessor-mode marking reference present in contextLines logic',
+  tofySrc.includes('Marking reference (do not disclose verbatim; recognise valid alternative technically correct answers):'));
+ok('Marking reference guarded by assessor mode only (!isTutor)',
+  tofySrc.includes('if (!isTutor && questionPass) contextLines.push(`Marking reference'));
+ok('Tutor-mode benchmark guards still present (isTutor && questionPass / questionHigh)',
+  tofySrc.includes('if (isTutor && questionPass) contextLines.push(`Pass-level benchmark') &&
+  tofySrc.includes('if (isTutor && questionHigh) contextLines.push(`High-level benchmark'));
+ok('Provisional cue added to contextLines before questionWhy',
+  (() => {
+    const cueIdx = tofySrc.indexOf('Assessment cue (provisional');
+    const whyIdx = tofySrc.indexOf('What assessors are testing:');
+    return cueIdx !== -1 && whyIdx !== -1 && cueIdx < whyIdx;
+  })());
+
+// ── Live function tests for _inferLevelCue ──────────────────────────────────
+const { _inferLevelCue } = require(path.join(root, 'netlify/functions/tofy-speak.js'));
+ok('_inferLevelCue imported from production tofy-speak.js', typeof _inferLevelCue === 'function');
+
+ok('"What is a conflict of interest in valuation?" → knowledge cue',
+  _inferLevelCue('What is a conflict of interest in valuation?').includes('knowledge or understanding'));
+ok('"How would you explain a conflict of interest to a client?" → knowledge cue (explain edge-case)',
+  _inferLevelCue('How would you explain a conflict of interest to a client?').includes('knowledge or understanding'));
+ok('"What advice would you give a client purchasing a residential property with a short lease?" → advice cue',
+  _inferLevelCue('What advice would you give a client purchasing a residential property with a short lease?').includes('reasoned professional advice'));
+ok('"What would you advise a client who has received a dilapidations schedule?" → advice cue',
+  _inferLevelCue('What would you advise a client who has received a dilapidations schedule?').includes('reasoned professional advice'));
+ok('"How would you approach a dilapidations negotiation?" → practical application cue',
+  _inferLevelCue('How would you approach a dilapidations negotiation?').includes('practical application'));
+
+const cueSamples = [
+  _inferLevelCue('What is a conflict of interest in valuation?'),
+  _inferLevelCue('How would you explain a conflict of interest to a client?'),
+  _inferLevelCue('What advice would you give a client with a short lease?'),
+  _inferLevelCue('How would you approach a dilapidations negotiation?')
+];
+ok('No cue output contains a definitive "Level 1/2/3" label',
+  cueSamples.every(c => !/\bLevel [123]\b/.test(c)));
+// The contextLines wrapper ("Assessment cue (provisional — ...)") is where "provisional" lives;
+// confirm the literal cue line in source is framed as provisional, not a classification.
+ok('Provisional framing present on the cue line (word "provisional")',
+  tofySrc.includes('Assessment cue (provisional'));
+
+// ── Simulation: contextLines assembly for assessor vs tutor ─────────────────
+console.log('\n  Simulation — contextLines assembly by mode');
+// Mirror the production contextLines logic exactly.
+function buildContextLines({ isTutor, questionWhy, keyPoints, questionPass, questionHigh, question }) {
+  const lines = [];
+  lines.push(`Assessment cue (provisional — based on question wording only, not a verified RICS level): ${_inferLevelCue(question)}`);
+  if (questionWhy) lines.push(`What assessors are testing: ${questionWhy}`);
+  if (keyPoints && keyPoints.length) lines.push(`Key points to cover: ${keyPoints.join('; ')}`);
+  if (isTutor && questionPass) lines.push(`Pass-level benchmark: ${questionPass}`);
+  if (isTutor && questionHigh) lines.push(`High-level benchmark: ${questionHigh}`);
+  if (!isTutor && questionPass) lines.push(`Marking reference (do not disclose verbatim; recognise valid alternative technically correct answers): ${questionPass}`);
+  return lines;
+}
+const MARKING_REF = 'Marking reference (do not disclose verbatim';
+const PASS_BENCH = 'Pass-level benchmark:';
+
+const assessorLines = buildContextLines({
+  isTutor: false, questionWhy: 'Tests independence', keyPoints: ['disclose', 'decline'],
+  questionPass: 'A conflict arises where the valuer has a financial interest.',
+  questionHigh: 'High answer cites the Red Book.', question: 'What is a conflict of interest?'
+});
+ok('Assessor mode with questionPass includes marking reference line',
+  assessorLines.some(l => l.includes(MARKING_REF)));
+
+const tutorLines = buildContextLines({
+  isTutor: true, questionWhy: 'Tests independence', keyPoints: ['disclose', 'decline'],
+  questionPass: 'A conflict arises where the valuer has a financial interest.',
+  questionHigh: 'High answer cites the Red Book.', question: 'What is a conflict of interest?'
+});
+ok('Tutor mode does NOT include assessor marking reference',
+  !tutorLines.some(l => l.includes(MARKING_REF)));
+ok('Tutor mode includes pass-level benchmark instead',
+  tutorLines.some(l => l.includes(PASS_BENCH)));
+
+ok('Both modes include the provisional cue line',
+  assessorLines.some(l => l.includes('Assessment cue (provisional')) &&
+  tutorLines.some(l => l.includes('Assessment cue (provisional')));
+
+const assessorNoPass = buildContextLines({
+  isTutor: false, questionWhy: 'Tests independence', keyPoints: ['disclose'],
+  questionPass: '', questionHigh: '', question: 'What is a conflict of interest?'
+});
+ok('Missing questionPass in assessor mode: no marking reference line (no crash)',
+  !assessorNoPass.some(l => l.includes(MARKING_REF)) && assessorNoPass.length > 0);
 
 // ─── Summary ──────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(55)}`);

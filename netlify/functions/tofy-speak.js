@@ -177,6 +177,29 @@ function _isHelpRequest(transcript) {
   return true;
 }
 
+// Provisional competency cue derived ONLY from question wording.
+// This is NOT a verified RICS Level 1/2/3 classification — questions-data.json carries
+// no level metadata. It gives Michael a non-binding instructional cue so that knowledge
+// questions are not penalised for lacking personal experience, while still assessing the
+// substance of what is being asked. Phrased as guidance, never as a definitive label.
+//
+// "Explain" stems are treated as knowledge even when they open with "how would you" —
+// "How would you explain X to a client?" is an articulation-of-knowledge task, not an
+// account of personal practical application.
+function _inferLevelCue(qt) {
+  const t = (qt || '').toLowerCase().trim();
+  if (/^(how would you|how do you)\b.{0,40}\bexplain\b/.test(t)) {
+    return 'This question appears to be asking for knowledge or understanding. Do not penalise the candidate for lacking personal practical experience — assess whether they have explained the relevant concepts accurately.';
+  }
+  if (/\badvis(e|ing|ory)\b|\brecommend\b|\bjustif\b/.test(t) || /^(what advice|a client asks)/.test(t)) {
+    return 'This question may be asking for reasoned professional advice or judgement. Assess whether the candidate demonstrates professional reasoning — but also accept the answer if it correctly explains the relevant knowledge or principles.';
+  }
+  if (/^(how would you|how do you|describe your approach|what would you do|what steps)\b/.test(t)) {
+    return 'This question may be asking for practical application. Do not require demonstrated personal experience if the answer correctly explains what should be done and why.';
+  }
+  return 'This question appears to be asking for knowledge or understanding. Do not penalise the candidate for lacking personal practical experience — assess whether they have explained the relevant concepts accurately.';
+}
+
 async function getCoaching(
   apiKey, question, keyPoints, transcript, attemptNum, attempt1Transcript,
   practiceArea, pathway, practiceMode, questionWhy, questionPass, questionHigh
@@ -203,10 +226,12 @@ async function getCoaching(
 
   // Technical context from question bank — always include keyPoints and why; model answers in tutor mode only
   const contextLines = [];
+  contextLines.push(`Assessment cue (provisional — based on question wording only, not a verified RICS level): ${_inferLevelCue(question)}`);
   if (questionWhy) contextLines.push(`What assessors are testing: ${questionWhy}`);
   if (keyPoints && keyPoints.length) contextLines.push(`Key points to cover: ${keyPoints.join('; ')}`);
   if (isTutor && questionPass) contextLines.push(`Pass-level benchmark: ${questionPass}`);
   if (isTutor && questionHigh) contextLines.push(`High-level benchmark: ${questionHigh}`);
+  if (!isTutor && questionPass) contextLines.push(`Marking reference (do not disclose verbatim; recognise valid alternative technically correct answers): ${questionPass}`);
   const techContext = contextLines.length ? contextLines.join('\n') + '\n\n' : '';
 
   const capSchema = `{"name":"<one of: ${cfg.caps}>","label":"<one of: Strong|Improve|Try again>","note":"<one short honest sentence>"}`;
@@ -308,6 +333,7 @@ function _isLikelyWrongLanguage(transcript, expectedLang) {
 // Exported for unit tests only — Netlify calls only exports.handler
 exports._isHelpRequest = _isHelpRequest;
 exports._isLikelyWrongLanguage = _isLikelyWrongLanguage;
+exports._inferLevelCue = _inferLevelCue;
 
 exports.handler = async (event) => {
   console.log('[tofy-speak] invoked — method:', event.httpMethod);

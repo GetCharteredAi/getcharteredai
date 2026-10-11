@@ -16,6 +16,7 @@ This candidate's manager did not contribute to the Benchmark. You are producing 
 
 ## Governing calibration rules
 - NOT YET ENOUGH EXPOSURE is not a weakness. It means the individual has not had sufficient opportunity to demonstrate this area. Never reframe it as a development gap unless the assessment specifically identifies a capability issue.
+- NOT ASSESSED means the individual chose not to answer those questions. It carries no capability signal. Do not describe it as a development need, weakness, or exposure gap. Do not include NOT ASSESSED areas in development priorities.
 - Lack of exposure is not lack of capability.
 - Account for stage: use the discipline and months-in-role context provided. What is reasonable at 8 months differs from what is reasonable at 20 months.
 - Do not flatten strengths because another area needs development.

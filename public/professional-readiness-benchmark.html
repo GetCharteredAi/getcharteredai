@@ -341,11 +341,19 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
         <div class="arev-q-text" id="reflection-question-text"></div>
       </div>
 
+      <div id="reflection-help-panel"></div>
+
       <div id="reflection-lm-area"></div>
 
       <div id="reflection-response-area">
         <textarea class="arev-textarea" id="reflection-response" placeholder="Your response…" oninput="updateWC()"></textarea>
         <div class="arev-wc" id="reflection-wc"></div>
+        <div style="margin-top:8px;margin-bottom:4px">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:#64748b">
+            <input type="checkbox" id="reflection-uncertain-check" style="width:15px;height:15px;flex-shrink:0;cursor:pointer">
+            I'm not fully sure my answer covers this
+          </label>
+        </div>
         <p id="reflection-err" class="arev-err">Please write a response before continuing.</p>
         <div class="arev-actions" style="margin-top:12px">
           <button class="arev-btn-primary" id="reflection-next-btn" onclick="submitReflectionResponse()">Continue →</button>
@@ -673,7 +681,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
 const QUESTIONS = [
   // Area 1: Professional Behaviour & Responsibility
-  { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Thinking about your time at work so far, what do you think being professional means in your role? Give me an example of how you have tried to demonstrate that.' },
+  { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Thinking about your time at work so far, can you tell me about something you did that you felt you handled professionally?' },
   { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Tell me about a recent piece of work you were trusted to complete. What did you do to make sure it was accurate, completed when needed and that the right person knew where it had got to?' },
   { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Tell me about a recent task you completed. What did you do once it was finished, and how did you decide what to focus on next?' },
   { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Tell me about a time you realised something in your work was wrong, unclear or not going as expected. What did you do?' },
@@ -688,7 +696,7 @@ const QUESTIONS = [
   { area: 3, areaName: 'Learning & Applying Knowledge', text: 'Tell me about a task you were given that you had not done before. How did you work out what you needed to know and how to approach it?' },
   // Area 4: Judgement, Help & Escalation
   { area: 4, areaName: 'Judgement, Help & Escalation', text: 'Tell me about a situation where you had to decide whether you could continue yourself or whether you should check something with somebody else. What influenced your decision?' },
-  { area: 4, areaName: 'Judgement, Help & Escalation', text: 'Have you had to raise or escalate something because you thought it could affect the work, a client, a project or the organisation? What made you decide it needed raising?' },
+  { area: 4, areaName: 'Judgement, Help & Escalation', text: 'Has there been a situation at work where you had to decide whether something needed raising with someone more senior? What did you do — or what would make you feel something was important enough to escalate?' },
   // Area 5: Feedback, Reflection & Development
   { area: 5, areaName: 'Feedback, Reflection & Development', text: 'What is the most useful feedback you have received since starting, and what have you changed as a result?' },
   { area: 5, areaName: 'Feedback, Reflection & Development', text: 'Looking back over your time at work so far, what is one thing you think you are doing well and one thing you want to improve? What would improvement look like over the next few months?' }
@@ -710,6 +718,11 @@ let inLearningMoment = false;
 let lmPhase = null; // 'check' | 'recognition'
 let runToken = null;
 let pollInterval = null;
+// Phase 2: conversational accommodations
+let questionProvenance = {}; // { qIdx: 'independent'|'after-clarification'|'after-prompting'|'after-teaching'|'skipped'|'exposure-acknowledged' }
+let rephraseCount = {};       // { qIdx: 1|2 } — per question index
+let skippedQuestions = [];    // array of question indices that were skipped
+let accommodationUsedThisQ = false; // true if candidate used help panel on current Q
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
@@ -1026,6 +1039,146 @@ function showQuestion(idx) {
   document.getElementById('reflection-next-btn').textContent = idx < 14 ? 'Continue →' : 'Complete my reflection →';
   inLearningMoment = false;
   lmPhase = null;
+  accommodationUsedThisQ = false;
+
+  // Render help panel
+  renderHelpPanel(idx);
+}
+
+function renderHelpPanel(idx) {
+  const container = document.getElementById('reflection-help-panel');
+  if (!container) return;
+  const count = rephraseCount[idx] || 0;
+  const atCap = count >= 2;
+
+  if (atCap) {
+    container.innerHTML = `
+      <div id="help-panel-wrap" style="margin-bottom:12px">
+        <p style="font-size:13px;color:#64748b;line-height:1.6">I've offered two versions of this question. You can try your best answer below, or skip it.</p>
+        <button class="arev-btn-secondary" onclick="handleSkip()" style="margin-top:8px;width:auto;padding:8px 18px;font-size:13px">Skip this question</button>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <div id="help-panel-wrap" style="margin-bottom:12px">
+      <button id="help-toggle-btn" onclick="toggleHelpPanel()" style="background:none;border:none;font-size:12px;color:#94a3b8;cursor:pointer;padding:4px 0;text-decoration:underline;text-underline-offset:2px">Need help?</button>
+      <div id="help-options" style="display:none;margin-top:8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#94a3b8;margin-bottom:8px">Options</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          ${!atCap ? `<button class="help-option-btn" onclick="handleAccommodation('rephrase')" style="text-align:left;background:none;border:1px solid #e2e8f0;border-radius:7px;padding:8px 12px;font-size:13px;color:#374151;cursor:pointer;font-family:inherit">Ask this differently</button>` : ''}
+          <button class="help-option-btn" onclick="handleAccommodation('clarify')" style="text-align:left;background:none;border:1px solid #e2e8f0;border-radius:7px;padding:8px 12px;font-size:13px;color:#374151;cursor:pointer;font-family:inherit">Explain what you're looking for</button>
+          <button class="help-option-btn" onclick="handleAccommodation('example')" style="text-align:left;background:none;border:1px solid #e2e8f0;border-radius:7px;padding:8px 12px;font-size:13px;color:#374151;cursor:pointer;font-family:inherit">Give me an example</button>
+          <button class="help-option-btn" onclick="handleAccommodation('no-experience')" style="text-align:left;background:none;border:1px solid #e2e8f0;border-radius:7px;padding:8px 12px;font-size:13px;color:#374151;cursor:pointer;font-family:inherit">I haven't had this opportunity yet</button>
+          <button class="help-option-btn" onclick="handleSkip()" style="text-align:left;background:none;border:1px solid #e2e8f0;border-radius:7px;padding:8px 12px;font-size:13px;color:#64748b;cursor:pointer;font-family:inherit">Skip this question</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function toggleHelpPanel() {
+  const opts = document.getElementById('help-options');
+  if (opts) opts.style.display = opts.style.display === 'none' ? '' : 'none';
+}
+
+async function handleAccommodation(type) {
+  // Close the help panel
+  const opts = document.getElementById('help-options');
+  if (opts) opts.style.display = 'none';
+
+  accommodationUsedThisQ = true;
+
+  const q = QUESTIONS[currentQ];
+  let signal, requestNum;
+
+  if (type === 'rephrase') {
+    rephraseCount[currentQ] = (rephraseCount[currentQ] || 0) + 1;
+    requestNum = rephraseCount[currentQ];
+    signal = requestNum >= 2 ? '[REPHRASE REQUEST 2]' : '[REPHRASE REQUEST]';
+  } else if (type === 'clarify') {
+    signal = '[CLARIFY REQUEST]';
+  } else if (type === 'example') {
+    signal = '[EXAMPLE REQUEST]';
+  } else if (type === 'no-experience') {
+    signal = '[NO EXPERIENCE]';
+  }
+
+  // Show loading state in lm area
+  const lmArea = document.getElementById('reflection-lm-area');
+  lmArea.innerHTML = `<div style="text-align:center;padding:16px 0"><div class="arev-dots"><div class="arev-dot"></div><div class="arev-dot"></div><div class="arev-dot"></div></div></div>`;
+
+  try {
+    const msgContent = `${signal}
+
+Q${currentQ + 1}: ${q.text}`;
+    const tempMessages = [...messages, { role: 'user', content: msgContent }];
+
+    const data = await apiPost('p1-tutor', {
+      token: appToken,
+      messages: tempMessages,
+      discipline: contextAnswers.discipline,
+      monthsInRole: contextAnswers.monthsInRole
+    });
+
+    const raw = (data.content || []).map(b => b.text || '').join('');
+    let result;
+    try { result = JSON.parse(raw.replace(/```json|```/g, '').trim()); } catch { result = null; }
+
+    lmArea.innerHTML = '';
+
+    if (result && result.rephrase) {
+      // Update question text with rephrased version
+      document.getElementById('reflection-question-text').textContent = result.rephrase;
+      renderHelpPanel(currentQ); // Re-render to check rephrase cap
+    } else if (result && result.clarify) {
+      lmArea.innerHTML = `
+        <div class="arev-lm-card">
+          <div class="arev-lm-header"><div class="arev-lm-icon">💬</div><span class="arev-lm-title">Michael</span></div>
+          <div class="arev-lm-explain">${esc(result.clarify)}</div>
+        </div>`;
+    } else if (result && result.example) {
+      lmArea.innerHTML = `
+        <div class="arev-lm-card">
+          <div class="arev-lm-header"><div class="arev-lm-icon">💡</div><span class="arev-lm-title">Michael</span></div>
+          <div class="arev-lm-explain">${esc(result.example)}</div>
+        </div>`;
+    } else if (result && result.recognitionPrompt) {
+      lmArea.innerHTML = `
+        <div class="arev-recognition-card">
+          <div class="arev-recognition-text">${esc(result.recognitionPrompt)}</div>
+          <div class="arev-recognition-btns">
+            <button class="arev-recognition-yes" onclick="recognitionYes()">Yes, I have experience like that</button>
+            <button class="arev-recognition-no" onclick="recognitionNoFromPanel()">No, I genuinely haven't had that opportunity</button>
+          </div>
+        </div>`;
+      document.getElementById('reflection-response-area').style.display = 'none';
+      lmPhase = 'recognition';
+      messages.push({ role: 'user', content: msgContent });
+      messages.push({ role: 'assistant', content: raw });
+      inLearningMoment = true;
+    }
+  } catch {
+    lmArea.innerHTML = '';
+  }
+}
+
+function recognitionNoFromPanel() {
+  // Exposure-acknowledged: candidate used no-experience path AND confirmed no exposure
+  const areaId = QUESTIONS[currentQ].area;
+  if (contextAnswers.recognitionResults[areaId] !== 'relevant-exposure-identified') {
+    contextAnswers.recognitionResults[areaId] = 'confirmed-lack-of-exposure';
+  }
+  questionProvenance[currentQ] = 'exposure-acknowledged';
+  messages.push({ role: 'user', content: 'No — I genuinely have not had that opportunity in my role yet.' });
+  messages.push({ role: 'assistant', content: 'Understood. That is useful context.' });
+  advanceQuestion();
+}
+
+function handleSkip() {
+  questionProvenance[currentQ] = 'skipped';
+  if (!skippedQuestions.includes(currentQ)) skippedQuestions.push(currentQ);
+  // Skip does NOT change recognitionResults
+  advanceQuestion();
 }
 
 function updateWC() {
@@ -1048,10 +1201,14 @@ async function submitReflectionResponse() {
   btn.textContent = 'Michael is thinking…';
 
   const q = QUESTIONS[currentQ];
+  const uncertainCheck = document.getElementById('reflection-uncertain-check');
+  const isUncertain = uncertainCheck && uncertainCheck.checked;
 
   if (!inLearningMoment) {
     // First response to a question — ask Michael for a Learning Moment
-    messages.push({ role: 'user', content: `Q${currentQ + 1}: ${q.text}\n\nMy response: ${responseText}` });
+    let userContent = `Q${currentQ + 1}: ${q.text}\n\nMy response: ${responseText}`;
+    if (isUncertain) userContent = `[UNCERTAIN SIGNAL]\n\n${userContent}`;
+    messages.push({ role: 'user', content: userContent });
 
     try {
       const data = await apiPost('p1-tutor', {
@@ -1065,25 +1222,47 @@ async function submitReflectionResponse() {
       let lm;
       try { lm = JSON.parse(raw.replace(/```json|```/g, '').trim()); } catch { lm = null; }
 
-      if (lm && (lm.explain || lm.reprompt || lm.recognitionPrompt)) {
+      if (lm && lm.reassure) {
+        // Uncertain signal — reassured, advance as independent (accommodation used)
+        messages.push({ role: 'assistant', content: raw });
+        questionProvenance[currentQ] = accommodationUsedThisQ ? 'after-clarification' : 'independent';
+        advanceQuestion();
+      } else if (lm && (lm.explain || lm.reprompt || lm.recognitionPrompt)) {
         // Show Learning Moment
         messages.push({ role: 'assistant', content: raw });
         inLearningMoment = true;
+        if (lm.reprompt) {
+          // Track that this question got a reprompt nudge — provenance will be 'after-prompting' on next advance
+          questionProvenance[currentQ] = 'after-prompting';
+        } else if (lm.explain) {
+          questionProvenance[currentQ] = 'after-teaching';
+        }
         renderLearningMoment(lm);
       } else {
         // No Learning Moment — move on
         if (lm) messages.push({ role: 'assistant', content: raw });
+        // Independent if no accommodation used, otherwise after-clarification
+        if (!questionProvenance[currentQ]) {
+          questionProvenance[currentQ] = accommodationUsedThisQ ? 'after-clarification' : 'independent';
+        }
         advanceQuestion();
       }
     } catch {
       // On error, advance anyway
+      if (!questionProvenance[currentQ]) {
+        questionProvenance[currentQ] = accommodationUsedThisQ ? 'after-clarification' : 'independent';
+      }
       advanceQuestion();
     }
 
   } else if (lmPhase === 'check') {
-    // Response to the check question
+    // Response to the check question — provenance already set to after-prompting or after-teaching
     messages.push({ role: 'user', content: responseText });
     messages.push({ role: 'assistant', content: 'Thank you.' });
+    // Confirm provenance for after-teaching if explain was shown
+    if (!questionProvenance[currentQ] || questionProvenance[currentQ] === 'independent') {
+      questionProvenance[currentQ] = 'after-teaching';
+    }
     advanceQuestion();
 
   } else if (lmPhase === 'recognition') {
@@ -1160,6 +1339,9 @@ function recognitionNo() {
   if (contextAnswers.recognitionResults[areaId] !== 'relevant-exposure-identified') {
     contextAnswers.recognitionResults[areaId] = 'confirmed-lack-of-exposure';
   }
+  // This is exposure-acknowledged only if came from a learning moment recognition path
+  // If came from no-experience help panel, recognitionNoFromPanel handles it
+  questionProvenance[currentQ] = 'exposure-acknowledged';
   messages.push({ role: 'user', content: 'No — I genuinely have not had that opportunity in my role yet.' });
   messages.push({ role: 'assistant', content: 'Understood. That is useful context.' });
   advanceQuestion();
@@ -1168,6 +1350,9 @@ function recognitionNo() {
 function advanceQuestion() {
   inLearningMoment = false;
   lmPhase = null;
+  // Reset uncertain checkbox if present
+  const uc = document.getElementById('reflection-uncertain-check');
+  if (uc) uc.checked = false;
   currentQ++;
 
   if (currentQ >= 15) {
@@ -1202,7 +1387,11 @@ async function generateReport() {
     await fetch('/.netlify/functions/p1-generate-report-background', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: appToken, messages, runToken, contextAnswers })
+      body: JSON.stringify({ token: appToken, messages, runToken, contextAnswers: {
+        ...contextAnswers,
+        questionProvenance,
+        skippedQuestions
+      }})
     });
   } catch { /* background function returns 202 or error, doesn't matter */ }
 

@@ -18,6 +18,7 @@ Synthesise two evidence sources into a development summary for a structured mana
 
 ## Governing calibration rules
 - NOT YET ENOUGH EXPOSURE is not a weakness. It means the individual has not had sufficient opportunity to demonstrate this area. Never reframe it as a development gap unless the manager's evidence independently and specifically identifies a capability issue.
+- NOT ASSESSED means the individual chose not to answer those questions. It carries no capability signal. Do not describe it as a development need, weakness, or exposure gap. Do not include NOT ASSESSED areas in development priorities.
 - Lack of exposure is not lack of capability.
 - Judge evidence, not silence. A manager who does not comment on an area has not disagreed with the assessment.
 - Account for stage: use the discipline and months-in-role context provided. What is reasonable at 8 months differs from what is reasonable at 20 months.
@@ -29,11 +30,12 @@ M7 provides cross-cutting development and support evidence — draw on it across
 M2–M6 each broadly illuminate one of the five Benchmark areas, but you may draw on any answer across any area. Do not treat question numbers as rigid area assignments.
 
 ## Area outcome definitions
-Each of the five Benchmark areas carries one of four outcomes from the candidate's self-assessment:
+Each of the five Benchmark areas carries one of five outcomes from the candidate's self-assessment:
 - ON TRACK — evidence indicates appropriate progress for this stage
 - DEVELOPING — capability is emerging; further practice, experience or development is needed
 - SUPPORT WOULD HELP — a meaningful gap requires action; proactive support recommended
 - NOT YET ENOUGH EXPOSURE — the candidate has not had sufficient opportunity; capability cannot be assessed. Lack of exposure is not lack of capability. NOT YET ENOUGH EXPOSURE is not a default fallback — it requires a positive finding that opportunity was genuinely absent.
+- NOT ASSESSED — the candidate chose not to answer those questions. It carries no capability signal. Do not describe it as a development need, weakness, or exposure gap. Do not include NOT ASSESSED areas in development priorities.
 
 ## Area relationship types
 For each of the five Benchmark areas, assign exactly one relationship type:
@@ -41,8 +43,9 @@ For each of the five Benchmark areas, assign exactly one relationship type:
 - genuine-divergence: manager describes behaviour meaningfully inconsistent with the area outcome — a real difference worth a conversation
 - manager-no-evidence: manager provided no relevant evidence for this area; this is not disagreement and must not be surfaced as such
 - exposure-alignment: area shows NOT YET ENOUGH EXPOSURE and manager confirms the individual has not had the relevant opportunity — the perspectives agree
+- not-assessed: the area was not answered by the candidate. The manager may have relevant perspective but no synthesis of the two sources is possible for this area.
 
-Only genuine-divergence produces a conversation prompt. For aligned, manager-no-evidence and exposure-alignment, return conversationPrompt: null.
+Only genuine-divergence produces a conversation prompt. For aligned, manager-no-evidence, exposure-alignment and not-assessed, return conversationPrompt: null.
 
 ## Absent or thin manager evidence
 managerPerspectiveThemes: If manager evidence is absent across all questions, return an empty array. If manager evidence is very thin, include only themes directly supported by what the manager actually provided. Do not infer or fabricate a manager perspective from silence.

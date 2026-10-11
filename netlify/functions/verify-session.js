@@ -152,7 +152,8 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200, headers,
-      body: JSON.stringify({ success: true, token, email: cleanEmail, plan, activatedAt })
+      body: JSON.stringify({ success: true, token, email: cleanEmail, plan, activatedAt,
+        amount: session.amount_total, currency: (session.currency || 'gbp').toUpperCase() })
     };
 
   } catch (err) {

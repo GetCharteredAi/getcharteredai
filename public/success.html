@@ -30,6 +30,14 @@ button:disabled{background:#94a3b8;cursor:not-allowed}
 .alert-green{background:#dcfce7;color:#16a34a;border:1px solid #86efac}
 .loading{display:none;color:#64748b;font-size:14px;margin-top:16px}
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18498077631"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', { ad_storage: 'denied', analytics_storage: 'denied' });
+gtag('js', new Date());
+gtag('config', 'AW-18498077631');
+</script>
 </head>
 <body>
 <div class="card" id="mainCard">
@@ -68,6 +76,29 @@ function showAlert(msg, type) {
   el.style.display = 'block';
 }
 
+const CONVERSION_SEND_TO = 'AW-18498077631/zp1FCNWxqpkdEL-HyfRE';
+
+let _convFired = false;
+function fireConversion(amountPence, currency, transactionId) {
+  if (_convFired) return;
+  if (window.location.hostname !== 'getcharteredai.com') {
+    console.log('[GCAi conversion – preview only]', {
+      send_to: CONVERSION_SEND_TO, value: amountPence / 100,
+      currency: currency || 'GBP', transaction_id: transactionId
+    });
+    return;
+  }
+  if (transactionId && transactionId.startsWith('cs_test_')) return;
+  if (typeof gtag !== 'function') return;
+  _convFired = true;
+  gtag('event', 'conversion', {
+    send_to: CONVERSION_SEND_TO,
+    value: amountPence / 100,
+    currency: currency || 'GBP',
+    transaction_id: transactionId
+  });
+}
+
 async function activate() {
   const email = document.getElementById('email').value.trim().toLowerCase();
   const pass = document.getElementById('password').value;
@@ -100,6 +131,7 @@ async function activate() {
     const data = await response.json();
 
     if (response.ok && data.success) {
+      fireConversion(data.amount, data.currency, sessionId);
       // Store JWT token and user info
       localStorage.setItem('gca_token', data.token);
       localStorage.setItem('gca_user', data.email);
@@ -155,11 +187,29 @@ async function activate() {
 // Allow enter key to submit
 document.addEventListener('keydown', e => { if (e.key === 'Enter') activate(); });
 
-// Check we have a session ID
+// Check we have a session ID; fire conversion on load for paid-but-no-activation cases
 window.addEventListener('DOMContentLoaded', () => {
-  if (!getSessionId()) {
-    showAlert('No payment session found. If you have paid, please contact info@getcharteredai.com with your payment confirmation.', 'red');
+  if (localStorage.getItem('gca_cookies') === 'accepted') {
+    gtag('consent', 'update', { ad_storage: 'granted', analytics_storage: 'granted' });
   }
+  const sessionId = getSessionId();
+  if (!sessionId) {
+    showAlert('No payment session found. If you have paid, please contact info@getcharteredai.com with your payment confirmation.', 'red');
+    return;
+  }
+  (async () => {
+    try {
+      const r = await fetch('/.netlify/functions/get-payment-amount', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id: sessionId })
+      });
+      if (r.ok) {
+        const d = await r.json();
+        if (d.paid) fireConversion(d.amount, d.currency, sessionId);
+      }
+    } catch (_) {}
+  })();
 });
 </script>
 </body>

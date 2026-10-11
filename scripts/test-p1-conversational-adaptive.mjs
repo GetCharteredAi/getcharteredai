@@ -273,6 +273,38 @@ ok('System prompt prohibits "This question is designed to assess"',
 ok('System prompt prohibits academic register',
   tutorJs.includes('academic register') || tutorJs.includes('formal or academic'));
 
+// ─── Section 11: Evidence integrity safeguards ───────────────────────────────
+console.log('\n11. Evidence integrity — check-question and uncertain signal');
+
+ok('No fake "Thank you." injected after check-question response (evidence integrity)',
+  (() => {
+    // The check-question path must NOT push a synthetic assistant approval message.
+    // Locate the lmPhase === 'check' block and ensure no 'Thank you.' is injected.
+    const checkBlock = html.slice(html.indexOf("lmPhase === 'check'"), html.indexOf("lmPhase === 'recognition'"));
+    return !checkBlock.includes("content: 'Thank you.'") && !checkBlock.includes('content: "Thank you."');
+  })());
+
+ok("Uncertain checkbox sets accommodationUsedThisQ = true (provenance accuracy)",
+  html.includes('accommodationUsedThisQ = true; // uncertain checkbox is an accommodation') ||
+  (html.includes('isUncertain') && html.includes('accommodationUsedThisQ = true')));
+
+ok('questionProvenance not passed to manager-safe generator input (privacy structural check)',
+  (() => {
+    // Manager-safe is called with JSON.stringify(report) — it must not receive contextAnswers or questionProvenance.
+    const msCallIdx = reportBg.indexOf('Generate the Manager Development Summary based on this candidate');
+    const surroundingCode = reportBg.slice(Math.max(0, msCallIdx - 200), msCallIdx + 200);
+    return !surroundingCode.includes('questionProvenance') && !surroundingCode.includes('contextAnswers');
+  })());
+
+ok('candidate-private stores questionProvenance (provenance persisted for report)',
+  reportBg.includes('candidate-private') && reportBg.includes('questionProvenance'));
+
+ok('check-question response is pushed to messages for report evaluation',
+  (() => {
+    const checkBlock = html.slice(html.indexOf("lmPhase === 'check'"), html.indexOf("lmPhase === 'recognition'"));
+    return checkBlock.includes("messages.push({ role: 'user', content: responseText })");
+  })());
+
 // ─── Summary ──────────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(50)}`);
 console.log(`Results: ${passed} passed, ${failed} failed`);

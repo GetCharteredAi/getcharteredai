@@ -1207,7 +1207,10 @@ async function submitReflectionResponse() {
   if (!inLearningMoment) {
     // First response to a question — ask Michael for a Learning Moment
     let userContent = `Q${currentQ + 1}: ${q.text}\n\nMy response: ${responseText}`;
-    if (isUncertain) userContent = `[UNCERTAIN SIGNAL]\n\n${userContent}`;
+    if (isUncertain) {
+      userContent = `[UNCERTAIN SIGNAL]\n\n${userContent}`;
+      accommodationUsedThisQ = true; // uncertain checkbox is an accommodation
+    }
     messages.push({ role: 'user', content: userContent });
 
     try {
@@ -1256,9 +1259,10 @@ async function submitReflectionResponse() {
     }
 
   } else if (lmPhase === 'check') {
-    // Response to the check question — provenance already set to after-prompting or after-teaching
+    // Response to the check question — provenance already set to after-prompting or after-teaching.
+    // Do NOT inject a fake assistant acknowledgement here — the report generator must evaluate
+    // the actual quality of this response, not infer approval from a synthetic 'Thank you.'
     messages.push({ role: 'user', content: responseText });
-    messages.push({ role: 'assistant', content: 'Thank you.' });
     // Confirm provenance for after-teaching if explain was shown
     if (!questionProvenance[currentQ] || questionProvenance[currentQ] === 'independent') {
       questionProvenance[currentQ] = 'after-teaching';

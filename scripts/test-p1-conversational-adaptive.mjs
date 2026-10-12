@@ -444,6 +444,32 @@ ok('renderReport in HTML handles readiness-picture-v1 schema (areaOutcomes)',
 ok('renderReportLegacy fallback defined in HTML for old report.areas schema',
   html.includes('renderReportLegacy'));
 
+// ─── Section 15: Consecutive-message normalization ────────────────────────────
+console.log('\n15. Consecutive-message normalization — api_error root cause fix');
+
+ok('normalizeMessages defined in p1-generate-report-background.js',
+  reportBg.includes('function normalizeMessages'));
+
+ok('callAnthropic calls normalizeMessages before sending to Anthropic',
+  (() => {
+    const fnMatch = reportBg.match(/async function callAnthropic[\s\S]*?^}/m);
+    if (!fnMatch) return false;
+    return fnMatch[0].includes('normalizeMessages(messages)') || fnMatch[0].includes('normalizedMessages');
+  })());
+
+ok('normalizeMessages defined in p1-tutor.js',
+  tutorJs.includes('function normalizeMessages'));
+
+ok('p1-tutor calls normalizeMessages before sending to Anthropic',
+  tutorJs.includes('normalizeMessages(messages)'));
+
+ok('429 rate limit is treated as retryable (not non-retryable api_error)',
+  (() => {
+    const fnMatch = reportBg.match(/async function callAnthropic[\s\S]*?^}/m);
+    if (!fnMatch) return false;
+    return fnMatch[0].includes('response.status === 429') || fnMatch[0].includes("status: 429");
+  })());
+
 // ─── Summary ──────────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(50)}`);
 console.log(`Results: ${passed} passed, ${failed} failed`);

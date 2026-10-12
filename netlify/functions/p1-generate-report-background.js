@@ -330,10 +330,28 @@ function getInviteStore() {
     : getStore({ name: `${PREFIX}p1-invites`, siteID: process.env.NETLIFY_SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
 }
 
+// Collapse consecutive same-role messages to satisfy Anthropic's alternating-role requirement.
+// In real sessions, a check-question answer (user) is immediately followed by the next
+// question's answer (also user), creating back-to-back user messages that cause 400 errors.
+function normalizeMessages(msgs) {
+  if (!msgs || !msgs.length) return msgs;
+  const result = [];
+  for (const m of msgs) {
+    const last = result[result.length - 1];
+    if (last && last.role === m.role) {
+      last.content += '\n\n' + m.content;
+    } else {
+      result.push({ role: m.role, content: String(m.content || '') });
+    }
+  }
+  return result;
+}
+
 async function callAnthropic(apiKey, system, messages, maxTokens) {
   const MAX_ATTEMPTS = 3;
   let lastError = null;
   let rawText = '';
+  const normalizedMessages = normalizeMessages(messages);
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
@@ -344,12 +362,19 @@ async function callAnthropic(apiKey, system, messages, maxTokens) {
           'anthropic-version': '2023-06-01',
           'content-type': 'application/json'
         },
-        body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: maxTokens, system, messages })
+        body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: maxTokens, system, messages: normalizedMessages })
       });
 
-      // 4xx errors are non-retryable (auth, validation errors)
+      // 429 rate limit — retryable with longer backoff
+      if (response.status === 429) {
+        const data = await response.json().catch(() => ({}));
+        throw Object.assign(new Error(`Anthropic rate limit (429): ${JSON.stringify(data)}`), { retryable: true, status: 429 });
+      }
+
+      // Other 4xx errors are non-retryable (auth, bad request, etc.)
       if (response.status >= 400 && response.status < 500) {
         const data = await response.json().catch(() => ({}));
+        console.error(`[callAnthropic] Anthropic API ${response.status} (attempt ${attempt}): ${JSON.stringify(data).slice(0, 300)}`);
         throw Object.assign(new Error(`Anthropic API error ${response.status}: ${JSON.stringify(data)}`), { apiError: true, status: response.status });
       }
 
@@ -372,11 +397,12 @@ async function callAnthropic(apiKey, system, messages, maxTokens) {
 
     } catch (err) {
       lastError = err;
-      // Do not retry on 4xx API errors or if this is the final attempt
+      // Do not retry on non-retryable 4xx API errors or if this is the final attempt
       if (err.apiError || attempt === MAX_ATTEMPTS) break;
-      // Retry on network errors, 5xx, or JSON parse failures
-      console.warn(`[callAnthropic] Attempt ${attempt} failed: ${err.message}. Retrying in 2s…`);
-      await new Promise(r => setTimeout(r, 2000));
+      // Retry on network errors, 5xx, 429, or JSON parse failures
+      const delay = err.status === 429 ? 8000 : 2000;
+      console.warn(`[callAnthropic] Attempt ${attempt} failed: ${err.message}. Retrying in ${delay}ms…`);
+      await new Promise(r => setTimeout(r, delay));
     }
   }
 

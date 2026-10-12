@@ -210,6 +210,23 @@ exports.handler = async (event) => {
   const disc = (discipline || 'Not specified').trim();
   const months = typeof monthsInRole === 'number' ? monthsInRole : 0;
 
+  // Collapse consecutive same-role messages before sending to Anthropic.
+  // After a check-question response the messages array ends on 'user'; the next question's
+  // answer push creates back-to-back user messages, which Anthropic rejects with 400.
+  function normalizeMessages(msgs) {
+    if (!msgs || !msgs.length) return msgs;
+    const result = [];
+    for (const m of msgs) {
+      const last = result[result.length - 1];
+      if (last && last.role === m.role) {
+        last.content += '\n\n' + m.content;
+      } else {
+        result.push({ role: m.role, content: String(m.content || '') });
+      }
+    }
+    return result;
+  }
+
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -222,7 +239,7 @@ exports.handler = async (event) => {
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 700,
         system: buildSystem(disc, months),
-        messages
+        messages: normalizeMessages(messages)
       })
     });
 

@@ -240,26 +240,46 @@ ${TAXONOMY_FINAL_ANALYSIS_QUESTIONS}
 Return ONLY valid JSON. No markdown. No preamble. No trailing text.`;
 }
 
+// Strips all candidate-private content before passing to manager-safe AI.
+// Only area outcomes, gap type labels, and the sensitive disclosure flag are shared —
+// no evidence text, summaries, quotes, or per-question narratives.
+function buildManagerSafeInput(report) {
+  return {
+    schemaVersion: report.schemaVersion,
+    areaOutcomes: (report.areas || []).map(a => ({
+      id: a.id,
+      name: a.name,
+      outcome: a.outcome,
+      exposureConfirmation: a.exposureConfirmation
+    })),
+    developmentPriorities: (report.developmentPriorities || []).map(p => ({
+      rank: p.rank,
+      area: p.area,
+      gapType: p.gapType
+    })),
+    sensitiveDisclosureFlag: report.sensitiveDisclosureFlag || false
+  };
+}
+
 const MANAGER_SAFE_SYSTEM = `You are Michael, generating a Manager Development Summary for the GCAi Professional Readiness Benchmark.
 
 ## Your task
-You have access to a candidate's Professional Readiness Report. Generate a Manager Development Summary that:
+You have received a structured summary of a candidate's Professional Readiness outcomes — area-level results and development gap categories only. No candidate quotes, personal reflections, specific anecdotes, or private evidence are included in what you have received.
+
+Generate a Manager Development Summary that:
 - Gives the manager useful, actionable insight to support the candidate's professional development
-- Does NOT include any of the candidate's specific statements, quotes, or private reflections verbatim
-- Does NOT reveal the candidate's individual answers to any questions
-- Translates development findings into insight the manager can act on
+- Translates development gap categories into insight the manager can act on
+- Uses only the area outcomes and gap type labels provided — do not invent or infer specific candidate statements
 
 ## Privacy boundary — strictly enforced
-Do not include:
-- Any direct or paraphrased quotes from the candidate's responses
+You have not been given, and must not attempt to reconstruct:
+- Any specific statement, quote, or reflection from the candidate
 - Any specific anecdote or situation the candidate described
-- Any reference to the candidate's private reasoning or feelings
-- The candidate's own words in any form
-- Any reference to accommodation history, specific accommodation types used (rephrase, clarify, example, uncertain flag), provenance records, or teaching intervention details
-- Any indication of how the candidate interacted with the help panel or accommodations during the Benchmark
+- Any reference to accommodation history, provenance records, or teaching intervention details
+- Any reference to how the candidate interacted with the Benchmark
 
 You may include:
-- Development theme summaries (e.g., "there is a development opportunity around escalation judgement")
+- Development theme summaries derived from gap type labels (e.g., "there is a development opportunity around escalation judgement")
 - Area-level outcomes
 - Conversation prompts and suggested actions for the manager
 
@@ -516,7 +536,7 @@ exports.handler = async (event) => {
       managerSafe = await callAnthropic(
         apiKey,
         MANAGER_SAFE_SYSTEM,
-        [{ role: 'user', content: `Generate the Manager Development Summary based on this candidate Professional Readiness Report:\n\n${JSON.stringify(report, null, 2)}` }],
+        [{ role: 'user', content: `Generate the Manager Development Summary from this candidate outcome summary:\n\n${JSON.stringify(buildManagerSafeInput(report), null, 2)}` }],
         2000
       );
     } catch (e) {

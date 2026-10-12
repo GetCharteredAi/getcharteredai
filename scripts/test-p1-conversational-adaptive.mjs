@@ -309,6 +309,68 @@ ok('check-question response is pushed to messages for report evaluation',
     return checkBlock.includes("messages.push({ role: 'user', content: responseText })");
   })());
 
+// ─── Section 12: Data minimization — manager-safe stripped input ─────────────
+console.log('\n12. Data minimization — manager-safe receives stripped input only');
+
+ok('buildManagerSafeInput function defined in p1-generate-report-background.js',
+  reportBg.includes('function buildManagerSafeInput'));
+
+ok('buildManagerSafeInput strips evidence field from areas',
+  (() => {
+    const fn = reportBg.match(/function buildManagerSafeInput\(report\)[\s\S]*?^}/m);
+    if (!fn) return false;
+    return !fn[0].includes('evidence') && fn[0].includes('outcome');
+  })());
+
+ok('buildManagerSafeInput strips overallSummary',
+  (() => {
+    const fn = reportBg.match(/function buildManagerSafeInput\(report\)[\s\S]*?^}/m);
+    if (!fn) return false;
+    return !fn[0].includes('overallSummary');
+  })());
+
+ok('buildManagerSafeInput strips demonstratedStrengths',
+  (() => {
+    const fn = reportBg.match(/function buildManagerSafeInput\(report\)[\s\S]*?^}/m);
+    if (!fn) return false;
+    return !fn[0].includes('demonstratedStrengths');
+  })());
+
+ok('buildManagerSafeInput strips candidateActions',
+  (() => {
+    const fn = reportBg.match(/function buildManagerSafeInput\(report\)[\s\S]*?^}/m);
+    if (!fn) return false;
+    return !fn[0].includes('candidateActions');
+  })());
+
+ok('buildManagerSafeInput retains area outcomes and exposureConfirmation',
+  (() => {
+    const fn = reportBg.match(/function buildManagerSafeInput\(report\)[\s\S]*?^}/m);
+    if (!fn) return false;
+    return fn[0].includes('outcome') && fn[0].includes('exposureConfirmation');
+  })());
+
+ok('buildManagerSafeInput retains development priority rank, area, gapType — no narrative text',
+  (() => {
+    const fn = reportBg.match(/function buildManagerSafeInput\(report\)[\s\S]*?^}/m);
+    if (!fn) return false;
+    return fn[0].includes('gapType') && fn[0].includes('rank') &&
+           !fn[0].includes('developmentAction') && !fn[0].includes('.why');
+  })());
+
+ok('Manager-safe call uses buildManagerSafeInput (not full report)',
+  (() => {
+    const callIdx = reportBg.indexOf('Generate the Manager Development Summary');
+    // Template literal: "...Summary from this candidate outcome summary:\n\n${JSON.stringify(buildManagerSafeInput(report)..."
+    // buildManagerSafeInput appears AFTER the text, so search forward
+    const surrounding = reportBg.slice(callIdx, callIdx + 300);
+    return surrounding.includes('buildManagerSafeInput(report)') &&
+           !surrounding.match(/JSON\.stringify\(\s*report\s*[,)]/);
+  })());
+
+ok('MANAGER_SAFE_SYSTEM explains stripped input (no inference from candidate statements)',
+  reportBg.includes('No candidate quotes') || reportBg.includes('do not invent or infer specific candidate statements'));
+
 // ─── Summary ──────────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(50)}`);
 console.log(`Results: ${passed} passed, ${failed} failed`);

@@ -2,10 +2,9 @@
  * Live AI acceptance test for P1 conversational accommodations.
  * Tests actual Michael responses from the Netlify preview's p1-tutor function.
  *
- * Requires JWT_SECRET env var (signs candidate tokens — no Blobs session needed).
- * Usage:
- *   JWT_SECRET=<secret> node scripts/test-p1-live-ai.mjs
- *   JWT_SECRET=<secret> P1_BASE_URL=https://deploy-preview-13--getcharteredai.netlify.app node scripts/test-p1-live-ai.mjs
+ * Requires JWT_SECRET (already in .env — no secrets needed in the terminal).
+ * Secure usage:
+ *   ! node --env-file=.env scripts/test-p1-live-ai.mjs
  */
 
 import { createHmac } from 'crypto';
@@ -14,8 +13,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const BASE_URL = process.env.P1_BASE_URL || 'https://deploy-preview-13--getcharteredai.netlify.app';
 
 if (!JWT_SECRET) {
-  console.error('\nERROR: JWT_SECRET env var required.');
-  console.error('Run: JWT_SECRET=<secret> node scripts/test-p1-live-ai.mjs\n');
+  console.error('\nERROR: JWT_SECRET not found. Run: node --env-file=.env scripts/test-p1-live-ai.mjs\n');
   process.exit(1);
 }
 

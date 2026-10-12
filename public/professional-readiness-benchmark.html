@@ -397,6 +397,9 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
         <p class="arev-sub" id="report-subheading">Professional Readiness Benchmark</p>
       </div>
       <div id="report-content"></div>
+      <div style="text-align:center;margin-top:20px;padding-top:16px;border-top:1px solid #e2e8f0">
+        <button class="arev-btn-secondary" onclick="if(sessionData){renderHome(sessionData);show('home');}">← Back to overview</button>
+      </div>
     </div>
 
     <!-- Employer status -->
@@ -837,7 +840,7 @@ function renderHome(data) {
 
   const reportPendingDesc = (() => {
     if (s === 'candidate-complete') return 'Generating your report — this takes up to 60 seconds';
-    if (s === 'awaiting-manager') return 'Waiting for your manager\'s perspective before your development summary is prepared';
+    if (s === 'awaiting-manager') return 'Your Benchmark report is ready — your development summary will follow once your manager has responded';
     if (['manager-complete','synthesising'].includes(s)) {
       if (data.synthesisJobFailed) return 'We weren\'t able to prepare your development summary automatically — please contact info@getcharteredai.com.';
       return 'Manager has responded — preparing your development summary';
@@ -866,7 +869,11 @@ function renderHome(data) {
       done: reportReady,
       active: reportReady,
       pending: reportPending,
-      cta: reportReady ? `<button class="p1-home-cta" onclick="renderReport(sessionData.report);renderCandidateDevelopment(sessionData);show('candidate-development')">View my report →</button>` : null
+      cta: reportReady
+        ? `<button class="p1-home-cta" onclick="renderReport(sessionData.report);renderCandidateDevelopment(sessionData);show('candidate-development')">View my report →</button>`
+        : (hasReport && ['awaiting-manager', 'manager-complete', 'synthesising'].includes(s)
+            ? `<button class="p1-home-cta" onclick="renderReport(sessionData.report);show('report')">View your Benchmark report →</button>`
+            : null)
     },
     {
       title: 'Your Development Priorities',
@@ -1000,9 +1007,11 @@ async function init() {
     if (data.role === 'candidate') {
       contextAnswers.discipline = data.discipline || '';
       contextAnswers.monthsInRole = data.monthsInRole || 0;
-      // Fix 1d: If candidate already has a completed report (candidate-complete means report was generated
-      // but page may have been reloaded mid-poll), jump directly to the report screen to recover the session.
-      if (data.status === 'candidate-complete' && data.report) {
+      // Show private Benchmark report for all post-benchmark statuses where the report exists.
+      // Status moves from candidate-complete to awaiting-manager once the background function
+      // completes and invites the manager; checking only candidate-complete misses this.
+      const postBenchmarkWithReport = ['candidate-complete', 'awaiting-manager', 'manager-complete', 'synthesising'];
+      if (postBenchmarkWithReport.includes(data.status) && data.report) {
         renderReport(data.report);
         show('report');
         return;

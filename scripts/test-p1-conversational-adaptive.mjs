@@ -444,6 +444,18 @@ ok('renderReport in HTML handles readiness-picture-v1 schema (areaOutcomes)',
 ok('renderReportLegacy fallback defined in HTML for old report.areas schema',
   html.includes('renderReportLegacy'));
 
+ok('session recovery shows report for awaiting-manager status (not just candidate-complete)',
+  (() => {
+    const recoverMatch = html.match(/postBenchmarkWithReport\s*=\s*\[([^\]]+)\]/);
+    if (!recoverMatch) return false;
+    const list = recoverMatch[1];
+    return list.includes('awaiting-manager') && list.includes('candidate-complete');
+  })());
+
+ok('home dashboard shows View Benchmark report CTA when awaiting-manager and report present',
+  html.includes("'awaiting-manager', 'manager-complete', 'synthesising'") &&
+  html.includes("View your Benchmark report"));
+
 // ─── Section 15: Consecutive-message normalization ────────────────────────────
 console.log('\n15. Consecutive-message normalization — api_error root cause fix');
 

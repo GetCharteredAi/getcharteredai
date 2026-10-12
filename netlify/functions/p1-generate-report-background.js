@@ -64,8 +64,10 @@ const GOVERNING_RULES = `## Governing calibration rules
 7. "Proactive" must be interpreted relative to stage, authority and opportunity.
 8. Months in role calibrates expectation; it does not replace professional judgement.`;
 
-function buildReportSystem(discipline, monthsInRole, recognitionResults) {
+function buildReportSystem(discipline, monthsInRole, recognitionResults, skippedQuestions, questionProvenance) {
   const rr = recognitionResults || {};
+  const sq = skippedQuestions || [];
+  const qp = questionProvenance || {};
   const exposureLines = [
     [1, 'Professional Behaviour & Responsibility'],
     [2, 'Communication & Working With Others'],
@@ -73,6 +75,21 @@ function buildReportSystem(discipline, monthsInRole, recognitionResults) {
     [4, 'Judgement, Help & Escalation'],
     [5, 'Feedback, Reflection & Development']
   ].map(([id, name]) => `Area ${id} – ${name}: ${rr[id] || 'not-assessed'}`).join('\n');
+
+  const skippedLine = sq.length
+    ? sq.map(i => `Q${i + 1}`).join(', ')
+    : 'none';
+
+  // Area question index ranges (0-based)
+  const AREA_Q_RANGES = { 1: [0,1,2,3], 2: [4,5,6,7], 3: [8,9,10], 4: [11,12], 5: [13,14] };
+  const provenanceLines = Object.entries(AREA_Q_RANGES).map(([areaId, qIdxs]) => {
+    const notes = qIdxs.map(i => {
+      const p = qp[i];
+      if (!p) return null;
+      return `Q${i + 1}: ${p}`;
+    }).filter(Boolean);
+    return notes.length ? `Area ${areaId}: ${notes.join('; ')}` : null;
+  }).filter(Boolean).join('\n') || 'No accommodation notes recorded.';
 
   return `You are Michael, generating a Professional Readiness Report for the GCAi Professional Readiness Benchmark.
 
@@ -104,9 +121,20 @@ confirmed-lack-of-exposure — candidate explicitly stated the relevant opportun
 relevant-exposure-identified — candidate confirmed relevant experience or opportunity exists; assess capability from the evidence provided
 not-assessed — no recognition interaction occurred for this area; make no exposure inference
 
-Hard rule: NOT YET ENOUGH EXPOSURE may only be assigned where exposureConfirmation is confirmed-lack-of-exposure. For relevant-exposure-identified or not-assessed, any of ON TRACK, DEVELOPING, or SUPPORT WOULD HELP is valid — only NOT YET ENOUGH EXPOSURE is prohibited.
+Hard rule: NOT YET ENOUGH EXPOSURE may only be assigned where exposureConfirmation is confirmed-lack-of-exposure. For relevant-exposure-identified or not-assessed, any of ON TRACK, DEVELOPING, or SUPPORT WOULD HELP is valid — only NOT YET ENOUGH EXPOSURE is prohibited. NOT ASSESSED is also excluded from this guard — let it pass through.
 
 Set exposureConfirmation on every area object to its value from the table above. Do not alter these values.
+
+## Skipped questions
+The following question indices were skipped by the candidate: ${skippedLine}
+
+If all questions for an area were skipped, the area outcome must be NOT ASSESSED — not NOT YET ENOUGH EXPOSURE. NOT ASSESSED means the candidate chose not to answer; it carries no capability signal. Do not describe it as a weakness or development need.
+
+## Provenance notes
+The following records which questions involved teaching moments or accommodations:
+${provenanceLines}
+
+Use these notes to inform report language where relevant — e.g. "development potential emerged after discussion" rather than "independently demonstrated" where provenance is after-teaching. Do not explicitly describe the accommodation process in the report body.
 
 ## Five assessment areas
 1. Professional Behaviour & Responsibility (Q1–Q4)
@@ -117,11 +145,12 @@ Set exposureConfirmation on every area object to its value from the table above.
 
 Interpret patterns holistically across each area. Do NOT calculate readiness by averaging.
 
-## Canonical outcome labels (use ONLY these four)
+## Canonical outcome labels (use ONLY these five)
 ON TRACK — evidence indicates appropriate progress for this stage
 DEVELOPING — capability is emerging; further practice, experience or development is needed
 SUPPORT WOULD HELP — a meaningful gap requires action; proactive support recommended
 NOT YET ENOUGH EXPOSURE — the candidate has not had sufficient opportunity; capability cannot be assessed. Only valid where exposureConfirmation is confirmed-lack-of-exposure.
+NOT ASSESSED — the candidate chose not to answer all questions in this area. It carries no capability signal. Do not describe it as a weakness, development need, or exposure gap. NOT ASSESSED is distinct from NOT YET ENOUGH EXPOSURE. Do not include NOT ASSESSED areas in development priorities.
 
 Every outcome must be supported by specific evidence from the candidate's actual responses.
 NOT YET ENOUGH EXPOSURE requires confirmed-lack-of-exposure. It must never be used for relevant-exposure-identified or not-assessed areas.
@@ -137,7 +166,7 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
     {
       "id": 1,
       "name": "Professional Behaviour & Responsibility",
-      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE",
+      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED",
       "evidence": "<what the candidate demonstrated, with specific reference to their responses>",
       "developmentNeed": "<what is missing or needs further work>",
       "conclusion": "<one sentence reason for this outcome>",
@@ -146,7 +175,7 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
     {
       "id": 2,
       "name": "Communication & Working With Others",
-      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE",
+      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED",
       "evidence": "<string>",
       "developmentNeed": "<string>",
       "conclusion": "<string>",
@@ -155,7 +184,7 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
     {
       "id": 3,
       "name": "Learning & Applying Knowledge",
-      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE",
+      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED",
       "evidence": "<string>",
       "developmentNeed": "<string>",
       "conclusion": "<string>",
@@ -164,7 +193,7 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
     {
       "id": 4,
       "name": "Judgement, Help & Escalation",
-      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE",
+      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED",
       "evidence": "<string>",
       "developmentNeed": "<string>",
       "conclusion": "<string>",
@@ -173,7 +202,7 @@ If any response suggests a safeguarding concern, serious workplace harm, or pers
     {
       "id": 5,
       "name": "Feedback, Reflection & Development",
-      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE",
+      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED",
       "evidence": "<string>",
       "developmentNeed": "<string>",
       "conclusion": "<string>",
@@ -211,36 +240,61 @@ ${TAXONOMY_FINAL_ANALYSIS_QUESTIONS}
 Return ONLY valid JSON. No markdown. No preamble. No trailing text.`;
 }
 
+// Strips all candidate-private content before passing to manager-safe AI.
+// Only area outcomes, gap type labels, and the sensitive disclosure flag are shared —
+// no evidence text, summaries, quotes, or per-question narratives.
+function buildManagerSafeInput(report) {
+  return {
+    schemaVersion: report.schemaVersion,
+    areaOutcomes: (report.areas || []).map(a => ({
+      id: a.id,
+      name: a.name,
+      outcome: a.outcome,
+      exposureConfirmation: a.exposureConfirmation
+    })),
+    developmentPriorities: (report.developmentPriorities || []).map(p => ({
+      rank: p.rank,
+      area: p.area,
+      gapType: p.gapType
+    })),
+    sensitiveDisclosureFlag: report.sensitiveDisclosureFlag || false
+  };
+}
+
 const MANAGER_SAFE_SYSTEM = `You are Michael, generating a Manager Development Summary for the GCAi Professional Readiness Benchmark.
 
 ## Your task
-You have access to a candidate's Professional Readiness Report. Generate a Manager Development Summary that:
+You have received a structured summary of a candidate's Professional Readiness outcomes — area-level results and development gap categories only. No candidate quotes, personal reflections, specific anecdotes, or private evidence are included in what you have received.
+
+Generate a Manager Development Summary that:
 - Gives the manager useful, actionable insight to support the candidate's professional development
-- Does NOT include any of the candidate's specific statements, quotes, or private reflections verbatim
-- Does NOT reveal the candidate's individual answers to any questions
-- Translates development findings into insight the manager can act on
+- Translates development gap categories into insight the manager can act on
+- Uses only the area outcomes and gap type labels provided — do not invent or infer specific candidate statements
 
 ## Privacy boundary — strictly enforced
-Do not include:
-- Any direct or paraphrased quotes from the candidate's responses
+You have not been given, and must not attempt to reconstruct:
+- Any specific statement, quote, or reflection from the candidate
 - Any specific anecdote or situation the candidate described
-- Any reference to the candidate's private reasoning or feelings
-- The candidate's own words in any form
+- Any reference to accommodation history, provenance records, or teaching intervention details
+- Any reference to how the candidate interacted with the Benchmark
 
 You may include:
-- Development theme summaries (e.g., "there is a development opportunity around escalation judgement")
+- Development theme summaries derived from gap type labels (e.g., "there is a development opportunity around escalation judgement")
 - Area-level outcomes
 - Conversation prompts and suggested actions for the manager
+
+## NOT ASSESSED areas
+If an area outcome is NOT ASSESSED, this means the candidate chose not to answer those questions. Do not describe it as a weakness, development need, or exposure gap. Do not include NOT ASSESSED areas in development priorities. Do not flag NOT ASSESSED to the manager as a concern.
 
 ## Output schema
 {
   "schemaVersion": "benchmark-v1",
   "areaStatuses": [
-    { "id": 1, "name": "Professional Behaviour & Responsibility", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE" },
-    { "id": 2, "name": "Communication & Working With Others", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE" },
-    { "id": 3, "name": "Learning & Applying Knowledge", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE" },
-    { "id": 4, "name": "Judgement, Help & Escalation", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE" },
-    { "id": 5, "name": "Feedback, Reflection & Development", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE" }
+    { "id": 1, "name": "Professional Behaviour & Responsibility", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED" },
+    { "id": 2, "name": "Communication & Working With Others", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED" },
+    { "id": 3, "name": "Learning & Applying Knowledge", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED" },
+    { "id": 4, "name": "Judgement, Help & Escalation", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED" },
+    { "id": 5, "name": "Feedback, Reflection & Development", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED" }
   ],
   "developmentThemes": ["<key development theme — no candidate quotes>"],
   "suggestedConversationPoints": ["<discussion prompt for a development conversation with the candidate>"],
@@ -378,11 +432,13 @@ exports.handler = async (event) => {
     const monthsInRole = contextAnswers?.monthsInRole ?? meta.monthsInRole ?? 0;
     const recognitionResults = contextAnswers?.recognitionResults ||
       { 1: 'not-assessed', 2: 'not-assessed', 3: 'not-assessed', 4: 'not-assessed', 5: 'not-assessed' };
+    const questionProvenance = contextAnswers?.questionProvenance || {};
+    const skippedQuestions = contextAnswers?.skippedQuestions || [];
 
     // ── Step 1: Generate candidate report ────────────────────────────────────
     let report;
     try {
-      report = await callAnthropic(apiKey, buildReportSystem(discipline, monthsInRole, recognitionResults), messages, 4000);
+      report = await callAnthropic(apiKey, buildReportSystem(discipline, monthsInRole, recognitionResults, skippedQuestions, questionProvenance), messages, 4000);
     } catch (e) {
       console.error('[p1-report-bg] Report generation failed:', e.message);
       await sessionStore.setJSON(jobKey, { status: 'failed', runToken, error: 'ai_error', failedAt: Date.now() });
@@ -399,6 +455,8 @@ exports.handler = async (event) => {
     };
     for (let i = 0; i < (report.areas || []).length; i++) {
       const area = report.areas[i];
+      // Skip repair for NOT ASSESSED — that outcome is legitimate (all questions skipped)
+      if (area.outcome === 'NOT ASSESSED') continue;
       if (area.outcome === 'NOT YET ENOUGH EXPOSURE' && recognitionResults[area.id] !== 'confirmed-lack-of-exposure') {
         console.warn(`[p1-report-bg] Invalid NOT YET ENOUGH EXPOSURE for area ${area.id} (${area.name}) — exposure: ${recognitionResults[area.id]}. Running repair.`);
         try {
@@ -422,6 +480,8 @@ exports.handler = async (event) => {
       schemaVersion: 'benchmark-v1',
       report,
       contextAnswers: contextAnswers || { discipline, monthsInRole },
+      questionProvenance,
+      skippedQuestions,
       savedAt: Date.now()
     };
     await sessionStore.setJSON(`${sessionId}/candidate-private`, privateData);
@@ -476,7 +536,7 @@ exports.handler = async (event) => {
       managerSafe = await callAnthropic(
         apiKey,
         MANAGER_SAFE_SYSTEM,
-        [{ role: 'user', content: `Generate the Manager Development Summary based on this candidate Professional Readiness Report:\n\n${JSON.stringify(report, null, 2)}` }],
+        [{ role: 'user', content: `Generate the Manager Development Summary from this candidate outcome summary:\n\n${JSON.stringify(buildManagerSafeInput(report), null, 2)}` }],
         2000
       );
     } catch (e) {

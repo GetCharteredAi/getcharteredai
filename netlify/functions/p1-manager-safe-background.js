@@ -25,21 +25,25 @@ Do not include:
 - Any specific anecdote or situation the candidate described
 - Any reference to the candidate's private reasoning or feelings
 - The candidate's own words in any form
+- Any reference to accommodation history, specific accommodation types used, provenance records, or teaching intervention details
 
 You may include:
 - Development theme summaries (e.g., "there is a development opportunity around escalation judgement")
 - Area-level outcomes
 - Conversation prompts and suggested actions for the manager
 
+## NOT ASSESSED areas
+If an area outcome is NOT ASSESSED, this means the candidate chose not to answer those questions. Do not describe it as a weakness, development need, or exposure gap. Do not include NOT ASSESSED areas in development priorities. Do not flag NOT ASSESSED to the manager as a concern.
+
 ## Output schema
 {
   "schemaVersion": "benchmark-v1",
   "areaStatuses": [
-    { "id": 1, "name": "Professional Behaviour & Responsibility", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE" },
-    { "id": 2, "name": "Communication & Working With Others", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE" },
-    { "id": 3, "name": "Learning & Applying Knowledge", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE" },
-    { "id": 4, "name": "Judgement, Help & Escalation", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE" },
-    { "id": 5, "name": "Feedback, Reflection & Development", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE" }
+    { "id": 1, "name": "Professional Behaviour & Responsibility", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED" },
+    { "id": 2, "name": "Communication & Working With Others", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED" },
+    { "id": 3, "name": "Learning & Applying Knowledge", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED" },
+    { "id": 4, "name": "Judgement, Help & Escalation", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED" },
+    { "id": 5, "name": "Feedback, Reflection & Development", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED" }
   ],
   "developmentThemes": ["<key development theme — no candidate quotes>"],
   "suggestedConversationPoints": ["<discussion prompt for a development conversation with the candidate>"],

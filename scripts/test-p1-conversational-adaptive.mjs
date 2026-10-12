@@ -456,6 +456,12 @@ ok('home dashboard shows View Benchmark report CTA when awaiting-manager and rep
   html.includes("'awaiting-manager', 'manager-complete', 'synthesising'") &&
   html.includes("View your Benchmark report"));
 
+ok('report system prompt uses second-person you/your language instruction',
+  reportBg.includes('you/your') && reportBg.includes('second-person'));
+
+ok('overview schema description uses you/your example to direct second-person output',
+  reportBg.includes("you/your") && reportBg.includes("'you/your'") || reportBg.includes('"you/your"') || reportBg.includes('you are demonstrating'));
+
 // ─── Section 15: Consecutive-message normalization ────────────────────────────
 console.log('\n15. Consecutive-message normalization — api_error root cause fix');
 

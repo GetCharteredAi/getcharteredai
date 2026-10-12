@@ -169,7 +169,7 @@ A capability may only appear in strengths when the candidate demonstrated it ind
 ## Report structure — output this JSON exactly
 {
   "schemaVersion": "readiness-picture-v1",
-  "overview": "<2-3 sentences: an honest, evidence-led picture of this candidate's professional readiness at this stage. Warm and direct — no generic praise, no hedging. Ground every claim in what was actually shown.>",
+  "overview": "<2-3 sentences addressed directly to the candidate using you/your. An honest, evidence-led picture of their professional readiness at this stage. Warm and direct — no generic praise, no hedging. Ground every claim in what was actually shown. Example tone: 'Three months in, you are demonstrating...' not 'This candidate demonstrates...'>"  ,
   "strengths": [
     "<strength 1 — 1 sentence, grounded in independently demonstrated evidence>",
     "<strength 2 — only include if evidence independently supports a second strength>"
@@ -211,6 +211,8 @@ Do not describe this review as a formal assessment, professional certification, 
 Where you reference current legislation, regulation or professional guidance, use only GCAi-approved current-awareness content. Do not invent specific current factual examples.
 
 ## Reporting language
+Address the candidate directly throughout using second-person language (you/your). The overview, strengths, developmentFocus focus sentences, nextActions, and conversationPrompt must all use "you" or "your" — never "the candidate", "they", or "this candidate".
+
 ${TAXONOMY_REPORTING_PRINCIPLE}
 
 ## Final analysis

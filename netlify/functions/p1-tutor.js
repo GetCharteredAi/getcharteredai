@@ -1,5 +1,5 @@
 // netlify/functions/p1-tutor.js
-// Michael tutor for the Professional Readiness Benchmark 15-question reflection.
+// Michael — conversational tutor for the Professional Readiness Benchmark 15-question reflection.
 // POST { token, messages, discipline, monthsInRole }
 
 const HEADERS = {

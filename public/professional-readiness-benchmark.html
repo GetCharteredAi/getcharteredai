@@ -153,10 +153,21 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 .p1-home-cta{background:#2563EB;color:#fff;border:none;padding:8px 16px;border-radius:7px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;transition:.18s;display:inline-block}
 .p1-home-cta:hover{background:#1d4ed8}
 /* Privacy cards */
-.p1-privacy-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px}
+.p1-privacy-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px}
+@media(min-width:640px){.p1-privacy-grid{grid-template-columns:1fr 1fr 1fr}}
+/* Privacy screen container */
+.p1-privacy-container{max-width:720px;margin:0 auto;padding:48px 24px}
+.p1-privacy-heading{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:22px;font-weight:700;color:#0D0F1C;margin-top:0;margin-bottom:20px;text-align:center}
+.p1-privacy-card{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+/* Priority select */
+.p1-priority-select-label{display:flex;align-items:center;gap:12px;padding:16px 20px;border:1.5px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:.15s;font-size:16px;color:#0D0F1C}
+.p1-priority-select-label:hover{border-color:#3d5afe}
+.p1-priority-select-label input:checked ~ span{font-weight:600}
+.p1-priority-select-label:has(input:checked){border-color:#3d5afe;background:#f0f4ff}
+.p1-priority-select-col{max-width:600px;margin:0 auto}
 @media(max-width:900px){nav{padding:0 20px}.sec{padding:60px 20px}.hero{padding:72px 20px 60px}.areas-grid{grid-template-columns:repeat(3,1fr)}footer{padding:32px 20px 24px}}
 .p1-mgr-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-@media(max-width:600px){.areas-grid{grid-template-columns:1fr 1fr}.p1-privacy-grid{grid-template-columns:1fr}.p1-mgr-cards{grid-template-columns:1fr}}
+@media(max-width:600px){.areas-grid{grid-template-columns:1fr 1fr}.p1-mgr-cards{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -273,34 +284,36 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
     <!-- Privacy -->
     <div id="state-privacy" style="display:none">
-      <div style="background:#0D0F1C;border-radius:14px;padding:20px;margin-bottom:20px;position:relative;overflow:hidden">
-        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(37,99,235,.14) 0%,transparent 65%);pointer-events:none"></div>
-        <div style="position:relative;text-align:center">
-          <div style="display:inline-flex;align-items:center;gap:7px;margin-bottom:10px">
-            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M8 1L2 3.5v4c0 3.3 2.5 6.4 6 7.1 3.5-.7 6-3.8 6-7.1v-4L8 1z" fill="#f59e0b"/></svg>
-            <span style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b">Before you begin</span>
+      <div class="p1-privacy-container">
+        <div style="background:#0D0F1C;border-radius:14px;padding:20px;margin-bottom:20px;position:relative;overflow:hidden">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(37,99,235,.14) 0%,transparent 65%);pointer-events:none"></div>
+          <div style="position:relative;text-align:center">
+            <div style="display:inline-flex;align-items:center;gap:7px;margin-bottom:10px">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M8 1L2 3.5v4c0 3.3 2.5 6.4 6 7.1 3.5-.7 6-3.8 6-7.1v-4L8 1z" fill="#f59e0b"/></svg>
+              <span style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b">Before you begin</span>
+            </div>
+            <h2 class="p1-privacy-heading" style="color:#fff">Your reflection is yours</h2>
           </div>
-          <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2">Your reflection is yours</div>
         </div>
-      </div>
-      <div class="p1-privacy-grid" style="gap:10px;margin-bottom:0">
-        <div style="background:#f0f6ff;border:1px solid #bfdbfe;border-left:3px solid #2563EB;border-radius:10px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#0D0F1C;margin-bottom:6px">Private reflection</div>
-          <div style="font-size:13px;color:#64748b;line-height:1.6">Your individual answers, reasoning and examples remain private.</div>
-          <div style="font-size:12px;color:#94a3b8;margin-top:4px">They are not shared with your employer.</div>
+        <div class="p1-privacy-grid" style="gap:10px;margin-bottom:0">
+          <div class="p1-privacy-card" style="background:#f0f6ff;border:1px solid #bfdbfe;border-left:3px solid #2563EB">
+            <div style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:8px">Private reflection</div>
+            <div style="font-size:17px;color:#475569;line-height:1.75">Your individual answers, reasoning and examples remain private.</div>
+            <div style="font-size:14px;color:#94a3b8;margin-top:6px">They are not shared with your employer.</div>
+          </div>
+          <div class="p1-privacy-card" style="background:#fffbeb;border:1px solid #fde68a;border-left:3px solid #d97706">
+            <div style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:8px">A useful development conversation</div>
+            <div style="font-size:17px;color:#475569;line-height:1.75">Your manager receives themes and prompts to help support the conversation — not your individual responses.</div>
+          </div>
+          <div class="p1-privacy-card" style="background:#f0fdf4;border:1px solid #bbf7d0;border-left:3px solid #059669">
+            <div style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:8px">No pass or fail</div>
+            <div style="font-size:17px;color:#475569;line-height:1.75">This is a development tool, not a performance assessment.</div>
+          </div>
         </div>
-        <div style="background:#fffbeb;border:1px solid #fde68a;border-left:3px solid #d97706;border-radius:10px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#0D0F1C;margin-bottom:6px">A useful development conversation</div>
-          <div style="font-size:13px;color:#64748b;line-height:1.6">Your manager receives themes and prompts to help support the conversation — not your individual responses.</div>
+        <p style="font-size:15px;color:#94a3b8;text-align:center;margin-top:20px;margin-bottom:24px;line-height:1.75">Answer based on where you are today. There are no right answers.</p>
+        <div style="text-align:center">
+          <button class="arev-btn-primary" onclick="goToContext()" style="width:fit-content;padding:12px 36px">Begin my Benchmark →</button>
         </div>
-        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-left:3px solid #059669;border-radius:10px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#0D0F1C;margin-bottom:6px">No pass or fail</div>
-          <div style="font-size:13px;color:#64748b;line-height:1.6">This is a development tool, not a performance assessment.</div>
-        </div>
-      </div>
-      <p style="font-size:13px;color:#94a3b8;text-align:center;margin-top:16px;margin-bottom:20px;line-height:1.5">Answer based on where you are today. There are no right answers.</p>
-      <div style="text-align:center">
-        <button class="arev-btn-primary" onclick="goToContext()" style="width:fit-content;padding:12px 36px">Begin my Benchmark →</button>
       </div>
     </div>
 
@@ -366,9 +379,13 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       <div style="text-align:center;padding:40px 0">
         <div class="arev-michael-icon">📊</div>
         <div class="arev-heading">Generating your report</div>
-        <p class="arev-sub">Michael is reviewing your responses across the five areas. This usually takes 30–60 seconds.</p>
+        <p class="arev-sub">Michael is reviewing your responses and preparing your Professional Readiness Picture. This may take a few minutes.</p>
         <div class="arev-dots" style="margin-top:24px"><div class="arev-dot"></div><div class="arev-dot"></div><div class="arev-dot"></div></div>
         <p style="font-size:12px;color:#94a3b8;margin-top:20px" id="generating-status-text">Analysing your reflection…</p>
+        <div id="generating-failed-ui" style="display:none;margin-top:20px">
+          <p id="generating-failed-msg" style="font-size:14px;color:#64748b;line-height:1.7;margin-bottom:16px"></p>
+          <button id="generating-retry-btn" class="arev-btn-primary" style="width:fit-content;padding:12px 28px" onclick="retryGenerateReport()">Try again →</button>
+        </div>
       </div>
     </div>
 
@@ -391,35 +408,41 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
     <!-- Candidate priority selection -->
     <div id="state-priority-select" style="display:none">
-      <div style="margin-bottom:24px;text-align:center">
-        <div class="arev-heading">One final question</div>
-        <p class="arev-sub">Looking across the five areas, which would you most like to improve over the next few months?</p>
-      </div>
-      <div id="priority-select-options" style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
-        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
-          <input type="radio" name="candidatePriority" value="Professional Behaviour &amp; Responsibility" style="flex-shrink:0">
-          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Professional Behaviour &amp; Responsibility</span>
-        </label>
-        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
-          <input type="radio" name="candidatePriority" value="Communication &amp; Working With Others" style="flex-shrink:0">
-          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Communication &amp; Working With Others</span>
-        </label>
-        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
-          <input type="radio" name="candidatePriority" value="Learning &amp; Applying Knowledge" style="flex-shrink:0">
-          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Learning &amp; Applying Knowledge</span>
-        </label>
-        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
-          <input type="radio" name="candidatePriority" value="Judgement, Help &amp; Escalation" style="flex-shrink:0">
-          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Judgement, Help &amp; Escalation</span>
-        </label>
-        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
-          <input type="radio" name="candidatePriority" value="Feedback, Reflection &amp; Development" style="flex-shrink:0">
-          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Feedback, Reflection &amp; Development</span>
-        </label>
-      </div>
-      <p id="priority-select-err" style="display:none;font-size:13px;color:#ef4444;margin-bottom:12px">Please select an area to continue.</p>
-      <div class="arev-actions">
-        <button class="arev-btn-primary" onclick="confirmPrioritySelection()">Continue to report →</button>
+      <div class="p1-priority-select-col">
+        <div style="margin-bottom:24px;text-align:center">
+          <div class="arev-heading">One final question</div>
+          <p class="arev-sub" style="font-size:17px">Looking across the five areas, which would you most like to develop over the next few months? Select up to three.</p>
+        </div>
+        <div id="priority-select-options" style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+          <label class="p1-priority-select-label">
+            <input type="checkbox" name="candidatePriority" value="Professional Behaviour &amp; Responsibility" style="flex-shrink:0;width:18px;height:18px">
+            <span>Professional Behaviour &amp; Responsibility</span>
+          </label>
+          <label class="p1-priority-select-label">
+            <input type="checkbox" name="candidatePriority" value="Communication &amp; Working With Others" style="flex-shrink:0;width:18px;height:18px">
+            <span>Communication &amp; Working With Others</span>
+          </label>
+          <label class="p1-priority-select-label">
+            <input type="checkbox" name="candidatePriority" value="Learning &amp; Applying Knowledge" style="flex-shrink:0;width:18px;height:18px">
+            <span>Learning &amp; Applying Knowledge</span>
+          </label>
+          <label class="p1-priority-select-label">
+            <input type="checkbox" name="candidatePriority" value="Judgement, Help &amp; Escalation" style="flex-shrink:0;width:18px;height:18px">
+            <span>Judgement, Help &amp; Escalation</span>
+          </label>
+          <label class="p1-priority-select-label">
+            <input type="checkbox" name="candidatePriority" value="Feedback, Reflection &amp; Development" style="flex-shrink:0;width:18px;height:18px">
+            <span>Feedback, Reflection &amp; Development</span>
+          </label>
+          <label class="p1-priority-select-label" style="border-style:dashed;color:#64748b">
+            <input type="checkbox" name="candidatePriority" value="not-sure" style="flex-shrink:0;width:18px;height:18px">
+            <span style="font-style:italic">I'm not sure yet — I'd like to see Michael's findings first</span>
+          </label>
+        </div>
+        <p id="priority-select-err" style="display:none;font-size:13px;color:#ef4444;margin-bottom:12px">Please select at least one area (up to three).</p>
+        <div class="arev-actions">
+          <button class="arev-btn-primary" onclick="confirmPrioritySelection()">Continue to report →</button>
+        </div>
       </div>
     </div>
 
@@ -977,6 +1000,13 @@ async function init() {
     if (data.role === 'candidate') {
       contextAnswers.discipline = data.discipline || '';
       contextAnswers.monthsInRole = data.monthsInRole || 0;
+      // Fix 1d: If candidate already has a completed report (candidate-complete means report was generated
+      // but page may have been reloaded mid-poll), jump directly to the report screen to recover the session.
+      if (data.status === 'candidate-complete' && data.report) {
+        renderReport(data.report);
+        show('report');
+        return;
+      }
       renderHome(data);
       show('home');
     }
@@ -1374,11 +1404,14 @@ function advanceQuestion() {
 // ── Priority selection → report ───────────────────────────────────────────────
 
 function confirmPrioritySelection() {
-  const selected = document.querySelector('input[name="candidatePriority"]:checked');
+  const checked = Array.from(document.querySelectorAll('input[name="candidatePriority"]:checked')).map(el => el.value);
   const err = document.getElementById('priority-select-err');
-  if (!selected) { err.style.display = ''; return; }
+  if (checked.length === 0 || checked.length > 3) { err.style.display = ''; return; }
   err.style.display = 'none';
-  contextAnswers.candidateSelectedPriority = selected.value;
+  contextAnswers.candidateSelectedPriorities = checked;
+  // Backward-compatibility alias: first non-"not-sure" value, or null if only "not-sure"
+  const firstReal = checked.find(v => v !== 'not-sure') || null;
+  contextAnswers.candidateSelectedPriority = firstReal;
   generateReport();
 }
 
@@ -1387,6 +1420,10 @@ function confirmPrioritySelection() {
 async function generateReport() {
   show('generating');
   runToken = crypto.randomUUID();
+  // Reset failed UI
+  const failedUi = document.getElementById('generating-failed-ui');
+  if (failedUi) failedUi.style.display = 'none';
+  document.getElementById('generating-status-text').textContent = 'Analysing your reflection…';
 
   // Submit to background function
   try {
@@ -1425,15 +1462,31 @@ async function generateReport() {
         show('report');
       } else if (status.status === 'failed') {
         clearInterval(pollInterval);
-        document.getElementById('generating-status-text').textContent = 'Report generation failed. Please contact info@getcharteredai.com.';
+        const statusText = document.getElementById('generating-status-text');
+        const failedUi = document.getElementById('generating-failed-ui');
+        const failedMsg = document.getElementById('generating-failed-msg');
+        if (status.error === 'timeout') {
+          statusText.textContent = '';
+          if (failedMsg) failedMsg.textContent = 'Michael is still working on your report. Please refresh the page in a few minutes.';
+          if (failedUi) { failedUi.style.display = ''; document.getElementById('generating-retry-btn').style.display = 'none'; }
+        } else {
+          statusText.textContent = '';
+          if (failedMsg) failedMsg.textContent = 'Something went wrong generating your report.';
+          if (failedUi) failedUi.style.display = '';
+        }
       }
     } catch { /* retry */ }
 
-    if (attempts > 80) { // ~10 minutes
+    if (attempts > 100) { // ~13 minutes
       clearInterval(pollInterval);
       document.getElementById('generating-status-text').textContent = 'This is taking longer than expected. Please refresh the page.';
     }
   }, 8000);
+}
+
+function retryGenerateReport() {
+  if (pollInterval) clearInterval(pollInterval);
+  generateReport();
 }
 
 // ── Report rendering ──────────────────────────────────────────────────────────

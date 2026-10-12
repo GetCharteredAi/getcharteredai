@@ -378,6 +378,31 @@ ok('Manager-safe call uses buildManagerSafeInput (not full report)',
 ok('MANAGER_SAFE_SYSTEM explains stripped input (no inference from candidate statements)',
   reportBg.includes('No candidate quotes') || reportBg.includes('do not invent or infer specific candidate statements'));
 
+// ─── Section 13: New feature tests ───────────────────────────────────────────
+console.log('\n13. New features — max_tokens, candidateSelectedPriorities, report system prompt');
+
+ok('max_tokens for report generation is >= 8000',
+  (() => {
+    // Find the Step 1 callAnthropic call by looking for the literal token count near messages
+    // The call is: callAnthropic(apiKey, buildReportSystem(...), messages, 8192)
+    const match = reportBg.match(/callAnthropic\([\s\S]*?buildReportSystem[\s\S]*?,\s*messages,\s*(\d+)\s*\)/);
+    if (!match) return false;
+    return parseInt(match[1], 10) >= 8000;
+  })());
+
+ok('candidateSelectedPriorities array supported in contextAnswers (HTML)',
+  (() => {
+    // HTML should declare candidateSelectedPriorities on contextAnswers
+    return html.includes('candidateSelectedPriorities') && html.includes('confirmPrioritySelection');
+  })());
+
+ok('report system prompt contains candidate-selected development interests section',
+  (() => {
+    // buildReportSystem should include the candidate-selected interests section when priorities are present
+    return reportBg.includes('Candidate-selected development interests') &&
+           reportBg.includes('self-reported and independent of your capability assessment');
+  })());
+
 // ─── Summary ──────────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(50)}`);
 console.log(`Results: ${passed} passed, ${failed} failed`);

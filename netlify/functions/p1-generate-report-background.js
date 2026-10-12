@@ -64,10 +64,11 @@ const GOVERNING_RULES = `## Governing calibration rules
 7. "Proactive" must be interpreted relative to stage, authority and opportunity.
 8. Months in role calibrates expectation; it does not replace professional judgement.`;
 
-function buildReportSystem(discipline, monthsInRole, recognitionResults, skippedQuestions, questionProvenance) {
+function buildReportSystem(discipline, monthsInRole, recognitionResults, skippedQuestions, questionProvenance, candidateSelectedPriorities) {
   const rr = recognitionResults || {};
   const sq = skippedQuestions || [];
   const qp = questionProvenance || {};
+  const csp = candidateSelectedPriorities || [];
   const exposureLines = [
     [1, 'Professional Behaviour & Responsibility'],
     [2, 'Communication & Working With Others'],
@@ -90,6 +91,10 @@ function buildReportSystem(discipline, monthsInRole, recognitionResults, skipped
     }).filter(Boolean);
     return notes.length ? `Area ${areaId}: ${notes.join('; ')}` : null;
   }).filter(Boolean).join('\n') || 'No accommodation notes recorded.';
+
+  const prioritiesSection = csp.length
+    ? `\n## Candidate-selected development interests\nThe candidate selected the following areas as their own development interests: ${csp.join(', ')}. These are self-reported and independent of your capability assessment. Do not treat them as confirmed weaknesses.\n`
+    : '';
 
   return `You are Michael, generating a Professional Readiness Report for the GCAi Professional Readiness Benchmark.
 
@@ -135,7 +140,7 @@ The following records which questions involved teaching moments or accommodation
 ${provenanceLines}
 
 Use these notes to inform report language where relevant — e.g. "development potential emerged after discussion" rather than "independently demonstrated" where provenance is after-teaching. Do not explicitly describe the accommodation process in the report body.
-
+${prioritiesSection}
 ## Five assessment areas
 1. Professional Behaviour & Responsibility (Q1–Q4)
 2. Communication & Working With Others (Q5–Q8)
@@ -350,20 +355,56 @@ function getInviteStore() {
 }
 
 async function callAnthropic(apiKey, system, messages, maxTokens) {
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: maxTokens, system, messages })
-  });
-  const data = await response.json();
-  if (!response.ok) throw new Error(`Anthropic error: ${JSON.stringify(data)}`);
-  const text = (data.content || []).map(b => b.text || '').join('');
-  const clean = text.replace(/```json|```/g, '').trim();
-  return JSON.parse(clean);
+  const MAX_ATTEMPTS = 3;
+  let lastError = null;
+  let rawText = '';
+
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: maxTokens, system, messages })
+      });
+
+      // 4xx errors are non-retryable (auth, validation errors)
+      if (response.status >= 400 && response.status < 500) {
+        const data = await response.json().catch(() => ({}));
+        throw Object.assign(new Error(`Anthropic API error ${response.status}: ${JSON.stringify(data)}`), { apiError: true, status: response.status });
+      }
+
+      if (!response.ok) {
+        // 5xx — retryable
+        const data = await response.json().catch(() => ({}));
+        throw Object.assign(new Error(`Anthropic error ${response.status}: ${JSON.stringify(data)}`), { retryable: true });
+      }
+
+      const data = await response.json();
+      rawText = (data.content || []).map(b => b.text || '').join('');
+      const clean = rawText.replace(/```json|```/g, '').trim();
+
+      try {
+        return JSON.parse(clean);
+      } catch (parseErr) {
+        console.error(`[callAnthropic] JSON parse failed (attempt ${attempt}). First 300 chars of raw response: ${rawText.slice(0, 300)}`);
+        throw Object.assign(parseErr, { jsonParse: true });
+      }
+
+    } catch (err) {
+      lastError = err;
+      // Do not retry on 4xx API errors or if this is the final attempt
+      if (err.apiError || attempt === MAX_ATTEMPTS) break;
+      // Retry on network errors, 5xx, or JSON parse failures
+      console.warn(`[callAnthropic] Attempt ${attempt} failed: ${err.message}. Retrying in 2s…`);
+      await new Promise(r => setTimeout(r, 2000));
+    }
+  }
+
+  throw lastError;
 }
 
 async function sendEmail(to, subject, html, text) {
@@ -434,14 +475,18 @@ exports.handler = async (event) => {
       { 1: 'not-assessed', 2: 'not-assessed', 3: 'not-assessed', 4: 'not-assessed', 5: 'not-assessed' };
     const questionProvenance = contextAnswers?.questionProvenance || {};
     const skippedQuestions = contextAnswers?.skippedQuestions || [];
+    // Support both new (array) and legacy (string) priority selection
+    const candidateSelectedPriorities = contextAnswers?.candidateSelectedPriorities
+      || (contextAnswers?.candidateSelectedPriority ? [contextAnswers.candidateSelectedPriority] : []);
 
     // ── Step 1: Generate candidate report ────────────────────────────────────
     let report;
     try {
-      report = await callAnthropic(apiKey, buildReportSystem(discipline, monthsInRole, recognitionResults, skippedQuestions, questionProvenance), messages, 4000);
+      report = await callAnthropic(apiKey, buildReportSystem(discipline, monthsInRole, recognitionResults, skippedQuestions, questionProvenance, candidateSelectedPriorities), messages, 8192);
     } catch (e) {
       console.error('[p1-report-bg] Report generation failed:', e.message);
-      await sessionStore.setJSON(jobKey, { status: 'failed', runToken, error: 'ai_error', failedAt: Date.now() });
+      const errorCode = e.jsonParse ? 'json_parse' : (e.apiError ? 'api_error' : 'ai_error');
+      await sessionStore.setJSON(jobKey, { status: 'failed', runToken, error: errorCode, failedAt: Date.now() });
       return;
     }
 
@@ -464,7 +509,7 @@ exports.handler = async (event) => {
             ...messages,
             { role: 'user', content: `The outcome assigned for area ${area.id} (${EXPOSURE_AREA_NAMES[area.id]}) is NOT YET ENOUGH EXPOSURE, but the exposure confirmation for this area is "${recognitionResults[area.id]}", not "confirmed-lack-of-exposure". NOT YET ENOUGH EXPOSURE is not permitted here.\n\nRegenerate this area's outcome and ALL its narrative fields (evidence, developmentNeed, conclusion) using only DEVELOPING or SUPPORT WOULD HELP as appropriate, based on the candidate's actual responses. Return ONLY valid JSON for this single area with no other text:\n{"id":${area.id},"name":"${EXPOSURE_AREA_NAMES[area.id]}","outcome":"DEVELOPING or SUPPORT WOULD HELP","evidence":"...","developmentNeed":"...","conclusion":"...","exposureConfirmation":"${recognitionResults[area.id] || 'not-assessed'}"}` }
           ];
-          const repairedArea = await callAnthropic(apiKey, buildReportSystem(discipline, monthsInRole, recognitionResults), repairMessages, 600);
+          const repairedArea = await callAnthropic(apiKey, buildReportSystem(discipline, monthsInRole, recognitionResults, skippedQuestions, questionProvenance, candidateSelectedPriorities), repairMessages, 600);
           report.areas[i] = repairedArea;
           console.log(`[p1-report-bg] Area ${area.id} repaired — new outcome: ${repairedArea.outcome}`);
         } catch (repairErr) {
@@ -497,7 +542,8 @@ exports.handler = async (event) => {
           outcome: a.outcome,
           exposureConfirmation: a.exposureConfirmation || 'unavailable'
         })),
-        candidateSelectedPriority: contextAnswers?.candidateSelectedPriority || null,
+        candidateSelectedPriority: candidateSelectedPriorities[0] || contextAnswers?.candidateSelectedPriority || null,
+        candidateSelectedPriorities: candidateSelectedPriorities.length ? candidateSelectedPriorities : null,
         developmentPriorities: (report.developmentPriorities || []).map(p => ({
           area: p.area || null,
           gapType: p.gapType || null
@@ -513,7 +559,8 @@ exports.handler = async (event) => {
       discipline,
       monthsInRole,
       candidateCompletedAt,
-      candidateSelectedPriority: contextAnswers?.candidateSelectedPriority || null
+      candidateSelectedPriority: candidateSelectedPriorities[0] || contextAnswers?.candidateSelectedPriority || null,
+      candidateSelectedPriorities: candidateSelectedPriorities.length ? candidateSelectedPriorities : null
     });
 
     // Mark job complete — frontend can now show the report
@@ -533,10 +580,13 @@ exports.handler = async (event) => {
     // ── Step 2: Generate manager-safe (inline, same bg window) ───────────────
     let managerSafe;
     try {
+      const prioritiesNote = candidateSelectedPriorities.length
+        ? `\n\nThe candidate indicated interest in developing: ${candidateSelectedPriorities.join(', ')}. This is self-reported interest, not an assessed weakness.`
+        : '';
       managerSafe = await callAnthropic(
         apiKey,
         MANAGER_SAFE_SYSTEM,
-        [{ role: 'user', content: `Generate the Manager Development Summary from this candidate outcome summary:\n\n${JSON.stringify(buildManagerSafeInput(report), null, 2)}` }],
+        [{ role: 'user', content: `Generate the Manager Development Summary from this candidate outcome summary:\n\n${JSON.stringify(buildManagerSafeInput(report), null, 2)}${prioritiesNote}` }],
         2000
       );
     } catch (e) {

@@ -284,6 +284,10 @@ ok('No fake "Thank you." injected after check-question response (evidence integr
     return !checkBlock.includes("content: 'Thank you.'") && !checkBlock.includes('content: "Thank you."');
   })());
 
+ok("recognitionYes() uses neutral prompt, not approval acknowledgement",
+  html.includes("Please tell me more about that experience.") &&
+  !html.includes("Thank you — that context is helpful."));
+
 ok("Uncertain checkbox sets accommodationUsedThisQ = true (provenance accuracy)",
   html.includes('accommodationUsedThisQ = true; // uncertain checkbox is an accommodation') ||
   (html.includes('isUncertain') && html.includes('accommodationUsedThisQ = true')));

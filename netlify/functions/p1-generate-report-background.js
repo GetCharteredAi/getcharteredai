@@ -573,7 +573,7 @@ exports.handler = async (event) => {
 
     // Fire cohort snapshot trigger — fire-and-forget; never allowed to fail this function
     try {
-      const _siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
+      const _siteUrl = process.env.P1_SITE_URL || process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
       fetch(`${_siteUrl}/.netlify/functions/p1-cohort-snapshot-trigger`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

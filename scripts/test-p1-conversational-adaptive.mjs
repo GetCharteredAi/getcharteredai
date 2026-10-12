@@ -357,12 +357,12 @@ ok('buildManagerSafeInput retains area outcomes and exposureConfirmation',
     return fn[0].includes('outcome') && fn[0].includes('exposureConfirmation');
   })());
 
-ok('buildManagerSafeInput retains development priority rank, area, gapType — no narrative text',
+ok('buildManagerSafeInput retains area and gapType from developmentFocus — no narrative text',
   (() => {
     const fn = reportBg.match(/function buildManagerSafeInput\(report\)[\s\S]*?^}/m);
     if (!fn) return false;
-    return fn[0].includes('gapType') && fn[0].includes('rank') &&
-           !fn[0].includes('developmentAction') && !fn[0].includes('.why');
+    return fn[0].includes('gapType') && fn[0].includes('.area') &&
+           !fn[0].includes('developmentAction') && !fn[0].includes('.why') && !fn[0].includes('.focus');
   })());
 
 ok('Manager-safe call uses buildManagerSafeInput (not full report)',
@@ -402,6 +402,47 @@ ok('report system prompt contains candidate-selected development interests secti
     return reportBg.includes('Candidate-selected development interests') &&
            reportBg.includes('self-reported and independent of your capability assessment');
   })());
+
+// ─── Section 14: Concise schema (readiness-picture-v1) ───────────────────────
+console.log('\n14. Concise schema — readiness-picture-v1');
+
+ok('buildReportSystem uses readiness-picture-v1 schema',
+  reportBg.includes('readiness-picture-v1'));
+
+ok('buildReportSystem schema contains areaOutcomes (not areas)',
+  reportBg.includes('"areaOutcomes"') && !reportBg.includes('"areas": ['));
+
+ok('buildReportSystem schema contains overview field',
+  reportBg.includes('"overview"'));
+
+ok('buildReportSystem schema contains developmentFocus (not developmentPriorities)',
+  reportBg.includes('"developmentFocus"') && !reportBg.includes('"developmentPriorities": ['));
+
+ok('buildReportSystem schema contains nextActions and conversationPrompt',
+  reportBg.includes('"nextActions"') && reportBg.includes('"conversationPrompt"'));
+
+ok('buildReportSystem strength integrity rule present',
+  reportBg.includes('without coaching') || reportBg.includes('only after coaching') || reportBg.includes('only emerged after teaching'));
+
+ok('repair loop uses areaOutcomes (not report.areas)',
+  (() => {
+    // The repair loop should reference report.areaOutcomes, not report.areas[
+    const loopMatch = reportBg.match(/Validate exposure outcomes[\s\S]*?for \(let i[\s\S]*?\}\s*\}/);
+    if (!loopMatch) return false;
+    return loopMatch[0].includes('report.areaOutcomes') && !loopMatch[0].includes('report.areas[');
+  })());
+
+ok('cohort-safe write uses areaOutcomes fallback',
+  reportBg.includes('report.areaOutcomes || report.areas'));
+
+ok('cohort-safe developmentPriorities uses developmentFocus fallback',
+  reportBg.includes('report.developmentFocus || report.developmentPriorities'));
+
+ok('renderReport in HTML handles readiness-picture-v1 schema (areaOutcomes)',
+  html.includes('areaOutcomes') && html.includes('overview') && html.includes('conversationPrompt'));
+
+ok('renderReportLegacy fallback defined in HTML for old report.areas schema',
+  html.includes('renderReportLegacy'));
 
 // ─── Summary ──────────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(50)}`);

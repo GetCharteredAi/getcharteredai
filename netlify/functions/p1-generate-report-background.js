@@ -163,72 +163,46 @@ NOT YET ENOUGH EXPOSURE requires confirmed-lack-of-exposure. It must never be us
 ## Sensitive disclosure
 If any response suggests a safeguarding concern, serious workplace harm, or personal crisis, set sensitiveDisclosureFlag to true. Do not elaborate in the report body.
 
+## Strength integrity
+A capability may only appear in strengths when the candidate demonstrated it independently — without coaching, reprompting, or a teaching moment. Use provenance notes to apply this. A capability that only emerged after teaching is development potential, not a demonstrated strength.
+
 ## Report structure — output this JSON exactly
 {
-  "schemaVersion": "benchmark-v1",
-  "overallSummary": "<concise evidence-led picture, 2-4 sentences>",
-  "areas": [
+  "schemaVersion": "readiness-picture-v1",
+  "overview": "<2-3 sentences: an honest, evidence-led picture of this candidate's professional readiness at this stage. Warm and direct — no generic praise, no hedging. Ground every claim in what was actually shown.>",
+  "strengths": [
+    "<strength 1 — 1 sentence, grounded in independently demonstrated evidence>",
+    "<strength 2 — only include if evidence independently supports a second strength>"
+  ],
+  "developmentFocus": [
     {
-      "id": 1,
-      "name": "Professional Behaviour & Responsibility",
-      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED",
-      "evidence": "<what the candidate demonstrated, with specific reference to their responses>",
-      "developmentNeed": "<what is missing or needs further work>",
-      "conclusion": "<one sentence reason for this outcome>",
-      "exposureConfirmation": "<echo the value for area 1 from the Candidate exposure confirmation table>"
-    },
-    {
-      "id": 2,
-      "name": "Communication & Working With Others",
-      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED",
-      "evidence": "<string>",
-      "developmentNeed": "<string>",
-      "conclusion": "<string>",
-      "exposureConfirmation": "<echo the value for area 2 from the Candidate exposure confirmation table>"
-    },
-    {
-      "id": 3,
-      "name": "Learning & Applying Knowledge",
-      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED",
-      "evidence": "<string>",
-      "developmentNeed": "<string>",
-      "conclusion": "<string>",
-      "exposureConfirmation": "<echo the value for area 3 from the Candidate exposure confirmation table>"
-    },
-    {
-      "id": 4,
-      "name": "Judgement, Help & Escalation",
-      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED",
-      "evidence": "<string>",
-      "developmentNeed": "<string>",
-      "conclusion": "<string>",
-      "exposureConfirmation": "<echo the value for area 4 from the Candidate exposure confirmation table>"
-    },
-    {
-      "id": 5,
-      "name": "Feedback, Reflection & Development",
-      "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED",
-      "evidence": "<string>",
-      "developmentNeed": "<string>",
-      "conclusion": "<string>",
-      "exposureConfirmation": "<echo the value for area 5 from the Candidate exposure confirmation table>"
+      "area": "<exact area name from the five assessment areas>",
+      "focus": "<1 sentence — what specifically needs development or exposure>",
+      "type": "capability-gap|exposure-gap"
     }
   ],
-  "demonstratedStrengths": ["<string>", "<string>"],
-  "developmentPriorities": [
-    {
-      "rank": 1,
-      "priority": "<string>",
-      "gapType": "<knowledge|application|practice|exposure|observed-exposure|evidence-recognition|articulation|judgement|responsibility-escalation|confidence-calibration>",
-      "area": "<the one Benchmark area this priority most directly addresses — use the exact area name from the five assessment areas>",
-      "developmentAction": "<specific plain-language action — do not use raw taxonomy labels>",
-      "why": "<why this ranks here>"
-    }
+  "nextActions": [
+    "<practical, stage-appropriate action 1>",
+    "<practical, stage-appropriate action 2>",
+    "<practical, stage-appropriate action 3>"
   ],
-  "candidateActions": ["<specific action the candidate can take themselves>"],
-  "workplaceOpportunities": ["<development opportunity requiring manager or employer>"],
+  "conversationPrompt": "<one specific question the candidate could bring to a development conversation with a manager or mentor>",
+  "areaOutcomes": [
+    { "id": 1, "name": "Professional Behaviour & Responsibility", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED", "exposureConfirmation": "<echo area 1 value from Candidate exposure confirmation table>" },
+    { "id": 2, "name": "Communication & Working With Others", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED", "exposureConfirmation": "<echo area 2 value>" },
+    { "id": 3, "name": "Learning & Applying Knowledge", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED", "exposureConfirmation": "<echo area 3 value>" },
+    { "id": 4, "name": "Judgement, Help & Escalation", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED", "exposureConfirmation": "<echo area 4 value>" },
+    { "id": 5, "name": "Feedback, Reflection & Development", "outcome": "ON TRACK|DEVELOPING|SUPPORT WOULD HELP|NOT YET ENOUGH EXPOSURE|NOT ASSESSED", "exposureConfirmation": "<echo area 5 value>" }
+  ],
   "sensitiveDisclosureFlag": false
 }
+
+Field constraints:
+- strengths: 1–3 items. Omit any capability that required coaching to surface. If no capability was independently demonstrated, return an empty array.
+- developmentFocus: 1–2 items. type capability-gap = candidate had exposure but needs further development; type exposure-gap = confirmed lack of opportunity (only valid where exposureConfirmation is confirmed-lack-of-exposure).
+- nextActions: exactly 3. Mix of things the candidate can do alone and things involving their manager or workplace.
+- conversationPrompt: one question — specific and stage-appropriate, not generic.
+- areaOutcomes: all five areas required. This preserves the full diagnostic. Do not omit any area.
 
 ## Do not overclaim
 Do not describe this review as a formal assessment, professional certification, or guarantee of any qualification outcome.
@@ -247,20 +221,22 @@ Return ONLY valid JSON. No markdown. No preamble. No trailing text.`;
 
 // Strips all candidate-private content before passing to manager-safe AI.
 // Only area outcomes, gap type labels, and the sensitive disclosure flag are shared —
-// no evidence text, summaries, quotes, or per-question narratives.
+// no evidence text, summaries, quotes, narrative text, or per-question content.
+// Supports both new schema (areaOutcomes/developmentFocus) and old schema (areas/developmentPriorities).
 function buildManagerSafeInput(report) {
+  const areas = report.areaOutcomes || report.areas || [];
+  const devItems = report.developmentFocus || report.developmentPriorities || [];
   return {
     schemaVersion: report.schemaVersion,
-    areaOutcomes: (report.areas || []).map(a => ({
+    areaOutcomes: areas.map(a => ({
       id: a.id,
       name: a.name,
       outcome: a.outcome,
       exposureConfirmation: a.exposureConfirmation
     })),
-    developmentPriorities: (report.developmentPriorities || []).map(p => ({
-      rank: p.rank,
-      area: p.area,
-      gapType: p.gapType
+    developmentFocus: devItems.map(p => ({
+      area: p.area || p.areaName,
+      gapType: p.type || p.gapType
     })),
     sensitiveDisclosureFlag: report.sensitiveDisclosureFlag || false
   };
@@ -498,8 +474,8 @@ exports.handler = async (event) => {
       4: 'Judgement, Help & Escalation',
       5: 'Feedback, Reflection & Development'
     };
-    for (let i = 0; i < (report.areas || []).length; i++) {
-      const area = report.areas[i];
+    for (let i = 0; i < (report.areaOutcomes || []).length; i++) {
+      const area = report.areaOutcomes[i];
       // Skip repair for NOT ASSESSED — that outcome is legitimate (all questions skipped)
       if (area.outcome === 'NOT ASSESSED') continue;
       if (area.outcome === 'NOT YET ENOUGH EXPOSURE' && recognitionResults[area.id] !== 'confirmed-lack-of-exposure') {
@@ -507,10 +483,10 @@ exports.handler = async (event) => {
         try {
           const repairMessages = [
             ...messages,
-            { role: 'user', content: `The outcome assigned for area ${area.id} (${EXPOSURE_AREA_NAMES[area.id]}) is NOT YET ENOUGH EXPOSURE, but the exposure confirmation for this area is "${recognitionResults[area.id]}", not "confirmed-lack-of-exposure". NOT YET ENOUGH EXPOSURE is not permitted here.\n\nRegenerate this area's outcome and ALL its narrative fields (evidence, developmentNeed, conclusion) using only DEVELOPING or SUPPORT WOULD HELP as appropriate, based on the candidate's actual responses. Return ONLY valid JSON for this single area with no other text:\n{"id":${area.id},"name":"${EXPOSURE_AREA_NAMES[area.id]}","outcome":"DEVELOPING or SUPPORT WOULD HELP","evidence":"...","developmentNeed":"...","conclusion":"...","exposureConfirmation":"${recognitionResults[area.id] || 'not-assessed'}"}` }
+            { role: 'user', content: `The outcome assigned for area ${area.id} (${EXPOSURE_AREA_NAMES[area.id]}) is NOT YET ENOUGH EXPOSURE, but the exposure confirmation for this area is "${recognitionResults[area.id]}", not "confirmed-lack-of-exposure". NOT YET ENOUGH EXPOSURE is not permitted here.\n\nRegenerate this area's outcome using only DEVELOPING or SUPPORT WOULD HELP as appropriate, based on the candidate's actual responses. Return ONLY valid JSON for this single area with no other text:\n{"id":${area.id},"name":"${EXPOSURE_AREA_NAMES[area.id]}","outcome":"DEVELOPING or SUPPORT WOULD HELP","exposureConfirmation":"${recognitionResults[area.id] || 'not-assessed'}"}` }
           ];
           const repairedArea = await callAnthropic(apiKey, buildReportSystem(discipline, monthsInRole, recognitionResults, skippedQuestions, questionProvenance, candidateSelectedPriorities), repairMessages, 600);
-          report.areas[i] = repairedArea;
+          report.areaOutcomes[i] = repairedArea;
           console.log(`[p1-report-bg] Area ${area.id} repaired — new outcome: ${repairedArea.outcome}`);
         } catch (repairErr) {
           console.error(`[p1-report-bg] Repair failed for area ${area.id}:`, repairErr.message);
@@ -536,7 +512,7 @@ exports.handler = async (event) => {
       schemaVersion: 'cohort-safe-v1',
       lastUpdatedAt: Date.now(),
       benchmark: {
-        areas: (report.areas || []).map(a => ({
+        areas: (report.areaOutcomes || report.areas || []).map(a => ({
           id: a.id,
           name: a.name,
           outcome: a.outcome,
@@ -544,9 +520,9 @@ exports.handler = async (event) => {
         })),
         candidateSelectedPriority: candidateSelectedPriorities[0] || contextAnswers?.candidateSelectedPriority || null,
         candidateSelectedPriorities: candidateSelectedPriorities.length ? candidateSelectedPriorities : null,
-        developmentPriorities: (report.developmentPriorities || []).map(p => ({
+        developmentPriorities: (report.developmentFocus || report.developmentPriorities || []).map(p => ({
           area: p.area || null,
-          gapType: p.gapType || null
+          gapType: p.type || p.gapType || null
         }))
       }
     });

@@ -111,7 +111,10 @@ exports.handler = async (event) => {
     });
 
     // Fire-and-forget synthesis
-    const siteUrl = process.env.P1_SITE_URL || process.env.URL || 'https://getcharteredai.com';
+    // DEPLOY_URL is the current deploy's own URL (correct on both production and deploy-preview).
+    // URL always resolves to the production domain, so on deploy-preview p1-synthesis-background
+    // would be called on production with a mismatched secret. DEPLOY_URL prevents that.
+    const siteUrl = process.env.P1_SITE_URL || process.env.DEPLOY_URL || process.env.URL || 'https://getcharteredai.com';
     const internalSecret = process.env.P1_INTERNAL_SECRET;
     const runToken = crypto.randomUUID();
     if (internalSecret) {

@@ -10,5 +10,8 @@
   "dependencies": {
     "dompurify": "3.4.16",
     "marked": "18.0.14"
+  },
+  "devDependencies": {
+    "@netlify/blobs": "^11.1.4"
   }
 }

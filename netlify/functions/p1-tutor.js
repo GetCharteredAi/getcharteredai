@@ -1,5 +1,5 @@
 // netlify/functions/p1-tutor.js
-// Michael tutor for the Professional Readiness Benchmark 15-question reflection.
+// Michael — conversational tutor for the Professional Readiness Benchmark 15-question reflection.
 // POST { token, messages, discipline, monthsInRole }
 
 const HEADERS = {
@@ -89,6 +89,16 @@ ${calibrationNote}
 
 ${PROFESSIONAL_JUDGEMENT_PRINCIPLE}
 
+## When to trigger a Learning Moment
+
+A Learning Moment (full loop or reprompt) is required when the response lacks concrete evidence. Specifically:
+
+- **No specific situation**: A response that only states a general habit, attitude, or intention ("I try to...", "I always...", "I usually just...", "I make sure to...") without describing a specific workplace incident is not evidence. Use at minimum a reprompt asking for a concrete example.
+- **Concept without application**: Correctly naming a principle but not describing any personal experience of it is insufficient. Use a reprompt or teaching moment.
+- **Vague reassurance**: Statements like "I ask my manager about things I'm not sure about" do not demonstrate judgement — they describe a reflex. If no specific decision point or reasoning is described, probe.
+
+Advance without a Learning Moment only when the response contains a specific situation, a personal action taken, and some indication of why — even if briefly stated.
+
 ## Learning Moment shapes
 
 ### Full loop (RECOGNISE → EXPLAIN → CHECK → CONTINUE)
@@ -116,6 +126,32 @@ Relevant evidence spectrum: Observing → Investigating → Contributing informa
 Return JSON:
 { "recognitionPrompt": "<brief explanation of what relevant experience looks like + the recognition question>" }
 
+## Candidate accommodations
+
+When the user message is prefixed with one of the signals below, return the corresponding JSON shape and nothing else.
+
+**Signal [REPHRASE REQUEST] or [REPHRASE REQUEST 2]:** Reword the current question using different vocabulary and sentence structure.
+Return JSON: { "rephrase": "<reworded question using different vocabulary and sentence structure>" }
+
+Max 2 rephrases per question. [REPHRASE REQUEST 2] is the second and final rephrase — do not note this limit in the response.
+
+**Signal [CLARIFY REQUEST]:** Explain what this question is exploring without giving model answer content. Name the area being assessed; explain the type of experience or behaviour the question is interested in. 2-4 sentences max.
+Return JSON: { "clarify": "<what this question is exploring — name the area, explain the type of experience or behaviour being assessed. 2-4 sentences. Plain language.>" }
+
+**Signal [EXAMPLE REQUEST]:** Provide a brief domain-relevant scenario illustrating the type of experience the question is looking for — not what a strong answer looks like. Reference the candidate's discipline. 2-3 sentences max.
+Return JSON: { "example": "<brief domain-relevant scenario illustrating the type of experience. Reference the candidate's discipline. 2-3 sentences.>" }
+
+**Signal [NO EXPERIENCE]:** Use the existing recognition prompt shape — brief explanation of what relevant experience could look like, even indirect, then ask if anything fits.
+Return JSON: { "recognitionPrompt": "<brief explanation of what relevant experience looks like (including indirect or observed experience), then ask if anything fits>" }
+
+**Signal [UNCERTAIN SIGNAL]:** The candidate has submitted a response but is uncertain whether it is relevant. Evaluate the SUBSTANCE of the submitted response, not the candidate's confidence level.
+- If the substance demonstrates genuine capability relevant to the question: return { "reassure": "<brief acknowledgement that what they described is relevant — 1 sentence. Do NOT comment on quality or give a grade.>" }
+- If the substance warrants a learning moment (genuine gap): return the standard full loop or reprompt shapes instead.
+- A hesitant but well-grounded example outweighs a confident but vague claim. Only generate a learning moment if the substance itself indicates a genuine gap.
+
+## Uncertain-response rule
+When a candidate expresses uncertainty ("I'm not sure", "I don't know if this counts", "this might not be right") — evaluate the substance, not the confidence. A hesitant but well-grounded example outweighs a confident but vague claim. Only generate a learning moment if the substance itself indicates a genuine gap.
+
 ## Current information safeguard
 Where Learning Moments involve current legislation, regulation or professional guidance, use only GCAi-approved current-awareness content. Do not use live web search.
 
@@ -124,7 +160,11 @@ Do not state specific numerical regulatory thresholds, dB limits, ppm levels, fi
 If uncertain, explain the underlying professional principle and recommend current-awareness development as the follow-up action. Do not invent specific current factual examples.
 
 ## Tone
-Professionally challenging + developmental + clear + useful. Challenge unsupported confidence. Recognise capability even where confidence is low. Avoid generic encouragement.`;
+Professionally challenging + developmental + clear + useful. Challenge unsupported confidence. Recognise capability even where confidence is low. Avoid generic encouragement.
+
+When generating rephrase, clarify, or example responses: use plain, warm language. Avoid formal or academic register. Do not use phrases like "This question is designed to assess..." or "The assessment criteria requires..."
+
+When recognising a strong independent response (no learning moment): simply advance without praise. Do not say "Great answer!" or "Well done!" — just move on.`;
 }
 
 function verifyToken(token) {
@@ -170,6 +210,23 @@ exports.handler = async (event) => {
   const disc = (discipline || 'Not specified').trim();
   const months = typeof monthsInRole === 'number' ? monthsInRole : 0;
 
+  // Collapse consecutive same-role messages before sending to Anthropic.
+  // After a check-question response the messages array ends on 'user'; the next question's
+  // answer push creates back-to-back user messages, which Anthropic rejects with 400.
+  function normalizeMessages(msgs) {
+    if (!msgs || !msgs.length) return msgs;
+    const result = [];
+    for (const m of msgs) {
+      const last = result[result.length - 1];
+      if (last && last.role === m.role) {
+        last.content += '\n\n' + m.content;
+      } else {
+        result.push({ role: m.role, content: String(m.content || '') });
+      }
+    }
+    return result;
+  }
+
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -182,7 +239,7 @@ exports.handler = async (event) => {
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 700,
         system: buildSystem(disc, months),
-        messages
+        messages: normalizeMessages(messages)
       })
     });
 

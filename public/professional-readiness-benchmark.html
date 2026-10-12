@@ -153,10 +153,21 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 .p1-home-cta{background:#2563EB;color:#fff;border:none;padding:8px 16px;border-radius:7px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;transition:.18s;display:inline-block}
 .p1-home-cta:hover{background:#1d4ed8}
 /* Privacy cards */
-.p1-privacy-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px}
+.p1-privacy-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px}
+@media(min-width:640px){.p1-privacy-grid{grid-template-columns:1fr 1fr 1fr}}
+/* Privacy screen container */
+.p1-privacy-container{max-width:720px;margin:0 auto;padding:48px 24px}
+.p1-privacy-heading{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:22px;font-weight:700;color:#0D0F1C;margin-top:0;margin-bottom:20px;text-align:center}
+.p1-privacy-card{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+/* Priority select */
+.p1-priority-select-label{display:flex;align-items:center;gap:12px;padding:16px 20px;border:1.5px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:.15s;font-size:16px;color:#0D0F1C}
+.p1-priority-select-label:hover{border-color:#3d5afe}
+.p1-priority-select-label input:checked ~ span{font-weight:600}
+.p1-priority-select-label:has(input:checked){border-color:#3d5afe;background:#f0f4ff}
+.p1-priority-select-col{max-width:600px;margin:0 auto}
 @media(max-width:900px){nav{padding:0 20px}.sec{padding:60px 20px}.hero{padding:72px 20px 60px}.areas-grid{grid-template-columns:repeat(3,1fr)}footer{padding:32px 20px 24px}}
 .p1-mgr-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-@media(max-width:600px){.areas-grid{grid-template-columns:1fr 1fr}.p1-privacy-grid{grid-template-columns:1fr}.p1-mgr-cards{grid-template-columns:1fr}}
+@media(max-width:600px){.areas-grid{grid-template-columns:1fr 1fr}.p1-mgr-cards{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -273,34 +284,36 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
     <!-- Privacy -->
     <div id="state-privacy" style="display:none">
-      <div style="background:#0D0F1C;border-radius:14px;padding:20px;margin-bottom:20px;position:relative;overflow:hidden">
-        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(37,99,235,.14) 0%,transparent 65%);pointer-events:none"></div>
-        <div style="position:relative;text-align:center">
-          <div style="display:inline-flex;align-items:center;gap:7px;margin-bottom:10px">
-            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M8 1L2 3.5v4c0 3.3 2.5 6.4 6 7.1 3.5-.7 6-3.8 6-7.1v-4L8 1z" fill="#f59e0b"/></svg>
-            <span style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b">Before you begin</span>
+      <div class="p1-privacy-container">
+        <div style="background:#0D0F1C;border-radius:14px;padding:20px;margin-bottom:20px;position:relative;overflow:hidden">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(37,99,235,.14) 0%,transparent 65%);pointer-events:none"></div>
+          <div style="position:relative;text-align:center">
+            <div style="display:inline-flex;align-items:center;gap:7px;margin-bottom:10px">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M8 1L2 3.5v4c0 3.3 2.5 6.4 6 7.1 3.5-.7 6-3.8 6-7.1v-4L8 1z" fill="#f59e0b"/></svg>
+              <span style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b">Before you begin</span>
+            </div>
+            <h2 class="p1-privacy-heading" style="color:#fff">Your reflection is yours</h2>
           </div>
-          <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2">Your reflection is yours</div>
         </div>
-      </div>
-      <div class="p1-privacy-grid" style="gap:10px;margin-bottom:0">
-        <div style="background:#f0f6ff;border:1px solid #bfdbfe;border-left:3px solid #2563EB;border-radius:10px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#0D0F1C;margin-bottom:6px">Private reflection</div>
-          <div style="font-size:13px;color:#64748b;line-height:1.6">Your individual answers, reasoning and examples remain private.</div>
-          <div style="font-size:12px;color:#94a3b8;margin-top:4px">They are not shared with your employer.</div>
+        <div class="p1-privacy-grid" style="gap:10px;margin-bottom:0">
+          <div class="p1-privacy-card" style="background:#f0f6ff;border:1px solid #bfdbfe;border-left:3px solid #2563EB">
+            <div style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:8px">Private reflection</div>
+            <div style="font-size:17px;color:#475569;line-height:1.75">Your individual answers, reasoning and examples remain private.</div>
+            <div style="font-size:14px;color:#94a3b8;margin-top:6px">They are not shared with your employer.</div>
+          </div>
+          <div class="p1-privacy-card" style="background:#fffbeb;border:1px solid #fde68a;border-left:3px solid #d97706">
+            <div style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:8px">A useful development conversation</div>
+            <div style="font-size:17px;color:#475569;line-height:1.75">Your manager receives themes and prompts to help support the conversation — not your individual responses.</div>
+          </div>
+          <div class="p1-privacy-card" style="background:#f0fdf4;border:1px solid #bbf7d0;border-left:3px solid #059669">
+            <div style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:8px">No pass or fail</div>
+            <div style="font-size:17px;color:#475569;line-height:1.75">This is a development tool, not a performance assessment.</div>
+          </div>
         </div>
-        <div style="background:#fffbeb;border:1px solid #fde68a;border-left:3px solid #d97706;border-radius:10px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#0D0F1C;margin-bottom:6px">A useful development conversation</div>
-          <div style="font-size:13px;color:#64748b;line-height:1.6">Your manager receives themes and prompts to help support the conversation — not your individual responses.</div>
+        <p style="font-size:15px;color:#94a3b8;text-align:center;margin-top:20px;margin-bottom:24px;line-height:1.75">Answer based on where you are today. There are no right answers.</p>
+        <div style="text-align:center">
+          <button class="arev-btn-primary" onclick="goToContext()" style="width:fit-content;padding:12px 36px">Begin my Benchmark →</button>
         </div>
-        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-left:3px solid #059669;border-radius:10px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#0D0F1C;margin-bottom:6px">No pass or fail</div>
-          <div style="font-size:13px;color:#64748b;line-height:1.6">This is a development tool, not a performance assessment.</div>
-        </div>
-      </div>
-      <p style="font-size:13px;color:#94a3b8;text-align:center;margin-top:16px;margin-bottom:20px;line-height:1.5">Answer based on where you are today. There are no right answers.</p>
-      <div style="text-align:center">
-        <button class="arev-btn-primary" onclick="goToContext()" style="width:fit-content;padding:12px 36px">Begin my Benchmark →</button>
       </div>
     </div>
 
@@ -341,11 +354,19 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
         <div class="arev-q-text" id="reflection-question-text"></div>
       </div>
 
+      <div id="reflection-help-panel"></div>
+
       <div id="reflection-lm-area"></div>
 
       <div id="reflection-response-area">
         <textarea class="arev-textarea" id="reflection-response" placeholder="Your response…" oninput="updateWC()"></textarea>
         <div class="arev-wc" id="reflection-wc"></div>
+        <div style="margin-top:8px;margin-bottom:4px">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:#64748b">
+            <input type="checkbox" id="reflection-uncertain-check" style="width:15px;height:15px;flex-shrink:0;cursor:pointer">
+            I'm not fully sure my answer covers this
+          </label>
+        </div>
         <p id="reflection-err" class="arev-err">Please write a response before continuing.</p>
         <div class="arev-actions" style="margin-top:12px">
           <button class="arev-btn-primary" id="reflection-next-btn" onclick="submitReflectionResponse()">Continue →</button>
@@ -358,9 +379,13 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       <div style="text-align:center;padding:40px 0">
         <div class="arev-michael-icon">📊</div>
         <div class="arev-heading">Generating your report</div>
-        <p class="arev-sub">Michael is reviewing your responses across the five areas. This usually takes 30–60 seconds.</p>
+        <p class="arev-sub">Michael is reviewing your responses and preparing your Professional Readiness Picture. This may take a few minutes.</p>
         <div class="arev-dots" style="margin-top:24px"><div class="arev-dot"></div><div class="arev-dot"></div><div class="arev-dot"></div></div>
         <p style="font-size:12px;color:#94a3b8;margin-top:20px" id="generating-status-text">Analysing your reflection…</p>
+        <div id="generating-failed-ui" style="display:none;margin-top:20px">
+          <p id="generating-failed-msg" style="font-size:14px;color:#64748b;line-height:1.7;margin-bottom:16px"></p>
+          <button id="generating-retry-btn" class="arev-btn-primary" style="width:fit-content;padding:12px 28px" onclick="retryGenerateReport()">Try again →</button>
+        </div>
       </div>
     </div>
 
@@ -372,6 +397,9 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
         <p class="arev-sub" id="report-subheading">Professional Readiness Benchmark</p>
       </div>
       <div id="report-content"></div>
+      <div style="text-align:center;margin-top:20px;padding-top:16px;border-top:1px solid #e2e8f0">
+        <button class="arev-btn-secondary" onclick="if(sessionData){renderHome(sessionData);show('home');}">← Back to overview</button>
+      </div>
     </div>
 
     <!-- Employer status -->
@@ -383,35 +411,41 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
     <!-- Candidate priority selection -->
     <div id="state-priority-select" style="display:none">
-      <div style="margin-bottom:24px;text-align:center">
-        <div class="arev-heading">One final question</div>
-        <p class="arev-sub">Looking across the five areas, which would you most like to improve over the next few months?</p>
-      </div>
-      <div id="priority-select-options" style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
-        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
-          <input type="radio" name="candidatePriority" value="Professional Behaviour &amp; Responsibility" style="flex-shrink:0">
-          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Professional Behaviour &amp; Responsibility</span>
-        </label>
-        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
-          <input type="radio" name="candidatePriority" value="Communication &amp; Working With Others" style="flex-shrink:0">
-          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Communication &amp; Working With Others</span>
-        </label>
-        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
-          <input type="radio" name="candidatePriority" value="Learning &amp; Applying Knowledge" style="flex-shrink:0">
-          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Learning &amp; Applying Knowledge</span>
-        </label>
-        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
-          <input type="radio" name="candidatePriority" value="Judgement, Help &amp; Escalation" style="flex-shrink:0">
-          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Judgement, Help &amp; Escalation</span>
-        </label>
-        <label class="p1-priority-select-label" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #e2e8f0;border-radius:9px;cursor:pointer">
-          <input type="radio" name="candidatePriority" value="Feedback, Reflection &amp; Development" style="flex-shrink:0">
-          <span style="font-size:14px;color:#0D0F1C;font-weight:500">Feedback, Reflection &amp; Development</span>
-        </label>
-      </div>
-      <p id="priority-select-err" style="display:none;font-size:13px;color:#ef4444;margin-bottom:12px">Please select an area to continue.</p>
-      <div class="arev-actions">
-        <button class="arev-btn-primary" onclick="confirmPrioritySelection()">Continue to report →</button>
+      <div class="p1-priority-select-col">
+        <div style="margin-bottom:24px;text-align:center">
+          <div class="arev-heading">One final question</div>
+          <p class="arev-sub" style="font-size:17px">Looking across the five areas, which would you most like to develop over the next few months? Select up to three.</p>
+        </div>
+        <div id="priority-select-options" style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+          <label class="p1-priority-select-label">
+            <input type="checkbox" name="candidatePriority" value="Professional Behaviour &amp; Responsibility" style="flex-shrink:0;width:18px;height:18px">
+            <span>Professional Behaviour &amp; Responsibility</span>
+          </label>
+          <label class="p1-priority-select-label">
+            <input type="checkbox" name="candidatePriority" value="Communication &amp; Working With Others" style="flex-shrink:0;width:18px;height:18px">
+            <span>Communication &amp; Working With Others</span>
+          </label>
+          <label class="p1-priority-select-label">
+            <input type="checkbox" name="candidatePriority" value="Learning &amp; Applying Knowledge" style="flex-shrink:0;width:18px;height:18px">
+            <span>Learning &amp; Applying Knowledge</span>
+          </label>
+          <label class="p1-priority-select-label">
+            <input type="checkbox" name="candidatePriority" value="Judgement, Help &amp; Escalation" style="flex-shrink:0;width:18px;height:18px">
+            <span>Judgement, Help &amp; Escalation</span>
+          </label>
+          <label class="p1-priority-select-label">
+            <input type="checkbox" name="candidatePriority" value="Feedback, Reflection &amp; Development" style="flex-shrink:0;width:18px;height:18px">
+            <span>Feedback, Reflection &amp; Development</span>
+          </label>
+          <label class="p1-priority-select-label" style="border-style:dashed;color:#64748b">
+            <input type="checkbox" name="candidatePriority" value="not-sure" style="flex-shrink:0;width:18px;height:18px">
+            <span style="font-style:italic">I'm not sure yet — I'd like to see Michael's findings first</span>
+          </label>
+        </div>
+        <p id="priority-select-err" style="display:none;font-size:13px;color:#ef4444;margin-bottom:12px">Please select at least one area (up to three).</p>
+        <div class="arev-actions">
+          <button class="arev-btn-primary" onclick="confirmPrioritySelection()">Continue to report →</button>
+        </div>
       </div>
     </div>
 
@@ -673,7 +707,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
 const QUESTIONS = [
   // Area 1: Professional Behaviour & Responsibility
-  { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Thinking about your time at work so far, what do you think being professional means in your role? Give me an example of how you have tried to demonstrate that.' },
+  { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Thinking about your time at work so far, can you tell me about something you did that you felt you handled professionally?' },
   { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Tell me about a recent piece of work you were trusted to complete. What did you do to make sure it was accurate, completed when needed and that the right person knew where it had got to?' },
   { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Tell me about a recent task you completed. What did you do once it was finished, and how did you decide what to focus on next?' },
   { area: 1, areaName: 'Professional Behaviour & Responsibility', text: 'Tell me about a time you realised something in your work was wrong, unclear or not going as expected. What did you do?' },
@@ -688,7 +722,7 @@ const QUESTIONS = [
   { area: 3, areaName: 'Learning & Applying Knowledge', text: 'Tell me about a task you were given that you had not done before. How did you work out what you needed to know and how to approach it?' },
   // Area 4: Judgement, Help & Escalation
   { area: 4, areaName: 'Judgement, Help & Escalation', text: 'Tell me about a situation where you had to decide whether you could continue yourself or whether you should check something with somebody else. What influenced your decision?' },
-  { area: 4, areaName: 'Judgement, Help & Escalation', text: 'Have you had to raise or escalate something because you thought it could affect the work, a client, a project or the organisation? What made you decide it needed raising?' },
+  { area: 4, areaName: 'Judgement, Help & Escalation', text: 'Has there been a situation at work where you had to decide whether something needed raising with someone more senior? What did you do — or what would make you feel something was important enough to escalate?' },
   // Area 5: Feedback, Reflection & Development
   { area: 5, areaName: 'Feedback, Reflection & Development', text: 'What is the most useful feedback you have received since starting, and what have you changed as a result?' },
   { area: 5, areaName: 'Feedback, Reflection & Development', text: 'Looking back over your time at work so far, what is one thing you think you are doing well and one thing you want to improve? What would improvement look like over the next few months?' }
@@ -710,6 +744,11 @@ let inLearningMoment = false;
 let lmPhase = null; // 'check' | 'recognition'
 let runToken = null;
 let pollInterval = null;
+// Phase 2: conversational accommodations
+let questionProvenance = {}; // { qIdx: 'independent'|'after-clarification'|'after-prompting'|'after-teaching'|'skipped'|'exposure-acknowledged' }
+let rephraseCount = {};       // { qIdx: 1|2 } — per question index
+let skippedQuestions = [];    // array of question indices that were skipped
+let accommodationUsedThisQ = false; // true if candidate used help panel on current Q
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
@@ -801,7 +840,7 @@ function renderHome(data) {
 
   const reportPendingDesc = (() => {
     if (s === 'candidate-complete') return 'Generating your report — this takes up to 60 seconds';
-    if (s === 'awaiting-manager') return 'Waiting for your manager\'s perspective before your development summary is prepared';
+    if (s === 'awaiting-manager') return 'Your Benchmark report is ready — your development summary will follow once your manager has responded';
     if (['manager-complete','synthesising'].includes(s)) {
       if (data.synthesisJobFailed) return 'We weren\'t able to prepare your development summary automatically — please contact info@getcharteredai.com.';
       return 'Manager has responded — preparing your development summary';
@@ -830,7 +869,11 @@ function renderHome(data) {
       done: reportReady,
       active: reportReady,
       pending: reportPending,
-      cta: reportReady ? `<button class="p1-home-cta" onclick="renderReport(sessionData.report);renderCandidateDevelopment(sessionData);show('candidate-development')">View my report →</button>` : null
+      cta: reportReady
+        ? `<button class="p1-home-cta" onclick="renderReport(sessionData.report);renderCandidateDevelopment(sessionData);show('candidate-development')">View my report →</button>`
+        : (hasReport && ['awaiting-manager', 'manager-complete', 'synthesising'].includes(s)
+            ? `<button class="p1-home-cta" onclick="renderReport(sessionData.report);show('report')">View your Benchmark report →</button>`
+            : null)
     },
     {
       title: 'Your Development Priorities',
@@ -964,6 +1007,15 @@ async function init() {
     if (data.role === 'candidate') {
       contextAnswers.discipline = data.discipline || '';
       contextAnswers.monthsInRole = data.monthsInRole || 0;
+      // Show private Benchmark report for all post-benchmark statuses where the report exists.
+      // Status moves from candidate-complete to awaiting-manager once the background function
+      // completes and invites the manager; checking only candidate-complete misses this.
+      const postBenchmarkWithReport = ['candidate-complete', 'awaiting-manager', 'manager-complete', 'synthesising'];
+      if (postBenchmarkWithReport.includes(data.status) && data.report) {
+        renderReport(data.report);
+        show('report');
+        return;
+      }
       renderHome(data);
       show('home');
     }
@@ -1026,6 +1078,146 @@ function showQuestion(idx) {
   document.getElementById('reflection-next-btn').textContent = idx < 14 ? 'Continue →' : 'Complete my reflection →';
   inLearningMoment = false;
   lmPhase = null;
+  accommodationUsedThisQ = false;
+
+  // Render help panel
+  renderHelpPanel(idx);
+}
+
+function renderHelpPanel(idx) {
+  const container = document.getElementById('reflection-help-panel');
+  if (!container) return;
+  const count = rephraseCount[idx] || 0;
+  const atCap = count >= 2;
+
+  if (atCap) {
+    container.innerHTML = `
+      <div id="help-panel-wrap" style="margin-bottom:12px">
+        <p style="font-size:13px;color:#64748b;line-height:1.6">I've offered two versions of this question. You can try your best answer below, or skip it.</p>
+        <button class="arev-btn-secondary" onclick="handleSkip()" style="margin-top:8px;width:auto;padding:8px 18px;font-size:13px">Skip this question</button>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <div id="help-panel-wrap" style="margin-bottom:12px">
+      <button id="help-toggle-btn" onclick="toggleHelpPanel()" style="background:none;border:none;font-size:12px;color:#94a3b8;cursor:pointer;padding:4px 0;text-decoration:underline;text-underline-offset:2px">Need help?</button>
+      <div id="help-options" style="display:none;margin-top:8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#94a3b8;margin-bottom:8px">Options</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          ${!atCap ? `<button class="help-option-btn" onclick="handleAccommodation('rephrase')" style="text-align:left;background:none;border:1px solid #e2e8f0;border-radius:7px;padding:8px 12px;font-size:13px;color:#374151;cursor:pointer;font-family:inherit">Ask this differently</button>` : ''}
+          <button class="help-option-btn" onclick="handleAccommodation('clarify')" style="text-align:left;background:none;border:1px solid #e2e8f0;border-radius:7px;padding:8px 12px;font-size:13px;color:#374151;cursor:pointer;font-family:inherit">Explain what you're looking for</button>
+          <button class="help-option-btn" onclick="handleAccommodation('example')" style="text-align:left;background:none;border:1px solid #e2e8f0;border-radius:7px;padding:8px 12px;font-size:13px;color:#374151;cursor:pointer;font-family:inherit">Give me an example</button>
+          <button class="help-option-btn" onclick="handleAccommodation('no-experience')" style="text-align:left;background:none;border:1px solid #e2e8f0;border-radius:7px;padding:8px 12px;font-size:13px;color:#374151;cursor:pointer;font-family:inherit">I haven't had this opportunity yet</button>
+          <button class="help-option-btn" onclick="handleSkip()" style="text-align:left;background:none;border:1px solid #e2e8f0;border-radius:7px;padding:8px 12px;font-size:13px;color:#64748b;cursor:pointer;font-family:inherit">Skip this question</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function toggleHelpPanel() {
+  const opts = document.getElementById('help-options');
+  if (opts) opts.style.display = opts.style.display === 'none' ? '' : 'none';
+}
+
+async function handleAccommodation(type) {
+  // Close the help panel
+  const opts = document.getElementById('help-options');
+  if (opts) opts.style.display = 'none';
+
+  accommodationUsedThisQ = true;
+
+  const q = QUESTIONS[currentQ];
+  let signal, requestNum;
+
+  if (type === 'rephrase') {
+    rephraseCount[currentQ] = (rephraseCount[currentQ] || 0) + 1;
+    requestNum = rephraseCount[currentQ];
+    signal = requestNum >= 2 ? '[REPHRASE REQUEST 2]' : '[REPHRASE REQUEST]';
+  } else if (type === 'clarify') {
+    signal = '[CLARIFY REQUEST]';
+  } else if (type === 'example') {
+    signal = '[EXAMPLE REQUEST]';
+  } else if (type === 'no-experience') {
+    signal = '[NO EXPERIENCE]';
+  }
+
+  // Show loading state in lm area
+  const lmArea = document.getElementById('reflection-lm-area');
+  lmArea.innerHTML = `<div style="text-align:center;padding:16px 0"><div class="arev-dots"><div class="arev-dot"></div><div class="arev-dot"></div><div class="arev-dot"></div></div></div>`;
+
+  try {
+    const msgContent = `${signal}
+
+Q${currentQ + 1}: ${q.text}`;
+    const tempMessages = [...messages, { role: 'user', content: msgContent }];
+
+    const data = await apiPost('p1-tutor', {
+      token: appToken,
+      messages: tempMessages,
+      discipline: contextAnswers.discipline,
+      monthsInRole: contextAnswers.monthsInRole
+    });
+
+    const raw = (data.content || []).map(b => b.text || '').join('');
+    let result;
+    try { result = JSON.parse(raw.replace(/```json|```/g, '').trim()); } catch { result = null; }
+
+    lmArea.innerHTML = '';
+
+    if (result && result.rephrase) {
+      // Update question text with rephrased version
+      document.getElementById('reflection-question-text').textContent = result.rephrase;
+      renderHelpPanel(currentQ); // Re-render to check rephrase cap
+    } else if (result && result.clarify) {
+      lmArea.innerHTML = `
+        <div class="arev-lm-card">
+          <div class="arev-lm-header"><div class="arev-lm-icon">💬</div><span class="arev-lm-title">Michael</span></div>
+          <div class="arev-lm-explain">${esc(result.clarify)}</div>
+        </div>`;
+    } else if (result && result.example) {
+      lmArea.innerHTML = `
+        <div class="arev-lm-card">
+          <div class="arev-lm-header"><div class="arev-lm-icon">💡</div><span class="arev-lm-title">Michael</span></div>
+          <div class="arev-lm-explain">${esc(result.example)}</div>
+        </div>`;
+    } else if (result && result.recognitionPrompt) {
+      lmArea.innerHTML = `
+        <div class="arev-recognition-card">
+          <div class="arev-recognition-text">${esc(result.recognitionPrompt)}</div>
+          <div class="arev-recognition-btns">
+            <button class="arev-recognition-yes" onclick="recognitionYes()">Yes, I have experience like that</button>
+            <button class="arev-recognition-no" onclick="recognitionNoFromPanel()">No, I genuinely haven't had that opportunity</button>
+          </div>
+        </div>`;
+      document.getElementById('reflection-response-area').style.display = 'none';
+      lmPhase = 'recognition';
+      messages.push({ role: 'user', content: msgContent });
+      messages.push({ role: 'assistant', content: raw });
+      inLearningMoment = true;
+    }
+  } catch {
+    lmArea.innerHTML = '';
+  }
+}
+
+function recognitionNoFromPanel() {
+  // Exposure-acknowledged: candidate used no-experience path AND confirmed no exposure
+  const areaId = QUESTIONS[currentQ].area;
+  if (contextAnswers.recognitionResults[areaId] !== 'relevant-exposure-identified') {
+    contextAnswers.recognitionResults[areaId] = 'confirmed-lack-of-exposure';
+  }
+  questionProvenance[currentQ] = 'exposure-acknowledged';
+  messages.push({ role: 'user', content: 'No — I genuinely have not had that opportunity in my role yet.' });
+  messages.push({ role: 'assistant', content: 'Understood. That is useful context.' });
+  advanceQuestion();
+}
+
+function handleSkip() {
+  questionProvenance[currentQ] = 'skipped';
+  if (!skippedQuestions.includes(currentQ)) skippedQuestions.push(currentQ);
+  // Skip does NOT change recognitionResults
+  advanceQuestion();
 }
 
 function updateWC() {
@@ -1048,10 +1240,17 @@ async function submitReflectionResponse() {
   btn.textContent = 'Michael is thinking…';
 
   const q = QUESTIONS[currentQ];
+  const uncertainCheck = document.getElementById('reflection-uncertain-check');
+  const isUncertain = uncertainCheck && uncertainCheck.checked;
 
   if (!inLearningMoment) {
     // First response to a question — ask Michael for a Learning Moment
-    messages.push({ role: 'user', content: `Q${currentQ + 1}: ${q.text}\n\nMy response: ${responseText}` });
+    let userContent = `Q${currentQ + 1}: ${q.text}\n\nMy response: ${responseText}`;
+    if (isUncertain) {
+      userContent = `[UNCERTAIN SIGNAL]\n\n${userContent}`;
+      accommodationUsedThisQ = true; // uncertain checkbox is an accommodation
+    }
+    messages.push({ role: 'user', content: userContent });
 
     try {
       const data = await apiPost('p1-tutor', {
@@ -1065,25 +1264,48 @@ async function submitReflectionResponse() {
       let lm;
       try { lm = JSON.parse(raw.replace(/```json|```/g, '').trim()); } catch { lm = null; }
 
-      if (lm && (lm.explain || lm.reprompt || lm.recognitionPrompt)) {
+      if (lm && lm.reassure) {
+        // Uncertain signal — reassured, advance as independent (accommodation used)
+        messages.push({ role: 'assistant', content: raw });
+        questionProvenance[currentQ] = accommodationUsedThisQ ? 'after-clarification' : 'independent';
+        advanceQuestion();
+      } else if (lm && (lm.explain || lm.reprompt || lm.recognitionPrompt)) {
         // Show Learning Moment
         messages.push({ role: 'assistant', content: raw });
         inLearningMoment = true;
+        if (lm.reprompt) {
+          // Track that this question got a reprompt nudge — provenance will be 'after-prompting' on next advance
+          questionProvenance[currentQ] = 'after-prompting';
+        } else if (lm.explain) {
+          questionProvenance[currentQ] = 'after-teaching';
+        }
         renderLearningMoment(lm);
       } else {
         // No Learning Moment — move on
         if (lm) messages.push({ role: 'assistant', content: raw });
+        // Independent if no accommodation used, otherwise after-clarification
+        if (!questionProvenance[currentQ]) {
+          questionProvenance[currentQ] = accommodationUsedThisQ ? 'after-clarification' : 'independent';
+        }
         advanceQuestion();
       }
     } catch {
       // On error, advance anyway
+      if (!questionProvenance[currentQ]) {
+        questionProvenance[currentQ] = accommodationUsedThisQ ? 'after-clarification' : 'independent';
+      }
       advanceQuestion();
     }
 
   } else if (lmPhase === 'check') {
-    // Response to the check question
+    // Response to the check question — provenance already set to after-prompting or after-teaching.
+    // Do NOT inject a fake assistant acknowledgement here — the report generator must evaluate
+    // the actual quality of this response, not infer approval from a synthetic 'Thank you.'
     messages.push({ role: 'user', content: responseText });
-    messages.push({ role: 'assistant', content: 'Thank you.' });
+    // Confirm provenance for after-teaching if explain was shown
+    if (!questionProvenance[currentQ] || questionProvenance[currentQ] === 'independent') {
+      questionProvenance[currentQ] = 'after-teaching';
+    }
     advanceQuestion();
 
   } else if (lmPhase === 'recognition') {
@@ -1145,7 +1367,9 @@ function renderLearningMoment(lm) {
 function recognitionYes() {
   contextAnswers.recognitionResults[QUESTIONS[currentQ].area] = 'relevant-exposure-identified';
   messages.push({ role: 'user', content: 'Yes, thinking about it more carefully, I do have relevant experience.' });
-  messages.push({ role: 'assistant', content: 'Thank you — that context is helpful.' });
+  // Neutral prompt — invites elaboration without implying Michael has evaluated or approved anything.
+  // Must be an assistant turn to maintain alternating user/assistant structure required by Anthropic API.
+  messages.push({ role: 'assistant', content: 'Please tell me more about that experience.' });
   document.getElementById('reflection-response-area').style.display = '';
   document.getElementById('reflection-response').value = '';
   document.getElementById('reflection-response').placeholder = 'Tell me more about that experience…';
@@ -1160,6 +1384,9 @@ function recognitionNo() {
   if (contextAnswers.recognitionResults[areaId] !== 'relevant-exposure-identified') {
     contextAnswers.recognitionResults[areaId] = 'confirmed-lack-of-exposure';
   }
+  // This is exposure-acknowledged only if came from a learning moment recognition path
+  // If came from no-experience help panel, recognitionNoFromPanel handles it
+  questionProvenance[currentQ] = 'exposure-acknowledged';
   messages.push({ role: 'user', content: 'No — I genuinely have not had that opportunity in my role yet.' });
   messages.push({ role: 'assistant', content: 'Understood. That is useful context.' });
   advanceQuestion();
@@ -1168,6 +1395,9 @@ function recognitionNo() {
 function advanceQuestion() {
   inLearningMoment = false;
   lmPhase = null;
+  // Reset uncertain checkbox if present
+  const uc = document.getElementById('reflection-uncertain-check');
+  if (uc) uc.checked = false;
   currentQ++;
 
   if (currentQ >= 15) {
@@ -1183,11 +1413,14 @@ function advanceQuestion() {
 // ── Priority selection → report ───────────────────────────────────────────────
 
 function confirmPrioritySelection() {
-  const selected = document.querySelector('input[name="candidatePriority"]:checked');
+  const checked = Array.from(document.querySelectorAll('input[name="candidatePriority"]:checked')).map(el => el.value);
   const err = document.getElementById('priority-select-err');
-  if (!selected) { err.style.display = ''; return; }
+  if (checked.length === 0 || checked.length > 3) { err.style.display = ''; return; }
   err.style.display = 'none';
-  contextAnswers.candidateSelectedPriority = selected.value;
+  contextAnswers.candidateSelectedPriorities = checked;
+  // Backward-compatibility alias: first non-"not-sure" value, or null if only "not-sure"
+  const firstReal = checked.find(v => v !== 'not-sure') || null;
+  contextAnswers.candidateSelectedPriority = firstReal;
   generateReport();
 }
 
@@ -1196,13 +1429,21 @@ function confirmPrioritySelection() {
 async function generateReport() {
   show('generating');
   runToken = crypto.randomUUID();
+  // Reset failed UI
+  const failedUi = document.getElementById('generating-failed-ui');
+  if (failedUi) failedUi.style.display = 'none';
+  document.getElementById('generating-status-text').textContent = 'Analysing your reflection…';
 
   // Submit to background function
   try {
     await fetch('/.netlify/functions/p1-generate-report-background', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: appToken, messages, runToken, contextAnswers })
+      body: JSON.stringify({ token: appToken, messages, runToken, contextAnswers: {
+        ...contextAnswers,
+        questionProvenance,
+        skippedQuestions
+      }})
     });
   } catch { /* background function returns 202 or error, doesn't matter */ }
 
@@ -1230,23 +1471,126 @@ async function generateReport() {
         show('report');
       } else if (status.status === 'failed') {
         clearInterval(pollInterval);
-        document.getElementById('generating-status-text').textContent = 'Report generation failed. Please contact info@getcharteredai.com.';
+        const statusText = document.getElementById('generating-status-text');
+        const failedUi = document.getElementById('generating-failed-ui');
+        const failedMsg = document.getElementById('generating-failed-msg');
+        if (status.error === 'timeout') {
+          statusText.textContent = '';
+          if (failedMsg) failedMsg.textContent = 'Michael is still working on your report. Please refresh the page in a few minutes.';
+          if (failedUi) { failedUi.style.display = ''; document.getElementById('generating-retry-btn').style.display = 'none'; }
+        } else {
+          statusText.textContent = '';
+          if (failedMsg) failedMsg.textContent = 'Something went wrong generating your report.';
+          if (failedUi) failedUi.style.display = '';
+        }
       }
     } catch { /* retry */ }
 
-    if (attempts > 80) { // ~10 minutes
+    if (attempts > 100) { // ~13 minutes
       clearInterval(pollInterval);
       document.getElementById('generating-status-text').textContent = 'This is taking longer than expected. Please refresh the page.';
     }
   }, 8000);
 }
 
+function retryGenerateReport() {
+  if (pollInterval) clearInterval(pollInterval);
+  generateReport();
+}
+
 // ── Report rendering ──────────────────────────────────────────────────────────
 
 function renderReport(report) {
   const el = document.getElementById('report-content');
+  // Old schema used report.areas; new schema uses report.areaOutcomes
+  if (!report.areaOutcomes && report.areas) {
+    renderReportLegacy(report, el);
+    return;
+  }
 
-  // Overall summary
+  let html = '';
+
+  // Overview
+  if (report.overview) {
+    html += `
+      <div class="p1-report-section">
+        <div class="arev-panel">
+          <span class="arev-michael-label">Professional Readiness Picture</span>
+          <div class="arev-q-text" style="font-size:14px;line-height:1.7">${report.overview}</div>
+        </div>
+      </div>`;
+  }
+
+  // Five area outcomes — compact summary strip
+  if (report.areaOutcomes?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Five areas</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden">`;
+    report.areaOutcomes.forEach((area, idx) => {
+      const border = idx > 0 ? 'border-top:1px solid #e2e8f0;' : '';
+      html += `<div style="${border}display:flex;justify-content:space-between;align-items:center;padding:10px 18px;gap:12px">
+        <span style="font-size:13px;font-weight:500;color:#1e293b">${area.name}</span>
+        ${outcomeBadge(area.outcome)}
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Strengths — only independently demonstrated capability
+  if (report.strengths?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Strengths</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px 24px">`;
+    report.strengths.forEach(s => {
+      html += `<div class="p1-list-item"><span style="color:#10b981;font-weight:700">✓</span> ${s}</div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Development focus
+  if (report.developmentFocus?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Development focus</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:6px 24px">`;
+    report.developmentFocus.forEach((d, idx, arr) => {
+      const borderBottom = idx < arr.length - 1 ? 'border-bottom:1px solid #e2e8f0;' : '';
+      const badge = d.type === 'exposure-gap'
+        ? '<span style="font-size:10px;font-weight:700;color:#f59e0b;background:#fef3c7;border-radius:999px;padding:2px 8px;white-space:nowrap">Exposure gap</span>'
+        : '<span style="font-size:10px;font-weight:700;color:#3d5afe;background:#e8eaff;border-radius:999px;padding:2px 8px;white-space:nowrap">Development area</span>';
+      html += `<div style="${borderBottom}padding:14px 0;display:flex;gap:12px;align-items:flex-start">
+        <div style="flex:1">
+          <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">${d.area}</div>
+          <div style="font-size:13px;color:#1e293b;line-height:1.5">${d.focus}</div>
+        </div>
+        <div style="flex-shrink:0;margin-top:2px">${badge}</div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Next steps
+  if (report.nextActions?.length) {
+    html += `<div class="p1-report-section"><span class="p1-section-title">Next steps</span>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px 24px">`;
+    report.nextActions.forEach(a => {
+      html += `<div class="p1-list-item"><span style="color:#3d5afe;font-weight:700">→</span> ${a}</div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Conversation prompt
+  if (report.conversationPrompt) {
+    html += `<div class="p1-report-section">
+      <div style="background:#f0f4ff;border:1px solid #c7d2fe;border-radius:14px;padding:20px 24px">
+        <div style="font-size:11px;font-weight:700;color:#3d5afe;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">For your development conversation</div>
+        <div style="font-size:14px;color:#1e293b;font-style:italic;line-height:1.6">"${report.conversationPrompt}"</div>
+      </div>
+    </div>`;
+  }
+
+  html += `<div class="p1-report-disclaimer">This is a professional development diagnostic, not a formal assessment or certification. It provides a structured, evidence-based picture of your current professional practice.</div>`;
+
+  el.innerHTML = html;
+}
+
+function renderReportLegacy(report, el) {
   let html = `
     <div class="p1-report-section">
       <div class="arev-panel">
@@ -1255,7 +1599,6 @@ function renderReport(report) {
       </div>
     </div>`;
 
-  // Five areas
   html += `<div class="p1-report-section"><span class="p1-section-title">Five areas</span>`;
   (report.areas || []).forEach(area => {
     html += `
@@ -1273,7 +1616,6 @@ function renderReport(report) {
   });
   html += `</div>`;
 
-  // Development priorities
   if (report.developmentPriorities?.length) {
     html += `<div class="p1-report-section"><span class="p1-section-title">Development priorities</span>
       <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:6px 24px">`;
@@ -1290,7 +1632,6 @@ function renderReport(report) {
     html += `</div></div>`;
   }
 
-  // Strengths
   if (report.demonstratedStrengths?.length) {
     html += `<div class="p1-report-section"><span class="p1-section-title">Demonstrated strengths</span>
       <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px 24px">`;
@@ -1300,7 +1641,6 @@ function renderReport(report) {
     html += `</div></div>`;
   }
 
-  // Actions
   if (report.candidateActions?.length || report.workplaceOpportunities?.length) {
     html += `<div class="p1-report-section"><span class="p1-section-title">Next steps</span>
       <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px 24px">`;

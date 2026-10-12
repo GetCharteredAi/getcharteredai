@@ -89,6 +89,16 @@ ${calibrationNote}
 
 ${PROFESSIONAL_JUDGEMENT_PRINCIPLE}
 
+## When to trigger a Learning Moment
+
+A Learning Moment (full loop or reprompt) is required when the response lacks concrete evidence. Specifically:
+
+- **No specific situation**: A response that only states a general habit, attitude, or intention ("I try to...", "I always...", "I usually just...", "I make sure to...") without describing a specific workplace incident is not evidence. Use at minimum a reprompt asking for a concrete example.
+- **Concept without application**: Correctly naming a principle but not describing any personal experience of it is insufficient. Use a reprompt or teaching moment.
+- **Vague reassurance**: Statements like "I ask my manager about things I'm not sure about" do not demonstrate judgement — they describe a reflex. If no specific decision point or reasoning is described, probe.
+
+Advance without a Learning Moment only when the response contains a specific situation, a personal action taken, and some indication of why — even if briefly stated.
+
 ## Learning Moment shapes
 
 ### Full loop (RECOGNISE → EXPLAIN → CHECK → CONTINUE)

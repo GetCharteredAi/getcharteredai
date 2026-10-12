@@ -273,6 +273,13 @@ ok('System prompt prohibits "This question is designed to assess"',
 ok('System prompt prohibits academic register',
   tutorJs.includes('academic register') || tutorJs.includes('formal or academic'));
 
+ok('System prompt defines when to trigger a Learning Moment (no specific situation rule)',
+  tutorJs.includes('No specific situation') || tutorJs.includes('no specific situation') ||
+  (tutorJs.includes('general habit') && tutorJs.includes('reprompt')));
+
+ok('System prompt identifies vague habit statements as insufficient evidence',
+  tutorJs.includes('I try to') || tutorJs.includes('I always') || tutorJs.includes('I usually just'));
+
 // ─── Section 11: Evidence integrity safeguards ───────────────────────────────
 console.log('\n11. Evidence integrity — check-question and uncertain signal');
 

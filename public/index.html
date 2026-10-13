@@ -1525,16 +1525,28 @@ input.err{border-color:var(--red)}
   .dev-dot{background:#0D0F1C!important}
 }
 @media(max-width:540px){.dev-journey-steps{grid-template-columns:1fr!important}}
-@media(max-width:768px){#dev-system-sec .dev-sys-heading{padding:48px 24px 56px!important}}
+.dev-sys-wrap{max-width:1100px;margin:0 auto;padding:88px 40px 80px}
+.dev-sys-rule{border:none;border-top:1px solid rgba(180,83,9,.2);margin:40px 0 36px;max-width:520px}
+.dev-pgr-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b45309;margin:0 0 28px}
+.dev-pgr-row{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px}
+.dev-pgr-item{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(15px,1.65vw,19px);font-weight:700;color:#0D0F1C;letter-spacing:-.02em;line-height:1.3;margin:0}
+@media(max-width:840px){
+  .dev-sys-wrap{padding:48px 24px 60px!important}
+  .dev-pgr-row{flex-direction:column!important;gap:20px!important;justify-content:flex-start!important}
+}
 @media(max-width:768px){#dev-navy-band{padding:40px 24px 52px!important}}
 </style>
-  <!-- Heading on white -->
-  <div class="dev-sys-heading" style="max-width:1100px;margin:0 auto;padding:88px 40px 72px">
+  <!-- Editorial composition: proposition + horizontal principles -->
+  <div class="dev-sys-wrap">
     <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b45309;margin:0 0 16px">The Development System</p>
     <h2 style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(20px,2.6vw,34px);font-weight:700;color:#0D0F1C;letter-spacing:-.02em;line-height:1.25;margin:0;max-width:520px">A structured approach to professional development<span style="display:block;font-weight:400;color:#64748b"> that goes beyond learning content.</span></h2>
-    <hr style="border:none;border-top:1px solid rgba(180,83,9,.18);margin:40px 0 36px;max-width:520px">
-    <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b45309;margin:0 0 13px">Professional Growth Requires</p>
-    <p style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(14px,1.55vw,18px);font-weight:600;color:#0D0F1C;letter-spacing:-.015em;line-height:1.6;margin:0">Clear goals<span aria-hidden="true" style="color:rgba(180,83,9,.5);margin:0 14px">•</span>Deliberate practice<span aria-hidden="true" style="color:rgba(180,83,9,.5);margin:0 14px">•</span>Openness to constructive feedback</p>
+    <hr class="dev-sys-rule">
+    <p class="dev-pgr-lbl">Because Professional Growth Requires</p>
+    <div class="dev-pgr-row">
+      <p class="dev-pgr-item">Clear goals</p>
+      <p class="dev-pgr-item">Deliberate practice</p>
+      <p class="dev-pgr-item">The ability to remain open to feedback</p>
+    </div>
   </div>
   <!-- Navy band — full width -->
   <div id="dev-navy-band" style="background:#0D0F1C;padding:56px 40px 64px">

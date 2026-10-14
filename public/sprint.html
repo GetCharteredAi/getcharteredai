@@ -78,8 +78,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:fl
 .sec-lead-light{font-size:16px;color:rgba(248,250,252,.65);line-height:1.65;max-width:600px}
 
 /* WHAT YOU GET CARDS */
-.wg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px}
-.wg-card{background:var(--navy);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:28px 28px 32px;display:flex;flex-direction:column}
+.wg-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:36px}
+.wg-card{background:var(--navy);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:28px 28px 32px;display:flex;flex-direction:column;grid-column:span 2}
+.wg-card:nth-child(7){grid-column:2/4}
+.wg-card:nth-child(8){grid-column:4/6}
 .wg-card-num{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#d97706;margin-bottom:16px}
 .wg-card-title{font-family:var(--f-head);font-size:16px;font-weight:700;color:#f8fafc;margin-bottom:10px;line-height:1.3}
 .wg-card-body{font-size:13px;color:rgba(248,250,252,.5);line-height:1.65;flex:1}
@@ -177,6 +179,9 @@ footer a:hover{color:rgba(248,250,252,.8)}
   .sec{padding:56px 24px}
   .urgency-band,.final-cta{padding:48px 24px}
   .jstrip-stages{grid-template-columns:repeat(2,1fr)}
+  .wg-grid{grid-template-columns:repeat(2,1fr)}
+  .wg-card{grid-column:span 1}
+  .wg-card:nth-child(7),.wg-card:nth-child(8){grid-column:span 1}
 }
 @media(max-width:640px){
   .wg-grid{grid-template-columns:1fr}

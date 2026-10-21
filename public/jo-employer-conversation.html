@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Get Chartered AI — Jo Conversation</title>
+<meta name="description" content="A guided conversation about professional readiness, better reviews and clearer development decisions." />
+<style>
+:root{
+  --ink:#101b30;--forest:#101b30;--forest2:#101b30;--paper:#fbfaf6;--cream:#f5f1e7;
+  --mist:#f2f5ef;--gold:#c7a55a;--gold2:#e3ca8b;--sage:#e8f0df;--blush:#f3e7ec;
+  --blue:#e7eef7;--grey:#ededeb;--line:rgba(20,33,28,.12);--muted:#68756f;
+  --shadow:0 24px 70px rgba(8,17,31,.10);--cyan:#45c4de;--logoBlue:#4b8ff7
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.48}a{text-decoration:none;color:inherit}button{font:inherit}.wrap{width:min(1180px,calc(100% - 44px));margin:auto}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(16,27,48,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar .inner{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:800;letter-spacing:-.03em;font-size:18px;color:#ffffff}.brand .ai{color:var(--cyan)}.brand .subbrand{color:#8fa0b8;font-weight:500}.navright{display:flex;align-items:center;gap:12px}.progress{display:none}.mode{border:1px solid rgba(69,196,222,.28);background:rgba(255,255,255,.03);color:var(--cyan);border-radius:999px;padding:11px 18px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.screen{min-height:100vh;padding:114px 0 72px;display:flex;align-items:center;scroll-margin-top:72px;position:relative;overflow:hidden}.screen.soft{background:var(--mist)}.screen.dark{background:var(--forest2);color:#fff}.screen.cream{background:var(--cream)}
+.kicker{font-size:12px;font-weight:850;letter-spacing:.13em;text-transform:uppercase;color:var(--forest);margin-bottom:14px}.dark .kicker{color:var(--gold2)}
+h1,h2,h3{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-weight:500}.hero h1{font-size:clamp(44px,4.6vw,62px);line-height:1.02;max-width:690px;letter-spacing:-.045em;font-weight:500}.screen h2{font-size:clamp(36px,4vw,54px);line-height:1.04;letter-spacing:-.04em;font-weight:500}.lead{font-size:clamp(18px,2vw,22px);line-height:1.55;color:#47564f;max-width:850px;margin:24px 0 0}.dark .lead{color:#ced9d4}.bigline{font-size:clamp(26px,3.2vw,42px);line-height:1.18;font-weight:760;letter-spacing:-.035em;margin:28px 0}.small{font-size:14px;color:var(--muted)}
+
+.hero-split{display:grid;grid-template-columns:1.03fr .97fr;gap:54px;align-items:center}.hero-kicker{font-size:16px;text-transform:none;letter-spacing:0;font-weight:500;color:#595d5a;margin-bottom:20px}.hero h1{font-size:clamp(46px,4.8vw,60px);line-height:1.02;max-width:690px;font-weight:300;color:var(--forest)}.hero-support{max-width:660px;margin:24px 0 0;font-size:clamp(19px,2vw,24px);line-height:1.38;letter-spacing:-.023em;font-weight:350;color:#666b68}.hero-visual{position:relative;min-height:385px}.hero-orb{position:absolute;right:12px;top:0;width:370px;height:370px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#f2e8cf 0,#e3edf6 42%,#b8d7e8 100%)}.insight-card{position:absolute;background:rgba(255,255,255,.94);border:1px solid var(--line);box-shadow:0 18px 45px rgba(8,17,31,.10);border-radius:24px;padding:20px}.insight-main{width:335px;right:6px;top:50px}.insight-small{width:250px;right:138px;top:225px}.ic-kicker{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#7b847f}.ic-title{font-size:21px;line-height:1.14;margin:7px 0 14px;font-weight:650;letter-spacing:-.025em;color:var(--forest)}.small-title{font-size:18px}.statusrow{display:flex;gap:7px;margin:10px 0 14px}.pill{border-radius:999px;padding:6px 9px;font-size:11px;font-weight:650;background:var(--mist);border:1px solid var(--line)}.signal{display:grid;grid-template-columns:1fr auto;gap:8px;font-size:11.5px;color:#324052}.bar{height:7px;background:#e8eee9;border-radius:8px;overflow:hidden;margin:6px 0 11px}.bar span{display:block;height:100%;border-radius:8px;background:var(--forest)}.tiny{font-size:11.5px;line-height:1.35;color:#7b847f}.hero-definition{margin-top:30px;max-width:1180px;padding-top:22px;border-top:1px solid var(--line);font-size:24px;line-height:1.42;letter-spacing:-.022em;font-weight:350;color:#40505c}.hero-definition strong{font-weight:500;color:var(--forest)}.hero-brandline{margin-top:15px;font-size:14px;color:#777d79;font-weight:500}.hero-brandline span{color:var(--logoBlue);font-weight:650}
+
+.question-stream{display:grid;gap:12px;margin-top:42px;overflow:hidden;padding:0 4px}.question-row{display:grid;gap:14px;width:calc(100% + 28px);margin-left:-14px}.r1{grid-template-columns:1fr .92fr 1.42fr;animation:driftL 9s ease-in-out infinite alternate}.r2{grid-template-columns:1.34fr .82fr .82fr;animation:driftR 10.5s ease-in-out infinite alternate}.r3{grid-template-columns:1.12fr .98fr;animation:driftL 12s ease-in-out infinite alternate}.q{display:flex;align-items:center;min-height:58px;padding:14px 22px;border-radius:30px;border:1px solid var(--line);box-shadow:0 7px 20px rgba(14,31,25,.04);font-size:16px;font-weight:780;white-space:nowrap}.r1 .q:nth-child(1),.r3 .q:nth-child(2){background:var(--sage)}.r1 .q:nth-child(2),.r2 .q:nth-child(2){background:var(--blush)}.r1 .q:nth-child(3),.r3 .q:nth-child(1){background:var(--grey)}.r2 .q:nth-child(1),.r2 .q:nth-child(3){background:var(--blue)}
+@keyframes driftL{from{transform:translateX(0)}to{transform:translateX(-18px)}}@keyframes driftR{from{transform:translateX(-12px)}to{transform:translateX(12px)}}
+.pieces{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:42px}.piece{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;min-height:155px}.piece .label{font-size:11px;text-transform:uppercase;letter-spacing:.11em;font-weight:850;color:var(--muted)}.piece h3{font-size:20px;margin:12px 0 6px}.piece p{font-size:14px;color:#53615b;margin:0}.missing{margin-top:22px;padding:28px 30px;border-radius:24px;background:var(--forest);color:#fff;display:flex;justify-content:space-between;align-items:end;gap:30px}.missing strong{font-size:30px;line-height:1.1;font-weight:400}.missing span{max-width:420px;color:#d4dfda}
+.built-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;margin-top:40px}.built-list{display:grid;gap:11px}.built-item{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}.tick{width:26px;height:26px;border-radius:50%;background:var(--sage);display:grid;place-items:center;font-weight:900;color:var(--forest)}.built-item b{display:block;font-size:15px}.built-item span{display:block;font-size:13px;color:var(--muted);margin-top:3px}.built-claim{background:var(--forest);color:#fff;border-radius:32px;padding:38px;box-shadow:var(--shadow)}.built-claim h3{font-size:34px;line-height:1.08;font-weight:400;margin:0 0 16px}.built-claim p{font-size:17px;color:#d7e2dd;margin:0}
+.gap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:38px}.gap{border:1px solid var(--line);border-radius:22px;background:#fff;padding:22px;min-height:172px}.gap small{color:var(--gold);font-weight:850}.gap h3{margin:10px 0 8px;font-size:19px}.gap p{margin:0;color:var(--muted);font-size:14px}.gap strong{display:block;margin-top:14px;color:var(--forest);font-size:13px}
+.michael{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:center}.michael-orb{width:min(420px,78vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 32% 27%,#f1e5c7 0,#dce8df 45%,#abc7b8 100%);display:grid;place-items:center;margin:auto;box-shadow:var(--shadow)}.michael-orb span{font-size:72px}.flow{display:flex;flex-wrap:wrap;gap:9px;margin:26px 0}.flow span{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);padding:9px 14px;border-radius:999px;font-size:13px;font-weight:780}.quote{border-left:3px solid var(--gold2);padding-left:20px;margin-top:24px;font-size:18px;color:#e0e8e4}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:38px}.demo-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:28px;box-shadow:0 16px 50px rgba(14,31,25,.06)}.demo-card.alt{background:var(--mist)}.demo-tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:850;color:var(--muted)}.demo-card h3{font-size:26px;line-height:1.12;margin:12px 0}.prompt{font-size:18px;font-weight:730;line-height:1.45}.answer{margin-top:18px;border-radius:18px;background:#fff;border:1px solid var(--line);padding:18px;color:#405048;font-size:14px}.demo-card:not(.alt) .answer{background:var(--mist)}.follow{margin-top:14px;padding:16px 18px;border-radius:18px;background:var(--forest);color:#fff;font-size:14px}.follow b{display:block;color:var(--gold2);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.review-flow{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;margin-top:42px}.old,.new{border-radius:28px;padding:30px;min-height:310px}.old{background:#fff;border:1px solid var(--line)}.new{background:var(--forest);color:#fff}.review-flow h3{font-size:24px;margin:0 0 18px}.steps{display:grid;gap:10px}.steps div{padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}.new .steps div{border-color:rgba(255,255,255,.15)}.arrow{font-size:36px;color:var(--gold)}
+.context-path{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:38px}.context{border-radius:22px;padding:22px;border:1px solid var(--line);background:#fff;min-height:160px}.context b{display:block;font-size:16px;margin-bottom:8px}.context span{font-size:13px;color:var(--muted)}.context:nth-child(2){background:var(--sage)}.context:nth-child(3){background:var(--blue)}.context:nth-child(4){background:var(--blush)}.context:nth-child(5){background:var(--grey)}
+.signal-layout{display:grid;grid-template-columns:1fr 1.08fr;gap:46px;align-items:start;margin-top:38px}.signal-cloud{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.sig{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:#fff;border-radius:18px;padding:14px;text-align:left;cursor:pointer;transition:.18s}.sig:hover,.sig.active{background:#fff;color:var(--ink);transform:translateY(-2px)}.sig b{display:block;font-size:13px}.signal-detail{position:sticky;top:100px;background:var(--cream);color:var(--ink);border-radius:30px;padding:32px;min-height:310px}.signal-detail small{font-weight:850;letter-spacing:.1em;text-transform:uppercase;color:var(--forest)}.signal-detail h3{font-size:32px;line-height:1.08;margin:12px 0 16px;font-weight:400}.signal-detail p{font-size:17px;color:#4e5c56}.signal-detail .why{margin-top:24px;border-top:1px solid var(--line);padding-top:18px;font-size:14px}
+.outcomes{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px}.outcome{border:1px solid var(--line);border-radius:22px;padding:22px;background:#fff;min-height:190px}.outcome h3{font-size:18px;margin:0 0 8px}.outcome p{font-size:13px;color:var(--muted);margin:0}.outcome:nth-child(2){background:var(--sage)}.outcome:nth-child(3){background:var(--blue)}.outcome:nth-child(4){background:var(--blush)}.outcome:nth-child(5){background:var(--grey)}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:40px}.time{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;min-height:200px}.time .when{font-size:12px;color:var(--gold);font-weight:850}.time h3{font-size:18px;margin:12px 0 10px}.time p{font-size:13px;color:var(--muted);margin:0}.time .focus{margin-top:14px;font-weight:760;color:var(--forest);font-size:13px}
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}.stage{background:#fff;border:1px solid var(--line);border-radius:28px;padding:30px;min-height:250px;position:relative;overflow:hidden}.stage:before{content:"";height:5px;background:var(--gold);position:absolute;top:0;left:0;right:0}.stage small{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:850}.stage h3{font-size:27px;line-height:1.12;margin:14px 0}.stage p{color:#526159;font-size:14px}.journey{margin-top:24px;text-align:center;font-weight:850;color:var(--forest);font-size:16px}
+.apc-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-top:40px}.apc-step{background:#fff;padding:20px;min-height:130px}.apc-step b{font-size:14px;display:block}.apc-step span{font-size:12px;color:var(--muted);display:block;margin-top:8px}
+.closebox{background:var(--forest);color:#fff;border-radius:36px;padding:54px}.closebox h2{max-width:980px}.closebox .lead{color:#d3dfd9}.close-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:34px}.close-chip{border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:16px;font-size:13px;font-weight:780;background:rgba(255,255,255,.06)}
+.footer{padding:28px 0 50px;font-size:12px;color:var(--muted)}
+.nextnote{margin-top:28px;font-size:13px;color:var(--muted)}
+body.presentation{scroll-snap-type:y mandatory}.presentation .screen{scroll-snap-align:start;min-height:100vh;padding-top:96px}.presentation .screen .wrap{max-width:1180px}.presentation .nextnote{display:none}
+@media(max-width:980px){.pieces{grid-template-columns:1fr 1fr}.built-grid,.michael,.signal-layout{grid-template-columns:1fr}.gap-grid{grid-template-columns:1fr 1fr}.review-flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}.context-path,.outcomes,.timeline{grid-template-columns:1fr 1fr}.stages{grid-template-columns:1fr}.apc-strip{grid-template-columns:1fr 1fr 1fr}.close-grid{grid-template-columns:1fr 1fr}.signal-detail{position:static}.demo-grid{grid-template-columns:1fr}}
+@media(max-width:640px){.wrap{width:min(100% - 28px,1180px)}.screen{padding:94px 0 58px}.hero h1{font-size:52px}.pieces,.gap-grid,.context-path,.outcomes,.timeline,.apc-strip,.close-grid{grid-template-columns:1fr}.question-row{grid-template-columns:1fr!important;width:100%;margin:0;animation:none}.q{white-space:normal}.signal-cloud{grid-template-columns:1fr}.missing{display:block}.missing span{display:block;margin-top:14px}.closebox{padding:32px}.navright .progress{display:none}}
+@media(prefers-reduced-motion:reduce){.question-row{animation:none!important}.sig{transition:none}}
+
+@media(max-width:1100px){.hero h1{font-size:52px}.hero-support{font-size:21px}.hero-orb{width:330px;height:330px}.insight-main{width:300px}.insight-small{width:225px;right:110px}.hero-definition{font-size:22px}}
+@media(max-width:900px){.hero-split{grid-template-columns:1fr}.hero-visual{min-height:330px}.hero h1{font-size:48px}.hero-support{font-size:20px}.hero-definition{font-size:21px}}
+@media(max-width:620px){.hero h1{font-size:38px}.hero-support{font-size:18px}.hero-definition{font-size:19px}.hero-visual{min-height:300px}.hero-orb{width:270px;height:270px}.insight-main{width:270px;right:0;top:32px}.insight-small{width:210px;right:55px;top:190px}}
+
+
+
+.michael-intro{max-width:980px;margin:0 0 34px}
+.michael-intro .kicker{margin-bottom:12px}
+.michael-intro h2{font-size:clamp(34px,3.5vw,48px);line-height:1.08;letter-spacing:-.035em;font-weight:400;max-width:880px;margin:0}
+.michael-intro p{font-size:18px;line-height:1.55;color:#cfd9e5;max-width:900px;margin:18px 0 0}
+.video-layout-v2{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:start;margin-top:0}
+.video-side{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start}
+.video-shell{width:min(100%,720px);border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:#0a1426;box-shadow:0 22px 56px rgba(0,0,0,.24)}
+.video-stage{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0a1426}
+.video-stage video{position:absolute;left:0;top:50%;width:100%;height:auto;transform:translateY(-50%);background:#0a1426}
+.michael-copy{display:flex;flex-direction:column;justify-content:flex-start}
+.michael-intro-title{font-size:17px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--cyan);margin:0 0 22px}
+.michael-points{display:grid;gap:14px;margin-top:0}
+.michael-point{display:grid;grid-template-columns:170px 1fr;gap:18px;align-items:start;padding:0 0 13px;border-bottom:1px solid rgba(255,255,255,.12)}
+.michael-point:last-child{border-bottom:0}
+.michael-point b{font-size:16px;color:#fff;line-height:1.35}
+.michael-point span{font-size:16px;line-height:1.5;color:#cfd9e5}
+.michael-close{margin-top:20px;font-size:16px;line-height:1.5;color:#f0ddb2;width:min(100%,720px);padding:18px 20px;border:1px solid rgba(227,202,139,.32);border-radius:18px;background:rgba(255,255,255,.035)}
+.interactive-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+.interactive-card{border:1px solid var(--line);border-radius:26px;background:#fff;padding:26px;box-shadow:0 16px 50px rgba(8,17,31,.06)}
+.interactive-card.technical{background:var(--blue)}
+.interactive-question{font-size:18px;font-weight:650;line-height:1.45;margin:12px 0 15px;color:var(--forest)}
+.interactive-input{width:100%;min-height:104px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:14px 15px;font:inherit;color:var(--ink);resize:vertical}
+.interactive-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.demo-btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:750;cursor:pointer}
+.demo-btn.primary{background:var(--forest);border-color:var(--forest);color:#fff}
+.interactive-response{display:none;margin-top:14px;border-radius:18px;background:var(--forest);color:#fff;padding:17px 18px;font-size:14px}
+.interactive-response.show{display:block}
+.interactive-response b{display:block;color:var(--cyan);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.interactive-response p{margin:0 0 10px}
+.interactive-response .demo-btn{background:rgba(255,255,255,.09);color:#fff;border-color:rgba(255,255,255,.22)}
+.deeper{display:none;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.18)}
+.deeper.show{display:block}
+@media(max-width:900px){
+  .video-layout-v2,.interactive-grid{grid-template-columns:1fr}
+  .video-side{padding:0 0 26px}
+  .video-shell{width:min(100%,720px)}
+  .michael-copy{display:block}
+  .michael-point{grid-template-columns:1fr;gap:4px}
+}
+
+
+
+.adaptive-signal{display:none;margin:0 0 10px;padding:9px 11px;border-radius:12px;background:rgba(69,196,222,.10);border:1px solid rgba(69,196,222,.22);color:#bfeff7;font-size:12px;line-height:1.4}
+.adaptive-signal.show{display:block}
+.adaptive-signal strong{color:var(--cyan)}
+.interactive-response .response-label{display:block;color:var(--cyan);font-size:11px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;margin:0 0 7px}
+
+
+.demo-btn.loading{opacity:.65;pointer-events:none}
+.live-adaptive-note{font-size:12px;color:#68756f;margin-top:10px}
+.live-adaptive-note strong{color:#101b30}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap inner"><div class="brand">Get Chartered <span class="ai">AI</span> <span class="subbrand">| Professional Readiness</span></div><div class="navright"><div class="progress" id="progress">01 / 15</div><button class="mode" id="modeBtn">Employer conversation</button></div></div></div>
+
+<section class="screen hero" id="s1" data-title="The questions"><div class="wrap">
+<div class="hero-split">
+  <div class="hero-copy">
+    <div class="kicker hero-kicker">Building professional readiness</div>
+    <h1>Know who is ready for what next.<br>And help people get there.</h1>
+    <p class="hero-support">As organisations grow, it becomes harder to see clearly how people are developing — what they need next, and where they may already be ready for more.</p>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-orb"></div>
+    <div class="insight-card insight-main">
+      <div class="ic-kicker">Professional readiness · illustrative</div>
+      <div class="ic-title">A clearer picture of what people need next.</div>
+      <div class="statusrow"><span class="pill">On track</span><span class="pill">Developing</span><span class="pill">Ready for more</span></div>
+      <div class="signal"><strong>Technical understanding</strong><span>Strong</span></div><div class="bar"><span style="width:84%"></span></div>
+      <div class="signal"><strong>Client exposure</strong><span>Priority</span></div><div class="bar"><span style="width:46%"></span></div>
+      <div class="signal"><strong>Articulation under challenge</strong><span>Develop</span></div><div class="bar"><span style="width:58%"></span></div>
+    </div>
+    <div class="insight-card insight-small"><div class="ic-kicker">Development signal</div><div class="ic-title small-title">Not every gap needs more training.</div><div class="tiny">Sometimes the next step is exposure, experience or more scope.</div></div>
+  </div>
+</div>
+<div class="question-stream">
+<div class="question-row r1"><div class="q">Who is ready for more scope?</div><div class="q">Whose growth has stalled?</div><div class="q">Who needs more exposure, not more training?</div></div>
+<div class="question-row r2"><div class="q">Who is ready to take ownership of more work?</div><div class="q">Who needs more challenge?</div><div class="q">Who needs more support?</div></div>
+<div class="question-row r3"><div class="q">Where are managers and employees seeing readiness differently?</div><div class="q">Which capability gaps are appearing across the business?</div></div>
+</div>
+<div class="hero-definition"><strong>Professional readiness is not only about whether someone can do the task.</strong> It is whether they understand how their role fits into the wider project, team and business — and can make sound decisions when things become more complex.</div>
+<div class="hero-brandline">That is the view <span>Get Chartered AI</span> is built to provide.</div>
+</div></section>
+
+<section class="screen soft" id="s2" data-title="The missing view"><div class="wrap"><div class="kicker">You already know a lot about your people</div><h2>Different systems tell you different parts of the story.</h2><div class="pieces">
+<div class="piece"><div class="label">Learning systems</div><h3>What they completed</h3><p>Courses, modules, assessments and mandatory learning.</p></div>
+<div class="piece"><div class="label">Competency frameworks</div><h3>What is expected</h3><p>The skills, behaviours and standards expected at each stage.</p></div>
+<div class="piece"><div class="label">Managers</div><h3>What they see</h3><p>How someone performs, communicates, takes ownership and asks for help.</p></div>
+<div class="piece"><div class="label">Professional standards</div><h3>What good looks like</h3><p>The level of judgement, responsibility and professional behaviour expected.</p></div>
+</div><div class="missing"><strong>What is harder to see?</strong><span>What is this person actually ready to do next — and what will genuinely help them get there?</span></div></div></section>
+
+<section class="screen" id="s3" data-title="What we've built"><div class="wrap"><div class="kicker">This is built</div><h2>We’ve built the professional-readiness layer between learning and performance.</h2><p class="lead">The pieces already exist. The opportunity is to bring them together across the employee journey.</p><div class="built-grid"><div class="built-list">
+<div class="built-item"><div class="tick">✓</div><div><b>Employee readiness reviews</b><span>Structured reflection on recent work, confidence, judgement and development needs.</span></div></div>
+<div class="built-item"><div class="tick">✓</div><div><b>Manager perspective</b><span>A short view of progress, support needs and where someone may be ready for more.</span></div></div>
+<div class="built-item"><div class="tick">✓</div><div><b>Michael</b><span>Adaptive questioning that probes reasoning, judgement and articulation.</span></div></div>
+<div class="built-item"><div class="tick">✓</div><div><b>Technical and role-specific scenarios</b><span>Realistic situations that show whether knowledge can be applied.</span></div></div>
+<div class="built-item"><div class="tick">✓</div><div><b>Development-gap logic</b><span>Distinguishes training needs from practice, experience, exposure and articulation.</span></div></div>
+<div class="built-item"><div class="tick">✓</div><div><b>APC and professional assessment support</b><span>Pathway practice, articulation, judgement and assessment readiness.</span></div></div>
+</div><div class="built-claim"><h3>Not another learning library.</h3><p>A system that helps people develop, helps managers decide what to do next, and helps the business see where capability and development need attention.</p></div></div></div></section>
+
+<section class="screen cream" id="s4" data-title="Different needs"><div class="wrap"><div class="kicker">The same problem can need a different answer</div><h2>Not every development gap needs more training.</h2><p class="lead">Someone can look hesitant for very different reasons. The useful question is: what is actually holding them back?</p><div class="gap-grid">
+<div class="gap"><small>01</small><h3>Knowledge</h3><p>They genuinely need to learn or refresh something.</p><strong>→ targeted learning</strong></div>
+<div class="gap"><small>02</small><h3>Practice</h3><p>They know it, but need more chances to apply it.</p><strong>→ structured practice</strong></div>
+<div class="gap"><small>03</small><h3>Experience</h3><p>They need to do more of the work themselves.</p><strong>→ ownership and repetition</strong></div>
+<div class="gap"><small>04</small><h3>Exposure</h3><p>They simply have not encountered the situation yet.</p><strong>→ access and observation</strong></div>
+<div class="gap"><small>05</small><h3>Articulation</h3><p>They understand it, but struggle to explain their thinking.</p><strong>→ questioning and spoken practice</strong></div>
+<div class="gap"><small>06</small><h3>Evidence recognition</h3><p>They may already be demonstrating capability without recognising it.</p><strong>→ reflection and evidence mapping</strong></div>
+</div><div class="bigline">And sometimes there isn’t a gap at all. They’re ready for more scope.</div></div></section>
+
+
+
+<section class="screen dark" id="s5" data-title="Michael">
+  <div class="wrap">
+    <div class="michael-intro">
+      <div class="kicker">How Michael helps</div>
+      <h2>Time to work through the thinking, not just give an answer.</h2>
+      <p>Michael creates space to work through real workplace situations properly — to question an answer, explore what might change it, and practise putting the reasoning into words.</p>
+    </div>
+
+    <div class="video-layout-v2">
+      <div class="video-side">
+        <div class="video-shell">
+          <div class="video-stage"><video id="michaelVideo" controls playsinline preload="metadata" src="/videos/michael-professional-readiness-intro.mp4" poster="/videos/michael-professional-readiness-poster.jpg"></video></div>
+        </div>
+<div class="michael-close"><strong>Michael supports reflection and practice before the next manager conversation — he does not replace it.</strong></div>
+</div>
+<div class="michael-copy">
+        <div class="michael-intro-title">A private, self-paced space to:</div>
+        <div class="michael-points">
+          <div class="michael-point"><b>Reflect</b><span>Think about real workplace situations and what actually happened.</span></div>
+          <div class="michael-point"><b>Test judgement</b><span>Work through what they would do, why, and what might change the decision.</span></div>
+          <div class="michael-point"><b>Organise thinking</b><span>Turn a rough answer into clear professional reasoning.</span></div>
+          <div class="michael-point"><b>Practise explaining decisions</b><span>Build concise, confident communication before the real conversation.</span></div>
+          <div class="michael-point"><b>Learn from feedback and retry</b><span>Reflect, adjust and try again at their own pace.</span></div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="screen" id="s6" data-title="Try it"><div class="wrap"><div class="kicker">See how Michael adapts</div><h2>Start with everyday judgement. Go deeper as responsibility grows.</h2><p class="lead">Type an answer — or use the example — then reveal Michael’s follow-up.</p><div class="interactive-grid">
+<div class="interactive-card">
+<div class="demo-tag">12-week settling-in check · employee perspective</div>
+<div class="interactive-question">Thinking about the last few weeks at work, have you had a situation where you weren’t sure whether to handle something yourself or ask for help?</div>
+<textarea id="earlyAnswer" class="interactive-input" placeholder="Type an answer here, or use the example…"></textarea>
+<div class="interactive-actions">
+  <button class="demo-btn" id="earlyExample">Use example answer</button>
+  <button class="demo-btn primary" id="earlyFollow">See how Michael responds →</button>
+</div><div class="live-adaptive-note"><strong>Live adaptive demo:</strong> Michael responds to the answer entered here — not a pre-written branch.</div>
+<div class="interactive-response" id="earlyResponse">
+  <div class="adaptive-signal" id="earlySignal"></div>
+  <span class="response-label">Michael’s next question</span>
+  <p id="earlyFollowText"></p>
+  <button class="demo-btn" id="earlyDeeper">Take it a step further →</button>
+  <div class="deeper" id="earlyDeeperText"></div>
+</div>
+</div></div>
+<div class="interactive-card technical"><div class="demo-tag">Profession-specific depth · Quantity Surveying</div><div class="interactive-question">You are reviewing a subcontractor’s payment application. The amount claimed does not appear to match the work completed. How would you approach it?</div><textarea id="techAnswer" class="interactive-input" placeholder="Type an answer here, or use the example…"></textarea><div class="interactive-actions"><button class="demo-btn" id="techExample">Use example answer</button><button class="demo-btn primary" id="techFollow">See how Michael responds →</button></div><div class="interactive-response" id="techResponse"><b>Michael follows up</b><p>Which evidence would carry most weight, and how would you explain a fair assessment if the subcontractor disagreed?</p><button class="demo-btn" id="techDeeper">Go deeper →</button><div class="deeper" id="techDeeperText">If the assessment is disputed, what records would you review, whose input might you need, and how would you keep the discussion fair and professional?</div></div></div>
+</div><div class="bigline">Natural professional conversation when starting out. Deeper technical and professional judgement as experience grows.</div></div></section>
+
+<section class="screen cream" id="s6b" data-title="Employee + manager"><div class="wrap"><div class="kicker">One issue. Two perspectives.</div><h2>A better development conversation starts with both sides.</h2><div class="demo-grid"><div class="demo-card"><div class="demo-tag">Employee perspective</div><h3>When you are unsure whether a decision sits within your responsibility, how do you decide whether to act or ask for guidance?</h3><div class="answer">“I deal with routine tasks myself, but if it could affect cost or the client I usually check with my manager first.”</div><div class="follow"><b>Michael might ask</b>What information would you need before deciding yourself? What would make escalation necessary?</div></div><div class="demo-card alt"><div class="demo-tag">Manager perspective</div><h3>How does this person currently handle decisions at the edge of their responsibility?</h3><div class="answer">“They recognise when they need guidance and do not take unnecessary risks, but they can still be cautious with decisions they are capable of making themselves.”</div><div class="follow"><b>Useful difference</b>The employee sees appropriate caution. The manager sees room for more ownership. That gives them something specific to discuss.</div></div></div><div class="bigline">Not because one is right and one is wrong. Because the difference helps decide what should happen next.</div></div></section>
+
+<section class="screen soft" id="s7" data-title="Better reviews"><div class="wrap"><div class="kicker">Make reviews less painful</div><h2>Less time preparing reviews. More time developing people.</h2><p class="lead">A useful review should not depend on what someone happens to remember on the day.</p><div class="review-flow"><div class="old"><h3>Without support</h3><div class="steps"><div>Remember what happened</div><div>Search for examples</div><div>Reconstruct the last few months</div><div>Write comments from scratch</div><div>Work out what to ask</div><div>Then finally have the conversation</div></div></div><div class="arrow">→</div><div class="new"><h3>With GCAi</h3><div class="steps"><div>Employee reflection</div><div>Manager perspective</div><div>Recent examples surfaced</div><div>Differences worth discussing</div><div>Suggested questions</div><div>Suggested next action</div></div></div></div><div class="bigline">The review can start with what matters: what happens next?</div></div></section>
+
+<section class="screen" id="s8" data-title="Judgement"><div class="wrap"><div class="kicker">Don’t rely on opinion alone</div><h2>“I think they’re ready” is useful. Showing how they apply judgement is stronger.</h2><p class="lead">Technical and role-specific scenarios can reinforce what the employee and manager are seeing.</p><div class="demo-grid"><div class="demo-card"><div class="demo-tag">Scenario</div><h3>A client asks you to proceed with something that may affect cost and programme.</h3><div class="prompt">What would you do?</div></div><div class="demo-card alt"><div class="demo-tag">Michael can probe</div><h3>Not just the answer — the thinking behind it.</h3><div class="steps"><div>Why?</div><div>What would you check first?</div><div>What would make you escalate?</div><div>Who else is affected?</div><div>How would you explain your advice?</div></div></div></div><div class="bigline">Knowledge + application + judgement + articulation.</div></div></section>
+
+<section class="screen cream" id="s9" data-title="Wider context"><div class="wrap"><div class="kicker">Ready for the task — or ready for the role?</div><h2>Doing the task is only part of professional readiness.</h2><p class="lead">As people grow, they need to understand how their work fits into the wider project, team, client and business.</p><div class="context-path">
+<div class="context"><b>The task</b><span>What am I being asked to do?</span></div>
+<div class="context"><b>The project</b><span>What does this affect — cost, programme, risk, quality?</span></div>
+<div class="context"><b>The team</b><span>Who depends on this decision? Who needs to know?</span></div>
+<div class="context"><b>The business</b><span>How does my role contribute to wider commercial and organisational goals?</span></div>
+<div class="context"><b>The profession</b><span>What standards, judgement, accountability and limits apply?</span></div>
+</div><div class="bigline">Knowing what to do matters. Understanding why it matters is what helps someone take greater responsibility.</div></div></section>
+
+<section class="screen dark" id="s10" data-title="Business view"><div class="wrap"><div class="kicker">What the business can see</div><h2>A substantial view of professional readiness — built from individual development conversations, manager insight and technical readiness.</h2><div class="signal-layout"><div class="signal-cloud" id="signalCloud">
+<button class="sig active" data-title="Readiness status" data-copy="Who appears on track, developing or needing attention." data-why="A simple view of where support or follow-up may be needed."><b>Readiness status</b></button>
+<button class="sig" data-title="Readiness for more scope" data-copy="Who may be ready for greater responsibility." data-why="Helps managers spot people who could be stretched rather than trained again."><b>Ready for more scope</b></button>
+<button class="sig" data-title="Gap type" data-copy="Knowledge, practice, experience, exposure, evidence recognition or articulation." data-why="The same visible problem can need a very different response."><b>Gap type</b></button>
+<button class="sig" data-title="Technical capability" data-copy="Strengths and weaknesses from role or pathway-specific scenarios." data-why="Shows whether knowledge is holding up when applied to realistic work."><b>Technical capability</b></button>
+<button class="sig" data-title="Judgement" data-copy="How well people apply knowledge when the situation changes." data-why="Useful when the job requires decisions, not just correct answers."><b>Judgement</b></button>
+<button class="sig" data-title="Articulation" data-copy="Whether people can explain and defend their reasoning." data-why="Important for clients, managers, teams and professional assessment."><b>Articulation</b></button>
+<button class="sig" data-title="Employee perspective" data-copy="How individuals see their own development, confidence and readiness." data-why="Gives the employee a voice in the development conversation."><b>Employee perspective</b></button>
+<button class="sig" data-title="Manager perspective" data-copy="What managers are observing in day-to-day work." data-why="Adds the workplace view alongside self-reflection."><b>Manager perspective</b></button>
+<button class="sig" data-title="Perception gaps" data-copy="Where employee and manager views materially differ." data-why="Not a problem to score — a useful difference to discuss."><b>Perception gaps</b></button>
+<button class="sig" data-title="Development actions" data-copy="What kind of intervention is most likely to help next." data-why="Training, practice, experience, exposure, reflection or greater responsibility."><b>Development actions</b></button>
+<button class="sig" data-title="Common cohort needs" data-copy="Patterns repeated across teams, cohorts or groups." data-why="Turns individual development signals into something the business can act on."><b>Common needs</b></button>
+<button class="sig" data-title="Progress over time" data-copy="What has improved since the last review." data-why="Shows whether development activity is actually moving capability."><b>Progress over time</b></button>
+<button class="sig" data-title="Stalled development" data-copy="Where little movement is visible." data-why="Gives the business a chance to intervene before people become stuck or disengaged."><b>Stalled development</b></button>
+<button class="sig" data-title="Exposure gaps" data-copy="Where people need access to work, not another course." data-why="Helps avoid spending training budget on the wrong problem."><b>Exposure gaps</b></button>
+<button class="sig" data-title="Training gaps" data-copy="Where more learning really is required." data-why="Focuses learning spend where knowledge is genuinely the issue."><b>Training gaps</b></button>
+<button class="sig" data-title="Stretch opportunities" data-copy="Where people may be under-challenged." data-why="Useful for progression, retention and making better use of capability already in the business."><b>Stretch opportunities</b></button>
+<button class="sig" data-title="Professional assessment readiness" data-copy="Where relevant, including APC readiness." data-why="Connects workplace development with professional qualification rather than treating them as separate journeys."><b>Assessment readiness</b></button>
+<button class="sig" data-title="Manager conversation prompts" data-copy="Where an individual discussion is warranted and what may be worth asking." data-why="Helps managers spend less time preparing and more time having a useful conversation."><b>Manager prompts</b></button>
+</div><div class="signal-detail" id="signalDetail"><small>Business signal</small><h3>Readiness status</h3><p>Who appears on track, developing or needing attention.</p><div class="why">A simple view of where support or follow-up may be needed.</div></div></div></div></section>
+
+<section class="screen" id="s11" data-title="Business value"><div class="wrap"><div class="kicker">Why this matters to the business</div><h2>Individual development becomes better business decisions.</h2><div class="outcomes">
+<div class="outcome"><h3>Better reviews</h3><p>Less manager preparation, clearer conversations and stronger next actions.</p></div>
+<div class="outcome"><h3>Better development spend</h3><p>Know when training is the answer — and when it isn’t.</p></div>
+<div class="outcome"><h3>Better talent decisions</h3><p>See who may be ready for more scope, stretch or progression.</p></div>
+<div class="outcome"><h3>Better retention</h3><p>Spot stalled development and unresolved needs before good people disengage.</p></div>
+<div class="outcome"><h3>Better workforce visibility</h3><p>Understand capability patterns across the business, not just person by person.</p></div>
+</div><div class="bigline">Train where training is needed. Stretch where people are ready. Fix the gaps that are actually holding progress back.</div></div></section>
+
+<section class="screen soft" id="s12" data-title="Checkpoints"><div class="wrap"><div class="kicker">Professional readiness over time</div><h2>Not one annual snapshot. A clearer picture as responsibility grows.</h2><div class="timeline">
+<div class="time"><div class="when">12 weeks</div><h3>Am I settling in?</h3><p>Expectations, confidence to contribute, knowing when to ask and early ownership.</p><div class="focus">Understand · contribute · ask</div></div>
+<div class="time"><div class="when">6 months</div><h3>Am I applying it?</h3><p>Routine decisions, practical judgement, communication and growing responsibility.</p><div class="focus">Apply · practise · own</div></div>
+<div class="time"><div class="when">12 months</div><h3>Am I ready for more?</h3><p>Technical application, broader context, client awareness and stronger judgement.</p><div class="focus">Decide · explain · stretch</div></div>
+<div class="time"><div class="when">24 months</div><h3>Can I handle complexity?</h3><p>More complex situations, commercial awareness, accountability and challenge.</p><div class="focus">Judge · advise · take responsibility</div></div>
+<div class="time"><div class="when">36 months</div><h3>Am I ready for the next level?</h3><p>Greater independence, professional judgement, articulation and assessment readiness where relevant.</p><div class="focus">Defend · own · progress</div></div>
+</div><p class="lead">The same model can continue beyond early career as the standard changes.</p></div></section>
+
+<section class="screen cream" id="s13" data-title="Progression"><div class="wrap"><div class="kicker">What “ready” means changes</div><h2>Learn the work → Take responsibility for the work → Lead the work.</h2><div class="stages">
+<div class="stage"><small>Starters</small><h3>Learn the work.</h3><p>Understand the task, contribute to the team, build knowledge, know when to ask and begin to see how the work fits the wider project.</p></div>
+<div class="stage"><small>Minders</small><h3>Take responsibility for the work.</h3><p>Apply judgement, make decisions, own outcomes, understand wider consequences and explain the reasoning behind what you do.</p></div>
+<div class="stage"><small>Leaders</small><h3>Lead the work.</h3><p>Guide others, shape decisions, balance business needs, manage risk, develop people and carry greater accountability.</p></div>
+</div><div class="journey">The definition of “ready” changes as responsibility changes. The system changes with it.</div></div></section>
+
+<section class="screen" id="s14" data-title="APC and beyond"><div class="wrap"><div class="kicker">APC fits inside the journey</div><h2>Qualification is a milestone. Professional development doesn’t stop there.</h2><p class="lead">GCAi can support the person before professional assessment, through it, and as responsibility grows afterwards.</p><div class="apc-strip">
+<div class="apc-step"><b>Early career</b><span>Understand the work and build confidence.</span></div>
+<div class="apc-step"><b>Greater responsibility</b><span>Apply judgement and take more ownership.</span></div>
+<div class="apc-step"><b>APC / qualification</b><span>Explain, defend and demonstrate professional judgement.</span></div>
+<div class="apc-step"><b>Newly chartered</b><span>Carry greater responsibility with confidence.</span></div>
+<div class="apc-step"><b>Management</b><span>Develop others and make broader decisions.</span></div>
+<div class="apc-step"><b>Leadership</b><span>Shape decisions, people and business outcomes.</span></div>
+</div><div class="bigline">One professional-readiness journey — not separate pieces of training.</div></div></section>
+
+<section class="screen" id="s15" data-title="The proposition"><div class="wrap"><div class="closebox"><div class="kicker" style="color:var(--gold2)">Get Chartered AI</div><h2>A professional readiness and development platform for the whole business.</h2><p class="lead">We’ve built the component parts. Together, they help people develop, help managers have better conversations, and give the business a clearer view of where capability, development spend and progression need attention.</p><div class="close-grid"><div class="close-chip">Develop the person.</div><div class="close-chip">Support the manager.</div><div class="close-chip">Test the judgement.</div><div class="close-chip">Improve the review.</div><div class="close-chip">Show what happens next.</div></div><div class="bigline" style="color:#fff;margin-bottom:0">Thoughtfully designed. Human-led. AI-assisted.</div></div></div></section>
+<div class="footer"><div class="wrap">Get Chartered AI · Building Professional Readiness · Developing the professionals the built environment needs.</div></div>
+
+<script>
+const screens=[...document.querySelectorAll('.screen')];
+const progress=document.getElementById('progress');
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const i=screens.indexOf(e.target)+1;progress.textContent=String(i).padStart(2,'0')+' / '+screens.length;}})},{threshold:.55});
+screens.forEach(s=>observer.observe(s));
+const modeBtn=document.getElementById('modeBtn');
+modeBtn.addEventListener('click',()=>{document.body.classList.toggle('presentation');modeBtn.textContent=document.body.classList.contains('presentation')?'Exit presentation':'Presentation mode';if(document.body.classList.contains('presentation'))screens[0].scrollIntoView({behavior:'smooth'});});
+document.addEventListener('keydown',e=>{if(!document.body.classList.contains('presentation'))return; const y=window.scrollY+window.innerHeight*.35; let idx=screens.findIndex(s=>s.offsetTop+ s.offsetHeight>y); if(idx<0)idx=0; if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();screens[Math.min(idx+1,screens.length-1)].scrollIntoView({behavior:'smooth'});} if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();screens[Math.max(idx-1,0)].scrollIntoView({behavior:'smooth'});}});
+const detail=document.getElementById('signalDetail');
+document.querySelectorAll('.sig').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.sig').forEach(b=>b.classList.remove('active'));btn.classList.add('active');detail.innerHTML=`<small>Business signal</small><h3>${btn.dataset.title}</h3><p>${btn.dataset.copy}</p><div class="why">${btn.dataset.why}</div>`;}));
+
+const earlyAnswer=document.getElementById('earlyAnswer');
+const earlyResponse=document.getElementById('earlyResponse');
+document.getElementById('earlyExample')?.addEventListener('click',()=>{
+  earlyAnswer.value='Not really. I am still quite new, and my manager checks most of my work before it goes out.';
+});
+
+document.getElementById('earlyFollow')?.addEventListener('click', async ()=>{
+  const raw=(earlyAnswer.value||'').trim();
+  const btn=document.getElementById('earlyFollow');
+  const t=document.getElementById('earlyFollowText');
+  const signal=document.getElementById('earlySignal');
+  const deeper=document.getElementById('earlyDeeperText');
+
+  if(raw.length < 3){
+    earlyAnswer.focus();
+    return;
+  }
+
+  btn.classList.add('loading');
+  btn.textContent='Michael is reading your answer…';
+
+  try{
+    const res=await fetch('/.netlify/functions/try-professional-readiness',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        mode:'early',
+        question:'Thinking about the last few weeks at work, have you had a situation where you weren’t sure whether to handle something yourself or ask for help?',
+        answer:raw
+      })
+    });
+
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error || 'Unable to respond');
+
+    signal.innerHTML='<strong>Michael picked up:</strong> '+data.noticed;
+    signal.classList.add('show');
+    t.textContent=data.question;
+    deeper.textContent=data.deeper || '';
+    deeper.classList.remove('show');
+    earlyResponse.classList.add('show');
+  }catch(e){
+    signal.innerHTML='<strong>Live demo unavailable:</strong> '+(e.message || 'Please try again.');
+    signal.classList.add('show');
+    t.textContent='';
+    deeper.textContent='';
+    earlyResponse.classList.add('show');
+  }finally{
+    btn.classList.remove('loading');
+    btn.textContent='See how Michael responds →';
+  }
+});
+
+document.getElementById('earlyDeeper')?.addEventListener('click',()=>document.getElementById('earlyDeeperText').classList.toggle('show'));
+const techAnswer=document.getElementById('techAnswer');const techResponse=document.getElementById('techResponse');
+document.getElementById('techExample')?.addEventListener('click',()=>{techAnswer.value='I would compare the application with progress records and the relevant measurement or payment basis. I would clarify any discrepancy with the project team, document the evidence and discuss my assessment with my commercial manager before communicating it to the subcontractor.';});
+document.getElementById('techFollow')?.addEventListener('click',()=>techResponse.classList.add('show'));
+document.getElementById('techDeeper')?.addEventListener('click',()=>document.getElementById('techDeeperText').classList.toggle('show'));
+</script>
+</body></html>

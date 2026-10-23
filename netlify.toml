@@ -124,6 +124,11 @@
   status = 200
 
 [[redirects]]
+  from = "/employer/development-partner"
+  to = "/employer-development-partner.html"
+  status = 200
+
+[[redirects]]
   from = "/employer/professional-readiness/demo"
   to = "/professional-readiness-demo.html"
   status = 200

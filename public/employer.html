@@ -142,6 +142,27 @@ textarea.form-input{resize:vertical;min-height:100px}
 .guide-banner-body{font-size:14px;color:#374151;line-height:1.65}
 .guide-banner-cta{background:var(--amber);color:var(--navy);padding:11px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0;margin-top:4px;display:inline-block;transition:.15s}.guide-banner-cta:hover{background:#d97706}
 
+/* PATHWAY CARDS */
+.pathway-section{background:#f4f6f4;padding:64px 40px}
+.pathway-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.pathway-card{border-radius:18px;padding:40px 36px;border:1px solid transparent;display:flex;flex-direction:column}
+.pathway-pr{background:#edf4ee;border-color:#bfd4c1}
+.pathway-dp{background:#fdf8ed;border-color:#e3d5a8}
+.pathway-tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.pathway-pr .pathway-tag{color:#1a5c35}
+.pathway-dp .pathway-tag{color:#8a5f0a}
+.pathway-h2{font-family:var(--fh);font-size:clamp(21px,2.5vw,27px);font-weight:800;line-height:1.1;letter-spacing:-.022em;color:var(--navy);margin-bottom:16px}
+.pathway-body{font-size:15px;color:#374151;line-height:1.72;margin-bottom:28px;flex:1}
+.pathway-cta{display:inline-block;font-size:14px;font-weight:700;text-decoration:none;padding:11px 22px;border-radius:8px;transition:.15s;align-self:flex-start}
+.pathway-cta-pr{background:var(--navy);color:#fff}.pathway-cta-pr:hover{background:#1e3a5f}
+.pathway-cta-dp{background:#92660a;color:#fff}.pathway-cta-dp:hover{background:#6e4d08}
+/* ONE PLATFORM BRIDGE */
+.one-platform-box{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:40px 44px;margin-top:32px;max-width:860px}
+.one-platform-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#94a3b8;margin-bottom:10px}
+.one-platform-box h2{font-family:var(--fh);font-size:clamp(20px,2.6vw,30px);font-weight:800;line-height:1.12;letter-spacing:-.025em;color:var(--navy);margin-bottom:14px}
+.one-platform-box p{font-size:15px;color:#374151;line-height:1.72;margin-bottom:12px}
+.one-platform-box p:last-child{margin-bottom:0}
+
 /* FOOTER */
 footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
 .footer-brand{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--navy)}.footer-brand span{color:var(--amber)}
@@ -151,6 +172,9 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
 
 /* RESPONSIVE */
 @media(max-width:900px){
+  .pathway-grid{grid-template-columns:1fr}
+  .one-platform-box{padding:28px 24px}
+  .pathway-section{padding:48px 24px}
   .mgr-grid{grid-template-columns:1fr}
   .stages{grid-template-columns:1fr}
   .career-stages{grid-template-columns:1fr}
@@ -185,6 +209,7 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
   <a href="/" class="nav-logo"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px"></a>
   <div class="nav-links">
     <a href="/employer/professional-readiness" class="nav-link">Professional Readiness</a>
+    <a href="/employer/development-partner" class="nav-link">Development Partner</a>
     <a href="/employer-guide" class="nav-link">Employer Guide</a>
   </div>
   <a href="#contact" class="nav-btn">Talk to us &rarr;</a>
@@ -200,6 +225,38 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
     <div class="hero-btns">
       <a href="#contact" class="btn-blue">Talk to us about your people &rarr;</a>
       <a href="#apc-support" class="btn-white-prem">Chartership support &darr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TWO PATHWAYS ══ -->
+<div class="pathway-section">
+  <div class="sec-inner" style="max-width:1060px">
+    <span class="eyebrow eyebrow-blue">Two ways in</span>
+    <h2 class="sec-h2 sec-h2-dark">Find the level of support your business needs.</h2>
+    <div class="pathway-grid">
+
+      <div class="pathway-card pathway-pr">
+        <div class="pathway-tag">Develop your people</div>
+        <h2 class="pathway-h2">Professional Readiness Programme</h2>
+        <p class="pathway-body">A professional development programme for apprentices, graduates and developing professionals.<br><br>Give your people a clear route from learning the work to taking responsibility for it &mdash; through readiness benchmarks, AI-assisted practice, manager support and repeat review.</p>
+        <a href="/employer/professional-readiness" class="pathway-cta pathway-cta-pr">Explore the programme &rarr;</a>
+      </div>
+
+      <div class="pathway-card pathway-dp">
+        <div class="pathway-tag">Outsource professional development</div>
+        <h2 class="pathway-h2">Your Professional Development Partner</h2>
+        <p class="pathway-body">An external L&amp;D function for built-environment businesses that want stronger, more consistent development without appointing a full-time in-house employee.<br><br>Get Chartered brings the structure, professional-readiness platform and specialist support around the development of your people.</p>
+        <a href="/employer/development-partner" class="pathway-cta pathway-cta-dp">Explore the partnership &rarr;</a>
+      </div>
+
+    </div>
+
+    <div class="one-platform-box">
+      <div class="one-platform-label">One platform underneath</div>
+      <h2>Two ways to access the same connected development system.</h2>
+      <p>Professional Readiness is the platform: structured review, workplace practice, Michael&rsquo;s AI-assisted support and clearer manager conversations. Development Partner is the additional external support around that platform for businesses that need it.</p>
+      <p>Whether you choose the programme or the partnership, the aim is the same: help people turn learning into workplace capability and become ready for what comes next.</p>
     </div>
   </div>
 </div>
@@ -497,6 +554,7 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
   <div class="footer-links">
     <a href="/">Platform</a>
     <a href="/employer/professional-readiness">Professional Readiness</a>
+    <a href="/employer/development-partner">Development Partner</a>
     <a href="/employer-guide">Employer Guide</a>
     <a href="/referred-programme">Referred Candidates</a>
   </div>

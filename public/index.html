@@ -1502,15 +1502,32 @@ input.err{border-color:var(--red)}
 <section id="dev-system-sec" style="background:#f7f4f0">
 <style>
 .dev-cap-wrap{max-width:1100px;margin:0 auto;padding:72px 40px 64px}
-.dev-cap-grid{display:grid;grid-template-columns:3fr 2fr;gap:64px;align-items:start}
+.dev-cap-grid{display:grid;grid-template-columns:3fr 2fr;gap:64px;align-items:center}
 .dev-cap-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b45309;margin:0 0 16px}
 .dev-cap-hl{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(22px,2.6vw,34px);font-weight:800;color:#0D0F1C;letter-spacing:-.02em;line-height:1.25;margin:0 0 20px}
 .dev-cap-body{font-size:15px;color:#4b5563;line-height:1.7;margin:0}
-.dev-fw-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b45309;margin:0 0 4px}
-.dev-fw-item{display:flex;align-items:baseline;gap:16px;padding:14px 0}
-.dev-fw-item+.dev-fw-item{border-top:1px solid rgba(0,0,0,.09)}
-.dev-fw-num{font-size:11px;font-weight:700;color:rgba(180,83,9,.55);letter-spacing:.06em;flex-shrink:0;min-width:18px}
-.dev-fw-text{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(15px,1.55vw,18px);font-weight:700;color:#0D0F1C;letter-spacing:-.01em;line-height:1.3;margin:0}
+.dev-fw-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b45309;margin:0 0 14px}
+.dev-fw-tiles{display:flex;flex-direction:column;gap:10px}
+.dev-tile{display:flex;align-items:center;gap:14px;padding:15px 20px;border-radius:12px;transition:box-shadow .4s ease}
+.dev-tile-1{background:#e3ece8;margin-left:0}
+.dev-tile-2{background:#dce7f6;margin-left:14px}
+.dev-tile-3{background:#f7e9d4;margin-left:6px}
+.dev-tile-num{font-size:10px;font-weight:700;letter-spacing:.08em;color:rgba(13,15,28,.4);flex-shrink:0;min-width:18px}
+.dev-tile-text{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(14px,1.5vw,17px);font-weight:700;color:#0D0F1C;letter-spacing:-.01em;line-height:1.3;margin:0}
+@keyframes dev-tile-pulse{
+  0%{opacity:.68;transform:translateY(0);box-shadow:none}
+  11%{opacity:1;transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,.09)}
+  33%{opacity:1;transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,.09)}
+  50%{opacity:.68;transform:translateY(0);box-shadow:none}
+  100%{opacity:.68;transform:translateY(0);box-shadow:none}
+}
+.dev-tile{animation:dev-tile-pulse 9s ease-in-out infinite}
+.dev-tile-1{animation-delay:0s}
+.dev-tile-2{animation-delay:3s}
+.dev-tile-3{animation-delay:6s}
+@media(prefers-reduced-motion:reduce){
+  .dev-tile{animation:none!important;opacity:1!important;transform:none!important;box-shadow:none!important}
+}
 .dev-journey{position:relative}
 .dev-journey-rail{position:absolute;top:7px;left:7px;right:calc(20% - 7px);height:1px;background:linear-gradient(90deg,rgba(245,158,11,.35),rgba(245,158,11,.35) 80%,rgba(245,158,11,0))}
 .dev-journey-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
@@ -1529,6 +1546,7 @@ input.err{border-color:var(--red)}
 @media(max-width:768px){
   .dev-cap-wrap{padding:48px 24px 52px}
   .dev-cap-grid{grid-template-columns:1fr!important;gap:40px}
+  .dev-tile-2,.dev-tile-3{margin-left:0!important}
   #dev-navy-band{padding:40px 24px 52px!important}
 }
 @media(max-width:540px){.dev-journey-steps{grid-template-columns:1fr!important}}
@@ -1542,18 +1560,18 @@ input.err{border-color:var(--red)}
       </div>
       <div>
         <p class="dev-fw-lbl">What professional growth requires</p>
-        <div>
-          <div class="dev-fw-item">
-            <span class="dev-fw-num">01</span>
-            <p class="dev-fw-text">Clear goals</p>
+        <div class="dev-fw-tiles">
+          <div class="dev-tile dev-tile-1">
+            <span class="dev-tile-num">01</span>
+            <span class="dev-tile-text">Clear goals</span>
           </div>
-          <div class="dev-fw-item">
-            <span class="dev-fw-num">02</span>
-            <p class="dev-fw-text">Deliberate practice</p>
+          <div class="dev-tile dev-tile-2">
+            <span class="dev-tile-num">02</span>
+            <span class="dev-tile-text">Deliberate practice</span>
           </div>
-          <div class="dev-fw-item">
-            <span class="dev-fw-num">03</span>
-            <p class="dev-fw-text">Openness to feedback</p>
+          <div class="dev-tile dev-tile-3">
+            <span class="dev-tile-num">03</span>
+            <span class="dev-tile-text">Openness to feedback</span>
           </div>
         </div>
       </div>

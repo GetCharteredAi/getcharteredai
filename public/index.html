@@ -1802,105 +1802,85 @@ input.err{border-color:var(--red)}
   </div>
 </section>
 
-<style>
-/* Programme Finder — compact selector + single detail panel */
-.pf-tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
-.pf-tile{background:#0f172a;border:1.5px solid #1e2d48;border-radius:12px;padding:14px 14px 12px;cursor:pointer;text-align:left;font-family:'Inter',sans-serif;transition:.15s;display:flex;flex-direction:column;gap:7px;width:100%}
-.pf-tile:hover{filter:brightness(1.1)}
-.pf-tile-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.pf-tile-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1}
-.pf-tile-title{font-size:12px;font-weight:700;color:#eef2ff;line-height:1.35;flex:1}
-.pf-detail{background:#0f172a;border:1.5px solid #1e2d48;border-radius:14px;padding:24px 28px;display:grid;grid-template-columns:2fr 3fr;gap:32px;align-items:start}
-.pf-d-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-.pf-d-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:18px;font-weight:800;color:#eef2ff;line-height:1.25;margin-bottom:10px}
-.pf-d-bestfor{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:14px}
-.pf-d-tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:14px}
-.pf-d-cta{display:inline-block;font-size:14px;font-weight:600;color:#93c5fd;text-decoration:none;transition:.15s}
-.pf-d-cta:hover{color:#bfdbfe}
-.pf-d-bullets{display:flex;flex-direction:column;gap:10px}
-.pf-d-bullet{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.55}
-@media(max-width:1100px){.pf-tiles{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:900px){.pf-detail{grid-template-columns:1fr;gap:16px}}
-@media(max-width:640px){.pf-tiles{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;gap:8px;padding-bottom:4px}.pf-tile{min-width:150px;flex-shrink:0}}
-</style>
 <section id="programme-finder-sec" class="sec sec-white" style="padding-top:48px;padding-bottom:48px">
   <div style="max-width:1200px;margin:0 auto">
+
+    <!-- Pathway finder cards -->
     <div style="text-align:center;margin-bottom:28px">
       <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563EB;margin-bottom:10px">APC PROGRAMMES</div>
       <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:24px;font-weight:800;color:#0D0F1C;letter-spacing:-.02em">Find the right support for where you are now.</div>
     </div>
-    <div class="pf-tiles" id="pf-tiles"></div>
-    <div class="pf-detail" id="pf-detail"></div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px" class="pf-grid">
+      <a href="/year-two-review" style="text-decoration:none;display:flex">
+        <div style="background:#0f172a;border:1px solid #1a2540;border-radius:14px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.18s;display:flex;flex-direction:column" onmouseover="this.style.borderColor='#a7f3d0';this.style.boxShadow='0 6px 20px rgba(16,185,129,.1)'" onmouseout="this.style.borderColor='#1a2540';this.style.boxShadow=''">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(16,185,129,.65);margin-bottom:4px">5 Areas Assessed</div>
+          <div style="font-size:14px;font-weight:700;color:#eef2ff;margin-bottom:4px;line-height:1.3">APC Apprenticeship Mid-Programme Professional Readiness Review</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;line-height:1.4"><span style="font-weight:600;color:rgba(255,255,255,.65)">Best for:</span> Candidates who want to know whether they&rsquo;re on track before final preparation begins.</div>
+          <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(16,185,129,.15)"/><path d="M3 6l2 2 4-4" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">Identify gaps before they become problems</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(16,185,129,.15)"/><path d="M3 6l2 2 4-4" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">Personalised readiness report with clear development priorities</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(16,185,129,.15)"/><path d="M3 6l2 2 4-4" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">5 areas of professional readiness assessed</span></div>
+          </div>
+          <div style="margin-top:6px"><span style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px;border:1px solid rgba(16,185,129,.28);background:rgba(16,185,129,.07);color:rgba(16,185,129,.75)">Private &#x2014; results are yours only</span></div>
+          <div style="margin-top:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)"><span style="font-size:13px;font-weight:600;color:#93c5fd">Explore programme &#x2192;</span></div>
+        </div>
+      </a>
+      <a href="/programme" style="text-decoration:none;display:flex">
+        <div style="background:#0f172a;border:1px solid #1a2540;border-radius:14px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.18s;display:flex;flex-direction:column" onmouseover="this.style.borderColor='#bfdbfe';this.style.boxShadow='0 6px 20px rgba(37,99,235,.1)'" onmouseout="this.style.borderColor='#1a2540';this.style.boxShadow=''">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(37,99,235,.8);margin-bottom:4px">12 Modules</div>
+          <div style="font-size:14px;font-weight:700;color:#eef2ff;margin-bottom:4px;line-height:1.3">APC Full 12 Module Programme</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;line-height:1.4"><span style="font-weight:600;color:rgba(255,255,255,.65)">Best for:</span> Candidates who want structured APC preparation from foundations through to assessment.</div>
+          <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(37,99,235,.15)"/><path d="M3 6l2 2 4-4" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">12 structured modules covering the full APC journey</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(37,99,235,.15)"/><path d="M3 6l2 2 4-4" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">Pathway-specific preparation to build technical confidence</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(37,99,235,.15)"/><path d="M3 6l2 2 4-4" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">Michael + full 60-minute mock to challenge thinking and articulation</span></div>
+          </div>
+          <div style="margin-top:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)"><span style="font-size:13px;font-weight:600;color:#93c5fd">Explore programme &#x2192;</span></div>
+        </div>
+      </a>
+      <a href="/sprint" style="text-decoration:none;display:flex">
+        <div style="background:#0f172a;border:1px solid #1a2540;border-radius:14px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.18s;display:flex;flex-direction:column" onmouseover="this.style.borderColor='#fde68a';this.style.boxShadow='0 6px 20px rgba(245,158,11,.1)'" onmouseout="this.style.borderColor='#1a2540';this.style.boxShadow=''">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,158,11,.7);margin-bottom:4px">Final Assessment Practice</div>
+          <div style="font-size:14px;font-weight:700;color:#eef2ff;margin-bottom:4px;line-height:1.3">APC Final Sprint</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;line-height:1.4"><span style="font-weight:600;color:rgba(255,255,255,.65)">Best for:</span> Candidates who have submitted and are preparing for final assessment.</div>
+          <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(245,158,11,.15)"/><path d="M3 6l2 2 4-4" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">Identify weak spots before assessment</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(245,158,11,.15)"/><path d="M3 6l2 2 4-4" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">Practise pathway-specific questions under pressure</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(245,158,11,.15)"/><path d="M3 6l2 2 4-4" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">Michael challenge + full mock to test readiness</span></div>
+          </div>
+          <div style="margin-top:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)"><span style="font-size:13px;font-weight:600;color:#93c5fd">Explore programme &#x2192;</span></div>
+        </div>
+      </a>
+      <a href="/referred-programme" style="text-decoration:none;display:flex">
+        <div style="background:#0f172a;border:1px solid #1a2540;border-radius:14px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.18s;display:flex;flex-direction:column" onmouseover="this.style.borderColor='#ddd6fe';this.style.boxShadow='0 6px 20px rgba(139,92,246,.1)'" onmouseout="this.style.borderColor='#1a2540';this.style.boxShadow=''">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(139,92,246,.7);margin-bottom:4px">Focused Resit Plan</div>
+          <div style="font-size:14px;font-weight:700;color:#eef2ff;margin-bottom:4px;line-height:1.3">Referred Candidate Support</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;line-height:1.4"><span style="font-weight:600;color:rgba(255,255,255,.65)">Best for:</span> Candidates who have been referred and need a focused route back to assessment.</div>
+          <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(139,92,246,.15)"/><path d="M3 6l2 2 4-4" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">Understand what went wrong</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(139,92,246,.15)"/><path d="M3 6l2 2 4-4" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">Target the areas that need rebuilding</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(139,92,246,.15)"/><path d="M3 6l2 2 4-4" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">Practise stronger answers for your resit</span></div>
+          </div>
+          <div style="margin-top:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)"><span style="font-size:13px;font-weight:600;color:#93c5fd">Explore programme &#x2192;</span></div>
+        </div>
+      </a>
+      <a href="/apprentice-review" style="text-decoration:none;display:flex">
+        <div style="background:#0f172a;border:1px solid #1a2540;border-radius:14px;padding:1rem;width:100%;box-sizing:border-box;cursor:pointer;transition:.18s;display:flex;flex-direction:column" onmouseover="this.style.borderColor='#fda4af';this.style.boxShadow='0 6px 20px rgba(244,63,94,.1)'" onmouseout="this.style.borderColor='#1a2540';this.style.boxShadow=''">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,63,94,.65);margin-bottom:4px">36-Question Review</div>
+          <div style="font-size:14px;font-weight:700;color:#eef2ff;margin-bottom:4px;line-height:1.3">Advanced Technical Pathway Benchmark</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;line-height:1.4"><span style="font-weight:600;color:rgba(255,255,255,.65)">Best for:</span> Apprentices developing the professional capability needed alongside technical learning.</div>
+          <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(16,185,129,.15)"/><path d="M3 6l2 2 4-4" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">36-question professional readiness review</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(16,185,129,.15)"/><path d="M3 6l2 2 4-4" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">See what you&rsquo;re already demonstrating &#x2014; and what needs development</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(16,185,129,.15)"/><path d="M3 6l2 2 4-4" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:rgba(255,255,255,.65)">Personalised Michael report with clear development priorities</span></div>
+          </div>
+          <div style="margin-top:6px"><span style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px;border:1px solid rgba(16,185,129,.28);background:rgba(16,185,129,.07);color:rgba(16,185,129,.75)">Covers all 3 ST0331 apprenticeship routes</span></div>
+          <div style="margin-top:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)"><span style="font-size:13px;font-weight:600;color:#93c5fd">Explore programme &#x2192;</span></div>
+        </div>
+      </a>
+    </div>
   </div>
 </section>
-<script>
-(function(){
-var progs=[
-  {icon:'🌱',iBg:'rgba(16,185,129,.1)',iBd:'rgba(16,185,129,.25)',color:'#10b981',colorF:'rgba(16,185,129,.65)',bdA:'#a7f3d0',glA:'rgba(16,185,129,.08)',
-   label:'5 Areas Assessed',title:'APC Apprenticeship Mid-Programme Professional Readiness Review',
-   bestFor:"Candidates who want to know whether they're on track before final preparation begins.",
-   bullets:['Identify gaps before they become problems','Personalised readiness report with clear development priorities','5 areas of professional readiness assessed'],
-   tag:{text:'Private — results are yours only',bd:'rgba(16,185,129,.28)',bg:'rgba(16,185,129,.07)',color:'rgba(16,185,129,.75)'},
-   url:'/year-two-review'},
-  {icon:'📚',iBg:'rgba(37,99,235,.1)',iBd:'rgba(37,99,235,.22)',color:'#2563EB',colorF:'rgba(37,99,235,.8)',bdA:'#bfdbfe',glA:'rgba(37,99,235,.08)',
-   label:'12 Modules',title:'APC Full 12 Module Programme',
-   bestFor:'Candidates who want structured APC preparation from foundations through to assessment.',
-   bullets:['12 structured modules covering the full APC journey','Pathway-specific preparation to build technical confidence','Michael + full 60-minute mock to challenge thinking and articulation'],
-   tag:null,
-   url:'/programme'},
-  {icon:'⏱',iBg:'rgba(245,158,11,.1)',iBd:'rgba(245,158,11,.25)',color:'#f59e0b',colorF:'rgba(245,158,11,.7)',bdA:'#fde68a',glA:'rgba(245,158,11,.08)',
-   label:'Final Assessment Practice',title:'APC Final Sprint',
-   bestFor:'Candidates who have submitted and are preparing for final assessment.',
-   bullets:['Identify weak spots before assessment','Practise pathway-specific questions under pressure','Michael challenge + full mock to test readiness'],
-   tag:null,
-   url:'/sprint'},
-  {icon:'🔁',iBg:'rgba(139,92,246,.1)',iBd:'rgba(139,92,246,.22)',color:'#8b5cf6',colorF:'rgba(139,92,246,.7)',bdA:'#ddd6fe',glA:'rgba(139,92,246,.08)',
-   label:'Focused Resit Plan',title:'Referred Candidate Support',
-   bestFor:'Candidates who have been referred and need a focused route back to assessment.',
-   bullets:['Understand what went wrong','Target the areas that need rebuilding','Practise stronger answers for your resit'],
-   tag:null,
-   url:'/referred-programme'},
-  {icon:'🎓',iBg:'rgba(244,63,94,.1)',iBd:'rgba(244,63,94,.25)',color:'#f43f5e',colorF:'rgba(244,63,94,.65)',bdA:'#fda4af',glA:'rgba(244,63,94,.08)',
-   label:'36-Question Review',title:'Advanced Technical Pathway Benchmark',
-   bestFor:'Apprentices developing the professional capability needed alongside technical learning.',
-   bullets:['36-question professional readiness review',"See what you're already demonstrating — and what needs development",'Personalised Michael report with clear development priorities'],
-   tag:{text:'Covers all 3 ST0331 apprenticeship routes',bd:'rgba(16,185,129,.28)',bg:'rgba(16,185,129,.07)',color:'rgba(16,185,129,.75)'},
-   url:'/apprentice-review'}
-];
-var active=1;
-function ck(c){return '<svg width="13" height="13" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="rgba(255,255,255,.07)"/><path d="M3 6l2 2 4-4" stroke="'+c+'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';}
-function renderTiles(){
-  var h='';
-  progs.forEach(function(p,i){
-    var on=i===active;
-    h+='<button class="pf-tile" onclick="pfSel('+i+')" style="border-color:'+(on?p.bdA:'#1e2d48')+''+(on?';'+'background:'+p.glA:'')+'">';
-    h+='<div class="pf-tile-icon" style="background:'+p.iBg+';border:1.5px solid '+p.iBd+'">'+p.icon+'</div>';
-    h+='<div class="pf-tile-label" style="color:'+p.colorF+'">'+p.label+'</div>';
-    h+='<div class="pf-tile-title">'+p.title+'</div>';
-    h+='</button>';
-  });
-  document.getElementById('pf-tiles').innerHTML=h;
-}
-function renderDetail(){
-  var p=progs[active];
-  var lft='';
-  lft+='<div style="width:44px;height:44px;background:'+p.iBg+';border:1.5px solid '+p.iBd+';border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px">'+p.icon+'</div>';
-  lft+='<div class="pf-d-label" style="color:'+p.colorF+'">'+p.label+'</div>';
-  lft+='<div class="pf-d-title">'+p.title+'</div>';
-  lft+='<div class="pf-d-bestfor"><span style="font-weight:600;color:rgba(255,255,255,.65)">Best for:</span> '+p.bestFor+'</div>';
-  if(p.tag){lft+='<span class="pf-d-tag" style="border:1px solid '+p.tag.bd+';background:'+p.tag.bg+';color:'+p.tag.color+'">'+p.tag.text+'</span><br>';}
-  lft+='<a href="'+p.url+'" class="pf-d-cta">Explore programme &#x2192;</a>';
-  var rgt='<div class="pf-d-bullets">';
-  p.bullets.forEach(function(b){rgt+='<div class="pf-d-bullet">'+ck(p.color)+'<span>'+b+'</span></div>';});
-  rgt+='</div>';
-  var el=document.getElementById('pf-detail');
-  el.innerHTML='<div>'+lft+'</div><div>'+rgt+'</div>';
-  el.style.borderColor=p.bdA;
-}
-window.pfSel=function(i){active=i;renderTiles();renderDetail();};
-renderTiles();renderDetail();
-})();
-</script>
 
 
 
@@ -1928,26 +1908,14 @@ renderTiles();renderDetail();
         <p class="pain-card-q">&ldquo;I&rsquo;ve prepared&mdash;but I still don&rsquo;t know what I&rsquo;m missing or whether I&rsquo;m ready.&rdquo;</p>
         <p class="pain-card-a">See what is secure, what needs attention and where your effort will make the greatest difference.</p>
       </div>
-      <div class="pain-card">
-        <span style="display:block;width:20px;height:3px;background:#f59e0b;border-radius:2px;margin-bottom:18px"></span>
-        <p class="pain-card-q">&ldquo;I know my work&mdash;but my answers don&rsquo;t always show it.&rdquo;</p>
-        <p class="pain-card-a">Turn your experience into clear evidence and structured, well-reasoned professional answers.</p>
-      </div>
-      <div class="pain-card">
-        <span style="display:block;width:20px;height:3px;background:#f59e0b;border-radius:2px;margin-bottom:18px"></span>
-        <p class="pain-card-q">&ldquo;I can answer the first question. It&rsquo;s the follow-ups that test me.&rdquo;</p>
-        <p class="pain-card-a">Practise applying your knowledge, explaining your reasoning and defending your professional judgement when questions go deeper.</p>
-      </div>
+
+
       <div class="pain-card">
         <span style="display:block;width:20px;height:3px;background:#f59e0b;border-radius:2px;margin-bottom:18px"></span>
         <p class="pain-card-q">&ldquo;I need somewhere to practise between counsellor meetings.&rdquo;</p>
-        <p class="pain-card-a">Use Michael whenever uncertainty arises&mdash;to explore an area, test an answer or challenge your thinking.</p>
+        <p class="pain-card-a">Use Michael between counsellor meetings to explore an area, test an answer and challenge your thinking &mdash; so the real assessment is not your first proper test.</p>
       </div>
-      <div class="pain-card">
-        <span style="display:block;width:20px;height:3px;background:#f59e0b;border-radius:2px;margin-bottom:18px"></span>
-        <p class="pain-card-q">&ldquo;I don&rsquo;t want the real assessment to be my first proper test.&rdquo;</p>
-        <p class="pain-card-a">Experience the format, pacing and sustained pressure of a full 60-minute mock interview before the real assessment.</p>
-      </div>
+
     </div>
     <p style="font-size:15px;font-weight:600;color:#f4f6fb;text-align:center;line-height:1.6;margin:40px auto 0;max-width:560px">Get Chartered AI provides the structure, practice and feedback to help you work through each one.</p>
   </div>

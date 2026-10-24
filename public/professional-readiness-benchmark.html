@@ -8,10 +8,9 @@
 <meta name="description" content="A structured, employer-sponsored professional development review for graduates and apprentices in their first two years. Michael analyses five key areas of professional practice and produces a candid development report.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--blue:#2563EB;--blue-dark:#1d4ed8;--cta:#3d5afe;--navy:#0f1729;--amber:#f59e0b;--green:#10b981;--rose:#f43f5e;--f:'Inter',sans-serif;--fh:'Plus Jakarta Sans','Inter',sans-serif}
-*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#2563EB;--blue-dark:#1d4ed8;--cta:#3d5afe;--navy:#0f1729;--amber:#f59e0b;--green:#10b981;--rose:#f43f5e;--f:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--fh:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--f);background:#0D0F1C;color:#f8fafc;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 nav{position:sticky;top:0;z-index:1000;background:rgba(11,12,28,0.97);backdrop-filter:blur(16px);height:64px;display:flex;align-items:center;padding:0 40px;border-bottom:1px solid rgba(255,255,255,0.06)}
@@ -22,7 +21,7 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(11,12,28,0.97);backdrop-f
 .nav-btn:hover{background:#536dfe}
 .hero{padding:96px 40px 80px;background:linear-gradient(160deg,#0D0F1C 0%,#111527 60%,#0a1020 100%);text-align:center}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:24px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);padding:6px 14px;border-radius:20px}
-.hero h1{font-family:var(--fh);font-size:clamp(32px,5vw,56px);font-weight:800;line-height:1.08;letter-spacing:-.03em;color:#fff;margin-bottom:20px;max-width:780px;margin-left:auto;margin-right:auto}
+.hero h1{font-family:var(--fh);font-size:clamp(32px,5vw,56px);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:#fff;margin-bottom:20px;max-width:780px;margin-left:auto;margin-right:auto}
 .hero h1 em{font-style:normal;color:#93c5fd}
 .hero-sub{font-size:16px;color:rgba(248,250,252,.6);max-width:580px;margin:0 auto 36px;line-height:1.7}
 .btn{font-family:var(--f);font-size:13px;font-weight:700;letter-spacing:.02em;padding:13px 26px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:.18s;text-align:center}
@@ -30,7 +29,7 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(11,12,28,0.97);backdrop-f
 .btn-primary:hover{background:#536dfe}
 .sec{padding:80px 40px;max-width:1100px;margin:0 auto}
 .lbl{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:10px}
-.h2{font-family:var(--fh);font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:14px}
+.h2{font-family:var(--fh);font-size:clamp(24px,3vw,36px);font-weight:700;letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:14px}
 .sub{font-size:15px;color:rgba(248,250,252,.55);max-width:560px;line-height:1.7}
 .areas-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:36px}
 .area-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:20px 16px;text-align:center}
@@ -51,7 +50,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 
 /* Shared overlay components (arev-* compatible) */
 .arev-michael-icon{width:48px;height:48px;background:linear-gradient(135deg,#3d5afe,#7c3aed);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;margin:0 auto 20px}
-.arev-heading{font-family:var(--fh);font-size:26px;font-weight:800;color:#0D0F1C;letter-spacing:-.02em;margin-bottom:4px;text-align:center}
+.arev-heading{font-family:var(--fh);font-size:26px;font-weight:700;color:#0D0F1C;letter-spacing:-.02em;margin-bottom:4px;text-align:center}
 .arev-sub{font-size:14px;color:#64748b;text-align:center;margin-bottom:24px}
 .arev-panel{background:#0f1729;border-radius:12px;padding:20px 24px;margin-bottom:14px}
 .arev-michael-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f0a94e;display:block;margin-bottom:10px}
@@ -112,7 +111,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 .p1-section-title{font-family:var(--fh);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b;margin-bottom:12px;display:block}
 .p1-priority-item{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid #e2e8f0}
 .p1-priority-item:last-child{border-bottom:none}
-.p1-priority-rank{font-family:var(--fh);font-size:18px;font-weight:800;color:#3d5afe;flex-shrink:0;min-width:24px}
+.p1-priority-rank{font-family:var(--fh);font-size:18px;font-weight:700;color:#3d5afe;flex-shrink:0;min-width:24px}
 .p1-priority-body{flex:1}
 .p1-priority-title{font-family:var(--fh);font-size:14px;font-weight:700;color:#0d0f1c;margin-bottom:4px}
 .p1-priority-action{font-size:13px;color:#334155;line-height:1.55;margin-bottom:4px}
@@ -157,7 +156,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 @media(min-width:640px){.p1-privacy-grid{grid-template-columns:1fr 1fr 1fr}}
 /* Privacy screen container */
 .p1-privacy-container{max-width:720px;margin:0 auto;padding:48px 24px}
-.p1-privacy-heading{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:22px;font-weight:700;color:#0D0F1C;margin-top:0;margin-bottom:20px;text-align:center}
+.p1-privacy-heading{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:22px;font-weight:700;color:#0D0F1C;margin-top:0;margin-bottom:20px;text-align:center}
 .p1-privacy-card{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
 /* Priority select */
 .p1-priority-select-label{display:flex;align-items:center;gap:12px;padding:16px 20px;border:1.5px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:.15s;font-size:16px;color:#0D0F1C}
@@ -269,7 +268,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
         <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(37,99,235,.14) 0%,transparent 65%);pointer-events:none"></div>
         <div style="position:relative">
           <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:8px">Professional Readiness</div>
-          <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px">Your Professional Readiness</div>
+          <div style="font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px">Your Professional Readiness</div>
           <div style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.5">See where you are now, understand what to develop next, and track how your professional judgement, communication and confidence grow over time.</div>
           <div id="home-meta" style="margin-top:10px"></div>
         </div>
@@ -455,7 +454,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
         <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(37,99,235,.14) 0%,transparent 65%);pointer-events:none"></div>
         <div style="position:relative;text-align:center">
           <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:10px">Manager Reflection</div>
-          <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:8px">Before you begin</div>
+          <div style="font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:8px">Before you begin</div>
           <div style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.5">A team member has completed their Professional Readiness Benchmark. Your perspective takes around 5 minutes.</div>
         </div>
       </div>
@@ -923,7 +922,7 @@ function renderHome(data) {
       incompleteCount++;
     }
     return `<div style="background:${cardBg};border:1px solid #e2e8f0;border-left:${borderWidth} solid ${borderColor};border-radius:10px;padding:15px 18px;display:flex;align-items:flex-start;gap:12px">
-      <div style="width:26px;height:26px;border-radius:50%;background:${numBg};color:${numColor};font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">${isDone ? '✓' : (i + 1)}</div>
+      <div style="width:26px;height:26px;border-radius:50%;background:${numBg};color:${numColor};font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">${isDone ? '✓' : (i + 1)}</div>
       <div style="flex:1;min-width:0">
         ${stageLabel ? `<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:${stageLabel.color};margin-bottom:3px">${stageLabel.text}</div>` : ''}
         <div style="font-size:14px;font-weight:700;color:${titleColor};margin-bottom:2px;line-height:1.35">${st.title}</div>

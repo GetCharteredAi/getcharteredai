@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -22,11 +22,8 @@
   --line-light:#e2e8f0;
   --muted:rgba(255,255,255,.6);
   --muted-dark:#64748b;
-  --f:'Inter',sans-serif;
-  --fh:'Plus Jakarta Sans','Inter',sans-serif
-}
-html{scroll-behavior:smooth}
-body{font-family:var(--f);background:var(--navy);color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  --f:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --fh:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--navy);color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
 /* ── HEADER ── */
 .site-header{padding:20px 48px;display:flex;align-items:center;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08)}
@@ -37,7 +34,7 @@ body{font-family:var(--f);background:var(--navy);color:#fff;-webkit-font-smoothi
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(37,99,235,.16) 0%,transparent 60%);pointer-events:none}
 .hero-inner{max-width:780px;margin:0 auto;position:relative;z-index:1}
 .eyebrow-tag{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid var(--amber-border);padding:5px 14px;border-radius:20px;margin-bottom:24px}
-.hero h1{font-family:var(--fh);font-size:clamp(28px,4.2vw,52px);font-weight:800;line-height:1.1;letter-spacing:-.03em;color:#fff;margin-bottom:20px}
+.hero h1{font-family:var(--fh);font-size:clamp(28px,4.2vw,52px);font-weight:700;line-height:1.1;letter-spacing:-.03em;color:#fff;margin-bottom:20px}
 .hero-sub{font-size:17px;color:var(--muted);line-height:1.72;max-width:640px;margin:0 auto}
 .tagline{font-size:13px;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.32);margin-top:20px;text-transform:uppercase}
 
@@ -59,7 +56,7 @@ body{font-family:var(--f);background:var(--navy);color:#fff;-webkit-font-smoothi
 
 /* ── TYPOGRAPHY ── */
 .kicker{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
-h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800;line-height:1.12;letter-spacing:-.025em;margin-bottom:16px}
+h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:700;line-height:1.12;letter-spacing:-.025em;margin-bottom:16px}
 .sec-h2-dark{color:var(--navy)}
 .sec-lead{font-size:16px;line-height:1.72;margin-bottom:32px}
 .sec-lead-muted{color:var(--muted-dark)}
@@ -75,7 +72,7 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
 
 /* ── NAVY CARD — on white/light backgrounds ── */
 .card-navy{background:var(--navy);border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:36px}
-.card-navy h3{font-family:var(--fh);font-size:clamp(22px,3vw,28px);font-weight:800;color:#fff;margin-bottom:10px;line-height:1.2}
+.card-navy h3{font-family:var(--fh);font-size:clamp(22px,3vw,28px);font-weight:700;color:#fff;margin-bottom:10px;line-height:1.2}
 .card-navy p{font-size:15px;color:rgba(255,255,255,.72);line-height:1.72}
 .card-navy hr.divider-line{border:none;border-top:1px solid rgba(255,255,255,.1);margin:22px 0}
 .part-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid var(--amber-border);padding:3px 10px;border-radius:6px;margin-bottom:12px}
@@ -113,14 +110,14 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
 /* ── MICHAEL'S INSIGHT PANEL ── */
 .insight-panel{background:#fff;border:1px solid var(--line-light);border-radius:0 0 16px 16px;padding:32px 36px;margin-bottom:14px}
 .insight-kicker{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
-.insight-h3{font-family:var(--fh);font-size:clamp(20px,2.6vw,26px);font-weight:800;color:var(--navy);margin-bottom:10px;line-height:1.2}
+.insight-h3{font-family:var(--fh);font-size:clamp(20px,2.6vw,26px);font-weight:700;color:var(--navy);margin-bottom:10px;line-height:1.2}
 .insight-body{font-size:15px;color:var(--muted-dark);line-height:1.65;margin:0}
 .demo-illustrative-note{font-size:11px;color:var(--muted-dark);letter-spacing:.03em;margin-top:10px;text-align:center}
 
 /* ── DEMO CTA NAVY PANEL ── */
 .demo-cta-navy{background:var(--navy);border-radius:16px;padding:40px;margin-top:14px;text-align:center}
 .demo-cta-kicker{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
-.demo-cta-navy h3{font-family:var(--fh);font-size:clamp(20px,2.6vw,26px);font-weight:800;color:#fff;margin-bottom:10px;line-height:1.2}
+.demo-cta-navy h3{font-family:var(--fh);font-size:clamp(20px,2.6vw,26px);font-weight:700;color:#fff;margin-bottom:10px;line-height:1.2}
 .btn-demo-primary{display:inline-block;background:var(--amber);color:var(--navy);padding:14px 32px;border-radius:10px;font-size:17px;font-weight:700;text-decoration:none;transition:.15s}.btn-demo-primary:hover{background:#d97706}
 .demo-privacy-note{font-size:13px;color:rgba(255,255,255,.42);line-height:1.55;margin-top:16px}
 
@@ -147,24 +144,24 @@ h2.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:800
 .journey-stage-left::before{content:'';position:absolute;left:-22px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--amber);border:2px solid #fff;box-shadow:0 0 0 2px var(--amber);flex-shrink:0}
 @media(max-width:680px){.journey-stage-left::before{display:none}}
 .journey-stage-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;line-height:1.5}
-.journey-stage-title{font-family:var(--fh);font-size:16px;font-weight:800;color:var(--navy);line-height:1.35}
+.journey-stage-title{font-family:var(--fh);font-size:16px;font-weight:700;color:var(--navy);line-height:1.35}
 .journey-products{display:flex;flex-direction:column;gap:14px}
 .journey-product{padding:20px 24px;background:#fff;border:1px solid #d1d9e6;border-radius:14px;border-top:3px solid var(--navy);box-shadow:0 2px 12px rgba(13,15,28,.07)}
-.journey-product-name{font-family:var(--fh);font-size:16px;font-weight:800;color:var(--navy);margin-bottom:5px}
+.journey-product-name{font-family:var(--fh);font-size:16px;font-weight:700;color:var(--navy);margin-bottom:5px}
 .journey-product-desc{font-size:14px;color:var(--muted-dark);line-height:1.65;margin-bottom:10px}
 .journey-product-note{font-size:12px;color:var(--muted-dark);line-height:1.6;margin-top:8px;padding-top:10px;border-top:1px solid var(--line-light);margin-bottom:10px}
 .journey-footnote{margin-top:32px;padding:18px 22px;background:#f8fafc;border:1px solid var(--line-light);border-radius:10px;font-size:12px;color:var(--muted-dark);line-height:1.7}
 .dj-cta{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--blue);text-decoration:none;padding:5px 12px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);border-radius:6px;transition:.15s}.dj-cta:hover{background:rgba(37,99,235,.12);border-color:rgba(37,99,235,.35);color:var(--blue-dark)}
 .dj-referred{margin-top:28px;padding:22px 26px;background:#fffbeb;border:1px solid #fcd34d;border-left:3px solid var(--amber);border-radius:14px;display:flex;gap:20px;align-items:flex-start}
 .dj-referred-tag{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#92400e;background:#fef3c7;border:1px solid #fcd34d;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-top:3px}
-.dj-referred-body h4{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--navy);margin-bottom:5px}
+.dj-referred-body h4{font-family:var(--fh);font-size:15px;font-weight:700;color:var(--navy);margin-bottom:5px}
 .dj-referred-body p{font-size:13px;color:var(--muted-dark);line-height:1.65;margin-bottom:8px}
 
 /* ── VALUE PANEL ── */
 .value-panel{padding:80px 48px;background:var(--navy-2);border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);text-align:center}
 .value-inner{max-width:700px;margin:0 auto}
 .value-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:20px}
-.value-h2{font-family:var(--fh);font-size:clamp(26px,3.6vw,40px);font-weight:800;line-height:1.1;letter-spacing:-.025em;color:#fff;margin-bottom:24px}
+.value-h2{font-family:var(--fh);font-size:clamp(26px,3.6vw,40px);font-weight:700;line-height:1.1;letter-spacing:-.025em;color:#fff;margin-bottom:24px}
 .value-body{font-size:17px;color:rgba(255,255,255,.72);line-height:1.72;margin-bottom:28px;max-width:640px;margin-left:auto;margin-right:auto}
 .value-closing{font-size:15px;color:rgba(255,255,255,.45);line-height:1.65;font-style:italic}
 @media(max-width:600px){.value-panel{padding:60px 24px}}

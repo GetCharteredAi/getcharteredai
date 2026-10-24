@@ -8,10 +8,9 @@
 <meta name="description" content="A 30-question diagnostic benchmark for apprentices and structured-training candidates at the midpoint of their route. Michael analyses your evidence, experience, professional judgement and development readiness — then gives you an honest, structured readiness report.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--blue:#2563EB;--blue-dark:#1d4ed8;--blue-light:#3b82f6;--amber:#f59e0b;--green:#10b981;--rose:#f43f5e;--f:'Inter',sans-serif;--fh:'Plus Jakarta Sans','Inter',sans-serif}
-*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#2563EB;--blue-dark:#1d4ed8;--blue-light:#3b82f6;--amber:#f59e0b;--green:#10b981;--rose:#f43f5e;--f:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--fh:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--f);background:#0D0F1C;color:#f8fafc;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 nav{position:sticky;top:0;left:0;right:0;z-index:1000;background:rgba(11,12,28,0.97);backdrop-filter:blur(16px);height:64px;display:flex;align-items:center;padding:0 40px;border-bottom:1px solid rgba(255,255,255,0.06)}
@@ -28,7 +27,7 @@ nav{position:sticky;top:0;left:0;right:0;z-index:1000;background:rgba(11,12,28,0
 .hero{padding:96px 40px 80px;background:linear-gradient(160deg,#0D0F1C 0%,#111527 60%,#0a1020 100%);position:relative;overflow:hidden;text-align:center}
 .hero::before{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(37,99,235,.1) 0%,transparent 65%);pointer-events:none}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:24px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);padding:6px 14px;border-radius:20px}
-.hero h1{font-family:var(--fh);font-size:clamp(32px,5vw,60px);font-weight:800;line-height:1.08;letter-spacing:-.03em;color:#fff;margin-bottom:20px;max-width:780px;margin-left:auto;margin-right:auto}
+.hero h1{font-family:var(--fh);font-size:clamp(32px,5vw,60px);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:#fff;margin-bottom:20px;max-width:780px;margin-left:auto;margin-right:auto}
 .hero h1 em{font-style:normal;color:#93c5fd}
 .hero-sub{font-size:16px;color:rgba(248,250,252,.6);max-width:600px;margin:0 auto 36px;line-height:1.7;font-weight:400}
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
@@ -38,7 +37,7 @@ nav{position:sticky;top:0;left:0;right:0;z-index:1000;background:rgba(11,12,28,0
 .btn-ghost{background:transparent;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.15)}
 .btn-ghost:hover{border-color:rgba(255,255,255,.35);color:#fff}
 .hero-stats{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;margin-top:60px;padding-top:48px;border-top:1px solid rgba(255,255,255,.06)}
-.stat-num{font-family:var(--fh);font-size:2.2rem;font-weight:800;color:#fff;letter-spacing:-.03em}
+.stat-num{font-family:var(--fh);font-size:2.2rem;font-weight:700;color:#fff;letter-spacing:-.03em}
 .stat-lbl{font-size:11px;font-weight:500;color:rgba(248,250,252,.35);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
 .sec{padding:80px 40px}
 .sec-dark{background:#0D0F1C}
@@ -54,7 +53,7 @@ nav{position:sticky;top:0;left:0;right:0;z-index:1000;background:rgba(11,12,28,0
 .sec-light .area-card p{color:#64748b}
 .sec-light .area-num{border-color:#d1d5db}
 .lbl{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:10px}
-.h2{font-family:var(--fh);font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:14px}
+.h2{font-family:var(--fh);font-size:clamp(24px,3vw,36px);font-weight:700;letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:14px}
 .sub{font-size:15px;color:rgba(248,250,252,.55);max-width:560px;line-height:1.7}
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto}
 .why-points{display:flex;flex-direction:column;gap:22px;margin-top:28px}
@@ -87,7 +86,7 @@ nav{position:sticky;top:0;left:0;right:0;z-index:1000;background:rgba(11,12,28,0
 .price-card-title{font-family:var(--fh);font-size:1.25rem;font-weight:700;color:#0D0F1C;margin-bottom:24px;line-height:1.3;letter-spacing:-.02em}
 .price-amount-row{display:flex;align-items:baseline;gap:4px;margin-bottom:6px}
 .price-sym{font-family:var(--fh);font-size:1.5rem;font-weight:700;color:#0D0F1C}
-.price-num{font-family:var(--fh);font-size:3.5rem;font-weight:800;color:#0D0F1C;letter-spacing:-.04em;line-height:1}
+.price-num{font-family:var(--fh);font-size:3.5rem;font-weight:700;color:#0D0F1C;letter-spacing:-.04em;line-height:1}
 .price-period{font-size:13px;color:#94a3b8;margin-bottom:24px}
 .price-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;padding-top:20px;border-top:1px solid #f1f5f9}
 .price-feats li{font-size:14px;color:#475569;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
@@ -112,7 +111,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 .fu.in{opacity:1;transform:translateY(0)}
 /* ── OVERLAY BASE ── */
 .yr2-michael-icon{width:48px;height:48px;background:linear-gradient(135deg,#2563EB,#7c3aed);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;margin:0 auto 20px}
-.yr2-heading{font-family:var(--fh);font-size:26px;font-weight:800;color:#0D0F1C;letter-spacing:-.02em;margin-bottom:4px;text-align:center}
+.yr2-heading{font-family:var(--fh);font-size:26px;font-weight:700;color:#0D0F1C;letter-spacing:-.02em;margin-bottom:4px;text-align:center}
 .yr2-sub{font-size:14px;color:#64748b;text-align:center;margin-bottom:24px}
 .yr2-message{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;font-size:14px;color:#334155;line-height:1.8;margin-bottom:28px}
 .yr2-message-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b45309;margin-bottom:10px;display:block}
@@ -177,7 +176,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 .yr2-report-area p:last-child{margin-bottom:0}
 .yr2-priority-item{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid #e2e8f0}
 .yr2-priority-item:last-child{border-bottom:none}
-.yr2-priority-rank{font-family:var(--fh);font-size:18px;font-weight:800;color:#2563EB;flex-shrink:0;min-width:24px}
+.yr2-priority-rank{font-family:var(--fh);font-size:18px;font-weight:700;color:#2563EB;flex-shrink:0;min-width:24px}
 .yr2-dots{display:flex;justify-content:center;gap:6px;margin-top:16px}
 .yr2-dot{width:8px;height:8px;background:#2563EB;border-radius:50%;animation:yr2pulse 1.4s infinite}
 .yr2-dot:nth-child(2){animation-delay:.2s}
@@ -583,17 +582,17 @@ function yr2RenderWelcome() {
     <div style="background:#0f172a;border:1px solid #1a2540;border-radius:10px;padding:20px 24px;margin-bottom:10px">
       <div style="display:flex;align-items:center;justify-content:space-around">
         <div style="text-align:center">
-          <div style="font-family:var(--fh);font-size:28px;font-weight:800;color:#fff;line-height:1">30</div>
+          <div style="font-family:var(--fh);font-size:28px;font-weight:700;color:#fff;line-height:1">30</div>
           <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:5px;letter-spacing:.04em;text-transform:uppercase">Questions</div>
         </div>
         <div style="width:1px;height:40px;background:#1a2540"></div>
         <div style="text-align:center">
-          <div style="font-family:var(--fh);font-size:28px;font-weight:800;color:#fff;line-height:1">5</div>
+          <div style="font-family:var(--fh);font-size:28px;font-weight:700;color:#fff;line-height:1">5</div>
           <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:5px;letter-spacing:.04em;text-transform:uppercase">Areas</div>
         </div>
         <div style="width:1px;height:40px;background:#1a2540"></div>
         <div style="text-align:center">
-          <div style="font-family:var(--fh);font-size:28px;font-weight:800;color:#fff;line-height:1">~60</div>
+          <div style="font-family:var(--fh);font-size:28px;font-weight:700;color:#fff;line-height:1">~60</div>
           <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:5px;letter-spacing:.04em;text-transform:uppercase">Minutes</div>
         </div>
       </div>
@@ -1872,7 +1871,7 @@ function yr2RenderReport(report) {
 
       <div style="text-align:center;padding:32px 0 28px;border-bottom:1px solid #e2e8f0;margin-bottom:28px">
         <div class="yr2-michael-icon" style="margin-bottom:16px">🎓</div>
-        <div style="font-family:var(--fh);font-size:1.4rem;font-weight:800;color:#0D0F1C;letter-spacing:-.02em;margin-bottom:6px">Final Professional Readiness Report</div>
+        <div style="font-family:var(--fh);font-size:1.4rem;font-weight:700;color:#0D0F1C;letter-spacing:-.02em;margin-bottom:6px">Final Professional Readiness Report</div>
         <p style="font-size:11px;color:#94a3b8;letter-spacing:.06em;text-transform:uppercase">Generated by Michael · ${today}</p>
       </div>
 
@@ -1882,7 +1881,7 @@ function yr2RenderReport(report) {
         <p style="font-size:15px;color:#334155;line-height:1.75">${escHtml(report.overallSummary)}</p>
       </div>` : ''}
 
-      <h2 style="font-family:var(--fh);font-size:18px;font-weight:800;color:#0D0F1C;margin-bottom:14px">Five-Area Readiness Profile</h2>
+      <h2 style="font-family:var(--fh);font-size:18px;font-weight:700;color:#0D0F1C;margin-bottom:14px">Five-Area Readiness Profile</h2>
       ${areasHtml}
 
       ${strengthsHtml ? `

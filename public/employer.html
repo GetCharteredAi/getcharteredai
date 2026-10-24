@@ -103,11 +103,12 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-fi
 .one-platform-box p:last-child{margin-bottom:0}
 
 /* CONTACT */
-.contact-card{background:#fff;border-radius:20px;padding:48px;max-width:640px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.08)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.contact-card{display:grid;grid-template-columns:2fr 3fr;gap:56px;align-items:start;background:#f8fafc;border:1px solid #e2e8f0;border-radius:20px;padding:44px 48px}
+.contact-intro h2{font-family:var(--fh);font-size:clamp(20px,2.2vw,28px);font-weight:600;line-height:1.12;letter-spacing:-.025em;color:var(--navy);margin-bottom:12px}
+.contact-intro p{font-size:15px;color:#64748b;line-height:1.65;margin:0}
 .form-group{display:flex;flex-direction:column;gap:5px}
 .form-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b}
-.form-input{padding:11px 14px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:8px;font-family:var(--f);font-size:14px;color:var(--navy);outline:none;transition:.18s;width:100%;appearance:none}
+.form-input{padding:11px 14px;background:#fff;border:1.5px solid #e2e8f0;border-radius:8px;font-family:var(--f);font-size:14px;color:var(--navy);outline:none;transition:.18s;width:100%;appearance:none}
 .form-input:focus{border-color:var(--blue);background:#fff}
 textarea.form-input{resize:vertical;min-height:100px}
 .form-btn{width:100%;padding:14px;background:var(--navy);color:#fff;border:none;border-radius:9px;font-family:var(--f);font-size:15px;font-weight:700;cursor:pointer;transition:.18s;margin-top:6px}
@@ -116,7 +117,11 @@ textarea.form-input{resize:vertical;min-height:100px}
 .alert{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:14px;display:none}
 .alert-err{background:#fee2e2;color:#dc2626;border:1px solid #fca5a5}
 .alert-ok{background:#dcfce7;color:#16a34a;border:1px solid #86efac}
-.form-note{font-size:12px;color:#94a3b8;text-align:center;margin-top:10px}
+.form-note{font-size:12px;color:#94a3b8;text-align:left;margin-top:10px}
+.form-row-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+.form-row-submit{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.form-row-submit .form-btn{width:auto;padding:11px 22px;white-space:nowrap;margin-top:0}
+.form-row-submit textarea.form-input{min-height:60px}
 
 /* FOOTER */
 footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
@@ -139,16 +144,20 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
   .section{padding:64px 24px}
   .hero{padding:72px 24px 64px}
   nav{padding:0 20px}
-  .contact-card{padding:32px 24px}
   footer{padding:24px 20px}
   .nav-links{display:none}
   .loop-panel{padding:28px 24px}
+  .contact-card{grid-template-columns:1fr;gap:28px;padding:28px 24px}
+  .form-row-4{grid-template-columns:1fr 1fr}
+  .form-row-submit{grid-template-columns:1fr}
+  .form-row-submit .form-btn{width:100%;margin-top:6px}
 }
 @media(max-width:540px){
   .hero-btns{flex-direction:column;align-items:center}
   .form-row{grid-template-columns:1fr}
   .loop-steps{grid-template-columns:1fr}
   .loop-step::after{display:none!important}
+  .form-row-4{grid-template-columns:1fr}
 }
 </style>
 
@@ -305,48 +314,50 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
 </div>
 
 <!-- ══ CONTACT ══ -->
-<div class="section sec-white" id="contact">
+<div class="section sec-white" id="contact" style="padding:48px 40px">
   <div class="sec-inner">
-    <div style="text-align:center;margin-bottom:40px">
-      <span class="eyebrow eyebrow-blue" style="display:block;margin:0 auto 16px;width:max-content">Get in touch</span>
-      <h2 class="sec-h2 sec-h2-dark" style="max-width:600px;margin:0 auto 12px">Talk to us about your people.</h2>
-      <p style="font-size:15px;color:#64748b;max-width:520px;margin:0 auto">Tell us about the people you are developing and the support you need.</p>
-    </div>
     <div class="contact-card">
-      <div id="contactAlert" class="alert"></div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Your Name</label>
-          <input type="text" id="empName" class="form-input" placeholder="First and last name">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Firm Name</label>
-          <input type="text" id="empFirm" class="form-input" placeholder="Your firm or organisation">
-        </div>
+      <div class="contact-intro">
+        <span class="eyebrow eyebrow-blue">Get in touch</span>
+        <h2>Talk to us about your people.</h2>
+        <p>Tell us about the people you are developing and the support you need.</p>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" id="empEmail" class="form-input" placeholder="you@firm.com">
+      <div>
+        <div id="contactAlert" class="alert"></div>
+        <div class="form-row-4">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" id="empName" class="form-input" placeholder="First and last name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Firm Name</label>
+            <input type="text" id="empFirm" class="form-input" placeholder="Your firm or organisation">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="empEmail" class="form-input" placeholder="you@firm.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Approximate group size</label>
+            <select id="empCohort" class="form-input">
+              <option value="">Select size</option>
+              <option>1&ndash;5 candidates</option>
+              <option>6&ndash;10 candidates</option>
+              <option>11&ndash;20 candidates</option>
+              <option>21&ndash;50 candidates</option>
+              <option>50+ candidates</option>
+            </select>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Approximate group size</label>
-          <select id="empCohort" class="form-input">
-            <option value="">Select size</option>
-            <option>1&ndash;5 candidates</option>
-            <option>6&ndash;10 candidates</option>
-            <option>11&ndash;20 candidates</option>
-            <option>21&ndash;50 candidates</option>
-            <option>50+ candidates</option>
-          </select>
+        <div class="form-row-submit">
+          <div class="form-group">
+            <label class="form-label">What would be most useful to discuss?</label>
+            <textarea id="empMessage" class="form-input" placeholder="e.g. professional readiness for graduates, APC preparation, apprenticeship support, referred candidate support..."></textarea>
+          </div>
+          <button class="form-btn" id="empBtn" onclick="submitEmployer()">Send enquiry &rarr;</button>
         </div>
+        <p class="form-note" style="text-align:left">We will respond directly. No obligation.</p>
       </div>
-      <div class="form-group" style="margin-bottom:14px">
-        <label class="form-label">What would be most useful to discuss?</label>
-        <textarea id="empMessage" class="form-input" placeholder="e.g. professional readiness for graduates, APC preparation, apprenticeship support, referred candidate support..."></textarea>
-      </div>
-      <button class="form-btn" id="empBtn" onclick="submitEmployer()">Send enquiry &rarr;</button>
-      <p class="form-note">We will respond directly. No obligation.</p>
     </div>
   </div>
 </div>

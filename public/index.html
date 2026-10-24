@@ -1297,7 +1297,7 @@ input.err{border-color:var(--red)}
   </a>
   <div class="nav-right" id="navRight">
     <div class="nav-dropdown" id="offerDropdown">
-      <button class="nav-link nav-dropdown-trigger" onclick="toggleOfferDropdown()">What We Offer &#x25BE;</button>
+      <button type="button" class="nav-link nav-dropdown-trigger" onclick="toggleOfferDropdown(event)">What We Offer &#x25BE;</button>
       <div class="nav-dropdown-menu" id="offerMenu" style="display:none;min-width:580px;padding:20px">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
           <div>
@@ -1342,7 +1342,7 @@ input.err{border-color:var(--red)}
       </div>
     </div>
     <div class="nav-dropdown" id="whoDropdown">
-      <button class="nav-link nav-dropdown-trigger" onclick="toggleWhoDropdown()">Who It&#x2019;s For &#x25BE;</button>
+      <button type="button" class="nav-link nav-dropdown-trigger" onclick="toggleWhoDropdown(event)">Who It&#x2019;s For &#x25BE;</button>
       <div class="nav-dropdown-menu guides-nav-menu" id="whoMenu" style="display:none">
         <a href="#programme-finder-sec" class="guides-nav-item" onclick="event.preventDefault();closeWhoDropdown();document.getElementById('programme-finder-sec').scrollIntoView({behavior:'smooth'})">APC Candidates</a>
         <a href="/sprint" class="guides-nav-item">Candidates Preparing for Final Assessment</a>
@@ -1352,7 +1352,7 @@ input.err{border-color:var(--red)}
       </div>
     </div>
     <div class="nav-dropdown" id="guidesDropdown">
-      <button class="nav-link nav-dropdown-trigger" onclick="toggleGuidesDropdown()">Resources &#x25BE;</button>
+      <button type="button" class="nav-link nav-dropdown-trigger" onclick="toggleGuidesDropdown(event)">Resources &#x25BE;</button>
       <div class="nav-dropdown-menu guides-nav-menu" id="guidesMenu" style="display:none">
         <a href="/hot-topics" class="guides-nav-item">APC Industry Briefing — Autumn 2026</a>
         <a href="/case-study-checklist" class="guides-nav-item">10 Checks: APC Case Study</a>
@@ -5715,32 +5715,41 @@ window.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-function toggleOfferDropdown() {
-  const menu = document.getElementById('offerMenu');
-  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+function closeAllDropdowns() {
+  ['offerMenu','whoMenu','guidesMenu'].forEach(function(id) {
+    var m = document.getElementById(id);
+    if (m) m.style.display = 'none';
+  });
 }
-function closeOfferDropdown() {
-  document.getElementById('offerMenu').style.display = 'none';
+function closeOfferDropdown() { var m=document.getElementById('offerMenu'); if(m) m.style.display='none'; }
+function closeWhoDropdown()   { var m=document.getElementById('whoMenu');   if(m) m.style.display='none'; }
+function closeGuidesDropdown(){ var m=document.getElementById('guidesMenu');if(m) m.style.display='none'; }
+
+function toggleOfferDropdown(e) {
+  if (e) e.stopPropagation();
+  var menu = document.getElementById('offerMenu');
+  var isOpen = menu && menu.style.display !== 'none';
+  closeAllDropdowns();
+  if (!isOpen && menu) menu.style.display = 'block';
 }
-function toggleWhoDropdown() {
-  const menu = document.getElementById('whoMenu');
-  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+function toggleWhoDropdown(e) {
+  if (e) e.stopPropagation();
+  var menu = document.getElementById('whoMenu');
+  var isOpen = menu && menu.style.display !== 'none';
+  closeAllDropdowns();
+  if (!isOpen && menu) menu.style.display = 'block';
 }
-function closeWhoDropdown() {
-  document.getElementById('whoMenu').style.display = 'none';
+function toggleGuidesDropdown(e) {
+  if (e) e.stopPropagation();
+  var menu = document.getElementById('guidesMenu');
+  var isOpen = menu && menu.style.display !== 'none';
+  closeAllDropdowns();
+  if (!isOpen && menu) menu.style.display = 'block';
 }
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('#offerDropdown')) closeOfferDropdown();
-  if (!e.target.closest('#whoDropdown')) closeWhoDropdown();
-  if (!e.target.closest('#guidesDropdown')) closeGuidesDropdown();
-});
-function toggleGuidesDropdown() {
-  const menu = document.getElementById('guidesMenu');
-  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-}
-function closeGuidesDropdown() {
-  document.getElementById('guidesMenu').style.display = 'none';
-}
+
+// Close all dropdowns on outside click or Escape
+document.addEventListener('click', closeAllDropdowns);
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeAllDropdowns(); });
 
 // ── CPD TRACKER ────────────────────────────────────────────────────
 

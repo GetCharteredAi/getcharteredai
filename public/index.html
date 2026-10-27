@@ -1341,7 +1341,16 @@ input.err{border-color:var(--red)}
         </div>
       </div>
     </div>
-    <a href="/#programme-finder-sec" class="nav-link">Candidates</a>
+    <div class="nav-dropdown" id="whoDropdown">
+      <button type="button" class="nav-link nav-dropdown-trigger" onclick="toggleWhoDropdown(event)">Candidates &#x25BE;</button>
+      <div class="nav-dropdown-menu guides-nav-menu" id="whoMenu" style="display:none">
+        <a href="#programme-finder-sec" class="guides-nav-item" onclick="event.preventDefault();closeWhoDropdown();document.getElementById('programme-finder-sec').scrollIntoView({behavior:'smooth'})">APC Candidates</a>
+        <a href="/sprint" class="guides-nav-item">Candidates Preparing for Final Assessment</a>
+        <a href="/referred-programme" class="guides-nav-item">Referred Candidates</a>
+        <a href="#career-sec" class="guides-nav-item" onclick="event.preventDefault();closeWhoDropdown();document.getElementById('career-sec').scrollIntoView({behavior:'smooth'})">Graduates and Apprentices</a>
+        <a href="/employer" class="guides-nav-item">Employers Supporting Their People</a>
+      </div>
+    </div>
     <a href="/employer" class="nav-link">Companies</a>
     <div class="nav-dropdown" id="guidesDropdown">
       <button type="button" class="nav-link nav-dropdown-trigger" onclick="toggleGuidesDropdown(event)">Resources &#x25BE;</button>
@@ -1376,8 +1385,12 @@ input.err{border-color:var(--red)}
   <a href="/platform" onclick="closeMobileNav()">Inside the Platform</a>
   <a href="/pricing" onclick="closeMobileNav()">Compare Programmes and Pricing</a>
   <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0"></div>
-  <a href="/#programme-finder-sec" onclick="closeMobileNav()">Candidates</a>
-  <a href="/employer" onclick="closeMobileNav()">Companies</a>
+  <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:4px 0 8px">Candidates</div>
+  <a href="#programme-finder-sec" onclick="event.preventDefault();closeMobileNav();document.getElementById('programme-finder-sec').scrollIntoView({behavior:'smooth'})">APC Candidates</a>
+  <a href="/sprint" onclick="closeMobileNav()">Candidates Preparing for Final Assessment</a>
+  <a href="/referred-programme" onclick="closeMobileNav()">Referred Candidates</a>
+  <a href="#career-sec" onclick="event.preventDefault();closeMobileNav();document.getElementById('career-sec').scrollIntoView({behavior:'smooth'})">Graduates and Apprentices</a>
+  <a href="/employer" onclick="closeMobileNav()">Employers Supporting Their People</a>
   <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0"></div>
   <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:4px 0 8px">Resources</div>
   <a href="/hot-topics" onclick="closeMobileNav()">APC Industry Briefing — Autumn 2026</a>
@@ -1388,6 +1401,8 @@ input.err{border-color:var(--red)}
   <a href="/guides#audience-early-career" onclick="closeMobileNav()">For Graduates &amp; Apprentices</a>
   <a href="/guides#audience-apc" onclick="closeMobileNav()">Tools &amp; Industry Updates</a>
   <a href="/guides" onclick="closeMobileNav()">View All Resources</a>
+  <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0"></div>
+  <a href="/employer" onclick="closeMobileNav()">Companies</a>
   <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0"></div>
   <button onclick="closeMobileNav();openLogin()" id="drawerLoginBtn">Member Login</button>
   <button class="drawer-enrol" onclick="closeMobileNav();window.location.href='/pricing'" id="drawerEnrolBtn">Enrol Now</button>
@@ -1628,7 +1643,7 @@ input.err{border-color:var(--red)}
 
     <!-- APC CANDIDATES -->
     <div class="gcai-card">
-      <span class="gcai-split-label" style="color:#2563EB">For Candidates</span>
+      <span class="gcai-split-label" style="color:#2563EB">Candidates</span>
       <h3 class="gcai-split-hl">More than a guide.<br>Your APC practice partner.</h3>
       <p class="gcai-split-intro">Explain your reasoning and respond when the questioning changes direction.</p>
       <ul class="gcai-split-bullets">
@@ -1653,7 +1668,7 @@ input.err{border-color:var(--red)}
       <div style="position:absolute;inset:0;clip-path:polygon(0 0,100% 0,100% 46%,0 62%);background:#0b2820;pointer-events:none" aria-hidden="true"></div>
       <div style="position:absolute;inset:0;clip-path:polygon(0 62%,100% 46%,100% 100%,0 100%);background:#251a06;pointer-events:none" aria-hidden="true"></div>
       <div style="position:absolute;inset:0;clip-path:polygon(0 62%,100% 46%,100% 47.5%,0 63.5%);background:linear-gradient(to right,rgba(30,185,120,.5),rgba(200,145,20,.5));pointer-events:none" aria-hidden="true"></div>
-      <span class="gcai-split-label" style="color:rgba(255,255,255,.35);position:relative">For Companies</span>
+      <span class="gcai-split-label" style="color:rgba(255,255,255,.35);position:relative">Companies</span>
       <a href="/employer/professional-readiness" class="gcai-emp-pr" style="position:relative;flex:1;display:flex;flex-direction:column;padding-bottom:24px;text-decoration:none;color:#F4FBF7">
         <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(16,185,129,.9);margin-bottom:8px">Professional Readiness Programme</div>
         <h3 style="font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:clamp(18px,2vw,24px);font-weight:600;color:#F4FBF7;letter-spacing:-.02em;line-height:1.2;margin:0 0 10px">Turn learning into workplace capability.</h3>
@@ -5702,17 +5717,25 @@ window.addEventListener('DOMContentLoaded', async () => {
 });
 
 function closeAllDropdowns() {
-  ['offerMenu','guidesMenu'].forEach(function(id) {
+  ['offerMenu','whoMenu','guidesMenu'].forEach(function(id) {
     var m = document.getElementById(id);
     if (m) m.style.display = 'none';
   });
 }
 function closeOfferDropdown() { var m=document.getElementById('offerMenu'); if(m) m.style.display='none'; }
+function closeWhoDropdown()   { var m=document.getElementById('whoMenu');   if(m) m.style.display='none'; }
 function closeGuidesDropdown(){ var m=document.getElementById('guidesMenu');if(m) m.style.display='none'; }
 
 function toggleOfferDropdown(e) {
   if (e) e.stopPropagation();
   var menu = document.getElementById('offerMenu');
+  var isOpen = menu && menu.style.display !== 'none';
+  closeAllDropdowns();
+  if (!isOpen && menu) menu.style.display = 'block';
+}
+function toggleWhoDropdown(e) {
+  if (e) e.stopPropagation();
+  var menu = document.getElementById('whoMenu');
   var isOpen = menu && menu.style.display !== 'none';
   closeAllDropdowns();
   if (!isOpen && menu) menu.style.display = 'block';

@@ -34,7 +34,7 @@ function emailWrapper(content) {
 
 function getSequence(name, pathway, examDate, guideType) {
   const firstName = name.split(' ')[0];
-  const urgent = ['Spring 2026 — sitting soon', 'Autumn 2026'].includes(examDate);
+  const urgent = examDate === 'Autumn 2026';
   const productUrl = urgent ? 'https://getcharteredai.com/sprint' : 'https://getcharteredai.com/#pricing-sec';
   const productName = urgent ? 'APC Final Sprint — £297' : 'Full Programme — from £49/month';
   const productPitch = urgent

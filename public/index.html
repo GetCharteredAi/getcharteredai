@@ -9158,6 +9158,7 @@ let _tofyRecordingTimer = null;
 let _tofyRecordingSecs = 0;
 let _tofyAudioContext = null;
 let _tofyAnalyser = null;
+let _tofyAudioSource = null;
 let _tofyAnimFrame = null;
 
 // Curated question bank (manager + team areas; APC uses live API)
@@ -9281,6 +9282,7 @@ function closeTOFY() {
   if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
   if (_tofyThinkTimer) { clearInterval(_tofyThinkTimer); _tofyThinkTimer = null; }
   if (_tofyRecordingTimer) { clearInterval(_tofyRecordingTimer); _tofyRecordingTimer = null; }
+  _tofyStopAudioVisualiser();
   if (_tofyMediaRecorder && _tofyMediaRecorder.state !== 'inactive') { try { _tofyMediaRecorder.stop(); } catch(e) {} }
   document.getElementById('tofyOverlay').style.display = 'none';
   document.body.style.overflow = '';
@@ -9692,6 +9694,47 @@ function _tofySpeakMode() {
     </div>`;
 }
 
+function _tofyStopAudioVisualiser() {
+  if (_tofyAnimFrame) { cancelAnimationFrame(_tofyAnimFrame); _tofyAnimFrame = null; }
+  if (_tofyAudioSource) { try { _tofyAudioSource.disconnect(); } catch(e) {} _tofyAudioSource = null; }
+  if (_tofyAnalyser) { try { _tofyAnalyser.disconnect(); } catch(e) {} _tofyAnalyser = null; }
+  if (_tofyAudioContext && _tofyAudioContext.state !== 'closed') {
+    try { _tofyAudioContext.close(); } catch(e) {}
+    _tofyAudioContext = null;
+  }
+}
+
+function _tofyStartAudioVisualiser(stream) {
+  _tofyStopAudioVisualiser();
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    _tofyAudioContext = new AudioCtx();
+    _tofyAnalyser = _tofyAudioContext.createAnalyser();
+    _tofyAnalyser.fftSize = 64;               // 32 frequency bins
+    _tofyAnalyser.smoothingTimeConstant = 0.7; // reduce jitter
+    _tofyAudioSource = _tofyAudioContext.createMediaStreamSource(stream);
+    _tofyAudioSource.connect(_tofyAnalyser);
+    const dataArray = new Uint8Array(_tofyAnalyser.frequencyBinCount);
+    function draw() {
+      _tofyAnimFrame = requestAnimationFrame(draw);
+      _tofyAnalyser.getByteFrequencyData(dataArray);
+      const bars = document.querySelectorAll('#tofyOverlay .tofy-audio-bars .tofy-audio-bar');
+      if (!bars.length) { cancelAnimationFrame(_tofyAnimFrame); _tofyAnimFrame = null; return; }
+      // Sample 9 bars across the voice-frequency range (bins 1–20 cover ~0–5 kHz at 44100 Hz)
+      bars.forEach((bar, i) => {
+        const binIdx = 1 + Math.round(i * 19 / Math.max(bars.length - 1, 1));
+        const level = (dataArray[Math.min(binIdx, dataArray.length - 1)] || 0) / 255;
+        bar.style.height = Math.round(3 + level * 29) + 'px';
+        bar.style.animation = 'none';
+      });
+    }
+    draw();
+  } catch(e) {
+    // AudioContext unavailable — bars remain in their CSS animation fallback
+  }
+}
+
 function _tofyStartRecording() {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     _tofyMicError("Your browser doesn't support microphone access.");
@@ -9712,6 +9755,7 @@ function _tofyStartRecording() {
       _tofyMediaRecorder.start(250);
       _tofyRecordingSecs = 0;
       _tofyShowRecordingUI();
+      _tofyStartAudioVisualiser(stream);
     })
     .catch(() => _tofyMicError("Microphone permission denied."));
 }
@@ -9767,6 +9811,7 @@ function _tofyShowRecordingUI() {
 
 function _tofyStopRecording() {
   if (_tofyRecordingTimer) { clearInterval(_tofyRecordingTimer); _tofyRecordingTimer = null; }
+  _tofyStopAudioVisualiser();
   if (_tofyMediaRecorder && _tofyMediaRecorder.state !== 'inactive') {
     _tofyMediaRecorder.stop();
   }

@@ -9704,15 +9704,31 @@ function _tofyStopAudioVisualiser() {
   }
 }
 
+function _tofySetStaticBars() {
+  const bars = document.querySelectorAll('#tofyOverlay .tofy-audio-bars .tofy-audio-bar');
+  bars.forEach(bar => { bar.style.animation = 'none'; bar.style.height = '4px'; bar.style.opacity = '0.35'; });
+}
+
 function _tofyStartAudioVisualiser(stream) {
   _tofyStopAudioVisualiser();
   try {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) return;
+    if (!AudioCtx) { _tofySetStaticBars(); return; }
     _tofyAudioContext = new AudioCtx();
+    // Safari/iOS may create the context in a suspended state; resume it now
+    // (getUserMedia was triggered by a user gesture so resume is permitted)
+    if (_tofyAudioContext.state === 'suspended') {
+      _tofyAudioContext.resume().catch(() => {});
+    }
+    // Re-resume if the context is suspended later (e.g. app backgrounded on iOS)
+    _tofyAudioContext.onstatechange = () => {
+      if (_tofyAudioContext && _tofyAudioContext.state === 'suspended') {
+        _tofyAudioContext.resume().catch(() => {});
+      }
+    };
     _tofyAnalyser = _tofyAudioContext.createAnalyser();
     _tofyAnalyser.fftSize = 64;               // 32 frequency bins
-    _tofyAnalyser.smoothingTimeConstant = 0.7; // reduce jitter
+    _tofyAnalyser.smoothingTimeConstant = 0.7;
     _tofyAudioSource = _tofyAudioContext.createMediaStreamSource(stream);
     _tofyAudioSource.connect(_tofyAnalyser);
     const dataArray = new Uint8Array(_tofyAnalyser.frequencyBinCount);
@@ -9731,7 +9747,8 @@ function _tofyStartAudioVisualiser(stream) {
     }
     draw();
   } catch(e) {
-    // AudioContext unavailable — bars remain in their CSS animation fallback
+    _tofyStopAudioVisualiser(); // release any partially-created resources
+    _tofySetStaticBars();       // static indicator only — no simulated voice activity
   }
 }
 

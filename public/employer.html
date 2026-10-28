@@ -96,6 +96,10 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-fi
 .pathway-cta{display:inline-block;font-size:14px;font-weight:700;text-decoration:none;padding:11px 22px;border-radius:8px;transition:.15s;align-self:flex-start}
 .pathway-cta-pr{background:var(--navy);color:#fff}.pathway-cta-pr:hover{background:#1e3a5f}
 .pathway-cta-dp{background:#92660a;color:#fff}.pathway-cta-dp:hover{background:#6e4d08}
+.pathway-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:24px}
+.pathway-apc{background:#eff6ff;border-color:#bfdbfe}
+.pathway-apc .pathway-tag{color:#1d4ed8}
+.pathway-cta-apc{background:var(--navy);color:#fff}.pathway-cta-apc:hover{background:#1e3a5f}
 
 /* ONE PLATFORM BRIDGE */
 .one-platform-box{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:40px 44px;margin-top:32px;max-width:860px}
@@ -134,6 +138,7 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
 /* RESPONSIVE */
 @media(max-width:900px){
   .pathway-grid{grid-template-columns:1fr}
+  .pathway-grid-3{grid-template-columns:1fr}
   .one-platform-box{padding:28px 24px}
   .pathway-section{padding:48px 24px}
   .career-stages{grid-template-columns:1fr}
@@ -189,8 +194,8 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
 <!-- ══ TWO PATHWAYS ══ -->
 <div class="pathway-section">
   <div class="sec-inner" style="max-width:1060px">
-    <h2 class="sec-h2 sec-h2-dark">Professional development support for your business.</h2>
-    <p class="sec-lead">Choose a connected Professional Readiness Programme for your people, or an outsourced L&amp;D partnership for your business.</p>
+    <h2 class="sec-h2 sec-h2-dark">How you can support your people</h2>
+    <p class="sec-lead">Choose the support your people need&mdash;from building professional readiness and preparing for chartership to focused assessment support, referral recovery and an outsourced L&amp;D partnership.</p>
     <div class="pathway-grid">
 
       <div class="pathway-card pathway-pr">
@@ -206,6 +211,31 @@ footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display
         <h2 class="pathway-h2">Your external learning and development partner.</h2>
         <p class="pathway-body">Get Chartered gives you structured professional development, AI-assisted practice and clearer insight into your people&rsquo;s progress &mdash; without employing a full-time in-house L&amp;D lead.</p>
         <a href="/employer/development-partner" class="pathway-cta pathway-cta-dp">Explore L&amp;D outsourcing &rarr;</a>
+      </div>
+
+    </div>
+
+    <div class="pathway-grid-3">
+
+      <div class="pathway-card pathway-apc">
+        <div class="pathway-tag">APC PREPARATION</div>
+        <h2 class="pathway-h2">Full 12-Module APC Programme</h2>
+        <p class="pathway-body">Support your candidates throughout their APC preparation with structured learning, practice and mock interview preparation alongside workplace experience.</p>
+        <a href="/programme" class="pathway-cta pathway-cta-apc">Explore the APC programme &rarr;</a>
+      </div>
+
+      <div class="pathway-card pathway-apc">
+        <div class="pathway-tag">FINAL ASSESSMENT SUPPORT</div>
+        <h2 class="pathway-h2">APC Final Sprint</h2>
+        <p class="pathway-body">Give candidates focused support in the run-up to their assessment, helping them explain their experience, respond to challenge and practise under pressure.</p>
+        <a href="/sprint" class="pathway-cta pathway-cta-apc">Explore APC Final Sprint &rarr;</a>
+      </div>
+
+      <div class="pathway-card pathway-apc">
+        <div class="pathway-tag">REFERRAL RECOVERY</div>
+        <h2 class="pathway-h2">Referred Candidate Support</h2>
+        <p class="pathway-body">Help candidates understand their referral, address the areas that need attention and rebuild their preparation for the next assessment.</p>
+        <a href="/referred-programme" class="pathway-cta pathway-cta-apc">Explore referral support &rarr;</a>
       </div>
 
     </div>

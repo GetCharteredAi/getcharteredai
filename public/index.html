@@ -1180,6 +1180,8 @@ input.err{border-color:var(--red)}
 .pa-topic-btn:hover{background:rgba(37,99,235,.15);border-color:rgba(37,99,235,.5);color:#fff}
 .pa-back-btn{background:transparent;border:none;color:rgba(255,255,255,.35);font-size:13px;cursor:pointer;padding:6px 0;display:inline-flex;align-items:center;gap:5px;font-family:inherit}
 .pa-back-btn:hover{color:rgba(255,255,255,.7)}
+.tofy-back-btn{background:none;border:none;color:rgba(255,255,255,.5);font-size:13px;font-weight:600;cursor:pointer;padding:6px 10px;border-radius:6px;display:flex;align-items:center;gap:4px;flex-shrink:0;font-family:inherit;transition:.15s;letter-spacing:.01em}
+.tofy-back-btn:hover{color:#fff;background:rgba(255,255,255,.08)}
 .pa-think-box{background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.2);border-radius:14px;padding:28px 24px;margin-bottom:24px;text-align:center}
 .pa-think-timer{font-size:clamp(52px,10vw,80px);font-weight:700;color:#fff;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1;margin:8px 0 10px}
 /* TOFY redesigned speak interface */
@@ -9165,6 +9167,9 @@ let _tofyAudioContext = null;
 let _tofyAnalyser = null;
 let _tofyAudioSource = null;
 let _tofyAnimFrame = null;
+let _tofyStream = null;          // Active mic stream — stored so Back can release it outside the recording closure
+let _tofySubmitGeneration = 0;   // Incremented when navigating away from reviewing state — stale submits are discarded
+let _tofyBackFn = null;          // Current Back handler; null = Back button hidden
 
 // Curated question bank (manager + team areas; APC uses live API)
 const _paQBank = {
@@ -9288,9 +9293,56 @@ function closeTOFY() {
   if (_tofyThinkTimer) { clearInterval(_tofyThinkTimer); _tofyThinkTimer = null; }
   if (_tofyRecordingTimer) { clearInterval(_tofyRecordingTimer); _tofyRecordingTimer = null; }
   _tofyStopAudioVisualiser();
-  if (_tofyMediaRecorder && _tofyMediaRecorder.state !== 'inactive') { try { _tofyMediaRecorder.stop(); } catch(e) {} }
+  ++_tofySubmitGeneration; // abandon any in-flight submit
+  if (_tofyMediaRecorder && _tofyMediaRecorder.state !== 'inactive') {
+    _tofyMediaRecorder.onstop = () => {
+      if (_tofyStream) { try { _tofyStream.getTracks().forEach(t => t.stop()); } catch(e) {} _tofyStream = null; }
+    };
+    try { _tofyMediaRecorder.stop(); } catch(e) {}
+  } else if (_tofyStream) {
+    try { _tofyStream.getTracks().forEach(t => t.stop()); } catch(e) {}
+    _tofyStream = null;
+  }
+  _tofySetBack(null);
   document.getElementById('tofyOverlay').style.display = 'none';
   document.body.style.overflow = '';
+}
+
+function _tofySetBack(fn) {
+  _tofyBackFn = fn || null;
+  const btn = document.getElementById('tofyBackBtn');
+  if (btn) btn.style.display = fn ? 'flex' : 'none';
+}
+
+function _tofyGoBack() {
+  if (typeof _tofyBackFn === 'function') _tofyBackFn();
+}
+
+function _tofyBackFromRecording() {
+  if (_tofyRecordingSecs > 0) {
+    if (!confirm('Stop recording and go back? Your answer won\'t be submitted.')) return;
+  }
+  if (_tofyRecordingTimer) { clearInterval(_tofyRecordingTimer); _tofyRecordingTimer = null; }
+  _tofyStopAudioVisualiser();
+  if (_tofyMediaRecorder && _tofyMediaRecorder.state !== 'inactive') {
+    // Override onstop so stopping the recorder does not trigger submission
+    _tofyMediaRecorder.onstop = () => {
+      if (_tofyStream) { try { _tofyStream.getTracks().forEach(t => t.stop()); } catch(e) {} _tofyStream = null; }
+    };
+    try { _tofyMediaRecorder.stop(); } catch(e) {}
+  } else if (_tofyStream) {
+    try { _tofyStream.getTracks().forEach(t => t.stop()); } catch(e) {}
+    _tofyStream = null;
+  }
+  _tofyShowQuestion();
+}
+
+function _tofyBackFromRecap() {
+  const ta = document.getElementById('tofyRecap');
+  if (ta && ta.value.trim().length >= 10) {
+    if (!confirm('Your notes will be lost. Continue?')) return;
+  }
+  _tofyShowQuestion();
 }
 
 function _paSetHeader(area) {
@@ -9299,6 +9351,7 @@ function _paSetHeader(area) {
 }
 
 function _tofyShowAreaSelect() {
+  _tofySetBack(null);
   _paSetHeader('apc');
   document.getElementById('paHeaderTag').textContent = 'Michael';
   const body = document.getElementById('tofyBody');
@@ -9326,14 +9379,12 @@ function _tofyShowAreaSelect() {
 
 function _tofyShowTopicSelect(area) {
   _tofyArea = area;
+  _tofySetBack(() => _tofyShowAreaSelect());
   _paSetHeader(area);
   const topics = _paTopics[area] || [];
   const body = document.getElementById('tofyBody');
   const areaLabel = _paAreaMeta[area]?.label || area;
   body.innerHTML = `
-    <div style="margin-bottom:22px">
-      <button class="pa-back-btn" onclick="_tofyShowAreaSelect()">&#8592; Back</button>
-    </div>
     <div style="color:#fff;font-size:clamp(18px,2.8vw,24px);font-weight:700;line-height:1.25;letter-spacing:-.015em;margin-bottom:6px">${areaLabel}</div>
     <div style="color:rgba(255,255,255,.4);font-size:14px;margin-bottom:24px">Choose a topic to practise.</div>
     <div class="pa-topic-grid">
@@ -9356,6 +9407,7 @@ async function _tofySelectTopic(area, topic) {
     return;
   }
 
+  _tofySetBack(() => _tofyShowTopicSelect(_tofyArea));
   const body = document.getElementById('tofyBody');
   body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.45);font-size:15px">Getting your question…</p></div>';
 
@@ -9386,11 +9438,9 @@ async function _tofySelectTopic(area, topic) {
 }
 
 function _paShowPathwaySelect() {
+  _tofySetBack(() => _tofyShowTopicSelect('apc'));
   const body = document.getElementById('tofyBody');
   body.innerHTML = `
-    <div style="margin-bottom:22px">
-      <button class="pa-back-btn" onclick="_tofyShowTopicSelect('apc')">&#8592; Back</button>
-    </div>
     <div style="color:#fff;font-size:clamp(18px,2.8vw,24px);font-weight:700;line-height:1.25;letter-spacing:-.015em;margin-bottom:6px">Choose your APC pathway</div>
     <div style="color:rgba(255,255,255,.4);font-size:14px;margin-bottom:22px">Select your pathway so Michael can give you relevant technical questions.</div>
     <div class="pa-topic-grid" id="paPathwayGrid">
@@ -9407,6 +9457,7 @@ async function _paSelectPathway(pathway) {
   _tofyAttempt1Transcript = null;
   _tofyRetryRequested = false;
   _tofyLockedQuestion = null;          // Clear any lock from the previous session
+  _tofySetBack(() => _paShowPathwaySelect());
   const myGen = ++_tofyFetchGeneration; // Claim this generation; any older in-flight fetch will be discarded
   const body = document.getElementById('tofyBody');
   body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.45);font-size:15px">Getting your question…</p></div>';
@@ -11068,6 +11119,7 @@ document.addEventListener('keydown',function(e){
 <!-- PROFESSIONAL ARTICULATION OVERLAY -->
 <div id="tofyOverlay">
   <div class="tofy-header">
+    <button id="tofyBackBtn" class="tofy-back-btn" onclick="_tofyGoBack()" aria-label="Go back" style="display:none">&#8592; Back</button>
     <div class="tofy-hd-avatar" aria-hidden="true">M</div>
     <div class="tofy-hd-left">
       <span class="tofy-hd-name">Michael</span>

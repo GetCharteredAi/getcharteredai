@@ -1149,12 +1149,12 @@ input.err{border-color:var(--red)}
 .rp-empty{text-align:center;padding:48px 20px;color:rgba(255,255,255,0.35);font-size:14px}
 /* Think on Your Feet overlay */
 #tofyOverlay{display:none;position:fixed;inset:0;background:#0D0F1C;z-index:9999;overflow-y:auto;flex-direction:column}
-.tofy-header{display:flex;align-items:center;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.07);gap:12px;min-height:52px}
+.tofy-header{display:flex;align-items:center;padding:18px 22px;border-bottom:1px solid #2a3548;background:#151e2e;gap:13px;min-height:62px}
 .tofy-title{color:rgba(255,255,255,.9);font-size:15px;font-weight:600;letter-spacing:-.01em}
 .tofy-coach-tag{color:rgba(255,255,255,.35);font-size:12px;background:rgba(255,255,255,.06);border-radius:5px;padding:3px 8px;margin-left:4px}
 .tofy-close{margin-left:auto;background:none;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;padding:4px 8px;line-height:1}
 .tofy-close:hover{color:#fff}
-.tofy-body{flex:1;padding:40px 20px 60px;max-width:640px;margin:0 auto;width:100%;box-sizing:border-box}
+.tofy-body{flex:1;padding:24px 22px 60px;max-width:640px;margin:0 auto;width:100%;box-sizing:border-box}
 /* TOFY spoken-answer mode */
 .tofy-mode-btn{flex:1;min-width:160px;border-radius:10px;padding:16px 20px;font-size:15px;cursor:pointer;transition:background .15s,border-color .15s;text-align:left;display:flex;flex-direction:column;gap:5px;font-family:inherit}
 .tofy-mode-primary{background:#2563EB;color:#fff;border:none}.tofy-mode-primary:hover{background:#1d4ed8}
@@ -1163,13 +1163,12 @@ input.err{border-color:var(--red)}
 .tofy-mode-sub{font-size:12px;opacity:.75;font-weight:400;line-height:1.4}
 .tofy-rec-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f87171;margin-right:7px;animation:tofyPulse 1.2s ease-in-out infinite}
 @keyframes tofyPulse{0%,100%{opacity:1}50%{opacity:.3}}
-.tofy-cap-row{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07)}
-.tofy-cap-row:last-child{border-bottom:none}
-.tofy-cap-name{font-size:13px;color:rgba(255,255,255,.45);min-width:140px;max-width:200px;flex-shrink:0;padding-top:1px}
-.tofy-cap-strong{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:rgba(110,231,183,.12);color:#6ee7b7;border-radius:4px;padding:2px 8px;flex-shrink:0;white-space:nowrap}
-.tofy-cap-improve{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:rgba(245,158,11,.1);color:#fcd34d;border-radius:4px;padding:2px 8px;flex-shrink:0;white-space:nowrap}
-.tofy-cap-tryagain{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:rgba(248,113,113,.1);color:#fca5a5;border-radius:4px;padding:2px 8px;flex-shrink:0;white-space:nowrap}
-.tofy-cap-note{font-size:13px;color:rgba(255,255,255,.5);line-height:1.55;flex:1}
+.tofy-cap-row{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:11px 0;border-top:1px solid #2c3a50}
+.tofy-cap-name{font-size:13px;color:#edf2fc}
+.tofy-cap-strong{font-size:12px;color:#96dfbf;white-space:nowrap;padding-top:1px}
+.tofy-cap-improve{font-size:12px;color:#f0cc88;white-space:nowrap;padding-top:1px}
+.tofy-cap-tryagain{font-size:12px;color:#fca5a5;white-space:nowrap;padding-top:1px}
+.tofy-cap-note{grid-column:1/-1;font-size:13px;color:#b7c4d8;line-height:1.5}
 /* PA area + topic screens */
 .pa-area-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px}
 .pa-area-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:22px 22px;cursor:pointer;transition:background .15s,border-color .15s;text-align:left;width:100%;font-family:inherit}
@@ -1181,8 +1180,48 @@ input.err{border-color:var(--red)}
 .pa-topic-btn:hover{background:rgba(37,99,235,.15);border-color:rgba(37,99,235,.5);color:#fff}
 .pa-back-btn{background:transparent;border:none;color:rgba(255,255,255,.35);font-size:13px;cursor:pointer;padding:6px 0;display:inline-flex;align-items:center;gap:5px;font-family:inherit}
 .pa-back-btn:hover{color:rgba(255,255,255,.7)}
+.tofy-back-btn{background:none;border:none;color:rgba(255,255,255,.5);font-size:13px;font-weight:600;cursor:pointer;padding:6px 10px;border-radius:6px;display:flex;align-items:center;gap:4px;flex-shrink:0;font-family:inherit;transition:.15s;letter-spacing:.01em}
+.tofy-back-btn:hover{color:#fff;background:rgba(255,255,255,.08)}
 .pa-think-box{background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.2);border-radius:14px;padding:28px 24px;margin-bottom:24px;text-align:center}
 .pa-think-timer{font-size:clamp(52px,10vw,80px);font-weight:700;color:#fff;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1;margin:8px 0 10px}
+/* TOFY redesigned speak interface */
+.tofy-hd-avatar{width:43px;height:43px;border-radius:50%;background:#284674;color:#e2edff;font-weight:600;font-size:21px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tofy-hd-left{display:flex;flex-direction:column;gap:1px;flex:1;min-width:0}
+.tofy-hd-name{font-size:17px;font-weight:600;color:#fff;line-height:1.2}
+.tofy-hd-sub{font-size:12px;color:#a9b7cd;font-weight:400}
+.tofy-hd-mode{font-size:11px;color:#b9d1ff;border:1px solid #3b5379;border-radius:7px;padding:5px 10px;white-space:nowrap;flex-shrink:0}
+.tofy-meta-row{display:flex;justify-content:space-between;align-items:center;color:#a6b5cd;font-size:12px;margin-bottom:16px}
+.tofy-speaker-label{font-size:12px;color:#a7bfe5;margin-bottom:7px}
+.tofy-q-bubble{background:#1d2a40;border-radius:3px 15px 15px 15px;padding:20px 22px;margin-bottom:10px}
+.tofy-q-meta{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:8px}
+.tofy-q-text{color:#fff;font-size:clamp(17px,2.5vw,20px);line-height:1.5}
+.tofy-hint-text{font-size:13px;color:#a9b5c9;margin:10px 0 20px}
+.tofy-answer-bubble{background:#263b59;border-radius:15px 3px 15px 15px;padding:18px 20px;margin:20px 0 20px auto;max-width:88%}
+.tofy-answer-label{font-size:12px;color:#a7bfe5;margin-bottom:7px}
+.tofy-answer-text{color:#e5ecf8;font-size:14px;line-height:1.65}
+.tofy-mic-area{display:flex;flex-direction:column;align-items:center;gap:14px;padding:24px 20px 20px;margin-bottom:8px}
+.tofy-record-panel{background:#151f30;border:1px solid #2b3b54;border-radius:15px;padding:24px;text-align:center;margin-bottom:16px}
+.tofy-mic-btn{width:62px;height:62px;border-radius:50%;background:#3779ef;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 20px rgba(55,121,239,.4);color:#fff;padding:0}
+.tofy-mic-btn:hover:not(:disabled){transform:scale(1.07);box-shadow:0 6px 28px rgba(55,121,239,.55)}
+.tofy-mic-btn.tofy-mic-recording{background:#dc2626;box-shadow:0 4px 24px rgba(220,38,38,.5);animation:tofyMicPulse 1.5s ease-in-out infinite;cursor:default}
+@keyframes tofyMicPulse{0%,100%{box-shadow:0 4px 24px rgba(220,38,38,.5)}50%{box-shadow:0 8px 40px rgba(220,38,38,.6),0 0 0 10px rgba(220,38,38,.07)}}
+.tofy-ready-text{font-size:15px;font-weight:600;color:#edf2fc;text-align:center}
+.tofy-helper-text{font-size:12px;color:#a9b5c9;margin-top:5px}
+.tofy-rec-time{font-size:clamp(28px,6vw,44px);font-weight:700;color:#fff;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1;text-align:center}
+.tofy-rec-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(248,113,113,.8);text-align:center;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:6px}
+.tofy-audio-bars{display:flex;justify-content:center;align-items:center;gap:4px;height:36px;margin:10px 0}
+.tofy-audio-bar{width:4px;background:#82afff;border-radius:2px}
+.tofy-audio-bar:nth-child(1){height:8px}.tofy-audio-bar:nth-child(2){height:20px}.tofy-audio-bar:nth-child(3){height:14px}.tofy-audio-bar:nth-child(4){height:27px}.tofy-audio-bar:nth-child(5){height:10px}.tofy-audio-bar:nth-child(6){height:22px}.tofy-audio-bar:nth-child(7){height:16px}.tofy-audio-bar:nth-child(8){height:12px}.tofy-audio-bar:nth-child(9){height:19px}
+.tofy-finish-btn{background:#3779ef;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;display:inline-block;font-family:inherit;margin-top:14px}
+.tofy-finish-btn:hover{background:#2d6be0}
+.tofy-reviewing-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px;text-align:center}
+.tofy-reviewing-icon{width:52px;height:52px;border-radius:50%;background:rgba(55,121,239,.12);border:1px solid rgba(55,121,239,.2);display:flex;align-items:center;justify-content:center;font-size:22px}
+.tofy-reviewing-title{font-size:17px;font-weight:600;color:#fff;line-height:1.3}
+.tofy-reviewing-sub{font-size:13px;color:#a9b5c9}
+.tofy-fb-panel{background:#182438;border:1px solid #33435c;border-radius:15px;padding:21px;margin-bottom:20px}
+.tofy-fb-head{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#a6b5cd;margin-bottom:14px}
+.tofy-type-link{background:none;border:none;color:rgba(255,255,255,.3);font-size:12px;cursor:pointer;padding:5px 0;font-family:inherit;display:block;width:100%;text-align:center}
+.tofy-type-link:hover{color:rgba(255,255,255,.6)}
 
 /* ═══════════════════════════════════════════════
    DASHBOARD REDESIGN — full-width, section rhythm
@@ -1211,17 +1250,19 @@ input.err{border-color:var(--red)}
 
 /* Action cards — 4-column white cards on dark hero */
 #view-dashboard .ds-actions{grid-template-columns:repeat(4,1fr);gap:16px}
-#view-dashboard .ds-btn{background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px 20px;flex-direction:column;align-items:flex-start;gap:0;box-shadow:0 4px 20px rgba(0,0,0,.14)}
+#view-dashboard .ds-btn{background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px 18px;flex-direction:column;align-items:flex-start;gap:0;box-shadow:0 4px 20px rgba(0,0,0,.14)}
 #view-dashboard .ds-btn:hover{border-color:#93c5fd;transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.18)}
 #view-dashboard .ds-btn-primary{background:var(--blue);border-color:var(--blue);box-shadow:0 8px 32px rgba(37,99,235,.4)}
 #view-dashboard .ds-btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px)}
-#view-dashboard .ds-btn-icon{background:var(--blue-pale);color:var(--blue);border-radius:10px;width:42px;height:42px;padding:0;font-size:20px;margin-bottom:14px;flex-shrink:0}
+#view-dashboard .ds-btn-icon{background:var(--blue-pale);color:var(--blue);border-radius:10px;width:42px;height:42px;padding:0;font-size:20px;margin-bottom:10px;flex-shrink:0}
 #view-dashboard .ds-btn-primary .ds-btn-icon{background:rgba(255,255,255,.18);color:#fff}
 #view-dashboard .ds-btn-label{color:#64748b;margin-bottom:3px}
 #view-dashboard .ds-btn-primary .ds-btn-label{color:rgba(255,255,255,.65)}
 #view-dashboard .ds-btn-val{color:var(--text);font-size:14px;font-weight:700;white-space:normal}
 #view-dashboard .ds-btn-primary .ds-btn-val{color:#fff}
 #view-dashboard .ds-btn-text{display:flex;flex-direction:column}
+#view-dashboard .ds-btn-desc{font-size:12px;color:#64748b;line-height:1.5;margin-top:5px;white-space:normal}
+#view-dashboard .ds-btn-primary .ds-btn-desc{color:rgba(255,255,255,.65)}
 
 /* Section wrappers */
 #dashLightSection{background:#fff;padding:48px 40px}
@@ -3625,6 +3666,7 @@ async function renderDashboard() {
       <div class="ds-btn-text">
         <span class="ds-btn-label">Continue</span>
         <span class="ds-btn-val" style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:calc(100% - 20px)">${contDispVal}</span>
+        <span class="ds-btn-desc">Pick up where you left off.</span>
       </div>
     </a>`;
   } else if (done === 0) {
@@ -3658,7 +3700,8 @@ async function renderDashboard() {
     <span class="ds-btn-icon">🎓</span>
     <div class="ds-btn-text">
       <span class="ds-btn-label">Ask Michael</span>
-      <span class="ds-btn-val">AI Tutor · 24/7</span>
+      <span class="ds-btn-val">Your questions. Worked through.</span>
+      <span class="ds-btn-desc">Understand topics, apply knowledge and explore your reasoning. Available 24/7.</span>
     </div>
   </a>`;
 
@@ -3671,6 +3714,7 @@ async function renderDashboard() {
       <div class="ds-btn-text">
         <span class="ds-btn-label">Mock Interview</span>
         <span class="ds-btn-val">60-min AI-scored</span>
+        <span class="ds-btn-desc">Practise a full assessment and identify what to strengthen.</span>
       </div>
     </a>`;
   } else if (plan === 'referred') {
@@ -3696,6 +3740,7 @@ async function renderDashboard() {
     <div class="ds-btn-text">
       <span class="ds-btn-label">Think on Your Feet</span>
       <span class="ds-btn-val">3-min daily practice</span>
+      <span class="ds-btn-desc">Record a short response, get feedback and try again.</span>
     </div>
   </a>`;
 
@@ -9118,6 +9163,13 @@ let _tofyMediaRecorder = null;
 let _tofyAudioChunks = [];
 let _tofyRecordingTimer = null;
 let _tofyRecordingSecs = 0;
+let _tofyAudioContext = null;
+let _tofyAnalyser = null;
+let _tofyAudioSource = null;
+let _tofyAnimFrame = null;
+let _tofyStream = null;          // Active mic stream — stored so Back can release it outside the recording closure
+let _tofySubmitGeneration = 0;   // Incremented when navigating away from reviewing state — stale submits are discarded
+let _tofyBackFn = null;          // Current Back handler; null = Back button hidden
 
 // Curated question bank (manager + team areas; APC uses live API)
 const _paQBank = {
@@ -9229,6 +9281,8 @@ function openThinkOnYourFeet(coachPersona, contentSource) {
   _tofyContentSource = contentSource || 'pathway';
   if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
   if (_tofyThinkTimer) { clearInterval(_tofyThinkTimer); _tofyThinkTimer = null; }
+  const chip = document.getElementById('tofyModeChip');
+  if (chip) chip.textContent = (typeof tutorMode !== 'undefined' && tutorMode.includes('ASSESSOR')) ? 'Assessor Mode' : 'Tutor Mode';
   document.getElementById('tofyOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
   _tofyShowAreaSelect();
@@ -9238,9 +9292,57 @@ function closeTOFY() {
   if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
   if (_tofyThinkTimer) { clearInterval(_tofyThinkTimer); _tofyThinkTimer = null; }
   if (_tofyRecordingTimer) { clearInterval(_tofyRecordingTimer); _tofyRecordingTimer = null; }
-  if (_tofyMediaRecorder && _tofyMediaRecorder.state !== 'inactive') { try { _tofyMediaRecorder.stop(); } catch(e) {} }
+  _tofyStopAudioVisualiser();
+  ++_tofySubmitGeneration; // abandon any in-flight submit
+  if (_tofyMediaRecorder && _tofyMediaRecorder.state !== 'inactive') {
+    _tofyMediaRecorder.onstop = () => {
+      if (_tofyStream) { try { _tofyStream.getTracks().forEach(t => t.stop()); } catch(e) {} _tofyStream = null; }
+    };
+    try { _tofyMediaRecorder.stop(); } catch(e) {}
+  } else if (_tofyStream) {
+    try { _tofyStream.getTracks().forEach(t => t.stop()); } catch(e) {}
+    _tofyStream = null;
+  }
+  _tofySetBack(null);
   document.getElementById('tofyOverlay').style.display = 'none';
   document.body.style.overflow = '';
+}
+
+function _tofySetBack(fn) {
+  _tofyBackFn = fn || null;
+  const btn = document.getElementById('tofyBackBtn');
+  if (btn) btn.style.display = fn ? 'flex' : 'none';
+}
+
+function _tofyGoBack() {
+  if (typeof _tofyBackFn === 'function') _tofyBackFn();
+}
+
+function _tofyBackFromRecording() {
+  if (_tofyRecordingSecs > 0) {
+    if (!confirm('Stop recording and go back? Your answer won\'t be submitted.')) return;
+  }
+  if (_tofyRecordingTimer) { clearInterval(_tofyRecordingTimer); _tofyRecordingTimer = null; }
+  _tofyStopAudioVisualiser();
+  if (_tofyMediaRecorder && _tofyMediaRecorder.state !== 'inactive') {
+    // Override onstop so stopping the recorder does not trigger submission
+    _tofyMediaRecorder.onstop = () => {
+      if (_tofyStream) { try { _tofyStream.getTracks().forEach(t => t.stop()); } catch(e) {} _tofyStream = null; }
+    };
+    try { _tofyMediaRecorder.stop(); } catch(e) {}
+  } else if (_tofyStream) {
+    try { _tofyStream.getTracks().forEach(t => t.stop()); } catch(e) {}
+    _tofyStream = null;
+  }
+  _tofyShowQuestion();
+}
+
+function _tofyBackFromRecap() {
+  const ta = document.getElementById('tofyRecap');
+  if (ta && ta.value.trim().length >= 10) {
+    if (!confirm('Your notes will be lost. Continue?')) return;
+  }
+  _tofyShowQuestion();
 }
 
 function _paSetHeader(area) {
@@ -9249,6 +9351,7 @@ function _paSetHeader(area) {
 }
 
 function _tofyShowAreaSelect() {
+  _tofySetBack(null);
   _paSetHeader('apc');
   document.getElementById('paHeaderTag').textContent = 'Michael';
   const body = document.getElementById('tofyBody');
@@ -9276,14 +9379,12 @@ function _tofyShowAreaSelect() {
 
 function _tofyShowTopicSelect(area) {
   _tofyArea = area;
+  _tofySetBack(() => _tofyShowAreaSelect());
   _paSetHeader(area);
   const topics = _paTopics[area] || [];
   const body = document.getElementById('tofyBody');
   const areaLabel = _paAreaMeta[area]?.label || area;
   body.innerHTML = `
-    <div style="margin-bottom:22px">
-      <button class="pa-back-btn" onclick="_tofyShowAreaSelect()">&#8592; Back</button>
-    </div>
     <div style="color:#fff;font-size:clamp(18px,2.8vw,24px);font-weight:700;line-height:1.25;letter-spacing:-.015em;margin-bottom:6px">${areaLabel}</div>
     <div style="color:rgba(255,255,255,.4);font-size:14px;margin-bottom:24px">Choose a topic to practise.</div>
     <div class="pa-topic-grid">
@@ -9306,6 +9407,7 @@ async function _tofySelectTopic(area, topic) {
     return;
   }
 
+  _tofySetBack(() => _tofyShowTopicSelect(_tofyArea));
   const body = document.getElementById('tofyBody');
   body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.45);font-size:15px">Getting your question…</p></div>';
 
@@ -9336,11 +9438,9 @@ async function _tofySelectTopic(area, topic) {
 }
 
 function _paShowPathwaySelect() {
+  _tofySetBack(() => _tofyShowTopicSelect('apc'));
   const body = document.getElementById('tofyBody');
   body.innerHTML = `
-    <div style="margin-bottom:22px">
-      <button class="pa-back-btn" onclick="_tofyShowTopicSelect('apc')">&#8592; Back</button>
-    </div>
     <div style="color:#fff;font-size:clamp(18px,2.8vw,24px);font-weight:700;line-height:1.25;letter-spacing:-.015em;margin-bottom:6px">Choose your APC pathway</div>
     <div style="color:rgba(255,255,255,.4);font-size:14px;margin-bottom:22px">Select your pathway so Michael can give you relevant technical questions.</div>
     <div class="pa-topic-grid" id="paPathwayGrid">
@@ -9357,6 +9457,7 @@ async function _paSelectPathway(pathway) {
   _tofyAttempt1Transcript = null;
   _tofyRetryRequested = false;
   _tofyLockedQuestion = null;          // Clear any lock from the previous session
+  _tofySetBack(() => _paShowPathwaySelect());
   const myGen = ++_tofyFetchGeneration; // Claim this generation; any older in-flight fetch will be discarded
   const body = document.getElementById('tofyBody');
   body.innerHTML = '<div style="text-align:center;padding:80px 20px"><p style="color:rgba(255,255,255,.45);font-size:15px">Getting your question…</p></div>';
@@ -9460,28 +9561,27 @@ function _tofyShowQuestion() {
   if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
   _tofyAttempt1Transcript = null;
   _tofyRetryRequested = false;
-  const q = _tofyQuestion;
+  _tofyLockedQuestion = _tofyQuestion;
+  const q = _tofyLockedQuestion;
   const body = document.getElementById('tofyBody');
   body.innerHTML = `
-    <div style="margin-bottom:28px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:10px">${q.module}</div>
-      <div style="color:#fff;font-size:clamp(18px,2.5vw,22px);font-weight:600;line-height:1.45;letter-spacing:-.015em">${q.q}</div>
+    <div class="tofy-meta-row">
+      <span>${q.module}</span>
+      <span>Spoken answer</span>
     </div>
-    <div style="margin-bottom:22px">
-      <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px">How would you like to practise?</div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button onclick="_tofySpeakMode()" class="tofy-mode-btn tofy-mode-primary">
-          <span class="tofy-mode-label">&#127908;&nbsp; Speak &amp; Practise</span>
-          <span class="tofy-mode-sub">Best for articulation, confidence and realistic APC practice</span>
-        </button>
-        <button onclick="_tofyTypeMode()" class="tofy-mode-btn tofy-mode-secondary">
-          <span class="tofy-mode-label">&#9998;&nbsp; Type &amp; Practise</span>
-          <span class="tofy-mode-sub">Useful if you can&rsquo;t speak aloud right now</span>
-        </button>
-      </div>
+    <div class="tofy-speaker-label">Michael</div>
+    <div class="tofy-q-bubble"><div class="tofy-q-text">${q.q}</div></div>
+    <p class="tofy-hint-text">Take a moment to think before you begin.</p>
+    <div class="tofy-record-panel">
+      <button class="tofy-mic-btn" onclick="_tofyStartRecording()" aria-label="Start recording">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26" aria-hidden="true"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+      </button>
+      <div class="tofy-ready-text">Ready when you are</div>
+      <div class="tofy-helper-text">Tap the microphone to start your answer</div>
     </div>
-    <div style="text-align:right">
-      <button onclick="_tofyDifferentQuestion()" style="background:transparent;border:none;color:rgba(255,255,255,.3);font-size:13px;cursor:pointer;padding:6px 0">Different question</button>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <button onclick="_tofyTypeMode()" class="tofy-type-link">Can&rsquo;t use your microphone? Type instead</button>
+      <button onclick="_tofyDifferentQuestion()" class="tofy-type-link">Different question</button>
     </div>`;
 }
 
@@ -9626,25 +9726,86 @@ function _tofyRetryMode() {
 
 function _tofySpeakMode() {
   if (_tofyTimer) { clearInterval(_tofyTimer); _tofyTimer = null; }
-  _tofyLockedQuestion = _tofyQuestion; // Lock question identity for this answer session
+  _tofyLockedQuestion = _tofyQuestion;
   const q = _tofyLockedQuestion;
   const body = document.getElementById('tofyBody');
   body.innerHTML = `
-    <div style="margin-bottom:28px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:10px">${q.module}</div>
-      <div style="color:#fff;font-size:clamp(18px,2.5vw,22px);font-weight:600;line-height:1.45;letter-spacing:-.015em">${q.q}</div>
+    <div class="tofy-meta-row">
+      <span>${q.module}</span>
+      <span>Spoken answer</span>
     </div>
-    <div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:12px;padding:22px 20px;margin-bottom:20px">
-      <div style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:0">Michael will listen to your answer and coach you on five capabilities: <span style="color:rgba(255,255,255,.8)">Answer, Structure, Reasoning, Judgement</span> and <span style="color:rgba(255,255,255,.8)">Professional communication</span>.</div>
+    <div class="tofy-speaker-label">Michael</div>
+    <div class="tofy-q-bubble"><div class="tofy-q-text">${q.q}</div></div>
+    <p class="tofy-hint-text">Take a moment to think before you begin.</p>
+    <div class="tofy-record-panel">
+      <button class="tofy-mic-btn" onclick="_tofyStartRecording()" aria-label="Start recording">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26" aria-hidden="true"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+      </button>
+      <div class="tofy-ready-text">Ready when you are</div>
+      <div class="tofy-helper-text">Tap the microphone to start your answer</div>
     </div>
-    <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:20px">&#128274;&nbsp; Your recording is sent securely for transcription and is not stored.</div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button onclick="_tofyStartRecording()" style="flex:1;min-width:160px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:15px;font-weight:600;cursor:pointer">&#127908;&nbsp; Start speaking</button>
-      <button onclick="_tofyShowQuestion()" style="background:transparent;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.5);border-radius:10px;padding:14px 18px;font-size:14px;cursor:pointer">Back</button>
-    </div>
-    <div style="margin-top:16px;text-align:center">
-      <button onclick="_tofyTypeMode()" style="background:transparent;border:none;color:rgba(255,255,255,.25);font-size:12px;cursor:pointer">Can&rsquo;t use your microphone? Type instead</button>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <button onclick="_tofyTypeMode()" class="tofy-type-link">Can&rsquo;t use your microphone? Type instead</button>
+      <button onclick="_tofyDifferentQuestion()" class="tofy-type-link">Different question</button>
     </div>`;
+}
+
+function _tofyStopAudioVisualiser() {
+  if (_tofyAnimFrame) { cancelAnimationFrame(_tofyAnimFrame); _tofyAnimFrame = null; }
+  if (_tofyAudioSource) { try { _tofyAudioSource.disconnect(); } catch(e) {} _tofyAudioSource = null; }
+  if (_tofyAnalyser) { try { _tofyAnalyser.disconnect(); } catch(e) {} _tofyAnalyser = null; }
+  if (_tofyAudioContext && _tofyAudioContext.state !== 'closed') {
+    try { _tofyAudioContext.close(); } catch(e) {}
+    _tofyAudioContext = null;
+  }
+}
+
+function _tofySetStaticBars() {
+  const bars = document.querySelectorAll('#tofyOverlay .tofy-audio-bars .tofy-audio-bar');
+  bars.forEach(bar => { bar.style.animation = 'none'; bar.style.height = '4px'; bar.style.opacity = '0.35'; });
+}
+
+function _tofyStartAudioVisualiser(stream) {
+  _tofyStopAudioVisualiser();
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) { _tofySetStaticBars(); return; }
+    _tofyAudioContext = new AudioCtx();
+    // Safari/iOS may create the context in a suspended state; resume it now
+    // (getUserMedia was triggered by a user gesture so resume is permitted)
+    if (_tofyAudioContext.state === 'suspended') {
+      _tofyAudioContext.resume().catch(() => {});
+    }
+    // Re-resume if the context is suspended later (e.g. app backgrounded on iOS)
+    _tofyAudioContext.onstatechange = () => {
+      if (_tofyAudioContext && _tofyAudioContext.state === 'suspended') {
+        _tofyAudioContext.resume().catch(() => {});
+      }
+    };
+    _tofyAnalyser = _tofyAudioContext.createAnalyser();
+    _tofyAnalyser.fftSize = 64;               // 32 frequency bins
+    _tofyAnalyser.smoothingTimeConstant = 0.7;
+    _tofyAudioSource = _tofyAudioContext.createMediaStreamSource(stream);
+    _tofyAudioSource.connect(_tofyAnalyser);
+    const dataArray = new Uint8Array(_tofyAnalyser.frequencyBinCount);
+    function draw() {
+      _tofyAnimFrame = requestAnimationFrame(draw);
+      _tofyAnalyser.getByteFrequencyData(dataArray);
+      const bars = document.querySelectorAll('#tofyOverlay .tofy-audio-bars .tofy-audio-bar');
+      if (!bars.length) { cancelAnimationFrame(_tofyAnimFrame); _tofyAnimFrame = null; return; }
+      // Sample 9 bars across the voice-frequency range (bins 1–20 cover ~0–5 kHz at 44100 Hz)
+      bars.forEach((bar, i) => {
+        const binIdx = 1 + Math.round(i * 19 / Math.max(bars.length - 1, 1));
+        const level = (dataArray[Math.min(binIdx, dataArray.length - 1)] || 0) / 255;
+        bar.style.height = Math.round(3 + level * 29) + 'px';
+        bar.style.animation = 'none';
+      });
+    }
+    draw();
+  } catch(e) {
+    _tofyStopAudioVisualiser(); // release any partially-created resources
+    _tofySetStaticBars();       // static indicator only — no simulated voice activity
+  }
 }
 
 function _tofyStartRecording() {
@@ -9667,42 +9828,49 @@ function _tofyStartRecording() {
       _tofyMediaRecorder.start(250);
       _tofyRecordingSecs = 0;
       _tofyShowRecordingUI();
+      _tofyStartAudioVisualiser(stream);
     })
     .catch(() => _tofyMicError("Microphone permission denied."));
 }
 
 function _tofyMicError(msg) {
-  const q = _tofyQuestion;
+  const q = _tofyLockedQuestion || _tofyQuestion;
   const body = document.getElementById('tofyBody');
   body.innerHTML = `
-    <div style="margin-bottom:28px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:10px">${q.module}</div>
-      <div style="color:#fff;font-size:clamp(18px,2.5vw,22px);font-weight:600;line-height:1.45;letter-spacing:-.015em">${q.q}</div>
+    <div class="tofy-meta-row">
+      <span>${q.module}</span>
+      <span>Spoken answer</span>
     </div>
-    <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:20px;margin-bottom:20px">
+    <div class="tofy-speaker-label">Michael</div>
+    <div class="tofy-q-bubble"><div class="tofy-q-text">${q.q}</div></div>
+    <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:18px 20px;margin:16px 0">
       <div style="color:#fca5a5;font-size:14px">${msg} You can practise by typing instead.</div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button onclick="_tofyTypeMode()" style="flex:1;min-width:160px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:15px;font-weight:600;cursor:pointer">Type instead</button>
-      <button onclick="_tofyShowQuestion()" style="background:transparent;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.5);border-radius:10px;padding:14px 18px;font-size:14px;cursor:pointer">Back</button>
+      <button onclick="_tofyTypeMode()" style="flex:1;min-width:160px;background:#3779ef;color:#fff;border:none;border-radius:8px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Type instead</button>
+      <button onclick="_tofyShowQuestion()" style="background:transparent;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.5);border-radius:8px;padding:13px 18px;font-size:14px;cursor:pointer;font-family:inherit">Back</button>
     </div>`;
 }
 
 function _tofyShowRecordingUI() {
-  const q = _tofyQuestion;
+  const q = _tofyLockedQuestion || _tofyQuestion;
   const body = document.getElementById('tofyBody');
   body.innerHTML = `
-    <div style="margin-bottom:28px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:10px">${q.module}</div>
-      <div style="color:#fff;font-size:clamp(18px,2.5vw,22px);font-weight:600;line-height:1.45;letter-spacing:-.015em">${q.q}</div>
+    <div class="tofy-meta-row">
+      <span>${q.module}</span>
+      <span>Spoken answer</span>
     </div>
-    <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:28px 24px;margin-bottom:24px;text-align:center">
-      <div style="margin-bottom:14px"><span class="tofy-rec-dot"></span><span style="font-size:13px;font-weight:600;color:rgba(248,113,113,.9);text-transform:uppercase;letter-spacing:.06em">Recording</span></div>
-      <div id="tofyRecTimer" style="font-size:clamp(44px,9vw,72px);font-weight:700;color:#fff;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1">0:00</div>
-      <div style="color:rgba(255,255,255,.3);font-size:12px;margin-top:10px">Speak your answer — stop when you&rsquo;re done</div>
-    </div>
-    <div style="text-align:center">
-      <button onclick="_tofyStopRecording()" style="background:#dc2626;color:#fff;border:none;border-radius:10px;padding:14px 32px;font-size:15px;font-weight:600;cursor:pointer">&#9632;&nbsp; Stop recording</button>
+    <div class="tofy-speaker-label">Michael</div>
+    <div class="tofy-q-bubble"><div class="tofy-q-text">${q.q}</div></div>
+    <div class="tofy-record-panel">
+      <div class="tofy-rec-label" aria-live="polite"><span class="tofy-rec-dot"></span>Recording</div>
+      <div class="tofy-rec-time" id="tofyRecTimer">0:00</div>
+      <div class="tofy-audio-bars" aria-hidden="true">
+        <div class="tofy-audio-bar"></div><div class="tofy-audio-bar"></div><div class="tofy-audio-bar"></div>
+        <div class="tofy-audio-bar"></div><div class="tofy-audio-bar"></div><div class="tofy-audio-bar"></div>
+        <div class="tofy-audio-bar"></div><div class="tofy-audio-bar"></div><div class="tofy-audio-bar"></div>
+      </div>
+      <button onclick="_tofyStopRecording()" class="tofy-finish-btn" aria-label="Finish answer">Finish answer &rarr;</button>
     </div>`;
   _tofyRecordingTimer = setInterval(() => {
     _tofyRecordingSecs++;
@@ -9716,20 +9884,25 @@ function _tofyShowRecordingUI() {
 
 function _tofyStopRecording() {
   if (_tofyRecordingTimer) { clearInterval(_tofyRecordingTimer); _tofyRecordingTimer = null; }
+  _tofyStopAudioVisualiser();
   if (_tofyMediaRecorder && _tofyMediaRecorder.state !== 'inactive') {
     _tofyMediaRecorder.stop();
   }
   const body = document.getElementById('tofyBody');
-  const q = _tofyQuestion;
+  const q = _tofyLockedQuestion || _tofyQuestion;
   body.innerHTML = `
-    <div style="margin-bottom:28px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:10px">${q.module}</div>
-      <div style="color:#fff;font-size:clamp(18px,2.5vw,22px);font-weight:600;line-height:1.45;letter-spacing:-.015em">${q.q}</div>
+    <div class="tofy-meta-row">
+      <span>${q.module}</span>
+      <span>Spoken answer</span>
     </div>
-    <div style="text-align:center;padding:40px 20px">
-      <div style="font-size:28px;margin-bottom:16px">&#9889;</div>
-      <div style="color:#fff;font-size:16px;font-weight:600;margin-bottom:8px">Michael is reviewing your answer&hellip;</div>
-      <div style="color:rgba(255,255,255,.4);font-size:13px">Transcribing and scoring against five capabilities</div>
+    <div class="tofy-speaker-label">Michael</div>
+    <div class="tofy-q-bubble"><div class="tofy-q-text">${q.q}</div></div>
+    <div class="tofy-record-panel">
+      <div class="tofy-reviewing-wrap">
+        <div class="tofy-reviewing-icon" aria-hidden="true">&#9889;</div>
+        <div class="tofy-reviewing-title" aria-live="polite">Michael is reviewing your answer&hellip;</div>
+        <div class="tofy-reviewing-sub">Transcribing and scoring against five capabilities</div>
+      </div>
     </div>`;
 }
 
@@ -9813,18 +9986,20 @@ function _tofyShowSpeakVerdict(data, attemptNum) {
   // Teaching response: candidate asked for help — don't record as a scored attempt
   if (coaching.response_type === 'teaching') {
     body.innerHTML = `
-      <div style="margin-bottom:24px">
-        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:10px">${q.module}</div>
-        <div style="color:#fff;font-size:clamp(16px,2vw,19px);font-weight:600;line-height:1.45;letter-spacing:-.015em">${q.q}</div>
+      <div class="tofy-meta-row">
+        <span>${q.module}</span>
+        <span>Spoken answer</span>
       </div>
-      <div style="background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.18);border-radius:12px;padding:20px 22px;margin-bottom:18px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#93c5fd;margin-bottom:10px">Michael's explanation</div>
-        <div style="color:rgba(255,255,255,.75);font-size:14px;line-height:1.65">${coaching.explanation || ''}</div>
-      </div>
-      ${coaching.try_again ? `<div style="background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);border-radius:10px;padding:14px 18px;margin-bottom:18px"><div style="color:rgba(255,255,255,.65);font-size:13px;line-height:1.6">${coaching.try_again}</div></div>` : ''}
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
-        <button onclick="_tofySpeakMode()" style="flex:1;min-width:180px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer">Ready — speak your answer</button>
-        <button onclick="_tofyTypeMode()" style="background:transparent;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.45);border-radius:10px;padding:13px 18px;font-size:14px;cursor:pointer">Type instead</button>
+      <div class="tofy-speaker-label">Michael</div>
+      <div class="tofy-q-bubble" style="margin-bottom:20px"><div class="tofy-q-text">${q.q}</div></div>
+      <div class="tofy-fb-panel">
+        <div class="tofy-speaker-label">Michael</div>
+        <div style="color:rgba(255,255,255,.8);font-size:14px;line-height:1.65">${coaching.explanation || ''}</div>
+        ${coaching.try_again ? `<div style="background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);border-radius:10px;padding:14px 18px;margin-top:16px"><div style="color:rgba(255,255,255,.65);font-size:13px;line-height:1.6">${coaching.try_again}</div></div>` : ''}
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+          <button onclick="_tofySpeakMode()" style="flex:1;min-width:180px;background:#3779ef;color:#fff;border:none;border-radius:8px;padding:12px 18px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Ready &mdash; speak your answer</button>
+          <button onclick="_tofyTypeMode()" style="background:transparent;border:1px solid #46556f;color:#c6d4e9;border-radius:8px;padding:11px 16px;font-size:14px;cursor:pointer;font-family:inherit">Type instead</button>
+        </div>
       </div>`;
     return;
   }
@@ -9858,37 +10033,40 @@ function _tofyShowSpeakVerdict(data, attemptNum) {
 
   const improvementsHtml = (attemptNum > 1 && coaching.improvements && coaching.improvements.length)
     ? `<div style="background:rgba(110,231,183,.06);border:1px solid rgba(110,231,183,.15);border-radius:10px;padding:16px 18px;margin-top:12px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6ee7b7;margin-bottom:8px">Compared to attempt 1 — ${coaching.overall || ''}</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6ee7b7;margin-bottom:8px">Compared to attempt 1 &mdash; ${coaching.overall || ''}</div>
         <ul style="margin:0;padding-left:18px;color:rgba(255,255,255,.65);font-size:13px;line-height:1.7">${coaching.improvements.map(i=>'<li>'+i+'</li>').join('')}</ul>
       </div>`
     : '';
 
   const transcriptHtml = data.transcript
-    ? `<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:15px 18px;margin-bottom:20px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.3);margin-bottom:8px">What Michael heard</div>
-        <div style="color:rgba(255,255,255,.55);font-size:13px;line-height:1.65;font-style:italic">"${data.transcript}"</div>
-      </div>`
+    ? `<div class="tofy-answer-label">You</div>
+       <div class="tofy-answer-bubble">
+         <div class="tofy-answer-text">&ldquo;${data.transcript}&rdquo;</div>
+       </div>`
     : '';
 
   body.innerHTML = `
-    <div style="margin-bottom:24px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(96,165,250,.7);margin-bottom:10px">${q.module}</div>
-      <div style="color:#fff;font-size:clamp(16px,2vw,19px);font-weight:600;line-height:1.45;letter-spacing:-.015em">${q.q}</div>
+    <div class="tofy-meta-row">
+      <span>${q.module}</span>
+      <span>Spoken answer</span>
     </div>
+    <div class="tofy-speaker-label">Michael</div>
+    <div class="tofy-q-bubble"><div class="tofy-q-text" style="font-size:15px;color:rgba(255,255,255,.65)">${q.q}</div></div>
     ${transcriptHtml}
-    <div style="margin-bottom:8px">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:4px">Capability feedback</div>
-      ${capsHtml}
-    </div>
-    ${tryAgainHtml}
-    ${improvementsHtml}
-    <div id="tofySpeakModelAnswer" style="display:none"></div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px">
-      ${attemptNum === 1
-        ? `<button onclick="_tofyRetryMode()" style="flex:1;min-width:160px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer">Try again</button>`
-        : `<button onclick="_tofyDifferentQuestion()" style="flex:1;min-width:140px;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer">Next challenge</button>`}
-      ${q.pass ? `<button onclick="_tofyShowSpeakModelAnswer()" id="tofySpeakRevealBtn" style="background:transparent;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.55);border-radius:10px;padding:13px 18px;font-size:14px;cursor:pointer">Model answer</button>` : ''}
-      <button onclick="_tofyShowTopicSelect(_tofyArea)" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3);border-radius:10px;padding:13px 14px;font-size:13px;cursor:pointer">Try a different question</button>
+    <div class="tofy-fb-panel">
+      <div class="tofy-speaker-label">Michael</div>
+      <div class="tofy-fb-head">Capability feedback</div>
+      <div>${capsHtml}</div>
+      ${tryAgainHtml}
+      ${improvementsHtml}
+      <div id="tofySpeakModelAnswer" style="display:none"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+        ${attemptNum === 1
+          ? `<button onclick="_tofyRetryMode()" class="tofy-finish-btn" style="margin-top:0">Try again</button>`
+          : `<button onclick="_tofyDifferentQuestion()" class="tofy-finish-btn" style="margin-top:0">Next challenge &rarr;</button>`}
+        ${q.pass ? `<button onclick="_tofyShowSpeakModelAnswer()" id="tofySpeakRevealBtn" style="background:none;border:1px solid #46556f;color:#c6d4e9;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer;font-family:inherit">Model answer</button>` : ''}
+        <button onclick="_tofyShowTopicSelect(_tofyArea)" style="background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3);border-radius:8px;padding:10px 14px;font-size:13px;cursor:pointer;font-family:inherit">Try a different question</button>
+      </div>
     </div>`;
 }
 
@@ -10941,9 +11119,15 @@ document.addEventListener('keydown',function(e){
 <!-- PROFESSIONAL ARTICULATION OVERLAY -->
 <div id="tofyOverlay">
   <div class="tofy-header">
-    <span class="tofy-title" id="paHeaderTitle">Professional Articulation</span>
-    <span class="tofy-coach-tag" id="paHeaderTag">Michael</span>
-    <button class="tofy-close" onclick="closeTOFY()" aria-label="Close">&#x2715;</button>
+    <button id="tofyBackBtn" class="tofy-back-btn" onclick="_tofyGoBack()" aria-label="Go back" style="display:none">&#8592; Back</button>
+    <div class="tofy-hd-avatar" aria-hidden="true">M</div>
+    <div class="tofy-hd-left">
+      <span class="tofy-hd-name">Michael</span>
+      <span class="tofy-hd-sub" id="paHeaderTitle">Your professional practice partner</span>
+    </div>
+    <span class="tofy-coach-tag" id="paHeaderTag" style="display:none"></span>
+    <span class="tofy-hd-mode" id="tofyModeChip">Tutor Mode</span>
+    <button class="tofy-close" onclick="closeTOFY()" aria-label="Close" style="margin-left:8px">&#x2715;</button>
   </div>
   <div class="tofy-body" id="tofyBody"></div>
 </div>

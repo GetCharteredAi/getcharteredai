@@ -39,6 +39,11 @@
   compress = false
 
 [[redirects]]
+  from = "/manager-capacity-check"
+  to = "/manager-capacity-check.html"
+  status = 200
+
+[[redirects]]
   from = "/employer-guide.html"
   to = "/employer-guide"
   status = 301

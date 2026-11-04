@@ -14,7 +14,7 @@ if (stripeIdx === -1) {
 }
 
 const scriptStart = html.indexOf('<script>', stripeIdx);
-const scriptEnd = html.lastIndexOf('</script>');
+const scriptEnd = html.indexOf('</script>', scriptStart); // first close after the opening, not last
 if (scriptStart === -1 || scriptEnd === -1 || scriptEnd <= scriptStart) {
   console.error('INDEX_JS_CHECK: FAIL — inline script block not found');
   process.exit(1);

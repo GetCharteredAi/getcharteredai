@@ -1320,6 +1320,8 @@ input.err{border-color:var(--red)}
 #view-dashboard .dash-mod-card{background:var(--navy);border-top:3px solid rgba(255,255,255,.05)}
 #view-dashboard .dash-mod-card.done{border-top-color:var(--blue)}
 #view-dashboard .dash-mod-card:hover{border-top-color:var(--blue)}
+/* ── Pilot mode ── */
+body.pilot-mode>nav{display:none!important}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="/js/marked.umd.js"></script>
@@ -5220,7 +5222,33 @@ function selectPathway(name) {
   document.getElementById('simStartBtn').textContent = `Start Mock Interview — ${name} →`;
 }
 
-function startSimulator() {
+async function startSimulator() {
+  if (_pilotMode) {
+    const btn = document.getElementById('simStartBtn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Starting…'; }
+    try {
+      const r = await fetch(PILOT_API, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ mode:'start-mock', token:_pilotTok, attemptNum:_pilotAttemptNum })
+      });
+      const d = await r.json();
+      if (!r.ok) {
+        if (btn) { btn.disabled = false; btn.textContent = 'Start Mock Interview →'; }
+        if (d.error === 'attempt-complete' || d.error === 'mock-used') {
+          document.getElementById('simContent').innerHTML =
+            '<p style="padding:40px;text-align:center;color:rgba(255,255,255,.5)">Your mock interview credit has already been used.</p>';
+        }
+        return;
+      }
+      const hasProgress = _pilotAttempt &&
+        ((_pilotAttempt.answers && _pilotAttempt.answers.length > 0) ||
+          _pilotAttempt.currentSection > 0 || _pilotAttempt.currentQuestion > 0);
+      if (hasProgress) { await restorePilotAttempt(); return; }
+    } catch {
+      if (btn) { btn.disabled = false; btn.textContent = 'Start Mock Interview →'; }
+      return;
+    }
+  }
   simState.section = 0;
   simState.currentQ = 0;
   simState.answers = [];
@@ -5246,8 +5274,16 @@ async function loadSection(sectionIdx) {
   simState.timeLeft = sec.time;
   simState.totalTime = sec.time;
 
+  // Pilot: record section start time (first visit only) for timer restore on refresh
+  if (_pilotMode && !_pilotAttempt?.sectionStartedAt?.[sectionIdx]) {
+    const now = Date.now();
+    const ssat = { ...(_pilotAttempt.sectionStartedAt||{}), [sectionIdx]: now };
+    savePilotState({ currentSection: sectionIdx, currentQuestion: 0, sectionStartedAt: ssat }).catch(() => {});
+  }
+
   // Generate questions via AI
   const questions = await generateQuestions(sectionIdx);
+  if (!questions || questions.length === 0) return; // pilot: error already shown; nothing to render
   simState.questions = questions;
 
   renderQuestion(sectionIdx, 0);
@@ -5255,7 +5291,30 @@ async function loadSection(sectionIdx) {
 }
 
 async function generateQuestions(sectionIdx) {
-  // Use pre-written pathway questions for section 1 — always reliable
+  // Pilot: route all sections through pilot-simulator (token-validated, questions saved to attempt).
+  // On any failure, show a retryable error — never return unsaved questions.
+  if (_pilotMode) {
+    try {
+      const r = await fetch(PILOT_SIM_API, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ mode:'generate', token:_pilotTok, attemptNum:_pilotAttemptNum, sectionIdx })
+      });
+      if (!r.ok) throw new Error('generate failed: ' + r.status);
+      const d = await r.json();
+      if (d.questions && d.questions.length > 0) return d.questions;
+      throw new Error('empty response');
+    } catch {
+      const content = document.getElementById('simContent');
+      if (content) content.innerHTML =
+        '<div style="text-align:center;padding:40px 20px">' +
+          '<p style="color:rgba(255,255,255,.65);margin-bottom:16px">Could not load questions. Please check your connection and try again.</p>' +
+          `<button class="sim-submit-btn" onclick="loadSection(${sectionIdx})">Retry →</button>` +
+        '</div>';
+      return [];
+    }
+  }
+
+  // Normal path: use pre-written pathway questions for section 1 — always reliable
   if (sectionIdx === 1 && simState.pathway && PATHWAY_QUESTIONS[simState.pathway]) {
     const qs = PATHWAY_QUESTIONS[simState.pathway];
     // Return 5 questions, shuffled slightly
@@ -5339,13 +5398,34 @@ async function submitAnswer(sectionIdx, qIdx) {
   feedback.innerHTML = '<div class="sim-feedback-title">⏳ Analysing your answer...</div>';
   const q = simState.questions[qIdx];
   const sec = SIM_SECTIONS[sectionIdx];
-  try {
-    const r = await fetch('/.netlify/functions/ai-tutor', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        scoring: true,
-        system:`You are a strict but fair RICS APC assessor. Score this APC interview answer and provide coaching.
+  let score;
+  if (_pilotMode) {
+    // Pilot: score via server only — no fallback; a failed request is a hard stop
+    try {
+      const r = await fetch(PILOT_SIM_API, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ mode:'score', token:_pilotTok, attemptNum:_pilotAttemptNum, sectionIdx, qIdx, answer })
+      });
+      const d = await r.json();
+      if (!d.score) throw new Error('no score');
+      score = d.score;
+    } catch {
+      feedback.innerHTML =
+        '<div class="sim-feedback-title" style="color:#f87171">Assessment failed</div>' +
+        '<div class="sim-feedback-text"><p style="color:rgba(255,255,255,.65)">Could not reach the assessment server. Your answer has not been recorded. Please try again.</p></div>';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Retry assessment →';
+      submitBtn.style.display = 'inline-block';
+      return;
+    }
+  } else {
+    try {
+      const r = await fetch('/.netlify/functions/ai-tutor', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          scoring: true,
+          system:`You are a strict but fair RICS APC assessor. Score this APC interview answer and provide coaching.
 Return ONLY valid JSON in this exact format:
 {
   "structure": 75,
@@ -5359,30 +5439,37 @@ Return ONLY valid JSON in this exact format:
   "verdict": "Brief 2-sentence assessor verdict"
 }
 Scores are 0-100. Be honest and specific.`,
-        messages:[{role:'user',content:`Section: ${sec.name}\nQuestion: ${q}\nCandidate answer: ${answer}`}],
-        max_tokens:800,
-        token: getToken()
-      })
-    });
-    const d = await r.json();
-    const text = d.content?.[0]?.text || '{}';
-    const clean = text.replace(/```json|```/g,'').trim();
-    const score = JSON.parse(clean);
-    const avg = Math.round((score.structure+score.relevance+score.depth+score.confidence+score.judgement)/5);
-    simState.answers.push({section:sectionIdx,question:q,answer,score,avg});
-    simState.scores.push(avg);
-    renderFeedback(score, avg, feedback);
-    submitBtn.style.display = 'none';
-    document.getElementById('simNextBtn').style.display = 'inline-block';
-  } catch(e) {
-    const avg = 65;
-    const mockScore = {structure:65,relevance:70,depth:60,confidence:68,judgement:62,concerns:["Consider referencing specific RICS standards","Add more personal examples"],strengths:["Relevant answer","Good structure"],improvement:"Reference specific legislation or RICS guidance to strengthen your answer.",verdict:"Answer shows understanding but could be strengthened with specific examples and RICS references."};
-    simState.answers.push({section:sectionIdx,question:q,answer,score:mockScore,avg});
-    simState.scores.push(avg);
-    renderFeedback(mockScore, avg, feedback);
-    submitBtn.style.display = 'none';
-    document.getElementById('simNextBtn').style.display = 'inline-block';
+          messages:[{role:'user',content:`Section: ${sec.name}\nQuestion: ${q}\nCandidate answer: ${answer}`}],
+          max_tokens:800,
+          token: getToken()
+        })
+      });
+      const d = await r.json();
+      const text = d.content?.[0]?.text || '{}';
+      const clean = text.replace(/```json|```/g,'').trim();
+      score = JSON.parse(clean);
+    } catch(e) {
+      score = {structure:65,relevance:70,depth:60,confidence:68,judgement:62,concerns:["Consider referencing specific RICS standards","Add more personal examples"],strengths:["Relevant answer","Good structure"],improvement:"Reference specific legislation or RICS guidance to strengthen your answer.",verdict:"Answer shows understanding but could be strengthened with specific examples and RICS references."};
+    }
   }
+  const avg = Math.round((score.structure+score.relevance+score.depth+score.confidence+score.judgement)/5);
+  simState.answers.push({section:sectionIdx,question:q,answer,score,avg});
+  simState.scores.push(avg);
+  renderFeedback(score, avg, feedback);
+  submitBtn.style.display = 'none';
+  if (_pilotMode) {
+    // For pilot: Next button is withheld until progress is confirmed on the server
+    try {
+      await savePilotState({ answers: simState.answers, currentQuestion: qIdx + 1 });
+    } catch {
+      showPilotSaveError(async () => {
+        await savePilotState({ answers: simState.answers, currentQuestion: qIdx + 1 });
+        document.getElementById('simNextBtn').style.display = 'inline-block';
+      });
+      return;
+    }
+  }
+  document.getElementById('simNextBtn').style.display = 'inline-block';
 }
 
 function renderFeedback(score, avg, container) {
@@ -5411,20 +5498,43 @@ function renderFeedback(score, avg, container) {
   `;
 }
 
-function skipQuestion(sectionIdx, qIdx) {
+async function skipQuestion(sectionIdx, qIdx) {
   simState.answers.push({section:sectionIdx,question:simState.questions[qIdx],answer:'[Skipped]',score:null,avg:0});
-  nextQuestion(sectionIdx, qIdx);
+  if (_pilotMode) {
+    try {
+      await savePilotState({ answers: simState.answers, currentQuestion: qIdx + 1 });
+    } catch {
+      simState.answers.pop(); // undo — not persisted; retry re-pushes
+      showPilotSaveError(() => skipQuestion(sectionIdx, qIdx));
+      return;
+    }
+  }
+  await nextQuestion(sectionIdx, qIdx);
 }
 
-function nextQuestion(sectionIdx, qIdx) {
+async function nextQuestion(sectionIdx, qIdx) {
   const nextQ = qIdx + 1;
-  if(nextQ >= simState.questions.length) { nextSection(); }
-  else { renderQuestion(sectionIdx, nextQ); }
+  if (nextQ >= simState.questions.length) {
+    await nextSection();
+  } else {
+    renderQuestion(sectionIdx, nextQ);
+  }
 }
 
-function nextSection() {
+async function nextSection() {
   const next = simState.section + 1;
-  if(next >= 5) { loadSection(5); }
+  if (_pilotMode) {
+    try {
+      await savePilotState({ currentSection: next });
+    } catch {
+      showPilotSaveError(async () => {
+        await savePilotState({ currentSection: next });
+        if (next >= 5) { loadSection(5); } else { loadSection(next); }
+      });
+      return;
+    }
+  }
+  if (next >= 5) { loadSection(5); }
   else { loadSection(next); }
 }
 
@@ -5450,7 +5560,7 @@ function startTimer(sectionIdx) {
   }, 1000);
 }
 
-function showResults() {
+async function showResults() {
   if(simState.timer) clearInterval(simState.timer);
   // Update all tabs to done
   for(let i=0;i<5;i++){
@@ -5507,6 +5617,36 @@ function showResults() {
       <button class="sim-restart-btn" onclick="resetSimulator()">↺ Restart Mock Interview</button>
     </div>
   `;
+
+  if (_pilotMode) {
+    // Pilot candidates must not see or access the Restart button
+    const restartBtn = content.querySelector('.sim-restart-btn');
+    if (restartBtn) restartBtn.remove();
+
+    const slot = document.createElement('div');
+    slot.style.cssText = 'margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);text-align:center';
+    (content.querySelector('.sim-dashboard') || content).appendChild(slot);
+    const isAttempt1 = _pilotAttemptNum === 1;
+    const tryComplete = async () => {
+      slot.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:13px;padding:8px 0">Recording completion...</p>';
+      try {
+        const r = await fetch(PILOT_API, {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ mode:'complete-mock', token:_pilotTok, attemptNum:_pilotAttemptNum })
+        });
+        if (!r.ok) throw new Error('complete-mock ' + r.status);
+        slot.innerHTML = isAttempt1
+          ? `<a href="/apc-mock-pilot.html" class="sim-submit-btn" style="display:block;margin-bottom:12px;width:100%;max-width:360px;text-align:center;text-decoration:none">Begin mock 2 →</a><a href="#" onclick="sessionStorage.setItem('pilot_to_feedback','1');window.location.href='/apc-mock-pilot.html';return false" style="color:rgba(255,255,255,.45);font-size:13px;text-decoration:none;display:block;margin-top:8px">Share feedback on mock 1 →</a>`
+          : `<a href="#" onclick="sessionStorage.setItem('pilot_to_feedback','1');window.location.href='/apc-mock-pilot.html';return false" class="sim-submit-btn" style="display:block;width:100%;max-width:360px;text-align:center;text-decoration:none">Share feedback →</a>`;
+      } catch {
+        window._pilotCompleteRetry = tryComplete;
+        slot.innerHTML =
+          '<p style="color:#f87171;font-size:13px;margin-bottom:8px">Could not record completion.</p>' +
+          '<button class="sim-submit-btn" style="padding:6px 16px;font-size:13px" onclick="window._pilotCompleteRetry&&window._pilotCompleteRetry()">Retry →</button>';
+      }
+    };
+    await tryComplete();
+  }
 }
 
 function resetSimulator() {
@@ -5530,6 +5670,159 @@ function resetSimulator() {
     }
   }
 }
+
+// ── PILOT MODE ────────────────────────────────────────────────────────────────
+let _pilotMode       = false;
+let _pilotTok        = null;
+let _pilotAttempt    = null;
+let _pilotAttemptNum = 0;
+
+const PILOT_API     = '/.netlify/functions/pilot-speak';
+const PILOT_SIM_API = '/.netlify/functions/pilot-simulator';
+
+async function savePilotState(update) {
+  if (!_pilotMode || !_pilotTok) return;
+  const merged = { ...update };
+  if (update.questions && _pilotAttempt.questions) merged.questions = { ..._pilotAttempt.questions, ...update.questions };
+  if (update.sectionStartedAt && _pilotAttempt.sectionStartedAt) merged.sectionStartedAt = { ..._pilotAttempt.sectionStartedAt, ...update.sectionStartedAt };
+  Object.assign(_pilotAttempt, merged); // keep local state current regardless
+  const r = await fetch(PILOT_API, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ mode:'save-state', token:_pilotTok, attemptNum:_pilotAttemptNum, state: merged })
+  });
+  if (!r.ok) throw new Error('save-state ' + r.status);
+}
+
+let _pilotSavePending = null;
+
+function showPilotSaveError(onRetry) {
+  _pilotSavePending = onRetry;
+  let el = document.getElementById('pilotSaveRetry');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'pilotSaveRetry';
+    el.style.cssText = 'position:sticky;top:0;background:#1e1a2e;border:1px solid rgba(248,113,113,.5);border-radius:8px;padding:10px 16px;margin-bottom:10px;text-align:center;z-index:10';
+    el.innerHTML = '<span style="color:#f87171;font-size:13px">Progress could not be saved. </span><button class="sim-submit-btn" style="display:inline-block;padding:4px 14px;font-size:12px;margin-left:8px" onclick="retryPilotSave()">Retry →</button>';
+    const container = document.getElementById('simContent');
+    if (container) container.prepend(el);
+  }
+  el.style.display = '';
+}
+
+async function retryPilotSave() {
+  const el = document.getElementById('pilotSaveRetry');
+  if (el) el.style.display = 'none';
+  const fn = _pilotSavePending;
+  _pilotSavePending = null;
+  if (!fn) return;
+  try { await fn(); }
+  catch { showPilotSaveError(fn); }
+}
+
+async function restorePilotAttempt() {
+  const a = _pilotAttempt;
+  const sIdx = a.currentSection || 0;
+  const qIdx = a.currentQuestion || 0;
+  simState.answers = a.answers || [];
+  simState.scores  = simState.answers.filter(x=>x.avg>0).map(x=>x.avg);
+  if (sIdx >= 5) {
+    // Sections complete but complete-mock may not have fired — call showResults to finish
+    await showResults();
+    return;
+  }
+  simState.section  = sIdx;
+  simState.currentQ = qIdx;
+  simState.phase    = 'running';
+  for (let i=0; i<6; i++) {
+    const t = document.getElementById('simTab'+i);
+    if (!t) continue;
+    t.className = 'sim-sec-tab' + (i===sIdx?' active':i<sIdx?' done':'');
+  }
+  const sec = SIM_SECTIONS[sIdx];
+  simState.questions = a.questions?.[sIdx] ? a.questions[sIdx] : await generateQuestions(sIdx);
+  if (a.sectionStartedAt?.[sIdx]) {
+    const elapsed = Math.floor((Date.now() - Number(a.sectionStartedAt[sIdx])) / 1000);
+    simState.timeLeft  = Math.max(1, sec.time - elapsed);
+  } else {
+    simState.timeLeft = sec.time;
+  }
+  simState.totalTime = sec.time;
+  renderQuestion(sIdx, qIdx);
+  startTimer(sIdx);
+}
+
+(async function initPilotMode() {
+  if (new URLSearchParams(location.search).get('view') !== 'pilot') return;
+
+  let session;
+  try { session = JSON.parse(sessionStorage.getItem('gca_pilot_session') || 'null'); } catch { session = null; }
+  if (!session?.token) { window.location.href = '/apc-mock-pilot'; return; }
+
+  document.body.classList.add('pilot-mode');
+
+  let res, data;
+  try {
+    res = await fetch(PILOT_API, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ mode:'verify', token:session.token })
+    });
+    data = await res.json();
+  } catch {
+    window.location.href = '/apc-mock-pilot';
+    return;
+  }
+
+  if (res.status === 410 || !res.ok) { window.location.href = '/apc-mock-pilot'; return; }
+
+  const c = data.credits || {};
+  // Derive attempt number from the verified server credit record — never from session storage
+  let attemptNum;
+  if (!c.attempt1Completed)       { attemptNum = 1; }
+  else if (!c.attempt2Completed)  { attemptNum = 2; }
+  else { window.location.href = '/apc-mock-pilot'; return; }
+
+  _pilotMode       = true;
+  _pilotTok        = session.token;
+  _pilotAttemptNum = attemptNum;
+  _pilotAttempt    = { currentSection:0, currentQuestion:0, sectionStartedAt:{}, questions:{}, answers:[] };
+
+  try {
+    const ar = await fetch(PILOT_API, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ mode:'load-state', token:_pilotTok, attemptNum })
+    });
+    const ad = await ar.json();
+    if (ad.attempt) _pilotAttempt = ad.attempt;
+  } catch { /* use defaults */ }
+
+  // Open the existing mock simulator directly into #view-module
+  showView('module');
+  const mc = document.getElementById('modContent');
+  if (mc) {
+    mc.classList.add('sim-direct-mode');
+    mc.innerHTML = '<div style="margin-bottom:8px">' + renderMockSimulator() + '</div>';
+  }
+
+  const hasProgress = _pilotAttempt &&
+    ((_pilotAttempt.answers && _pilotAttempt.answers.length > 0) ||
+      _pilotAttempt.currentSection > 0 || _pilotAttempt.currentQuestion > 0);
+
+  if (hasProgress) {
+    // Resume: skip the setup screen, restore to the current question
+    await restorePilotAttempt();
+  } else {
+    // New attempt: lock QS, hide pathway selector, label the start button
+    selectPathway('Quantity Surveying and Construction');
+    const grid = document.getElementById('pathwayGrid');
+    if (grid) grid.style.display = 'none';
+    const startBtn = document.getElementById('simStartBtn');
+    if (startBtn) {
+      startBtn.textContent = attemptNum === 2
+        ? 'Start mock 2 — Quantity Surveying →'
+        : 'Start mock interview →';
+    }
+  }
+})();
 
 // ── MOBILE NAV ────────────────────────────────────────────────────────────────
 function toggleMobileNav() {
@@ -11090,6 +11383,7 @@ document.addEventListener('keydown',function(e){
   </div>
   <div class="tofy-body" id="tofyBody"></div>
 </div>
+
 </body>
 
 </html>

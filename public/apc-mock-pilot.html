@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>APC Mock Interview Pilot — Get Chartered AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#1b2842;--blue:#2563EB;--blue-dark:#1d4ed8;
+  --border:rgba(255,255,255,.1);--muted:rgba(255,255,255,.5);
+  --navy:#0d1526;
+  --f:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+html,body{min-height:100vh;background:var(--bg);color:#e2e8f0;font-family:var(--f);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.page{min-height:100vh;display:flex;flex-direction:column}
+/* Top bar — slightly deeper than canvas */
+.top-bar{background:#152035;border-bottom:1px solid rgba(255,255,255,.08);padding:0 24px;height:60px;display:flex;align-items:center;position:sticky;top:0;z-index:100;flex-shrink:0}
+.tb-brand{display:flex;align-items:center;gap:10px}
+.tb-logo{font-size:14px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.tb-logo span{color:var(--blue)}
+.tb-pill{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:100px;padding:3px 10px}
+.main{flex:1;padding:40px 24px 80px;display:flex;flex-direction:column;align-items:center}
+.card{width:100%;max-width:720px}
+.state{display:none}
+.state.active{display:block}
+/* Loading */
+.loading-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:16px}
+.spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:14px;color:var(--muted)}
+/* Error */
+.error-wrap{max-width:480px;margin:60px auto 0;text-align:center;padding:0 20px}
+.error-icon{font-size:40px;margin-bottom:16px}
+.error-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:-.02em}
+.error-body{font-size:14px;color:var(--muted);line-height:1.75}
+.error-body a{color:#60a5fa}
+/* Welcome text — on mid-navy canvas */
+.welcome-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.welcome-title{font-size:clamp(22px,3vw,30px);font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1.15;margin-bottom:16px}
+.welcome-body{font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:24px}
+/* Four summary cards — deeper navy */
+.welcome-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+@media(min-width:600px){.welcome-meta{grid-template-columns:repeat(4,1fr)}}
+.meta-item{background:var(--navy);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px}
+.meta-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:4px}
+.meta-val{font-size:13px;font-weight:600;color:#fff}
+/* Reassurance — blue-tinted on mid-navy */
+.panel-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.4}
+.panel-body{font-size:13px;color:#94a3b8;line-height:1.75;margin-bottom:10px}
+.panel-body:last-child{margin-bottom:0}
+.panel-list{font-size:13px;color:#94a3b8;line-height:1.75;margin:0;padding-left:20px}
+.panel-list li{padding-left:4px;margin-bottom:4px}
+.panel-list li:last-child{margin-bottom:0}
+.reassurance{background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.25);border-radius:10px;padding:14px 18px;font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:28px}
+/* Primary button */
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;border:none;padding:16px 36px;border-radius:10px;font-family:var(--f);font-size:15px;font-weight:700;cursor:pointer;transition:.2s;box-shadow:0 4px 20px rgba(37,99,235,.3);letter-spacing:.01em;width:100%}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(37,99,235,.4)}
+/* Centred layout (continue / between-mocks / complete) */
+.centred{max-width:540px;margin:0 auto;padding:48px 20px;text-align:center}
+.centred-ey{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+.centred-h{font-size:clamp(20px,2.5vw,26px);font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1.2;margin-bottom:14px}
+.centred-b{font-size:14px;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:28px}
+.quiet-links{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.quiet-links a{font-size:13px;color:rgba(255,255,255,.35);text-decoration:none;transition:.15s}
+.quiet-links a:hover{color:rgba(255,255,255,.6)}
+/* Feedback form */
+.form-wrap{max-width:600px;margin:0 auto}
+.form-q{margin-bottom:28px}
+.form-lbl{font-size:14px;font-weight:600;color:#e2e8f0;margin-bottom:10px;line-height:1.5;display:block}
+.form-ta{width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;color:#e2e8f0;font-family:var(--f);font-size:14px;padding:12px 14px;outline:none;transition:.18s;resize:vertical;min-height:80px;line-height:1.65}
+.form-ta:focus{border-color:var(--blue);background:rgba(255,255,255,.09)}
+.form-ta::placeholder{color:rgba(255,255,255,.2)}
+.radio-grp{display:flex;flex-direction:column;gap:8px}
+.radio-opt{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;padding:11px 14px;cursor:pointer;transition:.18s}
+.radio-opt:hover{background:rgba(255,255,255,.08)}
+.radio-opt input[type="radio"]{accent-color:var(--blue);width:14px;height:14px;cursor:pointer}
+.radio-opt label{font-size:14px;color:#e2e8f0;cursor:pointer;flex:1}
+.radio-opt:has(input:checked){border-color:rgba(37,99,235,.5);background:rgba(37,99,235,.1)}
+.btn-submit-fb{background:var(--blue);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-family:var(--f);font-size:14px;font-weight:700;cursor:pointer;transition:.18s;width:100%;margin-top:8px}
+.btn-submit-fb:hover{background:var(--blue-dark)}
+.btn-submit-fb:disabled{background:#374151;cursor:not-allowed;color:rgba(255,255,255,.3)}
+/* Info panels — navy */
+.info-panel{background:var(--navy);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px 20px 16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.info-panel-hd{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px}
+/* Credit tiles — blue-tinted within navy panel */
+.credits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.credit-item{background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.25);border-radius:8px;padding:12px 14px;text-align:center}
+.credit-val{font-size:18px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:4px}
+.credit-lbl{font-size:11px;color:rgba(255,255,255,.5);line-height:1.4}
+/* Section rows — within navy panel */
+.sections-grid{display:flex;flex-direction:column;gap:7px}
+.section-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:7px}
+.section-icon{font-size:14px;flex-shrink:0;width:20px;text-align:center}
+.section-name{font-size:13px;font-weight:600;color:#e2e8f0;flex:1}
+.section-time{font-size:11px;color:rgba(255,255,255,.4);font-variant-numeric:tabular-nums;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top-bar">
+    <div class="tb-brand">
+      <span class="tb-logo">Get Chartered <span>AI</span></span>
+      <span class="tb-pill">Pilot</span>
+    </div>
+  </header>
+  <main class="main">
+    <div class="card">
+
+      <div class="state active" id="state-loading">
+        <div class="loading-wrap">
+          <div class="spinner"></div>
+          <div class="loading-text">Checking your invitation…</div>
+        </div>
+      </div>
+
+      <div class="state" id="state-error">
+        <div class="error-wrap">
+          <div class="error-icon" id="errIcon">🔒</div>
+          <div class="error-title" id="errTitle">This link is not valid</div>
+          <div class="error-body" id="errBody">The access link you used is not recognised. If you believe this is an error, please contact <a href="mailto:info@getcharteredai.com">info@getcharteredai.com</a>.</div>
+        </div>
+      </div>
+
+      <div class="state" id="state-welcome">
+        <div class="welcome-eyebrow">Private Pilot Invitation</div>
+        <h1 class="welcome-title">Welcome to your APC Mock Interview Pilot</h1>
+        <p class="welcome-body">Two realistic Quantity Surveying mock interviews, designed to help you practise the judgement, structure and articulation an APC panel will look for.</p>
+        <div class="welcome-meta">
+          <div class="meta-item"><div class="meta-lbl">Pathway</div><div class="meta-val">Quantity Surveying</div></div>
+          <div class="meta-item"><div class="meta-lbl">Your access</div><div class="meta-val">2 mock interviews</div></div>
+          <div class="meta-item"><div class="meta-lbl">Available</div><div class="meta-val">Now – 14 November</div></div>
+          <div class="meta-item"><div class="meta-lbl">Time needed</div><div class="meta-val">45–60 min each</div></div>
+        </div>
+        <div class="info-panel">
+          <div class="info-panel-hd">Your practice credits</div>
+          <div class="credits-grid">
+            <div class="credit-item"><div class="credit-val">2</div><div class="credit-lbl">Mock interview attempts</div></div>
+            <div class="credit-item"><div class="credit-val">18</div><div class="credit-lbl">Michael practice credits</div></div>
+            <div class="credit-item"><div class="credit-val">6</div><div class="credit-lbl">Think on Your Feet challenges</div></div>
+          </div>
+        </div>
+        <div class="info-panel">
+          <div class="info-panel-hd">Your mock interview includes</div>
+          <!-- Section names sourced from SIM_SECTIONS in index.html — keep in sync if that list changes -->
+          <div class="sections-grid">
+            <div class="section-row"><span class="section-icon">📋</span><span class="section-name">Case Study</span><span class="section-time">0:00 – 0:12</span></div>
+            <div class="section-row"><span class="section-icon">🎯</span><span class="section-name">Pathway</span><span class="section-time">0:12 – 0:22</span></div>
+            <div class="section-row"><span class="section-icon">📚</span><span class="section-name">Mandatory</span><span class="section-time">0:22 – 0:42</span></div>
+            <div class="section-row"><span class="section-icon">⚖️</span><span class="section-name">Ethics</span><span class="section-time">0:42 – 0:52</span></div>
+            <div class="section-row"><span class="section-icon">🏁</span><span class="section-name">Wrap-Up</span><span class="section-time">0:52 – 1:00</span></div>
+          </div>
+        </div>
+        <div class="info-panel" style="margin-bottom:20px">
+          <div class="panel-title">Before you begin</div>
+          <p class="panel-body">You will type your answers in this mock. Write each response as you would say it aloud in an APC interview, aiming for around 2–3 minutes per question.</p>
+          <p class="panel-body">This mock lets you practise:</p>
+          <ol class="panel-list">
+            <li>What you would say.</li>
+            <li>How you structure your answer.</li>
+            <li>The examples and RICS references you use.</li>
+            <li>Whether your reasoning is clear.</li>
+            <li>How much you can cover in two to three minutes.</li>
+          </ol>
+        </div>
+        <div class="reassurance">This is a private practice environment. It will help you identify what to strengthen, but it does not predict your assessment outcome or replace advice from your counsellor or supervisor.</div>
+        <button class="btn-primary" onclick="handleStart()">Enter your mock interview →</button>
+      </div>
+
+      <div class="state" id="state-continue">
+        <div class="centred">
+          <div class="centred-ey">Mock <span id="continueNum">1</span> in progress</div>
+          <div class="centred-h">Your mock is still open.</div>
+          <div class="centred-b">Pick up where you left off — your answers and timer position are saved.</div>
+          <button class="btn-primary" onclick="handleStart()">Continue your mock →</button>
+        </div>
+      </div>
+
+      <div class="state" id="state-between-mocks">
+        <div class="centred">
+          <div class="centred-ey">Mock 1 complete</div>
+          <div class="centred-h">Your first mock is done.</div>
+          <div class="centred-b">Review your results in the simulator, then start your second mock when you are ready. You have until 14 November at 23:59.</div>
+          <button class="btn-primary" onclick="handleSecondMock()">Begin mock 2 →</button>
+          <div class="quiet-links">
+            <a href="#" onclick="show('feedback');return false">Share feedback on mock 1</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="state" id="state-complete">
+        <div class="centred">
+          <div class="centred-ey">Pilot complete</div>
+          <div class="centred-h">You have completed both practice mocks.</div>
+          <div class="centred-b">Use the coming days to continue with your established preparation, counsellor guidance, and the areas you already know need attention. These sessions are one input — they do not predict your assessment outcome.</div>
+          <button class="btn-primary" onclick="show('feedback')">Leave feedback on this pilot →</button>
+        </div>
+      </div>
+
+      <div class="state" id="state-feedback">
+        <div class="form-wrap">
+          <div class="welcome-eyebrow" style="margin-bottom:12px">Pilot feedback</div>
+          <h2 style="font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.02em">A few quick questions</h2>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6">Your answers help us understand whether this format is worth developing further.</p>
+          <form id="fbForm" onsubmit="submitFb(event)">
+            <div class="form-q">
+              <label class="form-lbl" for="fq1">1. What was most useful about the mock?</label>
+              <textarea class="form-ta" id="fq1" placeholder="Your answer…" rows="3"></textarea>
+            </div>
+            <div class="form-q">
+              <label class="form-lbl" for="fq2">2. What felt unclear, unrealistic or less useful?</label>
+              <textarea class="form-ta" id="fq2" placeholder="Your answer…" rows="3"></textarea>
+            </div>
+            <div class="form-q">
+              <label class="form-lbl">3. Did it help you identify a useful focus for your remaining preparation?</label>
+              <div class="radio-grp">
+                <div class="radio-opt"><input type="radio" id="fq3a" name="q3" value="Yes, clearly"><label for="fq3a">Yes, clearly</label></div>
+                <div class="radio-opt"><input type="radio" id="fq3b" name="q3" value="Somewhat"><label for="fq3b">Somewhat</label></div>
+                <div class="radio-opt"><input type="radio" id="fq3c" name="q3" value="Not yet"><label for="fq3c">Not yet</label></div>
+              </div>
+            </div>
+            <div class="form-q">
+              <label class="form-lbl">4. Would you be willing to share a short testimonial if the experience was useful?</label>
+              <div class="radio-grp">
+                <div class="radio-opt"><input type="radio" id="fq4a" name="q4" value="Yes"><label for="fq4a">Yes</label></div>
+                <div class="radio-opt"><input type="radio" id="fq4b" name="q4" value="Possibly"><label for="fq4b">Possibly</label></div>
+                <div class="radio-opt"><input type="radio" id="fq4c" name="q4" value="No"><label for="fq4c">No</label></div>
+              </div>
+            </div>
+            <div id="fbErr" style="display:none;font-size:13px;color:#f87171;margin-bottom:12px"></div>
+            <button type="submit" class="btn-submit-fb" id="fbBtn">Submit feedback</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="state" id="state-thankyou">
+        <div class="centred">
+          <div class="centred-ey">Thank you</div>
+          <div class="centred-h">Feedback received.</div>
+          <div class="centred-b">Thank you for taking part in the pilot and for sharing your thoughts. Good luck on 14 November.</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+<script>
+const SPEAK_API = '/.netlify/functions/pilot-speak';
+const FB_API    = '/.netlify/functions/pilot-feedback';
+
+let _tok   = null;
+let _creds = {
+  attempt1Started: false, attempt1Completed: false,
+  attempt2Started: false, attempt2Completed: false
+};
+
+function show(name) {
+  document.querySelectorAll('.state').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById('state-' + name);
+  if (el) el.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showErr(title, safeHtml) {
+  document.getElementById('errIcon').textContent = '🔒';
+  document.getElementById('errTitle').textContent = title;
+  document.getElementById('errBody').innerHTML = safeHtml;
+  show('error');
+}
+
+function showExpired() {
+  document.getElementById('errIcon').textContent = '✓';
+  document.getElementById('errTitle').textContent = 'Your pilot access has ended.';
+  document.getElementById('errBody').textContent = 'The access period closed on 14 November at 23:59. Thank you for taking part.';
+  show('error');
+}
+
+(async function boot() {
+  const urlToken = new URLSearchParams(location.search).get('token');
+  if (urlToken) {
+    _tok = urlToken;
+    sessionStorage.setItem('gca_pilot_entry', _tok);
+    history.replaceState({}, '', location.pathname);
+  } else {
+    _tok = sessionStorage.getItem('gca_pilot_entry');
+  }
+
+  if (!_tok) {
+    return showErr(
+      'No access link found',
+      'You have reached this page without an access link. If you received an invite by email, please use the link in that email, or contact <a href="mailto:info@getcharteredai.com">info@getcharteredai.com</a>.'
+    );
+  }
+
+  let res, data;
+  try {
+    res  = await fetch(SPEAK_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mode: 'verify', token: _tok })
+    });
+    data = await res.json();
+  } catch {
+    return showErr(
+      'Connection error',
+      'Could not verify your access link. Please check your connection and try again.'
+    );
+  }
+
+  if (res.status === 410) return showExpired();
+  if (!res.ok) {
+    return showErr(
+      'Link not valid',
+      'The access link you used is not recognised or has expired. Please contact <a href="mailto:info@getcharteredai.com">info@getcharteredai.com</a>.'
+    );
+  }
+
+  _creds = data.credits || _creds;
+
+  if (sessionStorage.getItem('pilot_to_feedback') === '1') {
+    sessionStorage.removeItem('pilot_to_feedback');
+    show('feedback');
+  } else if (_creds.attempt2Completed) {
+    show('complete');
+  } else if (_creds.attempt1Completed && _creds.attempt2Started) {
+    document.getElementById('continueNum').textContent = '2';
+    show('continue');
+  } else if (_creds.attempt1Completed) {
+    show('between-mocks');
+  } else if (_creds.attempt1Started) {
+    document.getElementById('continueNum').textContent = '1';
+    show('continue');
+  } else {
+    show('welcome');
+  }
+})();
+
+function handleStart() {
+  sessionStorage.setItem('gca_pilot_session', JSON.stringify({ token: _tok }));
+  window.location.href = '/?view=pilot';
+}
+
+function handleSecondMock() {
+  sessionStorage.setItem('gca_pilot_session', JSON.stringify({ token: _tok }));
+  window.location.href = '/?view=pilot';
+}
+
+async function submitFb(e) {
+  e.preventDefault();
+  const btn   = document.getElementById('fbBtn');
+  const errEl = document.getElementById('fbErr');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  errEl.style.display = 'none';
+  try {
+    const res = await fetch(FB_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token: _tok,
+        feedback: {
+          q1: document.getElementById('fq1').value.trim(),
+          q2: document.getElementById('fq2').value.trim(),
+          q3: (document.querySelector('input[name="q3"]:checked') || {}).value || '',
+          q4: (document.querySelector('input[name="q4"]:checked') || {}).value || ''
+        }
+      })
+    });
+    if (!res.ok) throw new Error('server');
+    show('thankyou');
+  } catch {
+    btn.disabled = false;
+    btn.textContent = 'Submit feedback';
+    errEl.textContent = 'Something went wrong. Please try again.';
+    errEl.style.display = 'block';
+  }
+}
+</script>
+</body>
+</html>

@@ -109,7 +109,7 @@ exports.handler = async (event) => {
                 <h1 style="color:#fff;font-size:20px;margin:0;font-family:Georgia,serif">Get Chartered <span style="color:#2563EB">AI</span></h1>
               </div>
               <div style="background:#fff;padding:32px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 12px 12px">
-                <h2 style="font-size:18px;color:#0f172a;margin-bottom:16px">Hi ${name || 'there'},</h2>
+                <h2 style="font-size:18px;color:#0f172a;margin-bottom:16px">${name ? 'Hi ' + name.split(' ')[0] : 'Hello'},</h2>
                 <p style="color:#334155;font-size:14px;line-height:1.7;margin-bottom:16px">
                   Your private Quantity Surveying APC Mock Interview Pilot is ready.
                 </p>
@@ -141,7 +141,7 @@ exports.handler = async (event) => {
               </div>
             </div>
           `,
-          text: `Hi ${name || 'there'},\n\nYour private Quantity Surveying APC Mock Interview Pilot is ready.\n\nYou have access to two mock interviews until 23:59 on 14 November. Each takes around 45–60 minutes.\n\nThis mock lets you practise:\n1. What you would say.\n2. How you structure your answer.\n3. The examples and RICS references you use.\n4. Whether your reasoning is clear.\n5. How much you can cover in two to three minutes.\n\nYou will type your answers in this mock. Write each response as you would say it aloud in an APC interview.\n\nEnter your mock interview: ${link}\n\nThis is a private practice environment. It will help you identify what to strengthen, but it does not predict your assessment outcome or replace advice from your counsellor or supervisor.\n\nBest,\nAngela\nGet Chartered AI`
+          text: `${name ? 'Hi ' + name.split(' ')[0] : 'Hello'},\n\nYour private Quantity Surveying APC Mock Interview Pilot is ready.\n\nYou have access to two mock interviews until 23:59 on 14 November. Each takes around 45–60 minutes.\n\nThis mock lets you practise:\n1. What you would say.\n2. How you structure your answer.\n3. The examples and RICS references you use.\n4. Whether your reasoning is clear.\n5. How much you can cover in two to three minutes.\n\nYou will type your answers in this mock. Write each response as you would say it aloud in an APC interview.\n\nEnter your mock interview: ${link}\n\nThis is a private practice environment. It will help you identify what to strengthen, but it does not predict your assessment outcome or replace advice from your counsellor or supervisor.\n\nBest,\nAngela\nGet Chartered AI`
         })
       });
     } catch (err) {

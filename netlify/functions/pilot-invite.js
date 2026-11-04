@@ -101,7 +101,7 @@ exports.handler = async (event) => {
         body: JSON.stringify({
           from: 'Get Chartered AI <info@getcharteredai.com>',
           to: [cleanEmail],
-          subject: 'APC Mock Interview Pilot — your practice session is ready',
+          subject: 'Your APC Mock Interview Pilot is ready',
           html: `
             <div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:0 auto;padding:40px 20px">
               <div style="background:#0D0F1C;border-radius:12px 12px 0 0;padding:28px;text-align:center">
@@ -109,33 +109,39 @@ exports.handler = async (event) => {
                 <h1 style="color:#fff;font-size:20px;margin:0;font-family:Georgia,serif">Get Chartered <span style="color:#2563EB">AI</span></h1>
               </div>
               <div style="background:#fff;padding:32px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 12px 12px">
-                <h2 style="font-size:18px;color:#0f172a;margin-bottom:8px">Hi ${name || 'there'},</h2>
-                <p style="color:#334155;font-size:14px;line-height:1.7;margin-bottom:4px">
-                  Your APC mock interview practice session is ready. This is a focused Quantity Surveying mock, designed to help you identify a small number of areas to practise before your assessment on 14 November.
+                <h2 style="font-size:18px;color:#0f172a;margin-bottom:16px">Hi ${name || 'there'},</h2>
+                <p style="color:#334155;font-size:14px;line-height:1.7;margin-bottom:16px">
+                  Your private Quantity Surveying APC Mock Interview Pilot is ready.
                 </p>
-                <ul style="color:#334155;font-size:13px;line-height:1.9;margin:16px 0;padding-left:20px">
-                  <li><strong>Pathway:</strong> Quantity Surveying</li>
-                  <li><strong>Assessment date:</strong> 14 November</li>
-                  <li><strong>Complete by:</strong> 14 November</li>
-                  <li><strong>Time:</strong> approximately 45–60 minutes</li>
-                </ul>
-                <div style="background:#f0f7ff;border:1px solid #bfdbfe;border-radius:8px;padding:14px;margin-bottom:20px">
-                  <p style="font-size:12px;font-weight:700;color:#1d4ed8;margin:0 0 4px;letter-spacing:.05em;text-transform:uppercase">Your practice credits</p>
-                  <p style="font-size:13px;color:#1e3a8a;margin:0;line-height:1.7">
-                    2 mock interview attempts &nbsp;·&nbsp; 18 Michael practice credits &nbsp;·&nbsp; 6 Think on Your Feet challenges
-                  </p>
-                </div>
-                <a href="${link}" style="display:block;background:#2563EB;color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px;text-align:center;margin-bottom:16px">
-                  Start your mock interview →
+                <p style="color:#334155;font-size:14px;line-height:1.7;margin-bottom:20px">
+                  You have access to two mock interviews until 23:59 on 14 November. Each takes around 45–60 minutes.
+                </p>
+                <p style="color:#334155;font-size:14px;line-height:1.7;margin-bottom:8px">This mock lets you practise:</p>
+                <ol style="color:#334155;font-size:14px;line-height:1.9;margin:0 0 20px;padding-left:20px">
+                  <li>What you would say.</li>
+                  <li>How you structure your answer.</li>
+                  <li>The examples and RICS references you use.</li>
+                  <li>Whether your reasoning is clear.</li>
+                  <li>How much you can cover in two to three minutes.</li>
+                </ol>
+                <p style="color:#334155;font-size:14px;line-height:1.7;margin-bottom:24px">
+                  You will type your answers in this mock. Write each response as you would say it aloud in an APC interview.
+                </p>
+                <a href="${link}" style="display:block;background:#2563EB;color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px;text-align:center;margin-bottom:24px">
+                  Enter your mock interview →
                 </a>
-                <p style="font-size:12px;color:#94a3b8;margin:0;line-height:1.6">
-                  This link is personal to you and expires on 14 November at 23:59. It does not predict your assessment outcome or replace guidance from your counsellor or supervisor.<br><br>
-                  Questions? <a href="mailto:info@getcharteredai.com" style="color:#2563EB">info@getcharteredai.com</a>
+                <p style="font-size:13px;color:#64748b;line-height:1.7;margin-bottom:20px">
+                  This is a private practice environment. It will help you identify what to strengthen, but it does not predict your assessment outcome or replace advice from your counsellor or supervisor.
+                </p>
+                <p style="font-size:13px;color:#334155;line-height:1.6;margin:0">
+                  Best,<br>
+                  Angela<br>
+                  <span style="color:#64748b">Get Chartered AI</span>
                 </p>
               </div>
             </div>
           `,
-          text: `Hi ${name || 'there'},\n\nYour APC mock interview practice session is ready.\n\nPathway: Quantity Surveying\nAssessment date: 14 November\nComplete by: 14 November\nTime: approximately 45–60 minutes per mock\n\nYour practice credits: 2 mock interview attempts, 18 Michael practice credits, 6 Think on Your Feet challenges.\n\nStart here: ${link}\n\nThis link expires on 14 November at 23:59. This does not predict your assessment outcome or replace guidance from your counsellor or supervisor.\n\nQuestions? info@getcharteredai.com`
+          text: `Hi ${name || 'there'},\n\nYour private Quantity Surveying APC Mock Interview Pilot is ready.\n\nYou have access to two mock interviews until 23:59 on 14 November. Each takes around 45–60 minutes.\n\nThis mock lets you practise:\n1. What you would say.\n2. How you structure your answer.\n3. The examples and RICS references you use.\n4. Whether your reasoning is clear.\n5. How much you can cover in two to three minutes.\n\nYou will type your answers in this mock. Write each response as you would say it aloud in an APC interview.\n\nEnter your mock interview: ${link}\n\nThis is a private practice environment. It will help you identify what to strengthen, but it does not predict your assessment outcome or replace advice from your counsellor or supervisor.\n\nBest,\nAngela\nGet Chartered AI`
         })
       });
     } catch (err) {

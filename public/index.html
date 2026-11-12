@@ -11582,6 +11582,7 @@ function _tofyShowSpeakModelAnswer() {
 .af-name{font-size:16px;font-weight:700;color:#22c55e;line-height:1.3;display:block}
 .af-tagline{font-size:11px;color:rgba(255,255,255,.55);line-height:1.3;display:block;white-space:nowrap}
 @media(max-width:480px){#alanFloat{bottom:18px;right:18px;padding:11px 16px 11px 11px}.af-mark{width:32px;height:32px;font-size:13px}.af-name{font-size:14px}}
+@media(max-width:599px){body.tms-active #alanFloat{display:none!important}}
 
 /* ── Overlay ────────────────────────────────────────────────────────── */
 #alanOverlay{position:fixed;inset:0;z-index:9000;background:rgba(13,15,28,.48);opacity:0;pointer-events:none;transition:opacity .25s}
@@ -11880,6 +11881,21 @@ function _floatShow(){
   var f=document.getElementById('alanFloat');
   if(f)f.classList.remove('af-hidden');
 }
+
+// On mobile (<600px) hide the floating guide while the Try Michael journey is in view.
+// CSS (body.tms-active #alanFloat{display:none!important}) does the actual hiding so
+// it wins even when closeAlan() calls _floatShow().
+(function(){
+  var sec=document.getElementById('try-michael-sec');
+  if(!sec||!window.IntersectionObserver)return;
+  new IntersectionObserver(function(en){
+    if(window.innerWidth>=600)return;
+    document.body.classList.toggle('tms-active',en[0].isIntersecting);
+  },{threshold:0}).observe(sec);
+  window.addEventListener('resize',function(){
+    if(window.innerWidth>=600)document.body.classList.remove('tms-active');
+  });
+})();
 
 window.openAlan=function(){
   document.getElementById('alanOverlay').classList.add('open');

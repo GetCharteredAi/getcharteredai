@@ -220,19 +220,20 @@ ${EVIDENCE_INTEGRITY_CLAUSE}
 
 ${NO_SOURCE_GENERATION_RULE}
 
-Write a first read of 50 to 70 words as a single short paragraph of plain prose.
+Write one complete, self-contained paragraph of no more than 75 words. Finish your final sentence within that limit; don't leave a thought unfinished.
 
-Start by naming something the candidate actually showed — even a small step in the right direction counts. Then give one or two specific things that would strengthen the response. Do not present a single course of action as the only correct answer; professional situations require judgement about authority, risk and context.
+Name one thing the candidate showed, then give one or two brief improvements. Do not elaborate.
 
-Where the scenario involves work proceeding outside an instruction or a potential risk concern, distinguish between the two situations: if there is immediate danger, the right response is to follow the site safety procedure and get urgent help; in all other cases, the right response is to record what was observed and promptly escalate to the person authorised to direct the work — not to approve or vary the instruction themselves, and not to assume they have authority to stop the work. Do not give an unqualified instruction to stop work as though it applies in all situations.
+If the scenario involves work proceeding without a valid instruction: when there is immediate danger, follow the site safety procedure and get help urgently. When there is no immediate danger, record what was observed and escalate to the person authorised to direct the work — do not instruct the subcontractor directly.
 
-Write in plain prose only. No headings. No bold or italic markers. No bullet points. No labels. No numbered lists.`;
+Plain prose only. No headings, bold, bullets, labels or numbered lists.`;
 }
 
-// Strip residual markdown in case the model returns formatting despite instructions.
-// Applied only to s1 replies — other stages are unchanged.
-function stripMarkdown(text) {
-  return text
+// Cleans s1 replies: strips residual markdown, then retains the last complete
+// sentence that fits within 75 words. Fallback if no sentence boundary found.
+// Applied only to s1 — other stages are unchanged.
+function cleanS1Reply(text) {
+  const t = text
     .replace(/\*\*(.+?)\*\*/gs, '$1')
     .replace(/\*(.+?)\*/gs, '$1')
     .replace(/^#{1,6}\s+/gm, '')
@@ -240,6 +241,14 @@ function stripMarkdown(text) {
     .replace(/^\d+\.\s+/gm, '')
     .replace(/\n{3,}/g, '\n\n')
     .trim();
+  const words = t.split(/\s+/);
+  if (words.length <= 75) return t;
+  // Walk back from word 75 to find the last complete sentence within the limit
+  for (let i = 75; i >= 1; i--) {
+    if (/[.!?]$/.test(words[i - 1])) return words.slice(0, i).join(' ');
+  }
+  // No sentence boundary found — return a short fallback rather than cutting mid-sentence
+  return 'Thanks for your answer. Keep practising and your responses will strengthen over time.';
 }
 
 // s2: 80-100 words, 220-token budget
@@ -476,7 +485,7 @@ exports.handler = async (event) => {
 
     try {
       const raw = await callAI(apiKey, s1System(entry, startingPoint), userMsg, 180);
-      return respond(200, { reply: stripMarkdown(raw) });
+      return respond(200, { reply: cleanS1Reply(raw) });
     } catch (e) {
       console.error('[try-michael] s1 error:', e.message);
       return respond(500, { error: 'Something went wrong. Please try again.' });

@@ -2034,206 +2034,908 @@ body.pilot-mode>nav{display:none!important}
 
 
 
-<!-- TRY MICHAEL INTERACTIVE DEMO -->
+
+<!-- MICHAEL STARTER SESSION -->
 <section id="try-michael-sec" style="background:#0D0F1C;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:64px 24px">
 <style>
-#tm-answer::placeholder,#tm-email::placeholder{color:rgba(248,250,252,.28)}
-#tm-answer:focus,#tm-email:focus{border-color:rgba(37,99,235,.55)!important;outline:none}
-#tm-pathway:focus,#tm-sitting:focus{border-color:rgba(37,99,235,.55)!important;outline:none}
-#tm-btn1:hover:not(:disabled),#tm-btn2:hover:not(:disabled),#tm-btn-reveal:hover:not(:disabled){background:#1d4ed8!important}
-#tm-btn1:disabled,#tm-btn2:disabled,#tm-btn-reveal:disabled{opacity:.6;cursor:default}
-#tm-pathway option,#tm-sitting option{background:#1a2540;color:#f8fafc}
+.tms-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:20px 22px;cursor:pointer;transition:border-color .15s,background .15s;text-align:left;width:100%}
+.tms-card:hover{background:rgba(255,255,255,.07);border-color:rgba(37,99,235,.4)}
+.tms-card.sel{border-color:#2563EB;background:rgba(37,99,235,.1)}
+.tms-card-title{font-size:14px;font-weight:700;color:#f8fafc;margin:0 0 5px}
+.tms-card-desc{font-size:13px;color:rgba(248,250,252,.55);margin:0;line-height:1.6}
+.tms-prog-step{font-size:11px;font-weight:600;letter-spacing:.06em;color:rgba(248,250,252,.3);text-transform:uppercase;transition:color .2s}
+.tms-prog-step.act{color:#60a5fa}
+.tms-inp{width:100%;padding:11px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:'Inter',sans-serif;font-size:14px;display:block;transition:border-color .15s;box-sizing:border-box}
+.tms-inp:focus{border-color:rgba(37,99,235,.55)!important;outline:none}
+.tms-inp::placeholder{color:rgba(248,250,252,.28)}
+.tms-sel{appearance:none;-webkit-appearance:none}
+.tms-sel option,.tms-sel optgroup{background:#1a2540;color:#f8fafc}
+.tms-btn{width:100%;padding:13px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s;font-family:'Inter',sans-serif}
+.tms-btn:hover:not(:disabled){background:#1d4ed8}
+.tms-btn:disabled{opacity:.6;cursor:default}
+.tms-btn-sm{padding:9px 18px;font-size:13px;border-radius:7px;border:none;background:#2563EB;color:#fff;font-weight:700;cursor:pointer;transition:background .15s;font-family:'Inter',sans-serif;white-space:nowrap}
+.tms-btn-sm:hover:not(:disabled){background:#1d4ed8}
+.tms-btn-sm:disabled{opacity:.6;cursor:default}
+.tms-lev-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+.tms-lev-table th{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,250,252,.4);padding:6px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.08)}
+.tms-lev-table td{padding:10px 10px;vertical-align:top;border-bottom:1px solid rgba(255,255,255,.05);color:rgba(248,250,252,.75);line-height:1.6}
+.tms-lev-table td:first-child{color:#60a5fa;font-weight:700;white-space:nowrap}
+.tms-lev-table td:nth-child(2){color:#f8fafc;font-weight:600;white-space:nowrap}
+.tms-answer-lock{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px 14px;font-size:13px;color:rgba(248,250,252,.5);line-height:1.65;font-style:italic}
+@media(max-width:600px){.tms-cards{grid-template-columns:1fr!important}.tms-lev-table td:nth-child(2){display:none}}
 </style>
-  <div style="max-width:680px;margin:0 auto">
 
-    <div style="text-align:center;margin-bottom:36px">
-      <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;display:block;margin-bottom:10px">Interactive Demo</span>
-      <h2 style="font-family:Inter,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Arial,sans-serif;font-size:clamp(22px,3.5vw,30px);font-weight:600;color:#fff;letter-spacing:-.03em;margin:0 0 12px">Try it yourself</h2>
-      <p style="font-size:15px;color:rgba(248,250,252,.5);line-height:1.7;margin:0;max-width:460px;margin-left:auto;margin-right:auto">Answer one professional judgement question — see how Michael assesses your reasoning, advice and communication.</p>
+<div style="max-width:720px;margin:0 auto">
+
+  <!-- Progress indicator -->
+  <div id="tms-prog" style="display:flex;align-items:center;gap:0;justify-content:center;margin-bottom:36px;flex-wrap:wrap;gap:4px">
+    <span id="tms-prog1" class="tms-prog-step act">Choose a starting point</span>
+    <span style="color:rgba(248,250,252,.2);margin:0 10px;font-size:11px">&#x2192;</span>
+    <span id="tms-prog2" class="tms-prog-step">Practise</span>
+    <span style="color:rgba(248,250,252,.2);margin:0 10px;font-size:11px">&#x2192;</span>
+    <span id="tms-prog3" class="tms-prog-step">Continue</span>
+  </div>
+
+  <!-- ======================================================= -->
+  <!-- PANEL 0: Choose starting point + pathway                -->
+  <!-- ======================================================= -->
+  <div id="tms-p0">
+
+    <div style="text-align:center;margin-bottom:32px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;display:block;margin-bottom:10px">Michael Starter Session</span>
+      <h2 style="font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:clamp(22px,3.5vw,30px);font-weight:600;color:#fff;letter-spacing:-.03em;margin:0 0 12px">Practise the judgement that work requires.</h2>
+      <p style="font-size:15px;color:rgba(248,250,252,.5);line-height:1.7;margin:0 auto;max-width:500px">Answer a short workplace situation. Michael will help you see what a stronger professional response looks like — then continue with questions matched to where you are now.</p>
     </div>
 
-    <div id="tm-reveal" style="text-align:center">
-      <button id="tm-btn-reveal" onclick="_tmReveal()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:13px 28px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s">Try a question — see how Michael would actually assess your answer →</button>
+    <p style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,250,252,.4);margin:0 0 12px">Choose a starting point</p>
+    <div class="tms-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">
+      <button class="tms-card" id="tms-c-so" onclick="_tmsSelectCard('starting-out',this)">
+        <p class="tms-card-title">Starting out at work</p>
+        <p class="tms-card-desc">Learning the role, expectations and when to ask for support.</p>
+      </button>
+      <button class="tms-card" id="tms-c-br" onclick="_tmsSelectCard('building-responsibility',this)">
+        <p class="tms-card-title">Building responsibility</p>
+        <p class="tms-card-desc">Applying knowledge, explaining decisions and taking ownership.</p>
+      </button>
+      <button class="tms-card" id="tms-c-apc" onclick="_tmsSelectCard('preparing-apc',this)">
+        <p class="tms-card-title">Preparing for APC</p>
+        <p class="tms-card-desc">Testing judgement, articulation and professional reasoning.</p>
+      </button>
     </div>
 
-    <div id="tm-question-wrap" style="display:none;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.25);border-radius:12px;padding:16px 20px;margin-bottom:20px">
-      <p style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin:0 0 8px">Your question</p>
-      <p id="tm-question-text" style="font-size:15px;color:#f8fafc;line-height:1.65;margin:0;font-style:italic"></p>
+    <!-- Company / team context (subtle — sets flag without changing journey) -->
+    <p style="text-align:center;margin-bottom:20px">
+      <button onclick="_tmsSelectCard('company-team',this)" id="tms-c-co" style="background:none;border:none;padding:0;color:rgba(248,250,252,.35);font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;transition:color .15s;text-decoration:underline;text-underline-offset:3px" onmouseover="this.style.color='rgba(248,250,252,.65)'" onmouseout="if(!this.classList.contains('sel-co'))this.style.color='rgba(248,250,252,.35)'">
+        Using this to understand what your team would experience?
+      </button>
+    </p>
+
+    <div id="tms-pathway-wrap">
+      <p style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,250,252,.4);margin:0 0 10px" id="tms-pathway-label">Select your area of work</p>
+      <select id="tms-pathway-sel" class="tms-inp tms-sel" style="margin-bottom:4px">
+        <option value="">Select…</option>
+        <option value="Building Surveying">Building surveying</option>
+        <option value="Quantity Surveying and Construction">Quantity surveying / cost management</option>
+        <option value="Valuation">Valuation or property finance</option>
+        <option value="Project Management">Project management</option>
+        <option value="Commercial Real Estate">Commercial property or real estate</option>
+        <option value="Planning and Development">Planning or development</option>
+        <option value="Residential">Residential property</option>
+        <option value="Other">Built environment / other area</option>
+      </select>
+      <p id="tms-pathway-note" style="font-size:11px;color:rgba(248,250,252,.3);margin:4px 0 0;display:none">Questions for this pathway are drawn from a representative professional scenario.</p>
     </div>
 
-    <div id="tm-input-wrap" style="display:none">
-      <textarea id="tm-answer" rows="5" placeholder="Write your answer here — be as specific as you would in the assessment room..." style="width:100%;padding:14px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#f8fafc;font-family:’Inter’,sans-serif;font-size:14px;line-height:1.65;resize:vertical;display:block;transition:border-color .15s"></textarea>
-      <div id="tm-warn" style="font-size:12px;color:#fca5a5;margin-top:6px;display:none">Please write at least a sentence before submitting.</div>
-      <button id="tm-btn1" onclick="_tmStage1()" style="margin-top:10px;width:100%;padding:13px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s">Get Michael’s read →</button>
+    <div id="tms-p0-warn" style="font-size:12px;color:#fca5a5;margin:10px 0 0;display:none">Please choose a starting point and select your area of work.</div>
+    <button class="tms-btn" onclick="_tmsBegin()" style="margin-top:16px" id="tms-begin-btn">Begin practice &#x2192;</button>
+
+  </div><!-- /tms-p0 -->
+
+  <!-- ======================================================= -->
+  <!-- PANEL 1: Q1 + answer                                    -->
+  <!-- ======================================================= -->
+  <div id="tms-p1" style="display:none">
+
+    <div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.22);border-radius:12px;padding:16px 20px;margin-bottom:20px">
+      <p style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin:0 0 8px">Your practice question</p>
+      <p id="tms-q1-text" style="font-size:15px;color:#f8fafc;line-height:1.65;margin:0"></p>
     </div>
 
-    <div id="tm-s1" style="display:none;margin-top:20px">
-      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:3px solid #2563EB;border-radius:10px;padding:20px 22px">
-        <p style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin:0 0 10px">Michael’s read</p>
-        <p id="tm-s1-text" style="font-size:15px;color:rgba(248,250,252,.85);line-height:1.75;margin:0"></p>
-      </div>
+    <p style="font-size:12px;color:rgba(248,250,252,.4);margin:0 0 8px">Write your answer as you would explain it at work — be specific about what you would do, say or record.</p>
+    <textarea id="tms-a1" rows="6" placeholder="Your answer…" class="tms-inp" style="resize:vertical"></textarea>
+    <div id="tms-a1-warn" style="font-size:12px;color:#fca5a5;margin-top:6px;display:none">Please write at least a sentence before submitting.</div>
+    <button class="tms-btn" onclick="_tmsQ1Submit()" style="margin-top:10px" id="tms-q1-btn">Get Michael's read &#x2192;</button>
+
+  </div><!-- /tms-p1 -->
+
+  <!-- ======================================================= -->
+  <!-- PANEL 2: S1 feedback + Level table + Continue CTA       -->
+  <!-- ======================================================= -->
+  <div id="tms-p2" style="display:none">
+
+    <!-- Locked question + answer -->
+    <div style="background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15);border-radius:10px;padding:14px 18px;margin-bottom:14px">
+      <p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(96,165,250,.7);margin:0 0 6px">Question</p>
+      <p id="tms-q1-lock" style="font-size:13px;color:rgba(248,250,252,.55);line-height:1.6;margin:0 0 12px"></p>
+      <p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(96,165,250,.7);margin:0 0 6px">Your answer</p>
+      <p id="tms-a1-lock" class="tms-answer-lock" style="margin:0"></p>
     </div>
 
-    <div id="tm-gate" style="display:none;margin-top:16px">
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:20px 22px">
-        <p style="font-size:15px;font-weight:700;color:rgba(248,250,252,.9);line-height:1.4;margin:0 0 6px">Want to see how Michael would take this further?</p>
-        <p style="font-size:14px;color:rgba(248,250,252,.55);line-height:1.7;margin:0 0 14px">Add a little context and we'll tailor the breakdown to your pathway and assessment stage — including what a stronger answer could look like and a realistic assessor-style follow-up.</p>
-        <input id="tm-email" type="email" placeholder="Email for your personalised breakdown" style="width:100%;padding:11px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:’Inter’,sans-serif;font-size:14px;display:block;margin-bottom:8px;transition:border-color .15s">
-        <select id="tm-pathway" style="width:100%;padding:11px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:’Inter’,sans-serif;font-size:14px;display:block;margin-bottom:8px;transition:border-color .15s;appearance:none;-webkit-appearance:none">
-          <option value="" style="color:rgba(248,250,252,.4)">Your APC pathway</option>
-          <option value="Building Control">Building Control</option>
-          <option value="Building Surveying">Building Surveying</option>
-          <option value="Commercial Real Estate">Commercial Real Estate</option>
-          <option value="Corporate Real Estate">Corporate Real Estate</option>
-          <option value="Facility Management">Facility Management</option>
-          <option value="Infrastructure">Infrastructure</option>
-          <option value="Land and Resources">Land and Resources</option>
-          <option value="Management Consultancy">Management Consultancy</option>
-          <option value="Planning and Development">Planning and Development</option>
-          <option value="Project Management">Project Management</option>
-          <option value="Property Finance and Investment">Property Finance and Investment</option>
-          <option value="Quantity Surveying and Construction">Quantity Surveying and Construction</option>
-          <option value="Residential">Residential</option>
-          <option value="Rural">Rural</option>
-          <option value="Taxation Allowances">Taxation Allowances</option>
-          <option value="Valuation">Valuation</option>
-        </select>
-        <select id="tm-sitting" style="width:100%;padding:11px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#f8fafc;font-family:’Inter’,sans-serif;font-size:14px;display:block;margin-bottom:8px;transition:border-color .15s;appearance:none;-webkit-appearance:none">
-          <option value="" style="color:rgba(248,250,252,.4)">Your assessment window</option>
+    <!-- Michael's first read -->
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:3px solid #2563EB;border-radius:10px;padding:20px 22px;margin-bottom:20px">
+      <p style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin:0 0 10px">Michael's read</p>
+      <p id="tms-s1-text" style="font-size:15px;color:rgba(248,250,252,.88);line-height:1.75;margin:0"></p>
+    </div>
+
+    <!-- Level 1/2/3 table -->
+    <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:20px 22px;margin-bottom:20px">
+      <p style="font-size:13px;font-weight:700;color:#f8fafc;margin:0 0 4px">What stronger answers show</p>
+      <p style="font-size:13px;color:rgba(248,250,252,.5);margin:0 0 12px;line-height:1.6">There is rarely one perfect response. The difference is the quality of the professional reasoning behind it.</p>
+      <table class="tms-lev-table">
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Title</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Level 1</td>
+            <td>Awareness</td>
+            <td>Recognises the issue and seeks appropriate support, but gives limited explanation of the risk, duty or next action.</td>
+          </tr>
+          <tr>
+            <td>Level 2</td>
+            <td>Reasoned action</td>
+            <td>Explains the relevant evidence, identifies the uncertainty, sets out a proportionate next step and communicates it clearly.</td>
+          </tr>
+          <tr>
+            <td>Level 3</td>
+            <td>Professional judgement</td>
+            <td>Takes ownership of a well-supported position, explains its basis, manages risk and knows when escalation is necessary.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:rgba(248,250,252,.45);margin:14px 0 0;line-height:1.65">A stronger response does not mean acting alone. It means being able to explain what you have noticed, what you know, what you need to establish and why your next step is appropriate.</p>
+    </div>
+
+    <button class="tms-btn" onclick="_tmsContinue()">Continue with Michael &#x2192;</button>
+
+  </div><!-- /tms-p2 -->
+
+  <!-- ======================================================= -->
+  <!-- PANEL 3: Capture form                                   -->
+  <!-- ======================================================= -->
+  <div id="tms-p3" style="display:none">
+
+    <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 24px">
+      <p style="font-size:16px;font-weight:700;color:#f8fafc;margin:0 0 6px">Receive your tailored next question.</p>
+      <p style="font-size:13px;color:rgba(248,250,252,.5);line-height:1.7;margin:0 0 20px">Tell us where you are in your route. Michael will take you to the next useful practice situation and provide a short reflection on what to work on next.</p>
+
+      <input id="tms-name" type="text" placeholder="First name" class="tms-inp" style="margin-bottom:8px" autocomplete="given-name">
+      <input id="tms-email" type="email" placeholder="Email address" class="tms-inp" style="margin-bottom:8px" autocomplete="email">
+
+      <select id="tms-p3-pathway" class="tms-inp tms-sel" style="margin-bottom:4px"></select>
+      <p id="tms-p3-pathway-note" style="font-size:11px;color:rgba(248,250,252,.3);margin:0 0 8px;display:none">Questions for this pathway are drawn from a representative professional scenario.</p>
+
+      <!-- Assessment date — only shown for APC -->
+      <div id="tms-date-wrap" style="display:none;margin-bottom:8px">
+        <select id="tms-date" class="tms-inp tms-sel">
+          <option value="">Assessment window (optional)</option>
           <option value="Under 3 months">Under 3 months</option>
-          <option value="3–6 months">3–6 months</option>
-          <option value="6–12 months">6–12 months</option>
-          <option value="12–18 months">12–18 months</option>
+          <option value="3-6 months">3-6 months</option>
+          <option value="6-12 months">6-12 months</option>
+          <option value="12-18 months">12-18 months</option>
           <option value="More than 18 months">More than 18 months</option>
         </select>
-        <div id="tm-gate-warn" style="font-size:12px;color:#fca5a5;margin-bottom:8px;display:none">Please complete all fields above.</div>
-        <button id="tm-btn2" onclick="_tmStage2()" style="width:100%;padding:13px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s">Show me the full breakdown →</button>
-        <p style="font-size:12px;color:rgba(248,250,252,.35);margin:10px 0 0;text-align:center">We'll only use these details to personalise and send your result.</p>
+      </div>
+
+      <p style="font-size:12px;color:rgba(248,250,252,.4);line-height:1.6;margin:8px 0 10px">We'll send a confirmation of this session to your email address.</p>
+
+      <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:16px">
+        <input type="checkbox" id="tms-marketing" style="margin-top:3px;flex-shrink:0;accent-color:#2563EB">
+        <span style="font-size:12px;color:rgba(248,250,252,.45);line-height:1.6">Keep me updated on APC resources and practice tools from Get Chartered AI. You can unsubscribe at any time.</span>
+      </label>
+
+      <div id="tms-p3-warn" style="font-size:12px;color:#fca5a5;margin-bottom:10px;display:none">Please complete your name, email address and pathway before continuing.</div>
+
+      <button class="tms-btn" onclick="_tmsCapture()" id="tms-cap-btn">Continue with Michael &#x2192;</button>
+
+      <!-- Error shown only after a failed API call, not for field validation -->
+      <div id="tms-cap-err" style="display:none;margin-top:12px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:12px 14px">
+        <p id="tms-cap-err-text" style="font-size:13px;color:#fca5a5;margin:0 0 8px"></p>
+        <button class="tms-btn-sm" onclick="_tmsCapture()">Try again</button>
       </div>
     </div>
 
-    <div id="tm-s2" style="display:none;margin-top:16px">
-      <div style="background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.2);border-left:3px solid #f59e0b;border-radius:10px;padding:20px 22px">
-        <p style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fcd34d;margin:0 0 10px">Assessor Mode — Full Breakdown</p>
-        <div id="tm-s2-text" style="font-size:15px;color:rgba(248,250,252,.85);line-height:1.75;white-space:pre-line"></div>
-      </div>
+  </div><!-- /tms-p3 -->
+
+  <!-- ======================================================= -->
+  <!-- PANEL 4: Email confirmation bar + Q2 + answer           -->
+  <!-- ======================================================= -->
+  <div id="tms-p4" style="display:none">
+
+    <!-- Email confirmation bar -->
+    <div id="tms-email-ok" style="display:none;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);border-radius:8px;padding:11px 16px;margin-bottom:20px;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <p style="font-size:13px;color:rgba(248,250,252,.7);margin:0">Session saved. Confirmation sent to <strong id="tms-conf-email"></strong>.</p>
+      <button class="tms-btn-sm" onclick="_tmsResend()" id="tms-resend-btn">Resend</button>
+    </div>
+    <div id="tms-email-fail" style="display:none;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);border-radius:8px;padding:11px 16px;margin-bottom:20px;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <p style="font-size:13px;color:#fca5a5;margin:0">We couldn't send the confirmation to <strong id="tms-conf-email2"></strong>.</p>
+      <button class="tms-btn-sm" onclick="_tmsResend()" id="tms-resend-btn2">Try again</button>
     </div>
 
-    <div id="tm-err" style="display:none;margin-top:14px;text-align:center">
-      <p id="tm-err-text" style="font-size:14px;color:#fca5a5;margin:0"></p>
+    <!-- Q2 -->
+    <div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.22);border-radius:12px;padding:16px 20px;margin-bottom:20px">
+      <p style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin:0 0 8px">Your next practice question</p>
+      <p id="tms-q2-text" style="font-size:15px;color:#f8fafc;line-height:1.65;margin:0"></p>
     </div>
 
-    <div id="tm-cta" style="display:none;margin-top:24px;text-align:center;padding:24px;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:12px">
-      <p style="font-size:14px;color:rgba(248,250,252,.55);margin:0 0 14px">Ready to prepare properly?</p>
-      <a href="/pricing" style="display:inline-block;background:#2563EB;color:#fff;padding:12px 32px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none">See pricing →</a>
+    <p style="font-size:12px;color:rgba(248,250,252,.4);margin:0 0 8px">Write your answer as you would at work.</p>
+    <textarea id="tms-a2" rows="6" placeholder="Your answer…" class="tms-inp" style="resize:vertical"></textarea>
+    <div id="tms-a2-warn" style="font-size:12px;color:#fca5a5;margin-top:6px;display:none">Please write at least a sentence before submitting.</div>
+    <button class="tms-btn" onclick="_tmsQ2Submit()" style="margin-top:10px" id="tms-q2-btn">Get Michael's read &#x2192;</button>
+
+  </div><!-- /tms-p4 -->
+
+  <!-- ======================================================= -->
+  <!-- PANEL 5: S2 feedback + Ask Michael CTA                  -->
+  <!-- ======================================================= -->
+  <div id="tms-p5" style="display:none">
+
+    <!-- Locked Q2 + answer -->
+    <div style="background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15);border-radius:10px;padding:14px 18px;margin-bottom:14px">
+      <p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(96,165,250,.7);margin:0 0 6px">Question</p>
+      <p id="tms-q2-lock" style="font-size:13px;color:rgba(248,250,252,.55);line-height:1.6;margin:0 0 12px"></p>
+      <p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(96,165,250,.7);margin:0 0 6px">Your answer</p>
+      <p id="tms-a2-lock" class="tms-answer-lock" style="margin:0"></p>
     </div>
 
+    <!-- Michael's S2 feedback -->
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:3px solid #2563EB;border-radius:10px;padding:20px 22px;margin-bottom:20px">
+      <p style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin:0 0 10px">Michael's read</p>
+      <p id="tms-s2-text" style="font-size:15px;color:rgba(248,250,252,.88);line-height:1.75;margin:0"></p>
+    </div>
+
+    <div id="tms-ask-block" style="background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.18);border-radius:10px;padding:18px 20px">
+      <p style="font-size:14px;font-weight:600;color:#f8fafc;margin:0 0 6px">Ask Michael a question</p>
+      <p style="font-size:13px;color:rgba(248,250,252,.5);line-height:1.6;margin:0 0 14px">You have one free-text question in this session. Ask anything about your practice, your pathway or how to strengthen your responses.</p>
+      <button class="tms-btn-sm" onclick="_tmsAskMichael()">Ask Michael &#x2192;</button>
+    </div>
+
+  </div><!-- /tms-p5 -->
+
+  <!-- ======================================================= -->
+  <!-- PANEL 6: Free-text question input                       -->
+  <!-- ======================================================= -->
+  <div id="tms-p6" style="display:none">
+
+    <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:24px 22px">
+      <p style="font-size:14px;font-weight:700;color:#f8fafc;margin:0 0 6px">Ask Michael anything</p>
+      <p style="font-size:13px;color:rgba(248,250,252,.5);line-height:1.6;margin:0 0 16px">Ask about your practice, your pathway, or how to strengthen a specific response. One question per session.</p>
+      <textarea id="tms-ft-q" rows="4" placeholder="Type your question…" class="tms-inp" style="resize:vertical;margin-bottom:6px" oninput="_tmsFtCount(this)"></textarea>
+      <p id="tms-ft-count" style="font-size:11px;color:rgba(248,250,252,.3);text-align:right;margin:0 0 10px">0 / 600</p>
+      <div id="tms-ft-warn" style="font-size:12px;color:#fca5a5;margin-bottom:8px;display:none">Please write your question before submitting.</div>
+      <button class="tms-btn" onclick="_tmsFreetextSubmit()" id="tms-ft-btn">Ask &#x2192;</button>
+    </div>
+
+  </div><!-- /tms-p6 -->
+
+  <!-- ======================================================= -->
+  <!-- PANEL 7: Free-text response + end-state CTAs            -->
+  <!-- ======================================================= -->
+  <div id="tms-p7" style="display:none">
+
+    <!-- Michael's freetext response -->
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:3px solid #2563EB;border-radius:10px;padding:20px 22px;margin-bottom:28px">
+      <p style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin:0 0 10px">Michael</p>
+      <p id="tms-ft-reply" style="font-size:15px;color:rgba(248,250,252,.88);line-height:1.75;margin:0"></p>
+    </div>
+
+    <!-- End-state CTAs — rendered by JS based on starting point -->
+    <div id="tms-end-ctas"></div>
+
+  </div><!-- /tms-p7 -->
+
+  <!-- Global error (network / rate limit) -->
+  <div id="tms-err" style="display:none;margin-top:16px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:14px 16px">
+    <p id="tms-err-text" style="font-size:14px;color:#fca5a5;margin:0"></p>
   </div>
+
+</div><!-- /max-width wrapper -->
 </section>
 
 <script>
-var _tmQIdx = -1;
+var TMS = {
+  startingPoint: '',
+  pathway: '',
+  companyReferral: false,
+  qKey: '',
+  q2Key: '',
+  sessionToken: '',
+  answer1: '',
+  answer2: '',
+  freetextUsed: false
+};
 
-async function _tmReveal() {
-  var btn = document.getElementById('tm-btn-reveal');
+// ---------------------------------------------------------------------------
+// UI helpers
+// ---------------------------------------------------------------------------
+
+function _tmsShow(id) {
+  ['tms-p0','tms-p1','tms-p2','tms-p3','tms-p4','tms-p5','tms-p6','tms-p7'].forEach(function(p) {
+    document.getElementById(p).style.display = p === id ? 'block' : 'none';
+  });
+  _tmsClearErr();
+}
+
+function _tmsProgress(step) {
+  document.getElementById('tms-prog1').classList.toggle('act', step === 1);
+  document.getElementById('tms-prog2').classList.toggle('act', step === 2);
+  document.getElementById('tms-prog3').classList.toggle('act', step === 3);
+}
+
+function _tmsScrollTo(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function _tmsGlobalErr(msg) {
+  var el = document.getElementById('tms-err');
+  document.getElementById('tms-err-text').textContent = msg;
+  el.style.display = 'block';
+  _tmsScrollTo('tms-err');
+}
+
+function _tmsClearErr() {
+  document.getElementById('tms-err').style.display = 'none';
+}
+
+// ---------------------------------------------------------------------------
+// Pathway selector — different options by starting point
+// ---------------------------------------------------------------------------
+
+var TMS_PATHWAY_OPTS_GENERAL = [
+  ['Building Surveying',                 'Building surveying'],
+  ['Quantity Surveying and Construction','Quantity surveying / cost management'],
+  ['Valuation',                          'Valuation or property finance'],
+  ['Project Management',                 'Project management'],
+  ['Commercial Real Estate',             'Commercial property or real estate'],
+  ['Planning and Development',           'Planning or development'],
+  ['Residential',                        'Residential property'],
+  ['Other',                              'Built environment / other area']
+];
+
+var TMS_SPECIFIC = ['Building Surveying','Quantity Surveying and Construction','Valuation','Project Management','Commercial Real Estate','Planning and Development','Residential'];
+var TMS_REPRESENTATIVE = ['Building Control','Corporate Real Estate','Facility Management','Infrastructure','Land and Resources','Management Consultancy','Property Finance and Investment','Rural','Taxation Allowances'];
+
+function _tmsSetPathwayOpts(selId, sp, preselect) {
+  var sel = document.getElementById(selId);
+  sel.innerHTML = '';
+  var blank = document.createElement('option');
+  blank.value = '';
+  blank.textContent = sp === 'preparing-apc' ? 'Select your APC pathway' : 'Select your area of work';
+  sel.appendChild(blank);
+
+  if (sp === 'preparing-apc') {
+    var g1 = document.createElement('optgroup');
+    g1.label = 'Pathway-specific questions';
+    TMS_SPECIFIC.forEach(function(p) {
+      var o = document.createElement('option');
+      o.value = p; o.textContent = p;
+      g1.appendChild(o);
+    });
+    sel.appendChild(g1);
+    var g2 = document.createElement('optgroup');
+    g2.label = 'Representative professional scenario';
+    TMS_REPRESENTATIVE.forEach(function(p) {
+      var o = document.createElement('option');
+      o.value = p; o.textContent = p;
+      g2.appendChild(o);
+    });
+    sel.appendChild(g2);
+  } else {
+    TMS_PATHWAY_OPTS_GENERAL.forEach(function(pair) {
+      var o = document.createElement('option');
+      o.value = pair[0]; o.textContent = pair[1];
+      sel.appendChild(o);
+    });
+  }
+
+  if (preselect) sel.value = preselect;
+}
+
+function _tmsPathwayNoteVisible(val, noteId) {
+  var isRep = TMS_REPRESENTATIVE.indexOf(val) !== -1 || val === 'Other';
+  document.getElementById(noteId).style.display = isRep ? 'block' : 'none';
+}
+
+// ---------------------------------------------------------------------------
+// Step 0: Choose starting point + pathway
+// ---------------------------------------------------------------------------
+
+function _tmsSelectCard(sp, el) {
+  ['tms-c-so','tms-c-br','tms-c-apc'].forEach(function(id) {
+    document.getElementById(id).classList.remove('sel');
+  });
+  var coBtn = document.getElementById('tms-c-co');
+
+  if (sp === 'company-team') {
+    // Toggle company flag without changing the main starting point card
+    var alreadyOn = coBtn.classList.contains('sel-co');
+    if (alreadyOn) {
+      coBtn.classList.remove('sel-co');
+      coBtn.style.color = 'rgba(248,250,252,.35)';
+      TMS.companyReferral = false;
+    } else {
+      coBtn.classList.add('sel-co');
+      coBtn.style.color = 'rgba(96,165,250,.9)';
+      TMS.companyReferral = true;
+      // Default to building-responsibility if nothing chosen yet
+      if (!TMS.startingPoint) {
+        document.getElementById('tms-c-br').classList.add('sel');
+        TMS.startingPoint = 'building-responsibility';
+        _tmsSetPathwayOpts('tms-pathway-sel', 'building-responsibility', '');
+        document.getElementById('tms-pathway-label').textContent = 'Select your area of work';
+      }
+    }
+    return;
+  }
+
+  TMS.startingPoint = sp;
+  el.classList.add('sel');
+  _tmsSetPathwayOpts('tms-pathway-sel', sp, '');
+  document.getElementById('tms-pathway-label').textContent = sp === 'preparing-apc' ? 'Select your APC pathway' : 'Select your area of work';
+  document.getElementById('tms-pathway-note').style.display = 'none';
+}
+
+document.getElementById('tms-pathway-sel').addEventListener('change', function() {
+  _tmsPathwayNoteVisible(this.value, 'tms-pathway-note');
+});
+
+async function _tmsBegin() {
+  if (!TMS.startingPoint || !document.getElementById('tms-pathway-sel').value) {
+    document.getElementById('tms-p0-warn').style.display = 'block';
+    return;
+  }
+  document.getElementById('tms-p0-warn').style.display = 'none';
+  TMS.pathway = document.getElementById('tms-pathway-sel').value;
+
+  var btn = document.getElementById('tms-begin-btn');
   btn.textContent = 'Loading…';
   btn.disabled = true;
-  document.getElementById('tm-err').style.display = 'none';
+
   try {
     var res = await fetch('/.netlify/functions/try-michael', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ stage: 'question' })
+      body: JSON.stringify({ stage: 'q1', startingPoint: TMS.startingPoint, pathway: TMS.pathway })
     });
     var data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
-    _tmQIdx = data.questionIndex;
-    document.getElementById('tm-question-text').textContent = '"' + data.question + '"';
-    document.getElementById('tm-reveal').style.display = 'none';
-    document.getElementById('tm-question-wrap').style.display = 'block';
-    document.getElementById('tm-input-wrap').style.display = 'block';
+    TMS.qKey = data.qKey;
+    document.getElementById('tms-q1-text').textContent = data.question;
+    _tmsShow('tms-p1');
+    _tmsProgress(2);
+    _tmsScrollTo('tms-p1');
   } catch(e) {
-    document.getElementById('tm-err-text').textContent = e.message;
-    document.getElementById('tm-err').style.display = 'block';
-    btn.textContent = 'Try a question — see how Michael would actually assess your answer →';
+    _tmsGlobalErr(e.message);
+  } finally {
+    btn.textContent = 'Begin practice →';
     btn.disabled = false;
   }
 }
 
-async function _tmStage1() {
-  var answer = document.getElementById('tm-answer').value.trim();
-  if (answer.length < 20) {
-    document.getElementById('tm-warn').style.display = 'block';
+// ---------------------------------------------------------------------------
+// Step 1: Q1 submit
+// ---------------------------------------------------------------------------
+
+async function _tmsQ1Submit() {
+  var answer = document.getElementById('tms-a1').value.trim();
+  if (answer.length < 15) {
+    document.getElementById('tms-a1-warn').style.display = 'block';
     return;
   }
-  document.getElementById('tm-warn').style.display = 'none';
-  document.getElementById('tm-err').style.display = 'none';
-  var btn = document.getElementById('tm-btn1');
+  document.getElementById('tms-a1-warn').style.display = 'none';
+  TMS.answer1 = answer;
+
+  var btn = document.getElementById('tms-q1-btn');
   btn.textContent = 'Reading your answer…';
   btn.disabled = true;
-  document.getElementById('tm-answer').disabled = true;
+  document.getElementById('tms-a1').disabled = true;
+
   try {
     var res = await fetch('/.netlify/functions/try-michael', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ stage: 1, answer: answer, questionIndex: _tmQIdx })
+      body: JSON.stringify({ stage: 's1', qKey: TMS.qKey, answer: answer, startingPoint: TMS.startingPoint })
     });
     var data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
-    document.getElementById('tm-s1-text').textContent = data.reply;
-    document.getElementById('tm-s1').style.display = 'block';
-    document.getElementById('tm-gate').style.display = 'block';
-    btn.style.display = 'none';
-    document.getElementById('tm-s1').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // Populate locked Q + answer in panel 2
+    document.getElementById('tms-q1-lock').textContent = document.getElementById('tms-q1-text').textContent;
+    document.getElementById('tms-a1-lock').textContent = answer;
+    document.getElementById('tms-s1-text').textContent = data.reply;
+
+    _tmsShow('tms-p2');
+    _tmsProgress(2);
+    _tmsScrollTo('tms-p2');
   } catch(e) {
-    document.getElementById('tm-err-text').textContent = e.message;
-    document.getElementById('tm-err').style.display = 'block';
+    _tmsGlobalErr(e.message);
     btn.textContent = "Get Michael's read →";
     btn.disabled = false;
-    document.getElementById('tm-answer').disabled = false;
+    document.getElementById('tms-a1').disabled = false;
   }
 }
 
-async function _tmStage2() {
-  var email = document.getElementById('tm-email').value.trim();
-  var pathway = document.getElementById('tm-pathway').value;
-  var sitting = document.getElementById('tm-sitting').value;
-  if (!email || !email.includes('@') || !pathway || !sitting) {
-    document.getElementById('tm-gate-warn').style.display = 'block';
+// ---------------------------------------------------------------------------
+// Step 2: Continue to capture form
+// ---------------------------------------------------------------------------
+
+function _tmsContinue() {
+  // Pre-fill pathway in capture form with same options as step 0
+  _tmsSetPathwayOpts('tms-p3-pathway', TMS.startingPoint, TMS.pathway);
+  document.getElementById('tms-date-wrap').style.display = TMS.startingPoint === 'preparing-apc' ? 'block' : 'none';
+  document.getElementById('tms-p3-pathway-note').style.display = 'none';
+  _tmsShow('tms-p3');
+  _tmsProgress(2);
+  _tmsScrollTo('tms-p3');
+}
+
+document.getElementById('tms-p3-pathway').addEventListener('change', function() {
+  _tmsPathwayNoteVisible(this.value, 'tms-p3-pathway-note');
+});
+
+// ---------------------------------------------------------------------------
+// Step 3: Capture form submit
+// ---------------------------------------------------------------------------
+
+async function _tmsCapture() {
+  var name     = document.getElementById('tms-name').value.trim();
+  var email    = document.getElementById('tms-email').value.trim();
+  var pathway  = document.getElementById('tms-p3-pathway').value;
+  var date     = document.getElementById('tms-date').value;
+  var marketing = document.getElementById('tms-marketing').checked;
+
+  document.getElementById('tms-cap-err').style.display = 'none';
+
+  if (!name || !email || !email.includes('@') || !pathway) {
+    document.getElementById('tms-p3-warn').style.display = 'block';
     return;
   }
-  document.getElementById('tm-gate-warn').style.display = 'none';
-  document.getElementById('tm-err').style.display = 'none';
-  var answer = document.getElementById('tm-answer').value.trim();
-  var btn = document.getElementById('tm-btn2');
-  btn.textContent = 'Loading full breakdown…';
+  document.getElementById('tms-p3-warn').style.display = 'none';
+
+  var btn = document.getElementById('tms-cap-btn');
+  btn.textContent = 'Saving…';
   btn.disabled = true;
-  document.getElementById('tm-email').disabled = true;
-  document.getElementById('tm-pathway').disabled = true;
-  document.getElementById('tm-sitting').disabled = true;
+
   try {
     var res = await fetch('/.netlify/functions/try-michael', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ stage: 2, answer: answer, questionIndex: _tmQIdx, email: email, pathway: pathway, sittingWindow: sitting })
+      body: JSON.stringify({
+        stage: 'capture',
+        name: name, email: email,
+        pathway: pathway,
+        startingPoint: TMS.startingPoint,
+        qKey: TMS.qKey,
+        assessmentDate: date,
+        consentMarketing: marketing,
+        companyReferral: TMS.companyReferral
+      })
     });
     var data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
-    document.getElementById('tm-gate').style.display = 'none';
-    document.getElementById('tm-s2-text').textContent = data.reply;
-    document.getElementById('tm-s2').style.display = 'block';
-    document.getElementById('tm-cta').style.display = 'block';
-    document.getElementById('tm-s2').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    TMS.sessionToken = data.sessionToken;
+    TMS.q2Key = data.q2Key;
+    if (data.companyReferral) TMS.companyReferral = true;
+
+    // Populate Q2 panel
+    document.getElementById('tms-q2-text').textContent = data.q2;
+    document.getElementById('tms-conf-email').textContent = data.email;
+    document.getElementById('tms-conf-email2').textContent = data.email;
+
+    _tmsShow('tms-p4');
+    _tmsProgress(3);
+
+    // Show email status
+    if (data.emailSent) {
+      document.getElementById('tms-email-ok').style.display = 'flex';
+      document.getElementById('tms-email-fail').style.display = 'none';
+    } else {
+      document.getElementById('tms-email-ok').style.display = 'none';
+      document.getElementById('tms-email-fail').style.display = 'flex';
+    }
+
+    _tmsScrollTo('tms-p4');
   } catch(e) {
-    document.getElementById('tm-err-text').textContent = e.message;
-    document.getElementById('tm-err').style.display = 'block';
-    btn.textContent = 'Show me the full breakdown →';
+    document.getElementById('tms-cap-err-text').textContent = e.message;
+    document.getElementById('tms-cap-err').style.display = 'block';
+    _tmsScrollTo('tms-cap-err');
+  } finally {
+    btn.textContent = 'Continue with Michael →';
     btn.disabled = false;
-    document.getElementById('tm-email').disabled = false;
-    document.getElementById('tm-pathway').disabled = false;
-    document.getElementById('tm-sitting').disabled = false;
   }
 }
+
+// ---------------------------------------------------------------------------
+// Resend confirmation email
+// ---------------------------------------------------------------------------
+
+async function _tmsResend() {
+  var btn1 = document.getElementById('tms-resend-btn');
+  var btn2 = document.getElementById('tms-resend-btn2');
+  [btn1, btn2].forEach(function(b) { b.textContent = 'Sending…'; b.disabled = true; });
+
+  try {
+    var res = await fetch('/.netlify/functions/try-michael', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ stage: 'resend', sessionToken: TMS.sessionToken })
+    });
+    var data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Could not resend. Please try again.');
+
+    if (data.emailSent) {
+      document.getElementById('tms-email-ok').style.display = 'flex';
+      document.getElementById('tms-email-fail').style.display = 'none';
+      btn1.textContent = 'Sent';
+    } else {
+      document.getElementById('tms-email-ok').style.display = 'none';
+      document.getElementById('tms-email-fail').style.display = 'flex';
+      btn2.textContent = 'Try again';
+      btn2.disabled = false;
+    }
+  } catch(e) {
+    btn2.textContent = 'Try again';
+    btn2.disabled = false;
+    btn1.textContent = 'Resend';
+    btn1.disabled = false;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Step 4: Q2 submit
+// ---------------------------------------------------------------------------
+
+async function _tmsQ2Submit() {
+  var answer = document.getElementById('tms-a2').value.trim();
+  if (answer.length < 15) {
+    document.getElementById('tms-a2-warn').style.display = 'block';
+    return;
+  }
+  document.getElementById('tms-a2-warn').style.display = 'none';
+  TMS.answer2 = answer;
+
+  var btn = document.getElementById('tms-q2-btn');
+  btn.textContent = 'Reading your answer…';
+  btn.disabled = true;
+  document.getElementById('tms-a2').disabled = true;
+
+  try {
+    var res = await fetch('/.netlify/functions/try-michael', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ stage: 's2', sessionToken: TMS.sessionToken, answer: answer })
+    });
+    var data = await res.json();
+    if (!res.ok) {
+      if (res.status === 410 || res.status === 401) {
+        _tmsSessionExpired(data.error);
+        return;
+      }
+      throw new Error(data.error || 'Something went wrong. Please try again.');
+    }
+
+    document.getElementById('tms-q2-lock').textContent = document.getElementById('tms-q2-text').textContent;
+    document.getElementById('tms-a2-lock').textContent = answer;
+    document.getElementById('tms-s2-text').textContent = data.reply;
+
+    _tmsShow('tms-p5');
+    _tmsProgress(3);
+    document.getElementById('tms-ask-block').style.display = TMS.freetextUsed ? 'none' : 'block';
+    _tmsScrollTo('tms-p5');
+  } catch(e) {
+    _tmsGlobalErr(e.message);
+    btn.textContent = "Get Michael's read →";
+    btn.disabled = false;
+    document.getElementById('tms-a2').disabled = false;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Step 5: Reveal free-text panel
+// ---------------------------------------------------------------------------
+
+function _tmsAskMichael() {
+  _tmsShow('tms-p6');
+  _tmsProgress(3);
+  _tmsScrollTo('tms-p6');
+}
+
+function _tmsFtCount(ta) {
+  document.getElementById('tms-ft-count').textContent = ta.value.length + ' / 600';
+  if (ta.value.length > 600) ta.value = ta.value.slice(0, 600);
+}
+
+// ---------------------------------------------------------------------------
+// Step 6: Free-text submit
+// ---------------------------------------------------------------------------
+
+async function _tmsFreetextSubmit() {
+  var question = document.getElementById('tms-ft-q').value.trim();
+  if (question.length < 5) {
+    document.getElementById('tms-ft-warn').style.display = 'block';
+    return;
+  }
+  document.getElementById('tms-ft-warn').style.display = 'none';
+
+  var btn = document.getElementById('tms-ft-btn');
+  btn.textContent = 'Asking Michael…';
+  btn.disabled = true;
+  document.getElementById('tms-ft-q').disabled = true;
+
+  try {
+    var res = await fetch('/.netlify/functions/try-michael', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ stage: 'freetext', sessionToken: TMS.sessionToken, question: question })
+    });
+    var data = await res.json();
+    if (!res.ok) {
+      if (res.status === 410 || res.status === 401) {
+        _tmsSessionExpired(data.error);
+        return;
+      }
+      throw new Error(data.error || 'Something went wrong. Please try again.');
+    }
+
+    document.getElementById('tms-ft-reply').textContent = data.reply;
+    if (data.startingPoint) TMS.startingPoint = data.startingPoint;
+    if (data.companyReferral !== undefined) TMS.companyReferral = data.companyReferral;
+
+    _tmsRenderEndCtas();
+    _tmsShow('tms-p7');
+    _tmsProgress(3);
+    _tmsScrollTo('tms-p7');
+  } catch(e) {
+    _tmsGlobalErr(e.message);
+    btn.textContent = 'Ask →';
+    btn.disabled = false;
+    document.getElementById('tms-ft-q').disabled = false;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// End-state CTAs — rendered based on starting point + company referral
+// ---------------------------------------------------------------------------
+
+function _tmsRenderEndCtas() {
+  var sp = TMS.startingPoint;
+  var co = TMS.companyReferral;
+  var html = '<p style="font-size:16px;font-weight:700;color:#f8fafc;margin:0 0 16px">What to do next</p>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:20px">';
+
+  if (co) {
+    html += _tmsCta('#2563EB','See how companies support their teams','Explore how Get Chartered AI works for employers and L&amp;D leads.','/employer','Explore employer options →');
+    html += _tmsCta('rgba(255,255,255,.06)','Share Professional Readiness','Send the Professional Readiness Check-In to your team.','/professional-readiness-benchmark','Share with your team →','rgba(255,255,255,.08)','rgba(248,250,252,.7)');
+  } else if (sp === 'preparing-apc') {
+    html += _tmsCta('#2563EB','Explore the APC Programme','12 modules, all 22 pathways, and Michael practising with you throughout.','/programme','Explore the programme →');
+    html += _tmsCta('rgba(255,255,255,.06)','Prepare with the APC Sprint','If your assessment is approaching, the Sprint gives you fast-track access and a full mock.','/sprint','See the Sprint →','rgba(255,255,255,.08)','rgba(248,250,252,.7)');
+  } else {
+    html += _tmsCta('#2563EB','Join the Professional Readiness Check-In','A short benchmark that shows where your professional thinking is now — and what to build next.','/professional-readiness-benchmark','Start the check-in →');
+    html += _tmsCta('rgba(255,255,255,.06)','Continue building readiness','See all the ways to prepare for the professional journey ahead.','/programme','Explore programmes →','rgba(255,255,255,.08)','rgba(248,250,252,.7)');
+  }
+
+  html += '</div>';
+  html += '<p style="text-align:center;margin:0"><a href="/pricing" style="font-size:12px;color:rgba(248,250,252,.35);text-decoration:underline;text-underline-offset:3px">See pricing and all programmes</a></p>';
+
+  document.getElementById('tms-end-ctas').innerHTML = html;
+}
+
+function _tmsCta(bg, title, desc, url, label, border, color) {
+  border = border || 'transparent';
+  color = color || '#fff';
+  return '<a href="' + url + '" style="display:block;background:' + bg + ';border:1px solid ' + border + ';border-radius:12px;padding:20px;text-decoration:none">'
+    + '<p style="font-size:14px;font-weight:700;color:' + color + ';margin:0 0 6px">' + title + '</p>'
+    + '<p style="font-size:13px;color:rgba(248,250,252,.5);line-height:1.6;margin:0 0 14px">' + desc + '</p>'
+    + '<span style="font-size:13px;font-weight:700;color:' + color + '">' + label + '</span>'
+    + '</a>';
+}
+
+// ---------------------------------------------------------------------------
+// Session expired / not found
+// ---------------------------------------------------------------------------
+
+function _tmsSessionExpired(msg) {
+  var errEl = document.getElementById('tms-err');
+  document.getElementById('tms-err-text').textContent = (msg || 'Your session has expired.') + ' Start a new practice session below.';
+  // Remove any previously appended reset buttons before adding a fresh one
+  Array.from(errEl.querySelectorAll('.tms-btn-sm')).forEach(function(b) { b.remove(); });
+  errEl.style.display = 'block';
+  var resetBtn = document.createElement('button');
+  resetBtn.className = 'tms-btn-sm';
+  resetBtn.textContent = 'Start again';
+  resetBtn.style.marginTop = '10px';
+  resetBtn.onclick = _tmsReset;
+  errEl.appendChild(resetBtn);
+}
+
+function _tmsReset() {
+  TMS = { startingPoint:'', pathway:'', companyReferral:false, qKey:'', q2Key:'', sessionToken:'', answer1:'', answer2:'', freetextUsed:false };
+  ['tms-c-so','tms-c-br','tms-c-apc'].forEach(function(id) { document.getElementById(id).classList.remove('sel'); });
+  var co = document.getElementById('tms-c-co');
+  co.classList.remove('sel-co');
+  co.style.color = 'rgba(248,250,252,.35)';
+  document.getElementById('tms-pathway-sel').value = '';
+  _tmsSetPathwayOpts('tms-pathway-sel', '', '');
+  _tmsShow('tms-p0');
+  _tmsProgress(1);
+  document.getElementById('tms-p0').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ---------------------------------------------------------------------------
+// On-load session resume from email link (#try-michael-sec?resume=TOKEN)
+// The token lives in the fragment so it is never sent to the server in
+// HTTP requests or Referer headers.
+// ---------------------------------------------------------------------------
+(function() {
+  var hash = window.location.hash; // e.g. '#try-michael-sec?resume=abc123'
+  var m = hash.match(/[?&]resume=([^&]*)/);
+  if (!m) return;
+  var resumeToken = decodeURIComponent(m[1]);
+
+  // Strip the token from the address bar immediately — keep the section anchor
+  history.replaceState(null, '', window.location.pathname + '#try-michael-sec');
+
+  var beginBtn = document.getElementById('tms-begin-btn');
+  beginBtn.textContent = 'Resuming your session…';
+  beginBtn.disabled = true;
+
+  fetch('/.netlify/functions/try-michael', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ stage: 'resume', sessionToken: resumeToken })
+  })
+  .then(function(res) {
+    return res.json().then(function(data) { return { ok: res.ok, status: res.status, data: data }; });
+  })
+  .then(function(r) {
+    beginBtn.textContent = 'Begin practice →';
+    beginBtn.disabled = false;
+
+    if (!r.ok) {
+      _tmsGlobalErr(r.data.error || 'Could not resume your session. Please start a new one.');
+      return;
+    }
+
+    var d = r.data;
+    TMS.sessionToken   = resumeToken;
+    TMS.q2Key          = d.q2Key;
+    TMS.startingPoint  = d.startingPoint;
+    TMS.pathway        = d.pathway;
+    TMS.companyReferral = d.companyReferral || false;
+    TMS.freetextUsed   = d.freetextUsed || false;
+
+    document.getElementById('tms-q2-text').textContent = d.q2;
+
+    // Email confirmation bars: session was already processed — hide both
+    document.getElementById('tms-email-ok').style.display   = 'none';
+    document.getElementById('tms-email-fail').style.display = 'none';
+
+    _tmsShow('tms-p4');
+    _tmsProgress(3);
+    document.getElementById('try-michael-sec').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  })
+  .catch(function() {
+    beginBtn.textContent = 'Begin practice →';
+    beginBtn.disabled = false;
+    _tmsGlobalErr('Could not resume your session. Please start a new one.');
+  });
+})();
 </script>
 
 

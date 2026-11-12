@@ -249,6 +249,42 @@ function cleanS1Reply(text) {
   return 'Thanks for your answer. Keep practising and your responses will strengthen over time.';
 }
 
+// Backstop for s2: strips residual markdown, retains last complete sentence at or below 100 words.
+function cleanS2Reply(text) {
+  const t = text
+    .replace(/\*\*(.+?)\*\*/gs, '$1')
+    .replace(/\*(.+?)\*/gs, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/^[-*+]\s+/gm, '')
+    .replace(/^\d+\.\s+/gm, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+  const words = t.split(/\s+/);
+  if (words.length <= 100) return t;
+  for (let i = 100; i >= 1; i--) {
+    if (/[.!?]$/.test(words[i - 1])) return words.slice(0, i).join(' ');
+  }
+  return 'Your answer shows real development. Keep building on that for your next attempt.';
+}
+
+// Backstop for freetext: strips residual markdown, retains last complete sentence at or below 130 words.
+function cleanFreetextReply(text) {
+  const t = text
+    .replace(/\*\*(.+?)\*\*/gs, '$1')
+    .replace(/\*(.+?)\*/gs, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/^[-*+]\s+/gm, '')
+    .replace(/^\d+\.\s+/gm, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+  const words = t.split(/\s+/);
+  if (words.length <= 130) return t;
+  for (let i = 130; i >= 1; i--) {
+    if (/[.!?]$/.test(words[i - 1])) return words.slice(0, i).join(' ');
+  }
+  return 'That\'s worth discussing with your supervisor or assessor for more tailored guidance.';
+}
+
 // s2: 80-100 words, 220-token budget
 function s2System(entry, startingPoint) {
   return `You are Michael, a professional development coach for Get Chartered AI.
@@ -268,7 +304,7 @@ Give a 3-4 sentence response that:
 2. Explains what a Level 2 or 3 response would add or do differently.
 3. Gives one concrete, actionable piece of advice for their next practice attempt.
 
-Target length: 80-100 words. Write in plain prose. No markdown. No bullet points. No headers.`;
+Write no more than 100 words. Finish your final sentence within that limit. Plain prose only. No markdown, bullet points or headers.`;
 }
 
 // freetext: 100-130 words, 280-token budget
@@ -287,7 +323,7 @@ Answer the candidate's question honestly and helpfully.
 
 If the question cannot be usefully addressed here (personal legal advice, specific regulatory rulings, personal circumstances outside professional practice), explain that clearly and briefly, and suggest what type of resource or person would help instead.
 
-Target length: 100-130 words. Write in plain prose. No markdown. No bullet points. No headers.`;
+Write no more than 130 words. Finish your final sentence within that limit. Plain prose only. No markdown, bullet points or headers.`;
 }
 
 // ---------------------------------------------------------------------------
@@ -653,7 +689,7 @@ exports.handler = async (event) => {
 
     try {
       const reply = await callAI(apiKey, s2System(entry, session.startingPoint), userMsg, 220);
-      return respond(200, { reply });
+      return respond(200, { reply: cleanS2Reply(reply) });
     } catch (e) {
       console.error('[try-michael] s2 error:', e.message);
       return respond(500, { error: 'Something went wrong. Please try again.' });
@@ -707,7 +743,7 @@ exports.handler = async (event) => {
 
     try {
       const reply = await callAI(apiKey, freetextSystem(entry, session.startingPoint), userMsg, 280);
-      return respond(200, { reply, companyReferral: session.companyReferral, startingPoint: session.startingPoint });
+      return respond(200, { reply: cleanFreetextReply(reply), companyReferral: session.companyReferral, startingPoint: session.startingPoint });
     } catch (e) {
       console.error('[try-michael] freetext AI error:', e.message);
       // Revert freetextUsed so the candidate can try again

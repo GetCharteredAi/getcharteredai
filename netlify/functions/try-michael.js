@@ -324,6 +324,7 @@ async function callAI(apiKey, system, userMsg, maxTokens) {
 }
 
 async function sendConfirmationEmail(resendKey, { name, email, pathway, startingPoint, assessmentDate, sessionToken }) {
+  const baseUrl = (process.env.TMS_EMAIL_BASE_URL || 'https://getcharteredai.com').replace(/\/$/, '');
   const firstName = name.split(' ')[0];
   const startLabel = START_LABELS[startingPoint] || startingPoint;
   const dateRow = assessmentDate ? `<br>Assessment: <strong>${assessmentDate}</strong>` : '';
@@ -349,13 +350,13 @@ async function sendConfirmationEmail(resendKey, { name, email, pathway, starting
             Pathway or area: <strong>${pathway}</strong>${dateRow}
           </div>
           <p style="color:#334155;font-size:14px;line-height:1.7;margin-bottom:20px">Your next practice question is waiting on the site.</p>
-          <a href="https://getcharteredai.com/#try-michael-sec?resume=${encodeURIComponent(sessionToken)}" style="display:block;background:#2563EB;color:#fff;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;text-align:center;margin-bottom:20px">Continue your practice &#x2192;</a>
+          <a href="${baseUrl}/#try-michael-sec?resume=${encodeURIComponent(sessionToken)}" style="display:block;background:#2563EB;color:#fff;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;text-align:center;margin-bottom:20px">Continue your practice &#x2192;</a>
           <p style="font-size:13px;color:#64748b;line-height:1.7">This is a private practice environment. It supports learning and reflection — it does not replace your manager, counsellor or supervisor.</p>
           <p style="font-size:13px;color:#334155;line-height:1.6;margin-top:20px">Best,<br>Angela<br><span style="color:#64748b">Get Chartered AI</span></p>
           <p style="font-size:12px;color:#94a3b8;margin-top:16px">Questions? <a href="mailto:info@getcharteredai.com" style="color:#2563EB">info@getcharteredai.com</a></p>
         </div>
       </div>`,
-      text: `Hi ${firstName},\n\nYour starter session is saved.\n\nStarting point: ${startLabel}\nPathway or area: ${pathway}${dateTxt}\n\nContinue your practice: https://getcharteredai.com/#try-michael-sec?resume=${encodeURIComponent(sessionToken)}\n\nThis is private practice — it supports reflection but does not replace your manager, counsellor or supervisor.\n\nBest,\nAngela\nGet Chartered AI\ninfo@getcharteredai.com`
+      text: `Hi ${firstName},\n\nYour starter session is saved.\n\nStarting point: ${startLabel}\nPathway or area: ${pathway}${dateTxt}\n\nContinue your practice: ${baseUrl}/#try-michael-sec?resume=${encodeURIComponent(sessionToken)}\n\nThis is private practice — it supports reflection but does not replace your manager, counsellor or supervisor.\n\nBest,\nAngela\nGet Chartered AI\ninfo@getcharteredai.com`
     })
   });
   if (!res.ok) {

@@ -2919,6 +2919,8 @@ function _tmsReset() {
     TMS.pathway        = d.pathway;
     TMS.companyReferral = d.companyReferral || false;
     TMS.freetextUsed   = d.freetextUsed || false;
+    // Pre-set ask-block so its state is correct the moment p5 becomes visible after Q2
+    document.getElementById('tms-ask-block').style.display = TMS.freetextUsed ? 'none' : 'block';
 
     document.getElementById('tms-q2-text').textContent = d.q2;
 

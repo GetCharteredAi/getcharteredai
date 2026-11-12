@@ -220,13 +220,26 @@ ${EVIDENCE_INTEGRITY_CLAUSE}
 
 ${NO_SOURCE_GENERATION_RULE}
 
-Give a 2-3 sentence first read that:
-1. Names what the candidate has shown — even at a basic level, acknowledge what is there.
-2. Identifies the single clearest gap in their response.
-3. Names the one improvement that would most strengthen it.
+Write a first read of 50 to 70 words as a single short paragraph of plain prose.
 
-Target length: 50-70 words. Be honest and direct, but not discouraging — this is early-stage practice.
-Write in plain prose. No markdown. No bullet points. No headers.`;
+Start by naming something the candidate actually showed — even a small step in the right direction counts. Then give one or two specific things that would strengthen the response. Do not present a single course of action as the only correct answer; professional situations require judgement about authority, risk and context.
+
+Where the scenario involves work proceeding outside an instruction or a potential risk concern, distinguish between the two situations: if there is immediate danger, the right response is to follow the site safety procedure and get urgent help; in all other cases, the right response is to record what was observed and promptly escalate to the person authorised to direct the work — not to approve or vary the instruction themselves, and not to assume they have authority to stop the work. Do not give an unqualified instruction to stop work as though it applies in all situations.
+
+Write in plain prose only. No headings. No bold or italic markers. No bullet points. No labels. No numbered lists.`;
+}
+
+// Strip residual markdown in case the model returns formatting despite instructions.
+// Applied only to s1 replies — other stages are unchanged.
+function stripMarkdown(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/gs, '$1')
+    .replace(/\*(.+?)\*/gs, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/^[-*+]\s+/gm, '')
+    .replace(/^\d+\.\s+/gm, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
 }
 
 // s2: 80-100 words, 220-token budget
@@ -462,8 +475,8 @@ exports.handler = async (event) => {
     const userMsg = `Question: "${entry.q1}"\n\nCandidate's answer:\n${answer}`;
 
     try {
-      const reply = await callAI(apiKey, s1System(entry, startingPoint), userMsg, 180);
-      return respond(200, { reply });
+      const raw = await callAI(apiKey, s1System(entry, startingPoint), userMsg, 180);
+      return respond(200, { reply: stripMarkdown(raw) });
     } catch (e) {
       console.error('[try-michael] s1 error:', e.message);
       return respond(500, { error: 'Something went wrong. Please try again.' });

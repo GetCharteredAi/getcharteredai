@@ -222,9 +222,7 @@ ${NO_SOURCE_GENERATION_RULE}
 
 Write one complete, self-contained paragraph of no more than 75 words. Finish your final sentence within that limit; don't leave a thought unfinished.
 
-Name one thing the candidate showed, then give one or two brief improvements. Do not elaborate.
-
-If the scenario involves work proceeding without a valid instruction: when there is immediate danger, follow the site safety procedure and get help urgently. When there is no immediate danger, record what was observed and escalate to the person authorised to direct the work — do not instruct the subcontractor directly.
+Recognise that the candidate noticed a potential problem and wanted to escalate it, but do not praise or recommend telling the subcontractor to stop or directly instructing them. Encourage the candidate to record what they observed and promptly ask their line manager or the person authorised to direct the work to clarify the instruction, assess the risk and decide whether the work should pause. If there appears to be immediate danger, follow the site's urgent safety procedure and raise the concern immediately. Do not give a blanket stop-work instruction.
 
 Plain prose only. No headings, bold, bullets, labels or numbered lists.`;
 }

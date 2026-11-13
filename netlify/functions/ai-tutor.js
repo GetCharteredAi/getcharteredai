@@ -351,6 +351,10 @@ exports.handler = async (event) => {
     return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized' }) };
   }
 
+  if (_verifiedPayload.purpose === 'mock-pilot') {
+    return { statusCode: 403, headers, body: JSON.stringify({ error: 'Forbidden' }) };
+  }
+
   // Build system prompt server-side for panel, module, and articulation routes.
   // moduleId may be 0 (falsy) for the dashboard "Ask Michael" button — source === 'panel' covers that case.
   // Otherwise use client-provided system (for mock sim, CS review, floating chat, etc.)

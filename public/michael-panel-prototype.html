@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Michael Panel — Prototype</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:#1e2b3a;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:48px 24px;
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  }
+
+  /* ── OUTER WRAPPER ─────────────────────────────────── */
+  .proto-wrap{
+    width:100%;
+    max-width:480px;
+  }
+  .proto-note{
+    font-size:11px;
+    color:rgba(255,255,255,0.22);
+    text-align:center;
+    margin-bottom:18px;
+    letter-spacing:.04em;
+  }
+
+  /* ── MICHAEL PANEL ─────────────────────────────────── */
+  .mp{
+    background:#101C2C;
+    border:1px solid #445363;
+    border-radius:22px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    /* Fixed height — prevents any layout shift between conversations */
+    height:420px;
+    position:relative;
+  }
+
+  /* Header ------------------------------------------------ */
+  .mp-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+    flex-shrink:0;
+  }
+  .mp-title{
+    display:flex;
+    align-items:center;
+    gap:7px;
+  }
+  /* Bare icon — no background container */
+  .mp-icon{
+    display:flex;
+    align-items:center;
+    flex-shrink:0;
+  }
+  .mp-name{
+    font-size:14px;
+    font-weight:700;
+    color:#EEF3F6;
+    letter-spacing:-.01em;
+  }
+  /* Mode: muted grey, sentence case, no badge */
+  .mp-mode{
+    font-size:12px;
+    font-weight:400;
+    color:#9CABBC;
+    letter-spacing:0;
+  }
+
+  /* Separator --------------------------------------------- */
+  .mp-sep{
+    height:1px;
+    background:#2a3b4d;
+    margin-bottom:18px;
+    flex-shrink:0;
+  }
+
+  /* Conversation area -------------------------------------- */
+  .mp-convo{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    overflow:hidden;
+    min-height:0;
+  }
+
+  /* User bubble */
+  .mp-user{
+    align-self:flex-end;
+    max-width:85%;
+    background:#2C3B4D;
+    border-radius:18px 18px 5px 18px;
+    padding:12px 16px;
+    font-size:13px;
+    color:#EEF3F6;
+    line-height:1.55;
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity .35s ease,transform .35s ease;
+    flex-shrink:0;
+  }
+  .mp-user.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* Michael response */
+  .mp-response{
+    align-self:flex-start;
+    max-width:100%;
+    font-size:13px;
+    color:#EEF3F6;
+    line-height:1.7;
+    opacity:0;
+    transition:opacity .25s ease;
+    overflow:hidden;
+    flex-shrink:0;
+  }
+  .mp-response.visible{
+    opacity:1;
+  }
+  .mp-response ul{
+    margin:.35em 0 .2em 1.1em;
+    padding:0;
+  }
+  .mp-response li{
+    list-style:disc;
+    margin:.12em 0;
+    color:#EEF3F6;
+  }
+  /* Streaming cursor */
+  .mp-cursor{
+    display:inline-block;
+    width:2px;
+    height:.85em;
+    background:#AACDC8;
+    vertical-align:text-bottom;
+    margin-left:1px;
+    animation:blink .75s step-end infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+  /* Input area -------------------------------------------- */
+  .mp-input{
+    flex-shrink:0;
+    margin-top:auto;
+    padding-top:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border:1px solid #79A8B3;
+    border-radius:14px;
+    padding:11px 14px;
+    background:rgba(255,255,255,0.02);
+    pointer-events:none;
+    /* mt auto handled by flex layout: input sits at bottom */
+  }
+  .mp-input-ph{
+    flex:1;
+    font-size:12.5px;
+    color:rgba(156,171,188,0.45);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  /* Mic icon */
+  .mp-mic{
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    color:#9CABBC;
+    opacity:0.55;
+  }
+  /* Circular send button */
+  .mp-send{
+    flex-shrink:0;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:#445363;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0.7;
+  }
+
+  /* Progress dots ----------------------------------------- */
+  .mp-dots{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    margin-top:14px;
+    flex-shrink:0;
+  }
+  .mp-dot{
+    width:6px;height:6px;
+    border-radius:50%;
+    background:rgba(170,205,200,0.2);
+    transition:background .4s,transform .4s;
+  }
+  .mp-dot.active{
+    background:#AACDC8;
+    transform:scale(1.3);
+  }
+
+  /* Pause button ------------------------------------------ */
+  .mp-pause{
+    position:absolute;
+    bottom:16px;
+    right:16px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:8px;
+    cursor:pointer;
+    color:#9CABBC;
+    padding:5px 8px;
+    font-size:11px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    transition:background .2s,color .2s;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s;
+  }
+  .mp:hover .mp-pause{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .mp-pause:hover{
+    background:rgba(255,255,255,0.1);
+    color:#EEF3F6;
+  }
+  .mp-pause.paused{
+    opacity:1;
+    pointer-events:auto;
+    background:rgba(170,205,200,0.1);
+    color:#AACDC8;
+  }
+
+  /* Reduced-motion ---------------------------------------- */
+  @media(prefers-reduced-motion:reduce){
+    .mp-user{transition:none;opacity:1!important;transform:none!important}
+    .mp-response{transition:none;opacity:1!important}
+    .mp-cursor{animation:none}
+    .mp-dot{transition:none}
+  }
+
+  /* Responsive -------------------------------------------- */
+  @media(max-width:380px){
+    .mp{padding:16px;height:400px}
+  }
+</style>
+</head>
+<body>
+
+<div class="proto-wrap">
+  <p class="proto-note">Standalone prototype — not integrated. Illustrative conversation only.</p>
+
+  <!-- ── PANEL ─────────────────────────────────────────── -->
+  <div class="mp" id="mp" role="img" aria-label="Animated demonstration of Michael, an AI professional development coach">
+
+    <!-- Header -->
+    <div class="mp-header">
+      <div class="mp-title">
+        <!-- Bare teal asterisk/star — no background -->
+        <span class="mp-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <path d="M9 1v4M9 13v4M1 9h4M13 9h4M3.22 3.22l2.83 2.83M11.95 11.95l2.83 2.83M14.78 3.22l-2.83 2.83M6.05 11.95l-2.83 2.83" stroke="#AACDC8" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="mp-name">Michael</span>
+      </div>
+      <!-- Mode: plain grey text, sentence case, no badge -->
+      <span class="mp-mode" id="modeLabel">Tutor mode</span>
+    </div>
+
+    <!-- Separator -->
+    <div class="mp-sep"></div>
+
+    <!-- Conversation -->
+    <div class="mp-convo" id="convo" aria-live="polite" aria-atomic="true">
+      <div class="mp-user" id="userMsg"></div>
+      <div class="mp-response" id="michaelMsg"></div>
+    </div>
+
+    <!-- Input area (non-interactive) -->
+    <div class="mp-input" aria-hidden="true">
+      <span class="mp-input-ph">Ask Michael anything…</span>
+      <!-- Mic -->
+      <span class="mp-mic">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="5.5" y="1" width="5" height="8" rx="2.5" stroke="#9CABBC" stroke-width="1.35"/>
+          <path d="M2.5 8A5.5 5.5 0 0013.5 8" stroke="#9CABBC" stroke-width="1.35" stroke-linecap="round"/>
+          <line x1="8" y1="13.5" x2="8" y2="15.5" stroke="#9CABBC" stroke-width="1.35" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <!-- Circular send -->
+      <span class="mp-send" aria-hidden="true">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <path d="M2 6.5h9M8 3.5l3 3-3 3" stroke="#EEF3F6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </div>
+
+    <!-- Progress dots -->
+    <div class="mp-dots" id="dots">
+      <div class="mp-dot active" data-i="0"></div>
+      <div class="mp-dot" data-i="1"></div>
+      <div class="mp-dot" data-i="2"></div>
+    </div>
+
+    <!-- Pause / resume -->
+    <button class="mp-pause" id="pauseBtn" aria-label="Pause animation">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" id="pauseIcon">
+        <rect x="1" y="1" width="2.8" height="8" rx=".8" fill="currentColor"/>
+        <rect x="6.2" y="1" width="2.8" height="8" rx=".8" fill="currentColor"/>
+      </svg>
+      <span id="pauseLabel">Pause</span>
+    </button>
+
+  </div><!-- /mp -->
+
+</div><!-- /proto-wrap -->
+
+<script>
+(function(){
+  'use strict';
+
+  /* ── Conversations ─────────────────────────────────── */
+  var convos = [
+    {
+      mode: 'Tutor mode',
+      user: "I've just started my Building Surveying apprenticeship. What should I focus on?",
+      segs: [
+        {t:'p', v:'Great question. At this stage, focus on building strong professional foundations.'},
+        {t:'ul', v:[
+          'Understand why inspections are undertaken.',
+          'Develop your observation and reporting skills.',
+          'Recognise when to seek advice.'
+        ]},
+        {t:'p', v:"Let's explore how you would approach your first site inspection."}
+      ]
+    },
+    {
+      mode: 'Assessor mode',
+      user: "Can you test my understanding of professional ethics?",
+      segs: [
+        {t:'p', v:'Of course. Consider this scenario:'},
+        {t:'p', v:'Your client asks you to omit a significant defect from your report because it could delay a transaction.'},
+        {t:'p', v:'How would you respond?'},
+        {t:'p', v:'Explain your reasoning and the professional obligations that would inform your decision.'}
+      ]
+    },
+    {
+      mode: 'Professional readiness',
+      user: "I've got a development review with my manager next week. How should I prepare?",
+      segs: [
+        {t:'p', v:"Let's make that conversation worthwhile."},
+        {t:'ul', v:[
+          "Identify what you've learned.",
+          "Reflect on where you've applied it.",
+          "Recognise where you still need support."
+        ]},
+        {t:'p', v:'Tell me about a recent task where you took greater responsibility. What did you do differently?'}
+      ]
+    }
+  ];
+
+  /* ── DOM ───────────────────────────────────────────── */
+  var modeEl    = document.getElementById('modeLabel');
+  var userEl    = document.getElementById('userMsg');
+  var respEl    = document.getElementById('michaelMsg');
+  var dotsEl    = document.querySelectorAll('.mp-dot');
+  var pauseBtn  = document.getElementById('pauseBtn');
+  var pauseIcon = document.getElementById('pauseIcon');
+  var pauseLbl  = document.getElementById('pauseLabel');
+
+  /* ── State ─────────────────────────────────────────── */
+  var current = 0;
+  var paused  = false;
+  var timers  = [];
+  var reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ── Helpers ───────────────────────────────────────── */
+  function after(fn, ms){ var id=setTimeout(fn,ms); timers.push(id); }
+  function clearAll(){ timers.forEach(clearTimeout); timers=[]; }
+
+  function setDot(i){
+    dotsEl.forEach(function(d,j){ d.classList.toggle('active',j===i); });
+  }
+
+  /* Build a flat char-stream from segments */
+  function buildStream(segs){
+    var stream = [];
+    segs.forEach(function(seg){
+      if(seg.t==='p'){
+        /* Prefix with a blank line marker if not first */
+        stream.push({kind:'break'});
+        for(var i=0;i<seg.v.length;i++) stream.push({kind:'char',ch:seg.v[i]});
+      } else if(seg.t==='ul'){
+        seg.v.forEach(function(item,bi){
+          stream.push({kind:'listart',bi:bi});
+          for(var i=0;i<item.length;i++) stream.push({kind:'lichar',ch:item[i],bi:bi});
+        });
+      }
+    });
+    return stream;
+  }
+
+  /* Full static render (reduced motion / instant display) */
+  function renderFull(segs){
+    var html = '';
+    segs.forEach(function(seg){
+      if(seg.t==='p'){
+        if(html) html += '<br>';
+        html += esc(seg.v);
+      } else if(seg.t==='ul'){
+        html += '<ul>';
+        seg.v.forEach(function(item){ html += '<li>'+esc(item)+'</li>'; });
+        html += '</ul>';
+      }
+    });
+    return html;
+  }
+
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  /* ── Streaming renderer ────────────────────────────── */
+  function stream(segs, done){
+    var items = buildStream(segs);
+    var idx   = 0;
+    var TICK  = 32;    /* ms per tick */
+    var CPT   = 4;     /* chars per tick */
+
+    respEl.innerHTML = '';
+    respEl.classList.add('visible');
+
+    /* Rendering pointers */
+    var curNode  = null;   /* current TextNode */
+    var curUl    = null;
+    var curLi    = null;
+    var liNodes  = {};     /* bi → TextNode */
+    var firstP   = true;
+
+    /* Cursor */
+    var cur = document.createElement('span');
+    cur.className = 'mp-cursor';
+    cur.setAttribute('aria-hidden','true');
+    respEl.appendChild(cur);
+
+    function moveCursorToEnd(){
+      if(cur.parentNode) cur.parentNode.removeChild(cur);
+      respEl.appendChild(cur);
+    }
+
+    function tick(){
+      if(paused){ after(tick,120); return; }
+      var n = Math.min(CPT, items.length-idx);
+      for(var k=0;k<n;k++){
+        var it = items[idx++];
+        if(it.kind==='break'){
+          if(firstP){ firstP=false; }
+          else {
+            /* Close list if open */
+            if(curUl){ curUl=null; curLi=null; curNode=null; }
+            var br = document.createElement('br');
+            respEl.insertBefore(br, cur);
+            curNode=null;
+          }
+        } else if(it.kind==='listart'){
+          if(!curUl){
+            /* Insert br before list if there was preceding text */
+            if(!firstP){
+              var br2=document.createElement('br');
+              respEl.insertBefore(br2,cur);
+            }
+            firstP=false;
+            curUl=document.createElement('ul');
+            respEl.insertBefore(curUl,cur);
+          }
+          curLi=document.createElement('li');
+          curNode=document.createTextNode('');
+          curLi.appendChild(curNode);
+          curUl.appendChild(curLi);
+          liNodes[it.bi]=curNode;
+        } else if(it.kind==='lichar'){
+          var ln=liNodes[it.bi];
+          if(ln) ln.nodeValue += it.ch;
+        } else if(it.kind==='char'){
+          firstP=false;
+          if(!curNode || curNode.parentNode!==respEl){
+            curNode=document.createTextNode('');
+            respEl.insertBefore(curNode,cur);
+          }
+          curNode.nodeValue += it.ch;
+        }
+      }
+      moveCursorToEnd();
+      if(idx<items.length){
+        after(tick,TICK);
+      } else {
+        if(cur.parentNode) cur.parentNode.removeChild(cur);
+        if(done) done();
+      }
+    }
+    tick();
+  }
+
+  /* ── Single conversation ───────────────────────────── */
+  function run(i){
+    if(paused) return;
+    current = i;
+    var c = convos[i];
+
+    modeEl.textContent = c.mode;
+    setDot(i);
+
+    userEl.textContent='';
+    userEl.classList.remove('visible');
+    respEl.innerHTML='';
+    respEl.classList.remove('visible');
+    respEl.style.opacity='';
+
+    if(reduced){
+      /* No animation: show everything */
+      userEl.textContent = c.user;
+      userEl.classList.add('visible');
+      respEl.innerHTML = renderFull(c.segs);
+      respEl.classList.add('visible');
+      after(function(){ run((i+1)%convos.length); }, 7000);
+      return;
+    }
+
+    /* 1. Animate user bubble in */
+    after(function(){
+      if(paused) return;
+      userEl.textContent = c.user;
+      userEl.classList.add('visible');
+
+      /* 2. Stream Michael's response */
+      after(function(){
+        if(paused) return;
+        stream(c.segs, function(){
+          /* 3. Reading pause */
+          after(function(){
+            if(paused) return;
+            /* 4. Fade out */
+            userEl.style.transition='opacity .4s';
+            userEl.style.opacity='0';
+            respEl.style.transition='opacity .4s';
+            respEl.style.opacity='0';
+            after(function(){
+              userEl.style.transition='';
+              userEl.style.opacity='';
+              respEl.style.transition='';
+              respEl.style.opacity='';
+              run((i+1)%convos.length);
+            }, 420);
+          }, 6700);
+        });
+      }, 650);
+    }, 350);
+  }
+
+  /* ── Pause / resume ────────────────────────────────── */
+  pauseBtn.addEventListener('click', function(){
+    paused = !paused;
+    if(paused){
+      clearAll();
+      pauseBtn.classList.add('paused');
+      pauseBtn.setAttribute('aria-label','Resume animation');
+      pauseIcon.innerHTML='<path d="M2 2l8 3.5L2 9V2z" fill="currentColor"/>';
+      pauseLbl.textContent='Resume';
+    } else {
+      pauseBtn.classList.remove('paused');
+      pauseBtn.setAttribute('aria-label','Pause animation');
+      pauseIcon.innerHTML='<rect x="1" y="1" width="2.8" height="8" rx=".8" fill="currentColor"/><rect x="6.2" y="1" width="2.8" height="8" rx=".8" fill="currentColor"/>';
+      pauseLbl.textContent='Pause';
+      run(current);
+    }
+  });
+
+  /* ── Start ─────────────────────────────────────────── */
+  run(0);
+
+})();
+</script>
+</body>
+</html>

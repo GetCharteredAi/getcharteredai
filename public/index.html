@@ -1495,48 +1495,127 @@ body.pilot-mode>nav{display:none!important}
 
     <!-- RIGHT COLUMN — product interface panel -->
     <div class="gcai-hero-panel">
-      <div style="border-radius:16px;overflow:hidden;box-shadow:0 40px 80px rgba(13,15,28,0.30);border:1px solid rgba(255,255,255,0.06)">
-        <!-- Device bezel -->
-        <div style="background:#141b2e;padding:9px 16px;display:flex;align-items:center;gap:6px">
-          <span style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block"></span>
-          <span style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block"></span>
-          <span style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block"></span>
+      <!-- Michael animated panel — feature/michael-hero-animation -->
+      <style>
+        /* Scoped to .mp-hero — no bleed to other page components */
+        .mp-hero{background:#101C2C;border:1px solid #445363;border-radius:22px;padding:22px;display:flex;flex-direction:column;height:420px;position:relative;box-shadow:0 32px 72px rgba(13,15,28,0.28)}
+        .mp-hero-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-shrink:0}
+        .mp-hero-title{display:flex;align-items:center;gap:7px}
+        .mp-hero-name{font-size:14px;font-weight:700;color:#EEF3F6;letter-spacing:-.01em;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+        .mp-hero-mode{font-size:12px;font-weight:400;color:#9CABBC;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+        .mp-hero-sep{height:1px;background:#2a3b4d;margin-bottom:18px;flex-shrink:0}
+        .mp-hero-convo{flex:1;display:flex;flex-direction:column;gap:14px;overflow:hidden;min-height:0}
+        .mp-hero-user{align-self:flex-end;max-width:85%;background:#2C3B4D;border-radius:18px 18px 5px 18px;padding:12px 16px;font-size:13px;color:#EEF3F6;line-height:1.55;opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease;flex-shrink:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+        .mp-hero-user.mhv{opacity:1;transform:translateY(0)}
+        .mp-hero-resp{align-self:flex-start;max-width:100%;font-size:13px;color:#EEF3F6;line-height:1.7;opacity:0;transition:opacity .25s ease;overflow:hidden;flex-shrink:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+        .mp-hero-resp.mhv{opacity:1}
+        .mp-hero-resp ul{margin:.35em 0 .2em 1.1em;padding:0}
+        .mp-hero-resp li{list-style:disc;margin:.12em 0;color:#EEF3F6}
+        .mp-hero-cur{display:inline-block;width:2px;height:.85em;background:#AACDC8;vertical-align:text-bottom;margin-left:1px;animation:mhblink .75s step-end infinite}
+        @keyframes mhblink{0%,100%{opacity:1}50%{opacity:0}}
+        .mp-hero-input{flex-shrink:0;margin-top:auto;display:flex;align-items:center;gap:10px;border:1px solid #79A8B3;border-radius:14px;padding:11px 14px;background:rgba(255,255,255,0.02);pointer-events:none}
+        .mp-hero-ph{flex:1;font-size:12.5px;color:rgba(156,171,188,0.45);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+        .mp-hero-mic{flex-shrink:0;display:flex;align-items:center;color:#9CABBC;opacity:.55}
+        .mp-hero-send{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:#445363;display:flex;align-items:center;justify-content:center;opacity:.7}
+        .mp-hero-dots{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;flex-shrink:0}
+        .mp-hero-dot{width:6px;height:6px;border-radius:50%;background:rgba(170,205,200,0.2);transition:background .4s,transform .4s}
+        .mp-hero-dot.mha{background:#AACDC8;transform:scale(1.3)}
+        .mp-hero-pause{position:absolute;bottom:14px;right:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;cursor:pointer;color:#9CABBC;padding:5px 8px;font-size:11px;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;display:flex;align-items:center;gap:5px;opacity:0;pointer-events:none;transition:opacity .2s,background .2s,color .2s}
+        .mp-hero:hover .mp-hero-pause{opacity:1;pointer-events:auto}
+        .mp-hero-pause:hover{background:rgba(255,255,255,0.1);color:#EEF3F6}
+        .mp-hero-pause.mhpaused{opacity:1;pointer-events:auto;background:rgba(170,205,200,0.1);color:#AACDC8}
+        .mp-hero-label{font-size:11px;color:rgba(156,171,188,0.4);text-align:center;margin-top:10px;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;letter-spacing:.03em}
+        @media(prefers-reduced-motion:reduce){
+          .mp-hero-user{transition:none!important;opacity:1!important;transform:none!important}
+          .mp-hero-resp{transition:none!important;opacity:1!important}
+          .mp-hero-cur{animation:none!important}
+          .mp-hero-dot{transition:none!important}
+        }
+      </style>
+
+      <div class="mp-hero" id="mpHero" role="img" aria-label="Animated demonstration of Michael, an AI professional development coach">
+        <div class="mp-hero-hdr">
+          <div class="mp-hero-title">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 1v4M9 13v4M1 9h4M13 9h4M3.22 3.22l2.83 2.83M11.95 11.95l2.83 2.83M14.78 3.22l-2.83 2.83M6.05 11.95l-2.83 2.83" stroke="#AACDC8" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span class="mp-hero-name">Michael</span>
+          </div>
+          <span class="mp-hero-mode" id="mpMode">Tutor mode</span>
         </div>
-        <!-- Screen content -->
-        <div style="background:#0f1729;padding:22px 24px 26px">
-          <div style="font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,0.18);margin-bottom:14px">Get Chartered</div>
-          <div style="font-size:17px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:3px">Welcome back, Sophie</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:18px">Commercial Real Estate &middot; Year Two preparation</div>
-          <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:10px">Your Professional Readiness</div>
-          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
-            <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:8px 11px">
-              <span style="font-size:11px;color:rgba(255,255,255,0.38)">Current focus</span>
-              <span style="font-size:11px;font-weight:600;color:#f0f4ff">Professional judgement</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:8px 11px">
-              <span style="font-size:11px;color:rgba(255,255,255,0.38)">Developing well</span>
-              <span style="font-size:11px;font-weight:600;color:#34d399">Communication</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:8px 11px">
-              <span style="font-size:11px;color:rgba(255,255,255,0.38)">Needs attention</span>
-              <span style="font-size:11px;font-weight:600;color:#fbbf24">Commercial awareness</span>
-            </div>
-          </div>
-          <div style="background:rgba(37,99,235,0.14);border:1px solid rgba(37,99,235,0.22);border-radius:7px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-            <span style="font-size:11px;color:rgba(255,255,255,0.42)">Next action</span>
-            <span style="font-size:11px;font-weight:600;color:#93c5fd">3-min articulation practice &#x2192;</span>
-          </div>
-          <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 11px">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-              <span style="font-size:11px;color:rgba(255,255,255,0.38)">Overall readiness</span>
-              <span style="font-size:13px;font-weight:700;color:#fff">72%</span>
-            </div>
-            <div style="height:3px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden">
-              <div style="width:72%;height:100%;background:linear-gradient(90deg,#2563EB,#60a5fa);border-radius:2px"></div>
-            </div>
-          </div>
+        <div class="mp-hero-sep"></div>
+        <div class="mp-hero-convo" aria-live="polite" aria-atomic="true">
+          <div class="mp-hero-user" id="mpUser"></div>
+          <div class="mp-hero-resp" id="mpResp"></div>
         </div>
+        <div class="mp-hero-input" aria-hidden="true">
+          <span class="mp-hero-ph">Ask Michael anything&hellip;</span>
+          <span class="mp-hero-mic"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="5.5" y="1" width="5" height="8" rx="2.5" stroke="#9CABBC" stroke-width="1.35"/><path d="M2.5 8A5.5 5.5 0 0013.5 8" stroke="#9CABBC" stroke-width="1.35" stroke-linecap="round"/><line x1="8" y1="13.5" x2="8" y2="15.5" stroke="#9CABBC" stroke-width="1.35" stroke-linecap="round"/></svg></span>
+          <span class="mp-hero-send"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3.5l3 3-3 3" stroke="#EEF3F6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="mp-hero-dots">
+          <div class="mp-hero-dot mha" data-i="0"></div>
+          <div class="mp-hero-dot" data-i="1"></div>
+          <div class="mp-hero-dot" data-i="2"></div>
+        </div>
+        <button class="mp-hero-pause" id="mpPause" aria-label="Pause animation">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" id="mpPauseIco"><rect x="1" y="1" width="2.8" height="8" rx=".8" fill="currentColor"/><rect x="6.2" y="1" width="2.8" height="8" rx=".8" fill="currentColor"/></svg>
+          <span id="mpPauseLbl">Pause</span>
+        </button>
       </div>
+      <p class="mp-hero-label">Illustrative conversation</p>
+
+      <script>
+      (function(){
+        var convos=[
+          {mode:'Tutor mode',user:"I’ve just started my Building Surveying apprenticeship. What should I focus on?",segs:[{t:'p',v:'Great question. At this stage, focus on building strong professional foundations.'},{t:'ul',v:['Understand why inspections are undertaken.','Develop your observation and reporting skills.','Recognise when to seek advice.']},{t:'p',v:"Let’s explore how you would approach your first site inspection."}]},
+          {mode:'Assessor mode',user:"Can you test my understanding of professional ethics?",segs:[{t:'p',v:'Of course. Consider this scenario:'},{t:'p',v:'Your client asks you to omit a significant defect from your report because it could delay a transaction.'},{t:'p',v:'How would you respond?'},{t:'p',v:'Explain your reasoning and the professional obligations that would inform your decision.'}]},
+          {mode:'Professional readiness',user:"I’ve got a development review with my manager next week. How should I prepare?",segs:[{t:'p',v:"Let’s make that conversation worthwhile."},{t:'ul',v:["Identify what you’ve learned.","Reflect on where you’ve applied it.","Recognise where you still need support."]},{t:'p',v:'Tell me about a recent task where you took greater responsibility. What did you do differently?'}]}
+        ];
+        var modeEl=document.getElementById('mpMode'),userEl=document.getElementById('mpUser'),respEl=document.getElementById('mpResp'),pauseBtn=document.getElementById('mpPause'),pauseIco=document.getElementById('mpPauseIco'),pauseLbl=document.getElementById('mpPauseLbl'),dotsEl=document.querySelectorAll('.mp-hero-dot');
+        var current=0,paused=false,timers=[],reduced=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+        function after(fn,ms){var id=setTimeout(fn,ms);timers.push(id);}
+        function clearAll(){timers.forEach(clearTimeout);timers=[];}
+        function setDot(i){dotsEl.forEach(function(d,j){d.classList.toggle('mha',j===i);});}
+        function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+        function buildStream(segs){var s=[];segs.forEach(function(seg){if(seg.t==='p'){s.push({k:'br'});for(var i=0;i<seg.v.length;i++)s.push({k:'ch',c:seg.v[i]});}else if(seg.t==='ul'){seg.v.forEach(function(item,bi){s.push({k:'ls',bi:bi});for(var i=0;i<item.length;i++)s.push({k:'lc',c:item[i],bi:bi});});}});return s;}
+        function renderFull(segs){var h='';segs.forEach(function(seg){if(seg.t==='p'){if(h)h+='<br>';h+=esc(seg.v);}else if(seg.t==='ul'){h+='<ul>';seg.v.forEach(function(it){h+='<li>'+esc(it)+'</li>';});h+='</ul>';}});return h;}
+        function stream(segs,done){
+          var items=buildStream(segs),idx=0;
+          respEl.innerHTML='';respEl.classList.add('mhv');
+          var curNode=null,curUl=null,curLi=null,liNodes={},firstP=true;
+          var cur=document.createElement('span');cur.className='mp-hero-cur';cur.setAttribute('aria-hidden','true');respEl.appendChild(cur);
+          function mv(){if(cur.parentNode)cur.parentNode.removeChild(cur);respEl.appendChild(cur);}
+          function tick(){
+            if(paused){after(tick,120);return;}
+            var n=Math.min(4,items.length-idx);
+            for(var k=0;k<n;k++){
+              var it=items[idx++];
+              if(it.k==='br'){if(firstP){firstP=false;}else{if(curUl){curUl=null;curLi=null;curNode=null;}var br=document.createElement('br');respEl.insertBefore(br,cur);curNode=null;}}
+              else if(it.k==='ls'){if(!curUl){if(!firstP){var br2=document.createElement('br');respEl.insertBefore(br2,cur);}firstP=false;curUl=document.createElement('ul');respEl.insertBefore(curUl,cur);}curLi=document.createElement('li');curNode=document.createTextNode('');curLi.appendChild(curNode);curUl.appendChild(curLi);liNodes[it.bi]=curNode;}
+              else if(it.k==='lc'){var ln=liNodes[it.bi];if(ln)ln.nodeValue+=it.c;}
+              else if(it.k==='ch'){firstP=false;if(!curNode||curNode.parentNode!==respEl){curNode=document.createTextNode('');respEl.insertBefore(curNode,cur);}curNode.nodeValue+=it.c;}
+            }
+            mv();
+            if(idx<items.length){after(tick,32);}else{if(cur.parentNode)cur.parentNode.removeChild(cur);if(done)done();}
+          }
+          tick();
+        }
+        function run(i){
+          if(paused)return;
+          current=i;var c=convos[i];
+          modeEl.textContent=c.mode;setDot(i);
+          userEl.textContent='';userEl.classList.remove('mhv');
+          respEl.innerHTML='';respEl.classList.remove('mhv');respEl.style.opacity='';
+          if(reduced){userEl.textContent=c.user;userEl.classList.add('mhv');respEl.innerHTML=renderFull(c.segs);respEl.classList.add('mhv');after(function(){run((i+1)%convos.length);},7000);return;}
+          after(function(){if(paused)return;userEl.textContent=c.user;userEl.classList.add('mhv');after(function(){if(paused)return;stream(c.segs,function(){after(function(){if(paused)return;userEl.style.transition='opacity .4s';userEl.style.opacity='0';respEl.style.transition='opacity .4s';respEl.style.opacity='0';after(function(){userEl.style.transition='';userEl.style.opacity='';respEl.style.transition='';respEl.style.opacity='';run((i+1)%convos.length);},420);},6700);});},650);},350);
+        }
+        pauseBtn.addEventListener('click',function(){
+          paused=!paused;
+          if(paused){clearAll();pauseBtn.classList.add('mhpaused');pauseBtn.setAttribute('aria-label','Resume animation');pauseIco.innerHTML='<path d="M2 2l8 3.5L2 9V2z" fill="currentColor"/>';pauseLbl.textContent='Resume';}
+          else{pauseBtn.classList.remove('mhpaused');pauseBtn.setAttribute('aria-label','Pause animation');pauseIco.innerHTML='<rect x="1" y="1" width="2.8" height="8" rx=".8" fill="currentColor"/><rect x="6.2" y="1" width="2.8" height="8" rx=".8" fill="currentColor"/>';pauseLbl.textContent='Pause';run(current);}
+        });
+        run(0);
+      })();
+      </script>
     </div>
 
   </div>

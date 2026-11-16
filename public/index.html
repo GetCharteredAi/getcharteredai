@@ -1074,6 +1074,8 @@ input.err{border-color:var(--red)}
 .michael-white-card{background:#f4f6fb;border-radius:20px;padding:2.25rem;max-width:740px;margin:0 auto}
 .michael-inner-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
 @media(max-width:768px){.michael-inner-grid{grid-template-columns:1fr}.michael-video-col{order:2!important}.michael-wide-grid{grid-template-columns:1fr!important}.michael-wide-grid .michael-video-col{order:2}}
+.michael-mobile-video{display:none}
+@media(max-width:768px){.michael-heygen-embed{display:none!important}.michael-mobile-video{display:block!important}}
 .michael-check-item{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .michael-check-icon{width:28px;height:28px;border-radius:50%;background:#e3edff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .michael-link{color:#2563EB;font-size:14px;font-weight:600;text-decoration:none;transition:color .15s}
@@ -1474,7 +1476,7 @@ body.pilot-mode>nav{display:none!important}
 <style>
 @media(max-width:900px){.gcai-hero-grid{grid-template-columns:1fr!important}}
 @media(max-width:900px){.gcai-hero-panel{display:none!important}}
-@media(max-width:768px){#hero-sec{padding:56px 24px 40px!important}}
+@media(max-width:768px){#hero-sec{padding:80px 24px 40px!important}}
 </style>
   <div class="gcai-hero-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:5fr 4fr;gap:64px;align-items:center">
 
@@ -1846,8 +1848,15 @@ body.pilot-mode>nav{display:none!important}
       </div>
       <!-- Right: large video -->
       <div class="michael-video-col">
-        <div style="border-radius:20px;overflow:hidden;box-shadow:0 25px 60px rgba(13,15,28,0.14),0 8px 20px rgba(13,15,28,0.08);border:1px solid rgba(13,15,28,0.06);aspect-ratio:16/9;position:relative">
+        <!-- Desktop: HeyGen interactive embed -->
+        <div class="michael-heygen-embed" style="border-radius:20px;overflow:hidden;box-shadow:0 25px 60px rgba(13,15,28,0.14),0 8px 20px rgba(13,15,28,0.08);border:1px solid rgba(13,15,28,0.06);aspect-ratio:16/9;position:relative">
           <iframe src="https://app.heygen.com/embeds/96289d32fa074a6fb0c9885f32d00008" title="Michael — your AI APC Coach" frameborder="0" allow="encrypted-media; fullscreen;" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;border:none"></iframe>
+        </div>
+        <!-- Mobile: local MP4 (HeyGen embed fails on iOS Safari) -->
+        <div class="michael-mobile-video" style="border-radius:20px;overflow:hidden;box-shadow:0 25px 60px rgba(13,15,28,0.14),0 8px 20px rgba(13,15,28,0.08);border:1px solid rgba(13,15,28,0.06);line-height:0">
+          <video controls playsinline preload="metadata" poster="/videos/michael-homepage-poster.jpg" style="width:100%;display:block">
+            <source src="/videos/michael-homepage-intro.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
@@ -3030,9 +3039,16 @@ function _tmsReset() {
 
 <section id="contact-sec" style="background:#0D0F1C;padding:56px 40px;border-top:1px solid rgba(255,255,255,.06)">
 <style>
-@media(max-width:600px){.cta-panel{width:calc(100% - 32px)!important;margin:0 auto!important;padding:40px 20px!important}.cta-btn-row{flex-direction:column!important;align-items:stretch!important}.cta-btn-row a{text-align:center}}
+@media(max-width:600px){
+  #contact-sec{padding:40px 16px!important}
+  .cta-outer-wrap{width:100%!important}
+  .cta-panel{width:calc(100% - 32px)!important;margin:0 auto!important;padding:28px 20px!important}
+  .cta-panel h2{font-size:22px!important;line-height:1.15!important;margin-bottom:18px!important}
+  .cta-btn-row{flex-direction:column!important;align-items:stretch!important;gap:10px!important}
+  .cta-btn-row a{text-align:center;padding:11px 20px!important;font-size:14px!important}
+}
 </style>
-  <div style="width:calc(100% - 64px);max-width:1530px;margin:0 auto">
+  <div class="cta-outer-wrap" style="width:calc(100% - 64px);max-width:1530px;margin:0 auto">
     <div class="cta-panel" style="background:#2563EB;border-radius:20px;width:100%;max-width:800px;margin:0 auto;padding:24px 32px;text-align:center;box-sizing:border-box">
       <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,3.5vw,42px);font-weight:400;color:#fff;letter-spacing:-.03em;line-height:1.08;margin:0 0 32px">Enrol in minutes. Prepare at your pace. Walk in ready.</h2>
       <div class="cta-btn-row" style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">

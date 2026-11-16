@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://getcharteredai.com/professional-readiness-benchmark">
-<title>Professional Readiness Benchmark — Get Chartered AI</title>
-<meta name="description" content="A structured, employer-sponsored professional development review for graduates and apprentices in their first two years. Michael analyses five key areas of professional practice and produces a candid development report.">
+<title>Early Career Professional Readiness — Get Chartered AI</title>
+<meta name="description" content="An employer-sponsored development programme for graduates and apprentices — starting with a structured Benchmark at three months, followed by a Progress Reflection at six months and an ongoing Review cycle. Michael assesses five areas of professional practice and produces a candid development report.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -186,9 +186,9 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 <!-- Marketing page -->
 <div id="marketing-page">
   <div class="hero">
-    <div class="hero-eyebrow">Employer-sponsored</div>
+    <div class="hero-eyebrow">Early Career Professional Readiness</div>
     <h1>Professional Readiness<br><em>Benchmark</em></h1>
-    <p class="hero-sub">A structured development review for graduates and apprentices in their first two years — giving candidates a candid picture of where they are, and giving managers the insight to support them effectively.</p>
+    <p class="hero-sub">An employer-sponsored development programme for graduates and apprentices — starting with a structured Benchmark at around three months, followed by a Progress Reflection and an ongoing Review cycle as development continues.</p>
   </div>
 
   <div class="sec" style="max-width:900px;text-align:center">
@@ -227,7 +227,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
   <div class="cta-band" id="discuss">
     <div class="lbl">For employers</div>
     <div class="h2" style="max-width:500px;margin:0 auto 12px">Ready to discuss professional readiness?</div>
-    <p class="sub" style="margin:0 auto 28px">The Benchmark is available to employers for groups of graduates and apprentices. Get in touch to discuss how it fits your team.</p>
+    <p class="sub" style="margin:0 auto 28px">Early Career Professional Readiness is available to employers for groups of graduates and apprentices. Get in touch to discuss how it fits your team.</p>
     <a href="/employer#contact" class="btn btn-primary">Discuss professional readiness →</a>
   </div>
 
@@ -238,7 +238,7 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       <a href="/employer">Employers</a>
       <a href="/apprentice-review">Advanced Technical Pathway Benchmark</a>
     </div>
-    <div class="foot-copy">© 2026 Get Chartered AI. Professional Readiness Benchmark is part of the Get Chartered product family.</div>
+    <div class="foot-copy">© 2026 Get Chartered AI. Early Career Professional Readiness is part of the Get Chartered product family.</div>
   </footer>
 </div><!-- /marketing-page -->
 
@@ -2278,14 +2278,15 @@ async function submitConfirmProgress() {
       document.getElementById('progress-complete-content').innerHTML = `
         <div style="text-align:center;margin-bottom:24px">
           <div class="arev-michael-icon">&#10003;</div>
-          <div class="arev-heading">Progress Reflection complete</div>
+          <div class="arev-heading">Development review complete</div>
           <p class="arev-sub">Your refreshed priorities are saved.</p>
         </div>
         <div class="p1-report-section">
           <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:12px;padding:18px 20px">
-            <span class="p1-section-title" style="color:#065f46">Your refreshed priorities</span>
+            <span class="p1-section-title" style="color:#065f46">Your current priorities</span>
             ${confirmedPriorities.map((p, i) => `<div class="p1-list-item"><span style="color:#059669;font-weight:700">${i + 1}</span>&nbsp;${esc(p)}</div>`).join('')}
-            <p style="font-size:12px;color:#065f46;margin-top:10px">Development review date: <strong>${esc(reviewDate)}</strong></p>
+            <p style="font-size:12px;color:#065f46;margin-top:10px">Next development review: <strong>${esc(reviewDate)}</strong></p>
+            <p style="font-size:12px;color:#94a3b8;margin-top:6px">We will send you an invitation when your next review is ready to open.</p>
           </div>
         </div>
         <div class="arev-actions">
@@ -2306,18 +2307,41 @@ async function submitConfirmProgress() {
 
 function renderProgressComplete(data) {
   const el = document.getElementById('progress-complete-content');
+  const cycleCount = data.progressCycleCount || 1;
+  const cycleLabel = cycleCount === 2 ? 'Professional Readiness Review' : 'Progress Reflection';
   let html = `<div style="text-align:center;margin-bottom:24px">
     <div class="arev-michael-icon">&#10003;</div>
-    <div class="arev-heading">Progress Reflection complete</div>
+    <div class="arev-heading">${esc(cycleLabel)} complete</div>
     <p class="arev-sub">Your refreshed priorities are saved.</p>
   </div>`;
   if (data.agreedPriorities?.length) {
     html += `<div class="p1-report-section">
       <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:12px;padding:18px 20px">
-        <span class="p1-section-title" style="color:#065f46">Your refreshed priorities</span>
+        <span class="p1-section-title" style="color:#065f46">Your current priorities</span>
         ${data.agreedPriorities.map((p, i) => `<div class="p1-list-item"><span style="color:#059669;font-weight:700">${i + 1}</span>&nbsp;${esc(p)}</div>`).join('')}
-        ${data.reviewDate ? `<p style="font-size:12px;color:#065f46;margin-top:10px">Development review date: <strong>${esc(data.reviewDate)}</strong></p>` : ''}
+        ${data.reviewDate ? `<p style="font-size:12px;color:#065f46;margin-top:10px">Next development review: <strong>${esc(data.reviewDate)}</strong></p>` : ''}
+        ${data.reviewDate ? `<p style="font-size:12px;color:#94a3b8;margin-top:6px">We will send you an invitation when your next review is ready to open.</p>` : ''}
       </div>
+    </div>`;
+  }
+  if (data.progressCycleHistory?.length) {
+    html += `<div class="p1-report-section" style="margin-top:16px">
+      <span class="p1-section-title">Previous reviews</span>
+      ${data.progressCycleHistory.map(c => {
+        const label = c.cycle === 1 ? 'Progress Reflection' : c.cycle === 2 ? 'Professional Readiness Review' : `Development Review ${c.cycle}`;
+        const dateStr = c.completedAt ? new Date(c.completedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+        const judgements = (c.review?.progressAgainstPriorities || []).map(p =>
+          `<div class="p1-list-item" style="font-size:13px"><span style="color:#64748b">${esc(p.priority)}</span> — <span style="color:#374151;font-weight:600">${esc(p.progressJudgement)}</span></div>`
+        ).join('');
+        return `<div style="border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:10px;background:#f8fafc">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:13px;font-weight:700;color:#0D0F1C">${esc(label)}</span>
+            ${dateStr ? `<span style="font-size:11px;color:#94a3b8">${esc(dateStr)}</span>` : ''}
+          </div>
+          ${judgements || '<div class="p1-list-item" style="font-size:13px;color:#94a3b8">Summary not available</div>'}
+          ${c.review?.sinceBenchmark ? `<p style="font-size:13px;color:#64748b;margin-top:8px;line-height:1.6">${esc(c.review.sinceBenchmark)}</p>` : ''}
+        </div>`;
+      }).join('')}
     </div>`;
   }
   html += `<div class="arev-actions">

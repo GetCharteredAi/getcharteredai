@@ -158,6 +158,16 @@
   to = "/jo-employer-conversation.html"
   status = 200
 
+[[redirects]]
+  from = "/employer-presentation"
+  to = "/employer-presentation.html"
+  status = 200
+
+[[redirects]]
+  from = "/employer-development-partner"
+  to = "/employer-development-partner.html"
+  status = 200
+
 [functions."p1-scheduled"]
   schedule = "@daily"
 

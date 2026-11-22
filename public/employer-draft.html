@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://getcharteredai.com/employer">
+<title>Professional Development for Employers — Get Chartered AI</title>
+<meta name="description" content="Get Chartered AI helps built-environment employers develop their people continuously — from early career professional readiness and APC preparation through to ongoing development and outsourced L&D support.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0D0F1C;--blue:#2563EB;--blue-dark:#1d4ed8;--amber:#f59e0b;--green:#10b981;--f:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--fh:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#fff;color:#1a1a2e;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:1000;background:rgba(13,15,28,.97);backdrop-filter:blur(16px);height:64px;display:flex;align-items:center;padding:0 40px;border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo{margin-right:auto;text-decoration:none;display:flex;align-items:center}
+.nav-links{display:flex;gap:24px;margin-right:28px}
+.nav-link{font-size:13px;color:rgba(255,255,255,.58);text-decoration:none;transition:.15s}.nav-link:hover{color:#fff}
+.nav-btn{font-size:13px;font-weight:700;color:var(--navy);background:var(--amber);padding:8px 18px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.15s}.nav-btn:hover{background:#d97706}
+
+/* HERO */
+.hero{background:var(--navy);padding:96px 40px 88px;position:relative;overflow:hidden;text-align:center}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(37,99,235,.14) 0%,transparent 65%);pointer-events:none}
+.hero-inner{max-width:800px;margin:0 auto;position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);padding:5px 14px;border-radius:20px;margin-bottom:22px}
+.hero h1{font-family:var(--fh);font-size:clamp(26px,3.8vw,48px);font-weight:600;line-height:1.08;letter-spacing:-.03em;color:#fff;margin-bottom:20px}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.72);line-height:1.72;margin-bottom:20px;max-width:700px;margin-left:auto;margin-right:auto}
+.hero-comp{font-size:14px;color:rgba(255,255,255,.45);line-height:1.72;margin-bottom:36px;max-width:640px;margin-left:auto;margin-right:auto;font-style:italic}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-blue{background:var(--blue);color:#fff;padding:14px 26px;border-radius:9px;font-size:15px;font-weight:700;text-decoration:none;transition:.15s;white-space:nowrap}.btn-blue:hover{background:var(--blue-dark)}
+.btn-white-prem{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.28);color:#fff;padding:14px 24px;border-radius:9px;font-size:15px;font-weight:700;text-decoration:none;transition:.15s;white-space:nowrap}.btn-white-prem:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5)}
+
+/* SECTION COMMON */
+.section{padding:80px 40px}
+.sec-inner{max-width:1100px;margin:0 auto}
+.sec-navy{background:var(--navy)}
+.sec-white{background:#fff}
+.sec-light{background:#f8fafc}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:block;width:max-content;padding-bottom:8px;margin-bottom:16px}
+.eyebrow-amber{color:rgba(245,158,11,.85);border-bottom:1.5px solid rgba(245,158,11,.28)}
+.eyebrow-blue{color:var(--blue);border-bottom:1.5px solid rgba(37,99,235,.22)}
+.eyebrow-white{color:rgba(255,255,255,.55);border-bottom:1.5px solid rgba(255,255,255,.15)}
+.sec-h2{font-family:var(--fh);font-size:clamp(24px,3.2vw,38px);font-weight:600;line-height:1.12;letter-spacing:-.025em;margin-bottom:14px}
+.sec-h2-white{color:#fff}
+.sec-h2-dark{color:var(--navy)}
+.sec-lead{font-size:16px;line-height:1.72;margin-bottom:32px}
+.sec-lead-white{color:rgba(255,255,255,.60)}
+.sec-lead-muted{color:#64748b}
+.btn-solid-blue{display:inline-block;background:var(--blue);color:#fff;padding:13px 24px;border-radius:9px;font-size:15px;font-weight:700;text-decoration:none;transition:.15s}.btn-solid-blue:hover{background:var(--blue-dark)}
+.btn-solid-white{display:inline-block;background:#fff;color:var(--navy);padding:13px 24px;border-radius:9px;font-size:15px;font-weight:700;text-decoration:none;transition:.15s}.btn-solid-white:hover{background:rgba(255,255,255,.88)}
+
+/* DEVELOPMENT LOOP */
+.loop-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:36px 40px;margin:32px 0 36px}
+.loop-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.loop-step{padding:0 20px 0 0;position:relative}
+.loop-step:not(:last-child)::after{content:'›';position:absolute;right:4px;top:16px;color:rgba(255,255,255,.2);font-size:22px;font-weight:300}
+.loop-step-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.loop-step h4{font-family:var(--fh);font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.3}
+.loop-step p{font-size:13px;color:rgba(255,255,255,.58);line-height:1.65}
+.loop-note{font-size:13px;color:rgba(255,255,255,.38);line-height:1.6;font-style:italic;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;margin-top:4px}
+
+/* WHAT IT CHANGES */
+.wc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.wc-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:28px;border-top:3px solid var(--navy)}
+.wc-label{font-family:var(--fh);font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px}
+.wc-card p{font-size:14px;color:#64748b;line-height:1.65;margin:0}
+
+/* CAREER STAGES */
+.career-stages{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.1);border-radius:14px;overflow:hidden;margin:36px 0 40px}
+.career-stage{background:rgba(255,255,255,.045);padding:32px 28px}
+.cs-tier{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.cs-title{font-family:var(--fh);font-size:20px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.2}
+.cs-tag{font-size:11px;font-weight:600;color:rgba(255,255,255,.38);margin-bottom:14px;font-style:italic}
+.cs-body{font-size:13px;color:rgba(255,255,255,.52);line-height:1.65}
+
+/* CHARTERSHIP STRIP */
+.charter-strip{display:flex;align-items:center;gap:40px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:32px 36px}
+.charter-strip p{font-size:15px;color:rgba(255,255,255,.65);line-height:1.65;margin:0}
+
+/* APC BTN */
+.btn-apc-cta{display:inline-block;background:var(--amber);color:var(--navy);padding:13px 24px;border-radius:9px;font-size:15px;font-weight:700;text-decoration:none;transition:.15s}.btn-apc-cta:hover{background:#d97706}
+
+/* PATHWAY CARDS */
+.pathway-section{background:#f4f6f4;padding:64px 40px}
+.pathway-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.pathway-card{border-radius:18px;padding:40px 36px;border:1px solid transparent;display:flex;flex-direction:column}
+.pathway-pr{background:#edf4ee;border-color:#bfd4c1}
+.pathway-dp{background:#fdf8ed;border-color:#e3d5a8}
+.pathway-tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.pathway-pr .pathway-tag{color:#1a5c35}
+.pathway-dp .pathway-tag{color:#8a5f0a}
+.pathway-h2{font-family:var(--fh);font-size:clamp(21px,2.5vw,27px);font-weight:600;line-height:1.1;letter-spacing:-.022em;color:var(--navy);margin-bottom:16px}
+.pathway-body{font-size:15px;color:#374151;line-height:1.72;margin-bottom:28px;flex:1}
+.pathway-strapline{font-size:17px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--navy);margin-bottom:14px}
+.pathway-cta{display:inline-block;font-size:14px;font-weight:700;text-decoration:none;padding:11px 22px;border-radius:8px;transition:.15s;align-self:flex-start}
+.pathway-cta-pr{background:var(--navy);color:#fff}.pathway-cta-pr:hover{background:#1e3a5f}
+.pathway-cta-dp{background:#92660a;color:#fff}.pathway-cta-dp:hover{background:#6e4d08}
+.pathway-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:24px}
+.pathway-apc{background:#eff6ff;border-color:#bfdbfe}
+.pathway-apc .pathway-tag{color:#1d4ed8}
+.pathway-cta-apc{background:var(--navy);color:#fff}.pathway-cta-apc:hover{background:#1e3a5f}
+
+/* ONE PLATFORM BRIDGE */
+.one-platform-box{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:40px 44px;margin-top:32px;max-width:860px}
+.one-platform-box h2{font-family:var(--fh);font-size:clamp(20px,2.6vw,30px);font-weight:600;line-height:1.12;letter-spacing:-.025em;color:var(--navy);margin-bottom:14px}
+.one-platform-box p{font-size:15px;color:#374151;line-height:1.72;margin-bottom:12px}
+.one-platform-box p:last-child{margin-bottom:0}
+
+/* CONTACT */
+.contact-card{display:grid;grid-template-columns:2fr 3fr;gap:56px;align-items:start;background:#f8fafc;border:1px solid #e2e8f0;border-radius:20px;padding:44px 48px}
+.contact-intro h2{font-family:var(--fh);font-size:clamp(20px,2.2vw,28px);font-weight:600;line-height:1.12;letter-spacing:-.025em;color:var(--navy);margin-bottom:12px}
+.contact-intro p{font-size:15px;color:#64748b;line-height:1.65;margin:0}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b}
+.form-input{padding:11px 14px;background:#fff;border:1.5px solid #e2e8f0;border-radius:8px;font-family:var(--f);font-size:14px;color:var(--navy);outline:none;transition:.18s;width:100%;appearance:none}
+.form-input:focus{border-color:var(--blue);background:#fff}
+textarea.form-input{resize:vertical;min-height:100px}
+.form-btn{width:100%;padding:14px;background:var(--navy);color:#fff;border:none;border-radius:9px;font-family:var(--f);font-size:15px;font-weight:700;cursor:pointer;transition:.18s;margin-top:6px}
+.form-btn:hover:not(:disabled){background:#1d4ed8;transform:translateY(-1px)}
+.form-btn:disabled{background:#94a3b8;cursor:not-allowed;transform:none}
+.alert{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:14px;display:none}
+.alert-err{background:#fee2e2;color:#dc2626;border:1px solid #fca5a5}
+.alert-ok{background:#dcfce7;color:#16a34a;border:1px solid #86efac}
+.form-note{font-size:12px;color:#94a3b8;text-align:left;margin-top:10px}
+.form-row-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+.form-row-submit{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.form-row-submit .form-btn{width:auto;padding:11px 22px;white-space:nowrap;margin-top:0}
+.form-row-submit textarea.form-input{min-height:60px}
+
+/* FOOTER */
+footer{background:#f8fafc;border-top:1px solid #e2e8f0;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.footer-brand{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--navy)}.footer-brand span{color:var(--amber)}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{color:#64748b;font-size:12px;text-decoration:none;transition:.15s}.footer-links a:hover{color:var(--navy)}
+.footer-copy{font-size:11px;color:#94a3b8;width:100%;margin:0}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .pathway-grid{grid-template-columns:1fr}
+  .pathway-grid-3{grid-template-columns:1fr}
+  .one-platform-box{padding:28px 24px}
+  .pathway-section{padding:48px 24px}
+  .career-stages{grid-template-columns:1fr}
+  .loop-steps{grid-template-columns:1fr 1fr}
+  .loop-step:nth-child(2)::after{display:none}
+  .loop-step:not(:last-child)::after{right:-4px}
+  .wc-grid{grid-template-columns:1fr}
+  .charter-strip{flex-direction:column;gap:20px}
+  .section{padding:64px 24px}
+  .hero{padding:72px 24px 64px}
+  nav{padding:0 20px}
+  footer{padding:24px 20px}
+  .nav-links{display:none}
+  .loop-panel{padding:28px 24px}
+  .contact-card{grid-template-columns:1fr;gap:28px;padding:28px 24px}
+  .form-row-4{grid-template-columns:1fr 1fr}
+  .form-row-submit{grid-template-columns:1fr}
+  .form-row-submit .form-btn{width:100%;margin-top:6px}
+}
+@media(max-width:540px){
+  .hero-btns{flex-direction:column;align-items:center}
+  .form-row{grid-template-columns:1fr}
+  .loop-steps{grid-template-columns:1fr}
+  .loop-step::after{display:none!important}
+  .form-row-4{grid-template-columns:1fr}
+}
+</style>
+
+<style>html{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}body,p,li,blockquote,figcaption,dt,dd,td,th,address{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/logo1.png" alt="Get Chartered AI" style="height:44px"></a>
+  <div class="nav-links">
+    <a href="/employer/professional-readiness" class="nav-link">Professional Readiness</a>
+    <a href="/employer/development-partner" class="nav-link">L&amp;D Outsourcing</a>
+    <a href="/employer-guide" class="nav-link">Employer Guide</a>
+  </div>
+  <a href="#contact" class="nav-btn">Talk to us &rarr;</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Professional Development for Built-Environment Businesses</div>
+    <h1>Some of the most important professional development happens between technical training and workplace application.</h1>
+    <p class="hero-sub">As employees learn to apply their knowledge, exercise professional judgement and prepare to take on greater responsibility.</p>
+    <p class="hero-comp">That&rsquo;s the space we built Get Chartered AI to support.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-blue">Talk to us &rarr;</a>
+      <a href="#how-it-works" class="btn-white-prem">See how it works</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S1: EMPLOYER CHALLENGE ══ -->
+<div class="section sec-white" style="padding-bottom:40px">
+  <div class="sec-inner" style="max-width:860px;text-align:center">
+    <span class="eyebrow eyebrow-blue" style="margin:0 auto 16px">The challenge</span>
+    <h2 class="sec-h2 sec-h2-dark">Helping learning translate into professional capability.</h2>
+    <p class="sec-lead sec-lead-muted" style="max-width:700px;margin-left:auto;margin-right:auto;margin-bottom:14px">Businesses already invest in their people through training, qualifications, mentoring and workplace experience.</p>
+    <p class="sec-lead sec-lead-muted" style="max-width:700px;margin-left:auto;margin-right:auto;margin-bottom:14px">Get Chartered AI builds on that investment, giving employees opportunities to practise applying their knowledge, strengthen their professional judgement and demonstrate their development over time.</p>
+    <p class="sec-lead sec-lead-muted" style="max-width:700px;margin-left:auto;margin-right:auto;margin-bottom:0">Managers gain a clearer picture of progress and where further support may be needed.</p>
+  </div>
+</div>
+
+<!-- ══ S2: BENEFIT CARDS ══ -->
+<div class="section sec-white" style="padding-top:0">
+  <div class="sec-inner" style="max-width:960px">
+    <div class="wc-grid">
+      <div class="wc-card">
+        <div class="wc-label">For your people</div>
+        <p>Clearer priorities, safe practice and growing confidence to apply knowledge, explain reasoning and take responsibility.</p>
+      </div>
+      <div class="wc-card">
+        <div class="wc-label">For managers</div>
+        <p>A clearer picture before development conversations, with useful prompts and earlier visibility of where support or experience is needed.</p>
+      </div>
+      <div class="wc-card">
+        <div class="wc-label">For the business</div>
+        <p>A more consistent view of development across teams, helping identify recurring gaps, capability priorities and readiness for what comes next.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S3: HOW GCAI WORKS ══ -->
+<div class="section sec-light" style="padding-bottom:48px">
+  <div class="sec-inner" style="max-width:860px">
+    <span class="eyebrow eyebrow-blue">How it works</span>
+    <h2 class="sec-h2 sec-h2-dark">One connected development system.</h2>
+    <p class="sec-lead sec-lead-muted" style="max-width:680px;margin-bottom:0">Get Chartered AI runs a continuous loop &mdash; identify what needs to develop, practise and apply it with Michael, demonstrate improvement through workplace evidence, then review whether capability has actually changed.</p>
+  </div>
+</div>
+
+<!-- ══ HOW IT WORKS ══ -->
+<div class="section sec-navy" id="how-it-works">
+  <div class="sec-inner" style="max-width:1000px">
+    <span class="eyebrow eyebrow-amber">One connected development system</span>
+    <h2 class="sec-h2 sec-h2-white">Identify &rarr; Practise &amp; Apply &rarr; Evidence &rarr; Review</h2>
+    <p class="sec-lead sec-lead-white" style="max-width:680px">One connected system &mdash; each stage builds on the last, from identifying what needs to develop through to reviewing whether capability has actually changed.</p>
+    <div class="loop-panel">
+      <div class="loop-steps">
+        <div class="loop-step">
+          <div class="loop-step-tag">Identify</div>
+          <h4>Professional Readiness Review</h4>
+          <p>A structured readiness review helps the individual and manager understand strengths, development needs and where more experience, exposure or confidence may be required.</p>
+        </div>
+        <div class="loop-step">
+          <div class="loop-step-tag">Practise &amp; Apply</div>
+          <h4>Michael</h4>
+          <p>Michael gives the individual a safe place to apply knowledge, explain reasoning, respond to challenge and strengthen professional judgement before taking that development back into the workplace.</p>
+        </div>
+        <div class="loop-step">
+          <div class="loop-step-tag">Evidence</div>
+          <h4>Workplace demonstration</h4>
+          <p>Development activity is connected to real workplace experience so improvement is demonstrated through what the individual can actually do &mdash; not simply through training attendance.</p>
+        </div>
+        <div class="loop-step">
+          <div class="loop-step-tag">Review</div>
+          <h4>Later readiness check</h4>
+          <p>Return later and ask the important question: has anything actually changed? The review shows whether capability has developed, where further support is needed and what the next priority should be.</p>
+        </div>
+      </div>
+      <p class="loop-note">Professional judgement remains human-led throughout. Get Chartered AI structures the evidence and conversation &mdash; it does not replace the manager, the counsellor or the individual&rsquo;s own development.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MEET MICHAEL ══ -->
+<div class="section sec-light">
+  <div class="sec-inner" style="max-width:960px">
+    <span class="eyebrow eyebrow-blue">Your people&rsquo;s practice partner</span>
+    <h2 class="sec-h2 sec-h2-dark">Meet Michael.</h2>
+    <p class="sec-lead sec-lead-muted" style="max-width:640px">Michael is the human-voiced AI at the heart of Get Chartered AI. He gives your people a safe place to apply knowledge, explain reasoning, respond to challenge and strengthen professional judgement &mdash; before taking that development back into the workplace.</p>
+    <div style="margin-top:28px;border-radius:14px;overflow:hidden;max-width:720px;background:#0D0F1C">
+      <video controls muted playsinline preload="none" poster="/images/michael-homepage-poster.jpg" style="width:100%;display:block;border-radius:14px">
+        <source src="/videos/michael-homepage-intro.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p style="font-size:13px;color:#94a3b8;margin-top:12px;max-width:720px">Professional judgement remains human-led throughout. Michael structures the evidence and conversation &mdash; he does not replace the manager, the counsellor or the individual&rsquo;s own development.</p>
+  </div>
+</div>
+
+<!-- ══ CAREER STAGES ══ -->
+<div class="section sec-navy">
+  <div class="sec-inner" style="max-width:900px">
+    <span class="eyebrow eyebrow-amber">Support at every career stage</span>
+    <h2 class="sec-h2 sec-h2-white">Starters. Minders. Leaders.</h2>
+    <p class="sec-lead sec-lead-white" style="max-width:680px">Get Chartered AI can support people progressively &mdash; not only at one assessment point.</p>
+    <div class="career-stages">
+      <div class="career-stage">
+        <div class="cs-tier">Starters</div>
+        <div class="cs-title">Learn the work.</div>
+        <div class="cs-tag">Early-career &middot; Apprentices &middot; Graduates</div>
+        <p class="cs-body">Build knowledge, confidence and professional habits. Begin to understand how to apply what you know, when to ask and how to explain your reasoning.</p>
+      </div>
+      <div class="career-stage">
+        <div class="cs-tier">Minders</div>
+        <div class="cs-title">Take responsibility for the work.</div>
+        <div class="cs-tag">Developing professionals &middot; APC candidates</div>
+        <p class="cs-body">Strengthen judgement, accountability, client communication and independent decision-making. Demonstrate capability through what you can actually do, not only through what you have attended.</p>
+      </div>
+      <div class="career-stage">
+        <div class="cs-tier">Leaders</div>
+        <div class="cs-title">Lead the work.</div>
+        <div class="cs-tag">Experienced professionals &middot; Post-chartership</div>
+        <p class="cs-body">Begin to take on greater responsibility &mdash; leading decisions, client relationships and increasingly complex work as your career develops.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SPECIALIST SUPPORT ══ -->
+<div class="section sec-white">
+  <div class="sec-inner" style="max-width:1060px">
+    <span class="eyebrow eyebrow-blue">Specialist support</span>
+    <h2 class="sec-h2 sec-h2-dark">The right programme for every need.</h2>
+    <p class="sec-lead sec-lead-muted">Structured programmes for early career readiness, APC preparation, final assessment support and outsourced L&amp;D &mdash; each built on the same connected platform.</p>
+    <div class="pathway-grid" style="margin-top:28px">
+      <div class="pathway-card pathway-pr">
+        <div class="pathway-tag">Early career</div>
+        <h2 class="pathway-h2">Early Career Professional Readiness</h2>
+        <p class="pathway-body">A twelve-month structured programme for graduates and apprentices &mdash; Benchmark, Progress Reflection, Professional Readiness Review and ongoing development aligned with your review cycle.</p>
+        <a href="/employer/professional-readiness" class="pathway-cta pathway-cta-pr">Explore the programme &rarr;</a>
+      </div>
+      <div class="pathway-card pathway-dp">
+        <div class="pathway-tag">Outsourced L&amp;D</div>
+        <p class="pathway-strapline">Headcount isn&rsquo;t the only route to growth.</p>
+        <h2 class="pathway-h2">Your external L&amp;D partner.</h2>
+        <p class="pathway-body">Structured professional development without the in-house headcount &mdash; structured review, AI-assisted practice and clearer development insight across your business.</p>
+        <a href="/employer/development-partner" class="pathway-cta pathway-cta-dp">Explore L&amp;D outsourcing &rarr;</a>
+      </div>
+      <div class="pathway-card pathway-apc">
+        <div class="pathway-tag">APC preparation</div>
+        <h2 class="pathway-h2">Full 12-Module APC Programme</h2>
+        <p class="pathway-body">Support your candidates throughout their APC preparation with structured learning, AI-assisted practice across all 22 pathways and mock interview preparation.</p>
+        <a href="/programme" class="pathway-cta pathway-cta-apc">Explore the APC programme &rarr;</a>
+      </div>
+      <div class="pathway-card pathway-apc">
+        <div class="pathway-tag">APC support</div>
+        <h2 class="pathway-h2">Final Sprint &amp; Referral Recovery</h2>
+        <p class="pathway-body">Targeted support for candidates in the final run-up to assessment, and structured recovery programmes for those who have been referred.</p>
+        <a href="/sprint" class="pathway-cta pathway-cta-apc">Explore assessment support &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div class="section sec-white" id="contact" style="padding:48px 40px">
+  <div class="sec-inner">
+    <div class="contact-card">
+      <div class="contact-intro">
+        <span class="eyebrow eyebrow-blue">Get in touch</span>
+        <h2>Talk to us about your people.</h2>
+        <p>Tell us about the people you are developing and the support you need.</p>
+      </div>
+      <div>
+        <div id="contactAlert" class="alert"></div>
+        <div class="form-row-4">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" id="empName" class="form-input" placeholder="First and last name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Firm Name</label>
+            <input type="text" id="empFirm" class="form-input" placeholder="Your firm or organisation">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="empEmail" class="form-input" placeholder="you@firm.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="empCohort">How many employees to support?</label>
+            <select id="empCohort" class="form-input">
+              <option value="">Not sure yet</option>
+              <option value="1-5">1&ndash;5 employees</option>
+              <option value="6-15">6&ndash;15 employees</option>
+              <option value="16-30">16&ndash;30 employees</option>
+              <option value="31-50">31&ndash;50 employees</option>
+              <option value="51+">51+ employees</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-submit">
+          <div class="form-group">
+            <label class="form-label">What would be most useful to discuss?</label>
+            <textarea id="empMessage" class="form-input" placeholder="e.g. professional readiness for graduates, APC preparation, apprenticeship support, referred candidate support..."></textarea>
+          </div>
+          <button class="form-btn" id="empBtn" onclick="submitEmployer()">Send enquiry &rarr;</button>
+        </div>
+        <p class="form-note" style="text-align:left">We will respond directly. No obligation.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand"><span style="color:var(--amber)">G</span>et Chartered <span>AI</span></div>
+  <div class="footer-links">
+    <a href="/">Platform</a>
+    <a href="/employer/professional-readiness">Professional Readiness</a>
+    <a href="/employer/development-partner">L&amp;D Outsourcing</a>
+    <a href="/employer-guide">Employer Guide</a>
+    <a href="/referred-programme">Referred Candidates</a>
+  </div>
+  <p class="footer-copy">&#169; 2026 Get Chartered AI &middot; Built by Chartered Surveyors &middot; getcharteredai.com</p>
+</footer>
+
+<script>
+async function submitEmployer() {
+  const name = document.getElementById('empName').value.trim();
+  const firm = document.getElementById('empFirm').value.trim();
+  const email = document.getElementById('empEmail').value.trim().toLowerCase();
+  const cohort = document.getElementById('empCohort').value;
+  const message = document.getElementById('empMessage').value.trim();
+  const btn = document.getElementById('empBtn');
+  const alertEl = document.getElementById('contactAlert');
+  alertEl.style.display = 'none';
+
+  if (!name) { showAlert('Please enter your name.', 'err'); return; }
+  if (!firm) { showAlert('Please enter your firm name.', 'err'); return; }
+  if (!email || !email.includes('@')) { showAlert('Please enter a valid email address.', 'err'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  try {
+    const res = await fetch('/.netlify/functions/employer-followup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, firm, cohortSize: cohort, message })
+    });
+    if (!res.ok) throw new Error('Server error ' + res.status);
+    showAlert('✓ Enquiry received. We will be in touch directly.', 'ok');
+    btn.textContent = '✓ Enquiry sent';
+  } catch(e) {
+    showAlert('Something went wrong. Please email info@getcharteredai.com directly.', 'err');
+    btn.disabled = false;
+    btn.textContent = 'Send enquiry →';
+  }
+}
+function showAlert(msg, type) {
+  const el = document.getElementById('contactAlert');
+  el.textContent = msg;
+  el.className = 'alert alert-' + type;
+  el.style.display = 'block';
+}
+</script>
+
+</body>
+</html>

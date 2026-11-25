@@ -62,6 +62,10 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .pbtn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.2)}
 .pbtn-outline:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.35)}
 
+/* BENEFIT STRIP */
+.gcai-benefits{display:flex;gap:16px 32px;flex-wrap:nowrap;margin-bottom:52px}
+@media(max-width:640px){.gcai-benefits{flex-direction:column;gap:10px}}
+
 /* STRIPE NOTE */
 .stripe-note{text-align:center;margin-top:32px;font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.06em;text-transform:uppercase}
 
@@ -113,7 +117,7 @@ footer{background:#080a16;border-top:1px solid rgba(255,255,255,.06);padding:48p
   <h1 class="page-h">The right preparation for wherever you are in your APC journey.</h1>
   <p style="font-size:16px;color:rgba(248,250,252,.65);line-height:1.75;max-width:640px;margin-bottom:14px">Whether you're building your knowledge, approaching final assessment or preparing for a resit, our programmes provide structured learning, practical preparation and feedback to help you improve.</p>
   <p style="font-size:16px;color:rgba(248,250,252,.65);line-height:1.75;max-width:640px;margin-bottom:32px">Learn the competencies, practise applying your knowledge and work with Michael, your AI tutor and assessor, to strengthen your reasoning and prepare for the questions that matter.</p>
-  <div style="display:flex;gap:16px 40px;flex-wrap:wrap;margin-bottom:52px">
+  <div class="gcai-benefits">
     <div>
       <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f59e0b">Learn</span>
       <span style="font-size:14px;color:rgba(255,255,255,.2);margin:0 8px">&mdash;</span>

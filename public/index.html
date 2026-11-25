@@ -1631,6 +1631,11 @@ body.pilot-mode>nav{display:none!important}
 .gcai-split-bullets li{font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;display:flex;gap:10px}
 .gcai-split-bullets li strong{color:#f4f6fb}
 .gcai-split-ck{font-weight:700;flex-shrink:0;line-height:1.5}
+.gcai-stages-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:0 0 24px}
+.gcai-stage-cell{background:rgba(255,255,255,.05);border-radius:8px;padding:7px 12px}
+.gcai-stage-title{font-size:13px;font-weight:700;color:#eef2ff;line-height:1.3;margin-bottom:2px}
+.gcai-stage-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.4;margin:0}
+@media(max-width:480px){.gcai-stages-grid{grid-template-columns:1fr}}
 .gcai-chips{display:flex;flex-wrap:wrap;gap:7px}
 .gcai-chip{font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid rgba(37,99,235,.4);background:rgba(37,99,235,.1);color:#93c5fd;letter-spacing:.01em;white-space:nowrap}
 .gcai-chip-green{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.1);color:#6ee7b7}
@@ -1650,12 +1655,25 @@ body.pilot-mode>nav{display:none!important}
       <span class="gcai-split-label" style="color:#2563EB">For Candidates</span>
       <h3 class="gcai-split-hl">Your APC learning, preparation and practice partner.</h3>
       <p class="gcai-split-intro">From starting your APC to preparing for your final assessment, Get Chartered AI helps you develop the knowledge, professional judgement and confidence to succeed.</p>
-      <ul class="gcai-split-bullets">
-        <li><span class="gcai-split-ck" style="color:#10b981">&#10003;</span><span><strong>Learn</strong> what you need to know.</span></li>
-        <li><span class="gcai-split-ck" style="color:#10b981">&#10003;</span><span><strong>Practise</strong> applying your knowledge.</span></li>
-        <li><span class="gcai-split-ck" style="color:#10b981">&#10003;</span><span><strong>Get challenged</strong> on your reasoning.</span></li>
-        <li><span class="gcai-split-ck" style="color:#10b981">&#10003;</span><span><strong>Build confidence</strong> to explain, defend and perform when it matters.</span></li>
-      </ul>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.1);margin:0 0 20px">
+      <div class="gcai-stages-grid">
+        <div class="gcai-stage-cell">
+          <p class="gcai-stage-title">Starting out</p>
+          <p class="gcai-stage-desc">Build professional foundations.</p>
+        </div>
+        <div class="gcai-stage-cell">
+          <p class="gcai-stage-title">Working towards chartership</p>
+          <p class="gcai-stage-desc">Learn and practise your competencies.</p>
+        </div>
+        <div class="gcai-stage-cell">
+          <p class="gcai-stage-title">Final assessment or referral</p>
+          <p class="gcai-stage-desc">Focus your preparation where it matters.</p>
+        </div>
+        <div class="gcai-stage-cell">
+          <p class="gcai-stage-title">Beyond chartership</p>
+          <p class="gcai-stage-desc">Develop for greater responsibility.</p>
+        </div>
+      </div>
       <div class="gcai-chips">
         <span class="gcai-chip">Ask questions</span>
         <span class="gcai-chip">Test your knowledge</span>

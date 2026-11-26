@@ -167,6 +167,19 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
 @media(max-width:900px){nav{padding:0 20px}.sec{padding:60px 20px}.hero{padding:72px 20px 60px}.areas-grid{grid-template-columns:repeat(3,1fr)}footer{padding:32px 20px 24px}}
 .p1-mgr-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
 @media(max-width:600px){.areas-grid{grid-template-columns:1fr 1fr}.p1-mgr-cards{grid-template-columns:1fr}}
+.mgr-orient-grid{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-bottom:24px}
+.mgr-orient-row{display:grid;grid-template-columns:max-content 1fr}
+.mgr-orient-row:not(:last-child){border-bottom:1px solid #f1f5f9}
+.mgr-orient-lbl{padding:14px 12px 14px 20px;display:flex;align-items:flex-start;background:#fafbfc;border-right:1px solid #f1f5f9}
+.mgr-orient-txt{padding:14px 20px 14px 16px}
+.mgr-steps{display:flex;flex-direction:column}
+.mgr-step{display:flex;gap:14px}
+.mgr-step-track{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:26px}
+.mgr-step-num{width:26px;height:26px;border-radius:50%;background:#0D0F1C;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mgr-step-vline{width:1px;background:#e2e8f0;flex:1;min-height:14px;margin:3px 0}
+.mgr-step-body{flex:1;padding-bottom:22px}
+.mgr-step:last-child .mgr-step-body{padding-bottom:2px}
+@media(max-width:520px){.mgr-orient-row{grid-template-columns:1fr}.mgr-orient-lbl{padding:12px 20px 2px;border-right:none}.mgr-orient-txt{padding:2px 20px 12px}}
 </style>
 
 <style>html{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}body,p,li,blockquote,figcaption,dt,dd,td,th,address{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}</style>
@@ -477,7 +490,40 @@ footer{background:#08090f;padding:40px 40px 28px;display:flex;align-items:center
       </div>
       <p style="font-size:12px;color:#94a3b8;text-align:center;margin-bottom:20px;line-height:1.5">Your responses are combined with the participant's development themes to help shape the conversation and suggested priorities, and are treated in confidence.</p>
       <div style="text-align:center">
-        <button class="arev-btn-primary" onclick="goToManagerReflection()" style="width:fit-content;padding:12px 36px">Begin manager reflection →</button>
+        <button class="arev-btn-primary" onclick="show('manager-orientation')" style="width:fit-content;padding:12px 36px">Begin →</button>
+      </div>
+    </div>
+
+    <!-- Manager orientation (A1) -->
+    <div id="state-manager-orientation" style="display:none">
+      <div style="background:#0D0F1C;border-radius:14px;padding:22px 20px;margin-bottom:20px;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(37,99,235,.14) 0%,transparent 65%);pointer-events:none"></div>
+        <div style="position:relative;text-align:center">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:10px">Manager Reflection</div>
+          <div style="font-family:Inter,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Arial,sans-serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:8px">Your role in this conversation</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.5">A brief introduction before the seven questions.</div>
+        </div>
+      </div>
+      <div class="mgr-orient-grid">
+        <div class="mgr-orient-row">
+          <div class="mgr-orient-lbl"><span style="font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#f59e0b">Your role</span></div>
+          <div class="mgr-orient-txt"><p style="font-size:13px;color:#374151;line-height:1.65;margin:0">The decisions you make about work, responsibility and feedback directly shape how quickly your team member develops. The most important development happens in real work — your input makes this reflection more useful and the conversation that follows more purposeful.</p></div>
+        </div>
+        <div class="mgr-orient-row">
+          <div class="mgr-orient-lbl"><span style="font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#f59e0b">Your observations</span></div>
+          <div class="mgr-orient-txt"><p style="font-size:13px;color:#374151;line-height:1.65;margin:0">Your answers will be combined with your team member's self-assessment to produce a development summary. This is not an appraisal. It is a starting point for a development conversation — one that is more useful when it reflects what you have actually observed at work.</p></div>
+        </div>
+        <div class="mgr-orient-row">
+          <div class="mgr-orient-lbl"><span style="font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#f59e0b">What to focus on</span></div>
+          <div class="mgr-orient-txt"><p style="font-size:13px;color:#374151;line-height:1.65;margin:0">Consider specific behaviour you have observed rather than general impressions. Think about where your team member is working well and where they still need guidance, experience or support. Answers do not need to be long — specific examples are more useful than general statements.</p></div>
+        </div>
+        <div class="mgr-orient-row">
+          <div class="mgr-orient-lbl"><span style="font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#f59e0b">What happens next</span></div>
+          <div class="mgr-orient-txt"><p style="font-size:13px;color:#374151;line-height:1.65;margin:0">Once you complete the seven questions, a development summary will be prepared — usually within a few minutes. Return to this link to view it. The summary includes suggested conversation topics, development priorities and actions you can take to support their development.</p></div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <button class="arev-btn-primary" onclick="goToManagerReflection()" style="width:fit-content;padding:12px 36px">Begin my reflection →</button>
       </div>
     </div>
 
@@ -754,7 +800,7 @@ let accommodationUsedThisQ = false; // true if candidate used help panel on curr
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
 function show(stateId) {
-  ['home','loading','error','privacy','context','reflection','priority-select','generating','report','employer-status','manager-privacy','manager-reflection','manager-complete','candidate-development','manager-development','synthesising-pending','agree-priorities','lapsed-self-plan','progress-reflection','progress-manager-invited','progress-synthesising','progress-ready','progress-complete','progress-manager-reflection','progress-manager-complete','manager-phase4']
+  ['home','loading','error','privacy','context','reflection','priority-select','generating','report','employer-status','manager-privacy','manager-orientation','manager-reflection','manager-complete','candidate-development','manager-development','synthesising-pending','agree-priorities','lapsed-self-plan','progress-reflection','progress-manager-invited','progress-synthesising','progress-ready','progress-complete','progress-manager-reflection','progress-manager-complete','manager-phase4']
     .forEach(s => { const el = document.getElementById('state-' + s); if (el) el.style.display = 'none'; });
   const target = document.getElementById('state-' + stateId);
   if (target) target.style.display = '';
@@ -1720,6 +1766,17 @@ const OUTCOME_COLOURS = {
   'NOT YET ENOUGH EXPOSURE': '#64748b'
 };
 
+function toggleMgrGuide() {
+  const body = document.getElementById('mgr-guide-body');
+  const lbl = document.getElementById('mgr-guide-toggle-label');
+  const hdr = document.getElementById('mgr-guide-header');
+  if (!body) return;
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : '';
+  if (lbl) lbl.textContent = isOpen ? 'Show ↓' : 'Hide ↑';
+  if (hdr) hdr.setAttribute('aria-expanded', String(!isOpen));
+}
+
 function goToManagerReflection() {
   const label = sessionData.candidateLabel || 'your team member';
 
@@ -2033,8 +2090,59 @@ function renderManagerDevelopment(data) {
     html += `</div></div>`;
   }
 
+  // A3 — Development conversation guide
+  html += `<div class="p1-report-section" style="border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-top:4px">
+    <div id="mgr-guide-header" style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:#f8fafc;border-bottom:1px solid #e2e8f0;cursor:pointer;user-select:none" onclick="toggleMgrGuide()" role="button" aria-expanded="true">
+      <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.10em;color:#0D0F1C">Preparing for your conversation</span>
+      <span id="mgr-guide-toggle-label" style="font-size:11px;font-weight:600;color:#2563EB;white-space:nowrap">Hide &#8593;</span>
+    </div>
+    <div id="mgr-guide-body" style="padding:22px 24px 10px">
+      <div class="mgr-steps">
+        <div class="mgr-step">
+          <div class="mgr-step-track">
+            <div class="mgr-step-num">1</div>
+            <div class="mgr-step-vline"></div>
+          </div>
+          <div class="mgr-step-body">
+            <div style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:4px;padding-top:3px">Start with what is going well</div>
+            <p style="font-size:13px;color:#475569;line-height:1.65;margin:0">Use the development summary above to identify what your team member is already demonstrating. Beginning with what is going well creates the right conditions for a more honest discussion of what needs to develop. Do not skip this.</p>
+          </div>
+        </div>
+        <div class="mgr-step">
+          <div class="mgr-step-track">
+            <div class="mgr-step-num">2</div>
+            <div class="mgr-step-vline"></div>
+          </div>
+          <div class="mgr-step-body">
+            <div style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:4px;padding-top:3px">Discuss development needs and missing experience</div>
+            <p style="font-size:13px;color:#475569;line-height:1.65;margin:0">Work through the development priorities above. For each one, focus the conversation on what the gap looks like in practice — not what should happen in theory. Use the conversation topics above as starting points, and explore whether the gap is about knowledge, practice, exposure or confidence.</p>
+          </div>
+        </div>
+        <div class="mgr-step">
+          <div class="mgr-step-track">
+            <div class="mgr-step-num">3</div>
+            <div class="mgr-step-vline"></div>
+          </div>
+          <div class="mgr-step-body">
+            <div style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:4px;padding-top:3px">Agree practical workplace actions</div>
+            <p style="font-size:13px;color:#475569;line-height:1.65;margin:0">Each development priority above includes a suggested manager action. The most useful actions give the individual a specific piece of work or responsibility, direct feedback on something they recently did, or access to a situation they have not yet encountered.</p>
+          </div>
+        </div>
+        <div class="mgr-step">
+          <div class="mgr-step-track">
+            <div class="mgr-step-num">4</div>
+          </div>
+          <div class="mgr-step-body">
+            <div style="font-size:13px;font-weight:700;color:#0D0F1C;margin-bottom:4px;padding-top:3px">Set a review date</div>
+            <p style="font-size:13px;color:#475569;line-height:1.65;margin:0">Agree 2–3 priorities to focus on and a date to review progress. Record them using the form below. A date that is soon enough to feel real but far enough away to show genuine development — typically 6–8 weeks from now — works well.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
   if (!data.agreedPriorities?.length) {
-    html += `<div class="arev-actions" style="margin-top:8px">
+    html += `<div class="arev-actions" style="margin-top:16px">
       <button class="arev-btn-primary" onclick="show('agree-priorities')">Record agreed priorities &#8594;</button>
     </div>`;
   }

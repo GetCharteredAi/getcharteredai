@@ -1,0 +1,55 @@
+{
+  "_draft": true,
+  "_note": "DRAFT — not published. Content review required before adding to manager-lessons-data.json.",
+  "topics": [
+    {
+      "id": "topic-m2-development-conversations",
+      "title": "Effective Development Conversations",
+      "published": false,
+      "sections": [
+
+        {
+          "sectionType": "content",
+          "stageLabel": "1 — Understand",
+          "_stage": "1 — Understand",
+          "body": "<h3>What is a development conversation?</h3><p>A development conversation is a structured discussion about where someone is heading professionally and what they need to get there. It is distinct from a performance review and from day-to-day task management. The focus is on the person's growth, not on what they have or have not delivered.</p><p>For graduates and apprentices in the built environment, development conversations matter because the route to chartership or qualification requires active professional development — not just time served. Your role is to help them see their own trajectory clearly and take ownership of it.</p><h3>Four things an effective conversation does</h3><ul><li><strong>It surfaces goals.</strong> What does this person want to achieve — in the short term and over the next year? Do you know? Do they?</li><li><strong>It identifies gaps honestly.</strong> Where is the difference between where they are now and where they need to be? This requires specificity, not reassurance.</li><li><strong>It builds a plan.</strong> What will they do, with what support, by when? A development plan that lives in a shared document is more useful than one that stays in someone's head.</li><li><strong>It stays theirs.</strong> The manager's role is to enable and challenge, not to plan on behalf of the person. A good development conversation ends with the individual knowing what they will do next — not what their manager has decided for them.</li></ul><h3>When to have them</h3><p>Development conversations work best when they are regular and expected rather than reserved for formal reviews. A brief monthly check-in — even fifteen minutes — is more useful than a once-a-year conversation that carries too much weight. Between check-ins, stay alert to moments when a development conversation is needed: when someone seems stuck, when an opportunity arises that stretches them, or when their engagement visibly shifts.</p>"
+        },
+
+        {
+          "sectionType": "content",
+          "stageLabel": "2 — Recognise",
+          "_stage": "2 — Recognise",
+          "body": "<h3>What would you do first?</h3><p>A second-year graduate tells you they want to become a project manager. You have ten minutes before their next task. Before reading on, consider: what would you do with that information?</p><p>Moving straight to advice — recommending courses, naming contacts — can feel helpful but often skips the most important question: what does this person actually understand about what they are asking for? A more useful response opens with curiosity. <em>'What is it about project management that appeals to you?'</em> or <em>'What do you think is the gap between where you are now and that role?'</em> plants the question they should be working on, not an answer you have provided.</p><h3>What would you say to this?</h3><p>An apprentice says in their monthly check-in: <em>'I think I am on track.'</em> No detail, no evidence. Before reading on, consider: would you accept that, probe it, or redirect?</p><p>Accepting it without challenge does the person no favours — they may be on track, or they may be estimating optimistically against criteria they do not fully understand. A useful follow-up — <em>'What makes you say that? What specifically are you measuring yourself against?'</em> — turns a vague self-assessment into a concrete one. The goal is not to undermine their confidence but to help them build an accurate picture.</p><h3>When a development conversation becomes something else</h3><p>Development conversations occasionally surface things you were not expecting: a person who reveals they are considering leaving, who discloses something that affects their wellbeing, or who is significantly off track without realising it. When this happens, the conversation may need to shift in focus. It is appropriate to acknowledge what has been raised, decide together whether this is the right moment to explore it, and know who else in your firm should be involved if the situation is beyond your role to manage alone.</p>"
+        },
+
+        {
+          "sectionType": "practice",
+          "stageLabel": "3 — Practise with Michael",
+          "_stage": "3 — Practise with Michael",
+          "practicePrompt": "Sam Okafor is a second-year graduate on the Project Management pathway, eighteen months from their assessment. You are meeting for a monthly check-in. Sam has been technically strong but has shown little evidence of leading any part of a project independently. You want to have a development conversation that helps Sam identify the gap and take ownership of closing it. Sam's personal circumstances are not known to you.",
+          "practiceCharacter": {
+            "name": "Sam",
+            "yearDescription": "second-year graduate on the Project Management pathway",
+            "pathway": "Project Management",
+            "scenarioContext": "Sam Okafor is 24, two years into a graduate role at a mid-sized construction management consultancy and eighteen months from their APC assessment. Sam has strong technical knowledge — good at producing programmes, tracking costs and writing project reports — but has not yet led any element of a project independently. Sam's supervisor has not explicitly raised this as a gap; Sam has assumed that leadership opportunities will come naturally in time.\n\nSam's internal state entering this meeting: comfortable, expecting a standard check-in. Sam is aware of the APC timeline in a background way but has not thought carefully about whether their current rate of progress is sufficient. Sam genuinely does not know that independent project leadership is something they should be actively seeking out — they have assumed that if something were expected, they would have been told.\n\nHow Sam is likely to respond:\n- If the manager asks an open question about Sam's development goals, Sam will give a confident but vague answer: 'I think I'm progressing well. I want to get to the assessment and then hopefully take on more senior work.'\n- If the manager probes specifically — asking what Sam has led independently, or what evidence Sam has of their own decision-making — Sam will pause, then acknowledge more honestly: 'Actually, I haven't really led anything end to end. I've supported a lot but...' This is a productive moment. Sam is not defensive, just genuinely hadn't thought about it this way.\n- If the manager asks what Sam thinks the gap is, Sam will start to articulate it: not knowing how to put themselves forward for lead roles, not wanting to overstep, not being sure whether they are ready.\n- If the manager moves quickly to providing solutions without asking Sam to identify the gap first, Sam will listen politely but the insight will not stick in the same way.\n- If the manager asks what Sam wants to do about it, Sam will respond well to being trusted to come up with ideas: 'Maybe I could ask to run the next sub-contractor review meeting?' They need a manager who believes they can step up, not one who steps in.\n\nWhat Sam needs: to understand that they need to be more proactive about seeking lead opportunities rather than waiting to be given them, and to leave the conversation with a specific action — something they will put themselves forward for before the next check-in.\n\nBoundaries: Sam will not disclose personal or family information. If the manager asks about anything outside the professional context, Sam will politely redirect: 'I'm fine on that front — it's more the work side I'm thinking about.' Sam is not anxious or distressed; this is a capable person who needs a nudge, not a rescue.\n\nTone: respond as Sam would — two to three sentences at a time. Confident, collegial, open to challenge. Not dramatic. Not obstructive."
+          }
+        },
+
+        {
+          "sectionType": "content",
+          "stageLabel": "4 — Apply",
+          "_stage": "4 — Apply",
+          "body": "<h3>Preparing a development conversation</h3><p>Use these prompts to plan a development conversation with someone in your team. Work through them in your own notes — this is a planning exercise, not a formal record. Do not record personal information about the person; focus on what you plan to ask and explore.</p><h4>Before the conversation</h4><ul><li>What do you know about this person's professional goals? If you are not sure, that is itself useful — it means you should ask.</li><li>What is the gap between where they are now and where they need to be? Can you name it specifically?</li><li>What stretch opportunity — a task, a lead role, a project — might be available in the next few months that would be appropriate for them?</li><li>What is one open question you will ask to help them articulate their own development picture?</li></ul><h4>During the conversation</h4><ul><li>Start with their view, not yours. Resist the urge to present your assessment before hearing theirs.</li><li>If their self-assessment seems vague or optimistic, probe it with a specific question rather than accepting it at face value.</li><li>When a gap emerges, ask what they think should happen next — before you offer an opinion.</li></ul><h4>After the conversation</h4><ul><li>What specific action did you agree? Who owns it, and by when?</li><li>When will you follow up — and in what format (a brief check-in, a shared document, a formal review)?</li><li>Is there anything you need to do as their manager to make the agreed action possible?</li></ul>"
+        },
+
+        {
+          "sectionType": "reflect",
+          "stageLabel": "5 — Reflect with Michael",
+          "_stage": "5 — Reflect",
+          "reflectionPrompt": "Think back over the practice conversation. Where did you feel the urge to give advice or provide direction before Sam had a chance to identify the gap themselves? Did you manage to stay in a questioning mode? Consider: what is one thing you would do differently, and what does that tell you about your default approach in development conversations?"
+        }
+
+      ]
+    }
+  ]
+}

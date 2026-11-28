@@ -1,0 +1,55 @@
+{
+  "_draft": true,
+  "_note": "DRAFT — not published. Content review required before adding to manager-lessons-data.json.",
+  "topics": [
+    {
+      "id": "topic-m3-coaching-mentoring",
+      "title": "Coaching and Mentoring",
+      "published": false,
+      "sections": [
+
+        {
+          "sectionType": "content",
+          "stageLabel": "1 — Understand",
+          "_stage": "1 — Understand",
+          "body": "<h3>Two distinct approaches</h3><p>Coaching and mentoring are often used interchangeably, but they draw on different assumptions and produce different conversations.</p><p><strong>Coaching</strong> works from the belief that the person being coached already has the capacity to solve their own problems. The coach's role is to ask questions that help the person think more clearly — not to advise, instruct or transfer expertise. A coaching conversation ends with the individual's own thinking, not with the manager's answer.</p><p><strong>Mentoring</strong> involves sharing relevant experience and expertise to accelerate someone else's development. It is appropriate when a person genuinely lacks knowledge or exposure and would benefit from your direct experience. The mentor does share opinions, recommendations and professional judgement — but always in a way that invites the mentee to think about how that experience applies to their own situation.</p><h3>When each is useful</h3><ul><li><strong>Use coaching</strong> when someone is capable but stuck — when the problem is not a knowledge gap but a confidence gap, a decision to make, or a situation they need to think through. Coaching helps people move towards their own answer, which makes the answer more likely to stick.</li><li><strong>Use mentoring</strong> when someone lacks the experience to even frame the problem — early in a career, in an unfamiliar context, or when making a decision that depends on firm-specific knowledge they simply do not yet have.</li><li><strong>Switch between them</strong> in a single conversation when the need shifts. You are not locked into one mode. The important thing is to notice when you are doing which — and to default to asking before you tell.</li></ul>"
+        },
+
+        {
+          "sectionType": "content",
+          "stageLabel": "2 — Recognise",
+          "_stage": "2 — Recognise",
+          "body": "<h3>What would you do here?</h3><p>A third-year apprentice says: <em>'I have an interview for a secondment next week and I don't know how to prepare.'</em> Before reading on, consider: would you coach, mentor, or some combination?</p><p>If you move straight to advice — here is what to do, here is what to say — you are mentoring. That may be exactly right: they may have no frame of reference for this kind of interview. But it is worth checking first. <em>'What do you already know about how the secondment panel works?'</em> or <em>'What are you most uncertain about?'</em> tells you whether the gap is experiential (and benefits from mentoring) or whether it is confidence or framing (and benefits from coaching). Going to advice before you understand the gap can undermine someone's ability to trust their own thinking.</p><h3>What would you do here?</h3><p>An experienced graduate has just been passed over for a promotion they expected. They are deflated. Before reading on, consider: is this a moment to coach, mentor, or simply listen?</p><p>Jumping too quickly to either — reassuring advice about their career, or probing questions about what they want — can feel tone-deaf when someone has just had disappointing news. The first move is usually neither coaching nor mentoring: it is acknowledgement. <em>'That is a significant disappointment and I wanted to talk it through with you.'</em> Once the person feels heard, a coaching question — <em>'What would you like to do with this?'</em> — tends to land better than advice about what they should do next.</p>"
+        },
+
+        {
+          "sectionType": "practice",
+          "stageLabel": "3 — Practise with Michael",
+          "_stage": "3 — Practise with Michael",
+          "practicePrompt": "Priya Shah is a third-year graduate on the Quantity Surveying pathway, six months from her APC submission. She has come to you saying she is struggling to decide which competencies to put forward for assessment and is worried about making the wrong choice. She has already been speaking with her APC supervisor about the technical requirements. Use a coaching approach to help Priya think through her own decision — your role is to help her think clearly, not to advise her on which competencies to submit. Priya's personal circumstances are not known to you.",
+          "practiceCharacter": {
+            "name": "Priya",
+            "yearDescription": "third-year graduate on the Quantity Surveying pathway",
+            "pathway": "Quantity Surveying",
+            "scenarioContext": "Priya Shah is 26, three years into a graduate role at a large PLC contractor and six months from submitting her APC. Priya is technically capable and her supervisor has consistently rated her performance as good. The issue is not competence — it is decision-making under uncertainty. Priya is anxious about committing to a submission profile she might regret, and this anxiety is causing her to defer the decision rather than make it.\n\nPriya has already had conversations with her APC supervisor, who has given her honest guidance on the technical picture: she has solid evidence in some areas and thinner evidence in others. She is not coming to her line manager for a verdict on which competencies to submit — that would bypass the supervisor relationship that exists for exactly that purpose. She is coming because she is stuck in her own thinking and needs someone to help her reason through it.\n\nThe specific difficulty: Priya is oscillating between a submission profile she is more confident in and an alternative that includes an area she finds interesting but is less certain about. Her APC supervisor has given her honest guidance but has left the final decision to her. Priya is hoping the manager will tell her what to do, but what she actually needs is support making her own decision.\n\nPriya's internal state entering this meeting: anxious, slightly over-prepared with facts and figures about her evidence, and looking for reassurance. She has rehearsed several versions of the question and is hoping for a definitive steer. She is not in distress but she is genuinely stuck.\n\nHow Priya responds in conversation:\n- If the manager asks an open question — 'What matters most to you in this decision?' or 'What are you most afraid of getting wrong?' — Priya will slow down and start to separate the anxiety from the actual decision. She will begin to articulate what she actually wants: 'I think I know what the stronger profile looks like, but I keep second-guessing myself.'\n- If the manager probes gently what she thinks is driving the second-guessing, Priya will reflect more honestly: 'I think I'm worried about committing to something and then finding it was the wrong call. My supervisor has been helpful but ultimately said it's my decision.'\n- If the manager asks what she thinks she needs to feel confident enough to decide, Priya will often name something practical: 'I think I just need to actually say it out loud and have someone help me check my own reasoning.' This is the core of what coaching offers her.\n- If the manager goes straight to advising — 'I'd go with the stronger profile', or 'Have you talked to your supervisor about this?' — Priya will accept it politely but will not have developed her own decision-making capacity. The second suggestion (APC supervisor) is correct but she has already done it; saying it implies she hasn't thought this through.\n- If the manager asks what she thinks she should do, after some reflection Priya will start to reach her own conclusion: 'When I say it like that, I think I already know what the right choice is. I just needed to work through it.'\n\nWhat Priya needs: space to think, not an answer. A manager who asks good questions, normalises the anxiety, and trusts her to reason her way to a decision. The competency selection itself is for Priya and her APC supervisor to resolve; the manager's role here is to help Priya trust her own thinking.\n\nBoundaries: Priya will not discuss personal circumstances. If asked, she will redirect: 'I'm fine personally — it's just the APC decision that is on my mind.' She is not emotional or distressed, just stuck. She responds well to calm, curious questioning.\n\nTone: respond as Priya — slightly over-prepared, quick with facts, but receptive to open questions. Two to three sentences at a time. Not dramatic. Genuine."
+          }
+        },
+
+        {
+          "sectionType": "content",
+          "stageLabel": "4 — Apply",
+          "_stage": "4 — Apply",
+          "body": "<h3>Reflecting on your default</h3><p>Most managers have a natural default: some tend towards advice-giving; others tend towards asking questions but sometimes leave people without direction when they need it. Before applying coaching or mentoring in a real situation, consider which default you are more likely to drift into — and what you would need to notice about the situation to decide which approach is called for.</p><h4>Use these questions to plan a development interaction this week</h4><ul><li>What does this person need most right now — your experience and judgement, or space to think through their own?</li><li>Have you asked them what kind of support they are looking for, or have you assumed?</li><li>What is the most useful open question you could ask to help them think rather than to gather information for yourself?</li><li>If you were to share an experience or perspective, how would you frame it as an offer rather than a prescription? For example: <em>'My experience was X — how does that compare to your situation?'</em> rather than <em>'You should do what I did.'</em></li></ul><h4>After the interaction</h4><ul><li>Did they leave with their own thinking clearer, or with your answer?</li><li>When did you notice yourself shifting from one mode to the other, and was that shift intentional?</li><li>What would you do differently next time?</li></ul>"
+        },
+
+        {
+          "sectionType": "reflect",
+          "stageLabel": "5 — Reflect with Michael",
+          "_stage": "5 — Reflect",
+          "reflectionPrompt": "Think back over the practice conversation with Priya. At which points did you feel the pull to give advice rather than ask a question? When you did ask questions, did they help Priya think — or were they primarily ways of gathering information for yourself? Consider: what is one habit you want to change in how you support people who are stuck on decisions?"
+        }
+
+      ]
+    }
+  ]
+}

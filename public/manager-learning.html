@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manager Learning | Get Chartered AI</title>
+<link rel="stylesheet" href="/css/manager-learning.css">
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">Get Chartered <span>AI</span></a>
+  <span class="nav-label">Manager Learning</span>
+</nav>
+
+<div id="app">
+
+  <div id="state-loading" class="state-wrap">
+    <div class="spinner"></div>
+    <p class="state-title">Loading&hellip;</p>
+  </div>
+
+  <div id="state-sign-in" class="state-wrap" hidden>
+    <div class="card">
+      <span class="eyebrow">Manager Learning</span>
+      <h1 class="card-title">Sign in to your account</h1>
+      <p class="card-body">Enter your work email address and we will send you a sign-in link.</p>
+      <div id="sign-in-form">
+        <input type="email" id="email-input" class="text-input" placeholder="Your work email address" autocomplete="email">
+        <button id="send-btn" class="btn-primary">Send sign-in link</button>
+        <p id="sign-in-msg" class="form-msg" hidden></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="state-sent" class="state-wrap" hidden>
+    <div class="card">
+      <span class="eyebrow">Check your inbox</span>
+      <h1 class="card-title">Sign-in link sent</h1>
+      <p class="card-body">We have sent a sign-in link to your email address. The link expires in 15 minutes. Check your spam folder if it does not arrive.</p>
+    </div>
+  </div>
+
+  <div id="state-authorized" class="state-wrap state-wrap--wide" hidden>
+    <div class="auth-topbar">
+      <button id="sign-out-btn" class="btn-secondary">Sign out</button>
+    </div>
+
+    <div id="view-topics-loading" class="view-loading">
+      <div class="spinner"></div>
+      <p class="state-title">Loading your learning&hellip;</p>
+    </div>
+
+    <div id="view-topics-empty" class="card" hidden>
+      <span class="eyebrow">Coming Soon</span>
+      <h2 class="card-title">Your learning modules are being prepared</h2>
+      <p class="card-body">Your employer has enrolled you in manager learning. Check back soon for your first module.</p>
+    </div>
+
+    <div id="view-topics-list" hidden>
+      <h2 class="topics-heading">Your learning modules</h2>
+      <div id="topics-grid" class="topics-grid"></div>
+    </div>
+
+    <div id="view-topic-detail" hidden>
+      <button id="back-btn" class="btn-back">&larr; All modules</button>
+      <div id="topic-detail-content" class="topic-detail-content"></div>
+    </div>
+  </div>
+
+  <div id="state-error" class="state-wrap" hidden>
+    <div class="card card-error">
+      <span class="eyebrow eyebrow-red">Error</span>
+      <h1 class="card-title" id="error-title">Something went wrong</h1>
+      <p class="card-body" id="error-body">Please try again or contact support@getcharteredai.com.</p>
+      <a href="/manager-learning" class="btn-secondary">Start again</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Privacy notice shown once per session before the first Michael conversation -->
+<div id="privacy-modal" class="modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title">
+  <div class="modal-card">
+    <h2 class="modal-title" id="privacy-modal-title">Before you start a conversation with Michael</h2>
+    <p class="modal-body">Michael is an AI created to help you develop your management skills. Your messages are processed by Anthropic to generate responses. Get Chartered AI does not retain conversation content in its own learning database.</p>
+    <ul class="modal-list">
+      <li>Michael&#8217;s responses are for your formative development and are not used for employer performance assessment.</li>
+      <li>Do not share confidential personal data about employees.</li>
+    </ul>
+    <button id="privacy-accept-btn" class="btn-primary">I understand &mdash; start conversation</button>
+  </div>
+</div>
+
+<script src="/js/purify.min.js"></script>
+<script src="/js/marked.umd.js"></script>
+<script src="/js/manager-learning.js" defer></script>
+</body>
+</html>

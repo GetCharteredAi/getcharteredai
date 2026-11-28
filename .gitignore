@@ -37,3 +37,6 @@ deno.lock
 # Test files
 test-upload.csv
 .p1-admin-secret
+
+# Local-only test pages (must never be deployed — contain mock auth and test controls)
+public/manager-learning-browsertest.html
